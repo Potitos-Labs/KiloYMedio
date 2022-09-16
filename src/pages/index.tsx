@@ -49,14 +49,18 @@ const Home: NextPage = () => {
             description="Build data-driven JavaScript & TypeScript apps in less time"
             documentation="https://www.prisma.io/docs/"
           /> */}
-          {data?.map((user) => (
-            <TechnologyCard
-              key={user.id}
-              name={user.name}
-              description={user.email}
-              documentation={""}
-            ></TechnologyCard>
-          ))}
+          {data ? (
+            data.map((user) => (
+              <TechnologyCard
+                key={user.id}
+                name={user.name}
+                description={user.email}
+                documentation={""}
+              ></TechnologyCard>
+            ))
+          ) : (
+            <p className="text-right">Loading..</p>
+          )}
         </div>
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
           {/* {hello.data ? <p>{hello.data.greeting}</p> : <p>Loading..</p>} */}
