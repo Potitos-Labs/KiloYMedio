@@ -58,8 +58,7 @@ model Session {
 model User {
     id            String    @id @default(cuid())
     name          String
-    lastName      String
-    nif           String?
+    nif           String?   @unique
     email         String    @unique
     emailVerified DateTime?
     image         String?
