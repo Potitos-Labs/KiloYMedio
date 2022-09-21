@@ -24,8 +24,9 @@ datasource db {
 // url      = env("DATABASE_URL")
 //}
 
-model Example {
-    id String @id @default(cuid())
+enum Role {
+    client
+    admin
 }
 
 // Necessary for Next auth
@@ -62,10 +63,11 @@ model User {
     email         String    @unique
     emailVerified DateTime?
     image         String?
+    role          Role      @default(client)
     accounts      Account[]
     sessions      Session[]
-    Client        Client[]
-    Admin         Admin[]
+    Client        Client?
+    Admin         Admin?
 }
 
 model Client {
