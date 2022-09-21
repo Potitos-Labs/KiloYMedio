@@ -58,11 +58,81 @@ model Session {
 model User {
     id            String    @id @default(cuid())
     name          String
+    lastName      String
+    nif           String?
     email         String    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Client        Client[]
+    Admin         Admin[]
+}
+
+model Client {
+    userId          String  @id
+    user            User    @relation(fields: [userId], references: [id])
+    direction       String?
+    points          Int     @default(0)
+    // socio  Bool
+    phoneNumber     String?
+    numberOfReports Int     @default(0)
+}
+
+model Admin {
+    userId String @id
+    user   User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+    id           String         @id
+    price        String
+    dateTime     DateTime
+    ProductOrder ProductOrder[]
+}
+
+model ProductOrder {
+    order     Order   @relation(fields: [orderId], references: [id])
+    orderId   String
+    product   Product @relation(fields: [productId], references: [id])
+    productId String
+    amount    Float
+
+    @@id([orderId, productId])
+}
+
+model Product {
+    id          String         @id
+    name        String
+    imageURL    String
+    description String
+    stock       Float
+    orders      ProductOrder[]
+    Edible      Edible[]
+    NonEdible   NonEdible[]
+}
+
+model Edible {
+    productId        String         @id
+    product          Product        @relation(fields: [productId], references: [id])
+    allergen         Allergen
+    priceByWeight    Float
+    nutritionFacts   NutritionFacts @relation(fields: [nutritionFactsId], references: [id])
+    nutritionFactsId String         @unique
+}
+
+model NutritionFacts {
+    id     String  @id
+    // P G H / Kcal
+    Edible Edible?
+}
+
+model NonEdible {
+    productId    String   @id
+    product      Product  @relation(fields: [productId], references: [id])
+    allergen     Allergen
+    price        Float //per Kg
+    conservation String?
 }
 
 model VerificationToken {
@@ -71,4 +141,21 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+enum Allergen {
+    Cereals
+    Crustaceans
+    Eggs
+    Fish
+    Peanuts
+    Soybeans
+    Milk
+    Nuts
+    Celery
+    Mustard
+    SesameSeeds
+    SulphurDioxideAndSulphites
+    Lupin
+    Molluscs
 }
