@@ -24,11 +24,6 @@ datasource db {
 // url      = env("DATABASE_URL")
 //}
 
-enum Role {
-    client
-    admin
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -68,72 +63,7 @@ model User {
     sessions      Session[]
     Client        Client?
     Admin         Admin?
-}
-
-model Client {
-    userId          String  @id
-    user            User    @relation(fields: [userId], references: [id])
-    direction       String?
-    points          Int     @default(0)
-    // socio  Bool
-    phoneNumber     String?
-    numberOfReports Int     @default(0)
-}
-
-model Admin {
-    userId String @id
-    user   User   @relation(fields: [userId], references: [id])
-}
-
-model Order {
-    id           String         @id
-    price        String
-    dateTime     DateTime
-    ProductOrder ProductOrder[]
-}
-
-model ProductOrder {
-    order     Order   @relation(fields: [orderId], references: [id])
-    orderId   String
-    product   Product @relation(fields: [productId], references: [id])
-    productId String
-    amount    Float
-
-    @@id([orderId, productId])
-}
-
-model Product {
-    id          String         @id
-    name        String
-    imageURL    String
-    description String
-    stock       Float
-    orders      ProductOrder[]
-    Edible      Edible[]
-    NonEdible   NonEdible[]
-}
-
-model Edible {
-    productId        String         @id
-    product          Product        @relation(fields: [productId], references: [id])
-    allergen         Allergen
-    priceByWeight    Float
-    nutritionFacts   NutritionFacts @relation(fields: [nutritionFactsId], references: [id])
-    nutritionFactsId String         @unique
-}
-
-model NutritionFacts {
-    id     String  @id
-    // P G H / Kcal
-    Edible Edible?
-}
-
-model NonEdible {
-    productId    String   @id
-    product      Product  @relation(fields: [productId], references: [id])
-    allergen     Allergen
-    price        Float //per Kg
-    conservation String?
+    Recipe        Recipe[]
 }
 
 model VerificationToken {
@@ -144,19 +74,131 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+//DataBase
+model Admin {
+    userId String @id
+    user   User   @relation(fields: [userId], references: [id])
+}
+
+model Client {
+    userId          String  @id
+    user            User    @relation(fields: [userId], references: [id])
+    direction       String?
+    numberOfReports Int     @default(0)
+    phoneNumber     String?
+    points          Int     @default(0)
+    // socio  Bool
+}
+
+model Edible {
+    productId        String         @id
+    product          Product        @relation(fields: [productId], references: [id])
+    allergen         Allergen
+    Ingredient       Ingredient[]
+    nutritionFacts   NutritionFacts @relation(fields: [nutritionFactsId], references: [id])
+    nutritionFactsId String         @unique
+    priceByWeight    Float
+}
+
+model Ingredient {
+    id               String             @id
+    edible           Edible             @relation(fields: [edibleProductId], references: [productId])
+    name             String
+    RecipeIngredient RecipeIngredient[]
+    edibleProductId  String
+}
+
+model NonEdible {
+    productId String  @id
+    product   Product @relation(fields: [productId], references: [id])
+    price     Float
+}
+
+model NutritionFacts {
+    id     String  @id
+    // P G H / Kcal
+    Edible Edible?
+}
+
+model Order {
+    id           String         @id
+    dateTime     DateTime
+    price        String
+    ProductOrder ProductOrder[]
+}
+
+model Product {
+    id          String         @id
+    description String
+    Edible      Edible[]
+    imageURL    String
+    name        String
+    NonEdible   NonEdible[]
+    orders      ProductOrder[]
+    stock       Float
+}
+
+model ProductOrder {
+    order     Order   @relation(fields: [orderId], references: [id])
+    amount    Float
+    orderId   String
+    product   Product @relation(fields: [productId], references: [id])
+    productId String
+
+    @@id([orderId, productId])
+}
+
+model Recipe {
+    id               String             @id
+    name             String
+    directions       String
+    RecipeIngredient RecipeIngredient[]
+    userId           String
+    user             User               @relation(fields: [userId], references: [id])
+}
+
+model RecipeIngredient {
+    amount       Float
+    ingredientId String
+    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+    recipeId     String
+    recipe       Recipe     @relation(fields: [recipeId], references: [id])
+
+    @@id([recipeId, ingredientId])
+}
+
+model SuggestionForm {
+    id          String         @id
+    description String
+    title       String
+    type        SuggestionType
+}
+
+//Enumerables
+
 enum Allergen {
-    Cereals
-    Crustaceans
-    Eggs
-    Fish
-    Peanuts
-    Soybeans
-    Milk
-    Nuts
-    Celery
-    Mustard
-    SesameSeeds
-    SulphurDioxideAndSulphites
-    Lupin
-    Molluscs
+    celery
+    cereals
+    crustaceans
+    eggs
+    fish
+    milk
+    molluscs
+    mustard
+    nuts
+    lupin
+    peanuts
+    sesameSeeds
+    soybeans
+    sulphurDioxideAndSulphites
+}
+
+enum Role {
+    admin
+    client
+}
+
+enum SuggestionType {
+    store
+    website
 }
