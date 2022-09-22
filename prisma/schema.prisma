@@ -59,6 +59,7 @@ model User {
     Comment       Comment[]
     email         String    @unique
     emailVerified DateTime?
+    passwordHash  String?
     image         String?
     name          String
     nif           String?   @unique
