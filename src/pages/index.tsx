@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const { data } = trpc.useQuery(["example.getAllUsers"]);
+  const { data } = trpc.useQuery(["user.getAllUsers"]);
 
   return (
     <Layout>
