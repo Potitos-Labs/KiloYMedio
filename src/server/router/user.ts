@@ -4,25 +4,26 @@ import { hash } from "argon2";
 import * as trpc from "@trpc/server";
 import { signUpSchema } from "../../utils/validations/auth";
 
-export const exampleRouter = createRouter()
+export const userRouter = createRouter()
+  // Método hello(){}
   .query("hello", {
-    input: z
-      .object({
-        text: z.string(),
-      })
-      .nullish(),
+    input: z.object({
+      text: z.string(),
+      description: z.string().min(10),
+    }),
     resolve({ input }) {
       return {
-        greeting: `Hello ${input?.text ?? "world"}`,
+        greeting: `Hello ${input.text} \n ${input.description}`,
       };
     },
   })
+  // Método
   .query("getAllUsers", {
     async resolve({ ctx }) {
       return await ctx.prisma.user.findMany();
     },
   })
-  .mutation("signup", {
+  .mutation("createNewClient", {
     input: signUpSchema,
     resolve: async ({ input, ctx }) => {
       const { username, email, password } = input;
@@ -41,12 +42,11 @@ export const exampleRouter = createRouter()
       const hashedPassword = await hash(password);
 
       const result = await ctx.prisma.user.create({
-        data: { name: username, email, passwordHash: hashedPassword },
-      });
-
-      await ctx.prisma.client.create({
         data: {
-          userId: result.id,
+          name: username,
+          email,
+          passwordHash: hashedPassword,
+          Client: { create: {} },
         },
       });
 

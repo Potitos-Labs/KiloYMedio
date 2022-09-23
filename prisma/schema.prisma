@@ -92,6 +92,16 @@ model Cart {
     CartProduct CartProduct[]
 }
 
+model CartProduct {
+    cartId    String
+    cart      Cart    @relation(fields: [cartId], references: [id])
+    amount    Float
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+
+    @@id([cartId, productId])
+}
+
 model Client {
     userId                   String                     @id
     user                     User                       @relation(fields: [userId], references: [id])
@@ -108,24 +118,14 @@ model Client {
     ReportedComment          ReportedComment[]
 }
 
-model CartProduct {
-    cartId    String
-    cart      Cart    @relation(fields: [cartId], references: [id])
-    amount    Float
-    productId String
-    product   Product @relation(fields: [productId], references: [id])
-
-    @@id([cartId, productId])
-}
-
 model Comment {
     id              String            @id @default(cuid())
-    adminUserId     String?
-    admin           Admin?            @relation(fields: [adminUserId], references: [userId])
-    description     String?
+    adminId         String?
+    admin           Admin?            @relation(fields: [adminId], references: [userId])
+    description     String?           @db.TinyText
     imageURL        String?
     rating          Float
-    reported        Boolean
+    reported        Boolean           @default(false)
     title           String?
     userId          String
     user            User              @relation(fields: [userId], references: [id])
@@ -135,13 +135,20 @@ model Comment {
 }
 
 model Edible {
-    productId        String         @id
-    product          Product        @relation(fields: [productId], references: [id])
-    allergen         Allergen
-    Ingredient       Ingredient[]
-    nutritionFacts   NutritionFacts @relation(fields: [nutritionFactsId], references: [id])
-    nutritionFactsId String         @unique
-    priceByWeight    Float
+    productId      String           @id
+    product        Product          @relation(fields: [productId], references: [id])
+    Ingredient     Ingredient[]
+    nutritionFacts NutritionFacts?
+    priceByWeight  Float
+    EdibleAllergen EdibleAllergen[]
+}
+
+model EdibleAllergen {
+    edible   Edible   @relation(fields: [edibleId], references: [productId])
+    edibleId String
+    allergen Allergen
+
+    @@id([edibleId, allergen])
 }
 
 model Ingredient {
@@ -159,9 +166,10 @@ model NonEdible {
 }
 
 model NutritionFacts {
-    id     String  @id @default(cuid())
+    id       String @id @default(cuid())
     // P G H / Kcal
-    Edible Edible?
+    edibleId String @unique
+    Edible   Edible @relation(fields: [edibleId], references: [productId])
 }
 
 model OnlineWorkshop {
@@ -222,10 +230,10 @@ model Post {
 model Product {
     id             String           @id @default(cuid())
     description    String
-    Edible         Edible[]
+    Edible         Edible?
     imageURL       String
     name           String
-    NonEdible      NonEdible[]
+    NonEdible      NonEdible?
     orders         ProductOrder[]
     cartProduct    CartProduct[]
     stock          Float
@@ -252,7 +260,7 @@ model ProductOrder {
 model Recipe {
     id               String             @id @default(cuid())
     name             String
-    directions       String
+    directions       String             @db.Text
     RecipeIngredient RecipeIngredient[]
     userId           String
     user             User               @relation(fields: [userId], references: [id])
