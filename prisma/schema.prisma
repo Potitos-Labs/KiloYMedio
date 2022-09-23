@@ -86,9 +86,9 @@ model Admin {
 }
 
 model Cart {
-    id         String       @id
-    client     Client?
-    CartClient CartClient[]
+    id          String        @id
+    client      Client?
+    CartProduct CartProduct[]
 }
 
 model Client {
@@ -101,21 +101,22 @@ model Client {
     // socio  Bool
     cartId                   String                     @unique
     cart                     Cart                       @relation(fields: [cartId], references: [id])
+    orderId                  String?                    @unique
+    order                    Order?                     @relation(fields: [orderId], references: [id])
     Ticket                   Ticket[]
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
-    CartClient               CartClient[]
 }
 
-model CartClient {
-    cart     Cart   @relation(fields: [cartId], references: [id])
-    amount   Float
-    cartId   String
-    client   Client @relation(fields: [clientId], references: [userId])
-    clientId String
+model CartProduct {
+    cartId    String
+    cart      Cart    @relation(fields: [cartId], references: [id])
+    amount    Float
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
 
-    @@id([cartId, clientId])
+    @@id([cartId, productId])
 }
 
 model Comment {
@@ -198,11 +199,13 @@ model OnSiteWorkshopAttendance {
 }
 
 model Order {
-    id                 String               @id
-    dateTime           DateTime
-    price              String
-    ProductOrder       ProductOrder[]
-    UnregisteredClient UnregisteredClient[] //revisar
+    id                   String              @id
+    dateTime             DateTime
+    price                String
+    client               Client?
+    ProductOrder         ProductOrder[]
+    UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
+    unregisteredClientId String?             @unique
 }
 
 model Post {
@@ -224,6 +227,7 @@ model Product {
     name           String
     NonEdible      NonEdible[]
     orders         ProductOrder[]
+    cartProduct    CartProduct[]
     stock          Float
     ProductComment ProductComment[]
 }
@@ -305,8 +309,7 @@ model UnregisteredClient {
     email       String
     name        String
     phoneNumber String
-    orderId     String
-    order       Order  @relation(fields: [orderId], references: [id])
+    order       Order?
 }
 
 model Workshop {
