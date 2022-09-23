@@ -7,19 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { trpc } from "../utils/trpc";
-import * as z from "zod";
-
-export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(4).max(12),
-});
-
-export const signUpSchema = loginSchema.extend({
-  username: z.string(),
-});
-
-export type ILogin = z.infer<typeof loginSchema>;
-export type ISignUp = z.infer<typeof signUpSchema>;
+import { ISignUp, signUpSchema } from "../utils/validations/auth";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -52,32 +40,32 @@ const SignUp: NextPage = () => {
           className="flex items-center justify-center h-screen w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
-              <h2 className="card-title">Create an account!</h2>
+          <div className="">
+            <div className="">
+              <h2 className="">Create an account!</h2>
               <input
                 type="text"
                 placeholder="Type your username..."
-                className="input input-bordered w-full max-w-xs my-2"
+                className=""
                 {...register("username")}
               />
               <input
                 type="email"
                 placeholder="Type your email..."
-                className="input input-bordered w-full max-w-xs"
+                className=""
                 {...register("email")}
               />
               <input
                 type="password"
                 placeholder="Type your password..."
-                className="input input-bordered w-full max-w-xs my-2"
+                className=""
                 {...register("password")}
               />
-              <div className="card-actions items-center justify-between">
-                <Link href="/" className="link">
+              <div className="gap-4">
+                <Link href="/" className="">
                   Go to login
                 </Link>
-                <button className="btn btn-secondary" type="submit">
+                <button className="" type="submit">
                   Sign Up
                 </button>
               </div>

@@ -17,8 +17,9 @@ const Header: React.FC = () => {
 
   if (!session) {
     right = (
-      <div>
+      <div className="flex gap-6">
         <button onClick={() => signIn()}>Log in</button>
+        <Link href="/register">Register</Link>
       </div>
     );
   }
@@ -29,11 +30,6 @@ const Header: React.FC = () => {
         <p>
           {session.user?.name} ({session.user?.email})
         </p>
-        <Link href="/create" passHref>
-          <button>
-            <a>New post</a>
-          </button>
-        </Link>
         <button
           onClick={() => {
             signOut();

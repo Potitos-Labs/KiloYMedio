@@ -60,7 +60,7 @@ model User {
     email         String    @unique
     emailVerified DateTime?
     passwordHash  String?
-    image         String?
+    image         String?   @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
     name          String
     nif           String?   @unique
     Recipe        Recipe[]
@@ -86,8 +86,9 @@ model Admin {
 }
 
 model Cart {
-    id          String        @id
-    client      Client?
+    id          String        @id @default(cuid())
+    clientId    String        @unique
+    client      Client        @relation(fields: [clientId], references: [userId])
     CartProduct CartProduct[]
 }
 
@@ -99,10 +100,8 @@ model Client {
     phoneNumber              String?
     points                   Int                        @default(0)
     // socio  Bool
-    cartId                   String                     @unique
-    cart                     Cart                       @relation(fields: [cartId], references: [id])
-    orderId                  String?                    @unique
-    order                    Order?                     @relation(fields: [orderId], references: [id])
+    cart                     Cart?
+    order                    Order[]
     Ticket                   Ticket[]
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
@@ -120,7 +119,7 @@ model CartProduct {
 }
 
 model Comment {
-    id              String            @id
+    id              String            @id @default(cuid())
     adminUserId     String?
     admin           Admin?            @relation(fields: [adminUserId], references: [userId])
     description     String?
@@ -146,7 +145,7 @@ model Edible {
 }
 
 model Ingredient {
-    id               String             @id
+    id               String             @id @default(cuid())
     edible           Edible             @relation(fields: [edibleProductId], references: [productId])
     name             String
     RecipeIngredient RecipeIngredient[]
@@ -160,7 +159,7 @@ model NonEdible {
 }
 
 model NutritionFacts {
-    id     String  @id
+    id     String  @id @default(cuid())
     // P G H / Kcal
     Edible Edible?
 }
@@ -199,17 +198,18 @@ model OnSiteWorkshopAttendance {
 }
 
 model Order {
-    id                   String              @id
+    id                   String              @id @default(cuid())
     dateTime             DateTime
     price                String
-    client               Client?
+    client               Client              @relation(fields: [clientId], references: [userId])
+    clientId             String
     ProductOrder         ProductOrder[]
     UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
     unregisteredClientId String?             @unique
 }
 
 model Post {
-    id              String   @id
+    id              String   @id @default(cuid())
     adminUserId     String
     admin           Admin    @relation(fields: [adminUserId], references: [userId])
     title           String
@@ -220,7 +220,7 @@ model Post {
 }
 
 model Product {
-    id             String           @id
+    id             String           @id @default(cuid())
     description    String
     Edible         Edible[]
     imageURL       String
@@ -250,7 +250,7 @@ model ProductOrder {
 }
 
 model Recipe {
-    id               String             @id
+    id               String             @id @default(cuid())
     name             String
     directions       String
     RecipeIngredient RecipeIngredient[]
@@ -286,7 +286,7 @@ model ReportedComment {
 }
 
 model SuggestionForm {
-    id          String         @id
+    id          String         @id @default(cuid())
     description String
     title       String
     type        SuggestionType
@@ -304,7 +304,7 @@ model Ticket {
 }
 
 model UnregisteredClient {
-    id          String @id
+    id          String @id @default(cuid())
     address     String
     email       String
     name        String
@@ -313,7 +313,7 @@ model UnregisteredClient {
 }
 
 model Workshop {
-    id             String           @id
+    id             String           @id @default(cuid())
     name           String
     description    String
     imageURL       String

@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
         where: { id: user.id },
       });
       await prisma.client.create({
-        data: { userId: userDB.id },
+        data: { userId: userDB.id, cart: { create: {} } },
       });
     },
   },
