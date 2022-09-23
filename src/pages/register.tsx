@@ -40,34 +40,45 @@ const SignUp: NextPage = () => {
           className="flex items-center justify-center h-screen w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="">
-            <div className="">
-              <h2 className="">Create an account!</h2>
-              <input
-                type="text"
-                placeholder="Type your username..."
-                className=""
-                {...register("username")}
-              />
-              <input
-                type="email"
-                placeholder="Type your email..."
-                className=""
-                {...register("email")}
-              />
-              <input
-                type="password"
-                placeholder="Type your password..."
-                className=""
-                {...register("password")}
-              />
-              <div className="gap-4">
-                <Link href="/" className="">
-                  Go to login
-                </Link>
-                <button className="" type="submit">
-                  Sign Up
-                </button>
+          <div className="m-64">
+            <div className="shadow-xl p-12">
+              <h2 className="font-bold mb-6 text-xl text-blue-500 ml-6 cursor-default">
+                Create an account!
+              </h2>
+              <div className=" m-6">
+                <input
+                  type="text"
+                  placeholder="Type your username..."
+                  className="bg-gray-100 mb-4 py-1 px-8 border-l-4 border-l-blue-500"
+                  {...register("username")}
+                />
+                <input
+                  type="email"
+                  placeholder="Type your email..."
+                  className="bg-gray-100 mb-4 py-1 px-8 border-l-4 border-l-blue-500"
+                  {...register("email")}
+                />
+                <input
+                  type="password"
+                  placeholder="Type your password..."
+                  className="bg-gray-100 mb-2 py-1 px-8 border-l-4 border-l-blue-500"
+                  {...register("password")}
+                />
+              </div>
+              <div className="flex justify-center items-center">
+                <div className="m-auto text-center">
+                  <Link href="/">
+                    <p className=" font-semibold  text-gray-600 cursor-pointer">
+                      Go to login
+                    </p>
+                  </Link>
+                  <button
+                    className="block bg-blue-500 pl-20 pr-20 py-1 mt-3 text-white font-semibold m-2 rounded"
+                    type="submit"
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </div>
             </div>
           </div>
