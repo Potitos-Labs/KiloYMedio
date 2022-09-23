@@ -85,6 +85,12 @@ model Admin {
     Comment Comment[]
 }
 
+model Cart {
+    id         String       @id
+    client     Client?
+    CartClient CartClient[]
+}
+
 model Client {
     userId                   String                     @id
     user                     User                       @relation(fields: [userId], references: [id])
@@ -93,10 +99,23 @@ model Client {
     phoneNumber              String?
     points                   Int                        @default(0)
     // socio  Bool
+    cartId                   String                     @unique
+    cart                     Cart                       @relation(fields: [cartId], references: [id])
     Ticket                   Ticket[]
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
+    CartClient               CartClient[]
+}
+
+model CartClient {
+    cart     Cart   @relation(fields: [cartId], references: [id])
+    amount   Float
+    cartId   String
+    client   Client @relation(fields: [clientId], references: [userId])
+    clientId String
+
+    @@id([cartId, clientId])
 }
 
 model Comment {
@@ -183,7 +202,7 @@ model Order {
     dateTime           DateTime
     price              String
     ProductOrder       ProductOrder[]
-    UnregisteredClient UnregisteredClient[]
+    UnregisteredClient UnregisteredClient[] //revisar
 }
 
 model Post {
