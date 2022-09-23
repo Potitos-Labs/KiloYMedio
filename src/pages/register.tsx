@@ -35,14 +35,14 @@ const SignUp: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="flex flex-col items-center justify-center">
         <form
-          className="flex items-center justify-center h-screen w-full"
+          className="flex items-center justify-center h-screen w-full max-w-sm"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="m-64">
             <div className="shadow-xl p-12">
-              <h2 className="font-bold mb-6 text-xl text-blue-500 ml-6 cursor-default">
+              <h2 className="font-bold mb-6 text-xl text-blue-500 ml-6 cursor-default text-center">
                 Create an account!
               </h2>
               <div className=" m-6">
