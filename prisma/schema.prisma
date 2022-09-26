@@ -153,10 +153,10 @@ model EdibleAllergen {
 
 model Ingredient {
     id               String             @id @default(cuid())
-    edible           Edible             @relation(fields: [edibleProductId], references: [productId])
+    edible           Edible             @relation(fields: [edibleId], references: [productId])
     name             String
     RecipeIngredient RecipeIngredient[]
-    edibleProductId  String
+    edibleId         String
 }
 
 model NonEdible {
@@ -207,10 +207,10 @@ model OnSiteWorkshopAttendance {
 
 model Order {
     id                   String              @id @default(cuid())
-    dateTime             DateTime
+    dateTime             DateTime            @default(now())
     price                String
-    client               Client              @relation(fields: [clientId], references: [userId])
-    clientId             String
+    client               Client?             @relation(fields: [clientId], references: [userId])
+    clientId             String?
     ProductOrder         ProductOrder[]
     UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
     unregisteredClientId String?             @unique

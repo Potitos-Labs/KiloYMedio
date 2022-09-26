@@ -75,6 +75,15 @@ async function main() {
     },
   });
 
+  const clienteNoRegistrado = await prisma.unregisteredClient.create({
+    data: {
+      name: "Anonymous",
+      address: "Area 51",
+      email: "hacker@man.com",
+      phoneNumber: "123456789",
+    },
+  });
+
   console.log(`🧒 Usuarios creados...`);
   console.log(
     daniel.name,
@@ -215,6 +224,34 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
       user: { connect: { id: daniel.id } },
       RecipeComment: {
         createMany: { data: [{ commentId: comentarioPaella.id }] },
+      },
+    },
+  });
+
+  const receipteIngredient = await prisma.recipeIngredient.create({
+    data: {
+      amount: 10,
+      ingredient: {
+        create: {
+          edible: { connect: { productId: levaduraNutricional.id } },
+          name: "levadura",
+        },
+      },
+      recipe: { connect: { id: paellaValencia.id } },
+    },
+  });
+
+  const ordenDeClienteNoRegistrado = await prisma.order.create({
+    data: {
+      price: "10€",
+      UnregisteredClient: { connect: { id: clienteNoRegistrado.id } },
+      ProductOrder: {
+        createMany: {
+          data: [
+            { productId: jabon.id, amount: 1 },
+            { productId: pistachos.id, amount: 0.4 },
+          ],
+        },
       },
     },
   });

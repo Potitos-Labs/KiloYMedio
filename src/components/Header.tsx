@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
   if (!session) {
     right = (
       <div className="flex gap-6">
-        <button onClick={() => signIn()}>Log in</button>
+        <Link href="/login">Log in</Link>
         <Link href="/register">Register</Link>
       </div>
     );
