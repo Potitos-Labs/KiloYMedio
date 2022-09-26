@@ -12,10 +12,23 @@ export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     session({ session, user, token }) {
+      // Login with Google
       if (session.user && !token) {
         session.user.id = user.id;
       }
+
+      // login with Credentials
+      if (session.user && token.role) {
+        session.user.role = token.role;
+      }
+
       return session;
+    },
+    jwt({ token, user }) {
+      if (user?.role) {
+        token.role = user.role;
+      }
+      return token;
     },
   },
   // Configure one or more authentication providers

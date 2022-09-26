@@ -25,27 +25,30 @@ const Header: React.FC = () => {
   }
 
   if (session) {
+    console.log(session.user);
     right = (
-      <div>
-        <p>
-          {session.user?.name} ({session.user?.email})
-        </p>
+      <div className="flex flex-auto gap-4">
         <button
+          className="p-3 m-2"
           onClick={() => {
             signOut();
           }}
         >
           Log out
         </button>
+        <div>
+          <p>
+            {session.user?.name} {session.user?.email}
+          </p>
+          <p className="text-right">{session.user?.role}</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="bg-yellow-600 py-4">
-      <div className="container mx-auto">
-        <div className="flex flex-row">{right}</div>
-      </div>
+      <div className="container mx-auto">{right}</div>
     </div>
   );
 };
