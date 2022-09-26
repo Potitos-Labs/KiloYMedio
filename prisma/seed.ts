@@ -200,6 +200,41 @@ async function main() {
   //#endregion NonEdible
   //#endregion Products
 
+  const { cart: carrito_de_sandra } = await prisma.client.findFirstOrThrow({
+    where: { userId: sandra.id },
+    select: { cart: true },
+  });
+
+  const { cart: carrito_de_marta } = await prisma.client.findFirstOrThrow({
+    where: { userId: marta.id },
+    select: { cart: true },
+  });
+
+  // No encuentra el carrito
+  if (!carrito_de_sandra || !carrito_de_marta) {
+    throw Error;
+  }
+
+  const carritos = await prisma.cartProduct.createMany({
+    data: [
+      {
+        amount: 1,
+        cartId: carrito_de_sandra.id,
+        productId: cepilloDeDientes.id,
+      },
+      {
+        amount: 2.5,
+        cartId: carrito_de_sandra.id,
+        productId: lentejas.id,
+      },
+      {
+        amount: 0.5,
+        cartId: carrito_de_marta.id,
+        productId: harinaTrigo.id,
+      },
+    ],
+  });
+
   const comentarioPaella = await prisma.comment.create({
     data: {
       rating: 5,
@@ -251,6 +286,28 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
             { productId: jabon.id, amount: 1 },
             { productId: pistachos.id, amount: 0.4 },
           ],
+        },
+      },
+    },
+  });
+
+  const date = new Date();
+  date.setDate(date.getDate() + 2);
+
+  const master_chef = await prisma.workshop.create({
+    data: {
+      name: "MasterChef",
+      imageURL:
+        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+      description: "Competición fuertemente inspirada en MasterChef",
+      OnSiteWorkshop: {
+        create: {
+          date,
+          OnSiteWorkshopAttendance: {
+            createMany: {
+              data: [{ clientId: juan.id }, { clientId: pilar.id }],
+            },
+          },
         },
       },
     },

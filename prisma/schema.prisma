@@ -321,12 +321,12 @@ model UnregisteredClient {
 }
 
 model Workshop {
-    id             String           @id @default(cuid())
+    id             String          @id @default(cuid())
     name           String
     description    String
     imageURL       String
-    OnSiteWorkshop OnSiteWorkshop[]
-    OnlineWorkshop OnlineWorkshop[]
+    OnSiteWorkshop OnSiteWorkshop?
+    OnlineWorkshop OnlineWorkshop?
 }
 
 //Enumerables
