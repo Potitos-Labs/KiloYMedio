@@ -11,8 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "prisma:pushWithForceReset": "yarn prisma db push --force-reset",
-    "prisma:seed": "yarn prisma db push --force-reset && yarn prisma db seed"
+    "prisma:pushWithForceReset": "prisma db push --force-reset",
+    "prisma:seed": "prisma db push --force-reset && prisma db seed"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.8",
