@@ -102,6 +102,7 @@ async function main() {
   const pistachos = await prisma.product.create({
     data: {
       name: "pistachos",
+      category: "nuts",
       description: "pistachos ecológicos",
       stock: 10.5,
       imageURL:
@@ -119,6 +120,7 @@ async function main() {
   const levaduraNutricional = await prisma.product.create({
     data: {
       name: "levadura nutricional",
+      category: "yeast",
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
@@ -135,6 +137,7 @@ async function main() {
   const lentejas = await prisma.product.create({
     data: {
       name: "lentejas",
+      category: "legumes",
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
@@ -151,6 +154,7 @@ async function main() {
   const harinaTrigo = await prisma.product.create({
     data: {
       name: "harina de trigo",
+      category: "flours",
       description: "harina de trigo",
       stock: 18,
       imageURL:
@@ -170,6 +174,7 @@ async function main() {
   const cepilloDeDientes = await prisma.product.create({
     data: {
       name: "cepillo de dientes",
+      category: "personalCare",
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
@@ -181,6 +186,7 @@ async function main() {
   const jabon = await prisma.product.create({
     data: {
       name: "jabón",
+      category: "personalCare",
       description: "jabón artesanal",
       stock: 12,
       imageURL:
