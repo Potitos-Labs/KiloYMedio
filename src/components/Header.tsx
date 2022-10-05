@@ -28,10 +28,7 @@ const Header: React.FC = () => {
   if (session) {
     console.log(session.user);
     right = (
-      <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6">
-        <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <h3>Kilo Y Medio</h3>
-        </div>
+      <nav className="flex items-center justify-between flex-wrap">
         <div>
           <p>{session.user?.name}</p>
         </div>
@@ -50,7 +47,10 @@ const Header: React.FC = () => {
 
   return (
     <div className="bg-yellow-600 py-4">
-      <div className="container mx-auto">{right}</div>
+      <div className="flex items-center justify-between flex-shrink-0 text-white mx-6">
+        <h3>Kilo Y Medio</h3>
+        <div className="">{right}</div>
+      </div>
     </div>
   );
 };
