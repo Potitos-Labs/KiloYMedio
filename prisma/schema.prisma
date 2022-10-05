@@ -229,6 +229,7 @@ model Post {
 
 model Product {
     id             String           @id @default(cuid())
+    category       Category
     description    String
     Edible         Edible?
     imageURL       String
@@ -346,6 +347,19 @@ enum Allergen {
     sesameSeeds
     soybeans
     sulphurDioxideAndSulphites
+}
+
+enum Category {
+    driedFruits
+    flours
+    jams
+    legumes
+    nuts
+    oils
+    pastas
+    soaps
+    syrups
+    teas
 }
 
 enum PostType {
