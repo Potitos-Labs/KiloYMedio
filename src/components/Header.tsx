@@ -1,11 +1,20 @@
 import React from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-
+import Client_Header from "./Client_Header";
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   let right = null;
+  let left = null;
+
+  if (true) {
+    left = (
+      <div>
+        <Client_Header />
+      </div>
+    );
+  }
 
   if (status == "loading") {
     right = (
@@ -49,6 +58,7 @@ const Header: React.FC = () => {
   return (
     <div className="bg-yellow-600 py-4">
       <div className="container mx-auto">{right}</div>
+      <div>{left}</div>
     </div>
   );
 };
