@@ -357,9 +357,10 @@ enum Category {
     nuts
     oils
     pastas
-    soaps
+    personalCare
     syrups
     teas
+    yeast
 }
 
 enum PostType {
