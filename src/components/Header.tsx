@@ -2,19 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import Client_Header from "./Client_Header";
+
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   let right = null;
-  let left = null;
-
-  if (true) {
-    left = (
-      <div>
-        <Client_Header />
-      </div>
-    );
-  }
 
   if (status == "loading") {
     right = (
@@ -36,29 +28,29 @@ const Header: React.FC = () => {
   if (session) {
     console.log(session.user);
     right = (
-      <div className="flex flex-auto gap-4">
-        <button
+      <nav className="flex items-center justify-between flex-wrap bg-yellow-600 p-6">
+        <div className="flex items-center flex-shrink-0 text-white mr-6">
+          <h3>Kilo Y Medio</h3>
+        </div>
+        <div>
+          <p>{session.user?.name}</p>
+        </div>
+        <Client_Header />
+        {/* <button
           className="p-3 m-2"
           onClick={() => {
             signOut();
           }}
         >
           Log out
-        </button>
-        <div>
-          <p>
-            {session.user?.name} {session.user?.email}
-          </p>
-          <p className="text-right">{session.user?.role}</p>
-        </div>
-      </div>
+        </button> */}
+      </nav>
     );
   }
 
   return (
     <div className="bg-yellow-600 py-4">
       <div className="container mx-auto">{right}</div>
-      <div>{left}</div>
     </div>
   );
 };
