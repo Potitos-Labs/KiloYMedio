@@ -1,22 +1,28 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
-    // Further reading: 
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    provider             = "mysql"
+    url                  = env("DATABASE_URL")
+    referentialIntegrity = "prisma"
 }
 
-model Example {
-    id String @id @default(cuid())
-}
+// generator client {
+//     provider = "prisma-client-js"
+// }
+
+// datasource db {
+// provider = "mysql"
+// NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
+// Further reading: 
+// https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+// url      = env("DATABASE_URL")
+//}
 
 // Necessary for Next auth
 model Account {
@@ -25,12 +31,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? //@db.Text
-    access_token      String? //@db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? //@db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -47,11 +53,18 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
     accounts      Account[]
+    Admin         Admin?
+    Client        Client?
+    Comment       Comment[]
+    email         String    @unique
+    emailVerified DateTime?
+    passwordHash  String?
+    image         String?   @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
+    name          String
+    nif           String?   @unique
+    Recipe        Recipe[]
+    role          Role      @default(client)
     sessions      Session[]
 }
 
@@ -61,4 +74,299 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+//DataBase
+model Admin {
+    userId  String    @id
+    user    User      @relation(fields: [userId], references: [id])
+    Ticket  Ticket[]
+    Post    Post[]
+    Comment Comment[]
+}
+
+model Cart {
+    id          String        @id @default(cuid())
+    clientId    String        @unique
+    client      Client        @relation(fields: [clientId], references: [userId])
+    CartProduct CartProduct[]
+}
+
+model CartProduct {
+    cartId    String
+    cart      Cart    @relation(fields: [cartId], references: [id])
+    amount    Float
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+
+    @@id([cartId, productId])
+}
+
+model Client {
+    userId                   String                     @id
+    user                     User                       @relation(fields: [userId], references: [id])
+    address                  String?
+    numberOfReports          Int                        @default(0)
+    phoneNumber              String?
+    points                   Int                        @default(0)
+    // socio  Bool
+    cart                     Cart?
+    order                    Order[]
+    Ticket                   Ticket[]
+    OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
+    OnlineWorkshopViews      OnlineWorkshopViews[]
+    ReportedComment          ReportedComment[]
+}
+
+model Comment {
+    id              String            @id @default(cuid())
+    adminId         String?
+    admin           Admin?            @relation(fields: [adminId], references: [userId])
+    description     String?           @db.TinyText
+    imageURL        String?
+    rating          Float
+    reported        Boolean           @default(false)
+    title           String?
+    userId          String
+    user            User              @relation(fields: [userId], references: [id])
+    ProductComment  ProductComment[]
+    RecipeComment   RecipeComment[]
+    ReportedComment ReportedComment[]
+}
+
+model Edible {
+    productId      String           @id
+    product        Product          @relation(fields: [productId], references: [id])
+    Ingredient     Ingredient[]
+    nutritionFacts NutritionFacts?
+    priceByWeight  Float
+    EdibleAllergen EdibleAllergen[]
+}
+
+model EdibleAllergen {
+    edible   Edible   @relation(fields: [edibleId], references: [productId])
+    edibleId String
+    allergen Allergen
+
+    @@id([edibleId, allergen])
+}
+
+model Ingredient {
+    id               String             @id @default(cuid())
+    edible           Edible             @relation(fields: [edibleId], references: [productId])
+    name             String
+    RecipeIngredient RecipeIngredient[]
+    edibleId         String
+}
+
+model NonEdible {
+    productId String  @id
+    product   Product @relation(fields: [productId], references: [id])
+    price     Float
+}
+
+model NutritionFacts {
+    id       String @id @default(cuid())
+    // P G H / Kcal
+    edibleId String @unique
+    Edible   Edible @relation(fields: [edibleId], references: [productId])
+}
+
+model OnlineWorkshop {
+    OnlineWorkshopViews OnlineWorkshopViews[]
+    videoURL            String
+    workshopId          String                @id
+    workshop            Workshop              @relation(fields: [workshopId], references: [id])
+}
+
+model OnSiteWorkshop {
+    date                     DateTime
+    OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
+    workshopId               String                     @id
+    workshop                 Workshop                   @relation(fields: [workshopId], references: [id])
+}
+
+model OnlineWorkshopViews {
+    clientId         String
+    client           Client         @relation(fields: [clientId], references: [userId])
+    onlineWorkshopId String
+    onlineWorkshop   OnlineWorkshop @relation(fields: [onlineWorkshopId], references: [workshopId])
+    state            Boolean
+
+    @@id([onlineWorkshopId, clientId])
+}
+
+model OnSiteWorkshopAttendance {
+    clientId         String
+    client           Client         @relation(fields: [clientId], references: [userId])
+    onSiteWorkshopId String
+    onSiteWorkshop   OnSiteWorkshop @relation(fields: [onSiteWorkshopId], references: [workshopId])
+
+    @@id([onSiteWorkshopId, clientId])
+}
+
+model Order {
+    id                   String              @id @default(cuid())
+    dateTime             DateTime            @default(now())
+    price                String
+    client               Client?             @relation(fields: [clientId], references: [userId])
+    clientId             String?
+    ProductOrder         ProductOrder[]
+    UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
+    unregisteredClientId String?             @unique
+}
+
+model Post {
+    id              String   @id @default(cuid())
+    adminUserId     String
+    admin           Admin    @relation(fields: [adminUserId], references: [userId])
+    title           String
+    description     String
+    publicationDate DateTime
+    finalDate       DateTime
+    type            PostType
+}
+
+model Product {
+    id             String           @id @default(cuid())
+    description    String
+    Edible         Edible?
+    imageURL       String
+    name           String
+    NonEdible      NonEdible?
+    orders         ProductOrder[]
+    cartProduct    CartProduct[]
+    stock          Float
+    ProductComment ProductComment[]
+}
+
+model ProductComment {
+    commentId String  @id
+    comment   Comment @relation(fields: [commentId], references: [id])
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+}
+
+model ProductOrder {
+    order     Order   @relation(fields: [orderId], references: [id])
+    amount    Float
+    orderId   String
+    product   Product @relation(fields: [productId], references: [id])
+    productId String
+
+    @@id([orderId, productId])
+}
+
+model Recipe {
+    id               String             @id @default(cuid())
+    name             String
+    directions       String             @db.Text
+    RecipeIngredient RecipeIngredient[]
+    userId           String
+    user             User               @relation(fields: [userId], references: [id])
+    RecipeComment    RecipeComment[]
+}
+
+model RecipeComment {
+    commentId String  @id
+    comment   Comment @relation(fields: [commentId], references: [id])
+    recipeId  String
+    recipe    Recipe  @relation(fields: [recipeId], references: [id])
+}
+
+model RecipeIngredient {
+    amount       Float
+    ingredientId String
+    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+    recipeId     String
+    recipe       Recipe     @relation(fields: [recipeId], references: [id])
+
+    @@id([recipeId, ingredientId])
+}
+
+model ReportedComment {
+    clientUserId String
+    client       Client  @relation(fields: [clientUserId], references: [userId])
+    commentId    String
+    comment      Comment @relation(fields: [commentId], references: [id])
+
+    @@id([clientUserId, commentId])
+}
+
+model SuggestionForm {
+    id          String         @id @default(cuid())
+    description String
+    title       String
+    type        SuggestionType
+}
+
+model Ticket {
+    id          String     @id
+    adminId     String
+    admin       Admin      @relation(fields: [adminId], references: [userId])
+    clientId    String
+    client      Client     @relation(fields: [clientId], references: [userId])
+    description String
+    state       Boolean
+    ticketType  TicketType
+}
+
+model UnregisteredClient {
+    id          String @id @default(cuid())
+    address     String
+    email       String
+    name        String
+    phoneNumber String
+    order       Order?
+}
+
+model Workshop {
+    id             String          @id @default(cuid())
+    name           String
+    description    String
+    imageURL       String
+    OnSiteWorkshop OnSiteWorkshop?
+    OnlineWorkshop OnlineWorkshop?
+}
+
+//Enumerables
+
+enum Allergen {
+    celery
+    cereals
+    crustaceans
+    eggs
+    fish
+    milk
+    molluscs
+    mustard
+    nuts
+    lupin
+    peanuts
+    sesameSeeds
+    soybeans
+    sulphurDioxideAndSulphites
+}
+
+enum PostType {
+    news
+    announcement
+}
+
+enum Role {
+    admin
+    client
+}
+
+enum SuggestionType {
+    store
+    website
+}
+
+enum TicketType {
+    refund
+    order
+    payment
+    shipping
+    website
 }
