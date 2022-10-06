@@ -169,6 +169,7 @@ model NonEdible {
 
 model NutritionFacts {
     id            String @id @default(cuid())
+    ingredients   String
     energy        Float
     fat           Float
     carbohydrates Float
