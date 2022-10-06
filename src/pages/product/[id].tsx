@@ -8,7 +8,14 @@ const ProductDetails: NextPage = () => {
   const id = router.query.id as string;
   const { data } = trpc.useQuery(["product.getById", { id }]);
   //<div>{router.query.id}</div>
-  if (data) return <ProductDetail name={data.name} />;
+  if (data)
+    return (
+      <ProductDetail
+        name={data.name}
+        img={data.imageURL}
+        description={data.description}
+      />
+    );
   return <div>Cargando...</div>;
 };
 
