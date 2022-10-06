@@ -137,10 +137,13 @@ model Comment {
 model Edible {
     productId      String           @id
     product        Product          @relation(fields: [productId], references: [id])
-    Ingredient     Ingredient[]
+    Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id])
     nutritionFacts NutritionFacts?
     priceByWeight  Float
+    origin         String?
+    conservation   String?
     EdibleAllergen EdibleAllergen[]
+    ingredientId   String           @unique
 }
 
 model EdibleAllergen {
@@ -153,10 +156,9 @@ model EdibleAllergen {
 
 model Ingredient {
     id               String             @id @default(cuid())
-    edible           Edible             @relation(fields: [edibleId], references: [productId])
     name             String
     RecipeIngredient RecipeIngredient[]
-    edibleId         String
+    Edible           Edible?
 }
 
 model NonEdible {
@@ -166,10 +168,12 @@ model NonEdible {
 }
 
 model NutritionFacts {
-    id       String @id @default(cuid())
-    // P G H / Kcal
-    edibleId String @unique
-    Edible   Edible @relation(fields: [edibleId], references: [productId])
+    id            String @id @default(cuid())
+    energy        Float
+    fat           Float
+    carbohydrates Float
+    edibleId      String @unique
+    Edible        Edible @relation(fields: [edibleId], references: [productId])
 }
 
 model OnlineWorkshop {
