@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { trpc } from "../../utils/trpc";
+import Product from "../../components/product/Product";
 
 const ProductDetails: NextPage = () => {
   const { data } = trpc.useQuery(["product.getAllProducts"]);
@@ -7,8 +8,12 @@ const ProductDetails: NextPage = () => {
     <div>
       {" "}
       {data ? (
-        data.map((user) => (
-          <DisplayProducts key={user.id} id={user.id}></DisplayProducts>
+        data.map((product) => (
+          <Product
+            key={product.id}
+            name={product.name}
+            imgUrl={product.imageURL}
+          ></Product>
         ))
       ) : (
         <p className="text-right">Loading..</p>
@@ -17,14 +22,4 @@ const ProductDetails: NextPage = () => {
     </div>
   );
 };
-
-const DisplayProducts = ({ id }: { id: string }) => {
-  return (
-    <div>
-      <h1>Mi productito :D</h1>
-      <p>{id}</p>
-    </div>
-  );
-};
-
 export default ProductDetails;
