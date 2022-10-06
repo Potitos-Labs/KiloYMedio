@@ -5,6 +5,9 @@ import { useCallback } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from 'react'
+import { Listbox } from '@headlessui/react'
+import { Category } from '@prisma/client'
 
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
@@ -59,6 +62,7 @@ const createProduct: NextPage = () => {
                   className="bg-gray-100 mb-4 py-1 px-8 border-l-4 border-l-blue-500"
                   {...register("description")}
                 />
+                <MyListbox/>
                 <input
                   type="password"
                   placeholder="Type your password..."
@@ -88,5 +92,25 @@ const createProduct: NextPage = () => {
     </div>
   );
 };
+
+function MyListbox() {
+  const categoryList = Object.values(Category);
+  const [selectedCategory, setSelectedCategory] = useState(categoryList);
+
+  return (
+    <Listbox value={selectedCategory} onChange={setSelectedCategory}>
+      <Listbox.Button>{selectedCategory}</Listbox.Button>
+      <Listbox.Options>
+        {categoryList.map((cat) => (
+          <Listbox.Option
+            value={cat}
+          >
+            {cat}
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Listbox>
+  )
+}
 
 export default createProduct;

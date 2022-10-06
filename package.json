@@ -15,6 +15,7 @@
     "prisma:seed": "prisma db push --force-reset && prisma db seed"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.8",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.3.1",
