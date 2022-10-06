@@ -21,7 +21,15 @@ export default defineNextConfig({
     defaultLocale: "en",
   },
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: [
+      "lh3.googleusercontent.com",
+      "www.atida.com",
+      "as01.epimg.net",
+      "estaticos.muyinteresante.es",
+      "www.mundorganico.co",
+      "www.adonianatur.com",
+      "http2.mlstatic.com",
+    ],
     remotePatterns: [
       {
         protocol: "https",

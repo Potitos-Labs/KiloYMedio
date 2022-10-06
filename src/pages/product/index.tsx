@@ -19,7 +19,6 @@ const ProductDetails: NextPage = () => {
         ) : (
           <p className="text-right">Loading..</p>
         )}
-        ;
       </div>
     </Layout>
   );

@@ -12,7 +12,14 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
   return (
     <div>
       <div>
-        <img src={imgUrl} alt="notfound" className="w-20 h-20"></img>
+        <Image
+          src={imgUrl}
+          alt="notfound"
+          width="80"
+          height="80"
+          layout="fixed"
+          objectFit="cover"
+        ></Image>
       </div>
       <h1>{name}</h1>
       <div>
