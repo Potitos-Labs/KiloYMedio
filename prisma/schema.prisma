@@ -172,6 +172,7 @@ model NutritionFacts {
     energy        Float
     fat           Float
     carbohydrates Float
+    protein       Float
     edibleId      String @unique
     Edible        Edible @relation(fields: [edibleId], references: [productId])
 }
@@ -233,7 +234,7 @@ model Post {
 
 model Product {
     id             String           @id @default(cuid())
-    category       Category
+    Category       Category
     description    String
     Edible         Edible?
     imageURL       String

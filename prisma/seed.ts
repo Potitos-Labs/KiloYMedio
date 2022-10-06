@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
 const prisma = new PrismaClient();
 async function main() {
@@ -102,7 +102,7 @@ async function main() {
   const pistachos = await prisma.product.create({
     data: {
       name: "pistachos",
-      category: "nuts",
+      Category: "nuts",
       description: "pistachos ecológicos",
       stock: 10.5,
       imageURL:
@@ -111,7 +111,7 @@ async function main() {
         create: {
           priceByWeight: 8.3,
           EdibleAllergen: { create: { allergen: "nuts" } },
-          nutritionFacts: { create: {} },
+          Ingredient: {create: {name: "pistachos"}}
         },
       },
     },
@@ -120,7 +120,7 @@ async function main() {
   const levaduraNutricional = await prisma.product.create({
     data: {
       name: "levadura nutricional",
-      category: "yeast",
+      Category: "yeast",
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
@@ -128,7 +128,7 @@ async function main() {
       Edible: {
         create: {
           priceByWeight: 30,
-          nutritionFacts: { create: {} },
+          Ingredient: {create: {name: "levadura nutricional"}}
         },
       },
     },
@@ -137,7 +137,7 @@ async function main() {
   const lentejas = await prisma.product.create({
     data: {
       name: "lentejas",
-      category: "legumes",
+      Category: "legumes",
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
@@ -145,7 +145,8 @@ async function main() {
       Edible: {
         create: {
           priceByWeight: 9.1,
-          nutritionFacts: { create: {} },
+          nutritionFacts: {},
+          Ingredient: {create: {name: "lentejas"}}
         },
       },
     },
@@ -154,7 +155,7 @@ async function main() {
   const harinaTrigo = await prisma.product.create({
     data: {
       name: "harina de trigo",
-      category: "flours",
+      Category: "flours",
       description: "harina de trigo",
       stock: 18,
       imageURL:
@@ -163,7 +164,7 @@ async function main() {
         create: {
           priceByWeight: 5.3,
           EdibleAllergen: { create: { allergen: "cereals" } },
-          nutritionFacts: { create: {} },
+          Ingredient: {create: {name: "harina de trigo"}}
         },
       },
     },
@@ -174,7 +175,7 @@ async function main() {
   const cepilloDeDientes = await prisma.product.create({
     data: {
       name: "cepillo de dientes",
-      category: "personalCare",
+      Category: "personalCare",
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
@@ -186,7 +187,7 @@ async function main() {
   const jabon = await prisma.product.create({
     data: {
       name: "jabón",
-      category: "personalCare",
+      Category: "personalCare",
       description: "jabón artesanal",
       stock: 12,
       imageURL:
@@ -221,7 +222,7 @@ async function main() {
     throw Error;
   }
 
-  const carritos = await prisma.cartProduct.createMany({
+  /*const carritos = await prisma.cartProduct.createMany({
     data: [
       {
         amount: 1,
@@ -239,8 +240,8 @@ async function main() {
         productId: harinaTrigo.id,
       },
     ],
-  });
-
+  });*/
+  
   const comentarioPaella = await prisma.comment.create({
     data: {
       rating: 5,
@@ -274,8 +275,8 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
       amount: 10,
       ingredient: {
         create: {
-          edible: { connect: { productId: levaduraNutricional.id } },
-          name: "levadura",
+          Edible: { connect: { productId: levaduraNutricional.id } }, //Se puede hacer desde levaduraNutricional.Edible.Ingredient¿?
+          name: "levadura", 
         },
       },
       recipe: { connect: { id: paellaValencia.id } },
