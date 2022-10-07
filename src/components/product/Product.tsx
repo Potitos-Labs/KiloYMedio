@@ -4,10 +4,14 @@ import { useState } from "react";
 function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
   const [weight, setWeight] = useState(100);
   function incrementClick() {
-    setWeight(weight + 100);
+    if (weight != 10000) {
+      setWeight(weight + 100);
+    }
   }
   function decrementClick() {
-    setWeight(weight - 100);
+    if (weight != 0) {
+      setWeight(weight - 100);
+    }
   }
   return (
     <div className=" py-8 shadow-lg hover:shadow-2xl flex flex-col text-center justify-center items-center">
