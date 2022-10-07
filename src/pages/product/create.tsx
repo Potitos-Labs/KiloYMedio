@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
-import { Category } from "@prisma/client";
 
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
@@ -95,16 +94,23 @@ const CreateProduct: NextPage = () => {
 };
 
 function MyListbox() {
-  const categoryList = Object.values(Category);
-  const [selectedCategory, setSelectedCategory] = useState(categoryList[0]);
+  const { data: categoryList } = trpc.useQuery([
+    "product.getAllergenInSpanish",
+  ]);
+
+  const [selectedCategory, setSelectedCategory] = useState("Ninguno");
+
+  if (!categoryList) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <Listbox value={selectedCategory} onChange={setSelectedCategory}>
       <Listbox.Button>{selectedCategory}</Listbox.Button>
       <Listbox.Options>
-        {categoryList.map((cat, index) => (
-          <Listbox.Option value={cat} key={index}>
-            {cat}
+        {categoryList.map(({ allergenInSpanish }, index) => (
+          <Listbox.Option value={allergenInSpanish} key={index}>
+            {allergenInSpanish}
           </Listbox.Option>
         ))}
       </Listbox.Options>

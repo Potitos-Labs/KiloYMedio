@@ -43,6 +43,12 @@ model Account {
     @@unique([provider, providerAccountId])
 }
 
+model AllergenInSpanish {
+    id                String   @id @default(cuid())
+    allergen          Allergen @unique
+    allergenInSpanish String
+}
+
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique

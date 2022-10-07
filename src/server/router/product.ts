@@ -10,6 +10,11 @@ export const productRouter = createRouter()
       return await ctx.prisma.product.findMany();
     },
   })
+  .query("getAllergenInSpanish", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.allergenInSpanish.findMany();
+    },
+  })
   .query("getById", {
     input: z.object({
       id: z.string(),
@@ -19,18 +24,13 @@ export const productRouter = createRouter()
         where: { id: input.id },
       });
     },
-  }).mutation("createNewProduct", {
+  })
+  .mutation("createNewProduct", {
     input: productSchema,
     resolve: async ({ input, ctx }) => {
-      const { 
-        name,
-        description,
-        category,
-        stock,
-        image,
-        Edible,
-        NonEdible} = input;
-      
+      const { name, description, category, stock, image, Edible, NonEdible } =
+        input;
+
       if (!Edible && !NonEdible) {
         throw new trpc.TRPCError({
           code: "BAD_REQUEST",
@@ -44,55 +44,65 @@ export const productRouter = createRouter()
           message: "Product can not be Edible and NonEdible at the same time",
         });
       }
-      
+
       if (Edible) {
         const productEdible = await ctx.prisma.product.create({
           data: {
             name,
             description,
-            Category: category, 
+            Category: category,
             stock,
             imageURL: image,
-            Edible: {create: {
-              priceByWeight: Edible.price,
-              Ingredient: {create: {name}}, //Se crea ingrediente con el mismo nombre
-              origin: Edible.origin,
-              conservation: Edible.conservation,
-              nutritionFacts: { create: {
-                ingredients: Edible.nutrittionFacts.ingredients,
-                energy: Edible.nutrittionFacts.energy,
-                fat: Edible.nutrittionFacts.fat,
-                carbohydrates: Edible.nutrittionFacts.carbohydrates,
-                protein: Edible.nutrittionFacts.protein
-              }}
-            }}
+            Edible: {
+              create: {
+                priceByWeight: Edible.price,
+                Ingredient: { create: { name } }, //Se crea ingrediente con el mismo nombre
+                origin: Edible.origin,
+                conservation: Edible.conservation,
+                nutritionFacts: {
+                  create: {
+                    ingredients: Edible.nutrittionFacts.ingredients,
+                    energy: Edible.nutrittionFacts.energy,
+                    fat: Edible.nutrittionFacts.fat,
+                    carbohydrates: Edible.nutrittionFacts.carbohydrates,
+                    protein: Edible.nutrittionFacts.protein,
+                  },
+                },
+              },
+            },
           },
         });
 
-        Edible.allergens.map((allergen) => {ctx.prisma.edibleAllergen.create({data: {allergen, edibleId: productEdible.id}})});
+        Edible.allergens.map((allergen) => {
+          ctx.prisma.edibleAllergen.create({
+            data: { allergen, edibleId: productEdible.id },
+          });
+        });
 
         return {
           status: 201,
-          product: productEdible
+          product: productEdible,
         };
-      } 
+      }
 
       if (NonEdible) {
         const productNonEdible = await ctx.prisma.product.create({
-        data: {
-          name,
-          description,
-          Category: category, 
-          stock,
-          imageURL: image,
-          NonEdible: {create: {
-            price: NonEdible.price
-          }}
-          }
+          data: {
+            name,
+            description,
+            Category: category,
+            stock,
+            imageURL: image,
+            NonEdible: {
+              create: {
+                price: NonEdible.price,
+              },
+            },
+          },
         });
         return {
           status: 201,
-          product: productNonEdible
+          product: productNonEdible,
         };
       }
 

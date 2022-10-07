@@ -4,6 +4,31 @@ const prisma = new PrismaClient();
 async function main() {
   const hashedPassword = await hash("potitos2022");
 
+  const allergenInSpansh = await prisma.allergenInSpanish.createMany({
+    data: [
+      /* 1 */ { allergen: "celery", allergenInSpanish: "apio" },
+      /* 2 */ { allergen: "cereals", allergenInSpanish: "cereales" },
+      /* 3 */ { allergen: "crustaceans", allergenInSpanish: "crustáceo" },
+      /* 4 */ { allergen: "eggs", allergenInSpanish: "huevos" },
+      /* 5 */ { allergen: "fish", allergenInSpanish: "pescado" },
+      /* 6 */ { allergen: "lupin", allergenInSpanish: "altramuces" },
+      /* 7 */ { allergen: "milk", allergenInSpanish: "leche" },
+      /* 8 */ { allergen: "molluscs", allergenInSpanish: "moluscos" },
+      /* 9 */ { allergen: "mustard", allergenInSpanish: "mostaza" },
+      /* 10 */ { allergen: "nuts", allergenInSpanish: "nueces" },
+      /* 11 */ { allergen: "peanuts", allergenInSpanish: "cacahuetes" },
+      /* 12 */ {
+        allergen: "sesameSeeds",
+        allergenInSpanish: "semillas de sésamo",
+      },
+      /* 13 */ { allergen: "soybeans", allergenInSpanish: "soja" },
+      /* 14 */ {
+        allergen: "sulphurDioxideAndSulphites",
+        allergenInSpanish: "Dióxido de azufre y sulfitos",
+      },
+    ],
+  });
+
   //#region Users
   const daniel = await prisma.user.create({
     data: {
@@ -111,7 +136,7 @@ async function main() {
         create: {
           priceByWeight: 8.3,
           EdibleAllergen: { create: { allergen: "nuts" } },
-          Ingredient: {create: {name: "pistachos"}}
+          Ingredient: { create: { name: "pistachos" } },
         },
       },
     },
@@ -128,7 +153,7 @@ async function main() {
       Edible: {
         create: {
           priceByWeight: 30,
-          Ingredient: {create: {name: "levadura nutricional"}}
+          Ingredient: { create: { name: "levadura nutricional" } },
         },
       },
     },
@@ -146,7 +171,7 @@ async function main() {
         create: {
           priceByWeight: 9.1,
           nutritionFacts: {},
-          Ingredient: {create: {name: "lentejas"}}
+          Ingredient: { create: { name: "lentejas" } },
         },
       },
     },
@@ -164,7 +189,7 @@ async function main() {
         create: {
           priceByWeight: 5.3,
           EdibleAllergen: { create: { allergen: "cereals" } },
-          Ingredient: {create: {name: "harina de trigo"}}
+          Ingredient: { create: { name: "harina de trigo" } },
         },
       },
     },
@@ -241,7 +266,7 @@ async function main() {
       },
     ],
   });*/
-  
+
   const comentarioPaella = await prisma.comment.create({
     data: {
       rating: 5,
@@ -276,7 +301,7 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
       ingredient: {
         create: {
           Edible: { connect: { productId: levaduraNutricional.id } }, //Se puede hacer desde levaduraNutricional.Edible.Ingredient¿?
-          name: "levadura", 
+          name: "levadura",
         },
       },
       recipe: { connect: { id: paellaValencia.id } },
