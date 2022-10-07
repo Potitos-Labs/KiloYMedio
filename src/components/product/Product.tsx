@@ -11,24 +11,36 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
   }
   return (
     <div className=" py-8 shadow-lg hover:shadow-2xl flex flex-col text-center justify-center items-center">
-      <div>
+      <div className="py-6">
         <Image
           src={imgUrl}
           alt="notfound"
-          width="80"
-          height="80"
+          width="100"
+          height="100"
           layout="fixed"
           objectFit="cover"
         ></Image>
       </div>
       <h1>{name}</h1>
-      <div className="flex flex-row gap-4 ">
-        <button onClick={decrementClick}>-</button>
-        <p>{weight} g</p>
-        <button onClick={incrementClick}>+</button>
+      <div className="flex flex-row py-4">
+        <button
+          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-2 border border-blue-500 hover:border-transparent rounded"
+          onClick={decrementClick}
+        >
+          -
+        </button>
+        <p className="border-2 rounded-md px-4 mx-2">{weight} g</p>
+        <button
+          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-2 border border-blue-500 hover:border-transparent rounded"
+          onClick={incrementClick}
+        >
+          +
+        </button>
       </div>
       <div>
-        <button>Añadir</button>
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-12 border border-blue-500 hover:border-transparent rounded">
+          Añadir
+        </button>
       </div>
     </div>
   );
