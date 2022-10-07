@@ -1,15 +1,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { ILogin, loginSchema } from "../utils/validations/auth";
 
 const SignIn: NextPage = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
   });
+
+  const { status } = useSession();
+  if (status == "authenticated") {
+    router.push("/");
+  }
 
   const onSubmit = useCallback(async (data: ILogin) => {
     await signIn("credentials", {
@@ -31,7 +38,11 @@ const SignIn: NextPage = () => {
               className="mr-1 mb-1 inline-flex items-center rounded bg-red-500 px-4 py-2 text-xs font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
               type="button"
               style={{ transition: "all .15s ease" }}
-              onClick={() => signIn("google")}
+              onClick={() =>
+                signIn("google", {
+                  callbackUrl: "/",
+                })
+              }
             >
               Google
             </button>
