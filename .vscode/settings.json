@@ -4,5 +4,8 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "git.rebaseWhenSync": true
+  "git.rebaseWhenSync": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }

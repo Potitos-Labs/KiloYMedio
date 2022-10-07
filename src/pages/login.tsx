@@ -21,14 +21,14 @@ const SignIn: NextPage = () => {
 
   return (
     <Layout>
-      <main className="flex flex-col items-center justify-center h-screen">
-        <div className="rounded-lg shadow-lg bg-white max-w-sm p-8">
-          <div className="text-center mb-3">
-            <h6 className="text-gray-600 text-sm font-bold">Sign in with</h6>
+      <main className="flex h-screen flex-col items-center justify-center">
+        <div className="max-w-sm rounded-lg bg-white p-8 shadow-lg">
+          <div className="mb-3 text-center">
+            <h6 className="text-sm font-bold text-gray-600">Sign in with</h6>
           </div>
           <div className="btn-wrapper text-center">
             <button
-              className="bg-red-500 active:bg-gray-100 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center hover:font-bold text-xs"
+              className="mr-1 mb-1 inline-flex items-center rounded bg-red-500 px-4 py-2 text-xs font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
               type="button"
               style={{ transition: "all .15s ease" }}
               onClick={() => signIn("google")}
@@ -36,18 +36,18 @@ const SignIn: NextPage = () => {
               Google
             </button>
           </div>
-          <hr className="mt-6 border-b-1 border-gray-400" />
+          <hr className="border-b-1 mt-6 border-gray-400" />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group mb-6">
               <label
                 form="emailInput"
-                className="form-label inline-block mb-2 text-gray-700"
+                className="form-label mb-2 inline-block text-gray-700"
               >
                 Email address
               </label>
               <input
                 type="email"
-                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="emailInput"
                 placeholder="Enter email"
                 {...register("email")}
@@ -56,13 +56,13 @@ const SignIn: NextPage = () => {
             <div className="form-group mb-6">
               <label
                 form="passwordInput"
-                className="form-label inline-block mb-2 text-gray-700"
+                className="form-label mb-2 inline-block text-gray-700"
               >
                 Password
               </label>
               <input
                 type="password"
-                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="passwordInput"
                 placeholder="Password"
                 {...register("password")}
@@ -70,7 +70,7 @@ const SignIn: NextPage = () => {
             </div>
             <button
               type="submit"
-              className=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+              className=" w-full rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
             >
               Sign in
             </button>
