@@ -33,14 +33,6 @@ const Header: React.FC = () => {
           <p>{session.user?.name}</p>
         </div>
         <Client_Header />
-        {/* <button
-          className="p-3 m-2"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Log out
-        </button> */}
       </nav>
     );
   }
