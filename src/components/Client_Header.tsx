@@ -1,3 +1,9 @@
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+import { signOut } from "next-auth/react";
+import { TbLogout } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
+
 function Client_Header() {
   return (
     <nav
@@ -12,7 +18,7 @@ function Client_Header() {
       "
     >
       <div className="flex-grow lg:flex">
-        <div className="dropdown relative flex items-center mr-5">
+        <div className="relative flex items-center mr-5">
           <a
             className="dropdown-toggle flex items-center"
             href="#"
@@ -108,75 +114,55 @@ function Client_Header() {
         </div>
 
         <div className="flex items-center dropdown relative h-10 w-8">
-          <a
-            className="dropdown-toggle flex items-center"
-            href="#"
-            id="dropdownProfile"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img src="/img/perfil.png" alt="" />
-          </a>
-          <ul
-            className="dropdown-menu
-              min-w-max
-              
-              bg-white
-              text-base
-              z-50
-              py-2
-              list-none
-              text-left
-              rounded-lg
-              bg-clip-padding
-            "
-            aria-labelledby="dropdownProfile"
-          >
-            <li>
-              <a
-                className="
-                  dropdown-item
-                  text-sm
-                  py-2
-                  px-4
-                  font-normal
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-              >
-                Cerrar sesión
-              </a>
-            </li>
-            <li>
-              <a
-                className="
-                  dropdown-item
-                  text-sm
-                  py-2
-                  px-4
-                  font-normal
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-              >
-                Otro elemento
-              </a>
-            </li>
-          </ul>
+          <Menu as="div" className="realitive inline-block text-left">
+            <div>
+              <Menu.Button className=" flex items-center">
+                <img src="/img/perfil.png" alt="" />
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-violet-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <CgProfile className="mr-2" /> Ver perfil
+                    </button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => {
+                        signOut();
+                      }}
+                      className={`${
+                        active ? "bg-violet-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <TbLogout className="mr-2" />
+                      Cerrar sesión
+                    </button>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
       </div>
     </nav>
   );
 }
+
 export default Client_Header;
