@@ -7,7 +7,7 @@ const ProductDetails: NextPage = () => {
   const { data } = trpc.useQuery(["product.getAllProducts"]);
   return (
     <Layout>
-      <div className="grid gap-4 grid-cols-4 grid-rows-3">
+      <div className="grid gap-4 grid-cols-5 p-10">
         {data ? (
           data.map((product) => (
             <Product

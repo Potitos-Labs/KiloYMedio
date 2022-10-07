@@ -10,7 +10,7 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
     setWeight(weight - 100);
   }
   return (
-    <div>
+    <div className=" py-8 shadow-lg hover:shadow-2xl flex flex-col text-center justify-center items-center">
       <div>
         <Image
           src={imgUrl}
@@ -22,10 +22,12 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
         ></Image>
       </div>
       <h1>{name}</h1>
-      <div>
+      <div className="flex flex-row gap-4 ">
         <button onClick={decrementClick}>-</button>
         <p>{weight} g</p>
         <button onClick={incrementClick}>+</button>
+      </div>
+      <div>
         <button>Añadir</button>
       </div>
     </div>
