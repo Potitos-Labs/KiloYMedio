@@ -12,7 +12,7 @@ const SignIn: NextPage = () => {
   });
 
   const onSubmit = useCallback(async (data: ILogin) => {
-    signIn("credentials", {
+    await signIn("credentials", {
       email: data.email,
       password: data.password,
       callbackUrl: "/",
@@ -23,6 +23,20 @@ const SignIn: NextPage = () => {
     <Layout>
       <main className="flex flex-col items-center justify-center h-screen">
         <div className="rounded-lg shadow-lg bg-white max-w-sm p-8">
+          <div className="text-center mb-3">
+            <h6 className="text-gray-600 text-sm font-bold">Sign in with</h6>
+          </div>
+          <div className="btn-wrapper text-center">
+            <button
+              className="bg-red-500 active:bg-gray-100 text-white font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center hover:font-bold text-xs"
+              type="button"
+              style={{ transition: "all .15s ease" }}
+              onClick={() => signIn("google")}
+            >
+              Google
+            </button>
+          </div>
+          <hr className="mt-6 border-b-1 border-gray-400" />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group mb-6">
               <label
@@ -51,6 +65,7 @@ const SignIn: NextPage = () => {
                 className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="passwordInput"
                 placeholder="Password"
+                {...register("password")}
               />
             </div>
             <button
