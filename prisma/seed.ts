@@ -245,7 +245,7 @@ async function main() {
     throw Error;
   }
 
-  /*const carritos = await prisma.cartProduct.createMany({
+  const carritos = await prisma.cartProduct.createMany({
     data: [
       {
         amount: 1,
@@ -263,7 +263,7 @@ async function main() {
         productId: harinaTrigo.id,
       },
     ],
-  });*/
+  });
 
   const comentarioPaella = await prisma.comment.create({
     data: {

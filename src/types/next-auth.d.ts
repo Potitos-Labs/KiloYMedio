@@ -22,5 +22,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     /** OpenID ID Token */
     role?: Role;
+    id?: string;
   }
 }

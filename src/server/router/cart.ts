@@ -6,6 +6,17 @@ export const cartRouter = createProtectedRouter()
   .query("getAllCartProduct", {
     async resolve({ ctx }) {
       const cartProduct = await ctx.prisma.cartProduct.findMany({
+        select: {
+          productId: true,
+          amount: true,
+          product: {
+            select: {
+              name: true,
+              Edible: { select: { priceByWeight: true } },
+              NonEdible: { select: { price: true } },
+            },
+          },
+        },
         where: { cart: { client: { userId: ctx.session.user.id } } },
       });
 
