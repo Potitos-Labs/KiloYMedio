@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  pages: { signIn: "/login" },
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
@@ -16,6 +16,17 @@ const SignIn: NextPage = () => {
   const { status } = useSession();
   if (status == "authenticated") {
     router.push("/");
+  }
+
+  const [googleError, setGoogleError] = useState("");
+
+  if (
+    router.query.error &&
+    router.query.error == "OAuthAccountNotLinked" &&
+    googleError == ""
+  ) {
+    setGoogleError("Ya existe una cuenta con ese correo de Google");
+    router.replace("/login", undefined, { shallow: true });
   }
 
   const onSubmit = useCallback(async (data: ILogin) => {
@@ -46,6 +57,7 @@ const SignIn: NextPage = () => {
             >
               Google
             </button>
+            <p className="font-semibold text-red-600">{googleError}</p>
           </div>
           <hr className="border-b-1 mt-6 border-gray-400" />
           <form onSubmit={handleSubmit(onSubmit)}>
