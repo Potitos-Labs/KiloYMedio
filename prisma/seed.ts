@@ -5,23 +5,20 @@ const prisma = new PrismaClient();
 async function main() {
   const hashedPassword = await hash("potitos2022");
 
-  const allergenInSpansh = await prisma.allergenInSpanish.createMany({
+  const allergenInSpanish = await prisma.allergenInSpanish.createMany({
     data: [
       /* 1 */ { allergen: "celery", allergenInSpanish: "apio" },
-      /* 2 */ { allergen: "cereals", allergenInSpanish: "cereales" },
-      /* 3 */ { allergen: "crustaceans", allergenInSpanish: "crustáceo" },
+      /* 2 */ { allergen: "cereals", allergenInSpanish: "gluten" },
+      /* 3 */ { allergen: "crustaceans", allergenInSpanish: "crustáceos" },
       /* 4 */ { allergen: "eggs", allergenInSpanish: "huevos" },
       /* 5 */ { allergen: "fish", allergenInSpanish: "pescado" },
       /* 6 */ { allergen: "lupin", allergenInSpanish: "altramuces" },
       /* 7 */ { allergen: "milk", allergenInSpanish: "leche" },
       /* 8 */ { allergen: "molluscs", allergenInSpanish: "moluscos" },
       /* 9 */ { allergen: "mustard", allergenInSpanish: "mostaza" },
-      /* 10 */ { allergen: "nuts", allergenInSpanish: "nueces" },
+      /* 10 */ { allergen: "nuts", allergenInSpanish: "frutos con cáscara" },
       /* 11 */ { allergen: "peanuts", allergenInSpanish: "cacahuetes" },
-      /* 12 */ {
-        allergen: "sesameSeeds",
-        allergenInSpanish: "semillas de sésamo",
-      },
+      /* 12 */ { allergen: "sesameSeeds", allergenInSpanish: "sésamo" },
       /* 13 */ { allergen: "soybeans", allergenInSpanish: "soja" },
       /* 14 */ {
         allergen: "sulphurDioxideAndSulphites",
