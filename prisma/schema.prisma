@@ -93,8 +93,7 @@ model Admin {
 
 model Cart {
     id          String        @id @default(cuid())
-    clientId    String        @unique
-    client      Client        @relation(fields: [clientId], references: [userId])
+    client      Client?
     CartProduct CartProduct[]
 }
 
@@ -116,7 +115,8 @@ model Client {
     phoneNumber              String?
     points                   Int                        @default(0)
     // socio  Bool
-    cart                     Cart?
+    cart                     Cart                       @relation(fields: [cartId], references: [id])
+    cartId                   String                     @unique
     order                    Order[]
     Ticket                   Ticket[]
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
