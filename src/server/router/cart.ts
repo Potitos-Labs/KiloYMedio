@@ -5,13 +5,8 @@ import * as trpc from "@trpc/server";
 export const cartRouter = createProtectedRouter()
   .query("getAllCartProduct", {
     async resolve({ ctx }) {
-      const { cartId } = await ctx.prisma.client.findFirstOrThrow({
-        select: { cartId: true },
-        where: { userId: ctx.session.user.id },
-      });
-
       const cartProduct = await ctx.prisma.cartProduct.findMany({
-        where: { cartId },
+        where: { cart: { client: { userId: ctx.session.user.id } } },
       });
 
       return cartProduct;
