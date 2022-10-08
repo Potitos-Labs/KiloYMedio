@@ -14,7 +14,8 @@
     "format": "prettier -w ./",
     "postinstall": "prisma generate",
     "prisma:pushWithForceReset": "prisma db push --force-reset",
-    "prisma:seed": "prisma db push --force-reset && prisma db seed"
+    "prisma:seed": "prisma db push --force-reset && prisma db seed",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
@@ -46,16 +47,24 @@
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "^8.5.0",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "prisma": "^4.3.1",
     "tailwindcss": "^3.1.8",
     "ts-node": "^10.9.1",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "husky": "^8.0.0"
   },
   "ct3aMetadata": {
     "initVersion": "5.11.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier -w",
+      "eslint --fix"
+    ]
   },
   "packageManager": "yarn@1.22.19"
 }
