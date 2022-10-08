@@ -5,9 +5,10 @@ import Layout from "../../components/Layout";
 
 const ProductDetails: NextPage = () => {
   const { data } = trpc.useQuery(["product.getAllProducts"]);
+
   return (
     <Layout>
-      <div className="grid gap-4 grid-cols-5 p-12">
+      <div className="grid grid-cols-5 gap-4 p-12">
         {data ? (
           data.map((product) => (
             <Product
@@ -17,7 +18,7 @@ const ProductDetails: NextPage = () => {
             ></Product>
           ))
         ) : (
-          <p className="text-right">Loading..</p>
+          <p className="text-right">Cargando...</p>
         )}
       </div>
     </Layout>
