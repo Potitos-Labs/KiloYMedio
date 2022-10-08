@@ -46,7 +46,7 @@ export const userRouter = createRouter()
           name: username,
           email,
           passwordHash: hashedPassword,
-          Client: { create: {} },
+          Client: { create: { cart: { create: {} } } },
         },
       });
 
