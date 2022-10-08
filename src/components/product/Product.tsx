@@ -1,4 +1,3 @@
-import { count } from "console";
 import Image from "next/image";
 import { useState } from "react";
 function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
@@ -14,7 +13,7 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
     }
   }
   return (
-    <div className=" py-8 shadow-lg hover:shadow-2xl flex flex-col text-center justify-center items-center">
+    <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
       <div className="py-6">
         <Image
           src={imgUrl}
@@ -28,21 +27,21 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
       <h1>{name}</h1>
       <div className="flex flex-row py-4">
         <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-2 border border-blue-500 hover:border-transparent rounded"
+          className="rounded border border-blue-500 bg-transparent px-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
           onClick={decrementClick}
         >
           -
         </button>
-        <p className="border-2 rounded-md px-4 mx-2">{weight} g</p>
+        <p className="mx-2 rounded-md border-2 px-4">{weight} g</p>
         <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-2 border border-blue-500 hover:border-transparent rounded"
+          className="rounded border border-blue-500 bg-transparent px-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
           onClick={incrementClick}
         >
           +
         </button>
       </div>
       <div>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-12 border border-blue-500 hover:border-transparent rounded">
+        <button className="rounded border border-blue-500 bg-transparent px-12 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
           Añadir
         </button>
       </div>

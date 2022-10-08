@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma, PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
 const prisma = new PrismaClient();

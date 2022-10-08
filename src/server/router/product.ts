@@ -2,7 +2,6 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { productSchema } from "../../utils/validations/product";
 import * as trpc from "@trpc/server";
-import { Category } from "@prisma/client";
 
 export const productRouter = createRouter()
   .query("getAllProducts", {

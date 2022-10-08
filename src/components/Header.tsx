@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Client_Header from "./Client_Header";
 
 const Header: React.FC = () => {
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   if (session) {
     console.log(session.user);
     right = (
-      <nav className="flex items-center justify-between flex-wrap">
+      <nav className="flex flex-wrap items-center justify-between">
         <div>
           <p>{session.user?.name}</p>
         </div>
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="bg-yellow-600 py-4">
-      <div className="flex items-center justify-between flex-shrink-0 text-white mx-6">
+      <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
         <h3>Kilo Y Medio</h3>
         <div className="">{right}</div>
       </div>

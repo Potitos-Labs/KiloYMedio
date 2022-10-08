@@ -7,7 +7,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
 import { loginSchema } from "../../../utils/validations/auth";
-import { create } from "domain";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
