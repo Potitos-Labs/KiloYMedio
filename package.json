@@ -9,7 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint:next": "next lint",
+    "lint": "eslint ./",
+    "format": "prettier -w ./",
     "postinstall": "prisma generate",
     "prisma:pushWithForceReset": "prisma db push --force-reset",
     "prisma:seed": "prisma db push --force-reset && prisma db seed"
