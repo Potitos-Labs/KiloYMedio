@@ -10,6 +10,8 @@ import { Listbox } from "@headlessui/react";
 
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
+import { useSession } from "next-auth/react";
+import Error from "next/error";
 
 const CreateProduct: NextPage = () => {
   const router = useRouter();
@@ -41,44 +43,44 @@ const CreateProduct: NextPage = () => {
 
       <main className="flex flex-col items-center justify-center">
         <form
-          className="flex items-center justify-center h-screen w-full max-w-sm"
+          className="flex h-screen w-full max-w-sm items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="m-64">
-            <div className="shadow-xl p-12">
-              <h2 className="font-bold mb-6 text-xl text-blue-500 ml-6 cursor-default text-center">
+            <div className="p-12 shadow-xl">
+              <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-blue-500">
                 Añadir nuevo producto
               </h2>
               <div className=" m-6">
                 <input
                   type="text"
                   placeholder="Nombre del producto"
-                  className="bg-gray-100 mb-4 py-1 px-8 border-l-4 border-l-blue-500"
+                  className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
                   {...register("name")}
                 />
                 <input
                   type="text"
                   placeholder="Descripción"
-                  className="bg-gray-100 mb-4 py-1 px-8 border-l-4 border-l-blue-500"
+                  className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
                   {...register("description")}
                 />
                 <MyListbox />
                 <input
                   type="password"
                   placeholder="Type your password..."
-                  className="bg-gray-100 mb-2 py-1 px-8 border-l-4 border-l-blue-500"
+                  className="mb-2 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
                   {...register("category")}
                 />
               </div>
-              <div className="flex justify-center items-center">
+              <div className="flex items-center justify-center">
                 <div className="m-auto text-center">
                   <Link href="/">
-                    <p className=" font-semibold  text-gray-600 cursor-pointer">
+                    <p className=" cursor-pointer  font-semibold text-gray-600">
                       Go to login
                     </p>
                   </Link>
                   <button
-                    className="block bg-blue-500 pl-20 pr-20 py-1 mt-3 text-white font-semibold m-2 rounded"
+                    className="m-2 mt-3 block rounded bg-blue-500 py-1 pl-20 pr-20 font-semibold text-white"
                     type="submit"
                   >
                     Sign Up
@@ -98,10 +100,15 @@ function MyListbox() {
     "product.getAllergenInSpanish",
   ]);
 
+  const { data, status } = useSession();
   const [selectedCategory, setSelectedCategory] = useState("Ninguno");
 
-  if (!categoryList) {
+  if (!categoryList || status == "loading") {
     return <div>Cargando...</div>;
+  }
+
+  if (status == "unauthenticated" || data?.user?.role != "admin") {
+    return <Error statusCode={404}></Error>;
   }
 
   return (
