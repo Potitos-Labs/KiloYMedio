@@ -130,7 +130,7 @@ function Client_Header() {
                   {({ active }) => (
                     <button
                       className={`${
-                        active ? "bg-kym3 text-white" : "text-gray-900"
+                        active ? "bg-button text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <CgProfile className="mr-2" /> Ver perfil
@@ -144,7 +144,7 @@ function Client_Header() {
                         signOut();
                       }}
                       className={`${
-                        active ? "bg-kym3 text-white" : "text-gray-900"
+                        active ? "bg-button text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <TbLogout className="mr-2" />
