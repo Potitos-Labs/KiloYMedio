@@ -1,5 +1,6 @@
 import React from "react";
 import Stars from "../Stars";
+
 const ProductDetail = ({
   name,
   img,
@@ -70,14 +71,47 @@ const DescriptionComponent = ({ description }: { description: string }) => {
   );
 };
 
-const AllergentComponent = ({ allergent }: { allergent: string }) => {
+const AllergentComponent = ({ allergen }: { allergen: string }) => {
   return (
     <div>
       <hr></hr>
       <h2 className="text-lg ">Descripción de los alergenos</h2>
-      <p>{allergent}</p>
+      <p>{allergen}</p>
     </div>
   );
 };
+
+function getAllergen({ allergen }: { allergen: number }) {
+  switch (allergen) {
+    case 1:
+      return "bar";
+    case 2:
+      return "foo";
+    case 3:
+      return "foo";
+    case 4:
+      return "foo";
+    case 5:
+      return "foo";
+    case 6:
+      return "foo";
+    case 7:
+      return "foo";
+    case 8:
+      return "foo";
+    case 9:
+      return "foo";
+    case 10:
+      return "foo";
+    case 11:
+      return "foo";
+    case 12:
+      return "foo";
+    case 13:
+      return "foo";
+    case 14:
+      return "foo";
+  }
+}
 
 export default ProductDetail;
