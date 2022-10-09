@@ -20,6 +20,14 @@ export const productRouter = createRouter()
     }),
     async resolve({ input, ctx }) {
       return await ctx.prisma.product.findFirst({
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageURL: true,
+          Category: true,
+          Edible: { select: { EdibleAllergen: true } },
+        },
         where: { id: input.id },
       });
     },
