@@ -1,4 +1,5 @@
 import React from "react";
+import Stars from "../Stars";
 const ProductDetail = ({
   name,
   img,
@@ -23,6 +24,8 @@ const ProductDetail = ({
         src={img}
         alt={name}
       />
+
+      <Stars average={4.78}></Stars>
 
       <div className="inline-flex">
         <div className="container my-4 items-center">
