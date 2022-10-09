@@ -25,7 +25,7 @@ const ProductDetail = ({
         alt={name}
       />
 
-      <Stars average={4.78}></Stars>
+      <Stars average={3.5}></Stars>
 
       <div className="inline-flex">
         <div className="container my-4 items-center">

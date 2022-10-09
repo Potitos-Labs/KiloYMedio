@@ -5,7 +5,6 @@ import {
   TiStarOutline,
 } from "react-icons/ti";
 
-const num = 4.5;
 const stars = [0, 0, 0, 0, 0];
 
 const Stars = ({ average }: { average: number }) => {
@@ -30,12 +29,13 @@ function fromIntToArray(num: number) {
   for (let i = 0; i < 5; i++) {
     if (num >= 1) {
       stars[i] = 1;
+      num--;
     } else {
-      if (num != 0) {
+      if (num < 1) {
         stars[i] = num;
+        break;
       }
     }
-    num--;
   }
   return stars;
 }
