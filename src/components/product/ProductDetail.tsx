@@ -1,14 +1,18 @@
+import { Allergen } from "@prisma/client";
 import React from "react";
 import Stars from "../Stars";
+import AllergensComponent from "../Allergen";
 
 const ProductDetail = ({
   name,
   img,
   description,
+  allergensList,
 }: {
   name: string;
   img: string;
   description: string;
+  allergensList: Allergen[];
 }) => {
   const [weight, setWeight] = React.useState(100);
   const IncrementWeight = () => {
@@ -26,12 +30,17 @@ const ProductDetail = ({
         alt={name}
       />
 
-      <Stars average={3.5}></Stars>
+      <Stars average={2.5}></Stars>
+
+      <AllergensComponent
+        allergens={allergensList}
+        size={30}
+      ></AllergensComponent>
 
       <div className="inline-flex">
         <div className="container my-4 items-center">
           <button
-            className="ml-2 h-7 w-7 bg-kym3  font-bold text-white hover:bg-kym2"
+            className="ml-2 h-7 w-7 bg-button  font-bold text-white hover:bg-button_hover"
             onClick={DecrementWeight}
           >
             -
@@ -44,13 +53,13 @@ const ProductDetail = ({
           />
 
           <button
-            className="mr-2  h-7 w-7 bg-kym3 font-bold   text-white hover:bg-kym2"
+            className="mr-2  h-7 w-7 bg-button font-bold   text-white hover:bg-button_hover"
             onClick={IncrementWeight}
           >
             +
           </button>
 
-          <button className="my-4 block h-7 w-full bg-kym3 px-4  text-center font-bold text-white  hover:bg-kym2 ">
+          <button className="my-4 block h-7 w-full bg-button px-4  text-center font-bold text-white  hover:bg-button_hover ">
             Añadir al Carro
           </button>
         </div>
@@ -71,7 +80,7 @@ const DescriptionComponent = ({ description }: { description: string }) => {
   );
 };
 
-const AllergentComponent = ({ allergen }: { allergen: string }) => {
+const AllergentDescription = ({ allergen }: { allergen: string }) => {
   return (
     <div>
       <hr></hr>
@@ -80,38 +89,5 @@ const AllergentComponent = ({ allergen }: { allergen: string }) => {
     </div>
   );
 };
-
-function getAllergen({ allergen }: { allergen: number }) {
-  switch (allergen) {
-    case 1:
-      return "bar";
-    case 2:
-      return "foo";
-    case 3:
-      return "foo";
-    case 4:
-      return "foo";
-    case 5:
-      return "foo";
-    case 6:
-      return "foo";
-    case 7:
-      return "foo";
-    case 8:
-      return "foo";
-    case 9:
-      return "foo";
-    case 10:
-      return "foo";
-    case 11:
-      return "foo";
-    case 12:
-      return "foo";
-    case 13:
-      return "foo";
-    case 14:
-      return "foo";
-  }
-}
 
 export default ProductDetail;

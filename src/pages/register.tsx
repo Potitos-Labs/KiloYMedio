@@ -42,26 +42,26 @@ const SignUp: NextPage = () => {
         >
           <div className="m-64">
             <div className="p-12 shadow-xl">
-              <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-kym2">
+              <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-kym3">
                 Create an account!
               </h2>
               <div className=" m-6">
                 <input
                   type="text"
                   placeholder="Type your username..."
-                  className="mb-4 border-l-4 border-l-kym2 bg-gray-100 py-1 px-8"
+                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                   {...register("username")}
                 />
                 <input
                   type="email"
                   placeholder="Type your email..."
-                  className="mb-4 border-l-4 border-l-kym2 bg-gray-100 py-1 px-8"
+                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                   {...register("email")}
                 />
                 <input
                   type="password"
                   placeholder="Type your password..."
-                  className="mb-2 border-l-4 border-l-kym2 bg-gray-100 py-1 px-8"
+                  className="mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                   {...register("password")}
                 />
               </div>
@@ -73,7 +73,7 @@ const SignUp: NextPage = () => {
                     </p>
                   </Link>
                   <button
-                    className="m-2 mt-3 block rounded bg-kym2 py-1 pl-20 pr-20 font-semibold text-white hover:bg-kym3"
+                    className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
                     type="submit"
                   >
                     Sign Up

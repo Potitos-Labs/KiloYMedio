@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { trpc } from "../../utils/trpc";
 import Product from "../../components/product/Product";
 import Layout from "../../components/Layout";
-import Link from "next/link";
 
 const ProductDetails: NextPage = () => {
   const { data } = trpc.useQuery(["product.getAllProducts"]);
@@ -16,6 +15,7 @@ const ProductDetails: NextPage = () => {
               key={product.id}
               name={product.name}
               imgUrl={product.imageURL}
+              id={product.id}
             ></Product>
           ))
         ) : (

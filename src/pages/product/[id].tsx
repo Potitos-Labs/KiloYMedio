@@ -16,6 +16,9 @@ const ProductDetails: NextPage = () => {
           name={data.name}
           img={data.imageURL}
           description={data.description}
+          allergensList={
+            data.Edible?.EdibleAllergen.map((e) => e.allergen) ?? []
+          }
         />
       </Layout>
     );
@@ -24,7 +27,11 @@ const ProductDetails: NextPage = () => {
     return <Error statusCode={404}></Error>;
   }
 
-  return <div>Cargando...</div>;
+  return (
+    <Layout>
+      <div>Cargando...</div>
+    </Layout>
+  );
 };
 
 export default ProductDetails;
