@@ -25,24 +25,24 @@ function Product({ name, imgUrl }: { name: string; imgUrl: string }) {
           objectFit="cover"
         ></Image>
       </div>
-      <h1>{name}</h1>
+      <h1 className="capitalize">{name}</h1>
       <div className="flex flex-row py-4">
         <button
-          className="rounded border border-blue-500 bg-transparent px-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+          className="rounded border border-kym3 bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-kym3 hover:text-white"
           onClick={decrementClick}
         >
           -
         </button>
         <p className="mx-2 rounded-md border-2 px-4">{weight} g</p>
         <button
-          className="rounded border border-blue-500 bg-transparent px-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+          className="rounded border border-kym3 bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-kym3 hover:text-white"
           onClick={incrementClick}
         >
           +
         </button>
       </div>
       <div>
-        <button className="rounded border border-blue-500 bg-transparent px-12 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
+        <button className="rounded border border-kym3 bg-transparent px-12 font-semibold text-kym4 hover:border-transparent hover:bg-kym3 hover:text-white">
           Añadir
         </button>
       </div>

@@ -38,7 +38,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <div className="bg-yellow-600 py-4">
+    <div className="bg-kym2 py-4">
       <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
         <h3>Kilo Y Medio</h3>
         <div className="">{right}</div>

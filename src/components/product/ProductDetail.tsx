@@ -30,7 +30,7 @@ const ProductDetail = ({
       <div className="inline-flex">
         <div className="container my-4 items-center">
           <button
-            className="ml-2 h-7 w-7 bg-orange-500  font-bold text-white hover:bg-orange-400"
+            className="ml-2 h-7 w-7 bg-kym3  font-bold text-white hover:bg-kym2"
             onClick={DecrementWeight}
           >
             -
@@ -43,13 +43,13 @@ const ProductDetail = ({
           />
 
           <button
-            className="mr-2  h-7 w-7 bg-orange-500 font-bold   text-white hover:bg-orange-400"
+            className="mr-2  h-7 w-7 bg-kym3 font-bold   text-white hover:bg-kym2"
             onClick={IncrementWeight}
           >
             +
           </button>
 
-          <button className="my-4 block h-7 w-full bg-orange-500 px-4  text-center font-bold text-white  hover:bg-orange-400 ">
+          <button className="my-4 block h-7 w-full bg-kym3 px-4  text-center font-bold text-white  hover:bg-kym2 ">
             Añadir al Carro
           </button>
         </div>
@@ -66,6 +66,16 @@ const DescriptionComponent = ({ description }: { description: string }) => {
       <hr></hr>
       <h2 className="text-lg ">Descripción del Producto</h2>
       <p>{description}</p>
+    </div>
+  );
+};
+
+const AllergentComponent = ({ allergent }: { allergent: string }) => {
+  return (
+    <div>
+      <hr></hr>
+      <h2 className="text-lg ">Descripción de los alergenos</h2>
+      <p>{allergent}</p>
     </div>
   );
 };

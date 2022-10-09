@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { signOut } from "next-auth/react";
 import { TbLogout } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
+import { BsFillPersonFill } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -112,12 +113,7 @@ function Client_Header() {
           <Menu as="div" className="realitive inline-block text-left">
             <div>
               <Menu.Button className=" flex items-center">
-                <Image
-                  src="/img/perfil.png"
-                  alt="some"
-                  height="50"
-                  width="50"
-                />
+                <BsFillPersonFill className="h-11 w-11 fill-white" />
               </Menu.Button>
             </div>
             <Transition
@@ -134,7 +130,7 @@ function Client_Header() {
                   {({ active }) => (
                     <button
                       className={`${
-                        active ? "bg-violet-500 text-white" : "text-gray-900"
+                        active ? "bg-kym3 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <CgProfile className="mr-2" /> Ver perfil
@@ -148,7 +144,7 @@ function Client_Header() {
                         signOut();
                       }}
                       className={`${
-                        active ? "bg-violet-500 text-white" : "text-gray-900"
+                        active ? "bg-kym3 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <TbLogout className="mr-2" />

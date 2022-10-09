@@ -17,12 +17,12 @@ const Stars = ({ average }: { average: number }) => {
 
 function fromIntToStar(num: number) {
   if (num == 0) {
-    return <TiStarOutline className="flex" />;
+    return <TiStarOutline className="flex fill-kym1" />;
   }
   if (num == 1) {
-    return <TiStarFullOutline className="flex" />;
+    return <TiStarFullOutline className="flex  fill-kym1" />;
   }
-  return <TiStarHalfOutline className="flex" />;
+  return <TiStarHalfOutline className="flex fill-kym1" />;
 }
 
 function fromIntToArray(num: number) {
