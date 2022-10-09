@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
+import Layout from "../../components/Layout";
 import ProductDetail from "../../components/product/ProductDetail";
 import { trpc } from "../../utils/trpc";
 
@@ -10,11 +11,13 @@ const ProductDetails: NextPage = () => {
   const { data, isFetched } = trpc.useQuery(["product.getById", { id }]);
   if (data)
     return (
-      <ProductDetail
-        name={data.name}
-        img={data.imageURL}
-        description={data.description}
-      />
+      <Layout>
+        <ProductDetail
+          name={data.name}
+          img={data.imageURL}
+          description={data.description}
+        />
+      </Layout>
     );
 
   if (!data && isFetched) {
