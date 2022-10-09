@@ -22,7 +22,7 @@ const SvgWrapper = ({
 SvgWrapper.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 SvgWrapper.defaultProps = {
