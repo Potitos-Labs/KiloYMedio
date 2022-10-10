@@ -1,38 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { useCallback } from "react";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { Listbox } from "@headlessui/react";
+import TabProduct from "../../components/product/TabProduct";
 
-import { trpc } from "../../utils/trpc";
-import { IProduct, productSchema } from "../../utils/validations/product";
-import { useSession } from "next-auth/react";
-import Error from "next/error";
-
-const CreateProduct: NextPage = () => {
-  const router = useRouter();
-
-  const { register, handleSubmit } = useForm<IProduct>({
-    resolver: zodResolver(productSchema),
-  });
-
-  const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
-
-  const onSubmit = useCallback(
-    /*Cambiar */
-    async (data: IProduct) => {
-      const result = await mutateAsync(data);
-      if (result.status === 201) {
-        router.push("/product");
-      }
-    },
-    [mutateAsync, router],
-  );
-
+const Create: NextPage = () => {
   return (
     <div>
       <Head>
@@ -42,87 +12,10 @@ const CreateProduct: NextPage = () => {
       </Head>
 
       <main className="flex flex-col items-center justify-center">
-        <form
-          className="flex h-screen w-full max-w-sm items-center justify-center"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="m-64">
-            <div className="p-12 shadow-xl">
-              <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-blue-500">
-                Añadir nuevo producto
-              </h2>
-              <div className=" m-6">
-                <input
-                  type="text"
-                  placeholder="Nombre del producto"
-                  className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-                  {...register("name")}
-                />
-                <input
-                  type="text"
-                  placeholder="Descripción"
-                  className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-                  {...register("description")}
-                />
-                <MyListbox />
-                <input
-                  type="password"
-                  placeholder="Type your password..."
-                  className="mb-2 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-                  {...register("category")}
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="m-auto text-center">
-                  <Link href="/">
-                    <p className=" cursor-pointer  font-semibold text-gray-600">
-                      Go to login
-                    </p>
-                  </Link>
-                  <button
-                    className="m-2 mt-3 block rounded bg-blue-500 py-1 pl-20 pr-20 font-semibold text-white"
-                    type="submit"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        <TabProduct />
       </main>
     </div>
   );
 };
 
-function MyListbox() {
-  const { data: categoryList } = trpc.useQuery([
-    "product.getAllergenInSpanish",
-  ]);
-
-  const { data, status } = useSession();
-  const [selectedCategory, setSelectedCategory] = useState("Ninguno");
-
-  if (!categoryList || status == "loading") {
-    return <div>Cargando...</div>;
-  }
-
-  if (status == "unauthenticated" || data?.user?.role != "admin") {
-    return <Error statusCode={404}></Error>;
-  }
-
-  return (
-    <Listbox value={selectedCategory} onChange={setSelectedCategory}>
-      <Listbox.Button>{selectedCategory}</Listbox.Button>
-      <Listbox.Options>
-        {categoryList.map(({ allergenInSpanish }, index) => (
-          <Listbox.Option value={allergenInSpanish} key={index}>
-            {allergenInSpanish}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
-  );
-}
-
-export default CreateProduct;
+export default Create;
