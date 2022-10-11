@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { trpc } from "../../utils/trpc";
 function Product({
   name,
   imgUrl,
@@ -20,6 +21,9 @@ function Product({
     if (weight != 0) {
       setWeight(weight - 100);
     }
+  }
+  function addToCart() {
+    //trpc.useMutation(["cart.addProduct"], {productId: id, amount: weight });
   }
   return (
     <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
@@ -54,7 +58,10 @@ function Product({
         </button>
       </div>
       <div>
-        <button className="rounded border border-button bg-transparent px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white">
+        <button
+          onClick={addToCart}
+          className="rounded border border-button bg-transparent px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
+        >
           Añadir
         </button>
       </div>
