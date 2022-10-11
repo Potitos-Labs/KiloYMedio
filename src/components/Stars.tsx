@@ -9,7 +9,7 @@ const stars = [0, 0, 0, 0, 0];
 
 const Stars = ({ average }: { average: number }) => {
   return (
-    <div className="flex">
+    <div className="mx-6 inline-block items-center items-center">
       {fromIntToArray(average).map((number) => fromIntToStar(number))}
     </div>
   );
@@ -17,12 +17,16 @@ const Stars = ({ average }: { average: number }) => {
 
 function fromIntToStar(num: number) {
   if (num == 0) {
-    return <TiStarOutline className="flex fill-kym1" />;
+    return <TiStarOutline size={20} className="mb-2 inline-block  fill-kym1" />;
   }
   if (num == 1) {
-    return <TiStarFullOutline className="flex  fill-kym1" />;
+    return (
+      <TiStarFullOutline size={20} className="mb-2 inline-block  fill-kym1" />
+    );
   }
-  return <TiStarHalfOutline className="flex fill-kym1" />;
+  return (
+    <TiStarHalfOutline size={20} className="mb-2 inline-block fill-kym1" />
+  );
 }
 
 function fromIntToArray(num: number) {

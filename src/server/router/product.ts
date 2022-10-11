@@ -42,7 +42,7 @@ export const productRouter = createRouter()
           Edible: {
             select: {
               category: true,
-              EdibleAllergen: {
+              allergens: {
                 select: {
                   allergen: true,
                 },

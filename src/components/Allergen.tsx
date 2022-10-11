@@ -21,7 +21,7 @@ const AllergensComponent = ({
   size: number;
 }) => {
   return (
-    <div className="my-2">
+    <div className="inline-block">
       {allergens.map((allergen) => AllergenComponent({ allergen, size }))}
     </div>
   );

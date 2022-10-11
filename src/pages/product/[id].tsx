@@ -16,9 +16,7 @@ const ProductDetails: NextPage = () => {
           name={data.name}
           img={data.imageURL}
           description={data.description}
-          allergensList={
-            data.Edible?.EdibleAllergen.map((e) => e.allergen) ?? []
-          }
+          allergensList={data.Edible?.allergens.map((e) => e.allergen) ?? []}
         />
       </Layout>
     );
