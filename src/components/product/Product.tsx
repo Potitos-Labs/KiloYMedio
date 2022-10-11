@@ -11,6 +11,7 @@ function Product({
   imgUrl: string;
   id: string;
 }) {
+  const mutation = trpc.useMutation(["cart.addProduct"]);
   const [weight, setWeight] = useState(100);
   function incrementClick() {
     if (weight != 10000) {
@@ -23,7 +24,6 @@ function Product({
     }
   }
   function addToCart() {
-    const mutation = trpc.useMutation(["cart.addProduct"]);
     mutation.mutateAsync({ productId: id, amount: weight });
   }
   return (
