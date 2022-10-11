@@ -23,7 +23,8 @@ function Product({
     }
   }
   function addToCart() {
-    //trpc.useMutation(["cart.addProduct"], {productId: id, amount: weight });
+    const mutation = trpc.useMutation(["cart.addProduct"]);
+    mutation.mutateAsync({ productId: id, amount: weight });
   }
   return (
     <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
