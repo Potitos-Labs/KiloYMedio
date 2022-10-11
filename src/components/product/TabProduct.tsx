@@ -16,7 +16,7 @@ export default function TabProduct() {
   });
 
   return (
-    <div className="m-auto w-full px-2 py-16 sm:px-0">
+    <div className="m-auto flex w-full flex-col items-center px-2 py-16 sm:px-0">
       <Tab.Group>
         <Tab.List className="flex max-w-md space-x-1 rounded-xl bg-blue-900/20 p-1">
           {Object.values(typeProduct).map((type) => (

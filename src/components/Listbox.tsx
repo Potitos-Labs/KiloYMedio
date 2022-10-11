@@ -1,19 +1,12 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { BsChevronDown, BsCheck } from "react-icons/bs";
-import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
-import Error from "next/error";
 
 export default function MyListbox({ list }: { list: string[] | undefined }) {
-  const { data, status } = useSession();
   const [selected, setSelected] = useState("Ninguno");
 
-  if (!list || status == "loading") {
+  if (!list) {
     return <div>Cargando...</div>;
-  }
-
-  if (status == "unauthenticated" || data?.user?.role != "admin") {
-    return <Error statusCode={404}></Error>;
   }
 
   return (

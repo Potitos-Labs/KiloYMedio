@@ -25,8 +25,7 @@ export const productRouter = createRouter()
           name: true,
           description: true,
           imageURL: true,
-          Category: true,
-          Edible: { select: { EdibleAllergen: true } },
+          Edible: { select: { category: true, EdibleAllergen: true } },
         },
         where: { id: input.id },
       });
@@ -35,8 +34,7 @@ export const productRouter = createRouter()
   .mutation("createNewProduct", {
     input: productSchema,
     resolve: async ({ input, ctx }) => {
-      const { name, description, category, stock, image, Edible, NonEdible } =
-        input;
+      const { name, description, stock, image, Edible, NonEdible } = input;
 
       if (!Edible && !NonEdible) {
         throw new trpc.TRPCError({
@@ -57,12 +55,12 @@ export const productRouter = createRouter()
           data: {
             name,
             description,
-            Category: category,
             stock,
             imageURL: image,
             Edible: {
               create: {
                 priceByWeight: Edible.price,
+                category: Edible.category,
                 Ingredient: { create: { name } }, //Se crea ingrediente con el mismo nombre
                 origin: Edible.origin,
                 conservation: Edible.conservation,
@@ -97,11 +95,11 @@ export const productRouter = createRouter()
           data: {
             name,
             description,
-            Category: category,
             stock,
             imageURL: image,
             NonEdible: {
               create: {
+                category: NonEdible.category,
                 price: NonEdible.price,
               },
             },

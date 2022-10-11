@@ -27,6 +27,38 @@ async function main() {
     ],
   });
 
+  const ecategoryInSpanish = await prisma.eCategoryInSpanish.createMany({
+    data: [
+      /* 1 */ {
+        category: "driedFruits",
+        categoryInSpanish: "fruta deshidratada",
+      },
+      /* 1 */ { category: "flours", categoryInSpanish: "harinas" },
+      /* 1 */ { category: "jams", categoryInSpanish: "mermeladas" },
+      /* 1 */ { category: "legumes", categoryInSpanish: "legumbres" },
+      /* 1 */ { category: "nuts", categoryInSpanish: "frutos secos" },
+      /* 1 */ { category: "oils", categoryInSpanish: "aceites" },
+      /* 1 */ { category: "pastas", categoryInSpanish: "pastas" },
+      /* 1 */ { category: "syrups", categoryInSpanish: "siropes" },
+      /* 1 */ { category: "teas", categoryInSpanish: "tés" },
+      /* 1 */ { category: "yeast", categoryInSpanish: "levaduras" },
+    ],
+  });
+  const neCategoryInSpanish = await prisma.nECategoryInSpanish.createMany({
+    data: [
+      /* 1 */ {
+        category: "cleaningProducts",
+        categoryInSpanish: "productos de limpieza",
+      },
+      /* 1 */ { category: "accessories", categoryInSpanish: "accesorios" },
+      /* 1 */ { category: "home", categoryInSpanish: "hogar" },
+      /* 1 */ {
+        category: "personalCare",
+        categoryInSpanish: "cuidado personal",
+      },
+    ],
+  });
+
   //#region Users
   const daniel = await prisma.user.create({
     data: {
@@ -125,13 +157,13 @@ async function main() {
   const pistachos = await prisma.product.create({
     data: {
       name: "pistachos",
-      Category: "nuts",
       description: "pistachos ecológicos",
       stock: 10.5,
       imageURL:
         "https://www.atida.com/es-es/blog/wp-content/uploads/2022/02/33-nuevo-blog.png",
       Edible: {
         create: {
+          category: "nuts",
           priceByWeight: 8.3,
           EdibleAllergen: { create: { allergen: "nuts" } },
           Ingredient: { create: { name: "pistachos" } },
@@ -143,13 +175,13 @@ async function main() {
   const levaduraNutricional = await prisma.product.create({
     data: {
       name: "levadura nutricional",
-      Category: "yeast",
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
         "https://as01.epimg.net/buenavida/imagenes/2017/04/10/portada/1491836256_032482_1491837182_noticia_normal.jpg",
       Edible: {
         create: {
+          category: "yeast",
           priceByWeight: 30,
           Ingredient: { create: { name: "levadura nutricional" } },
         },
@@ -160,13 +192,13 @@ async function main() {
   const lentejas = await prisma.product.create({
     data: {
       name: "lentejas",
-      Category: "legumes",
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
         "https://estaticos.muyinteresante.es/uploads/images/gallery/56014df93eafe829aea881a3/lentejas3.jpg",
       Edible: {
         create: {
+          category: "legumes",
           priceByWeight: 9.1,
           nutritionFacts: {},
           Ingredient: { create: { name: "lentejas" } },
@@ -178,13 +210,13 @@ async function main() {
   const harinaTrigo = await prisma.product.create({
     data: {
       name: "harina de trigo",
-      Category: "flours",
       description: "harina de trigo",
       stock: 18,
       imageURL:
         "https://www.mundorganico.co/wp-content/uploads/2020/05/harina-kamut-1.jpg",
       Edible: {
         create: {
+          category: "flours",
           priceByWeight: 5.3,
           EdibleAllergen: { create: { allergen: "cereals" } },
           Ingredient: { create: { name: "harina de trigo" } },
@@ -198,24 +230,32 @@ async function main() {
   const cepilloDeDientes = await prisma.product.create({
     data: {
       name: "cepillo de dientes",
-      Category: "personalCare",
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
         "https://www.adonianatur.com/media/catalog/product/c/e/cepillo-dientes-azul-adultos-nordics-bambu.jpg",
-      NonEdible: { create: { price: 3.5 } },
+      NonEdible: {
+        create: {
+          category: "personalCare",
+          price: 3.5,
+        },
+      },
     },
   });
 
   const jabon = await prisma.product.create({
     data: {
       name: "jabón",
-      Category: "personalCare",
       description: "jabón artesanal",
       stock: 12,
       imageURL:
         "https://http2.mlstatic.com/jabones-artesanales-100gr-D_NQ_NP_727085-MLM31223991710_062019-F.jpg",
-      NonEdible: { create: { price: 4.6 } },
+      NonEdible: {
+        create: {
+          category: "personalCare",
+          price: 4.6,
+        },
+      },
     },
   });
 

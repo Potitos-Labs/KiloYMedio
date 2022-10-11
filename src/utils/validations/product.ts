@@ -1,15 +1,15 @@
 import * as z from "zod";
-import { Category, Allergen } from "@prisma/client";
+import { ECategory, NECategory, Allergen } from "@prisma/client";
 
 export const productSchema = z.object({
   name: z.string(),
   description: z.string(),
-  category: z.nativeEnum(Category),
   stock: z.number(),
   image: z.string(),
   Edible: z
     .object({
       price: z.number(),
+      category: z.nativeEnum(ECategory),
       nutrittionFacts: z.object({
         ingredients: z.string(),
         energy: z.number(),
@@ -22,7 +22,9 @@ export const productSchema = z.object({
       conservation: z.string().optional(),
     })
     .nullable(),
-  NonEdible: z.object({ price: z.number() }).nullable(),
+  NonEdible: z
+    .object({ price: z.number(), category: z.nativeEnum(NECategory) })
+    .nullable(),
 });
 
 export type IProduct = z.infer<typeof productSchema>;

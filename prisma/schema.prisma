@@ -107,6 +107,12 @@ model CartProduct {
     @@id([cartId, productId])
 }
 
+model ECategoryInSpanish {
+    id                String    @id @default(cuid())
+    category          ECategory @unique
+    categoryInSpanish String
+}
+
 model Client {
     userId                   String                     @id
     user                     User                       @relation(fields: [userId], references: [id])
@@ -144,11 +150,12 @@ model Edible {
     productId      String           @id
     product        Product          @relation(fields: [productId], references: [id])
     Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id])
+    category       ECategory
     nutritionFacts NutritionFacts?
     priceByWeight  Float
     origin         String?
     conservation   String?
-    EdibleAllergen EdibleAllergen[]
+    allergens      EdibleAllergen[]
     ingredientId   String           @unique
 }
 
@@ -167,9 +174,16 @@ model Ingredient {
     Edible           Edible?
 }
 
+model NECategoryInSpanish {
+    id                String     @id @default(cuid())
+    category          NECategory @unique
+    categoryInSpanish String
+}
+
 model NonEdible {
-    productId String  @id
-    product   Product @relation(fields: [productId], references: [id])
+    productId String     @id
+    product   Product    @relation(fields: [productId], references: [id])
+    category  NECategory
     price     Float
 }
 
@@ -241,7 +255,6 @@ model Post {
 
 model Product {
     id             String           @id @default(cuid())
-    Category       Category
     description    String
     Edible         Edible?
     imageURL       String
@@ -361,7 +374,7 @@ enum Allergen {
     sulphurDioxideAndSulphites
 }
 
-enum Category {
+enum ECategory {
     driedFruits
     flours
     jams
@@ -369,10 +382,16 @@ enum Category {
     nuts
     oils
     pastas
-    personalCare
     syrups
     teas
     yeast
+}
+
+enum NECategory {
+    accessories
+    cleaningProducts
+    personalCare
+    home
 }
 
 enum PostType {
