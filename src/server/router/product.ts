@@ -9,6 +9,20 @@ export const productRouter = createRouter()
       return await ctx.prisma.product.findMany();
     },
   })
+  .query("getEdibleCategoriesInSpanish", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.eCategoryInSpanish.findMany({
+        select: { categoryInSpanish: true },
+      });
+    },
+  })
+  .query("getNonEdibleCategoriesInSpanish", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.nECategoryInSpanish.findMany({
+        select: { categoryInSpanish: true },
+      });
+    },
+  })
   .query("getAllergenInSpanish", {
     async resolve({ ctx }) {
       return await ctx.prisma.allergenInSpanish.findMany();
@@ -25,7 +39,16 @@ export const productRouter = createRouter()
           name: true,
           description: true,
           imageURL: true,
-          Edible: { select: { category: true, EdibleAllergen: true } },
+          Edible: {
+            select: {
+              category: true,
+              EdibleAllergen: {
+                select: {
+                  allergen: true,
+                },
+              },
+            },
+          },
         },
         where: { id: input.id },
       });
