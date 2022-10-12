@@ -16,7 +16,11 @@ export const productRouter = createRouter()
       .default({ getImages: false }),
     async resolve({ input, ctx }) {
       return await ctx.prisma.eCategoryInSpanish.findMany({
-        select: { imageURL: input.getImages, categoryInSpanish: true },
+        select: {
+          id: true,
+          imageURL: input.getImages,
+          categoryInSpanish: true,
+        },
       });
     },
   })
@@ -27,7 +31,11 @@ export const productRouter = createRouter()
       .default({ getImages: false }),
     async resolve({ input, ctx }) {
       return await ctx.prisma.nECategoryInSpanish.findMany({
-        select: { imageURL: input.getImages, categoryInSpanish: true },
+        select: {
+          id: true,
+          imageURL: input.getImages,
+          categoryInSpanish: true,
+        },
       });
     },
   })
