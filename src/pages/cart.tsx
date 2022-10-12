@@ -7,8 +7,15 @@ import { IoTrashOutline } from "react-icons/io5";
 
 const Cart: NextPage = () => {
   const { data } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { mutateAsync } = trpc.useMutation(["cart.deleteProduct"], {
+    onSuccess() {
+      utils.invalidateQueries("cart.getAllCartProduct");
+    },
+  });
+  const utils = trpc.useContext();
 
   const [weight, setWeight] = useState(100);
+
   function incrementClick() {
     if (weight != 10000) {
       setWeight(weight + 100);
@@ -18,6 +25,10 @@ const Cart: NextPage = () => {
     if (weight != 0) {
       setWeight(weight - 100);
     }
+  }
+
+  function removeFromCart(id: string) {
+    mutateAsync({ productId: id });
   }
 
   return (
@@ -76,7 +87,12 @@ const Cart: NextPage = () => {
                         <div className="flex w-full flex-col">
                           {/* trash can */}
                           <div className="flex flex-row-reverse">
-                            <button className="h-10 bg-transparent px-2 font-semibold text-red-600">
+                            <button
+                              className="h-10 bg-transparent px-2 font-semibold text-red-600"
+                              onClick={() =>
+                                removeFromCart(cartProduct.productId)
+                              }
+                            >
                               <IoTrashOutline className="h-6 w-6"></IoTrashOutline>
                             </button>
                           </div>
