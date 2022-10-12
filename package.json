@@ -10,9 +10,10 @@
     "build": "next build",
     "start": "next start",
     "lint:next": "next lint",
-    "lint": "eslint ./",
+    "lint": "eslint ./ && tsc --noemit",
     "format": "prettier -w ./",
     "postinstall": "prisma generate",
+    "check-types": "tsc --noemit",
     "prisma:pushWithForceReset": "prisma db push --force-reset",
     "prisma:seed": "prisma db push --force-reset && prisma db seed",
     "prepare": "husky install"
