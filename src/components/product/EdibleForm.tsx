@@ -76,10 +76,8 @@ export default function EdibleForm() {
           />
           <Listbox
             list={trpc
-              .useQuery(["product.getAllergenInSpanish"])
-              .data?.map(
-                (allergen) => allergen.allergenInSpanish,
-              )} /*Aquí poner categorías*/
+              .useQuery(["product.getEdibleCategoriesInSpanish"])
+              .data?.map((ctaegory) => ctaegory.categoryInSpanish)}
           />
         </div>
         <h3>Información nutricional por cada 100gr</h3>

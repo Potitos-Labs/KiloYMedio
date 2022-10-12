@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
+import Listbox from "../Listbox";
 
 export default function NonEdibleForm() {
   const router = useRouter();
@@ -61,6 +62,11 @@ export default function NonEdibleForm() {
               placeholder="Stock"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
               {...register("stock")}
+            />
+            <Listbox
+              list={trpc
+                .useQuery(["product.getNonEdibleCategoriesInSpanish"])
+                .data?.map((category) => category.categoryInSpanish)}
             />
           </div>
         </div>
