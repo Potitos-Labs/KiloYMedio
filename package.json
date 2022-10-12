@@ -63,8 +63,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier -w",
-      "eslint --fix",
-      "next build"
+      "eslint --fix"
     ]
   },
   "packageManager": "yarn@1.22.19"
