@@ -18,7 +18,7 @@ const ProductDisplay: NextPage = () => {
             <Category
               key={category.id}
               name={category.categoryInSpanish}
-              imgUrl="foto"
+              imgUrl={category.imageURL}
               id={category.id}
             ></Category>
           ))
