@@ -31,29 +31,60 @@ async function main() {
     data: [
       /* 1 */ {
         category: "driedFruits",
+        imageURL: "",
         categoryInSpanish: "Fruta deshidratada",
       },
-      /* 1 */ { category: "flours", categoryInSpanish: "Harinas" },
-      /* 1 */ { category: "jams", categoryInSpanish: "Mermeladas" },
-      /* 1 */ { category: "legumes", categoryInSpanish: "Legumbres" },
-      /* 1 */ { category: "nuts", categoryInSpanish: "Frutos secos" },
-      /* 1 */ { category: "oils", categoryInSpanish: "Aceites" },
-      /* 1 */ { category: "pastas", categoryInSpanish: "Pastas" },
-      /* 1 */ { category: "syrups", categoryInSpanish: "Siropes" },
-      /* 1 */ { category: "teas", categoryInSpanish: "Tés" },
-      /* 1 */ { category: "yeast", categoryInSpanish: "Levaduras" },
+      /* 2 */ {
+        category: "flours",
+        imageURL: "",
+        categoryInSpanish: "Harinas",
+      },
+      /* 3 */ {
+        category: "jams",
+        imageURL: "",
+        categoryInSpanish: "Mermeladas",
+      },
+      /* 4 */ {
+        category: "legumes",
+        imageURL: "",
+        categoryInSpanish: "Legumbres",
+      },
+      /* 5 */ {
+        category: "nuts",
+        imageURL: "",
+        categoryInSpanish: "Frutos secos",
+      },
+      /* 6 */ { category: "oils", imageURL: "", categoryInSpanish: "Aceites" },
+      /* 7 */ { category: "pastas", imageURL: "", categoryInSpanish: "Pastas" },
+      /* 8 */ {
+        category: "syrups",
+        imageURL: "",
+        categoryInSpanish: "Siropes",
+      },
+      /* 9 */ { category: "teas", imageURL: "", categoryInSpanish: "Tés" },
+      /* 10 */ {
+        category: "yeast",
+        imageURL: "",
+        categoryInSpanish: "Levaduras",
+      },
     ],
   });
   const neCategoryInSpanish = await prisma.nECategoryInSpanish.createMany({
     data: [
       /* 1 */ {
         category: "cleaningProducts",
+        imageURL: "",
         categoryInSpanish: "Productos de limpieza",
       },
-      /* 1 */ { category: "accessories", categoryInSpanish: "Accesorios" },
-      /* 1 */ { category: "home", categoryInSpanish: "Hogar" },
-      /* 1 */ {
+      /* 2 */ {
+        category: "accessories",
+        imageURL: "",
+        categoryInSpanish: "Accesorios",
+      },
+      /* 3 */ { category: "home", imageURL: "", categoryInSpanish: "Hogar" },
+      /* 4 */ {
         category: "personalCare",
+        imageURL: "",
         categoryInSpanish: "Cuidado personal",
       },
     ],

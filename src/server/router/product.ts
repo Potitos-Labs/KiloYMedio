@@ -9,17 +9,25 @@ export const productRouter = createRouter()
       return await ctx.prisma.product.findMany();
     },
   })
-  .query("getEdibleCategoriesInSpanish", {
-    async resolve({ ctx }) {
+  .query("getAllEdibleCategories", {
+    input: z
+      .object({ getImages: z.boolean() })
+      .optional()
+      .default({ getImages: false }),
+    async resolve({ input, ctx }) {
       return await ctx.prisma.eCategoryInSpanish.findMany({
-        select: { categoryInSpanish: true },
+        select: { imageURL: input.getImages, categoryInSpanish: true },
       });
     },
   })
-  .query("getNonEdibleCategoriesInSpanish", {
-    async resolve({ ctx }) {
+  .query("getAllNonEdibleCategories", {
+    input: z
+      .object({ getImages: z.boolean() })
+      .optional()
+      .default({ getImages: false }),
+    async resolve({ input, ctx }) {
       return await ctx.prisma.nECategoryInSpanish.findMany({
-        select: { categoryInSpanish: true },
+        select: { imageURL: input.getImages, categoryInSpanish: true },
       });
     },
   })

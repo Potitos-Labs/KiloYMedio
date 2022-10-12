@@ -76,8 +76,8 @@ export default function EdibleForm() {
           />
           <Listbox
             list={trpc
-              .useQuery(["product.getEdibleCategoriesInSpanish"])
-              .data?.map((ctaegory) => ctaegory.categoryInSpanish)}
+              .useQuery(["product.getAllEdibleCategories"])
+              .data?.map((category) => category.categoryInSpanish)}
           />
         </div>
         <h3>Información nutricional por cada 100gr</h3>

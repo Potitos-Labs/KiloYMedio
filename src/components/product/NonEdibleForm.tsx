@@ -65,7 +65,7 @@ export default function NonEdibleForm() {
             />
             <Listbox
               list={trpc
-                .useQuery(["product.getNonEdibleCategoriesInSpanish"])
+                .useQuery(["product.getAllNonEdibleCategories"])
                 .data?.map((category) => category.categoryInSpanish)}
             />
           </div>

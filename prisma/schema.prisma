@@ -110,6 +110,7 @@ model CartProduct {
 model ECategoryInSpanish {
     id                String    @id @default(cuid())
     category          ECategory @unique
+    imageURL          String
     categoryInSpanish String
 }
 
@@ -177,6 +178,7 @@ model Ingredient {
 model NECategoryInSpanish {
     id                String     @id @default(cuid())
     category          NECategory @unique
+    imageURL          String
     categoryInSpanish String
 }
 
