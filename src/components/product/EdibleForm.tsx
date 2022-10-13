@@ -9,13 +9,15 @@ import Listbox from "../Listbox";
 export default function EdibleForm() {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<IProduct>({
+  const { register, watch, handleSubmit } = useForm<IProduct>({
     resolver: zodResolver(productSchema),
   });
 
   const allergens = trpc.useQuery(["product.getAllergenInSpanish"]).data;
 
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
+
+  console.log(watch());
 
   const onSubmit = useCallback(
     /*Cambiar */
@@ -27,6 +29,7 @@ export default function EdibleForm() {
     },
     [mutateAsync, router],
   );
+
   return (
     <form
       className="flex w-full items-center justify-center"
@@ -78,6 +81,13 @@ export default function EdibleForm() {
             list={trpc
               .useQuery(["product.getAllEdibleCategories"])
               .data?.map((category) => category.categoryInSpanish)}
+            {...register("Edible.category", { value: "driedFruits" })}
+          />
+          <input
+            type="url"
+            placeholder="Imagen URL"
+            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+            {...register("image")}
           />
         </div>
         <h3>Información nutricional por cada 100gr</h3>
@@ -111,16 +121,17 @@ export default function EdibleForm() {
             className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
             {...register("Edible.nutrittionFacts.protein")}
           />
-          <h3>Alérgenos</h3>
         </div>
+        <h3>Alérgenos</h3>
         <div className="xs:grid-cols-2 grid md:grid-cols-4">
           {allergens ? (
             allergens.map((allergen) => (
               <label key={allergen.allergen}>
                 <input
                   type="checkbox"
+                  value={allergen.allergen}
                   className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-                  {...register("Edible.allergens")} /*Arreglar esto */
+                  {...register("Edible.allergens")}
                 />
                 {allergen.allergenInSpanish}
               </label>
@@ -129,6 +140,12 @@ export default function EdibleForm() {
             <p>Cargando...</p>
           )}
         </div>
+        <button
+          className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
+          type="submit"
+        >
+          Crear producto
+        </button>
       </div>
     </form>
   );

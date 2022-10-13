@@ -9,17 +9,18 @@ import Listbox from "../Listbox";
 export default function NonEdibleForm() {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<IProduct>({
+  const { register, watch, handleSubmit } = useForm<IProduct>({
     resolver: zodResolver(productSchema),
   });
 
-  const allergens = trpc.useQuery(["product.getAllergenInSpanish"]).data;
-
+  console.log(watch());
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
 
-  const onSubmit = useCallback(
-    /*Cambiar */
+  const onSubmit = (data: IProduct) => console.log(data);
+
+  useCallback(
     async (data: IProduct) => {
+      console.log("entra en onSubmit");
       const result = await mutateAsync(data);
       if (result.status === 201) {
         router.push("/product");
@@ -27,6 +28,7 @@ export default function NonEdibleForm() {
     },
     [mutateAsync, router],
   );
+
   return (
     <form
       className="flex w-full max-w-sm items-center justify-center"
@@ -67,7 +69,21 @@ export default function NonEdibleForm() {
               list={trpc
                 .useQuery(["product.getAllNonEdibleCategories"])
                 .data?.map((category) => category.categoryInSpanish)}
+              {...register("NonEdible.category", { value: "accessories" })}
             />
+
+            <input
+              type="url"
+              placeholder="Imagen URL"
+              className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+              {...register("image")}
+            />
+            <button
+              className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
+              type="submit"
+            >
+              Crear producto
+            </button>
           </div>
         </div>
       </div>
