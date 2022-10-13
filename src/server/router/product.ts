@@ -70,7 +70,7 @@ export const productRouter = createRouter()
     },
   })
   .query("getByCategory", {
-    input: categorySchema,
+    input: z.object({ category: categorySchema }),
     async resolve({ input, ctx }) {
       let { category } = input;
 
