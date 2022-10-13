@@ -27,4 +27,12 @@ export const productSchema = z.object({
     .nullable(),
 });
 
+export const categorySchema = z.object({
+  category: z.union([
+    z.nativeEnum(ECategory),
+    z.nativeEnum(NECategory),
+    z.enum(["all"]),
+  ]),
+});
+
 export type IProduct = z.infer<typeof productSchema>;

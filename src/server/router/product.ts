@@ -1,6 +1,6 @@
 import { createRouter } from "./context";
 import { z } from "zod";
-import { productSchema } from "../../utils/validations/product";
+import { categorySchema, productSchema } from "../../utils/validations/product";
 import * as trpc from "@trpc/server";
 import { ECategory, NECategory } from "@prisma/client";
 
@@ -70,13 +70,7 @@ export const productRouter = createRouter()
     },
   })
   .query("getByCategory", {
-    input: z.object({
-      category: z.union([
-        z.nativeEnum(ECategory),
-        z.nativeEnum(NECategory),
-        z.enum(["all"]),
-      ]),
-    }),
+    input: categorySchema,
     async resolve({ input, ctx }) {
       let { category } = input;
 
