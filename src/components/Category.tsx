@@ -4,17 +4,17 @@ import { useState } from "react";
 import { trpc } from "../utils/trpc";
 function Category({
   name,
-  imgUrl,
+  //imgUrl,
   id,
 }: {
   name: string;
-  imgUrl: string;
+  //imgUrl: string;
   id: string;
 }) {
   return (
     <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
       <div className="py-6">
-        <Link href={`/product/${id}`}>
+        <Link href={`/category/${id}`}>
           <a></a>
         </Link>
       </div>

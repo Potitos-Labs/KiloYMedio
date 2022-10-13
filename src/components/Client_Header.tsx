@@ -4,7 +4,6 @@ import { signOut } from "next-auth/react";
 import { TbLogout } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { BsFillPersonFill } from "react-icons/bs";
-import Image from "next/image";
 import Link from "next/link";
 
 function Client_Header() {
