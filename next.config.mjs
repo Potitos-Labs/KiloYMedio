@@ -29,6 +29,7 @@ export default defineNextConfig({
       "www.mundorganico.co",
       "www.adonianatur.com",
       "http2.mlstatic.com",
+      "cdn.shopify.com",
     ],
     remotePatterns: [
       {
