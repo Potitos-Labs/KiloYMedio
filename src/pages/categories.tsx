@@ -4,10 +4,7 @@ import Layout from "../components/Layout";
 import Category from "../components/Category";
 
 const ProductDisplay: NextPage = () => {
-  const { data } = trpc.useQuery([
-    "product.getAllEdibleCategories",
-    { getImages: true },
-  ]);
+  const { data } = trpc.useQuery(["product.getAllEdibleCategories"]);
   console.log(data);
   return (
     <Layout>

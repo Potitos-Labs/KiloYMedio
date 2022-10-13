@@ -14,30 +14,22 @@ export const productRouter = createRouter()
     },
   })
   .query("getAllEdibleCategories", {
-    input: z
-      .object({ getImages: z.boolean() })
-      .optional()
-      .default({ getImages: false }),
-    async resolve({ input, ctx }) {
+    async resolve({ ctx }) {
       return await ctx.prisma.eCategoryInSpanish.findMany({
         select: {
           id: true,
-          imageURL: input.getImages,
+          imageURL: true,
           categoryInSpanish: true,
         },
       });
     },
   })
   .query("getAllNonEdibleCategories", {
-    input: z
-      .object({ getImages: z.boolean() })
-      .optional()
-      .default({ getImages: false }),
-    async resolve({ input, ctx }) {
+    async resolve({ ctx }) {
       return await ctx.prisma.nECategoryInSpanish.findMany({
         select: {
           id: true,
-          imageURL: input.getImages,
+          imageURL: true,
           categoryInSpanish: true,
         },
       });
