@@ -2,6 +2,7 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { productSchema } from "../../utils/validations/product";
 import * as trpc from "@trpc/server";
+import { ECategory, NECategory } from "@prisma/client";
 
 export const productRouter = createRouter()
   .query("getAllProducts", {
@@ -66,6 +67,53 @@ export const productRouter = createRouter()
         },
         where: { id: input.id },
       });
+    },
+  })
+  .query("getByCategory", {
+    input: z.object({
+      category: z.union([
+        z.nativeEnum(ECategory),
+        z.nativeEnum(NECategory),
+        z.enum(["all"]),
+      ]),
+    }),
+    async resolve({ input, ctx }) {
+      let { category } = input;
+
+      try {
+        category = z.nativeEnum(ECategory).parse(category);
+
+        return await ctx.prisma.product.findMany({
+          orderBy: {
+            name: "asc",
+          },
+          where: {
+            Edible: { category },
+          },
+        });
+      } catch {}
+
+      try {
+        category = z.nativeEnum(NECategory).parse(category);
+
+        z.nativeEnum(NECategory).parse(category);
+        return await ctx.prisma.product.findMany({
+          orderBy: {
+            name: "asc",
+          },
+          where: {
+            NonEdible: { category },
+          },
+        });
+      } catch {}
+      try {
+        z.enum(["all"]).parse(category);
+        return await ctx.prisma.product.findMany({
+          orderBy: {
+            name: "asc",
+          },
+        });
+      } catch {}
     },
   })
   .mutation("createNewProduct", {
