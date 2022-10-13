@@ -18,6 +18,7 @@ export const productRouter = createRouter()
       return await ctx.prisma.eCategoryInSpanish.findMany({
         select: {
           id: true,
+          category: true,
           imageURL: true,
           categoryInSpanish: true,
         },
@@ -29,6 +30,7 @@ export const productRouter = createRouter()
       return await ctx.prisma.nECategoryInSpanish.findMany({
         select: {
           id: true,
+          category: true,
           imageURL: true,
           categoryInSpanish: true,
         },

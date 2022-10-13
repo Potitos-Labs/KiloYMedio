@@ -3,18 +3,19 @@ import Link from "next/link";
 
 function Category({
   name,
+  englishName,
   imgURL,
   id,
 }: {
   name: string;
+  englishName: string;
   imgURL: string;
   id: string;
 }) {
   return (
     <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
       <div className="py-6">
-        <Link href={`/category/${id}`}>
-          {/* completar */}
+        <Link href={`/product?catergory=${englishName}`}>
           <a>
             <Image
               src={imgURL}
@@ -27,7 +28,7 @@ function Category({
           </a>
         </Link>
       </div>
-      <h1 className="capitalize">{name}</h1>
+      <h1 className="normal-case">{name}</h1>
     </div>
   );
 }

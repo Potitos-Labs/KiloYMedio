@@ -18,6 +18,7 @@ function Product({
       utils.invalidateQueries("cart.getAllCartProduct");
     },
   });
+
   const [weight, setWeight] = useState(100);
 
   function incrementClick() {
@@ -49,7 +50,7 @@ function Product({
           </a>
         </Link>
       </div>
-      <h1 className="capitalize">{name}</h1>
+      <h1 className="normal-case">{name}</h1>
       <div className="flex flex-row py-4">
         <button
           className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
