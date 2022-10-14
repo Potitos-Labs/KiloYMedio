@@ -39,19 +39,12 @@ const ProductDetail = ({
           <span className="font-light"> MOCKUP</span>
         </div>
 
-        <div className="item-center mx-10 mt-16 grid grid-cols-2 content-center gap-4">
-          <div className="flex flex-col items-center">
-            <Image
-              src={img}
-              alt={name}
-              width="250"
-              height="250"
-              layout="fixed"
-              objectFit="contain"
-            ></Image>
+        <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
+          <div className="mt-5  flex max-h-64 flex-col items-center">
+            <img className="min-h-full min-h-full" src={img}></img>
           </div>
 
-          <div className="mt-3  columns-1">
+          <div className="mt-5  columns-1">
             <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold capitalize">
               {name}
             </h1>
@@ -72,18 +65,17 @@ const ProductDetail = ({
               3.5 €/Kg <span className="text-red-700">MOCKUP</span>
             </p>
 
-            <div className="mt-auto grid grid-rows-2">
-              <div className="flex items-center">
+            <div className="flex items-center">
+              <div className="mr-4">
                 <IncDecButtons setWeight={setWeight} weight={weight} />
-                <button
-                  onClick={addToCart}
-                  className=" w-auto bg-button px-10   text-center font-bold text-white  hover:bg-button_hover "
-                >
-                  Añadir al Carro
-                </button>
               </div>
 
-              <div className="container flex flex-col items-center py-6"></div>
+              <button
+                onClick={addToCart}
+                className=" rounded border border-button bg-transparent py-0.5 px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white  "
+              >
+                Añadir al Carro
+              </button>
             </div>
           </div>
         </div>
@@ -99,7 +91,7 @@ const ProductDetail = ({
 
 const DescriptionComponent = ({ description }: { description: string }) => {
   return (
-    <div className="mt-6 p-10">
+    <div className="mt-6 p-6">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
           Descripción del producto
@@ -112,7 +104,7 @@ const DescriptionComponent = ({ description }: { description: string }) => {
 
 const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   return (
-    <div className="mt-6 p-10">
+    <div className=" p-6">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
           Descripción de los alérgenos
