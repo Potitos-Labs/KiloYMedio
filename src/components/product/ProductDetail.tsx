@@ -2,25 +2,34 @@ import { Allergen } from "@prisma/client";
 import React from "react";
 import Stars from "../Stars";
 import AllergensComponent from "../Allergen";
+import IncDecButtons from "./IncDecButtons";
+import { trpc } from "../../utils/trpc";
 
 const ProductDetail = ({
   name,
   img,
   description,
   allergensList,
+  id,
 }: {
   name: string;
   img: string;
   description: string;
   allergensList: Allergen[];
+  id: string;
 }) => {
   const [weight, setWeight] = React.useState(100);
-  const IncrementWeight = () => {
-    setWeight(weight + 100);
-  };
-  const DecrementWeight = () => {
-    if (weight > 0) setWeight(weight - 100);
-  };
+  const utils = trpc.useContext();
+  const mutation = trpc.useMutation(["cart.addProduct"], {
+    onSuccess() {
+      utils.invalidateQueries("cart.getAllCartProduct");
+    },
+  });
+
+  function addToCart() {
+    mutation.mutateAsync({ productId: id, amount: weight });
+  }
+
   return (
     <div className="">
       <div>
@@ -58,27 +67,11 @@ const ProductDetail = ({
             </p>
 
             <div className="mt-auto ">
+              <IncDecButtons setWeight={setWeight} weight={weight} />
               <button
-                className=" h-7 w-7 bg-button  font-bold text-white hover:bg-button_hover"
-                onClick={DecrementWeight}
+                onClick={addToCart}
+                className="rigth my-4 ml-6 inline-block h-7 bg-button px-4  text-center font-bold text-white  hover:bg-button_hover "
               >
-                -
-              </button>
-
-              <input
-                className="mx-2 border-2  text-center "
-                type="number"
-                value={weight}
-              />
-
-              <button
-                className="mr-2  h-7 w-7 bg-button font-bold   text-white hover:bg-button_hover"
-                onClick={IncrementWeight}
-              >
-                +
-              </button>
-
-              <button className="rigth my-4 ml-6 inline-block h-7 bg-button px-4  text-center font-bold text-white  hover:bg-button_hover ">
                 Añadir al Carro
               </button>
             </div>
@@ -99,7 +92,7 @@ const DescriptionComponent = ({ description }: { description: string }) => {
     <div className="mt-6 px-10">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 inline-block text-left text-xl font-bold capitalize">
-          Descripción del Producto
+          Descripción del producto
         </h2>
       </div>
       <p className="mt-2 ml-2">{description}</p>
@@ -112,7 +105,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
     <div className="mt-6 px-10">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 inline-block text-left text-xl font-bold capitalize">
-          Descripción de los alergenos
+          Descripción de los alérgenos
         </h2>
       </div>
       {allergens.map((allergen) => (
