@@ -2,7 +2,12 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { categorySchema, productSchema } from "../../utils/validations/product";
 import * as trpc from "@trpc/server";
-import { Allergen, ECategory, NECategory } from "@prisma/client";
+import {
+  Allergen,
+  AllergenInSpanish,
+  ECategory,
+  NECategory,
+} from "@prisma/client";
 
 export const productRouter = createRouter()
   .query("getAllProducts", {
@@ -43,15 +48,14 @@ export const productRouter = createRouter()
       return await ctx.prisma.allergenInSpanish.findMany();
     },
   })
-  .query("getAllergenInSpanish", {
-    input: z.object({
-      allergen: z.nativeEnum(Allergen),
-    }),
-    async resolve({ ctx, input: { allergen } }) {
-      return await ctx.prisma.allergenInSpanish.findFirst({
-        where: { allergen },
-        select: { allergenInSpanish: true },
+  .query("getAllergenInSpanishDictionary", {
+    async resolve({ ctx }) {
+      const allergen = await ctx.prisma.allergenInSpanish.findMany();
+      const dictionary = new Map<Allergen, string>();
+      allergen.forEach((a) => {
+        dictionary.set(a.allergen, a.allergenInSpanish);
       });
+      return dictionary;
     },
   })
   .query("getById", {
