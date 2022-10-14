@@ -11,12 +11,14 @@ const ProductDetail = ({
   img,
   description,
   allergensList,
+  price,
   id,
 }: {
   name: string;
   img: string;
   description: string;
   allergensList: Allergen[];
+  price: number;
   id: string;
 }) => {
   const [weight, setWeight] = React.useState(100);
@@ -41,7 +43,7 @@ const ProductDetail = ({
 
         <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
           <div className="mt-5  flex max-h-64 flex-col items-center">
-            <img className="min-h-full min-h-full" src={img}></img>
+            <img className="min-h-full" src={img}></img>
           </div>
 
           <div className="mt-5  columns-1">
@@ -62,7 +64,7 @@ const ProductDetail = ({
 
             <p className="mt-4">Precio:</p>
             <p className="mb-3 inline-block text-left text-xl  capitalize">
-              3.5 €/Kg <span className="text-red-700">MOCKUP</span>
+              {price} €/Kg
             </p>
 
             <div className="flex items-center">
@@ -103,6 +105,9 @@ const DescriptionComponent = ({ description }: { description: string }) => {
 };
 
 const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
+  const { data: allergenTransalator } = trpc.useQuery([
+    "product.getAllergenInSpanishDictionary",
+  ]);
   return (
     <div className=" p-6">
       <div className="border-b-2 border-orange-400">
@@ -113,10 +118,12 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
       {allergens.map((allergen) => (
         <div className="mt-2 ml-2 flex py-2 align-middle" key={allergen}>
           <AllergensComponent
-            allergens={allergens}
+            allergens={[allergen]}
             size={30}
           ></AllergensComponent>
-          <p className="ml-2  inline-block normal-case">{allergen}</p>
+          <p className="ml-2  inline-block normal-case">
+            {allergenTransalator?.get(allergen)}
+          </p>
         </div>
       ))}
     </div>

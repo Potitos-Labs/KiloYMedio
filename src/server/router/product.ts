@@ -71,6 +71,7 @@ export const productRouter = createRouter()
           imageURL: true,
           Edible: {
             select: {
+              priceByWeight: true,
               category: true,
               allergens: {
                 select: {
