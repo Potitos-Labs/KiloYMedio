@@ -97,7 +97,7 @@ const DescriptionComponent = ({ description }: { description: string }) => {
           Descripción del producto
         </h2>
       </div>
-      <p className="mt-2 ml-2">{description}</p>
+      <p className="mt-2 ml-2 normal-case">{description}</p>
     </div>
   );
 };
@@ -116,7 +116,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
             allergens={allergens}
             size={30}
           ></AllergensComponent>
-          <p className="ml-2  inline-block">{allergen}</p>
+          <p className="ml-2  inline-block normal-case">{allergen}</p>
         </div>
       ))}
     </div>
