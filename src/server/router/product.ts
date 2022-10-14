@@ -80,6 +80,11 @@ export const productRouter = createRouter()
               },
             },
           },
+          NonEdible: {
+            select: {
+              price: true,
+            },
+          },
         },
         where: { id: input.id },
       });

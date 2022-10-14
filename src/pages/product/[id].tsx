@@ -9,6 +9,7 @@ const ProductDetails: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
   const { data, isFetched } = trpc.useQuery(["product.getById", { id }]);
+  const isEdible = Boolean(data?.Edible);
   if (data)
     return (
       <Layout>
@@ -16,8 +17,9 @@ const ProductDetails: NextPage = () => {
           name={data.name}
           img={data.imageURL}
           description={data.description}
+          isEdible={isEdible}
           allergensList={data.Edible?.allergens.map((e) => e.allergen) ?? []}
-          price={data.Edible?.priceByWeight ?? 0}
+          price={data.Edible?.priceByWeight ?? data.NonEdible?.price ?? 0}
           id={data.id}
         />
       </Layout>

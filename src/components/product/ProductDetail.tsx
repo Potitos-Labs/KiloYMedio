@@ -10,6 +10,7 @@ const ProductDetail = ({
   name,
   img,
   description,
+  isEdible,
   allergensList,
   price,
   id,
@@ -17,6 +18,7 @@ const ProductDetail = ({
   name: string;
   img: string;
   description: string;
+  isEdible: boolean;
   allergensList: Allergen[];
   price: number;
   id: string;
@@ -64,7 +66,7 @@ const ProductDetail = ({
 
             <p className="mt-4">Precio:</p>
             <p className="mb-3 inline-block text-left text-xl  capitalize">
-              {price} €/Kg
+              {price} {isEdible ? <span> €/Kg </span> : <span> € </span>}
             </p>
 
             <div className="flex items-center">
