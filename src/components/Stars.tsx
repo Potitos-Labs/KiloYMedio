@@ -9,7 +9,7 @@ const stars = [0, 0, 0, 0, 0];
 
 const Stars = ({ average }: { average: number }) => {
   return (
-    <div className="mx-6 inline-block items-center items-center">
+    <div className=" inline-block items-center items-center">
       {fromIntToArray(average).map((number) => fromIntToStar(number))}
     </div>
   );
