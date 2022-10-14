@@ -30,6 +30,7 @@ export default defineNextConfig({
       "www.adonianatur.com",
       "http2.mlstatic.com",
       "cdn.shopify.com",
+      "images.pexels.com",
     ],
     remotePatterns: [
       {

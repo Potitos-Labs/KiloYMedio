@@ -9,16 +9,18 @@ import Listbox from "../Listbox";
 export default function NonEdibleForm() {
   const router = useRouter();
 
-  const { register, watch, handleSubmit } = useForm<IProduct>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IProduct>({
     resolver: zodResolver(productSchema),
   });
 
-  console.log(watch());
+  console.log({ errors });
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
 
-  const onSubmit = (data: IProduct) => console.log(data);
-
-  useCallback(
+  const onSubmit = useCallback(
     async (data: IProduct) => {
       console.log("entra en onSubmit");
       const result = await mutateAsync(data);
@@ -57,13 +59,17 @@ export default function NonEdibleForm() {
               type="number"
               placeholder="Precio"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-              {...register("NonEdible.price")}
+              {...register("NonEdible.price", {
+                valueAsNumber: true,
+              })}
             />
             <input
               type="number"
               placeholder="Stock"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-              {...register("stock")}
+              {...register("stock", {
+                valueAsNumber: true,
+              })}
             />
             <Listbox
               list={trpc

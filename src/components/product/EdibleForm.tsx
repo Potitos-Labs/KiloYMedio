@@ -17,8 +17,6 @@ export default function EdibleForm() {
 
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
 
-  console.log(watch());
-
   const onSubmit = useCallback(
     /*Cambiar */
     async (data: IProduct) => {
@@ -33,7 +31,10 @@ export default function EdibleForm() {
   return (
     <form
       className="flex w-full items-center justify-center"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={async (e) => {
+        e.preventDefault;
+        console.log("hola");
+      }}
     >
       <div className="m-10 w-full p-12 shadow-xl">
         <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-blue-500">

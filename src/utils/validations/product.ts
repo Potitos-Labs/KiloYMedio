@@ -21,10 +21,10 @@ export const productSchema = z.object({
       origin: z.string().optional(),
       conservation: z.string().optional(),
     })
-    .nullable(),
+    .optional(),
   NonEdible: z
     .object({ price: z.number(), category: z.nativeEnum(NECategory) })
-    .nullable(),
+    .optional(),
 });
 
 export const categorySchema = z.union([

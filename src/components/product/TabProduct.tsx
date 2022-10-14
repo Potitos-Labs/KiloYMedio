@@ -4,7 +4,7 @@ import EdibleForm from "./EdibleForm";
 import NonEdibleForm from "./NonEdibleForm";
 
 export default function TabProduct() {
-  const [typeProduct] = useState({
+  const typeProduct = {
     Edible: {
       name: "Comestible",
       form: <EdibleForm></EdibleForm>,
@@ -13,7 +13,7 @@ export default function TabProduct() {
       name: "No comestible",
       form: <NonEdibleForm></NonEdibleForm>,
     },
-  });
+  };
 
   return (
     <div className="m-auto flex w-full flex-col items-center px-2 py-16 sm:px-0">
