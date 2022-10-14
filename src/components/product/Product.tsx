@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 import IncDecButtons from "./IncDecButtons";
 
@@ -13,6 +14,7 @@ function Product({
   imgUrl: string;
   id: string;
 }) {
+  const notify = () => toast("Producto añadido");
   const [weight, setWeight] = useState(100);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
@@ -22,6 +24,7 @@ function Product({
   });
 
   function addToCart() {
+    notify();
     mutation.mutateAsync({ productId: id, amount: weight });
   }
 
