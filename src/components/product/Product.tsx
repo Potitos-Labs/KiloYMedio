@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { trpc } from "../../utils/trpc";
+import IncDecButtons from "./IncDecButtons";
 
 function Product({
   name,
@@ -12,6 +13,7 @@ function Product({
   imgUrl: string;
   id: string;
 }) {
+  const [weight, setWeight] = useState(100);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
     onSuccess() {
@@ -19,18 +21,6 @@ function Product({
     },
   });
 
-  const [weight, setWeight] = useState(100);
-
-  function incrementClick() {
-    if (weight != 10000) {
-      setWeight(weight + 100);
-    }
-  }
-  function decrementClick() {
-    if (weight != 0) {
-      setWeight(weight - 100);
-    }
-  }
   function addToCart() {
     mutation.mutateAsync({ productId: id, amount: weight });
   }
@@ -51,21 +41,7 @@ function Product({
         </Link>
       </div>
       <h1 className="normal-case">{name}</h1>
-      <div className="flex flex-row py-4">
-        <button
-          className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
-          onClick={decrementClick}
-        >
-          -
-        </button>
-        <p className="mx-2 rounded-md border-2 px-4">{weight} g</p>
-        <button
-          className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
-          onClick={incrementClick}
-        >
-          +
-        </button>
-      </div>
+      <IncDecButtons setWeight={setWeight} weight={weight} />
       <div>
         <button
           onClick={addToCart}

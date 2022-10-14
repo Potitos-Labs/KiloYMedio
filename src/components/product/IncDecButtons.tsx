@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-function IncDecButtons() {
-  const [weight, setWeight] = useState(100);
-
+function IncDecButtons({
+  setWeight,
+  weight,
+}: {
+  setWeight: Dispatch<SetStateAction<number>>;
+  weight: number;
+}) {
   function incrementClick() {
     if (weight != 10000) {
       setWeight(weight + 100);
