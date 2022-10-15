@@ -6,7 +6,7 @@ import { useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
 const Cart: NextPage = () => {
-  const { data } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
   const { mutateAsync } = trpc.useMutation(["cart.deleteProduct"], {
     onSuccess() {
       utils.invalidateQueries("cart.getAllCartProduct");
@@ -45,8 +45,8 @@ const Cart: NextPage = () => {
                 </h1>
               </div>
               <div className="m-0 grid gap-4 p-4">
-                {data ? (
-                  data.map((cartProduct) => (
+                {cartProducts ? (
+                  cartProducts.map((cartProduct) => (
                     <div key={cartProduct.productId}>
                       {/* Shopping cart products*/}
                       <div className="flex flex-row border-2 border-solid border-black">
@@ -99,7 +99,7 @@ const Cart: NextPage = () => {
                           {/* price */}
                           <div className="flex h-full flex-row-reverse">
                             <span className="self-end px-3 py-2">
-                              *insertar precio*€
+                              {cartProduct.price.toFixed(2)} €
                             </span>
                           </div>
                         </div>
@@ -125,15 +125,17 @@ const Cart: NextPage = () => {
                   {/* Bill -> Products */}
                   <h2 className="p-3 text-xl font-bold">Productos:</h2>
                   <div className="m-0 grid gap-4 pl-6 pr-3">
-                    {data ? (
-                      data.map((cartProduct) => (
+                    {cartProducts ? (
+                      cartProducts.map((cartProduct) => (
                         <div key={cartProduct.productId}>
                           <div className="grid grid-cols-[50%_30%_20%] items-center">
                             <div className="capitalize">
                               {cartProduct.product.name}
                             </div>
                             <div>{cartProduct.amount} gr</div>
-                            <div className="grid justify-end">Precio</div>
+                            <div className="grid justify-end">
+                              {cartProduct.price.toFixed(2)} €
+                            </div>
                           </div>
                         </div>
                       ))
@@ -156,7 +158,9 @@ const Cart: NextPage = () => {
                     <h2 className="text-xl font-bold">IVA:</h2>
                     <div className="grid justify-end">Precio</div>
                     <h2 className="text-xl font-bold">Total:</h2>
-                    <div className="grid justify-end">Precio</div>
+                    <div className="grid justify-end">
+                      {cartProducts?.reduce((sum, i) => sum + i.price, 0)}
+                    </div>
                   </div>
                 </section>
                 {/* End Bill -> Summary */}
