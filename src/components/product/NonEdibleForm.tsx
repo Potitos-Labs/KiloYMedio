@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
 import Listbox from "../Listbox";
+import { NECategory } from "@prisma/client";
+import { z } from "zod";
 
 export default function NonEdibleForm() {
   const router = useRouter();
+  const [category, setCategory] = useState("");
 
   const {
     register,
@@ -20,8 +23,16 @@ export default function NonEdibleForm() {
     resolver: zodResolver(productSchema),
   });
 
+  useEffect(() => {
+    try {
+      const neCategory = z.nativeEnum(NECategory).parse(category);
+      setValue("NonEdible.category", neCategory);
+    } catch (error) {
+      console.log("error en useEffect");
+    }
+  }, [category, setValue]);
+
   console.log(watch());
-  console.log({ errors }, control);
 
   const { data: categories } = trpc.useQuery([
     "product.getAllNonEdibleCategories",
@@ -97,7 +108,14 @@ export default function NonEdibleForm() {
                 );
               }}
             />*/}
-            <Listbox list={categories ?? []} setValue={setValue} />
+            <Listbox
+              list={
+                categories?.map((c) => {
+                  return { text: c.categoryInSpanish, value: c.category };
+                }) ?? []
+              }
+              setValue={setCategory}
+            />
             <input
               type="url"
               placeholder="Imagen URL"
