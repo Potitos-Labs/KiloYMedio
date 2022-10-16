@@ -78,12 +78,12 @@ export default function EdibleForm() {
             className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
             {...register("stock")}
           />
-          <Listbox
+          {/*<Listbox
             list={trpc
               .useQuery(["product.getAllEdibleCategories"])
               .data?.map((category) => category.categoryInSpanish)}
             {...register("Edible.category", { value: "driedFruits" })}
-          />
+          />*/}
           <input
             type="url"
             placeholder="Imagen URL"

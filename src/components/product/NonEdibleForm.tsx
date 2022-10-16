@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
@@ -12,12 +12,21 @@ export default function NonEdibleForm() {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<IProduct>({
     resolver: zodResolver(productSchema),
   });
 
-  console.log({ errors });
+  console.log(watch());
+  console.log({ errors }, control);
+
+  const { data: categories } = trpc.useQuery([
+    "product.getAllNonEdibleCategories",
+  ]);
+
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
 
   const onSubmit = useCallback(
@@ -46,43 +55,55 @@ export default function NonEdibleForm() {
               type="text"
               placeholder="Nombre del producto"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-              {...register("name")}
+              {...register("name", { required: true })}
             />
             <input
               type="text"
               placeholder="Descripción"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-              {...register("description")}
+              required
+              {...register("description", { required: true })}
             />
-            {/*Falta imagen */}
             <input
               type="number"
               placeholder="Precio"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+              required
               {...register("NonEdible.price", {
                 valueAsNumber: true,
+                required: true,
               })}
             />
             <input
               type="number"
               placeholder="Stock"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+              required
               {...register("stock", {
                 valueAsNumber: true,
+                required: true,
               })}
             />
-            <Listbox
-              list={trpc
-                .useQuery(["product.getAllNonEdibleCategories"])
-                .data?.map((category) => category.categoryInSpanish)}
-              {...register("NonEdible.category", { value: "accessories" })}
-            />
-
+            {/*<Controller
+              name="NonEdible.category"
+              control={control}
+              render={({ field: { value, onChange } }) => {
+                return (
+                  <Listbox
+                    list={categories}
+                    value={value}
+                    onChange={onChange}
+                  />
+                );
+              }}
+            />*/}
+            <Listbox list={categories ?? []} setValue={setValue} />
             <input
               type="url"
               placeholder="Imagen URL"
               className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-              {...register("image")}
+              required
+              {...register("image", { required: true })}
             />
             <button
               className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
