@@ -107,8 +107,8 @@ const PaymentGateway = () => {
           Código Postal
         </span>
         <input
-          className="peer rounded-md border-2 border-gray-200 py-2 pl-12 pr-2 placeholder-gray-300"
-          type="text"
+          className="peer appearance-none rounded-md border-2 border-gray-200 py-2 pl-12 pr-2 placeholder-gray-300  "
+          type="number"
           name="card_cvc"
           pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
           placeholder="Código Postal"
@@ -134,7 +134,7 @@ const PaymentGateway = () => {
         <span className="mb-3 font-bold">Numero de Tarjeta de Crédito</span>
         <input
           className="peer rounded-md border-2 border-gray-200 py-2 pl-12 pr-2 placeholder-gray-300"
-          type="text"
+          type="number"
           name="card_number"
           pattern="^[0-9]{16}$"
           placeholder="0000 0000 0000 0000"
