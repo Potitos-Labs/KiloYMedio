@@ -1,11 +1,12 @@
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
+import PaymentGateway from "../components/PaymentGateway";
 import Image from "next/image";
 import { useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
-const Cart: NextPage = () => {
+const Payment = () => {
   const { data } = trpc.useQuery(["cart.getAllCartProduct"]);
 
   return (
@@ -21,7 +22,9 @@ const Cart: NextPage = () => {
                   Carrito de compra
                 </h1>
               </div>
-              <div className="m-0 grid gap-4 p-4"></div>
+              <div className="m-0 grid gap-4 p-4">
+                <PaymentGateway></PaymentGateway>
+              </div>
             </div>
           </section>
           {/*End Shopping cart*/}
@@ -82,4 +85,4 @@ const Cart: NextPage = () => {
   );
 };
 
-export default Cart;
+export default Payment;
