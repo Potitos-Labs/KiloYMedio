@@ -5,6 +5,7 @@ import AllergensComponent from "../Allergen";
 import IncDecButtons from "./IncDecButtons";
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProductDetail = ({
   name,
@@ -39,8 +40,12 @@ const ProductDetail = ({
     <div className="">
       <div>
         <div className="bg-kym3 p-4 font-bold text-white">
-          Producto / Comestible / Mi Producto{" "}
-          <span className="font-light"> MOCKUP</span>
+          {isEdible ? (
+            <Link href={`/category`}>Comestible </Link>
+          ) : (
+            <Link href={`/category`}>No Comestible</Link>
+          )}
+          {}
         </div>
 
         <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
