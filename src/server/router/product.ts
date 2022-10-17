@@ -178,8 +178,8 @@ export const productRouter = createRouter()
           },
         });
 
-        Edible.allergens.map((allergen) => {
-          ctx.prisma.edibleAllergen.create({
+        Edible.allergens.map(async (allergen) => {
+          await ctx.prisma.edibleAllergen.create({
             data: { allergen, edibleId: productEdible.id },
           });
         });

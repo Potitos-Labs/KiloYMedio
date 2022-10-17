@@ -8,15 +8,12 @@ export default function MyListbox(
       value: string;
       text: string;
     }[];
+    label?: string;
   } & { setValue: Dispatch<SetStateAction<string>> },
 ) {
   const [selected, setSelected] = useState("Ninguno");
 
-  /*const {
-    field: { value, onChange },
-  } = useController(props);*/
-
-  const { list, setValue } = props;
+  const { list, label, setValue } = props;
 
   function handleChange(input: string) {
     setSelected(input);
@@ -26,15 +23,18 @@ export default function MyListbox(
   return (
     <Listbox value={selected} onChange={handleChange}>
       <div className="relative mt-1">
-        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-          <span className="block truncate">{selected}</span>
-          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-            <BsChevronDown
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </span>
-        </Listbox.Button>
+        <div className="flex flex-row place-content-between">
+          <Listbox.Label>{label}</Listbox.Label>
+          <Listbox.Button className="relative ml-2 -mt-1 w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate">{selected}</span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <BsChevronDown
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </span>
+          </Listbox.Button>
+        </div>
         <Transition
           as={Fragment}
           leave="transition ease-in duration-100"
@@ -52,7 +52,22 @@ export default function MyListbox(
                 }
                 value={text}
               >
-                {({ selected }) => <>{text}</>}
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={`block truncate ${
+                        selected ? "font-medium" : "font-normal"
+                      }`}
+                    >
+                      {text}
+                    </span>
+                    {selected ? (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <BsCheck className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    ) : null}
+                  </>
+                )}
               </Listbox.Option>
             ))}
           </Listbox.Options>

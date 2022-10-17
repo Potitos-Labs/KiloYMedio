@@ -1,24 +1,39 @@
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";
+import { ECategory } from "@prisma/client";
 import Listbox from "../Listbox";
+import { z } from "zod";
 
 export default function EdibleForm() {
   const router = useRouter();
+  const [category, setCategory] = useState("");
 
-  const { register, watch, handleSubmit } = useForm<IProduct>({
+  const { register, setValue, handleSubmit } = useForm<IProduct>({
     resolver: zodResolver(productSchema),
   });
 
-  const allergens = trpc.useQuery(["product.getAllAllergensInSpanish"]).data;
-
+  const { data: allergens } = trpc.useQuery([
+    "product.getAllAllergensInSpanish",
+  ]);
+  const { data: categories } = trpc.useQuery([
+    "product.getAllEdibleCategories",
+  ]);
   const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
 
+  useEffect(() => {
+    try {
+      const eCategory = z.nativeEnum(ECategory).parse(category);
+      setValue("Edible.category", eCategory);
+    } catch (error) {
+      console.log("error en useEffect");
+    }
+  }, [category, setValue]);
+
   const onSubmit = useCallback(
-    /*Cambiar */
     async (data: IProduct) => {
       const result = await mutateAsync(data);
       if (result.status === 201) {
@@ -31,118 +46,154 @@ export default function EdibleForm() {
   return (
     <form
       className="flex w-full items-center justify-center"
-      onSubmit={async (e) => {
-        e.preventDefault;
-        console.log("hola");
-      }}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="m-10 w-full p-12 shadow-xl">
-        <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-blue-500">
-          NUEVO PRODUCTO COMESTIBLE
+      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
+        <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
+          Nuevo producto comestible
         </h2>
-        <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <input
             type="text"
-            placeholder="Nombre del producto"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("name")}
+            placeholder="Nombre del producto *"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+            required
+            {...register("name", { required: true })}
           />
           <input
             type="text"
-            placeholder="Descripción"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("description")}
+            placeholder="Descripción *"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+            required
+            {...register("description", { required: true })}
           />
+          <input
+            type="number"
+            placeholder="Precio/kg *"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+            min={0}
+            required
+            {...register("Edible.price", {
+              valueAsNumber: true,
+              required: true,
+            })}
+          />
+          <input
+            type="number"
+            placeholder="Stock(gr) *"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+            min={0}
+            required
+            {...register("stock", {
+              valueAsNumber: true,
+              required: true,
+            })}
+          />
+
           <input
             type="text"
             placeholder="Origen del producto"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             {...register("Edible.origin")}
           />
           <input
             type="text"
             placeholder="Conservación"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             {...register("Edible.conservation")}
           />
-          {/*Falta imagen */}
-          <input
-            type="number"
-            placeholder="Precio/kg"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("Edible.price")}
-          />
-          <input
-            type="number"
-            placeholder="Stock"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("stock")}
-          />
-          {/*<Listbox
-            list={trpc
-              .useQuery(["product.getAllEdibleCategories"])
-              .data?.map((category) => category.categoryInSpanish)}
-            {...register("Edible.category", { value: "driedFruits" })}
-          />*/}
           <input
             type="url"
-            placeholder="Imagen URL"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("image")}
+            placeholder="Imagen URL *"
+            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+            {...register("image", { required: true })}
+          />
+          <Listbox
+            list={
+              categories?.map((c) => {
+                return { value: c.category, text: c.categoryInSpanish };
+              }) ?? []
+            }
+            label="Categoría: "
+            setValue={setCategory}
           />
         </div>
-        <h3>Información nutricional por cada 100gr</h3>
-        <div className="xs:grid-cols-1 mt-4 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-          <textarea
-            placeholder="Ingredientes"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8 sm:col-span-2 md:col-span-4"
-            {...register("Edible.nutrittionFacts.ingredients")}
-          />
-          <input
-            type="number"
-            placeholder="Energía (kcal)"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("Edible.nutrittionFacts.energy")}
-          />
-          <input
-            type="number"
-            placeholder="Grasas"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("Edible.nutrittionFacts.fat")}
-          />
-          <input
-            type="number"
-            placeholder="Hidratos de carbono"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("Edible.nutrittionFacts.carbohydrates")}
-          />
-          <input
-            type="number"
-            placeholder="Proteina"
-            className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-            {...register("Edible.nutrittionFacts.protein")}
-          />
+        <div>
+          <h3 className="mt-8 mb-8 text-center font-semibold sm:mx-[10%] sm:bg-black sm:leading-[0.09]">
+            <span className="bg-white px-2">
+              Información nutricional por cada 100gr
+            </span>
+          </h3>
+          <div className="xs:grid-cols-1 m-6 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+            <textarea
+              placeholder="Ingredientes *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8 sm:col-span-2 md:col-span-4"
+              {...register("Edible.nutrittionFacts.ingredients", {
+                required: true,
+              })}
+            />
+            <input
+              type="number"
+              placeholder="Energía(kcal) *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              {...register("Edible.nutrittionFacts.energy", {
+                valueAsNumber: true,
+                required: true,
+              })}
+            />
+            <input
+              type="number"
+              placeholder="Grasas *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              {...register("Edible.nutrittionFacts.fat", {
+                valueAsNumber: true,
+                required: true,
+              })}
+            />
+            <input
+              type="number"
+              placeholder="Hidratos de carbono *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              {...register("Edible.nutrittionFacts.carbohydrates", {
+                valueAsNumber: true,
+                required: true,
+              })}
+            />
+            <input
+              type="number"
+              placeholder="Proteina *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              {...register("Edible.nutrittionFacts.protein", {
+                valueAsNumber: true,
+                required: true,
+              })}
+            />
+          </div>
         </div>
-        <h3>Alérgenos</h3>
-        <div className="xs:grid-cols-2 grid md:grid-cols-4">
-          {allergens ? (
-            allergens.map((allergen) => (
-              <label key={allergen.allergen}>
-                <input
-                  type="checkbox"
-                  value={allergen.allergen}
-                  className="mb-4 border-l-4 border-l-blue-500 bg-gray-100 py-1 px-8"
-                  {...register("Edible.allergens")}
-                />
-                {allergen.allergenInSpanish}
-              </label>
-            ))
-          ) : (
-            <p>Cargando...</p>
-          )}
+        <div className="w-full">
+          <h3 className="mt-8 mb-8 text-center font-semibold sm:mx-[10%] sm:bg-black sm:leading-[0.09]">
+            <span className="bg-white px-2">Alérgenos</span>
+          </h3>
+          <div className="m-6 grid w-full sm:grid-cols-2 md:ml-[10%] md:grid-cols-4">
+            {allergens ? (
+              allergens.map((allergen) => (
+                <label key={allergen.allergen}>
+                  <input
+                    type="checkbox"
+                    value={allergen.allergen}
+                    className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+                    {...register("Edible.allergens")}
+                  />
+                  {allergen.allergenInSpanish}
+                </label>
+              ))
+            ) : (
+              <p>Cargando...</p>
+            )}
+          </div>
         </div>
         <button
-          className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
+          className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
           type="submit"
         >
           Crear producto

@@ -18,17 +18,17 @@ export default function TabProduct() {
   return (
     <div className="m-auto flex w-full flex-col items-center px-2 py-16 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex max-w-md space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="flex max-w-lg space-x-1 rounded-xl bg-kym2/[0.9] p-1">
           {Object.values(typeProduct).map((type) => (
             <Tab
               key={type.name}
               className={({ selected }) =>
                 classNames(
-                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                  "text-bold text-md w-40 rounded-lg py-2.5 text-lg font-medium leading-5 md:w-44",
+                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-kym2 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white",
+                    ? "bg-white text-kym2 shadow"
+                    : "text-white hover:bg-kym2/[0.12] hover:text-white",
                 )
               }
             >
