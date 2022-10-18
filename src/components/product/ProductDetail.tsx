@@ -27,7 +27,7 @@ const ProductDetail = ({
   stock: number;
 }) => {
   const notify = () => toast.success("Producto añadido");
-  const [amount, setAmount] = React.useState(100);
+  const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
     onSuccess() {
@@ -86,7 +86,7 @@ const ProductDetail = ({
                   setAmount={setAmount}
                   amount={amount}
                   stock={stock}
-                  unit={"g"}
+                  isEdible={isEdible}
                 />
               </div>
 

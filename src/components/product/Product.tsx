@@ -10,16 +10,16 @@ function Product({
   imgUrl,
   id,
   stock,
-  unit,
+  isEdible,
 }: {
   name: string;
   imgUrl: string;
   id: string;
   stock: number;
-  unit: string;
+  isEdible: boolean;
 }) {
   const notify = () => toast.success("Producto añadido");
-  const [amount, setAmount] = useState(unit == "g" ? 100 : 1);
+  const [amount, setAmount] = useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
     onSuccess() {
@@ -55,7 +55,7 @@ function Product({
         setAmount={setAmount}
         amount={amount}
         stock={stock}
-        unit={unit}
+        isEdible={isEdible}
       />
       <div>
         <button

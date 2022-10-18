@@ -4,15 +4,15 @@ function IncDecButtons({
   setAmount,
   amount,
   stock,
-  unit,
+  isEdible,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
   amount: number;
   stock: number;
-  unit: string;
+  isEdible: boolean;
 }) {
   function incrementClick() {
-    if (amount != 10000 && amount + 100 <= stock * 1000 && unit === "g") {
+    if (amount != 10000 && amount + 100 <= stock * 1000 && isEdible) {
       setAmount(amount + 100);
     } else if (amount != 100 && amount + 1 <= stock) {
       setAmount(amount + 1);
@@ -20,7 +20,7 @@ function IncDecButtons({
   }
 
   function decrementClick() {
-    if (amount != 0 && unit === "g") {
+    if (amount != 0 && isEdible) {
       setAmount(amount - 100);
     } else if (amount != 0) {
       setAmount(amount - 1);
@@ -36,7 +36,7 @@ function IncDecButtons({
         -
       </button>
       <p className="mx-2 rounded-md border-2 px-4">
-        {amount} {unit}
+        {amount} {isEdible ? "g" : "u"}
       </p>
       <button
         className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
