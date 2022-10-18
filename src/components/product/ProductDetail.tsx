@@ -4,7 +4,6 @@ import Stars from "../Stars";
 import AllergensComponent from "../Allergen";
 import IncDecButtons from "./IncDecButtons";
 import { trpc } from "../../utils/trpc";
-import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
@@ -48,7 +47,7 @@ const ProductDetail = ({
       <div>
         <div className="bg-kym3 p-4 font-bold text-white">
           {isEdible ? (
-            <Link href={`/category`}>Comestible </Link>
+            <Link href={`/category`}>Comestible</Link>
           ) : (
             <Link href={`/category`}>No Comestible</Link>
           )}
@@ -94,7 +93,7 @@ const ProductDetail = ({
                 onClick={addToCart}
                 className=" rounded border border-button bg-transparent py-0.5 px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white  "
               >
-                Añadir al Carro
+                Añadir al carrito
               </button>
             </div>
           </div>

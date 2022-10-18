@@ -10,7 +10,7 @@ function IncDecButtons({
   stock: number;
 }) {
   function incrementClick() {
-    if (weight != 10000 && weight + 100 <= stock) {
+    if (weight != 10000 && weight + 100 <= stock * 1000) {
       setWeight(weight + 100);
     }
   }
