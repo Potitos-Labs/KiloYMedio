@@ -5,8 +5,11 @@ import { TbLogout } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { BsFillPersonFill } from "react-icons/bs";
 import Link from "next/link";
+import { trpc } from "../utils/trpc";
 
 function Client_Header() {
+  const { data: allCartProduct } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const numberCartProducts = allCartProduct?.length ?? 0;
   return (
     <nav
       className="
@@ -39,7 +42,7 @@ function Client_Header() {
             </svg>
           </Link>
           <span className="absolute -mt-7 ml-7 rounded-full bg-red-700 py-0 px-1.5 text-xs text-white">
-            1
+            {numberCartProducts}
           </span>
           <ul
             className="
