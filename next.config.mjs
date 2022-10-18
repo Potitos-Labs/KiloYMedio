@@ -31,6 +31,7 @@ export default defineNextConfig({
       "http2.mlstatic.com",
       "cdn.shopify.com",
       "images.pexels.com",
+      "i.pinimg.com",
     ],
     remotePatterns: [
       {
