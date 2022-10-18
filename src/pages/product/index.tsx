@@ -21,6 +21,7 @@ const ProductDetails: NextPage = () => {
               name={product.name}
               imgUrl={product.imageURL}
               id={product.id}
+              stock={product.stock}
             ></Product>
           ))
         ) : (

@@ -69,6 +69,7 @@ export const productRouter = createRouter()
           name: true,
           description: true,
           imageURL: true,
+          stock: true,
           Edible: {
             select: {
               priceByWeight: true,

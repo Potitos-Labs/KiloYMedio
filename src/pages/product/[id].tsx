@@ -21,6 +21,7 @@ const ProductDetails: NextPage = () => {
           allergensList={data.Edible?.allergens.map((e) => e.allergen) ?? []}
           price={data.Edible?.priceByWeight ?? data.NonEdible?.price ?? 0}
           id={data.id}
+          stock={data.stock}
         />
       </Layout>
     );

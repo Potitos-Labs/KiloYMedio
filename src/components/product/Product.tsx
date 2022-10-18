@@ -9,12 +9,14 @@ function Product({
   name,
   imgUrl,
   id,
+  stock,
 }: {
   name: string;
   imgUrl: string;
   id: string;
+  stock: number;
 }) {
-  const notify = () => toast("Producto añadido");
+  const notify = () => toast.success("Producto añadido");
   const [weight, setWeight] = useState(100);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
@@ -24,12 +26,14 @@ function Product({
   });
 
   function addToCart() {
-    notify();
-    mutation.mutateAsync({ productId: id, amount: weight });
+    if (stock * 1000 >= 100) {
+      notify();
+      mutation.mutateAsync({ productId: id, amount: weight });
+    }
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
+    <div className="flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
       <div className="py-6">
         <Link href={`/product/${id}`}>
           <a>
@@ -45,7 +49,7 @@ function Product({
         </Link>
       </div>
       <h1 className="normal-case">{name}</h1>
-      <IncDecButtons setWeight={setWeight} weight={weight} />
+      <IncDecButtons setWeight={setWeight} weight={weight} stock={stock} />
       <div>
         <button
           onClick={addToCart}

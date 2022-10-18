@@ -17,7 +17,18 @@ const MyApp: AppType = ({
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
     </SessionProvider>
   );
 };

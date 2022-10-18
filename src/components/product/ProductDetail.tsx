@@ -6,6 +6,7 @@ import IncDecButtons from "./IncDecButtons";
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const ProductDetail = ({
   name,
@@ -15,6 +16,7 @@ const ProductDetail = ({
   allergensList,
   price,
   id,
+  stock,
 }: {
   name: string;
   img: string;
@@ -23,7 +25,9 @@ const ProductDetail = ({
   allergensList: Allergen[];
   price: number;
   id: string;
+  stock: number;
 }) => {
+  const notify = () => toast.success("Producto añadido");
   const [weight, setWeight] = React.useState(100);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
@@ -33,7 +37,10 @@ const ProductDetail = ({
   });
 
   function addToCart() {
-    mutation.mutateAsync({ productId: id, amount: weight });
+    if (stock * 1000 >= 100) {
+      notify();
+      mutation.mutateAsync({ productId: id, amount: weight });
+    }
   }
 
   return (
@@ -76,7 +83,11 @@ const ProductDetail = ({
 
             <div className="flex items-center">
               <div className="mr-4">
-                <IncDecButtons setWeight={setWeight} weight={weight} />
+                <IncDecButtons
+                  setWeight={setWeight}
+                  weight={weight}
+                  stock={stock}
+                />
               </div>
 
               <button

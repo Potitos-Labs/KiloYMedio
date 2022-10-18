@@ -3,12 +3,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 function IncDecButtons({
   setWeight,
   weight,
+  stock,
 }: {
   setWeight: Dispatch<SetStateAction<number>>;
   weight: number;
+  stock: number;
 }) {
   function incrementClick() {
-    if (weight != 10000) {
+    if (weight != 10000 && weight + 100 <= stock) {
       setWeight(weight + 100);
     }
   }
