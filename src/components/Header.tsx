@@ -19,8 +19,8 @@ const Header: React.FC = () => {
   if (!session) {
     right = (
       <div className="flex gap-6">
-        <Link href="/login">Log in</Link>
-        <Link href="/register">Register</Link>
+        <Link href="/login">Iniciar sesión</Link>
+        <Link href="/register">Registrarse</Link>
       </div>
     );
   }
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   if (session) {
     console.log(session.user);
     right = (
-      <nav className="flex flex-wrap items-center justify-between">
+      <nav className="mx-auto flex flex-row items-center justify-between">
         <div>
           <p>{session.user?.name}</p>
         </div>
@@ -40,7 +40,11 @@ const Header: React.FC = () => {
   return (
     <div className="bg-header py-4">
       <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
-        <h3>Kilo Y Medio</h3>
+        <Link href={`/`}>
+          <h3 className="cursor-pointer font-serif text-xl font-semibold">
+            Kilo Y Medio
+          </h3>
+        </Link>
         <div className="">{right}</div>
       </div>
     </div>

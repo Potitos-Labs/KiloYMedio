@@ -34,13 +34,13 @@ const CategoryDisplay: NextPage = () => {
       <div className="bg-kym3 p-4 font-bold text-white">No Comestibles</div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {nCategories ? (
-          nCategories.map((ecategory) => (
+          nCategories.map((nCategory) => (
             <Category
-              key={ecategory.id}
-              name={ecategory.categoryInSpanish}
-              englishName={ecategory.category}
-              imgURL={ecategory.imageURL}
-              id={ecategory.id}
+              key={nCategory.id}
+              name={nCategory.categoryInSpanish}
+              englishName={nCategory.category}
+              imgURL={nCategory.imageURL}
+              id={nCategory.id}
             ></Category>
           ))
         ) : (

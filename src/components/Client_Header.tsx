@@ -17,13 +17,12 @@ function Client_Header() {
         navbar-expand-lg navbar-light
         relative
         flex
-        flex-wrap
         items-center
         justify-between px-6 py-2
       "
     >
-      <div className="flex-grow lg:flex">
-        <div className="relative mr-5 flex items-center">
+      <div className="flex flex-row">
+        <div className="relative mr-5 flex cursor-pointer items-center">
           <Link href={"/cart"}>
             <svg
               aria-hidden="true"
@@ -44,75 +43,10 @@ function Client_Header() {
           <span className="absolute -mt-7 ml-7 rounded-full bg-red-700 py-0 px-1.5 text-xs text-white">
             {numberCartProducts}
           </span>
-          <ul
-            className="
-              dropdown-menu
-              absolute
-              left-auto
-              right-0
-              z-50
-              float-left
-              m-0
-              mt-1
-              hidden
-              min-w-max
-              list-none
-              rounded-lg
-              border-none
-              bg-white
-              bg-clip-padding
-              py-2
-              text-left
-              text-base
-              shadow-lg
-            "
-            aria-labelledby="dropdownCart"
-          >
-            <li>
-              <a
-                className="
-                  dropdown-item
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  py-2
-                  px-4
-                  text-sm
-                  font-normal
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-              >
-                Action
-              </a>
-            </li>
-            <li>
-              <a
-                className="
-                  dropdown-item
-                  block
-                  w-full
-                  whitespace-nowrap
-                  bg-transparent
-                  py-2
-                  px-4
-                  text-sm
-                  font-normal
-                  text-gray-700
-                  hover:bg-gray-100
-                "
-                href="#"
-              >
-                Another action
-              </a>
-            </li>
-          </ul>
         </div>
 
         <div className="dropdown relative flex h-10 w-8 items-center">
-          <Menu as="div" className="realitive inline-block text-left">
+          <Menu as="div" className="realative inline-block text-left">
             <div>
               <Menu.Button className=" flex items-center">
                 <BsFillPersonFill className="h-11 w-11 fill-white" />
