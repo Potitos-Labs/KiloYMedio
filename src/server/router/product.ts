@@ -2,21 +2,26 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { categorySchema, productSchema } from "../../utils/validations/product";
 import * as trpc from "@trpc/server";
-import {
-  Allergen,
-  AllergenInSpanish,
-  ECategory,
-  NECategory,
-} from "@prisma/client";
+import { Allergen, ECategory, NECategory } from "@prisma/client";
 
 export const productRouter = createRouter()
   .query("getAllProducts", {
     async resolve({ ctx }) {
-      return await ctx.prisma.product.findMany({
+      const products = await ctx.prisma.product.findMany({
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageURL: true,
+          stock: true,
+          Edible: true,
+          NonEdible: true,
+        },
         orderBy: {
           name: "asc",
         },
       });
+      return products;
     },
   })
   .query("getAllEdibleCategories", {
