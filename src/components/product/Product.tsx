@@ -10,14 +10,16 @@ function Product({
   imgUrl,
   id,
   stock,
+  unit,
 }: {
   name: string;
   imgUrl: string;
   id: string;
   stock: number;
+  unit: string;
 }) {
   const notify = () => toast.success("Producto añadido");
-  const [weight, setWeight] = useState(100);
+  const [amount, setAmount] = useState(unit == "g" ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
     onSuccess() {
@@ -28,7 +30,7 @@ function Product({
   function addToCart() {
     if (stock * 1000 >= 100) {
       notify();
-      mutation.mutateAsync({ productId: id, amount: weight });
+      mutation.mutateAsync({ productId: id, amount: amount });
     }
   }
 
@@ -49,7 +51,12 @@ function Product({
         </Link>
       </div>
       <h1 className="normal-case">{name}</h1>
-      <IncDecButtons setWeight={setWeight} weight={weight} stock={stock} />
+      <IncDecButtons
+        setAmount={setAmount}
+        amount={amount}
+        stock={stock}
+        unit={unit}
+      />
       <div>
         <button
           onClick={addToCart}

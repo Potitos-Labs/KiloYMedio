@@ -27,7 +27,7 @@ const ProductDetail = ({
   stock: number;
 }) => {
   const notify = () => toast.success("Producto añadido");
-  const [weight, setWeight] = React.useState(100);
+  const [amount, setAmount] = React.useState(100);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
     onSuccess() {
@@ -38,7 +38,7 @@ const ProductDetail = ({
   function addToCart() {
     if (stock * 1000 >= 100) {
       notify();
-      mutation.mutateAsync({ productId: id, amount: weight });
+      mutation.mutateAsync({ productId: id, amount: amount });
     }
   }
 
@@ -83,9 +83,10 @@ const ProductDetail = ({
             <div className="flex items-center">
               <div className="mr-4">
                 <IncDecButtons
-                  setWeight={setWeight}
-                  weight={weight}
+                  setAmount={setAmount}
+                  amount={amount}
                   stock={stock}
+                  unit={"g"}
                 />
               </div>
 
