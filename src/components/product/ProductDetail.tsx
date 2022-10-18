@@ -87,6 +87,7 @@ const ProductDetail = ({
                   amount={amount}
                   stock={stock}
                   isEdible={isEdible}
+                  stockLeft={true} //cambiar
                 />
               </div>
 

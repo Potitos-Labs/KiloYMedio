@@ -19,6 +19,7 @@ function Product({
   isEdible: boolean;
 }) {
   const notify = () => toast.success("Producto añadido");
+  const stockLeft = stock * 1000 >= 100;
   const [amount, setAmount] = useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.useMutation(["cart.addProduct"], {
@@ -28,7 +29,7 @@ function Product({
   });
 
   function addToCart() {
-    if (stock * 1000 >= 100) {
+    if (stockLeft) {
       notify();
       mutation.mutateAsync({ productId: id, amount: amount });
     }
@@ -55,14 +56,16 @@ function Product({
         setAmount={setAmount}
         amount={amount}
         stock={stock}
+        stockLeft={stockLeft}
         isEdible={isEdible}
       />
       <div>
         <button
+          disabled={!stockLeft}
           onClick={addToCart}
           className="rounded border border-button bg-transparent px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
         >
-          Añadir
+          {stockLeft ? "Añadir" : "Agotado"}
         </button>
       </div>
     </div>

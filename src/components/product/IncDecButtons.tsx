@@ -5,11 +5,13 @@ function IncDecButtons({
   amount,
   stock,
   isEdible,
+  stockLeft,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
   amount: number;
   stock: number;
   isEdible: boolean;
+  stockLeft: boolean;
 }) {
   function incrementClick() {
     if (amount != 10000 && amount + 100 <= stock * 1000 && isEdible) {
@@ -30,6 +32,7 @@ function IncDecButtons({
   return (
     <div className="flex flex-row py-4">
       <button
+        disabled={!stockLeft}
         className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
         onClick={decrementClick}
       >
@@ -39,6 +42,7 @@ function IncDecButtons({
         {amount} {isEdible ? "g" : "u"}
       </p>
       <button
+        disabled={!stockLeft}
         className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
         onClick={incrementClick}
       >
