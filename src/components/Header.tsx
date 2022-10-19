@@ -41,7 +41,7 @@ const Header: React.FC = () => {
     <div className="bg-header py-4">
       <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
         <Link href={`/`}>
-          <h3 className="cursor-pointer font-serif text-xl font-semibold">
+          <h3 className="cursor-pointer font-sans text-xl font-semibold">
             Kilo Y Medio
           </h3>
         </Link>
