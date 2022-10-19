@@ -1,7 +1,7 @@
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 
-const Bill = () => {
+const Bill = ({ showPictures }: { showPictures: boolean }) => {
   const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
   const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
 
@@ -20,15 +20,17 @@ const Bill = () => {
                   <div key={cartProduct.productId}>
                     <div className="mb-4 grid grid-cols-[35%_35%_30%] items-center font-medium">
                       <div className="flex flex-row items-center gap-2">
-                        <Image
-                          className="rounded-md"
-                          src={cartProduct.product.imageURL}
-                          alt="notfound"
-                          width="70"
-                          height="70"
-                          layout="intrinsic"
-                          objectFit="cover"
-                        ></Image>
+                        {showPictures && (
+                          <Image
+                            className="rounded-md"
+                            src={cartProduct.product.imageURL}
+                            alt="notfound"
+                            width="70"
+                            height="70"
+                            layout="intrinsic"
+                            objectFit="cover"
+                          ></Image>
+                        )}
                         <div className="capitalize">
                           {cartProduct.product.name}
                         </div>

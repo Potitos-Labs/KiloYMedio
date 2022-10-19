@@ -162,7 +162,7 @@ const Checkout = () => {
             </div>
           </section>
           {/*End Contact info*/}
-          <Bill />
+          <Bill showPictures={true}></Bill>
         </div>
       </section>
       {/* End Grid */}
