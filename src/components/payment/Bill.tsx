@@ -10,7 +10,6 @@ const Bill = ({
   postcode: boolean;
 }) => {
   const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
-  const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
   const shipmentPrice = null;
 
   return (
@@ -43,7 +42,10 @@ const Bill = ({
                           {cartProduct.product.name}
                         </div>
                       </div>
-                      <div className="ml-4">{cartProduct.amount} g</div>
+                      <div className="ml-4">
+                        {cartProduct.amount}{" "}
+                        {cartProduct.product.Edible ? "g" : "u"}
+                      </div>
                       <span className="justify-self-end">
                         {cartProduct.price.toFixed(2)} €
                       </span>
@@ -61,7 +63,13 @@ const Bill = ({
               <div className="mb-4 grid grid-cols-[40%_30%_30%] items-end">
                 <div className="pt-4">Subtotal</div>
                 <div className="ml-4 grid font-medium">
-                  {cartProducts?.reduce((sum, i) => sum + i.amount, 0)} g
+                  {/* PROVISIONAL */}
+                  {myCart?.reduce(
+                    (sum, i) => sum + (i.product.Edible ? i.amount : 0),
+                    0,
+                  )}
+                  {" g"}
+                  {/* ^^^ */}
                 </div>
                 <div className="grid justify-end text-red-500">Precio €</div>
               </div>
@@ -81,7 +89,7 @@ const Bill = ({
               <h2 className="pt-4 text-lg">Total</h2>
               <div className="grid justify-end text-2xl font-semibold">
                 {/* Hay que sumar los gastos de envío y el IVA* */}
-                {cartProducts?.reduce((sum, i) => sum + i.price, 0)} €
+                {myCart?.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €
               </div>
             </div>
             {/* End Bill total */}
