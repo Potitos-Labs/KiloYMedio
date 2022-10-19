@@ -1,7 +1,7 @@
-import { createProtectedRouter } from "./context";
+import { createClientProtectedRouter } from "./context";
 
 // Example router with queries that can only be hit if the user requesting is signed in
-export const protectedExampleRouter = createProtectedRouter()
+export const protectedExampleRouter = createClientProtectedRouter()
   .query("getSession", {
     resolve({ ctx }) {
       return ctx.session;

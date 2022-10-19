@@ -1,7 +1,7 @@
-import { createProtectedRouter } from "./context";
+import { createClientProtectedRouter } from "./context";
 import { z } from "zod";
 
-export const cartRouter = createProtectedRouter()
+export const cartRouter = createClientProtectedRouter()
   .query("getAllCartProduct", {
     async resolve({ ctx }) {
       const cartProduct = await ctx.prisma.cartProduct.findMany({
