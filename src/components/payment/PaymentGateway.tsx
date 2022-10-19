@@ -32,6 +32,9 @@ const PaymentGateway = ({
         type="text"
         value={firstName}
         onChange={(e) => updateFields({ firstName: e.target.value })}
+        onInput={(e) => () => {
+          console.log("EVENTO");
+        }}
       />
 
       <label>Apellidos</label>
@@ -56,7 +59,10 @@ const PaymentGateway = ({
       <input
         className="border-l-2 border-l-kym3 shadow-md"
         required
-        type="text"
+        pattern="^4[0-9]{12}(?:[0-9]{3})?$"
+        type="string"
+        placeholder="XXXX XXXX XXXX XXXX"
+        title="El formato de la tarjeta debe tener el formato XXXX-XXXX-XXXX-XXXX"
         value={creditCardNumber}
         onChange={(e) => updateFields({ creditCardNumber: e.target.value })}
       />
@@ -66,6 +72,8 @@ const PaymentGateway = ({
         className="border-l-2 border-l-kym3 shadow-md"
         required
         type="text"
+        pattern="[0-9]{3}"
+        title="El CVV solo tiene 3 numeros"
         value={CVV}
         onChange={(e) => updateFields({ CVV: e.target.value })}
       />
@@ -74,7 +82,7 @@ const PaymentGateway = ({
       <input
         className="border-l-2 border-l-kym3 shadow-md"
         required
-        type="text"
+        type="month"
         value={expirationDate}
         onChange={(e) => updateFields({ expirationDate: e.target.value })}
       />
