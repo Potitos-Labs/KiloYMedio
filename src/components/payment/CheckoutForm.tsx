@@ -1,4 +1,25 @@
-const CheckoutForm = () => {
+import { FormWrapper } from "./FormWrapper";
+
+type CheckOutData = {
+  firstName: string;
+  surName: string;
+  city: string;
+  address: string;
+  postalCode: string;
+};
+
+type CheckOutFormProps = CheckOutData & {
+  updateFields: (fields: Partial<CheckOutData>) => void;
+};
+
+const CheckoutForm = ({
+  firstName,
+  surName,
+  city,
+  address,
+  postalCode,
+  updateFields,
+}: CheckOutFormProps) => {
   return (
     <div className="flex w-full flex-wrap gap-5 p-3">
       <h1 className="text-xl">Información de envío</h1>
@@ -11,6 +32,8 @@ const CheckoutForm = () => {
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
             name="name"
+            value={firstName}
+            onChange={(e) => updateFields({ firstName: e.target.value })}
             placeholder="Nombre"
           />
           <svg
@@ -35,6 +58,8 @@ const CheckoutForm = () => {
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
             name="surname"
+            value={surName}
+            onChange={(e) => updateFields({ surName: e.target.value })}
             placeholder="Apellidos"
           />
           <svg
@@ -61,6 +86,8 @@ const CheckoutForm = () => {
           className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
           type="text"
           name="address"
+          value={city}
+          onChange={(e) => updateFields({ city: e.target.value })}
           placeholder="Localidad"
         />
         <svg
@@ -87,6 +114,8 @@ const CheckoutForm = () => {
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
             name="address"
+            value={address}
+            onChange={(e) => updateFields({ address: e.target.value })}
             placeholder="Calle y número"
           />
           <svg
@@ -109,8 +138,10 @@ const CheckoutForm = () => {
           <span className="mb-3">Código postal</span>
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
-            type="number"
+            type="string"
             name="cp"
+            value={postalCode}
+            onChange={(e) => updateFields({ postalCode: e.target.value })}
             placeholder="CP"
           />
           <svg

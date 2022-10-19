@@ -1,14 +1,60 @@
-import CheckoutForm from "../components/CheckoutForm";
+import CheckoutForm from "../components/payment/CheckoutForm";
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import { FormEvent, useState } from "react";
+import PaymentGateway from "../components/payment/PaymentGateway";
+import { useMultistepFrom } from "../components/payment/useMultistepForm";
+
+type FormData = {
+  firstName: string;
+  surName: string;
+  city: string;
+  address: string;
+  postalCode: string;
+  creditCardNumber: string;
+  CVV: string;
+  expirationDate: string;
+};
+
+const INITIAL_DATA: FormData = {
+  firstName: "",
+  surName: "",
+  city: "",
+  address: "",
+  postalCode: "",
+  creditCardNumber: "",
+  CVV: "",
+  expirationDate: "",
+};
 
 const Checkout = () => {
-  const { data } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const [data, setData] = useState(INITIAL_DATA);
+  const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
   const { data: session } = useSession();
   let display = null;
+
+  function updateFields(fields: Partial<FormData>) {
+    setData((prev) => {
+      return { ...prev, ...fields };
+    });
+  }
+
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultistepFrom([
+      // eslint-disable-next-line react/jsx-key
+      <CheckoutForm {...data} updateFields={updateFields} />,
+      // eslint-disable-next-line react/jsx-key
+      <PaymentGateway {...data} updateFields={updateFields} />,
+    ]);
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!isLastStep) return next();
+    alert("Sucessful Account Creation");
+  }
 
   if (session) {
     display = (
@@ -75,9 +121,35 @@ const Checkout = () => {
             {/*Contact info*/}
             <div className="mx-20 h-full">
               <div>{display}</div>
-              <div className="grid py-10">
-                <CheckoutForm></CheckoutForm>
-              </div>
+              <form onSubmit={onSubmit}>
+                <div className="grid py-10">
+                  {step}
+                  <div
+                    style={{
+                      marginTop: "1rem",
+                      display: "flex",
+                      gap: ".5rem",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    {!isFirstStep && (
+                      <button
+                        type="button"
+                        onClick={back}
+                        className="border-none bg-button px-3 py-1 font-bold text-white hover:bg-button_hover"
+                      >
+                        Back
+                      </button>
+                    )}
+                    <button
+                      type="submit"
+                      className="border-none bg-button px-3 py-1 font-bold text-white hover:bg-button_hover "
+                    >
+                      {!isLastStep ? "Next" : "Finish"}
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </section>
           {/*End Contact info*/}
@@ -93,8 +165,8 @@ const Checkout = () => {
                   {/* Bill -> Products */}
                   <h2 className="p-3 text-xl font-bold">Productos:</h2>
                   <div className="m-0 grid gap-4 pl-6 pr-3">
-                    {data ? (
-                      data.map((cartProduct) => (
+                    {myCart ? (
+                      myCart.map((cartProduct) => (
                         <div key={cartProduct.productId}>
                           <div className="grid grid-cols-[50%_30%_20%] items-center">
                             <div className="capitalize">
