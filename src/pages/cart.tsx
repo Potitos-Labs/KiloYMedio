@@ -1,35 +1,10 @@
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
-import Image from "next/image";
-import { useState } from "react";
-import { IoTrashOutline } from "react-icons/io5";
+import Product from "../components/cart/Product";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
-  const { mutateAsync } = trpc.useMutation(["cart.deleteProduct"], {
-    onSuccess() {
-      utils.invalidateQueries("cart.getAllCartProduct");
-    },
-  });
-  const utils = trpc.useContext();
-
-  const [weight, setWeight] = useState(100);
-
-  function incrementClick() {
-    if (weight != 10000) {
-      setWeight(weight + 100);
-    }
-  }
-  function decrementClick() {
-    if (weight != 0) {
-      setWeight(weight - 100);
-    }
-  }
-
-  function removeFromCart(id: string) {
-    mutateAsync({ productId: id });
-  }
 
   return (
     <Layout>
@@ -48,62 +23,7 @@ const Cart: NextPage = () => {
                 {cartProducts ? (
                   cartProducts.map((cartProduct) => (
                     <div key={cartProduct.productId}>
-                      {/* Shopping cart products*/}
-                      <div className="flex flex-row border-2 border-solid border-black">
-                        <div className="flex flex-col p-2 align-middle">
-                          <Image
-                            className=""
-                            src={cartProduct.product.imageURL}
-                            alt={cartProduct.product.name + " imagen"}
-                            width={100}
-                            height={100}
-                            layout="fixed"
-                            objectFit="cover"
-                          />
-                        </div>
-                        <div className=" m-2 p-2">
-                          <div className="flex h-1/2 flex-col justify-center text-lg font-bold capitalize">
-                            <div>{cartProduct.product.name}</div>
-                          </div>
-
-                          <div className="mx-0 flex h-1/2 flex-row items-center">
-                            <button
-                              className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
-                              onClick={decrementClick}
-                            >
-                              -
-                            </button>
-                            <p className="mx-2 flex min-w-[100px] flex-row justify-center rounded-md border-2 px-4">
-                              {cartProduct.amount} g
-                            </p>
-                            <button
-                              className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
-                              onClick={incrementClick}
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                        <div className="flex w-full flex-col">
-                          {/* trash can */}
-                          <div className="flex flex-row-reverse">
-                            <button
-                              className="h-10 bg-transparent px-2 font-semibold text-red-600"
-                              onClick={() =>
-                                removeFromCart(cartProduct.productId)
-                              }
-                            >
-                              <IoTrashOutline className="h-6 w-6"></IoTrashOutline>
-                            </button>
-                          </div>
-                          {/* price */}
-                          <div className="flex h-full flex-row-reverse">
-                            <span className="self-end px-3 py-2">
-                              {cartProduct.price.toFixed(2)} €
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      <Product cartProduct={cartProduct}></Product>
                     </div>
                   ))
                 ) : (
@@ -176,6 +96,7 @@ const Cart: NextPage = () => {
               </div>
             </div>
           </div>
+          {/* {End Bill} */}
         </div>
       </section>
       {/* End Grid */}

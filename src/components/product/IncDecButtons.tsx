@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { CgDropOpacity } from "react-icons/cg";
+import { Dispatch, SetStateAction } from "react";
 
 function IncDecButtons({
   setAmount,
@@ -14,7 +13,6 @@ function IncDecButtons({
   isEdible: boolean;
   stockLeft: boolean;
 }) {
-  const [limitMaxstock, setLimitMaxtStock] = useState(false);
   const maxStock = isEdible ? stock * 1000 : stock;
 
   function incrementClick() {

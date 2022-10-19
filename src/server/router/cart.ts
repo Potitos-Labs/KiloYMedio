@@ -19,6 +19,7 @@ export const cartRouter = createProtectedRouter()
               Edible: { select: { priceByWeight: true } },
               NonEdible: { select: { price: true } },
               imageURL: true,
+              stock: true,
             },
           },
         },
