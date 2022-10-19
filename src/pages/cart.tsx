@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 import Product from "../components/cart/Product";
-import Link from "next/link";
+import Bill from "../components/payment/Bill";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
@@ -34,70 +34,7 @@ const Cart: NextPage = () => {
             </div>
           </section>
           {/*End Shopping cart*/}
-
-          {/* Bill */}
-          <div className="m-0 mr-12 ml-6 grid h-full gap-4">
-            <div className="border-2 border-solid border-black">
-              <div className="flex flex-col">
-                <div className="bg-gray-400 pb-3">
-                  <h1 className="pt-3 pl-3 text-3xl font-bold">Factura</h1>
-                </div>
-                <section>
-                  {/* Bill -> Products */}
-                  <h2 className="p-3 text-xl font-bold">Productos:</h2>
-                  <div className="m-0 grid gap-4 pl-6 pr-3">
-                    {cartProducts ? (
-                      cartProducts.map((cartProduct) => (
-                        <div key={cartProduct.productId}>
-                          <div className="grid grid-cols-[50%_30%_20%] items-center">
-                            <div className="capitalize">
-                              {cartProduct.product.name}
-                            </div>
-                            <div>{cartProduct.amount} gr</div>
-                            <div className="grid justify-end">
-                              {cartProduct.price.toFixed(2)} €
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-right">Cargando...</p>
-                    )}
-                  </div>
-                </section>
-                {/* End Bill -> Products */}
-                {/* Bill -> Shipping */}
-                <div className="grid grid-cols-[80%_20%] items-center">
-                  <h2 className="p-3 text-xl font-bold">Gastos de Envío:</h2>
-                  <p className="grid justify-end py-3 pr-3">Gratuito</p>
-                </div>
-                {/* End Bill -> Shipping */}
-                {/* Bill -> Summary */}
-                <section>
-                  <hr className="border-1.5 mx-3 border-black"></hr>
-                  <div className="grid grid-cols-2 items-center px-3 pt-3">
-                    <h2 className="text-xl font-bold">IVA:</h2>
-                    <div className="grid justify-end">Precio</div>
-                    <h2 className="text-xl font-bold">Total:</h2>
-                    <div className="grid justify-end">
-                      {cartProducts?.reduce((sum, i) => sum + i.price, 0)}
-                    </div>
-                  </div>
-                </section>
-                {/* End Bill -> Summary */}
-                {/* Buy button */}
-                <section>
-                  <div className="flex flex-col justify-center p-5">
-                    <button className="mx-5 h-10 border border-black font-semibold text-black">
-                      <Link href={`/checkout`}>Comprar</Link>
-                    </button>
-                  </div>
-                </section>
-                {/* End Buy button */}
-              </div>
-            </div>
-          </div>
-          {/* {End Bill} */}
+          <Bill showExtras={false} postcode={false}></Bill>
         </div>
       </section>
       {/* End Grid */}

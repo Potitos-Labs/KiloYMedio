@@ -166,7 +166,7 @@ const Checkout = () => {
             </div>
           </section>
           {/*End Contact info*/}
-          <Bill showPictures={true}></Bill>
+          <Bill showExtras={true} postcode={false}></Bill>
         </div>
       </section>
       {/* End Grid */}
