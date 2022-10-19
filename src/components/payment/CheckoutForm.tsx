@@ -21,8 +21,10 @@ const CheckoutForm = ({
   updateFields,
 }: CheckOutFormProps) => {
   return (
-    <div className="flex w-full flex-wrap gap-5 p-3">
-      <h1 className="text-xl">Información de envío</h1>
+    <div className="flex w-full flex-wrap gap-5">
+      <h1 className="mb-4 w-full bg-background py-2 pl-3 text-xl">
+        Información de envío
+      </h1>
 
       {/*Nombre y apellidos*/}
       <div className="flex-col-2 relative flex w-full gap-4">

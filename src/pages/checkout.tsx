@@ -1,12 +1,12 @@
 import CheckoutForm from "../components/payment/CheckoutForm";
 import Layout from "../components/Layout";
-import { trpc } from "../utils/trpc";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
+import Bill from "../components/payment/Bill";
 import { Stringifier } from "postcss";
 
 type FormData = {
@@ -37,7 +37,7 @@ const INITIAL_DATA: FormData = {
 
 const Checkout = () => {
   const [data, setData] = useState(INITIAL_DATA);
-  const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
+
   const { data: session } = useSession();
   let display = null;
 
@@ -58,13 +58,15 @@ const Checkout = () => {
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next();
-    alert("Sucessful Account Creation");
+    alert("Successful account creation");
   }
 
   if (session) {
     display = (
-      <div className="pl-3">
-        <h1 className="pb-6 text-xl">Información de contacto</h1>
+      <div className="">
+        <h1 className="mb-10 bg-background py-2 pl-3 text-xl">
+          Información de contacto
+        </h1>
         <div className="flex flex-row items-center gap-5">
           <Image
             src="https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png"
@@ -86,7 +88,9 @@ const Checkout = () => {
     display = (
       <div className="">
         <div className="grid grid-cols-2">
-          <h1 className="col-end-1 pl-3 text-xl">Información de contacto</h1>
+          <h1 className="col-end-1 mb-4 bg-background py-2 pl-3 text-xl">
+            Información de contacto
+          </h1>
           <p className="col-end-4">
             ¿Ya tienes cuenta?{" "}
             <span>
@@ -121,7 +125,7 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-[65%_35%]">
+        <div className="mt-12 grid grid-cols-[60%_40%] px-5">
           <section>
             {/*Contact info*/}
             <div className="mx-20 h-full">
@@ -141,16 +145,16 @@ const Checkout = () => {
                       <button
                         type="button"
                         onClick={back}
-                        className="border-none bg-button px-3 py-1 font-bold text-white hover:bg-button_hover"
+                        className="rounded-md bg-button px-3 py-1 font-bold text-white hover:bg-button_hover"
                       >
-                        Back
+                        Atrás
                       </button>
                     )}
                     <button
                       type="submit"
-                      className="border-none bg-button px-3 py-1 font-bold text-white hover:bg-button_hover "
+                      className="rounded-md bg-button px-4 py-1 font-bold text-white hover:bg-button_hover "
                     >
-                      {!isLastStep ? "Next" : "Finish"}
+                      {!isLastStep ? "Siguiente" : "Finalizar compra"}
                     </button>
                   </div>
                 </div>
@@ -158,56 +162,7 @@ const Checkout = () => {
             </div>
           </section>
           {/*End Contact info*/}
-
-          {/* Bill */}
-          <div className="m-0 mr-12 ml-6 grid h-full gap-4">
-            <div className="border-2 border-solid border-black">
-              <div className="flex flex-col">
-                <div className="bg-gray-400 pb-3">
-                  <h1 className="pt-3 pl-3 text-3xl font-bold">Factura</h1>
-                </div>
-                <section>
-                  {/* Bill -> Products */}
-                  <h2 className="p-3 text-xl font-bold">Productos:</h2>
-                  <div className="m-0 grid gap-4 pl-6 pr-3">
-                    {myCart ? (
-                      myCart.map((cartProduct) => (
-                        <div key={cartProduct.productId}>
-                          <div className="grid grid-cols-[50%_30%_20%] items-center">
-                            <div className="capitalize">
-                              {cartProduct.product.name}
-                            </div>
-                            <div>{cartProduct.amount} gr</div>
-                            <div className="grid justify-end">Precio</div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-right">Cargando...</p>
-                    )}
-                  </div>
-                </section>
-                {/* End Bill -> Products */}
-                {/* Bill -> Shipping */}
-                <div className="grid grid-cols-[80%_20%] items-center">
-                  <h2 className="p-3 text-xl font-bold">Gastos de Envío:</h2>
-                  <p className="grid justify-end py-3 pr-3">Gratuito</p>
-                </div>
-                {/* End Bill -> Shipping */}
-                {/* Bill -> Summary */}
-                <section>
-                  <hr className="border-1.5 mx-3 border-black"></hr>
-                  <div className="grid grid-cols-2 items-center px-3 pt-3">
-                    <h2 className="text-xl font-bold">IVA:</h2>
-                    <div className="grid justify-end">Precio</div>
-                    <h2 className="text-xl font-bold">Total:</h2>
-                    <div className="grid justify-end">Precio</div>
-                  </div>
-                </section>
-                {/* End Bill -> Summary */}
-              </div>
-            </div>
-          </div>
+          <Bill />
         </div>
       </section>
       {/* End Grid */}
