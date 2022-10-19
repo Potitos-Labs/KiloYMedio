@@ -141,6 +141,7 @@ const CheckoutForm = ({
             type="string"
             name="cp"
             value={postalCode}
+            pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
             onChange={(e) => updateFields({ postalCode: e.target.value })}
             placeholder="CP"
           />
