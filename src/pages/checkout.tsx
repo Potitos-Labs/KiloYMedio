@@ -12,6 +12,7 @@ import { Stringifier } from "postcss";
 type FormData = {
   firstName: string;
   surName: string;
+  fullNamePayment: string;
   city: string;
   address: string;
   facturationAddress: string;
@@ -24,6 +25,7 @@ type FormData = {
 const INITIAL_DATA: FormData = {
   firstName: "",
   surName: "",
+  fullNamePayment: "",
   city: "",
   address: "",
   facturationAddress: "",
