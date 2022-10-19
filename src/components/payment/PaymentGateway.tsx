@@ -1,7 +1,7 @@
 import { FormWrapper } from "./FormWrapper";
 
 type AddressData = {
-  firstName: string;
+  fullNamePayment: string;
   address: string;
   facturationAddress: string;
   creditCardNumber: string;
@@ -14,7 +14,7 @@ type AddressFormProps = AddressData & {
 };
 
 const PaymentGateway = ({
-  firstName,
+  fullNamePayment,
   address,
   facturationAddress,
   creditCardNumber,
@@ -30,8 +30,8 @@ const PaymentGateway = ({
         autoFocus
         required
         type="text"
-        value={firstName}
-        onChange={(e) => updateFields({ firstName: e.target.value })}
+        value={fullNamePayment}
+        onChange={(e) => updateFields({ fullNamePayment: e.target.value })}
       />
 
       <label>Dirección de Facturación</label>
