@@ -2,8 +2,8 @@ import { FormWrapper } from "./FormWrapper";
 
 type AddressData = {
   firstName: string;
-  surName: string;
-  city: string;
+  address: string;
+  facturationAddress: string;
   creditCardNumber: string;
   CVV: string;
   expirationDate: string;
@@ -15,8 +15,8 @@ type AddressFormProps = AddressData & {
 
 const PaymentGateway = ({
   firstName,
-  surName,
-  city,
+  address,
+  facturationAddress,
   creditCardNumber,
   CVV,
   expirationDate,
@@ -24,7 +24,7 @@ const PaymentGateway = ({
 }: AddressFormProps) => {
   return (
     <FormWrapper title="Detalles del Pago">
-      <label>Nombre</label>
+      <label>Nombre y Apellidos</label>
       <input
         className="w-full border-l-2 border-l-kym3 shadow-md"
         autoFocus
@@ -32,30 +32,31 @@ const PaymentGateway = ({
         type="text"
         value={firstName}
         onChange={(e) => updateFields({ firstName: e.target.value })}
-        onInput={(e) => () => {
-          console.log("EVENTO");
-        }}
       />
 
-      <label>Apellidos</label>
-      <input
-        className="border-l-2 border-l-kym3 shadow-md"
-        required
-        type="text"
-        value={surName}
-        onChange={(e) => updateFields({ surName: e.target.value })}
-      />
+      <label>Dirección de Facturación</label>
+      <div>
+        <input
+          className="w-full border-l-2 border-l-kym3 shadow-md"
+          required
+          id="iAddress"
+          type="text"
+          value={facturationAddress}
+          onChange={(e) => updateFields({ facturationAddress: e.target.value })}
+        />
+        <div className="items my-1 flex items-center justify-end gap-1">
+          <input
+            className=""
+            type="checkBox"
+            onChange={(e) => updateFields({ facturationAddress: address })}
+          />
+          <label className=" text-sm text-gray-700">
+            Usar dirección de envio
+          </label>
+        </div>
+      </div>
 
-      <label>Localidad</label>
-      <input
-        className="border-l-2 border-l-kym3 shadow-md"
-        required
-        type="text"
-        value={city}
-        onChange={(e) => updateFields({ city: e.target.value })}
-      />
-
-      <label>Numero de Tarjeta de Crédito</label>
+      <label>Nº de Tarjeta de Crédito</label>
       <input
         className="border-l-2 border-l-kym3 shadow-md"
         required

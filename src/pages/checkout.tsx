@@ -7,12 +7,14 @@ import Image from "next/image";
 import { FormEvent, useState } from "react";
 import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
+import { Stringifier } from "postcss";
 
 type FormData = {
   firstName: string;
   surName: string;
   city: string;
   address: string;
+  facturationAddress: string;
   postalCode: string;
   creditCardNumber: string;
   CVV: string;
@@ -24,6 +26,7 @@ const INITIAL_DATA: FormData = {
   surName: "",
   city: "",
   address: "",
+  facturationAddress: "",
   postalCode: "",
   creditCardNumber: "",
   CVV: "",
