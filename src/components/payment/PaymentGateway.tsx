@@ -60,7 +60,7 @@ const PaymentGateway = ({
       <input
         className="border-l-2 border-l-kym3 shadow-md"
         required
-        pattern="^4[0-9]{12}(?:[0-9]{3})?$"
+        pattern="[0-9]{16}"
         type="string"
         placeholder="XXXX XXXX XXXX XXXX"
         title="El formato de la tarjeta debe tener el formato XXXX-XXXX-XXXX-XXXX"
