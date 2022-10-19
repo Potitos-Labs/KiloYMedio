@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 import Product from "../components/cart/Product";
+import Link from "next/link";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
@@ -88,7 +89,7 @@ const Cart: NextPage = () => {
                 <section>
                   <div className="flex flex-col justify-center p-5">
                     <button className="mx-5 h-10 border border-black font-semibold text-black">
-                      Comprar
+                      <Link href={`/checkout`}>Comprar</Link>
                     </button>
                   </div>
                 </section>
