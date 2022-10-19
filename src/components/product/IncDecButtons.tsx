@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { CgDropOpacity } from "react-icons/cg";
 
 function IncDecButtons({
   setAmount,
@@ -13,27 +14,26 @@ function IncDecButtons({
   isEdible: boolean;
   stockLeft: boolean;
 }) {
+  const [limitMaxstock, setLimitMaxtStock] = useState(false);
+  const maxStock = isEdible ? stock * 1000 : stock;
+
   function incrementClick() {
-    if (amount != 10000 && amount + 100 <= stock * 1000 && isEdible) {
-      setAmount(amount + 100);
-    } else if (amount != 100 && amount + 1 <= stock) {
-      setAmount(amount + 1);
-    }
+    isEdible ? setAmount(amount + 100) : setAmount(amount + 1);
   }
 
   function decrementClick() {
-    if (amount != 0 && isEdible) {
-      setAmount(amount - 100);
-    } else if (amount != 0) {
-      setAmount(amount - 1);
-    }
+    isEdible ? setAmount(amount - 100) : setAmount(amount - 1);
   }
 
   return (
     <div className="flex flex-row py-4">
       <button
-        disabled={!stockLeft}
-        className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
+        disabled={!stockLeft || amount == 100 || amount == 1}
+        className={`rounded border border-button bg-transparent px-2 font-semibold text-kym4 ${
+          !stockLeft || amount == 100 || amount == 1
+            ? "cursor-not-allowed opacity-60"
+            : "hover:border-transparent hover:bg-button_hover hover:text-white"
+        }`}
         onClick={decrementClick}
       >
         -
@@ -42,8 +42,12 @@ function IncDecButtons({
         {amount} {isEdible ? "g" : "u"}
       </p>
       <button
-        disabled={!stockLeft}
-        className="rounded border border-button bg-transparent px-2 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
+        disabled={!stockLeft || maxStock == amount}
+        className={`rounded border border-button bg-transparent px-2 font-semibold text-kym4  ${
+          !stockLeft || maxStock == amount
+            ? "cursor-not-allowed opacity-60"
+            : "hover:border-transparent hover:bg-button_hover hover:text-white"
+        }`}
         onClick={incrementClick}
       >
         +

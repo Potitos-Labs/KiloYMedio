@@ -63,7 +63,11 @@ function Product({
         <button
           disabled={!stockLeft}
           onClick={addToCart}
-          className="rounded border border-button bg-transparent px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white"
+          className={`rounded border border-button bg-transparent px-12 font-semibold text-kym4  ${
+            !stockLeft
+              ? "cursor-not-allowed px-10 opacity-50"
+              : "hover:border-transparent hover:bg-button_hover hover:text-white"
+          }`}
         >
           {stockLeft ? "Añadir" : "Agotado"}
         </button>

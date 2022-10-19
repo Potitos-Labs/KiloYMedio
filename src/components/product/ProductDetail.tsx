@@ -26,6 +26,7 @@ const ProductDetail = ({
   id: string;
   stock: number;
 }) => {
+  const stockLeft = stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
@@ -87,13 +88,17 @@ const ProductDetail = ({
                   amount={amount}
                   stock={stock}
                   isEdible={isEdible}
-                  stockLeft={true} //cambiar
+                  stockLeft={stockLeft} //cambiar
                 />
               </div>
 
               <button
                 onClick={addToCart}
-                className=" rounded border border-button bg-transparent py-0.5 px-12 font-semibold text-kym4 hover:border-transparent hover:bg-button_hover hover:text-white  "
+                className={`rounded border border-button bg-transparent px-12 font-semibold text-kym4  ${
+                  !stockLeft
+                    ? "cursor-not-allowed px-10 opacity-50"
+                    : "hover:border-transparent hover:bg-button_hover hover:text-white"
+                }`}
               >
                 Añadir al carrito
               </button>
