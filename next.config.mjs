@@ -32,6 +32,7 @@ export default defineNextConfig({
       "cdn.shopify.com",
       "images.pexels.com",
       "i.pinimg.com",
+      "cdn2.iconfinder.com",
     ],
     remotePatterns: [
       {

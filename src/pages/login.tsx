@@ -66,13 +66,13 @@ const SignIn: NextPage = () => {
                 form="emailInput"
                 className="form-label mb-2 inline-block text-gray-700"
               >
-                Email address
+                Correo electrónico
               </label>
               <input
                 type="email"
                 className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="emailInput"
-                placeholder="Enter email"
+                placeholder="Correo electrónico	"
                 {...register("email")}
               />
             </div>
@@ -81,13 +81,13 @@ const SignIn: NextPage = () => {
                 form="passwordInput"
                 className="form-label mb-2 inline-block text-gray-700"
               >
-                Password
+                Contraseña
               </label>
               <input
                 type="password"
                 className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="passwordInput"
-                placeholder="Password"
+                placeholder="Contraseña"
                 {...register("password")}
               />
             </div>
@@ -95,7 +95,7 @@ const SignIn: NextPage = () => {
               type="submit"
               className=" w-full rounded bg-button px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
             >
-              Sign in
+              Iniciar sesión
             </button>
           </form>
         </div>
