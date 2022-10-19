@@ -8,6 +8,7 @@ import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
 import Bill from "../components/payment/Bill";
 import { Stringifier } from "postcss";
+import { useRouter } from "next/router";
 
 type FormData = {
   firstName: string;
@@ -36,6 +37,8 @@ const INITIAL_DATA: FormData = {
 };
 
 const Checkout = () => {
+  const router = useRouter();
+
   const [data, setData] = useState(INITIAL_DATA);
 
   const { data: session } = useSession();
@@ -58,7 +61,8 @@ const Checkout = () => {
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next();
-    alert("Successful account creation");
+    alert("Compra realizada correctamente :3");
+    router.push(`/category`);
   }
 
   if (session) {
