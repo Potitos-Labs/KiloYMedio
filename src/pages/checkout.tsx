@@ -136,31 +136,36 @@ const Checkout = () => {
               <form onSubmit={onSubmit}>
                 <div className="grid py-10">
                   {step}
-                  <div
-                    style={{
-                      marginTop: "1rem",
-                      display: "flex",
-                      gap: ".5rem",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    {!isFirstStep && (
+                  <div className="mt-4 grid grid-cols-2">
+                    <div className="flex justify-start">
+                      {!isFirstStep && (
+                        <button
+                          type="button"
+                          onClick={back}
+                          className="self-start  rounded-md bg-button px-12 py-1 font-bold text-white hover:bg-button_hover"
+                        >
+                          Atrás
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex justify-end">
                       <button
                         type="button"
                         onClick={back}
                         className="rounded border border-button bg-transparent py-2 px-4 text-button hover:border-transparent hover:bg-button_hover hover:text-white"
                       >
-                        Atrás
+                        {!isLastStep ? "Siguiente" : "Finalizar compra"}
                       </button>
-                    )}
-                    <button
-                      type="submit"
-                      className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
-                    >
-                      {!isLastStep
-                        ? "Continuar con el pago"
-                        : "Finalizar compra"}
-                    </button>
+
+                      <button
+                        type="submit"
+                        className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
+                      >
+                        {!isLastStep
+                          ? "Continuar con el pago"
+                          : "Finalizar compra"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>

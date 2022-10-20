@@ -33,10 +33,10 @@ const CheckoutForm = ({
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
             name="name"
+            required
             value={firstName}
             pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
             title="No se permiten dígitos ni caracteres especiales."
-            required
             onChange={(e) => updateFields({ firstName: e.target.value })}
             placeholder="Nombre"
           />
@@ -61,11 +61,11 @@ const CheckoutForm = ({
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
+            required
             name="surname"
             value={surName}
             pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
             title="No se permiten dígitos ni caracteres especiales."
-            required
             onChange={(e) => updateFields({ surName: e.target.value })}
             placeholder="Apellidos"
           />
@@ -92,10 +92,10 @@ const CheckoutForm = ({
         <input
           className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
           type="text"
+          required
           name="address"
           value={city}
           pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
-          required
           onChange={(e) => updateFields({ city: e.target.value })}
           placeholder="Localidad"
         />
@@ -122,9 +122,9 @@ const CheckoutForm = ({
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
+            required
             name="address"
             value={address}
-            required
             onChange={(e) => updateFields({ address: e.target.value })}
             placeholder="Calle y número"
           />
@@ -150,6 +150,8 @@ const CheckoutForm = ({
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="string"
             name="cp"
+            required
+            maxLength={5}
             value={postalCode}
             pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
             onChange={(e) => updateFields({ postalCode: e.target.value })}
