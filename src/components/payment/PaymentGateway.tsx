@@ -1,5 +1,6 @@
-import { date } from "zod";
+import { date, input } from "zod";
 import { FormWrapper } from "./FormWrapper";
+import { formatCreditCardNumber, formatExpirationDate } from "./utils";
 
 type AddressData = {
   fullNamePayment: string;
@@ -26,6 +27,18 @@ const PaymentGateway = ({
   const date = new Date();
   const minDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1);
   console.log(minDate);
+
+  const handleInputChange = ({ target }: { target: HTMLInputElement }) => {
+    if (target.name === "number") {
+      target.value = formatCreditCardNumber(target.value);
+      updateFields({ creditCardNumber: target.value });
+    }
+    if (target.name === "date") {
+      target.value = formatExpirationDate(target.value);
+      updateFields({ expirationDate: target.value });
+    }
+  };
+
   return (
     <div>
       <FormWrapper title="Detalles del pago">
@@ -34,13 +47,14 @@ const PaymentGateway = ({
           autoFocus
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
-          pattern="4[0-9]{12}(?:[0-9]{3})?"
+          name="number"
+          pattern="([0-9]+( [0-9]+)+)"
           type="string"
-          placeholder="XXXXXXXXXXXXXXXX"
-          maxLength={16}
+          placeholder="XXXX XXXX XXXX XXXX"
+          maxLength={19}
           title="16 dígitos"
           value={creditCardNumber}
-          onChange={(e) => updateFields({ creditCardNumber: e.target.value })}
+          onChange={(e) => handleInputChange({ target: e.target })}
         />
 
         <label>Nombre del titular</label>
@@ -59,10 +73,12 @@ const PaymentGateway = ({
         <input
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
-          type="month"
+          name="date"
+          type="tel"
           min={minDate}
+          placeholder="MM/YY"
           value={expirationDate}
-          onChange={(e) => updateFields({ expirationDate: e.target.value })}
+          onChange={(e) => handleInputChange({ target: e.target })}
         />
 
         <label>CVV</label>
