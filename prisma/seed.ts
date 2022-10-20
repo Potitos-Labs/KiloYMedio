@@ -31,7 +31,8 @@ async function main() {
     data: [
       /* 1 */ {
         category: "driedFruits",
-        imageURL: "",
+        imageURL:
+          "https://kilo-y-medio.s3.eu-west-3.amazonaws.com/grupos_alimentos.jpg",
         categoryInSpanish: "Fruta deshidratada",
       },
       /* 2 */ {

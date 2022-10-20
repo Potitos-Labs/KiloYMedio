@@ -33,6 +33,7 @@ export default defineNextConfig({
       "images.pexels.com",
       "i.pinimg.com",
       "cdn2.iconfinder.com",
+      "kilo-y-medio.s3.eu-west-3.amazonaws.com",
     ],
     remotePatterns: [
       {
