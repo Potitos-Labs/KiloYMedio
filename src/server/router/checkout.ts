@@ -1,7 +1,7 @@
 import { createClientProtectedRouter } from "./context";
 import { z } from "zod";
 
-export const cartRouter = createClientProtectedRouter().query(
+export const checkoutRouter = createClientProtectedRouter().mutation(
   "createNewOrder",
   {
     async resolve({ ctx }) {

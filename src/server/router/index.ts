@@ -5,6 +5,7 @@ import superjson from "superjson";
 import { userRouter } from "./user";
 import { productRouter } from "./product";
 import { cartRouter } from "./cart";
+import { checkoutRouter } from "./checkout";
 import { protectedExampleRouter } from "./protected-example-router";
 
 export const appRouter = createRouter()
@@ -12,7 +13,8 @@ export const appRouter = createRouter()
   .merge("user.", userRouter)
   .merge("auth.", protectedExampleRouter)
   .merge("product.", productRouter)
-  .merge("cart.", cartRouter);
+  .merge("cart.", cartRouter)
+  .merge("checkout.", checkoutRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
