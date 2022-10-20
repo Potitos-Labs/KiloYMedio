@@ -15,7 +15,7 @@ function Category({
   return (
     <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
       <div className="py-6">
-        <Link href={`/product?catergory=${englishName}`}>
+        <Link href={`/product?category=${englishName}`}>
           <a>
             <Image
               src={imgURL}

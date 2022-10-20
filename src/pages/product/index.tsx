@@ -3,13 +3,28 @@ import { NextPage } from "next";
 import { trpc } from "../../utils/trpc";
 import Product from "../../components/product/Product";
 import Layout from "../../components/Layout";
+import { ECategory, NECategory } from "@prisma/client";
+import { z } from "zod";
 
 const ProductDetails: NextPage = () => {
-  const { data } = trpc.useQuery(["product.getAllProducts"]);
+  let { data } = trpc.useQuery(["product.getAllProducts"]);
   console.log(data);
 
   const router = useRouter();
   const category = router.query.category as string;
+
+  console.log({ category }, { data });
+
+  if (category && data) {
+    const ecategory = z.nativeEnum(ECategory).safeParse(category);
+    const necategory = z.nativeEnum(NECategory).safeParse(category);
+
+    if (ecategory.success) {
+      data = data.filter((p) => p.Edible?.category === ecategory.data);
+    } else if (necategory.success) {
+      data = data.filter((p) => p.NonEdible?.category === necategory.data);
+    }
+  }
 
   return (
     <Layout>
