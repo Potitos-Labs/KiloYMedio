@@ -7,7 +7,6 @@ import { FormEvent, useState } from "react";
 import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
 import Bill from "../components/payment/Bill";
-import { Stringifier } from "postcss";
 import { useRouter } from "next/router";
 
 type FormData = {
@@ -50,13 +49,12 @@ const Checkout = () => {
     });
   }
 
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-    useMultistepFrom([
-      // eslint-disable-next-line react/jsx-key
-      <CheckoutForm {...data} updateFields={updateFields} />,
-      // eslint-disable-next-line react/jsx-key
-      <PaymentGateway {...data} updateFields={updateFields} />,
-    ]);
+  const { step, isFirstStep, isLastStep, back, next } = useMultistepFrom([
+    // eslint-disable-next-line react/jsx-key
+    <CheckoutForm {...data} updateFields={updateFields} />,
+    // eslint-disable-next-line react/jsx-key
+    <PaymentGateway {...data} updateFields={updateFields} />,
+  ]);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -149,16 +147,18 @@ const Checkout = () => {
                       <button
                         type="button"
                         onClick={back}
-                        className="rounded-md bg-button px-3 py-1 font-bold text-white hover:bg-button_hover"
+                        className="rounded border border-button bg-transparent py-2 px-4 text-button hover:border-transparent hover:bg-button_hover hover:text-white"
                       >
                         Atrás
                       </button>
                     )}
                     <button
                       type="submit"
-                      className="rounded-md bg-button px-4 py-1 font-bold text-white hover:bg-button_hover "
+                      className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
                     >
-                      {!isLastStep ? "Siguiente" : "Finalizar compra"}
+                      {!isLastStep
+                        ? "Continuar con el pago"
+                        : "Finalizar compra"}
                     </button>
                   </div>
                 </div>

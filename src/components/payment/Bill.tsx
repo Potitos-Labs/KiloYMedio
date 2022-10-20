@@ -10,7 +10,7 @@ const Bill = ({
   postcode: boolean;
 }) => {
   const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
-  const shipmentPrice = null;
+  const shippingCosts = null;
 
   return (
     <div className="mr-20 ml-6 grid h-full">
@@ -38,7 +38,7 @@ const Bill = ({
                             objectFit="cover"
                           ></Image>
                         )}
-                        <div className="capitalize">
+                        <div className="first-letter:uppercase">
                           {cartProduct.product.name}
                         </div>
                       </div>
@@ -71,13 +71,15 @@ const Bill = ({
                   {" g"}
                   {/* ^^^ */}
                 </div>
-                <div className="grid justify-end text-red-500">Precio €</div>
+                <div className="ml-4 grid justify-end font-medium">
+                  {myCart?.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €
+                </div>
               </div>
               {showExtras && (
                 <div className="grid grid-cols-[70%_30%] items-end">
                   <h2 className="pt-4">Gastos de envío</h2>
                   <p className="grid justify-end text-red-500">
-                    {postcode ? shipmentPrice : "Calculando..."}
+                    {postcode ? shippingCosts : "Calculando..."}
                   </p>
                 </div>
               )}

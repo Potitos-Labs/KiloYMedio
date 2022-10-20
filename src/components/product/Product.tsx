@@ -51,7 +51,7 @@ function Product({
           </a>
         </Link>
       </div>
-      <h1 className="normal-case">{name}</h1>
+      <p className="first-letter:uppercase">{name}</p>
       <IncDecButtons
         setAmount={setAmount}
         amount={amount}

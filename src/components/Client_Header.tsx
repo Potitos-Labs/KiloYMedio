@@ -18,7 +18,7 @@ function Client_Header() {
         relative
         flex
         items-center
-        justify-between px-6 py-2
+        justify-between px-6
       "
     >
       <div className="flex flex-row">
