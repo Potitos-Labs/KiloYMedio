@@ -1,3 +1,4 @@
+import { date } from "zod";
 import { FormWrapper } from "./FormWrapper";
 
 type AddressData = {
@@ -22,6 +23,9 @@ const PaymentGateway = ({
   expirationDate,
   updateFields,
 }: AddressFormProps) => {
+  const date = new Date();
+  const minDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1);
+  console.log(minDate);
   return (
     <div>
       <FormWrapper title="Detalles del pago">
@@ -30,9 +34,10 @@ const PaymentGateway = ({
           autoFocus
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
-          pattern="[0-9]{16}"
+          pattern="4[0-9]{12}(?:[0-9]{3})?"
           type="string"
           placeholder="XXXXXXXXXXXXXXXX"
+          maxLength={16}
           title="16 dígitos"
           value={creditCardNumber}
           onChange={(e) => updateFields({ creditCardNumber: e.target.value })}
@@ -55,6 +60,7 @@ const PaymentGateway = ({
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
           type="month"
+          min={minDate}
           value={expirationDate}
           onChange={(e) => updateFields({ expirationDate: e.target.value })}
         />
@@ -63,8 +69,9 @@ const PaymentGateway = ({
         <input
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
-          type="text"
+          type="tel"
           placeholder="Código de seguridad"
+          maxLength={3}
           pattern="[0-9]{3}"
           title="El CVV sólo tiene 3 dígitos"
           value={CVV}
