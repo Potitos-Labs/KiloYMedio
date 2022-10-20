@@ -27,12 +27,13 @@ const PaymentGateway = ({
       <FormWrapper title="Detalles del pago">
         <label>Número de tarjeta</label>
         <input
+          autoFocus
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
           required
           pattern="[0-9]{16}"
           type="string"
-          placeholder="XXXX XXXX XXXX XXXX"
-          title="El formato de la tarjeta debe ser de tipo: XXXX-XXXX-XXXX-XXXX"
+          placeholder="XXXXXXXXXXXXXXXX"
+          title="16 dígitos"
           value={creditCardNumber}
           onChange={(e) => updateFields({ creditCardNumber: e.target.value })}
         />
@@ -40,9 +41,11 @@ const PaymentGateway = ({
         <label>Nombre del titular</label>
         <input
           className="w-full border-l-2 border-l-kym3 pl-2 shadow-md"
-          autoFocus
           required
           type="text"
+          placeholder="Titular de la tarjeta"
+          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,150}"
+          title="No se permiten dígitos ni caracteres especiales."
           value={fullNamePayment}
           onChange={(e) => updateFields({ fullNamePayment: e.target.value })}
         />
@@ -63,7 +66,7 @@ const PaymentGateway = ({
           type="text"
           placeholder="Código de seguridad"
           pattern="[0-9]{3}"
-          title="El CVV solo tiene 3 numeros"
+          title="El CVV sólo tiene 3 dígitos"
           value={CVV}
           onChange={(e) => updateFields({ CVV: e.target.value })}
         />

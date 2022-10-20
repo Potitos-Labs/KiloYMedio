@@ -1,6 +1,3 @@
-import { toast } from "react-toastify";
-import { FormWrapper } from "./FormWrapper";
-
 type CheckOutData = {
   firstName: string;
   surName: string;
@@ -32,10 +29,14 @@ const CheckoutForm = ({
         <label className="relative flex w-full flex-col">
           <span className="mb-3">Nombre</span>
           <input
+            autoFocus
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="text"
             name="name"
             value={firstName}
+            pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
+            title="No se permiten dígitos ni caracteres especiales."
+            required
             onChange={(e) => updateFields({ firstName: e.target.value })}
             placeholder="Nombre"
           />
@@ -62,6 +63,9 @@ const CheckoutForm = ({
             type="text"
             name="surname"
             value={surName}
+            pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
+            title="No se permiten dígitos ni caracteres especiales."
+            required
             onChange={(e) => updateFields({ surName: e.target.value })}
             placeholder="Apellidos"
           />
@@ -90,6 +94,8 @@ const CheckoutForm = ({
           type="text"
           name="address"
           value={city}
+          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
+          required
           onChange={(e) => updateFields({ city: e.target.value })}
           placeholder="Localidad"
         />
@@ -118,6 +124,7 @@ const CheckoutForm = ({
             type="text"
             name="address"
             value={address}
+            required
             onChange={(e) => updateFields({ address: e.target.value })}
             placeholder="Calle y número"
           />

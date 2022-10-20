@@ -106,6 +106,7 @@ const Checkout = () => {
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="email"
             name="email"
+            pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/" //comprobar
             placeholder="Correo electrónico"
           />
           <svg
