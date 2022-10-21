@@ -163,21 +163,13 @@ const Checkout = () => {
                         <button
                           type="button"
                           onClick={back}
-                          className="self-start  rounded-md bg-button px-12 py-1 font-bold text-white hover:bg-button_hover"
+                          className="rounded border border-button bg-transparent py-2 px-4 text-button hover:border-transparent hover:bg-button_hover hover:text-white"
                         >
                           Atrás
                         </button>
                       )}
                     </div>
                     <div className="flex justify-end">
-                      <button
-                        type="button"
-                        onClick={back}
-                        className="rounded border border-button bg-transparent py-2 px-4 text-button hover:border-transparent hover:bg-button_hover hover:text-white"
-                      >
-                        {!isLastStep ? "Siguiente" : "Finalizar compra"}
-                      </button>
-
                       <button
                         type="submit"
                         className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
