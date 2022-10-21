@@ -20,8 +20,9 @@ type FormData = {
   postalCode: string;
   creditCardNumber: string;
   CVV: string;
-  expirationDate: string;
   errorMessage: string;
+  addressCheckBox: boolean;
+  expirationDate: string;
 };
 
 const INITIAL_DATA: FormData = {
@@ -34,8 +35,9 @@ const INITIAL_DATA: FormData = {
   postalCode: "",
   creditCardNumber: "",
   CVV: "",
-  expirationDate: "",
   errorMessage: "",
+  addressCheckBox: true,
+  expirationDate: "",
 };
 
 const Checkout = () => {

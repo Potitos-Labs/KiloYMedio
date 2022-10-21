@@ -8,8 +8,9 @@ type AddressData = {
   facturationAddress: string;
   creditCardNumber: string;
   CVV: string;
-  expirationDate: string;
   errorMessage: string;
+  addressCheckBox: boolean;
+  expirationDate: string;
 };
 
 type AddressFormProps = AddressData & {
@@ -24,6 +25,7 @@ const PaymentGateway = ({
   CVV,
   expirationDate,
   errorMessage,
+  addressCheckBox,
   updateFields,
 }: AddressFormProps) => {
   const date = new Date();
@@ -39,6 +41,11 @@ const PaymentGateway = ({
       updateFields({ errorMessage: "" });
       updateFields({ expirationDate: target.value });
     }
+  };
+
+  const changeAddress = ({ target }: { target: HTMLInputElement }) => {
+    updateFields({ addressCheckBox: target.checked });
+    if (target.checked) updateFields({ facturationAddress: address });
   };
 
   return (
@@ -115,7 +122,8 @@ const PaymentGateway = ({
           <div className="items my-1 flex items-center justify-end gap-1">
             <input
               type="checkBox"
-              onChange={(e) => updateFields({ facturationAddress: address })}
+              defaultChecked={addressCheckBox}
+              onChange={(e) => changeAddress({ target: e.target })}
             />
             <label className=" text-sm text-gray-700">
               Usar dirección de envio
