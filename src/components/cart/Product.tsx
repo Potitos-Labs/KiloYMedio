@@ -8,7 +8,9 @@ type Unpacked<T> = T extends (infer U)[] ? U : T;
 function Product({
   cartProduct,
 }: {
-  cartProduct: Unpacked<inferQueryOutput<"cart.getAllCartProduct">>;
+  cartProduct: Unpacked<
+    inferQueryOutput<"cart.getAllCartProduct">["productList"]
+  >;
 }) {
   const stock = cartProduct.product.stock;
   const stockLeft = stock * 1000 >= 100;

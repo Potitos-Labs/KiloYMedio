@@ -23,7 +23,7 @@ const Bill = ({
             {/* Bill -> Products */}
             <div className="grid pl-1">
               {myCart ? (
-                myCart.map((cartProduct) => (
+                myCart.productList.map((cartProduct) => (
                   <div key={cartProduct.productId}>
                     <div className="mb-4 grid grid-cols-[40%_30%_30%] items-center font-medium">
                       <div className="flex flex-row items-center gap-2">
@@ -64,15 +64,12 @@ const Bill = ({
                 <div className="pt-4">Subtotal</div>
                 <div className="ml-4 grid font-medium">
                   {/* PROVISIONAL */}
-                  {myCart?.reduce(
-                    (sum, i) => sum + (i.product.Edible ? i.amount : 0),
-                    0,
-                  )}
+                  {myCart?.totalWeight}
                   {" g"}
                   {/* ^^^ */}
                 </div>
                 <div className="ml-4 grid justify-end font-medium">
-                  {myCart?.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €
+                  {myCart?.totalPrice} €
                 </div>
               </div>
               {showExtras && (
@@ -91,7 +88,7 @@ const Bill = ({
               <h2 className="pt-4 text-lg">Total</h2>
               <div className="grid justify-end text-2xl font-semibold">
                 {/* Hay que sumar los gastos de envío y el IVA* */}
-                {myCart?.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €
+                {myCart?.totalPrice} €
               </div>
             </div>
             {/* End Bill total */}

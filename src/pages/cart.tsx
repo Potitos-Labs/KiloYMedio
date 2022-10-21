@@ -22,7 +22,7 @@ const Cart: NextPage = () => {
               </div>
               <div className="m-0 grid gap-4 p-4">
                 {cartProducts ? (
-                  cartProducts.map((cartProduct) => (
+                  cartProducts.productList.map((cartProduct) => (
                     <div key={cartProduct.productId}>
                       <Product cartProduct={cartProduct}></Product>
                     </div>

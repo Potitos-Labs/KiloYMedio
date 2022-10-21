@@ -38,12 +38,13 @@ export const cartRouter = createClientProtectedRouter()
       });
 
       const cartProductWithPriceAndTotal = {
-        ...cartProductWithPrice,
-        totalPrice: cartProductWithPrice.reduce((sum, i) => sum + i.price, 0),
-        totalWeight: cartProductWithPrice.reduce(
-          (sum, i) => sum + (i.product.Edible ? i.amount : 0),
-          0,
-        ),
+        productList: cartProductWithPrice,
+        totalPrice: cartProductWithPrice
+          .reduce((sum, i) => sum + i.price, 0)
+          .toFixed(2),
+        totalWeight: cartProductWithPrice
+          .reduce((sum, i) => sum + (i.product.Edible ? i.amount : 0), 0)
+          .toFixed(2),
         totalProducts: cartProductWithPrice.reduce(
           (sum, i) => sum + (i.product.NonEdible ? i.amount : 0),
           0,

@@ -9,7 +9,7 @@ import { trpc } from "../utils/trpc";
 
 function Client_Header() {
   const { data: allCartProduct } = trpc.useQuery(["cart.getAllCartProduct"]);
-  const numberCartProducts = allCartProduct?.length ?? 0;
+  const numberCartProducts = allCartProduct?.productList.length ?? 0;
   return (
     <nav
       className="
