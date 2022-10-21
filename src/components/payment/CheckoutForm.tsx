@@ -6,6 +6,7 @@ type CheckOutData = {
   surName: string;
   city: string;
   address: string;
+  homeDelivery: boolean;
   postalCode: string;
 };
 
@@ -19,16 +20,17 @@ const CheckoutForm = ({
   city,
   address,
   postalCode,
+  homeDelivery,
   updateFields,
 }: CheckOutFormProps) => {
   const [selected, setSelected] = useState(true);
 
   function showShippingInfo() {
-    setSelected(true);
+    updateFields({ homeDelivery: true });
   }
 
   function hideShippingInfo() {
-    setSelected(false);
+    updateFields({ homeDelivery: false });
   }
 
   return (
@@ -103,7 +105,7 @@ const CheckoutForm = ({
         <RadioGroup>
           <RadioGroup.Option value={1} className="px-2 pt-4">
             <input
-              checked={!selected}
+              checked={!homeDelivery}
               id="radio-pickUp"
               type="radio"
               name="default-radio"
@@ -119,7 +121,7 @@ const CheckoutForm = ({
           <hr className="border-1 mt-5 border-gray-400 pb-3"></hr>
           <RadioGroup.Option value={1} className="px-2 pb-4">
             <input
-              checked={selected}
+              checked={homeDelivery}
               id="radio-shipping"
               type="radio"
               name="default-radio"
@@ -135,13 +137,15 @@ const CheckoutForm = ({
         </RadioGroup>
 
         {/*Localidad, Dirección y CP*/}
-        <div className={`${selected ? "visible bg-gray-50 p-5" : "hidden"}`}>
+        <div
+          className={`${homeDelivery ? "visible bg-gray-50 p-5" : "hidden"}`}
+        >
           <label className="relative flex w-full flex-col">
             <span className="mb-3">Localidad</span>
             <input
               className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
               type="text"
-              required={selected}
+              required={homeDelivery}
               name="address"
               value={city}
               pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
@@ -172,7 +176,7 @@ const CheckoutForm = ({
                 type="text"
                 name="address"
                 value={address}
-                required={selected}
+                required={homeDelivery}
                 onChange={(e) => updateFields({ address: e.target.value })}
                 placeholder="Calle y número"
               />
@@ -199,7 +203,8 @@ const CheckoutForm = ({
                 type="string"
                 name="cp"
                 value={postalCode}
-                required={selected}
+                required={homeDelivery}
+                maxLength={5}
                 pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
                 onChange={(e) => updateFields({ postalCode: e.target.value })}
                 placeholder="CP"

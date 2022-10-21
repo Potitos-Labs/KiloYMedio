@@ -38,7 +38,7 @@ const INITIAL_DATA: FormData = {
   creditCardNumber: "",
   CVV: "",
   errorMessage: "",
-  addressCheckBox: true,
+  addressCheckBox: false,
   homeDelivery: true,
   expirationDate: "",
 };
@@ -61,7 +61,7 @@ const Checkout = () => {
 
   const { step, isFirstStep, isLastStep, back, next } = useMultistepFrom([
     // eslint-disable-next-line react/jsx-key
-    //<CheckoutForm {...data} updateFields={updateFields} />,
+    <CheckoutForm {...data} updateFields={updateFields} />,
     // eslint-disable-next-line react/jsx-key
     <PaymentGateway {...data} updateFields={updateFields} />,
   ]);
