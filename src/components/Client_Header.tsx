@@ -40,7 +40,7 @@ function Client_Header() {
               ></path>
             </svg>
           </Link>
-          <span className="absolute -mt-7 ml-7 rounded-full bg-red-700 py-0 px-1.5 text-xs text-white">
+          <span className="absolute -mt-7 ml-7 h-5 w-5 rounded-full bg-gray-700 pt-0.5 pl-1.5 text-xs font-bold text-white">
             {numberCartProducts}
           </span>
         </div>
