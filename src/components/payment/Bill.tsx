@@ -60,15 +60,24 @@ const Bill = ({
             {/* Bill details */}
             <hr className="border-1 mt-5 border-gray-400"></hr>
             <div>
-              <div className="mb-4 grid grid-cols-[40%_30%_30%] items-end">
-                <div className="pt-4">Subtotal</div>
+              <div className="my-4 grid grid-cols-[40%_30%_30%] items-center">
+                <div className="justify-center">Subtotal</div>
                 <div className="ml-4 grid font-medium">
                   {/* PROVISIONAL */}
-                  {myCart?.totalWeight}
-                  {" g"}
+                  {myCart?.totalWeightEdible
+                    ? myCart?.totalWeightEdible + " g"
+                    : ""}
+                  {myCart?.totalWeightEdible && myCart?.totalAmountNEdible ? (
+                    <br></br>
+                  ) : (
+                    ""
+                  )}
+                  {myCart?.totalAmountNEdible
+                    ? myCart?.totalAmountNEdible + " u"
+                    : ""}
                   {/* ^^^ */}
                 </div>
-                <div className="ml-4 grid justify-end font-medium">
+                <div className="grid justify-end font-medium">
                   {myCart?.totalPrice} €
                 </div>
               </div>
