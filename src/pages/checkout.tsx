@@ -22,6 +22,7 @@ type FormData = {
   CVV: string;
   errorMessage: string;
   addressCheckBox: boolean;
+  homeDelivery: boolean;
   expirationDate: string;
 };
 
@@ -37,6 +38,7 @@ const INITIAL_DATA: FormData = {
   CVV: "",
   errorMessage: "",
   addressCheckBox: true,
+  homeDelivery: true,
   expirationDate: "",
 };
 
