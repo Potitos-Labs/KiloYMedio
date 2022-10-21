@@ -8,6 +8,7 @@ import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
 import Bill from "../components/payment/Bill";
 import { useRouter } from "next/router";
+import { string } from "zod";
 
 type FormData = {
   firstName: string;
@@ -20,6 +21,7 @@ type FormData = {
   creditCardNumber: string;
   CVV: string;
   expirationDate: string;
+  errorMessage: string;
 };
 
 const INITIAL_DATA: FormData = {
@@ -33,6 +35,7 @@ const INITIAL_DATA: FormData = {
   creditCardNumber: "",
   CVV: "",
   expirationDate: "",
+  errorMessage: "",
 };
 
 const Checkout = () => {
@@ -56,11 +59,29 @@ const Checkout = () => {
     <PaymentGateway {...data} updateFields={updateFields} />,
   ]);
 
+  function isDateExpired(date: string) {
+    const actualYear = Number(new Date().getUTCFullYear() - 2000);
+    const actuaMonth = Number(new Date().getUTCMonth());
+
+    const year = Number(date.substr(3, 4));
+    const month = Number(date.substr(0, 2));
+
+    if (actualYear > year || (actualYear == year && month < actuaMonth)) {
+      console.log(data.errorMessage);
+      updateFields({ errorMessage: "¡La tarjeta esta caducada!" });
+      return false;
+    }
+    return true;
+  }
+
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next();
-    alert("Compra realizada correctamente :3");
-    router.push(`/category`);
+    if (isDateExpired(data.expirationDate)) {
+      alert("Compra realizada correctamente :3");
+      console.log(data.errorMessage);
+      router.push(`/category`);
+    }
   }
 
   if (session) {

@@ -9,6 +9,7 @@ type AddressData = {
   creditCardNumber: string;
   CVV: string;
   expirationDate: string;
+  errorMessage: string;
 };
 
 type AddressFormProps = AddressData & {
@@ -22,11 +23,11 @@ const PaymentGateway = ({
   creditCardNumber,
   CVV,
   expirationDate,
+  errorMessage,
   updateFields,
 }: AddressFormProps) => {
   const date = new Date();
-  const minDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1);
-  console.log(minDate);
+  const year = date.getUTCFullYear();
 
   const handleInputChange = ({ target }: { target: HTMLInputElement }) => {
     if (target.name === "number") {
@@ -35,6 +36,7 @@ const PaymentGateway = ({
     }
     if (target.name === "date") {
       target.value = formatExpirationDate(target.value);
+      updateFields({ errorMessage: "" });
       updateFields({ expirationDate: target.value });
     }
   };
@@ -69,18 +71,6 @@ const PaymentGateway = ({
           onChange={(e) => updateFields({ fullNamePayment: e.target.value })}
         />
 
-        <label>Fecha de vencimiento</label>
-        <input
-          className="border-l-2 border-l-kym3 pl-2 shadow-md"
-          required
-          name="date"
-          type="tel"
-          min={minDate}
-          placeholder="MM/YY"
-          value={expirationDate}
-          onChange={(e) => handleInputChange({ target: e.target })}
-        />
-
         <label>CVV</label>
         <input
           className="border-l-2 border-l-kym3 pl-2 shadow-md"
@@ -93,6 +83,21 @@ const PaymentGateway = ({
           value={CVV}
           onChange={(e) => updateFields({ CVV: e.target.value })}
         />
+
+        <label>Fecha de vencimiento</label>
+        <div className="m-0 h-6">
+          <input
+            className="w-full border-l-2 border-l-kym3 pl-2 shadow-md"
+            required
+            name="date"
+            type="tel"
+            pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
+            placeholder="MM/YY"
+            value={expirationDate}
+            onChange={(e) => handleInputChange({ target: e.target })}
+          />
+          <label className="m-0 text-sm text-red-700">{errorMessage}</label>
+        </div>
       </FormWrapper>
       <FormWrapper title="Dirección de facturación">
         <label>Dirección de facturación</label>
