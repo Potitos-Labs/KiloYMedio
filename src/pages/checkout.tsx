@@ -8,7 +8,8 @@ import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
 import Bill from "../components/payment/Bill";
 import { useRouter } from "next/router";
-import { string } from "zod";
+import Popup from "reactjs-popup";
+import { trpc } from "../utils/trpc";
 
 type FormData = {
   firstName: string;
@@ -46,6 +47,8 @@ const Checkout = () => {
   const router = useRouter();
 
   const [data, setData] = useState(INITIAL_DATA);
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
 
   const { data: session } = useSession();
   let display = null;
@@ -58,7 +61,7 @@ const Checkout = () => {
 
   const { step, isFirstStep, isLastStep, back, next } = useMultistepFrom([
     // eslint-disable-next-line react/jsx-key
-    <CheckoutForm {...data} updateFields={updateFields} />,
+    //<CheckoutForm {...data} updateFields={updateFields} />,
     // eslint-disable-next-line react/jsx-key
     <PaymentGateway {...data} updateFields={updateFields} />,
   ]);
@@ -81,11 +84,20 @@ const Checkout = () => {
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next();
+
     if (isDateExpired(data.expirationDate)) {
-      alert("Compra realizada correctamente :3");
-      console.log(data.errorMessage);
-      router.push(`/category`);
+      trpc.useMutation(["checkout.createNewOrder"], {
+        onSuccess() {
+          document.getElementsByName("Submit");
+        },
+      });
+      setOpen(true);
     }
+  }
+
+  function endTransaction() {
+    setOpen(false);
+    router.push(`/category`);
   }
 
   if (session) {
@@ -176,6 +188,7 @@ const Checkout = () => {
                     <div className="flex justify-end">
                       <button
                         type="submit"
+                        name="Submit"
                         className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
                       >
                         {!isLastStep
@@ -193,6 +206,34 @@ const Checkout = () => {
         </div>
       </section>
       {/* End Grid */}
+      <Popup open={open} closeOnDocumentClick onClose={endTransaction}>
+        <div className="fixed inset-0 flex   items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+          <div className="w-1/3 rounded-md bg-white">
+            <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">
+              ¡Compra Completada!
+            </h1>
+            <p className="m-3">
+              Estimado <span className="font-bold">Cliente</span>,{" "}
+            </p>
+            <p className="m-3">
+              Su pedido ha sido efectuado con éxito y procuraremos que le llegue
+              lo más pronto posible.
+            </p>
+            <p className="m-3 mt-4 text-center">
+              ¡Muchisimas gracias por confiar en nosotros ! 😊
+            </p>
+            <div className="flex justify-end">
+              <button
+                className="m-3 mt-5 rounded-sm bg-button py-1 px-2 font-bold text-white hover:bg-button_hover"
+                onClick={endTransaction}
+              >
+                {" "}
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      </Popup>
     </Layout>
   );
 };
