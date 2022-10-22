@@ -2,7 +2,10 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { hash } from "argon2";
 import * as trpc from "@trpc/server";
-import { signUpSchema } from "../../utils/validations/auth";
+import {
+  signUpByAdminSchema,
+  signUpSchema,
+} from "../../utils/validations/auth";
 
 export const userRouter = createRouter()
   // Método hello(){}
@@ -47,6 +50,30 @@ export const userRouter = createRouter()
           email,
           passwordHash: hashedPassword,
           Client: { create: { cart: { create: {} } } },
+        },
+      });
+
+      return {
+        status: 201,
+        message: "Account created successfully",
+        result: result.email,
+      };
+    },
+  })
+  .mutation("createNewClientByAdmin", {
+    input: signUpByAdminSchema,
+    resolve: async ({ input, ctx }) => {
+      const { username, email, password, nif, address, phoneNumber } = input;
+
+      const hashedPassword = await hash(password);
+
+      const result = await ctx.prisma.user.create({
+        data: {
+          name: username,
+          email,
+          passwordHash: hashedPassword,
+          nif,
+          Client: { create: { address, phoneNumber, cart: { create: {} } } },
         },
       });
 
