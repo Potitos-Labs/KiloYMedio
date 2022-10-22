@@ -9,6 +9,7 @@ type AddressData = {
   creditCardNumber: string;
   CVV: string;
   errorMessage: string;
+  errorName: string;
   addressCheckBox: boolean;
   homeDelivery: boolean;
   expirationDate: string;
@@ -26,6 +27,7 @@ const PaymentGateway = ({
   CVV,
   expirationDate,
   errorMessage,
+  errorName,
   addressCheckBox,
   homeDelivery,
   updateFields,
@@ -42,6 +44,10 @@ const PaymentGateway = ({
       target.value = formatExpirationDate(target.value);
       updateFields({ errorMessage: "" });
       updateFields({ expirationDate: target.value });
+    }
+    if (target.name === "name") {
+      updateFields({ errorName: "" });
+      updateFields({ fullNamePayment: target.value });
     }
   };
 
@@ -82,18 +88,19 @@ const PaymentGateway = ({
             />
           </svg>
         </label>
-
-        <label className="relative mt-4 flex w-full flex-col">
+        <div></div>
+        <label className="relative mt-4 flex w-full flex-col   ">
           <span className="mb-3">Nombre del Titular</span>
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             required
             type="text"
+            name="name"
             placeholder="Titular de la tarjeta"
             pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,150}"
             title="No se permiten dígitos ni caracteres especiales."
             value={fullNamePayment}
-            onChange={(e) => updateFields({ fullNamePayment: e.target.value })}
+            onChange={(e) => handleInputChange({ target: e.target })}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +117,7 @@ const PaymentGateway = ({
             />
           </svg>
         </label>
+        <label className="m-0 text-sm text-red-700">{errorName}</label>
         <div className="mt-4 grid grid-cols-2 gap-4 ">
           <label className="relative flex w-full flex-col">
             <span className="mb-3">CVV</span>

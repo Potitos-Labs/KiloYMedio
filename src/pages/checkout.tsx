@@ -22,6 +22,7 @@ type FormData = {
   creditCardNumber: string;
   CVV: string;
   errorMessage: string;
+  errorName: string;
   addressCheckBox: boolean;
   homeDelivery: boolean;
   expirationDate: string;
@@ -38,6 +39,7 @@ const INITIAL_DATA: FormData = {
   creditCardNumber: "",
   CVV: "",
   errorMessage: "",
+  errorName: "",
   addressCheckBox: false,
   homeDelivery: true,
   expirationDate: "",
@@ -77,14 +79,25 @@ const Checkout = () => {
 
   function isDateExpired(date: string) {
     const actualYear = Number(new Date().getUTCFullYear() - 2000);
-    const actuaMonth = Number(new Date().getUTCMonth());
+    const actuaMonth = Number(new Date().getUTCMonth()) + 1;
 
     const year = Number(date.substr(3, 4));
     const month = Number(date.substr(0, 2));
 
     if (actualYear > year || (actualYear == year && month < actuaMonth)) {
       console.log(data.errorMessage);
-      updateFields({ errorMessage: "¡La tarjeta esta caducada!" });
+      updateFields({ errorMessage: "¡La tarjeta está caducada!" });
+      return false;
+    }
+    return true;
+  }
+
+  function isNameValid(name: string) {
+    const regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
+
+    if (!regexp.test(name)) {
+      console.log("");
+      updateFields({ errorName: "¡Introduzca nombre y apellidos!" });
       return false;
     }
     return true;
@@ -94,7 +107,10 @@ const Checkout = () => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    if (isDateExpired(data.expirationDate)) {
+    if (
+      isDateExpired(data.expirationDate) &&
+      isNameValid(data.fullNamePayment)
+    ) {
       createNewOrder({
         shipmentAddress: data.homeDelivery
           ? `${data.address}, ${data.city}, ${data.postalCode}`
