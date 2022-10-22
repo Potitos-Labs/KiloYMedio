@@ -86,7 +86,7 @@ const Checkout = () => {
     if (!isLastStep) return next();
 
     if (isDateExpired(data.expirationDate)) {
-      trpc.useMutation(["checkout.createNewOrder"]);
+      // trpc.useMutation(["checkout.createNewOrder"]);
       setOpen(true);
     }
   }

@@ -104,7 +104,7 @@ const Bill = ({
           </section>
           {/* End Bill -> Summary */}
           {/* Button */}
-          {!showExtras && (
+          {!showExtras && !(myCart?.productList.length == 0) && (
             <section>
               <div className="mt-10 flex flex-col justify-end px-5">
                 <Link href={"/checkout"}>
