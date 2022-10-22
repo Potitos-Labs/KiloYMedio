@@ -3,8 +3,13 @@ import { z } from "zod";
 
 export const checkoutRouter = createClientProtectedRouter().mutation(
   "createNewOrder",
+
   {
-    async resolve({ ctx }) {
+    input: z.object({
+      shipmentAddress: z.string(),
+    }),
+
+    async resolve({ ctx, input: { shipmentAddress } }) {
       const cartProduct = await ctx.prisma.cartProduct.findMany({
         orderBy: {
           product: {
@@ -51,6 +56,7 @@ export const checkoutRouter = createClientProtectedRouter().mutation(
         data: {
           price: cartProductWithPriceAndTotal.totalPrice.toString() + " €",
           clientId: ctx.session.user.id,
+          shipmentAddress: shipmentAddress,
           ProductOrder: { createMany: { data: productIdAndAmount } },
         },
       });

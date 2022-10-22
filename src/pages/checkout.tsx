@@ -50,6 +50,15 @@ const Checkout = () => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
+  const { mutateAsync: createNewOrder } = trpc.useMutation(
+    ["checkout.createNewOrder"],
+    {
+      onSuccess: () => {
+        setOpen(true);
+      },
+    },
+  );
+
   const { data: session } = useSession();
   let display = null;
 
@@ -86,8 +95,11 @@ const Checkout = () => {
     if (!isLastStep) return next();
 
     if (isDateExpired(data.expirationDate)) {
-      // trpc.useMutation(["checkout.createNewOrder"]);
-      setOpen(true);
+      createNewOrder({
+        shipmentAddress: data.homeDelivery
+          ? `${data.address}, ${data.city}, ${data.postalCode}`
+          : "Recogida en Tienda",
+      });
     }
   }
 

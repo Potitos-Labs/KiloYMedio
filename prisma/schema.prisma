@@ -240,6 +240,7 @@ model Order {
     client               Client?             @relation(fields: [clientId], references: [userId])
     clientId             String?
     ProductOrder         ProductOrder[]
+    shipmentAddress      String
     UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
     unregisteredClientId String?             @unique
 }
