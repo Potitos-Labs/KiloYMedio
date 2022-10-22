@@ -86,11 +86,7 @@ const Checkout = () => {
     if (!isLastStep) return next();
 
     if (isDateExpired(data.expirationDate)) {
-      trpc.useMutation(["checkout.createNewOrder"], {
-        onSuccess() {
-          document.getElementsByName("Submit");
-        },
-      });
+      trpc.useMutation(["checkout.createNewOrder"]);
       setOpen(true);
     }
   }
@@ -165,7 +161,7 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-[60%_40%] px-5">
+        <div className="mt-12 grid grid-cols-1  px-5 md:grid-cols-[60%_40%]">
           <section>
             {/*Contact info*/}
             <div className="mx-20 h-full">
@@ -206,7 +202,7 @@ const Checkout = () => {
         </div>
       </section>
       {/* End Grid */}
-      <Popup open={open} closeOnDocumentClick onClose={endTransaction}>
+      <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
         <div className="fixed inset-0 flex   items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-1/3 rounded-md bg-white">
             <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">
