@@ -18,7 +18,7 @@ const Header: React.FC = () => {
 
   if (!session) {
     right = (
-      <div className="flex gap-6">
+      <div className="flex gap-6 py-2">
         <Link href="/login">Iniciar sesión</Link>
         <Link href="/register">Registrarse</Link>
       </div>
