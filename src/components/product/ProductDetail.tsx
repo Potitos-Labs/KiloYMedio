@@ -30,9 +30,9 @@ const ProductDetail = ({
   const notify = () => toast.success("Producto añadido");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
-  const mutation = trpc.useMutation(["cart.addProduct"], {
+  const mutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
-      utils.invalidateQueries("cart.getAllCartProduct");
+      utils.cart.getAllCartProduct.invalidate();
     },
   });
 

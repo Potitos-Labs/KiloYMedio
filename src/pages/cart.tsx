@@ -5,7 +5,7 @@ import Product from "../components/cart/Product";
 import Bill from "../components/payment/Bill";
 
 const Cart: NextPage = () => {
-  const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { data: cartProducts } = trpc.cart.getAllCartProduct.useQuery();
 
   return (
     <Layout>

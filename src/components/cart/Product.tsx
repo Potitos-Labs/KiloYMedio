@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { inferQueryOutput, trpc } from "../../utils/trpc";
+import { AppRouterTypes, trpc } from "../../utils/trpc";
 import Image from "next/image";
 import IncDecButtons from "../product/IncDecButtons";
 import { IoTrashOutline } from "react-icons/io5";
@@ -9,7 +9,7 @@ function Product({
   cartProduct,
 }: {
   cartProduct: Unpacked<
-    inferQueryOutput<"cart.getAllCartProduct">["productList"]
+    AppRouterTypes["cart"]["getAllCartProduct"]["output"]["productList"]
   >;
 }) {
   const stock = cartProduct.product.stock;
@@ -19,22 +19,17 @@ function Product({
   const utils = trpc.useContext();
   const [amount, setAmount] = useState(cartProduct.amount);
 
-  const { mutateAsync: deleteMutation } = trpc.useMutation(
-    ["cart.deleteProduct"],
-    {
-      onSuccess() {
-        utils.invalidateQueries("cart.getAllCartProduct");
-      },
+  const { mutateAsync: deleteMutation } = trpc.cart.deleteProduct.useMutation({
+    onSuccess() {
+      utils.cart.getAllCartProduct.invalidate();
     },
-  );
-  const { mutateAsync: updateMutation } = trpc.useMutation(
-    ["cart.updateAmountProduct"],
-    {
+  });
+  const { mutateAsync: updateMutation } =
+    trpc.cart.updateAmountProduct.useMutation({
       onSuccess() {
-        utils.invalidateQueries("cart.getAllCartProduct");
+        utils.cart.getAllCartProduct.invalidate();
       },
-    },
-  );
+    });
   useEffect(() => {
     updateMutation({ amount, productId: cartProduct.productId });
   }, [amount, updateMutation, cartProduct.productId]);
