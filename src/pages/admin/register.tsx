@@ -24,8 +24,15 @@ import Layout from "../../components/Layout";
 const SignUpByAdmin: NextPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { register, setValue, handleSubmit } = useForm<ISignUpByAdminSchema>({
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignUpByAdminSchema>({
     resolver: zodResolver(signUpByAdminSchema),
+    criteriaMode: "all",
+    shouldUseNativeValidation: true,
   });
   const { mutateAsync } = trpc.useMutation(["user.createNewClientByAdmin"]);
   const onSubmit = useCallback(
@@ -55,8 +62,11 @@ const SignUpByAdmin: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="flex flex-col place-content-center items-center justify-center">
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <main>
+          <form
+            className="flex h-fit flex-col place-content-center items-center justify-center"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <h1 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
               Registrar nuevo cliente
             </h1>
@@ -65,66 +75,75 @@ const SignUpByAdmin: NextPage = () => {
                 <span className="mb-2">Nombre completo *</span>
                 <input
                   autoFocus
-                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
                   type="text"
-                  required
                   placeholder="Nombre y apellidos"
                   {...register("username")}
                 />
-                <HiOutlineUser className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
+                <HiOutlineUser className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+                <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                  {errors.username?.message}
+                </p>
               </label>
               <label className="relative flex w-full flex-col">
                 <span className="mb-2">NIF *</span>
                 <input
                   autoFocus
-                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
                   type="text"
-                  required
                   placeholder="NIF"
                   {...register("nif")}
                 />
-                <HiOutlineIdentification className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
+                <HiOutlineIdentification className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+                <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                  {errors.nif?.message}
+                </p>
               </label>
               <label className="relative flex w-full flex-col">
                 <span className="mb-2">Teléfono *</span>
                 <input
                   autoFocus
-                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
                   type="text"
-                  required
                   placeholder="Número de teléfono"
                   {...register("phoneNumber")}
                 />
-                <HiOutlinePhone className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
+                <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+                <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                  {errors.phoneNumber?.message}
+                </p>
               </label>
               <label className="relative flex w-full flex-col md:col-span-2">
                 <span className="mb-2">Correo *</span>
                 <input
                   autoFocus
-                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
                   type="email"
-                  required
                   placeholder="Correo"
                   {...register("email")}
                 />
-                <HiOutlineMail className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
+                <HiOutlineMail className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+                <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                  {errors.email?.message}
+                </p>
               </label>
               <label className="relative flex w-full flex-col md:col-span-2">
                 <span className="mb-2">Dirección *</span>
                 <input
                   autoFocus
-                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
                   type="text"
-                  required
                   placeholder="Dirección"
                   {...register("address")}
                 />
-                <HiOutlineLocationMarker className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
+                <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+                <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                  {errors.address?.message}
+                </p>
               </label>
               <button
                 type="submit"
                 className="whitespace-nowrap rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover  md:col-span-2"
-                onClick={() => setValue("password", "Potitos22")}
               >
                 Registar cliente
               </button>
