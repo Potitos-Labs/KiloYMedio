@@ -9,7 +9,7 @@ const Bill = ({
   showExtras: boolean;
   postcode: boolean;
 }) => {
-  const { data: myCart } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const shippingCosts = null;
 
   return (
