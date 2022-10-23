@@ -16,13 +16,9 @@ export default function EdibleForm() {
     resolver: zodResolver(productSchema),
   });
 
-  const { data: allergens } = trpc.useQuery([
-    "product.getAllAllergensInSpanish",
-  ]);
-  const { data: categories } = trpc.useQuery([
-    "product.getAllEdibleCategories",
-  ]);
-  const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
+  const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
+  const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
+  const { mutateAsync } = trpc.product.createNewProduct.useMutation();
 
   useEffect(() => {
     try {

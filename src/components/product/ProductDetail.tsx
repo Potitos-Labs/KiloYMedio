@@ -129,9 +129,8 @@ const DescriptionComponent = ({ description }: { description: string }) => {
 };
 
 const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
-  const { data: allergenTransalator } = trpc.useQuery([
-    "product.getAllergenInSpanishDictionary",
-  ]);
+  const { data: allergenTransalator } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
     <div className=" p-6">
       <div className="border-b-2 border-orange-400">

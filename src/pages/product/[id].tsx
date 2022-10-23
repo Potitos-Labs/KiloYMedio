@@ -8,7 +8,7 @@ import { trpc } from "../../utils/trpc";
 const ProductDetails: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isFetched } = trpc.useQuery(["product.getById", { id }]);
+  const { data, isFetched } = trpc.product.getById.useQuery({ id });
   const isEdible = Boolean(data?.Edible);
   if (data)
     return (
