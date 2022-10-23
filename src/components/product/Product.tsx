@@ -36,8 +36,8 @@ function Product({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
-      <div className="py-6">
+    <div className="flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
+      <div className="py-3">
         <Link href={`/product/${id}`}>
           <a>
             <Image
@@ -47,23 +47,26 @@ function Product({
               height="100"
               layout="fixed"
               objectFit="cover"
+              className="rounded-md"
             ></Image>
           </a>
         </Link>
       </div>
-      <p className="first-letter:uppercase">{name}</p>
-      <IncDecButtons
-        setAmount={setAmount}
-        amount={amount}
-        stock={stock}
-        stockLeft={stockLeft}
-        isEdible={isEdible}
-      />
+      <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+        {name}
+      </p>
       <div>
+        <IncDecButtons
+          setAmount={setAmount}
+          amount={amount}
+          stock={stock}
+          stockLeft={stockLeft}
+          isEdible={isEdible}
+        />
         <button
           disabled={!stockLeft}
           onClick={addToCart}
-          className={`rounded border border-button bg-transparent px-12 font-semibold text-kym4  ${
+          className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4  ${
             !stockLeft
               ? "cursor-not-allowed px-10 opacity-50"
               : "hover:border-transparent hover:bg-button_hover hover:text-white"

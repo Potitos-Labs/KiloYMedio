@@ -151,7 +151,7 @@ const Checkout = () => {
     display = (
       <div className="">
         <div className="grid grid-cols-2">
-          <h1 className="col-end-1 mb-4 bg-background py-2 pl-3 text-xl">
+          <h1 className="col-end-1 bg-background py-2 pl-3 text-xl">
             Información de contacto
           </h1>
           <p className="col-end-4">

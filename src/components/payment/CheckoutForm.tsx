@@ -35,7 +35,7 @@ const CheckoutForm = ({
 
   return (
     <div className="flex w-full flex-wrap gap-5">
-      <h1 className="mb-4 w-full bg-background py-2 pl-3 text-xl">
+      <h1 className="mt-2 w-full bg-background py-2 pl-3 text-xl">
         Información de envío
       </h1>
 
