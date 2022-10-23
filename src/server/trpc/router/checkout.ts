@@ -1,15 +1,10 @@
-import { createClientProtectedRouter } from "./context";
+import { router, clientProcedure } from "../trpc";
 import { z } from "zod";
 
-export const checkoutRouter = createClientProtectedRouter().mutation(
-  "createNewOrder",
-
-  {
-    input: z.object({
-      shipmentAddress: z.string(),
-    }),
-
-    async resolve({ ctx, input: { shipmentAddress } }) {
+export const checkoutRouter = router({
+  createNewOrder: clientProcedure
+    .input(z.object({ shipmentAddress: z.string() }))
+    .mutation(async ({ ctx, input: { shipmentAddress } }) => {
       const cartProduct = await ctx.prisma.cartProduct.findMany({
         orderBy: {
           product: {
@@ -66,6 +61,5 @@ export const checkoutRouter = createClientProtectedRouter().mutation(
       });
 
       return order;
-    },
-  },
-);
+    }),
+});
