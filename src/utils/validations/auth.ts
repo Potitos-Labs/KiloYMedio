@@ -1,4 +1,3 @@
-import isEmail from "validator/lib/isEmail";
 import isStrongPassword from "validator/lib/isStrongPassword";
 import * as z from "zod";
 

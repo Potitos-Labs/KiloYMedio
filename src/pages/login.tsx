@@ -9,9 +9,16 @@ import { ILogin, loginSchema } from "../utils/validations/auth";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<ILogin>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
+    shouldUseNativeValidation: true,
   });
+
+  const [emailNotExists, setEmailNotExists] = useState("");
 
   const { status } = useSession();
   if (status == "authenticated") {
@@ -26,6 +33,15 @@ const SignIn: NextPage = () => {
     googleError == ""
   ) {
     setGoogleError("Ya existe una cuenta con ese correo de Google");
+    router.replace("/login", undefined, { shallow: true });
+  }
+
+  if (
+    router.query.error &&
+    router.query.error == "CredentialsSignin" &&
+    emailNotExists == ""
+  ) {
+    setEmailNotExists("Email y/o contraseña invalido");
     router.replace("/login", undefined, { shallow: true });
   }
 
@@ -70,11 +86,16 @@ const SignIn: NextPage = () => {
               </label>
               <input
                 type="email"
-                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
+                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out invalid:border-2 invalid:border-red-500 focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="emailInput"
                 placeholder="Correo electrónico	"
-                {...register("email")}
+                {...register("email", {
+                  onChange: () => setEmailNotExists(""),
+                })}
               />
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
             </div>
             <div className="form-group mb-6">
               <label
@@ -85,11 +106,17 @@ const SignIn: NextPage = () => {
               </label>
               <input
                 type="password"
-                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
+                className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out invalid:border-2 invalid:border-red-500 focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="passwordInput"
                 placeholder="Contraseña"
-                {...register("password")}
+                {...register("password", {
+                  onChange: () => setEmailNotExists(""),
+                })}
               />
+              {errors.password && (
+                <p className="text-red-500">Contraseña invalida</p>
+              )}
+              <p className="font-semibold text-red-500">{emailNotExists}</p>
             </div>
             <button
               type="submit"
