@@ -27,7 +27,7 @@ const SignUpByAdmin: NextPage = () => {
   const { register, setValue, handleSubmit } = useForm<ISignUpByAdminSchema>({
     resolver: zodResolver(signUpByAdminSchema),
   });
-  const { mutateAsync } = trpc.useMutation(["user.createNewClientByAdmin"]);
+  const { mutateAsync } = trpc.user.createNewClientByAdmin.useMutation();
   const onSubmit = useCallback(
     async (data: ISignUpByAdminSchema) => {
       const result = await mutateAsync(data);
