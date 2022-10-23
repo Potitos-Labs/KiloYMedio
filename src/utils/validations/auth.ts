@@ -31,23 +31,15 @@ export const signUpSchema = loginSchema.extend({
 });
 
 export const signUpByAdminSchema = signUpSchema.extend({
-  nif: z.string().refine(
-    (value) => {
-      isIdentityCard(value, "ES");
-    },
-    {
-      message: "El formato introducido no es correcto",
-    },
-  ),
+  nif: z.string().refine((value) => isIdentityCard(value, "ES"), {
+    message: "El formato introducido no es correcto",
+  }),
   address: z.string().min(3),
-  phoneNumber: z.string().refine(
-    (value) => {
-      isMobilePhone(value, "es-ES", { strictMode: false });
-    },
-    {
+  phoneNumber: z
+    .string()
+    .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {
       message: "El formato introducido no es correcto",
-    },
-  ),
+    }),
 });
 
 export type ILogin = z.infer<typeof loginSchema>;

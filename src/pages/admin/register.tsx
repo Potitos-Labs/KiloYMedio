@@ -11,7 +11,6 @@ import {
   HiOutlinePhone,
   HiOutlineIdentification,
 } from "react-icons/hi";
-
 import { trpc } from "../../utils/trpc";
 import {
   ISignUpByAdminSchema,
@@ -26,7 +25,6 @@ const SignUpByAdmin: NextPage = () => {
   const router = useRouter();
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignUpByAdminSchema>({
