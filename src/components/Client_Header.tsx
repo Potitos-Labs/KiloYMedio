@@ -8,7 +8,7 @@ import Link from "next/link";
 import { trpc } from "../utils/trpc";
 
 function Client_Header() {
-  const { data: allCartProduct } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { data: allCartProduct } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = allCartProduct?.productList.length ?? 0;
   return (
     <nav

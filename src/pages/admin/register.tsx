@@ -32,7 +32,7 @@ const SignUpByAdmin: NextPage = () => {
     criteriaMode: "all",
     shouldUseNativeValidation: true,
   });
-  const { mutateAsync } = trpc.useMutation(["user.createNewClientByAdmin"]);
+  const { mutateAsync } = trpc.user.createNewClientByAdmin.useMutation();
   const onSubmit = useCallback(
     async (data: ISignUpByAdminSchema) => {
       const result = await mutateAsync(data);

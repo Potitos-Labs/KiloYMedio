@@ -7,7 +7,7 @@ import { ECategory, NECategory } from "@prisma/client";
 import { z } from "zod";
 
 const ProductDetails: NextPage = () => {
-  let { data } = trpc.useQuery(["product.getAllProducts"]);
+  let { data } = trpc.product.getAllProducts.useQuery();
   console.log(data);
 
   const router = useRouter();

@@ -1,34 +1,18 @@
-import { createRouter } from "./context";
-import { z } from "zod";
 import { hash } from "argon2";
 import * as trpc from "@trpc/server";
 import {
   signUpByAdminSchema,
   signUpSchema,
-} from "../../utils/validations/auth";
+} from "../../../utils/validations/auth";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 
-export const userRouter = createRouter()
-  // Método hello(){}
-  .query("hello", {
-    input: z.object({
-      text: z.string(),
-      description: z.string().min(10),
-    }),
-    resolve({ input }) {
-      return {
-        greeting: `Hello ${input.text} \n ${input.description}`,
-      };
-    },
-  })
-  // Método
-  .query("getAllUsers", {
-    async resolve({ ctx }) {
-      return await ctx.prisma.user.findMany();
-    },
-  })
-  .mutation("createNewClient", {
-    input: signUpSchema,
-    resolve: async ({ input, ctx }) => {
+export const userRouter = router({
+  getAllUsers: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.user.findMany();
+  }),
+  createNewClient: publicProcedure
+    .input(signUpSchema)
+    .mutation(async ({ input, ctx }) => {
       const { username, email, password } = input;
 
       const exists = await ctx.prisma.user.findFirst({
@@ -58,11 +42,10 @@ export const userRouter = createRouter()
         message: "Account created successfully",
         result: result.email,
       };
-    },
-  })
-  .mutation("createNewClientByAdmin", {
-    input: signUpByAdminSchema,
-    resolve: async ({ input, ctx }) => {
+    }),
+  createNewClientByAdmin: adminProcedure
+    .input(signUpByAdminSchema)
+    .mutation(async ({ input, ctx }) => {
       const { username, email, password, nif, address, phoneNumber } = input;
 
       const hashedPassword = await hash(password);
@@ -82,5 +65,5 @@ export const userRouter = createRouter()
         message: "Account created successfully",
         result: result.email,
       };
-    },
-  });
+    }),
+});

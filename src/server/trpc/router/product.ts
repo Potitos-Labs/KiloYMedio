@@ -1,73 +1,64 @@
-import { createRouter } from "./context";
 import { z } from "zod";
-import { categorySchema, productSchema } from "../../utils/validations/product";
+import {
+  categorySchema,
+  productSchema,
+} from "../../../utils/validations/product";
 import * as trpc from "@trpc/server";
 import { Allergen, ECategory, NECategory } from "@prisma/client";
+import { router, publicProcedure } from "../trpc";
 
-export const productRouter = createRouter()
-  .query("getAllProducts", {
-    async resolve({ ctx }) {
-      const products = await ctx.prisma.product.findMany({
-        select: {
-          id: true,
-          name: true,
-          description: true,
-          imageURL: true,
-          stock: true,
-          Edible: true,
-          NonEdible: true,
-        },
-        orderBy: {
-          name: "asc",
-        },
-      });
-      return products;
-    },
-  })
-  .query("getAllEdibleCategories", {
-    async resolve({ ctx }) {
-      return await ctx.prisma.eCategoryInSpanish.findMany({
-        select: {
-          id: true,
-          category: true,
-          imageURL: true,
-          categoryInSpanish: true,
-        },
-      });
-    },
-  })
-  .query("getAllNonEdibleCategories", {
-    async resolve({ ctx }) {
-      return await ctx.prisma.nECategoryInSpanish.findMany({
-        select: {
-          id: true,
-          category: true,
-          imageURL: true,
-          categoryInSpanish: true,
-        },
-      });
-    },
-  })
-  .query("getAllAllergensInSpanish", {
-    async resolve({ ctx }) {
-      return await ctx.prisma.allergenInSpanish.findMany();
-    },
-  })
-  .query("getAllergenInSpanishDictionary", {
-    async resolve({ ctx }) {
-      const allergen = await ctx.prisma.allergenInSpanish.findMany();
-      const dictionary = new Map<Allergen, string>();
-      allergen.forEach((a) => {
-        dictionary.set(a.allergen, a.allergenInSpanish);
-      });
-      return dictionary;
-    },
-  })
-  .query("getById", {
-    input: z.object({
-      id: z.string(),
-    }),
-    async resolve({ input, ctx }) {
+export const productRouter = router({
+  getAllProducts: publicProcedure.query(async ({ ctx }) => {
+    const products = await ctx.prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        imageURL: true,
+        stock: true,
+        Edible: true,
+        NonEdible: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+    return products;
+  }),
+  getAllEdibleCategories: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.eCategoryInSpanish.findMany({
+      select: {
+        id: true,
+        category: true,
+        imageURL: true,
+        categoryInSpanish: true,
+      },
+    });
+  }),
+  getAllNonEdibleCategories: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.nECategoryInSpanish.findMany({
+      select: {
+        id: true,
+        category: true,
+        imageURL: true,
+        categoryInSpanish: true,
+      },
+    });
+  }),
+  getAllAllergensInSpanish: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.allergenInSpanish.findMany();
+  }),
+  getAllergenInSpanishDictionary: publicProcedure.query(async ({ ctx }) => {
+    const allergen = await ctx.prisma.allergenInSpanish.findMany();
+    const dictionary = new Map<Allergen, string>();
+    allergen.forEach((a) => {
+      dictionary.set(a.allergen, a.allergenInSpanish);
+    });
+    return dictionary;
+  }),
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
       return await ctx.prisma.product.findFirst({
         select: {
           id: true,
@@ -94,11 +85,10 @@ export const productRouter = createRouter()
         },
         where: { id: input.id },
       });
-    },
-  })
-  .query("getByCategory", {
-    input: z.object({ category: categorySchema }),
-    async resolve({ input, ctx }) {
+    }),
+  getByCategory: publicProcedure
+    .input(z.object({ category: categorySchema }))
+    .query(async ({ input, ctx }) => {
       let { category } = input;
 
       try {
@@ -135,11 +125,10 @@ export const productRouter = createRouter()
           },
         });
       } catch {}
-    },
-  })
-  .mutation("createNewProduct", {
-    input: productSchema,
-    resolve: async ({ input, ctx }) => {
+    }),
+  createNewProduct: publicProcedure
+    .input(productSchema)
+    .mutation(async ({ input, ctx }) => {
       const { name, description, stock, image, Edible, NonEdible } = input;
 
       if (!Edible && !NonEdible) {
@@ -221,5 +210,5 @@ export const productRouter = createRouter()
         code: "BAD_REQUEST",
         message: "Error not controlled",
       });
-    },
-  });
+    }),
+});

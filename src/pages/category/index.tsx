@@ -6,12 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CategoryDisplay: NextPage = () => {
-  const { data: eCategories } = trpc.useQuery([
-    "product.getAllEdibleCategories",
-  ]);
-  const { data: nCategories } = trpc.useQuery([
-    "product.getAllNonEdibleCategories",
-  ]);
+  const { data: eCategories } = trpc.product.getAllEdibleCategories.useQuery();
+  const { data: nCategories } =
+    trpc.product.getAllNonEdibleCategories.useQuery();
   return (
     <Layout>
       <div className="bg-kym3 p-4 font-bold text-white">Comestibles</div>

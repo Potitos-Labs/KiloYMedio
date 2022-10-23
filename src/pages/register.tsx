@@ -5,7 +5,6 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import isStrongPassword from "validator/lib/isStrongPassword";
 
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
@@ -22,7 +21,7 @@ const SignUp: NextPage = () => {
     criteriaMode: "all",
   });
 
-  const { mutateAsync } = trpc.useMutation(["user.createNewClient"]);
+  const { mutateAsync } = trpc.user.createNewClient.useMutation();
 
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
 

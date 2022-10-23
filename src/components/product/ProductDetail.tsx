@@ -30,9 +30,9 @@ const ProductDetail = ({
   const notify = () => toast.success("Producto añadido");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
-  const mutation = trpc.useMutation(["cart.addProduct"], {
+  const mutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
-      utils.invalidateQueries("cart.getAllCartProduct");
+      utils.cart.getAllCartProduct.invalidate();
     },
   });
 
@@ -129,9 +129,8 @@ const DescriptionComponent = ({ description }: { description: string }) => {
 };
 
 const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
-  const { data: allergenTransalator } = trpc.useQuery([
-    "product.getAllergenInSpanishDictionary",
-  ]);
+  const { data: allergenTransalator } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
     <div className=" p-6">
       <div className="border-b-2 border-orange-400">

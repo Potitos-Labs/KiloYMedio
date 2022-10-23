@@ -6,7 +6,7 @@ import Bill from "../components/payment/Bill";
 import { FormWrapper } from "../components/payment/FormWrapper";
 
 const Cart: NextPage = () => {
-  const { data: cartProducts } = trpc.useQuery(["cart.getAllCartProduct"]);
+  const { data: cartProducts } = trpc.cart.getAllCartProduct.useQuery();
 
   return (
     <Layout>

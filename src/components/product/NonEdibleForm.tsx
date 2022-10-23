@@ -16,11 +16,10 @@ export default function NonEdibleForm() {
     resolver: zodResolver(productSchema),
   });
 
-  const { data: categories } = trpc.useQuery([
-    "product.getAllNonEdibleCategories",
-  ]);
+  const { data: categories } =
+    trpc.product.getAllNonEdibleCategories.useQuery();
 
-  const { mutateAsync } = trpc.useMutation(["product.createNewProduct"]);
+  const { mutateAsync } = trpc.product.createNewProduct.useMutation();
 
   useEffect(() => {
     try {
