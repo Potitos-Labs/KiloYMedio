@@ -21,7 +21,7 @@ const SignUp: NextPage = () => {
     criteriaMode: "all",
   });
 
-  const { mutateAsync } = trpc.useMutation(["user.createNewClient"]);
+  const { mutateAsync } = trpc.user.createNewClient.useMutation();
 
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
 
