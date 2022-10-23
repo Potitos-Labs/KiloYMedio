@@ -49,8 +49,8 @@ const CategoryDisplay: NextPage = () => {
       </div>
       <div className="bg-kym3 p-4 font-bold text-white">General</div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
-          <div className="py-6">
+        <div className="flex flex-col items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
+          <div className="mb-5">
             <Link href={`/product`}>
               {/* completar */}
               <a>
@@ -61,11 +61,14 @@ const CategoryDisplay: NextPage = () => {
                   height="100"
                   layout="fixed"
                   objectFit="cover"
+                  className="rounded-md"
                 ></Image>
               </a>
             </Link>
           </div>
-          <h1 className="normal-case">Todos los productos</h1>
+          <h1 className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+            Todos los productos
+          </h1>
         </div>
       </div>
     </Layout>
