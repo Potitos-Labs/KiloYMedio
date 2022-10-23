@@ -44,7 +44,7 @@ function Product({
       <div className="flex flex-row border-2 border-solid border-black">
         <div className="flex flex-col p-2 align-middle">
           <Image
-            className=""
+            className="rounded-md"
             src={cartProduct.product.imageURL}
             alt={cartProduct.product.name + " imagen"}
             width={100}
@@ -53,18 +53,20 @@ function Product({
             objectFit="cover"
           />
         </div>
-        <div className=" m-2 w-full p-2">
-          <div className="flex h-1/2 flex-col justify-center text-lg font-bold capitalize">
-            <div>{cartProduct.product.name}</div>
+        <div className="m-2 w-full p-2">
+          <div className="font-semibold text-kym4 first-letter:uppercase">
+            {cartProduct.product.name}
           </div>
           {/* Amount */}
-          <IncDecButtons
-            setAmount={setAmount}
-            amount={amount}
-            stock={stock}
-            stockLeft={stockLeft}
-            isEdible={isEdible}
-          />
+          <div className="max-w-fit">
+            <IncDecButtons
+              setAmount={setAmount}
+              amount={amount}
+              stock={stock}
+              stockLeft={stockLeft}
+              isEdible={isEdible}
+            />
+          </div>
         </div>
         <div className="flex w-[40%] flex-col md:w-[40%] lg:w-[30%] xl:w-[20%]">
           {/* trash can */}

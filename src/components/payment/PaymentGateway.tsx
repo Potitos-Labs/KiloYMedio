@@ -190,13 +190,14 @@ const PaymentGateway = ({
                 id="iAddress"
                 type="text"
                 value={facturationAddress}
+                placeholder="Calle y número"
                 onChange={(e) =>
                   updateFields({ facturationAddress: e.target.value })
                 }
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
