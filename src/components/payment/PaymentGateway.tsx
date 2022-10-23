@@ -38,7 +38,6 @@ const PaymentGateway = ({
     if (target.name === "number") {
       target.value = formatCreditCardNumber(target.value);
       updateFields({ creditCardNumber: target.value });
-      console.log("");
     }
     if (target.name === "date") {
       target.value = formatExpirationDate(target.value);
