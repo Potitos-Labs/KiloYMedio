@@ -51,7 +51,7 @@ const CategoryDisplay: NextPage = () => {
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <div className=" flex flex-col items-center justify-center py-8 text-center shadow-lg hover:shadow-2xl">
           <div className="py-6">
-            <Link href={`/category/`}>
+            <Link href={`/product`}>
               {/* completar */}
               <a>
                 <Image

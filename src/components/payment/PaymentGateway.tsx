@@ -1,4 +1,3 @@
-import { date, input } from "zod";
 import { FormWrapper } from "./FormWrapper";
 import { formatCreditCardNumber, formatExpirationDate } from "./utils";
 
@@ -60,7 +59,7 @@ const PaymentGateway = ({
     <div>
       <FormWrapper title="Detalles del pago">
         <label className="relative  flex  flex-col">
-          <span className="mb-3">Número de Tarjeta</span>
+          <span className="mb-3">Número de tarjeta</span>
           <input
             className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             required
@@ -75,7 +74,7 @@ const PaymentGateway = ({
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+            className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -90,7 +89,7 @@ const PaymentGateway = ({
         </label>
         <div></div>
         <label className="relative mt-4 flex w-full flex-col   ">
-          <span className="mb-3">Nombre del Titular</span>
+          <span className="mb-3">Nombre del titular</span>
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             required
@@ -104,7 +103,7 @@ const PaymentGateway = ({
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+            className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -118,7 +117,7 @@ const PaymentGateway = ({
           </svg>
         </label>
         <label className="m-0 text-sm text-red-700">{errorName}</label>
-        <div className="mt-4 grid grid-cols-2 gap-4 ">
+        <div className="mt-4 grid grid-cols-2 gap-4 pb-2">
           <label className="relative flex w-full flex-col">
             <span className="mb-3">CVV</span>
             <input
@@ -134,7 +133,7 @@ const PaymentGateway = ({
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+              className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -150,7 +149,7 @@ const PaymentGateway = ({
 
           <div className="m-0 h-6">
             <label className="relative flex w-full flex-col">
-              <span className="mb-3">Fecha de Vencimiento</span>
+              <span className="mb-3">Fecha de vencimiento</span>
               <input
                 className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                 required
@@ -163,7 +162,7 @@ const PaymentGateway = ({
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -182,9 +181,9 @@ const PaymentGateway = ({
       </FormWrapper>
       <div className="mt-8">
         <FormWrapper title="Dirección de facturación">
-          <div>
+          <div className="pb-3">
             <label className="relative flex w-full flex-col">
-              <span className="mb-3">Dirección de Facturación</span>
+              <span className="mb-3">Dirección de facturación</span>
               <input
                 className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                 required
@@ -197,7 +196,7 @@ const PaymentGateway = ({
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                className="absolute bottom-0 left-0 -mb-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

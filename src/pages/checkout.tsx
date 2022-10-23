@@ -97,7 +97,7 @@ const Checkout = () => {
 
     if (!regexp.test(name)) {
       console.log("");
-      updateFields({ errorName: "¡Introduzca nombre y apellidos!" });
+      updateFields({ errorName: "Introduzca el nombre completo." });
       return false;
     }
     return true;
@@ -234,7 +234,7 @@ const Checkout = () => {
         <div className="fixed inset-0 flex   items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-1/3 rounded-md bg-white">
             <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">
-              ¡Compra Completada!
+              ¡Compra completada!
             </h1>
             <p className="m-3">
               Estimado <span className="font-bold">Cliente</span>,{" "}
@@ -244,7 +244,7 @@ const Checkout = () => {
               lo más pronto posible.
             </p>
             <p className="m-3 mt-4 text-center">
-              ¡Muchisimas gracias por confiar en nosotros ! 😊
+              ¡Muchísimas gracias por confiar en nosotros! 😊
             </p>
             <div className="flex justify-end">
               <button
