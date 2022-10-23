@@ -32,40 +32,61 @@ async function main() {
       /* 1 */ {
         category: "driedFruits",
         imageURL:
-          "https://kilo-y-medio.s3.eu-west-3.amazonaws.com/grupos_alimentos.jpg",
+          "https://img.freepik.com/fotos-premium/pasas-sobre-fondo-gris-texturizado-primer-plano-uvas-secas-amarillas-negras_338311-2310.jpg?w=2000",
         categoryInSpanish: "Fruta deshidratada",
       },
       /* 2 */ {
         category: "flours",
-        imageURL: "",
+        imageURL:
+          "https://www.pngall.com/wp-content/uploads/8/Flour-Cereal-PNG.png",
         categoryInSpanish: "Harinas",
       },
       /* 3 */ {
         category: "jams",
-        imageURL: "",
+        imageURL:
+          "https://assets.stickpng.com/images/5aaba15d7603fc558cffbfcf.png",
         categoryInSpanish: "Mermeladas",
       },
       /* 4 */ {
         category: "legumes",
-        imageURL: "",
+        imageURL:
+          "https://www.frutasluisi.eu/wp-content/uploads/2021/05/lenteja.jpg",
         categoryInSpanish: "Legumbres",
       },
       /* 5 */ {
         category: "nuts",
-        imageURL: "",
+        imageURL:
+          "https://assets.jumpseller.com/store/amapolas/themes/249680/options/16899457/FRUTOSECOSPORTADA.png?1623097828",
         categoryInSpanish: "Frutos secos",
       },
-      /* 6 */ { category: "oils", imageURL: "", categoryInSpanish: "Aceites" },
-      /* 7 */ { category: "pastas", imageURL: "", categoryInSpanish: "Pastas" },
+      /* 6 */ {
+        category: "oils",
+        imageURL:
+          "https://images.vexels.com/media/users/3/195085/isolated/preview/118e2d4013081d13f76859af0eb72ccc-dibujado-a-mano-jarra-de-aceite-de-oliva.png",
+        categoryInSpanish: "Aceites",
+      },
+      /* 7 */ {
+        category: "pastas",
+        imageURL:
+          "https://us.123rf.com/450wm/amylv/amylv1608/amylv160800142/61281077-sin-cocer-la-pasta-en-el-saco-pipe-rigate.jpg?ver=6",
+        categoryInSpanish: "Pastas",
+      },
       /* 8 */ {
         category: "syrups",
-        imageURL: "",
+        imageURL:
+          "https://www.pngall.com/wp-content/uploads/5/Maple-Syrup-PNG-HD-Image.png",
         categoryInSpanish: "Siropes",
       },
-      /* 9 */ { category: "teas", imageURL: "", categoryInSpanish: "Tés" },
+      /* 9 */ {
+        category: "teas",
+        imageURL:
+          "https://www.elhombredelsaco.eu/media/img/product/201811011854348855310_crop2.png",
+        categoryInSpanish: "Tés",
+      },
       /* 10 */ {
         category: "yeast",
-        imageURL: "",
+        imageURL:
+          "https://us.123rf.com/450wm/wabeno/wabeno1803/wabeno180300017/98916036-levadura-seca-en-cuchara-de-madera-sobre-fondo-blanco-.jpg?ver=6",
         categoryInSpanish: "Levaduras",
       },
     ],
@@ -74,18 +95,26 @@ async function main() {
     data: [
       /* 1 */ {
         category: "cleaningProducts",
-        imageURL: "",
+        imageURL:
+          "https://images-na.ssl-images-amazon.com/images/I/91NRiLtf6yL._AC._SR360,460.jpg",
         categoryInSpanish: "Productos de limpieza",
       },
       /* 2 */ {
         category: "accessories",
-        imageURL: "",
+        imageURL:
+          "https://i.etsystatic.com/18604877/r/il/91a159/2514110643/il_570xN.2514110643_cab6.jpg",
         categoryInSpanish: "Accesorios",
       },
-      /* 3 */ { category: "home", imageURL: "", categoryInSpanish: "Hogar" },
+      /* 3 */ {
+        category: "home",
+        imageURL:
+          "https://www.vilmupa.com/catalogo/22225/lampara-bola-bambu.jpg",
+        categoryInSpanish: "Hogar",
+      },
       /* 4 */ {
         category: "personalCare",
-        imageURL: "",
+        imageURL:
+          "https://los40.com/los40/imagenes/2022/07/27/moda/1658916427_930712_1658916578_gigante_normal.jpg",
         categoryInSpanish: "Cuidado personal",
       },
     ],

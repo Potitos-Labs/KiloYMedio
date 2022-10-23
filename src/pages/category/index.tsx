@@ -55,7 +55,7 @@ const CategoryDisplay: NextPage = () => {
               {/* completar */}
               <a>
                 <Image
-                  src="https://cdn.shopify.com/s/files/1/0469/5280/8611/articles/harina_1024x.jpg?v=1609951043"
+                  src="https://ecologiautil.com/wp-content/uploads/2020/07/productos-ecologicos-y-sin-plastico-1.jpg"
                   alt="notfound"
                   width="100"
                   height="100"
