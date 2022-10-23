@@ -1,5 +1,7 @@
 import isStrongPassword from "validator/lib/isStrongPassword";
 import * as z from "zod";
+import isIdentityCard from "validator/lib/isIdentityCard";
+import isMobilePhone from "validator/lib/isMobilePhone";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Email invalido" }),
@@ -29,9 +31,23 @@ export const signUpSchema = loginSchema.extend({
 });
 
 export const signUpByAdminSchema = signUpSchema.extend({
-  nif: z.string().min(9).max(9),
-  address: z.string(),
-  phoneNumber: z.string().min(9).max(9),
+  nif: z.string().refine(
+    (value) => {
+      isIdentityCard(value, "ES");
+    },
+    {
+      message: "El formato introducido no es correcto",
+    },
+  ),
+  address: z.string().min(3),
+  phoneNumber: z.string().refine(
+    (value) => {
+      isMobilePhone(value, "es-ES", { strictMode: false });
+    },
+    {
+      message: "El formato introducido no es correcto",
+    },
+  ),
 });
 
 export type ILogin = z.infer<typeof loginSchema>;
