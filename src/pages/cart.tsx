@@ -11,10 +11,10 @@ const Cart: NextPage = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-[65%_35%]">
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-[65%_35%]">
           <section>
             {/*Shopping cart*/}
-            <div className="ml-12 h-full border-2 border-solid border-black">
+            <div className="mx-3 h-full border-2 border-solid border-black md:mx-6">
               <div className="bg-gray-400 pb-3">
                 <h1 className="pt-3 pl-3 text-3xl font-bold">
                   Carrito de compra

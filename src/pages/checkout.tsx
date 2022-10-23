@@ -22,6 +22,7 @@ type FormData = {
   creditCardNumber: string;
   CVV: string;
   errorMessage: string;
+  errorName: string;
   addressCheckBox: boolean;
   homeDelivery: boolean;
   expirationDate: string;
@@ -38,6 +39,7 @@ const INITIAL_DATA: FormData = {
   creditCardNumber: "",
   CVV: "",
   errorMessage: "",
+  errorName: "",
   addressCheckBox: false,
   homeDelivery: true,
   expirationDate: "",
@@ -49,6 +51,15 @@ const Checkout = () => {
   const [data, setData] = useState(INITIAL_DATA);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
+
+  const { mutateAsync: createNewOrder } = trpc.useMutation(
+    ["checkout.createNewOrder"],
+    {
+      onSuccess: () => {
+        setOpen(true);
+      },
+    },
+  );
 
   const { data: session } = useSession();
   let display = null;
@@ -68,14 +79,25 @@ const Checkout = () => {
 
   function isDateExpired(date: string) {
     const actualYear = Number(new Date().getUTCFullYear() - 2000);
-    const actuaMonth = Number(new Date().getUTCMonth());
+    const actuaMonth = Number(new Date().getUTCMonth()) + 1;
 
     const year = Number(date.substr(3, 4));
     const month = Number(date.substr(0, 2));
 
     if (actualYear > year || (actualYear == year && month < actuaMonth)) {
       console.log(data.errorMessage);
-      updateFields({ errorMessage: "¡La tarjeta esta caducada!" });
+      updateFields({ errorMessage: "¡La tarjeta está caducada!" });
+      return false;
+    }
+    return true;
+  }
+
+  function isNameValid(name: string) {
+    const regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
+
+    if (!regexp.test(name)) {
+      console.log("");
+      updateFields({ errorName: "¡Introduzca nombre y apellidos!" });
       return false;
     }
     return true;
@@ -85,13 +107,15 @@ const Checkout = () => {
     e.preventDefault();
     if (!isLastStep) return next();
 
-    if (isDateExpired(data.expirationDate)) {
-      trpc.useMutation(["checkout.createNewOrder"], {
-        onSuccess() {
-          document.getElementsByName("Submit");
-        },
+    if (
+      isDateExpired(data.expirationDate) &&
+      isNameValid(data.fullNamePayment)
+    ) {
+      createNewOrder({
+        shipmentAddress: data.homeDelivery
+          ? `${data.address}, ${data.city}, ${data.postalCode}`
+          : "Recogida en Tienda",
       });
-      setOpen(true);
     }
   }
 
@@ -165,7 +189,7 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-[60%_40%] px-5">
+        <div className="mt-12 grid grid-cols-1  px-5 md:grid-cols-[60%_40%]">
           <section>
             {/*Contact info*/}
             <div className="mx-20 h-full">
@@ -206,7 +230,7 @@ const Checkout = () => {
         </div>
       </section>
       {/* End Grid */}
-      <Popup open={open} closeOnDocumentClick onClose={endTransaction}>
+      <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
         <div className="fixed inset-0 flex   items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-1/3 rounded-md bg-white">
             <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">

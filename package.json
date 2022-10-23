@@ -27,6 +27,7 @@
     "@trpc/next": "^9.27.2",
     "@trpc/react": "^9.27.2",
     "@trpc/server": "^9.27.2",
+    "@types/validator": "^13.7.9",
     "argon2": "^0.29.1",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
@@ -38,6 +39,7 @@
     "react-toastify": "^9.0.8",
     "reactjs-popup": "^2.0.5",
     "superjson": "^1.9.1",
+    "validator": "^13.7.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {

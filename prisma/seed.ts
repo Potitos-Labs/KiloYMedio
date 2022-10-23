@@ -381,6 +381,7 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
   const ordenDeClienteNoRegistrado = await prisma.order.create({
     data: {
       price: "10€",
+      shipmentAddress: "Calle de Paquito Calvo, 33",
       UnregisteredClient: { connect: { id: clienteNoRegistrado.id } },
       ProductOrder: {
         createMany: {

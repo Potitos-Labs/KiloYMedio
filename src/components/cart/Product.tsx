@@ -66,7 +66,7 @@ function Product({
             isEdible={isEdible}
           />
         </div>
-        <div className="flex w-[20%] flex-col">
+        <div className="flex w-[40%] flex-col md:w-[40%] lg:w-[30%] xl:w-[20%]">
           {/* trash can */}
           <div className="flex flex-row-reverse">
             <button

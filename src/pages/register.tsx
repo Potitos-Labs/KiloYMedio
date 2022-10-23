@@ -1,32 +1,46 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import isStrongPassword from "validator/lib/isStrongPassword";
 
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<ISignUp>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
+    shouldUseNativeValidation: true, // need for :invalid tag tailwind
+    criteriaMode: "all",
   });
 
   const { mutateAsync } = trpc.useMutation(["user.createNewClient"]);
 
+  const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
+
   const onSubmit = useCallback(
     async (data: ISignUp) => {
-      const result = await mutateAsync(data);
-      if (result.status === 201) {
-        router.push("/");
+      try {
+        const result = await mutateAsync(data);
+        if (result.status === 201) {
+          router.push("/");
+        }
+      } catch (error) {
+        setEmailAlreadyExists(true);
       }
     },
     [mutateAsync, router],
   );
 
+  console.log({ errors });
   return (
     <div>
       <Head>
@@ -48,22 +62,40 @@ const SignUp: NextPage = () => {
               <div className=" m-6">
                 <input
                   type="text"
-                  placeholder="Type your username..."
-                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8"
+                  placeholder="Nombre"
+                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8 invalid:border-2 invalid:border-red-500"
+                  title=""
                   {...register("username")}
                 />
+                {errors.username && (
+                  <p className="text-red-500">{errors.username.message}</p>
+                )}
                 <input
                   type="email"
-                  placeholder="Type your email..."
-                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8"
-                  {...register("email")}
+                  placeholder="Email"
+                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8 invalid:border-2 invalid:border-red-500"
+                  title=""
+                  {...register("email", {
+                    onChange: () => setEmailAlreadyExists(false),
+                  })}
                 />
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
+                {emailAlreadyExists && (
+                  <p className="font-semibold text-red-500">
+                    El email ya esta siendo usado
+                  </p>
+                )}
                 <input
                   type="password"
                   placeholder="Type your password..."
                   className="mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                   {...register("password")}
                 />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
               <div className="flex items-center justify-center">
                 <div className="m-auto text-center">
