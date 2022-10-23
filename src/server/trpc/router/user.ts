@@ -5,7 +5,7 @@ import * as trpc from "@trpc/server";
 import {
   signUpByAdminSchema,
   signUpSchema,
-} from "../../utils/validations/auth";
+} from "../../../utils/validations/auth";
 
 export const userRouter = createRouter()
   // Método hello(){}

@@ -5,7 +5,6 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import isStrongPassword from "validator/lib/isStrongPassword";
 
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";

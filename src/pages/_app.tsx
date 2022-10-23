@@ -6,7 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/dist/shared/lib/utils";
 import { ToastContainer } from "react-toastify";
 import superjson from "superjson";
-import type { AppRouter } from "../server/router";
+import type { AppRouter } from "../server/trpc/router";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -1,6 +1,9 @@
 import { createRouter } from "./context";
 import { z } from "zod";
-import { categorySchema, productSchema } from "../../utils/validations/product";
+import {
+  categorySchema,
+  productSchema,
+} from "../../../utils/validations/product";
 import * as trpc from "@trpc/server";
 import { Allergen, ECategory, NECategory } from "@prisma/client";
 
