@@ -52,14 +52,12 @@ const Checkout = () => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
-  const { mutateAsync: createNewOrder } = trpc.useMutation(
-    ["checkout.createNewOrder"],
-    {
+  const { mutateAsync: createNewOrder } =
+    trpc.checkout.createNewOrder.useMutation({
       onSuccess: () => {
         setOpen(true);
       },
-    },
-  );
+    });
 
   const { data: session } = useSession();
   let display = null;
