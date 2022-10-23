@@ -31,7 +31,7 @@ const CategoryDisplay: NextPage = () => {
         )}
       </div>
 
-      <div className="bg-kym3 p-4 font-bold text-white">No Comestibles</div>
+      <div className="bg-kym3 p-4 font-bold text-white">No comestibles</div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {nCategories ? (
           nCategories.map((nCategory) => (
