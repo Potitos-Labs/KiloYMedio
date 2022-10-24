@@ -4,7 +4,7 @@ import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
 
 export const loginSchema = z.object({
-  email: z.string().email({ message: "Email invalido" }),
+  email: z.string().email({ message: "Email inválido" }),
   password: z.string().refine(
     (value) =>
       isStrongPassword(value, {
@@ -24,9 +24,9 @@ export const loginSchema = z.object({
 export const signUpSchema = loginSchema.extend({
   username: z
     .string()
-    .min(3, { message: "El nombre tiene que tener como mínimo 3 caracteres" })
+    .min(3, { message: "El nombre tiene que tener como mínimo 3 carácteres" })
     .max(20, {
-      message: "El nombre tiene que tener como máximo 20 caracteres",
+      message: "El nombre tiene que tener como máximo 20 carácteres",
     }),
 });
 
@@ -34,7 +34,9 @@ export const signUpByAdminSchema = signUpSchema.extend({
   nif: z.string().refine((value) => isIdentityCard(value, "ES"), {
     message: "El formato introducido no es correcto",
   }),
-  address: z.string().min(3),
+  address: z
+    .string()
+    .min(3, { message: "La dirección debe contener almenos 3 carácteres" }),
   phoneNumber: z
     .string()
     .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {

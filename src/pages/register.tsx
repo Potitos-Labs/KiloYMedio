@@ -50,7 +50,7 @@ const SignUp: NextPage = () => {
 
       <main className="flex flex-col items-center justify-center">
         <form
-          className="flex h-screen w-full max-w-sm items-center justify-center"
+          className="flex h-screen w-full max-w-md items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="m-64">
@@ -71,7 +71,7 @@ const SignUp: NextPage = () => {
                 )}
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="Correo"
                   className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8 invalid:border-2 invalid:border-red-500"
                   title=""
                   {...register("email", {
@@ -88,13 +88,21 @@ const SignUp: NextPage = () => {
                 )}
                 <input
                   type="password"
-                  placeholder="Type your password..."
+                  placeholder="Contraseña"
                   className="mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                   {...register("password")}
                 />
                 {errors.password && (
                   <p className="text-red-500">{errors.password.message}</p>
                 )}
+                <label>
+                  <input
+                    type="checkbox"
+                    className="mt-2 mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
+                    required
+                  />
+                  {"Acepto la política de privacidad"}
+                </label>
               </div>
               <div className="flex items-center justify-center">
                 <div className="m-auto text-center">
