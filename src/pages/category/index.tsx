@@ -24,7 +24,7 @@ const CategoryDisplay: NextPage = () => {
             ></Category>
           ))
         ) : (
-          <p className="text-right">Cargando...</p>
+          <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}
       </div>
 
@@ -41,7 +41,7 @@ const CategoryDisplay: NextPage = () => {
             ></Category>
           ))
         ) : (
-          <p className="text-right">Cargando...</p>
+          <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}
       </div>
       <div className="bg-kym3 p-4 font-bold text-white">General</div>

@@ -148,14 +148,14 @@ const Checkout = () => {
   if (!session) {
     display = (
       <div className="">
-        <div className="grid grid-cols-2">
-          <h1 className="col-end-1 bg-background py-2 pl-3 text-xl">
+        <div className="grid grid-cols-2 items-center bg-background pr-4">
+          <h1 className="col-end-1 py-2 pl-3 text-xl">
             Información de contacto
           </h1>
           <p className="col-end-4">
             ¿Ya tienes cuenta?{" "}
             <span>
-              <Link href={`/login`}>Inicia sesión</Link>
+              <Link href={`/login`}> Inicia sesión</Link>
             </span>
           </p>
         </div>
@@ -165,6 +165,7 @@ const Checkout = () => {
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
             type="email"
             name="email"
+            required
             pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/" //comprobar
             placeholder="Correo electrónico"
           />
@@ -187,7 +188,7 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-1  px-5 md:grid-cols-[60%_40%]">
+        <div className="mt-12 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
           <section>
             {/*Contact info*/}
             <div className="mx-20 h-full">
@@ -229,7 +230,7 @@ const Checkout = () => {
       </section>
       {/* End Grid */}
       <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
-        <div className="fixed inset-0 flex   items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-1/3 rounded-md bg-white">
             <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">
               ¡Compra completada!

@@ -41,7 +41,7 @@ const ProductDetails: NextPage = () => {
             ></Product>
           ))
         ) : (
-          <p className="text-right">Cargando...</p>
+          <p className="font-semibold text-kym4">Cargando...</p>
         )}
       </div>
     </Layout>
