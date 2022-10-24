@@ -50,14 +50,14 @@ const ProductDetail = ({
           {isEdible ? (
             <Link href={`/category`}>Comestible</Link>
           ) : (
-            <Link href={`/category`}>No Comestible</Link>
+            <Link href={`/category`}>No comestible</Link>
           )}
           {}
         </div>
 
         <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
           <div className="mt-5  flex max-h-64 flex-col items-center">
-            <img className="min-h-full" src={img}></img>
+            <img className="min-h-full rounded-md" src={img}></img>
           </div>
 
           <div className="mt-5  columns-1">
@@ -94,7 +94,7 @@ const ProductDetail = ({
 
               <button
                 onClick={addToCart}
-                className={`rounded border border-button bg-transparent px-12 font-semibold text-kym4  ${
+                className={`rounded-xl border border-button bg-transparent px-12 text-kym4  ${
                   !stockLeft
                     ? "cursor-not-allowed px-10 opacity-50"
                     : "hover:border-transparent hover:bg-button_hover hover:text-white"

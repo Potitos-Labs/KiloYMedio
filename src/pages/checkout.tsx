@@ -246,7 +246,7 @@ const Checkout = () => {
             </p>
             <div className="flex justify-end">
               <button
-                className="m-3 mt-5 rounded-sm bg-button py-1 px-2 font-bold text-white hover:bg-button_hover"
+                className="m-3 mt-5 rounded-md bg-button py-1 px-2 text-white hover:bg-button_hover"
                 onClick={endTransaction}
               >
                 {" "}
