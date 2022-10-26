@@ -4,12 +4,18 @@ import { Fragment, useState } from "react";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import Popup from "reactjs-popup";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const DotMenu = ({ id }: { id: string }) => {
   const notify = () => toast.success("¡Producto eliminado!");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
+  const { data, status } = useSession();
+
+  if (data?.user?.role != "admin") {
+    return;
+  }
 
   function cancelHandler() {
     setOpen(false);
