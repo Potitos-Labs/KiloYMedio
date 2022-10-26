@@ -17,7 +17,7 @@ const DotMenu = ({ id }: { id: string }) => {
 
   function AcceptHandler() {
     setOpen(false);
-    router.push(`/category`);
+    router.push(`/product`);
     notify();
   }
 

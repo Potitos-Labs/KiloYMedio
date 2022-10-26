@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
+import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
 
 function Product({
@@ -52,6 +53,7 @@ function Product({
           </a>
         </Link>
       </div>
+      <DotMenu id={id} />
       <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>
