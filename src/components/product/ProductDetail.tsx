@@ -6,6 +6,7 @@ import IncDecButtons from "./IncDecButtons";
 import { trpc } from "../../utils/trpc";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import DotMenu from "../DotMenu";
 
 const ProductDetail = ({
   name,
@@ -65,6 +66,9 @@ const ProductDetail = ({
               {name}
             </h1>
             <Stars average={4}></Stars>
+            <div className="mx-2 inline-block">
+              <DotMenu id={id}></DotMenu>
+            </div>
 
             {allergensList.length > 0 ? (
               <div>
