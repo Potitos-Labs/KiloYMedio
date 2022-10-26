@@ -63,7 +63,7 @@ function Client_Header() {
             >
               <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
-                  <Link href={`/product/create`}>
+                  <Link href={`/profile`}>
                     <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
                       <CgProfile className="mr-1 h-6 w-6" />
                       Ver perfil
