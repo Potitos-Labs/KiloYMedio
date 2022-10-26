@@ -37,7 +37,7 @@ function Product({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
+    <div className="relative flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${id}`}>
           <a>
@@ -53,7 +53,9 @@ function Product({
           </a>
         </Link>
       </div>
-      <DotMenu id={id} />
+      <div className="absolute top-0 right-0">
+        <DotMenu id={id} />
+      </div>
       <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>
