@@ -43,6 +43,12 @@ model Account {
     @@unique([provider, providerAccountId])
 }
 
+model AllergenInSpanish {
+    id                String   @id @default(cuid())
+    allergen          Allergen @unique
+    allergenInSpanish String
+}
+
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique
@@ -87,8 +93,7 @@ model Admin {
 
 model Cart {
     id          String        @id @default(cuid())
-    clientId    String        @unique
-    client      Client        @relation(fields: [clientId], references: [userId])
+    client      Client?
     CartProduct CartProduct[]
 }
 
@@ -102,6 +107,13 @@ model CartProduct {
     @@id([cartId, productId])
 }
 
+model ECategoryInSpanish {
+    id                String    @id @default(cuid())
+    category          ECategory @unique
+    imageURL          String
+    categoryInSpanish String
+}
+
 model Client {
     userId                   String                     @id
     user                     User                       @relation(fields: [userId], references: [id])
@@ -110,7 +122,8 @@ model Client {
     phoneNumber              String?
     points                   Int                        @default(0)
     // socio  Bool
-    cart                     Cart?
+    cart                     Cart                       @relation(fields: [cartId], references: [id])
+    cartId                   String                     @unique
     order                    Order[]
     Ticket                   Ticket[]
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
@@ -137,10 +150,14 @@ model Comment {
 model Edible {
     productId      String           @id
     product        Product          @relation(fields: [productId], references: [id])
-    Ingredient     Ingredient[]
+    Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id])
+    category       ECategory
     nutritionFacts NutritionFacts?
     priceByWeight  Float
-    EdibleAllergen EdibleAllergen[]
+    origin         String?
+    conservation   String?
+    allergens      EdibleAllergen[]
+    ingredientId   String           @unique
 }
 
 model EdibleAllergen {
@@ -153,23 +170,34 @@ model EdibleAllergen {
 
 model Ingredient {
     id               String             @id @default(cuid())
-    edible           Edible             @relation(fields: [edibleId], references: [productId])
     name             String
     RecipeIngredient RecipeIngredient[]
-    edibleId         String
+    Edible           Edible?
+}
+
+model NECategoryInSpanish {
+    id                String     @id @default(cuid())
+    category          NECategory @unique
+    imageURL          String
+    categoryInSpanish String
 }
 
 model NonEdible {
-    productId String  @id
-    product   Product @relation(fields: [productId], references: [id])
+    productId String     @id
+    product   Product    @relation(fields: [productId], references: [id])
+    category  NECategory
     price     Float
 }
 
 model NutritionFacts {
-    id       String @id @default(cuid())
-    // P G H / Kcal
-    edibleId String @unique
-    Edible   Edible @relation(fields: [edibleId], references: [productId])
+    id            String @id @default(cuid())
+    ingredients   String
+    energy        Float
+    fat           Float
+    carbohydrates Float
+    protein       Float
+    edibleId      String @unique
+    Edible        Edible @relation(fields: [edibleId], references: [productId])
 }
 
 model OnlineWorkshop {
@@ -212,6 +240,7 @@ model Order {
     client               Client?             @relation(fields: [clientId], references: [userId])
     clientId             String?
     ProductOrder         ProductOrder[]
+    shipmentAddress      String
     UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
     unregisteredClientId String?             @unique
 }
@@ -346,6 +375,26 @@ enum Allergen {
     sesameSeeds
     soybeans
     sulphurDioxideAndSulphites
+}
+
+enum ECategory {
+    driedFruits
+    flours
+    jams
+    legumes
+    nuts
+    oils
+    pastas
+    syrups
+    teas
+    yeast
+}
+
+enum NECategory {
+    accessories
+    cleaningProducts
+    personalCare
+    home
 }
 
 enum PostType {

@@ -1,0 +1,91 @@
+import { useState, useEffect } from "react";
+import { AppRouterTypes, trpc } from "../../utils/trpc";
+import Image from "next/image";
+import IncDecButtons from "../product/IncDecButtons";
+import { IoTrashOutline } from "react-icons/io5";
+type Unpacked<T> = T extends (infer U)[] ? U : T;
+
+function Product({
+  cartProduct,
+}: {
+  cartProduct: Unpacked<
+    AppRouterTypes["cart"]["getAllCartProduct"]["output"]["productList"]
+  >;
+}) {
+  const stock = cartProduct.product.stock;
+  const stockLeft = stock * 1000 >= 100;
+  const isEdible = Boolean(cartProduct.product.Edible);
+
+  const utils = trpc.useContext();
+  const [amount, setAmount] = useState(cartProduct.amount);
+
+  const { mutateAsync: deleteMutation } = trpc.cart.deleteProduct.useMutation({
+    onSuccess() {
+      utils.cart.getAllCartProduct.invalidate();
+    },
+  });
+  const { mutateAsync: updateMutation } =
+    trpc.cart.updateAmountProduct.useMutation({
+      onSuccess() {
+        utils.cart.getAllCartProduct.invalidate();
+      },
+    });
+  useEffect(() => {
+    updateMutation({ amount, productId: cartProduct.productId });
+  }, [amount, updateMutation, cartProduct.productId]);
+
+  return (
+    <div key={cartProduct.productId}>
+      <div className="flex flex-row border-2 border-solid border-black">
+        <div className="flex flex-col p-2 align-middle">
+          <Image
+            className="rounded-md"
+            src={cartProduct.product.imageURL}
+            alt={cartProduct.product.name + " imagen"}
+            width={100}
+            height={100}
+            layout="fixed"
+            objectFit="cover"
+          />
+        </div>
+        <div className="m-2 w-full p-2">
+          <div className="font-semibold text-kym4 first-letter:uppercase">
+            {cartProduct.product.name}
+          </div>
+          {/* Amount */}
+          <div className="max-w-fit">
+            <IncDecButtons
+              setAmount={setAmount}
+              amount={amount}
+              stock={stock}
+              stockLeft={stockLeft}
+              isEdible={isEdible}
+            />
+          </div>
+        </div>
+        <div className="flex w-[40%] flex-col md:w-[40%] lg:w-[30%] xl:w-[20%]">
+          {/* trash can */}
+          <div className="flex flex-row-reverse">
+            <button
+              className="h-10 bg-transparent px-2 font-semibold text-red-600"
+              onClick={() =>
+                deleteMutation({ productId: cartProduct.productId })
+              }
+              title="Eliminar del carrito"
+            >
+              <IoTrashOutline className="h-6 w-6"></IoTrashOutline>
+            </button>
+          </div>
+          {/* price */}
+          <div className="flex h-full flex-row-reverse">
+            <span className="self-end px-3 py-2">
+              {cartProduct.price.toFixed(2)} €
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Product;

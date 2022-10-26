@@ -18,8 +18,9 @@ export const authOptions: NextAuthOptions = {
       }
 
       // login with Credentials
-      if (session.user && token.role) {
+      if (session.user && token.role && token.id) {
         session.user.role = token.role;
+        session.user.id = token.id;
       }
 
       return session;
@@ -27,12 +28,14 @@ export const authOptions: NextAuthOptions = {
     jwt({ token, user }) {
       if (user?.role) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  pages: { signIn: "/login" },
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
@@ -74,8 +77,11 @@ export const authOptions: NextAuthOptions = {
       const userDB = await prisma.user.findFirstOrThrow({
         where: { id: user.id },
       });
+      const cart = await prisma.cart.create({
+        data: {},
+      });
       await prisma.client.create({
-        data: { userId: userDB.id, cart: { create: {} } },
+        data: { userId: userDB.id, cartId: cart.id },
       });
     },
   },

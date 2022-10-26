@@ -1,8 +1,124 @@
-import { PrismaClient } from "@prisma/client";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Prisma, PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
 const prisma = new PrismaClient();
 async function main() {
   const hashedPassword = await hash("potitos2022");
+
+  const allergenInSpanish = await prisma.allergenInSpanish.createMany({
+    data: [
+      /* 1 */ { allergen: "celery", allergenInSpanish: "Apio" },
+      /* 2 */ { allergen: "cereals", allergenInSpanish: "Gluten" },
+      /* 3 */ { allergen: "crustaceans", allergenInSpanish: "Crustáceos" },
+      /* 4 */ { allergen: "eggs", allergenInSpanish: "Huevos" },
+      /* 5 */ { allergen: "fish", allergenInSpanish: "Pescado" },
+      /* 6 */ { allergen: "lupin", allergenInSpanish: "Altramuces" },
+      /* 7 */ { allergen: "milk", allergenInSpanish: "Leche" },
+      /* 8 */ { allergen: "molluscs", allergenInSpanish: "Moluscos" },
+      /* 9 */ { allergen: "mustard", allergenInSpanish: "Mostaza" },
+      /* 10 */ { allergen: "nuts", allergenInSpanish: "Frutos con cáscara" },
+      /* 11 */ { allergen: "peanuts", allergenInSpanish: "Cacahuetes" },
+      /* 12 */ { allergen: "sesameSeeds", allergenInSpanish: "Sésamo" },
+      /* 13 */ { allergen: "soybeans", allergenInSpanish: "Soja" },
+      /* 14 */ {
+        allergen: "sulphurDioxideAndSulphites",
+        allergenInSpanish: "Dióxido de azufre y sulfitos",
+      },
+    ],
+  });
+
+  const ecategoryInSpanish = await prisma.eCategoryInSpanish.createMany({
+    data: [
+      /* 1 */ {
+        category: "driedFruits",
+        imageURL:
+          "https://img.freepik.com/fotos-premium/pasas-sobre-fondo-gris-texturizado-primer-plano-uvas-secas-amarillas-negras_338311-2310.jpg?w=2000",
+        categoryInSpanish: "Fruta deshidratada",
+      },
+      /* 2 */ {
+        category: "flours",
+        imageURL:
+          "https://www.pngall.com/wp-content/uploads/8/Flour-Cereal-PNG.png",
+        categoryInSpanish: "Harinas",
+      },
+      /* 3 */ {
+        category: "jams",
+        imageURL:
+          "https://assets.stickpng.com/images/5aaba15d7603fc558cffbfcf.png",
+        categoryInSpanish: "Mermeladas",
+      },
+      /* 4 */ {
+        category: "legumes",
+        imageURL:
+          "https://www.frutasluisi.eu/wp-content/uploads/2021/05/lenteja.jpg",
+        categoryInSpanish: "Legumbres",
+      },
+      /* 5 */ {
+        category: "nuts",
+        imageURL:
+          "https://assets.jumpseller.com/store/amapolas/themes/249680/options/16899457/FRUTOSECOSPORTADA.png?1623097828",
+        categoryInSpanish: "Frutos secos",
+      },
+      /* 6 */ {
+        category: "oils",
+        imageURL:
+          "https://images.vexels.com/media/users/3/195085/isolated/preview/118e2d4013081d13f76859af0eb72ccc-dibujado-a-mano-jarra-de-aceite-de-oliva.png",
+        categoryInSpanish: "Aceites",
+      },
+      /* 7 */ {
+        category: "pastas",
+        imageURL:
+          "https://us.123rf.com/450wm/amylv/amylv1608/amylv160800142/61281077-sin-cocer-la-pasta-en-el-saco-pipe-rigate.jpg?ver=6",
+        categoryInSpanish: "Pastas",
+      },
+      /* 8 */ {
+        category: "syrups",
+        imageURL:
+          "https://www.pngall.com/wp-content/uploads/5/Maple-Syrup-PNG-HD-Image.png",
+        categoryInSpanish: "Siropes",
+      },
+      /* 9 */ {
+        category: "teas",
+        imageURL:
+          "https://www.elhombredelsaco.eu/media/img/product/201811011854348855310_crop2.png",
+        categoryInSpanish: "Tés",
+      },
+      /* 10 */ {
+        category: "yeast",
+        imageURL:
+          "https://us.123rf.com/450wm/wabeno/wabeno1803/wabeno180300017/98916036-levadura-seca-en-cuchara-de-madera-sobre-fondo-blanco-.jpg?ver=6",
+        categoryInSpanish: "Levaduras",
+      },
+    ],
+  });
+  const neCategoryInSpanish = await prisma.nECategoryInSpanish.createMany({
+    data: [
+      /* 1 */ {
+        category: "cleaningProducts",
+        imageURL:
+          "https://images-na.ssl-images-amazon.com/images/I/91NRiLtf6yL._AC._SR360,460.jpg",
+        categoryInSpanish: "Productos de limpieza",
+      },
+      /* 2 */ {
+        category: "accessories",
+        imageURL:
+          "https://i.etsystatic.com/18604877/r/il/91a159/2514110643/il_570xN.2514110643_cab6.jpg",
+        categoryInSpanish: "Accesorios",
+      },
+      /* 3 */ {
+        category: "home",
+        imageURL:
+          "https://www.vilmupa.com/catalogo/22225/lampara-bola-bambu.jpg",
+        categoryInSpanish: "Hogar",
+      },
+      /* 4 */ {
+        category: "personalCare",
+        imageURL:
+          "https://los40.com/los40/imagenes/2022/07/27/moda/1658916427_930712_1658916578_gigante_normal.jpg",
+        categoryInSpanish: "Cuidado personal",
+      },
+    ],
+  });
 
   //#region Users
   const daniel = await prisma.user.create({
@@ -108,9 +224,10 @@ async function main() {
         "https://www.atida.com/es-es/blog/wp-content/uploads/2022/02/33-nuevo-blog.png",
       Edible: {
         create: {
+          category: "nuts",
           priceByWeight: 8.3,
-          EdibleAllergen: { create: { allergen: "nuts" } },
-          nutritionFacts: { create: {} },
+          allergens: { create: { allergen: "nuts" } },
+          Ingredient: { create: { name: "pistachos" } },
         },
       },
     },
@@ -125,8 +242,9 @@ async function main() {
         "https://as01.epimg.net/buenavida/imagenes/2017/04/10/portada/1491836256_032482_1491837182_noticia_normal.jpg",
       Edible: {
         create: {
+          category: "yeast",
           priceByWeight: 30,
-          nutritionFacts: { create: {} },
+          Ingredient: { create: { name: "levadura nutricional" } },
         },
       },
     },
@@ -141,8 +259,10 @@ async function main() {
         "https://estaticos.muyinteresante.es/uploads/images/gallery/56014df93eafe829aea881a3/lentejas3.jpg",
       Edible: {
         create: {
+          category: "legumes",
           priceByWeight: 9.1,
-          nutritionFacts: { create: {} },
+          nutritionFacts: {},
+          Ingredient: { create: { name: "lentejas" } },
         },
       },
     },
@@ -157,9 +277,10 @@ async function main() {
         "https://www.mundorganico.co/wp-content/uploads/2020/05/harina-kamut-1.jpg",
       Edible: {
         create: {
+          category: "flours",
           priceByWeight: 5.3,
-          EdibleAllergen: { create: { allergen: "cereals" } },
-          nutritionFacts: { create: {} },
+          allergens: { create: { allergen: "cereals" } },
+          Ingredient: { create: { name: "harina de trigo" } },
         },
       },
     },
@@ -174,7 +295,12 @@ async function main() {
       stock: 7,
       imageURL:
         "https://www.adonianatur.com/media/catalog/product/c/e/cepillo-dientes-azul-adultos-nordics-bambu.jpg",
-      NonEdible: { create: { price: 3.5 } },
+      NonEdible: {
+        create: {
+          category: "personalCare",
+          price: 3.5,
+        },
+      },
     },
   });
 
@@ -185,7 +311,12 @@ async function main() {
       stock: 12,
       imageURL:
         "https://http2.mlstatic.com/jabones-artesanales-100gr-D_NQ_NP_727085-MLM31223991710_062019-F.jpg",
-      NonEdible: { create: { price: 4.6 } },
+      NonEdible: {
+        create: {
+          category: "personalCare",
+          price: 4.6,
+        },
+      },
     },
   });
 
@@ -268,7 +399,7 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
       amount: 10,
       ingredient: {
         create: {
-          edible: { connect: { productId: levaduraNutricional.id } },
+          Edible: { connect: { productId: levaduraNutricional.id } }, //Se puede hacer desde levaduraNutricional.Edible.Ingredient¿?
           name: "levadura",
         },
       },
@@ -279,6 +410,7 @@ Por último, conviene dejar la paella reposar unos minutos tapada con un gran pa
   const ordenDeClienteNoRegistrado = await prisma.order.create({
     data: {
       price: "10€",
+      shipmentAddress: "Calle de Paquito Calvo, 33",
       UnregisteredClient: { connect: { id: clienteNoRegistrado.id } },
       ProductOrder: {
         createMany: {

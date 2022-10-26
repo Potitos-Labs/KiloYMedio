@@ -1,20 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Client_Header from "./Client_Header";
+
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   let right = null;
-  let left = null;
-
-  if (true) {
-    left = (
-      <div>
-        <Client_Header />
-      </div>
-    );
-  }
 
   if (status == "loading") {
     right = (
@@ -26,9 +18,9 @@ const Header: React.FC = () => {
 
   if (!session) {
     right = (
-      <div className="flex gap-6">
-        <Link href="/login">Log in</Link>
-        <Link href="/register">Register</Link>
+      <div className="flex gap-6 py-2">
+        <Link href="/login">Iniciar sesión</Link>
+        <Link href="/register">Registrarse</Link>
       </div>
     );
   }
@@ -36,29 +28,25 @@ const Header: React.FC = () => {
   if (session) {
     console.log(session.user);
     right = (
-      <div className="flex flex-auto gap-4">
-        <button
-          className="p-3 m-2"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Log out
-        </button>
+      <nav className="mx-auto flex flex-row items-center justify-between">
         <div>
-          <p>
-            {session.user?.name} {session.user?.email}
-          </p>
-          <p className="text-right">{session.user?.role}</p>
+          <p>{session.user?.name}</p>
         </div>
-      </div>
+        <Client_Header />
+      </nav>
     );
   }
 
   return (
-    <div className="bg-yellow-600 py-4">
-      <div className="container mx-auto">{right}</div>
-      <div>{left}</div>
+    <div className="bg-header py-4">
+      <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
+        <Link href={`/`}>
+          <h3 className="cursor-pointer font-sans text-xl font-semibold">
+            Kilo Y Medio
+          </h3>
+        </Link>
+        <div className="">{right}</div>
+      </div>
     </div>
   );
 };
