@@ -61,32 +61,22 @@ function Client_Header() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active ? "bg-button text-white" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <CgProfile className="mr-2" /> Ver perfil
-                    </button>
-                  )}
+                  <Link href={`/product/create`}>
+                    <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
+                      <CgProfile className="mr-1 h-6 w-6" />
+                      Ver perfil
+                    </a>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => {
-                        signOut();
-                      }}
-                      className={`${
-                        active ? "bg-button text-white" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <TbLogout className="mr-2" />
+                  <Link href={`/product/create`}>
+                    <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
+                      <TbLogout className="mr-1 h-6 w-6" />
                       Cerrar sesión
-                    </button>
-                  )}
+                    </a>
+                  </Link>
                 </Menu.Item>
               </Menu.Items>
             </Transition>
