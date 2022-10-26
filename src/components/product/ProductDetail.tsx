@@ -65,9 +65,11 @@ const ProductDetail = ({
             <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold capitalize">
               {name}
             </h1>
-            <Stars average={4}></Stars>
-            <div className="mx-2 inline-block">
-              <DotMenu id={id}></DotMenu>
+            <div className="inline-block">
+              <Stars average={4}></Stars>
+              <div className="mx-2 inline-block">
+                <DotMenu id={id}></DotMenu>
+              </div>
             </div>
 
             {allergensList.length > 0 ? (
