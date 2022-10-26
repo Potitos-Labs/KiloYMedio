@@ -1,8 +1,30 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { useRouter } from "next/router";
+import { Fragment, useState } from "react";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import Popup from "reactjs-popup";
+import { toast } from "react-toastify";
 
 const DotMenu = ({ id }: { id: string }) => {
+  const notify = () => toast.success("¡Producto eliminado!");
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
+
+  function cancelHandler() {
+    setOpen(false);
+  }
+
+  function AcceptHandler() {
+    setOpen(false);
+    router.push(`/category`);
+    notify();
+  }
+
+  function confirmAction() {
+    setOpen(true);
+  }
+
   return (
     <div>
       <div className="dropdown relative flex h-8 w-6 items-center">
@@ -37,6 +59,7 @@ const DotMenu = ({ id }: { id: string }) => {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={confirmAction}
                     className={`${
                       active ? "bg-button text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -50,6 +73,40 @@ const DotMenu = ({ id }: { id: string }) => {
           </Transition>
         </Menu>
       </div>
+
+      <Popup open={open} modal closeOnDocumentClick onClose={cancelHandler}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+          <div className="w-1/3 rounded-md bg-white">
+            <h1 className="rounded-t-md bg-red-500 py-2 text-center text-lg font-bold text-white">
+              Eliminar Producto
+            </h1>
+            <p className="m-3">
+              <span className="font-bold">¡Atención!</span>
+            </p>
+            <p className="m-3">
+              Estás apunto de eliminar este elemento de la web, esta acción es
+              irreversible.
+            </p>
+            <p className="m-3 mt-4 text-center">
+              ¿Estás segur@ de que quieres continuar?
+            </p>
+            <div className="flex justify-end">
+              <button
+                className="mb-3 mt-5 rounded-md bg-button py-1 px-2 text-white hover:bg-button_hover"
+                onClick={AcceptHandler}
+              >
+                Confirmar
+              </button>
+              <button
+                className="m-3  mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                onClick={cancelHandler}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </Popup>
     </div>
   );
 };
