@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import Image from "next/image";
@@ -7,25 +7,33 @@ import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 import AllergensComponent from "../../components/Allergen";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Client, clientSchema } from "../../utils/validations/client";
 
 const Profile: NextPage = () => {
-  const { data: session } = useSession();
   const [edit, setEdit] = useState(false);
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
-  //const [UserName, setUsername] = useState(session?.user?.name);
-  const { register } = useForm({
+  //const { mutateAsync: updateMutation } =
+  //trpc.cart.updateAmountProduct.useMutation({});
+
+  const { register, handleSubmit } = useForm<Client>({
+    resolver: zodResolver(clientSchema),
     defaultValues: {
-      userName: session?.user?.name,
-      Adress: "Calle Alvaro de Bazan 18",
-      Email: session?.user?.email,
-      Dni: "29222420",
-      Cp: "46010",
-      City: "Valencia ",
-      tlf: "606796767",
+      name: "Juan",
+      email: "johnny.altes12gmail.com",
+      address: "Calle ALvaro de Bazan 18 ",
+      image: "",
+      location: "Valencia",
+      CP: 100,
+      phoneNumber: 606796767,
+      nif: "29222420T",
     },
   });
 
   function changeEdit() {
+    setEdit(!edit);
+  }
+  function onSubmit() {
     setEdit(!edit);
   }
   return (
@@ -43,7 +51,9 @@ const Profile: NextPage = () => {
               className="rounded-md"
             ></Image>
             <p
-              className="cursor-pointer text-kym2 hover:text-kym4"
+              className={`${
+                edit ? "invisible" : "cursor-pointer text-kym2 hover:text-kym4"
+              }`}
               onClick={changeEdit}
             >
               <u>Editar perfil</u>
@@ -52,14 +62,14 @@ const Profile: NextPage = () => {
           <div className="my-10 ml-20 w-full">
             <FormWrapper title="Datos Personales">
               {/*Nombre y apellidos*/}
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className=" relative flex w-full flex-row items-center gap-4">
                   <p className="">Nombre completo</p>
                   <input
                     type="text"
-                    //name="userName"
-                    {...register("userName")}
+                    {...register("name")}
                     className="w-[400px] border"
+                    disabled={!edit}
                   ></input>
                 </div>
                 {/*Correo y Nombre*/}
@@ -67,14 +77,16 @@ const Profile: NextPage = () => {
                   <p> Correo</p>
                   <input
                     type="text"
-                    {...register("Email")}
+                    {...register("email")}
                     className="w-[300px] border"
+                    disabled={!edit}
                   ></input>
                   <p>Teléfono</p>
                   <input
                     type="text"
-                    {...register("tlf")}
+                    //{...register("tlf")}
                     className="w-[200px] border"
+                    disabled={!edit}
                   ></input>
                 </div>{" "}
               </form>
@@ -87,16 +99,27 @@ const Profile: NextPage = () => {
               <p>Dirección</p>
               <input
                 type="text"
-                {...register("Adress")}
+                {...register("address")}
                 className="w-[400px] border"
+                disabled={!edit}
               ></input>
             </div>
             {/*Correo y Nombre*/}
             <div className="relative flex w-full flex-row gap-4">
               <p> Localidad</p>
-              <input type="text" name="Localidad" className="border"></input>
+              <input
+                type="text"
+                {...register("location")}
+                className="border"
+                disabled={!edit}
+              ></input>
               <p>Cp</p>
-              <input type="text" name="PostalCode" className="border"></input>
+              <input
+                type="text"
+                {...register("CP")}
+                disabled={!edit}
+                className="border"
+              ></input>
             </div>
           </FormWrapper>
         </div>
@@ -107,9 +130,10 @@ const Profile: NextPage = () => {
                 <p>DNI</p>
                 <input
                   type="text"
-                  name="DNI"
+                  {...register("nif")}
                   value="29222420T"
                   className="w-[200px] border"
+                  disabled={!edit}
                 ></input>
                 <p className="text-bold "> Mis puntos: 100</p>
               </div>
@@ -139,13 +163,14 @@ const Profile: NextPage = () => {
         </div>
         <div className="mb-8 text-right">
           <button
+            type="submit"
             className={`${
               edit
                 ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
                 : "invisible"
             }`}
           >
-            Guardar canvios
+            Guardar cambios
           </button>
         </div>
       </div>
