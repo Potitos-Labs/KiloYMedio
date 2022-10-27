@@ -11,15 +11,18 @@ const DotMenu = ({ id }: { id: string }) => {
   const notify = () => toast.success("¡Producto eliminado!");
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
 
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   if (data?.user?.role != "admin") {
     return <div></div>;
   }
-
-  const { mutateAsync } = trpc.product.delete.useMutation();
+  const utils = trpc.useContext();
+  const { mutateAsync } = trpc.product.delete.useMutation({
+    onSuccess() {
+      utils.product.getAllProducts.invalidate();
+    },
+  });
 
   function cancelHandler() {
     setOpen(false);
