@@ -51,6 +51,7 @@ export default defineNextConfig({
       "ecologiautil.com",
       "www.frutasluisi.eu",
       "uxwing.com",
+      "pbs.twimg.com",
     ],
     remotePatterns: [
       {
