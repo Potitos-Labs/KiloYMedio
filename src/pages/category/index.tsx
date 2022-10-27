@@ -20,7 +20,6 @@ const CategoryDisplay: NextPage = () => {
               name={ecategory.categoryInSpanish}
               imgURL={ecategory.imageURL}
               englishName={ecategory.category}
-              id={ecategory.id}
             ></Category>
           ))
         ) : (
@@ -37,7 +36,6 @@ const CategoryDisplay: NextPage = () => {
               name={nCategory.categoryInSpanish}
               englishName={nCategory.category}
               imgURL={nCategory.imageURL}
-              id={nCategory.id}
             ></Category>
           ))
         ) : (

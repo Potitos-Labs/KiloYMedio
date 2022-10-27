@@ -5,12 +5,10 @@ function Category({
   name,
   englishName,
   imgURL,
-  id,
 }: {
   name: string;
   englishName: string;
   imgURL: string;
-  id: string;
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
