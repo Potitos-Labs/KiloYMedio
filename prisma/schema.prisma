@@ -291,7 +291,7 @@ model ProductOrder {
 model Recipe {
     id               String             @id @default(cuid())
     createdAt        DateTime           @default(now())
-    description      String
+    description      String?
     difficulty       RecipeDifficulty
     directionsId     String
     Directions       RecipeDirections   @relation(fields: [directionsId], references: [id])
@@ -300,7 +300,7 @@ model Recipe {
     portions         Int
     RecipeComment    RecipeComment[]
     RecipeIngredient RecipeIngredient[]
-    timeSpan         DateTime
+    timeSpan         Int
     userId           String
     User             User               @relation(fields: [userId], references: [id])
 }
