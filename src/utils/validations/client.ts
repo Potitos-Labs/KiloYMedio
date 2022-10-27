@@ -3,10 +3,10 @@ import * as z from "zod";
 export const clientSchema = z.object({
   name: z.string(),
   email: z.string().email(),
-  image: z.string(),
-  location: z.string(),
+  image: z.string().nullish(),
+  location: z.string().nullish(),
   CP: z.number(),
-  address: z.string(),
+  address: z.string().nullish(),
   phoneNumber: z.number(),
   nif: z.string(),
 });

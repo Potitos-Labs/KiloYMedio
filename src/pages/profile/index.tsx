@@ -1,29 +1,82 @@
-import { NextPage } from "next";
-
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import Image from "next/image";
 import { useState } from "react";
-import { trpc } from "../../utils/trpc";
+import { AppRouterTypes, trpc } from "../../utils/trpc";
 import AllergensComponent from "../../components/Allergen";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client, clientSchema } from "../../utils/validations/client";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { createContextInner } from "../../server/trpc/context";
+import { appRouter } from "../../server/trpc/router/_app";
+import superjson from "superjson";
+import { useRouter } from "next/router";
 
-const Profile: NextPage = () => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions,
+  );
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: await createContextInner({ session }),
+    transformer: superjson,
+  });
+
+  const id = session.user?.id;
+  const client = id ? await ssg.user.getClientById.fetch({ id }) : null;
+
+  if (!client) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { trpcState: ssg.dehydrate(), client },
+  };
+}
+
+const Profile = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+) => {
+  const { client: c } = props;
+  const client = c as AppRouterTypes["user"]["getClientById"]["output"];
+
   const [edit, setEdit] = useState(false);
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
-  //const { mutateAsync: updateMutation } =
-  //trpc.cart.updateAmountProduct.useMutation({});
+  const router = useRouter();
+
+  if (!client) {
+    router.push("/login");
+  }
 
   const { register, handleSubmit } = useForm<Client>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
-      name: "Juan",
-      email: "johnny.altes12gmail.com",
-      address: "Calle ALvaro de Bazan 18 ",
-      image: "",
-      location: "Valencia",
+      name: client?.name,
+      email: client?.email,
+      address: client?.address,
+      image: client?.image,
+      location: client?.location,
       CP: 100,
       phoneNumber: 606796767,
       nif: "29222420T",

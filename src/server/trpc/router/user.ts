@@ -5,8 +5,36 @@ import {
   signUpSchema,
 } from "../../../utils/validations/auth";
 import { router, publicProcedure, adminProcedure } from "../trpc";
+import { z } from "zod";
 
 export const userRouter = router({
+  getClientById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input: { id } }) => {
+      const client = await ctx.prisma.user.findFirst({
+        where: { id },
+        select: {
+          name: true,
+          email: true,
+          nif: true,
+          image: true,
+          Client: {
+            select: {
+              address: true,
+              phoneNumber: true,
+              CP: true,
+              location: true,
+            },
+          },
+        },
+      });
+
+      if (client) {
+        const { Client: clientAttr, ...userAttr } = client;
+        return { ...userAttr, ...clientAttr };
+      }
+      return null;
+    }),
   getAllUsers: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.user.findMany();
   }),
