@@ -75,7 +75,7 @@ const DotMenu = ({ id }: { id: string }) => {
                   <button
                     onClick={confirmAction}
                     className={`${
-                      active ? "bg-button text-white" : "text-gray-900"
+                      active ? ":bg-background" : "text-kym4"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <AiOutlineDelete className="mr-2" />
