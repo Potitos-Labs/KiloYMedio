@@ -55,7 +55,7 @@ function Product({
           </a>
         </Link>
       </div>
-      {data?.user?.role != "admin" && (
+      {data?.user?.role == "admin" && (
         <div className="absolute top-0 right-0">
           <DotMenu id={id} />
         </div>

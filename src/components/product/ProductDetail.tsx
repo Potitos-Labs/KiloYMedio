@@ -71,7 +71,7 @@ const ProductDetail = ({
             <div className="inline-block">
               <Stars average={4}></Stars>
               <div className="mx-2 inline-block">
-                {data?.user?.role != "admin" && <DotMenu id={id}></DotMenu>}
+                {data?.user?.role == "admin" && <DotMenu id={id}></DotMenu>}
               </div>
             </div>
 
