@@ -5,7 +5,7 @@ import {
   RiEditLine,
   RiEditFill,
 } from "react-icons/ri";
-import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 function NavBarAdmin() {
   return (
@@ -29,16 +29,16 @@ function NavBarAdmin() {
                 Editar productos
               </a>
             </Link>
-            <Link href={`/`}>
-              <a className="flex flex-row px-5 py-3 hover:bg-background">
-                <AiOutlineAppstoreAdd className="mr-1 h-6 w-6 fill-kym2" />
-                Añadir categorías
-              </a>
-            </Link>
             <Link href={`/category`}>
               <a className="flex flex-row px-5 py-3 hover:bg-background">
                 <RiEditFill className="mr-1 h-6 w-6 fill-kym2" />
                 Editar categorías
+              </a>
+            </Link>
+            <Link href={`/admin/register`}>
+              <a className="flex flex-row px-5 py-3 hover:bg-background">
+                <AiOutlineUserAdd className="mr-1 h-6 w-6 fill-kym2" />
+                Crear usuarios
               </a>
             </Link>
           </div>

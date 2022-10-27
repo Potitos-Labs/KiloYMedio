@@ -8,7 +8,6 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
 
   let rightItems = null;
-  let headerItems = null;
 
   if (status == "loading") {
     rightItems = (
@@ -16,10 +15,6 @@ const Header: React.FC = () => {
         <p>Validating session ...</p>
       </div>
     );
-  }
-
-  if (session?.user?.role == "admin") {
-    headerItems = <NavBarAdmin />;
   }
 
   if (!session) {
@@ -34,10 +29,20 @@ const Header: React.FC = () => {
   if (session) {
     rightItems = (
       <nav className="mx-auto flex flex-row items-center justify-between">
-        <div className="absolute right-40 top-10">
+        <div
+          className={`absolute ${
+            session?.user?.role == "admin"
+              ? "right-24 top-10"
+              : "right-40 top-8"
+          }`}
+        >
           <p>{session.user?.name}</p>
         </div>
-        <div className="absolute right-6 top-8">
+        <div
+          className={`absolute right-6 ${
+            session?.user?.role == "admin" ? "top-8" : "top-6"
+          }`}
+        >
           <Client_Header />
         </div>
       </nav>

@@ -71,7 +71,7 @@ const SignUpByAdmin: NextPage = () => {
           className="flex h-full flex-col place-content-center items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h1 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
+          <h1 className="mt-20 mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
             Registrar nuevo cliente
           </h1>
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
