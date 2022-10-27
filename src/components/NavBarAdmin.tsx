@@ -25,6 +25,12 @@ function NavBarAdmin() {
                 Añadir productos
               </a>
             </Link>
+            <Link href={`/product`}>
+              <a className="flex flex-row px-5 py-3 hover:bg-background">
+                <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
+                Ver productos
+              </a>
+            </Link>
             <Link href={`/category`}>
               <a className="flex flex-row px-5 py-3 hover:bg-background">
                 <RiEditFill className="mr-1 h-6 w-6 fill-kym2" />
@@ -42,10 +48,12 @@ function NavBarAdmin() {
       </div>
 
       <div className="group relative">
-        <button className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
-          Recetas
-          <RiArrowDropDownLine className="h-9 w-9" />
-        </button>
+        <Link href={`/`}>
+          <button className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+            Recetas
+            <RiArrowDropDownLine className="h-9 w-9" />
+          </button>
+        </Link>
         <div className="absolute z-10 hidden group-hover:block">
           <div className="flex w-[220px] flex-col rounded-md bg-white py-4 text-kym4 shadow-sm shadow-kym4">
             <Link href={`/`}>
