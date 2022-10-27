@@ -134,6 +134,34 @@ const SignUpByAdmin: NextPage = () => {
                 {emailAlreadyExists && "El correo ya está registrado"}
               </p>
             </label>
+            <label className="relative flex w-full flex-col">
+              <span className="mb-2">Localidad *</span>
+              <input
+                autoFocus
+                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
+                type="text"
+                placeholder="Localidad"
+                {...register("location")}
+              />
+              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                {errors.location?.message}
+              </p>
+            </label>
+            <label className="relative flex w-full flex-col">
+              <span className="mb-2">CP *</span>
+              <input
+                autoFocus
+                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
+                type="text"
+                placeholder="Código postal"
+                {...register("code_postal", { valueAsNumber: true })}
+              />
+              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+                {errors.location?.message}
+              </p>
+            </label>
             <label className="relative flex w-full flex-col md:col-span-2">
               <span className="mb-2">Dirección *</span>
               <input

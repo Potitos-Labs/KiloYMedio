@@ -2,6 +2,7 @@ import isStrongPassword from "validator/lib/isStrongPassword";
 import * as z from "zod";
 import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
+import isPostalCode from "validator/lib/isPostalCode";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -37,6 +38,14 @@ export const signUpByAdminSchema = signUpSchema.extend({
   address: z
     .string()
     .min(3, { message: "La dirección debe contener almenos 3 carácteres" }),
+  location: z
+    .string()
+    .min(3, { message: "La localización debe contener almenos 3 carácteres" }),
+  code_postal: z
+    .number()
+    .refine((value) => isPostalCode(value.toString(), "ES"), {
+      message: "El CP introducido no es correcto",
+    }),
   phoneNumber: z
     .string()
     .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {

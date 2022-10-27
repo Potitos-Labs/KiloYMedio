@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useCallback, useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { IProduct, productSchema } from "../../utils/validations/product";

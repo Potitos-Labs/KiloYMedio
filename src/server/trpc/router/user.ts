@@ -46,7 +46,16 @@ export const userRouter = router({
   createNewClientByAdmin: adminProcedure
     .input(signUpByAdminSchema)
     .mutation(async ({ input, ctx }) => {
-      const { username, email, password, nif, address, phoneNumber } = input;
+      const {
+        username,
+        email,
+        password,
+        nif,
+        location,
+        code_postal,
+        address,
+        phoneNumber,
+      } = input;
 
       const hashedPassword = await hash(password);
 
@@ -56,7 +65,15 @@ export const userRouter = router({
           email,
           passwordHash: hashedPassword,
           nif,
-          Client: { create: { address, phoneNumber, cart: { create: {} } } },
+          Client: {
+            create: {
+              address,
+              location,
+              CP: code_postal,
+              phoneNumber,
+              cart: { create: {} },
+            },
+          },
         },
       });
 

@@ -121,6 +121,8 @@ model Client {
     numberOfReports          Int                        @default(0)
     phoneNumber              String?
     points                   Int                        @default(0)
+    location                 String?
+    CP                       Int?
     // socio  Bool
     cart                     Cart                       @relation(fields: [cartId], references: [id])
     cartId                   String                     @unique
