@@ -71,12 +71,15 @@ function Client_Header() {
                   </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href={`/product/create`}>
-                    <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
-                      <TbLogout className="mr-1 h-6 w-6" />
-                      Cerrar sesión
-                    </a>
-                  </Link>
+                  <button
+                    className="flex w-full flex-row px-5 py-3 text-kym4 hover:rounded-md hover:bg-button hover:text-white"
+                    onClick={() => {
+                      signOut();
+                    }}
+                  >
+                    <TbLogout className="mr-2" />
+                    Cerrar sesión
+                  </button>
                 </Menu.Item>
               </Menu.Items>
             </Transition>
