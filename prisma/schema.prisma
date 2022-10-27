@@ -290,12 +290,19 @@ model ProductOrder {
 
 model Recipe {
     id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    description      String
+    difficulty       RecipeDifficulty
+    directionsId     String
+    Directions       RecipeDirections   @relation(fields: [directionsId], references: [id])
+    imageURL         String
     name             String
-    directions       String             @db.Text
-    RecipeIngredient RecipeIngredient[]
-    userId           String
-    user             User               @relation(fields: [userId], references: [id])
+    portions         Int
     RecipeComment    RecipeComment[]
+    RecipeIngredient RecipeIngredient[]
+    timeSpan         DateTime
+    userId           String
+    User             User               @relation(fields: [userId], references: [id])
 }
 
 model RecipeComment {
@@ -305,12 +312,20 @@ model RecipeComment {
     recipe    Recipe  @relation(fields: [recipeId], references: [id])
 }
 
+model RecipeDirections {
+    id         String   @id
+    number     Int      @unique
+    directions String   @db.Text
+    Recipe     Recipe[]
+}
+
 model RecipeIngredient {
     amount       Float
     ingredientId String
-    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+    ingredient   Ingredient     @relation(fields: [ingredientId], references: [id])
     recipeId     String
-    recipe       Recipe     @relation(fields: [recipeId], references: [id])
+    Recipe       Recipe         @relation(fields: [recipeId], references: [id])
+    unit         IngredientUnit
 
     @@id([recipeId, ingredientId])
 }
@@ -392,6 +407,19 @@ enum ECategory {
     yeast
 }
 
+enum IngredientUnit {
+    cup
+    grams
+    kilograms
+    liters
+    milliliters
+    ounce
+    pound
+    tablespoon
+    teaspoon
+    unit
+}
+
 enum NECategory {
     accessories
     cleaningProducts
@@ -402,6 +430,12 @@ enum NECategory {
 enum PostType {
     news
     announcement
+}
+
+enum RecipeDifficulty {
+    easy
+    moderate
+    hard
 }
 
 enum Role {
