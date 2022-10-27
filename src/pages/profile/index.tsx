@@ -64,28 +64,28 @@ const Profile: NextPage = () => {
               {/*Nombre y apellidos*/}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className=" relative flex w-full flex-row items-center gap-4">
-                  <p className="">Nombre completo</p>
+                  <p className="py-2">Nombre completo</p>
                   <input
                     type="text"
                     {...register("name")}
-                    className="w-[400px] border"
+                    className="peer w-[400px] rounded-md border-2  border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>
                 {/*Correo y Nombre*/}
                 <div className=" relative my-5 flex w-full flex-row gap-4">
-                  <p> Correo</p>
+                  <p className="py-2"> Correo</p>
                   <input
                     type="text"
                     {...register("email")}
-                    className="w-[300px] border"
+                    className="peer w-[300px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
-                  <p>Teléfono</p>
+                  <p className="py-2">Teléfono</p>
                   <input
                     type="text"
-                    //{...register("tlf")}
-                    className="w-[200px] border"
+                    {...register("phoneNumber")}
+                    className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>{" "}
@@ -100,7 +100,7 @@ const Profile: NextPage = () => {
               <input
                 type="text"
                 {...register("address")}
-                className="w-[400px] border"
+                className="peer w-[400px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
             </div>
@@ -110,7 +110,7 @@ const Profile: NextPage = () => {
               <input
                 type="text"
                 {...register("location")}
-                className="border"
+                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
               <p>Cp</p>
@@ -118,7 +118,7 @@ const Profile: NextPage = () => {
                 type="text"
                 {...register("CP")}
                 disabled={!edit}
-                className="border"
+                className="placeholder-gray-300r peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2"
               ></input>
             </div>
           </FormWrapper>
@@ -132,7 +132,7 @@ const Profile: NextPage = () => {
                   type="text"
                   {...register("nif")}
                   value="29222420T"
-                  className="w-[200px] border"
+                  className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
                   disabled={!edit}
                 ></input>
                 <p className="text-bold "> Mis puntos: 100</p>
