@@ -24,7 +24,7 @@ const Cart: NextPage = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-right">Cargando...</p>
+                  <p className="">Cargando...</p>
                 )}
               </div>
             </FormWrapper>
