@@ -50,6 +50,7 @@ export default defineNextConfig({
       "los40.com",
       "ecologiautil.com",
       "www.frutasluisi.eu",
+      "uxwing.com",
     ],
     remotePatterns: [
       {
