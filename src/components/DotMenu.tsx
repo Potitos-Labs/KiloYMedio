@@ -5,6 +5,7 @@ import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import Popup from "reactjs-popup";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { trpc } from "../utils/trpc";
 
 const DotMenu = ({ id }: { id: string }) => {
   const notify = () => toast.success("¡Producto eliminado!");
@@ -12,12 +13,21 @@ const DotMenu = ({ id }: { id: string }) => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
+  const { data, status } = useSession();
+
+  if (data?.user?.role != "admin") {
+    return <div></div>;
+  }
+
+  const { mutateAsync } = trpc.product.delete.useMutation();
+
   function cancelHandler() {
     setOpen(false);
   }
 
   function AcceptHandler() {
     setOpen(false);
+    mutateAsync({ productId: id });
     router.push(`/product`);
     notify();
   }

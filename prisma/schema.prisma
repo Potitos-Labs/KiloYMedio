@@ -99,10 +99,10 @@ model Cart {
 
 model CartProduct {
     cartId    String
-    cart      Cart    @relation(fields: [cartId], references: [id])
+    cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
     amount    Float
     productId String
-    product   Product @relation(fields: [productId], references: [id])
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
     @@id([cartId, productId])
 }
@@ -149,8 +149,8 @@ model Comment {
 
 model Edible {
     productId      String           @id
-    product        Product          @relation(fields: [productId], references: [id])
-    Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id])
+    product        Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+    Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
     category       ECategory
     nutritionFacts NutritionFacts?
     priceByWeight  Float
@@ -161,7 +161,7 @@ model Edible {
 }
 
 model EdibleAllergen {
-    edible   Edible   @relation(fields: [edibleId], references: [productId])
+    edible   Edible   @relation(fields: [edibleId], references: [productId], onDelete: Cascade)
     edibleId String
     allergen Allergen
 
@@ -184,7 +184,7 @@ model NECategoryInSpanish {
 
 model NonEdible {
     productId String     @id
-    product   Product    @relation(fields: [productId], references: [id])
+    product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
     category  NECategory
     price     Float
 }
@@ -197,7 +197,7 @@ model NutritionFacts {
     carbohydrates Float
     protein       Float
     edibleId      String @unique
-    Edible        Edible @relation(fields: [edibleId], references: [productId])
+    Edible        Edible @relation(fields: [edibleId], references: [productId], onDelete: Cascade)
 }
 
 model OnlineWorkshop {

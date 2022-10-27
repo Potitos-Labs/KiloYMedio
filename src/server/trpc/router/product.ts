@@ -5,7 +5,7 @@ import {
 } from "../../../utils/validations/product";
 import * as trpc from "@trpc/server";
 import { Allergen, ECategory, NECategory } from "@prisma/client";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, adminProcedure } from "../trpc";
 
 export const productRouter = router({
   getAllProducts: publicProcedure.query(async ({ ctx }) => {
@@ -209,6 +209,20 @@ export const productRouter = router({
       throw new trpc.TRPCError({
         code: "BAD_REQUEST",
         message: "Error not controlled",
+      });
+    }),
+  delete: adminProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { productId } = input;
+      await ctx.prisma.product.delete({
+        where: {
+          id: productId,
+        },
       });
     }),
 });
