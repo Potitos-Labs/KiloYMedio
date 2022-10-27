@@ -45,7 +45,7 @@ const DotMenu = ({ id }: { id: string }) => {
         <Menu as="div" className="realative inline-block text-left">
           <div>
             <Menu.Button className=" flex items-center">
-              <AiOutlineMore />
+              <AiOutlineMore className="h-5 w-5" />
             </Menu.Button>
           </div>
           <Transition
@@ -62,10 +62,10 @@ const DotMenu = ({ id }: { id: string }) => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? " bg-button text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      active && "bg-background"
+                    } group flex w-full items-center  px-2 py-2 text-sm`}
                   >
-                    <AiOutlineEdit className="mr-2" />
+                    <AiOutlineEdit className="mr-2 fill-kym2" />
                     Editar
                   </button>
                 )}
@@ -75,10 +75,10 @@ const DotMenu = ({ id }: { id: string }) => {
                   <button
                     onClick={confirmAction}
                     className={`${
-                      active ? ":bg-background" : "text-kym4"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      active && "bg-background"
+                    } group flex w-full items-center rounded-b-md px-2 py-2 text-sm`}
                   >
-                    <AiOutlineDelete className="mr-2" />
+                    <AiOutlineDelete className="mr-2 fill-kym2" />
                     Eliminar
                   </button>
                 )}
