@@ -14,7 +14,7 @@ const DotMenu = ({ id }: { id: string }) => {
   const { data, status } = useSession();
 
   if (data?.user?.role != "admin") {
-    return;
+    return <div></div>;
   }
 
   function cancelHandler() {
