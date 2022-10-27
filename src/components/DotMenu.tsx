@@ -102,7 +102,7 @@ const DotMenu = ({ id }: { id: string }) => {
               irreversible.
             </p>
             <p className="m-3 mt-4 text-center">
-              ¿Estás segur@ de que quieres continuar?
+              ¿Estás seguro de que quieres continuar?
             </p>
             <div className="flex justify-end">
               <button
