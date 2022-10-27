@@ -56,13 +56,15 @@ const SignIn: NextPage = () => {
   return (
     <Layout>
       <main className="flex h-screen flex-col items-center justify-center">
-        <div className="max-w-sm rounded-lg bg-white p-8 shadow-lg">
+        <div className="max-w-md rounded-md bg-white p-8 shadow-lg shadow-kym4">
           <div className="mb-3 text-center">
-            <h6 className="text-sm font-bold text-gray-600">Sign in with</h6>
+            <h6 className="text-sm font-bold text-gray-600">
+              Iniciar sesión con
+            </h6>
           </div>
           <div className="btn-wrapper text-center">
             <button
-              className="mr-1 mb-1 inline-flex items-center rounded bg-button px-4 py-2 text-xs font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
+              className="mr-1 mb-1 inline-flex items-center rounded bg-button px-4 py-2 font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
               type="button"
               style={{ transition: "all .15s ease" }}
               onClick={() =>
@@ -75,7 +77,7 @@ const SignIn: NextPage = () => {
             </button>
             <p className="font-semibold text-button">{googleError}</p>
           </div>
-          <hr className="border-b-1 mt-6 border-gray-400" />
+          <hr className="border-b-1 my-6 border-gray-400" />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group mb-6">
               <label
@@ -120,7 +122,7 @@ const SignIn: NextPage = () => {
             </div>
             <button
               type="submit"
-              className=" w-full rounded bg-button px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
+              className="w-full rounded-md bg-button px-6 py-2.5 font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
             >
               Iniciar sesión
             </button>

@@ -56,11 +56,11 @@ const SignUp: NextPage = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="m-64">
-              <div className="p-12 shadow-xl">
+              <div className="p-12 shadow-lg shadow-kym4">
                 <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-kym3">
-                  Create an account!
+                  Crear nueva cuenta
                 </h2>
-                <div className=" m-6">
+                <div className="m-6">
                   <input
                     type="text"
                     placeholder="Nombre"
@@ -85,7 +85,7 @@ const SignUp: NextPage = () => {
                   )}
                   {emailAlreadyExists && (
                     <p className="font-semibold text-red-500">
-                      El email ya esta siendo usado
+                      El email ya está siendo usado
                     </p>
                   )}
                   <input
@@ -103,21 +103,21 @@ const SignUp: NextPage = () => {
                       className="mt-2 mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
                       required
                     />
-                    {"Acepto la política de privacidad"}
+                    {" Acepto la política de privacidad"}
                   </label>
                 </div>
                 <div className="flex items-center justify-center">
                   <div className="m-auto text-center">
-                    <Link href="/">
-                      <p className=" cursor-pointer  font-semibold text-gray-600">
-                        Go to login
-                      </p>
+                    <Link href="/login">
+                      <u className="cursor-pointer text-kym2 hover:text-kym4">
+                        Ir a Iniciar sesión
+                      </u>
                     </Link>
                     <button
-                      className="m-2 mt-3 block rounded bg-button py-1 pl-20 pr-20 font-semibold text-white hover:bg-button_hover"
+                      className="m-2 mt-3 block rounded-md bg-button px-20 py-1 font-semibold uppercase text-white hover:bg-button_hover"
                       type="submit"
                     >
-                      Sign Up
+                      Crear cuenta
                     </button>
                   </div>
                 </div>
