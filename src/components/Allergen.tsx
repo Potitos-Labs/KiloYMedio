@@ -2,6 +2,7 @@ import { Allergen } from "@prisma/client";
 import CeleryIcon from "./Allergens/CeleryIcon";
 import CrustaceanIcon from "./Allergens/CrustaceanIcon";
 import EggIcon from "./Allergens/EggIcon";
+import FishIcon from "./Allergens/FishIcon";
 import GlutenIcon from "./Allergens/GlutenIcon";
 import LupinIcon from "./Allergens/LupinIcon";
 import MilkIcon from "./Allergens/MilkIcon";
@@ -21,7 +22,7 @@ const AllergensComponent = ({
   size: number;
 }) => {
   return (
-    <div className="inline-block">
+    <div className="felx-row inline-block flex">
       {allergens.map((allergen) => AllergenComponent({ allergen, size }))}
     </div>
   );
@@ -44,7 +45,7 @@ function AllergenComponent({
     case "eggs":
       return <EggIcon width={size} height={size}></EggIcon>;
     case "fish":
-      return <EggIcon width={size} height={size}></EggIcon>;
+      return <FishIcon width={size} height={size}></FishIcon>;
     case "lupin":
       return <LupinIcon width={size} height={size}></LupinIcon>;
     case "milk":
