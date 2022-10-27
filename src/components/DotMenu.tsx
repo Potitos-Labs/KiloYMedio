@@ -12,10 +12,6 @@ const DotMenu = ({ id }: { id: string }) => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
-  if (data?.user?.role != "admin") {
-    return <div></div>;
-  }
-
   function cancelHandler() {
     setOpen(false);
   }

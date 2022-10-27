@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,6 +20,7 @@ function Product({
   stock: number;
   isEdible: boolean;
 }) {
+  const { data, status } = useSession();
   const notify = () => toast.success("Producto añadido");
   const stockLeft = stock * 1000 >= 100;
   const [amount, setAmount] = useState(isEdible ? 100 : 1);
@@ -53,9 +55,11 @@ function Product({
           </a>
         </Link>
       </div>
-      <div className="absolute top-0 right-0">
-        <DotMenu id={id} />
-      </div>
+      {data?.user?.role != "admin" && (
+        <div className="absolute top-0 right-0">
+          <DotMenu id={id} />
+        </div>
+      )}
       <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>

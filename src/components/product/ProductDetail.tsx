@@ -7,6 +7,7 @@ import { trpc } from "../../utils/trpc";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import DotMenu from "../DotMenu";
+import { useSession } from "next-auth/react";
 
 const ProductDetail = ({
   name,
@@ -27,6 +28,8 @@ const ProductDetail = ({
   id: string;
   stock: number;
 }) => {
+  const { data, status } = useSession();
+
   const stockLeft = stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
@@ -68,7 +71,7 @@ const ProductDetail = ({
             <div className="inline-block">
               <Stars average={4}></Stars>
               <div className="mx-2 inline-block">
-                <DotMenu id={id}></DotMenu>
+                {data?.user?.role != "admin" && <DotMenu id={id}></DotMenu>}
               </div>
             </div>
 
