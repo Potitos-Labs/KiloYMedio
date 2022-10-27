@@ -1,22 +1,33 @@
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { userAgent } from "next/server";
-import SesameIcon from "../../components/Allergens/SesameIcon";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import Image from "next/image";
 import { useState } from "react";
 import { trpc } from "../../utils/trpc";
-import { Allergen } from "@prisma/client";
 import AllergensComponent from "../../components/Allergen";
+import { useForm } from "react-hook-form";
 
 const Profile: NextPage = () => {
   const { data: session } = useSession();
-  const areSession = session?.user;
-  //const { edit, setedit } = useState(false);
+  const [edit, setEdit] = useState(false);
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   //const [UserName, setUsername] = useState(session?.user?.name);
+  const { register } = useForm({
+    defaultValues: {
+      userName: session?.user?.name,
+      Adress: "Calle Alvaro de Bazan 18",
+      Email: session?.user?.email,
+      Dni: "29222420",
+      Cp: "46010",
+      City: "Valencia ",
+      tlf: "606796767",
+    },
+  });
 
+  function changeEdit() {
+    setEdit(!edit);
+  }
   return (
     <Layout>
       <div className="px-20">
@@ -31,60 +42,53 @@ const Profile: NextPage = () => {
               objectFit="cover"
               className="rounded-md"
             ></Image>
-            <p className="cursor-pointer text-kym2 hover:text-kym4">
+            <p
+              className="cursor-pointer text-kym2 hover:text-kym4"
+              onClick={changeEdit}
+            >
               <u>Editar perfil</u>
             </p>
           </div>
           <div className="my-10 ml-20 w-full">
             <FormWrapper title="Datos Personales">
               {/*Nombre y apellidos*/}
-              <div className="relative flex w-full flex-row gap-4">
-                <p className="mb-3">Nombre</p>
-                <input
-                  type="text"
-                  name="Name"
-                  //value = {UserName}
-                  className="w-[300px] border"
-                ></input>
-                <p> Apellidos</p>
-                <input
-                  type="text"
-                  name="UserName"
-                  className="w-[300px] border"
-                ></input>
-              </div>
-              {/*Correo y Nombre*/}
-              <div className=" relative my-5 flex w-full flex-row gap-4">
-                <p> Correo</p>
-                <input
-                  type="text"
-                  name="Gmail"
-                  className="w-[300px] border"
-                ></input>
-                <p>Teléfono</p>
-                <input
-                  type="text"
-                  name="tlf"
-                  className="w-[200px] border"
-                ></input>
-              </div>
+              <form>
+                <div className=" relative flex w-full flex-row items-center gap-4">
+                  <p className="">Nombre completo</p>
+                  <input
+                    type="text"
+                    //name="userName"
+                    {...register("userName")}
+                    className="w-[400px] border"
+                  ></input>
+                </div>
+                {/*Correo y Nombre*/}
+                <div className=" relative my-5 flex w-full flex-row gap-4">
+                  <p> Correo</p>
+                  <input
+                    type="text"
+                    {...register("Email")}
+                    className="w-[300px] border"
+                  ></input>
+                  <p>Teléfono</p>
+                  <input
+                    type="text"
+                    {...register("tlf")}
+                    className="w-[200px] border"
+                  ></input>
+                </div>{" "}
+              </form>
             </FormWrapper>
           </div>
         </div>
-        <div className="my-10 ml-20 w-full">
+        <div className="my-10 ml-20">
           <FormWrapper title="Dirección de envio">
             <div className="relative flex w-full flex-row gap-4 py-8">
-              <p className="mb-3">Dirección</p>
+              <p>Dirección</p>
               <input
                 type="text"
-                name="Dirección"
+                {...register("Adress")}
                 className="w-[400px] border"
-              ></input>
-              <p>Piso, bloque ...</p>
-              <input
-                type="text"
-                name="Bloque"
-                className="w-[300px] border"
               ></input>
             </div>
             {/*Correo y Nombre*/}
@@ -96,7 +100,7 @@ const Profile: NextPage = () => {
             </div>
           </FormWrapper>
         </div>
-        <div className="my-10 ml-20 w-full">
+        <div className="my-10 ml-20">
           <FormWrapper title="Area de socio">
             <div className="flex flex-col">
               <div className="relative mb-5 flex w-full flex-row gap-4">
@@ -117,15 +121,32 @@ const Profile: NextPage = () => {
             </div>
           </FormWrapper>
         </div>
-        <div className="my-10 ml-20 w-full">
+        <div className="my-10 ml-20">
           <FormWrapper title="Mis alérgenos">
             <div>
               <AllergensComponent
                 allergens={data?.map((e) => e.allergen) ?? []}
                 size={100}
               ></AllergensComponent>
+              <p
+                className="cursor-pointer text-right text-kym2 hover:text-kym4"
+                onClick={changeEdit}
+              >
+                <u>Modificar alérgenos</u>
+              </p>
             </div>
           </FormWrapper>
+        </div>
+        <div className="mb-8 text-right">
+          <button
+            className={`${
+              edit
+                ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
+                : "invisible"
+            }`}
+          >
+            Guardar canvios
+          </button>
         </div>
       </div>
     </Layout>

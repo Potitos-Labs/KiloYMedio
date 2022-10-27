@@ -1,5 +1,4 @@
 import { RadioGroup } from "@headlessui/react";
-import { useState } from "react";
 
 type CheckOutData = {
   firstName: string;
@@ -23,8 +22,6 @@ const CheckoutForm = ({
   homeDelivery,
   updateFields,
 }: CheckOutFormProps) => {
-  const [selected, setSelected] = useState(true);
-
   function showShippingInfo() {
     updateFields({ homeDelivery: true });
   }

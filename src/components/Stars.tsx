@@ -1,4 +1,3 @@
-import { number, string } from "zod";
 import {
   TiStarFullOutline,
   TiStarHalfOutline,

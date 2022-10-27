@@ -28,7 +28,7 @@ const ProductDetail = ({
   id: string;
   stock: number;
 }) => {
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   const stockLeft = stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");

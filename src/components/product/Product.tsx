@@ -20,7 +20,7 @@ function Product({
   stock: number;
   isEdible: boolean;
 }) {
-  const { data, status } = useSession();
+  const { data } = useSession();
   const notify = () => toast.success("Producto añadido");
   const stockLeft = stock * 1000 >= 100;
   const [amount, setAmount] = useState(isEdible ? 100 : 1);
