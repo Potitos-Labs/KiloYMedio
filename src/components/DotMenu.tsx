@@ -11,7 +11,6 @@ const DotMenu = ({ id }: { id: string }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
-  const { data, status } = useSession();
 
   if (data?.user?.role != "admin") {
     return <div></div>;
