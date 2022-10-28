@@ -172,7 +172,7 @@ const Profile = (
               ></input>
             </div>
             {/*Correo y Nombre*/}
-            <div className=" sm:gap-cols-[10%_90%] grid w-full grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
+            <div className=" sm:grid-col-[10%_90%] grid w-full grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
               <p className="py-2"> Población</p>
               <input
                 type="text"
@@ -221,7 +221,7 @@ const Profile = (
         </div>
         <div className="my-10 w-full">
           <FormWrapper title="Mis alérgenos">
-            <div className="grid grid-cols-5 items-start">
+            <div className="grid grid-cols-3 items-start sm:grid-cols-2 lg:grid-cols-5">
               {allergenList.map((allergen) => (
                 <div
                   className="align-left  mt-2 flex flex-col items-center py-2"
