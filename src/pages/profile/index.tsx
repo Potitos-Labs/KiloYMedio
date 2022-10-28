@@ -92,7 +92,7 @@ const Profile = (
   return (
     <Layout>
       <p
-        className={`  ${
+        className={`${
           edit
             ? "invisible"
             : "absolute right-40 cursor-pointer text-right text-kym2 hover:text-kym4"
@@ -124,32 +124,32 @@ const Profile = (
             </p>
           </div>
           <div className="my-10 w-full">
-            <FormWrapper title="Datos Personales">
+            <FormWrapper title="Datos personales">
               {/*Nombre y apellidos*/}
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=" relative flex w-full flex-row items-center gap-4">
-                  <p className=" w-[155px] py-2">Nombre completo</p>
+                <div className="grid items-center lg:grid-cols-[20%_80%]">
+                  <p className="py-2">Nombre completo</p>
                   <input
                     type="text"
                     {...register("name")}
-                    className="peer w-[590px] rounded-md border-2  border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>
                 {/*Correo y Nombre*/}
-                <div className=" relative my-5 flex w-full flex-row gap-4">
-                  <p className="py-2"> Correo</p>
+                <div className="my-5 grid grid-cols-[18%_82%] lg:grid-cols-[8%_52%_10%_30%]">
+                  <p className="py-2">Correo</p>
                   <input
                     type="text"
                     {...register("email")}
-                    className="peer w-[400px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
-                  <p className="py-2">Teléfono</p>
+                  <p className="py-2 text-center">Teléfono</p>
                   <input
                     type="text"
                     {...register("phoneNumber")}
-                    className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>{" "}
@@ -169,22 +169,22 @@ const Profile = (
               ></input>
             </div>
             {/*Correo y Nombre*/}
-            <div className="relative flex w-full flex-row gap-4">
-              <p className="py-2"> Poblacion</p>
+            <div className=" grid w-full grid-rows-3 gap-4  ">
+              <p className="py-2"> Población</p>
               <input
                 type="text"
                 name="Poblation"
-                className=" peer w-[250] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
               <p className="py-2"> Localidad</p>
               <input
                 type="text"
                 {...register("location")}
-                className=" peer w-[250] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p className="py-2">Cp</p>
+              <p className="py-2">CP</p>
               <input
                 type="text"
                 {...register("CP")}
