@@ -64,6 +64,9 @@ const Profile = (
   const [edit, setEdit] = useState(false);
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const router = useRouter();
+  const allergenList = data?.map((e) => e.allergen) ?? [];
+  const { data: allergenTransalator } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
 
   if (!client) {
     router.push("/login");
@@ -218,18 +221,28 @@ const Profile = (
         </div>
         <div className="my-10 w-full">
           <FormWrapper title="Mis alérgenos">
-            <div>
-              <AllergensComponent
-                allergens={data?.map((e) => e.allergen) ?? []}
-                size={100}
-              ></AllergensComponent>
-              <p
-                className="cursor-pointer text-right text-kym2 hover:text-kym4"
-                onClick={changeEdit}
-              >
-                <u>Modificar alérgenos</u>
-              </p>
+            <div className="grid grid-cols-5 items-start">
+              {allergenList.map((allergen) => (
+                <div
+                  className="align-left  mt-2 flex flex-col items-center py-2"
+                  key={allergen}
+                >
+                  <AllergensComponent
+                    allergens={[allergen]}
+                    size={70}
+                  ></AllergensComponent>
+                  <p className=" inline-block text-center normal-case">
+                    {allergenTransalator?.get(allergen)}
+                  </p>
+                </div>
+              ))}
             </div>
+            <p
+              className="cursor-pointer text-right text-kym2 hover:text-kym4"
+              onClick={changeEdit}
+            >
+              <u>Modificar alérgenos</u>
+            </p>
           </FormWrapper>
         </div>
         <div className="mb-8 text-right">
