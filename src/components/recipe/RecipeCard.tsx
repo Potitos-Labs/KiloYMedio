@@ -4,13 +4,11 @@ import Stars from "../Stars";
 const RecipeCard = ({
   id,
   name,
-
   ratings,
 }: {
   id: string;
   name: string;
-
-  ratigs: number;
+  ratings: number;
 }) => {
   return (
     <div className="relative flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
