@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Client_Header from "./Client_Header";
-import NavBarAdmin from "./NavBarAdmin";
+import NavBarAdmin from "./navbar/NavBarAdmin";
+import NavBarClient from "./navbar/NavBarClient";
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
@@ -57,8 +58,7 @@ const Header: React.FC = () => {
             Kilo Y Medio
           </h3>
         </Link>
-        {session?.user?.role == "admin" ? <NavBarAdmin /> : undefined}
-        {/* cambiar 'undefined' por la navbar de cliente */}
+        {session?.user?.role == "admin" ? <NavBarAdmin /> : <NavBarClient />}
         <div className="w-full">{rightItems}</div>
       </div>
     </div>
