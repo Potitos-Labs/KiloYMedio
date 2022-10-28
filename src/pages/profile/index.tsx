@@ -169,7 +169,7 @@ const Profile = (
               ></input>
             </div>
             {/*Correo y Nombre*/}
-            <div className=" grid w-full grid-rows-3 gap-4  ">
+            <div className=" sm:gap-cols-[10%_90%] grid w-full grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
               <p className="py-2"> Población</p>
               <input
                 type="text"
@@ -177,14 +177,14 @@ const Profile = (
                 className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p className="py-2"> Localidad</p>
+              <p className="py-2 text-center"> Localidad</p>
               <input
                 type="text"
                 {...register("location")}
                 className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p className="py-2">CP</p>
+              <p className="py-2 text-center">CP</p>
               <input
                 type="text"
                 {...register("CP")}
