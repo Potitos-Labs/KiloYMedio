@@ -22,7 +22,7 @@ const AllergensComponent = ({
   size: number;
 }) => {
   return (
-    <div className="felx-row inline-block flex">
+    <div className="felx-row inline-block flex gap-3">
       {allergens.map((allergen) => AllergenComponent({ allergen, size }))}
     </div>
   );

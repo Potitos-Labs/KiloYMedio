@@ -91,9 +91,19 @@ const Profile = (
   }
   return (
     <Layout>
-      <div className="px-20">
-        <div className="mt-20 flex flex-row">
-          <div className="mx-5 flex flex-col items-center pt-10">
+      <p
+        className={`  ${
+          edit
+            ? "invisible"
+            : "absolute right-40 cursor-pointer text-right text-kym2 hover:text-kym4"
+        }`}
+        onClick={changeEdit}
+      >
+        Editar perfil
+      </p>
+      <div className="px-40">
+        <div className="mt-5 flex w-full flex-row">
+          <div className="mr-8 flex flex-col items-center pt-20">
             <Image
               src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
               alt="notfound"
@@ -104,24 +114,25 @@ const Profile = (
               className="rounded-md"
             ></Image>
             <p
-              className={`${
-                edit ? "invisible" : "cursor-pointer text-kym2 hover:text-kym4"
+              className={` ${
+                edit
+                  ? "invisible pt-3"
+                  : "cursor-pointer pt-3 text-kym2 hover:text-kym4"
               }`}
-              onClick={changeEdit}
             >
-              <u>Editar perfil</u>
+              <u>Editar foto</u>
             </p>
           </div>
-          <div className="my-10 ml-20 w-full">
+          <div className="my-10 w-full">
             <FormWrapper title="Datos Personales">
               {/*Nombre y apellidos*/}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className=" relative flex w-full flex-row items-center gap-4">
-                  <p className="py-2">Nombre completo</p>
+                  <p className=" w-[155px] py-2">Nombre completo</p>
                   <input
                     type="text"
                     {...register("name")}
-                    className="peer w-[400px] rounded-md border-2  border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                    className="peer w-[590px] rounded-md border-2  border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>
@@ -131,14 +142,14 @@ const Profile = (
                   <input
                     type="text"
                     {...register("email")}
-                    className="peer w-[300px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                    className="peer w-[400px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                   <p className="py-2">Teléfono</p>
                   <input
                     type="text"
                     {...register("phoneNumber")}
-                    className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                    className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>{" "}
@@ -146,38 +157,45 @@ const Profile = (
             </FormWrapper>
           </div>
         </div>
-        <div className="my-10 ml-20">
-          <FormWrapper title="Dirección de envio">
+        <div className="my-5 w-full">
+          <FormWrapper title="Dirección de envío">
             <div className="relative flex w-full flex-row gap-4 py-8">
-              <p>Dirección</p>
+              <p className="py-2">Dirección </p>
               <input
                 type="text"
                 {...register("address")}
-                className="peer w-[400px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                className="peer w-full  rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
             </div>
             {/*Correo y Nombre*/}
             <div className="relative flex w-full flex-row gap-4">
-              <p> Localidad</p>
+              <p className="py-2"> Poblacion</p>
+              <input
+                type="text"
+                name="Poblation"
+                className=" peer w-[250] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                disabled={!edit}
+              ></input>
+              <p className="py-2"> Localidad</p>
               <input
                 type="text"
                 {...register("location")}
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                className=" peer w-[250] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p>Cp</p>
+              <p className="py-2">Cp</p>
               <input
                 type="text"
                 {...register("CP")}
                 disabled={!edit}
-                className="placeholder-gray-300r peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2"
+                className=" placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
               ></input>
             </div>
           </FormWrapper>
         </div>
-        <div className="my-10 ml-20">
-          <FormWrapper title="Area de socio">
+        <div className="my-10 w-full">
+          <FormWrapper title="Área de socio">
             <div className="flex flex-col">
               <div className="relative mb-5 flex w-full flex-row gap-4">
                 <p>DNI</p>
@@ -185,7 +203,7 @@ const Profile = (
                   type="text"
                   {...register("nif")}
                   value="29222420T"
-                  className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+                  className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                   disabled={!edit}
                 ></input>
                 <p className="text-bold "> Mis puntos: 100</p>
@@ -198,7 +216,7 @@ const Profile = (
             </div>
           </FormWrapper>
         </div>
-        <div className="my-10 ml-20">
+        <div className="my-10 w-full">
           <FormWrapper title="Mis alérgenos">
             <div>
               <AllergensComponent
