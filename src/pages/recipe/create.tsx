@@ -71,13 +71,13 @@ const RecipeForm: NextPage = () => {
                 <input
                   className="peer w-[5%] rounded-md border-2 border-gray-300 py-2 pl-3 pr-2 placeholder-gray-300"
                   type="number"
-                  {...register("timeSpan", {})}
+                  {...register("timeSpan.hour", {})}
                 />
                 <p>horas</p>
                 <input
                   className="peer w-[5%] rounded-md border-2 border-gray-300 py-2 pl-3 pr-2 placeholder-gray-300"
                   type="number"
-                  {...register("timeSpan", {})}
+                  {...register("timeSpan.minute", {})}
                 />
                 <p>minutos</p>
               </div>

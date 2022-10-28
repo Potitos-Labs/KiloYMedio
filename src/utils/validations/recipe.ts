@@ -16,7 +16,10 @@ export const createRecipeSchema = z.object({
     amount: z.number().nonnegative(),
     unit: z.string(),
   }),
-  timeSpan: z.number().min(1),
+  timeSpan: z.object({
+    hour: z.number().min(0).max(24),
+    minute: z.number().min(0).max(60),
+  }),
 });
 
 export type ICreateRecipe = z.infer<typeof createRecipeSchema>;
