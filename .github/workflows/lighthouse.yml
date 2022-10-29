@@ -1,0 +1,20 @@
+name: Jest
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lighthouse CI Action
+        # You may pin to the exact commit or the version.
+        # uses: treosh/lighthouse-ci-action@3746605457acc063b18380e2deb9017c8c4bdf8a
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          # List of URL(s) to analyze
+          urls: https://kilo-y-medio.vercel.app/
+
+
