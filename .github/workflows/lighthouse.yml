@@ -1,4 +1,4 @@
-name: Jest
+name: Lighthouse
 on:
   push:
     branches: [main, master]
@@ -16,5 +16,6 @@ jobs:
         with:
           # List of URL(s) to analyze
           urls: https://kilo-y-medio.vercel.app/
+          uploadArtifacts: true # save results as an action artifacts
 
 
