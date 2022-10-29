@@ -8,6 +8,12 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: http://localhost:3001
+      NEXTAUTH_SECRET: 0
+      NEXTAUTH_URL: http://localhost:3000/
+      GOOGLE_CLIENT_ID: ""
+      GOOGLE_CLIENT_SECRET: ""
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
