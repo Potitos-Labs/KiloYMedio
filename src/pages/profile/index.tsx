@@ -15,6 +15,7 @@ import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
 import superjson from "superjson";
 import { useRouter } from "next/router";
+import Popup from "reactjs-popup";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await unstable_getServerSession(
@@ -65,6 +66,7 @@ const Profile = (
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const router = useRouter();
   const allergenList = data?.map((e) => e.allergen) ?? [];
+  const [open, setOpen] = useState(false);
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
@@ -85,6 +87,12 @@ const Profile = (
       nif: client?.nif,
     },
   });
+  function openPopUp() {
+    setOpen(true);
+  }
+  function closePopUp() {
+    setOpen(false);
+  }
 
   function changeEdit() {
     setEdit(!edit);
@@ -238,7 +246,10 @@ const Profile = (
                 </div>
               ))}
             </div>
-            <p className="cursor-pointer text-right text-kym2 hover:text-kym4">
+            <p
+              className="cursor-pointer text-right text-kym2 hover:text-kym4"
+              onClick={openPopUp}
+            >
               <u>Modificar alérgenos</u>
             </p>
           </FormWrapper>
@@ -256,6 +267,36 @@ const Profile = (
           </button>
         </div>
       </div>
+      <Popup open={open} modal closeOnDocumentClick onClose={closePopUp}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+          <div className="w-1/3 rounded-md bg-white">
+            <h1 className="rounded-t-md bg-button py-2 text-center text-lg font-bold text-white">
+              Alérgenos
+            </h1>
+            <p className="m-3">
+              <span className="font-bold">¡Atención!</span>
+            </p>
+            <p className="m-3">
+              Estás apunto de eliminar este elemento de la web, esta acción es
+              irreversible.
+            </p>
+            <p className="m-3 mt-4 text-center">
+              ¿Estás seguro de que quieres continuar?
+            </p>
+            <div className="flex justify-end">
+              <button className="mb-3 mt-5 rounded-md bg-button py-1 px-2 text-white hover:bg-button_hover">
+                Confirmar
+              </button>
+              <button
+                className="m-3  mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                onClick={closePopUp}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </Popup>
     </Layout>
   );
 };

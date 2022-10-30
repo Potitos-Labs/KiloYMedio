@@ -42,7 +42,7 @@ const DotMenu = ({ id }: { id: string }) => {
   return (
     <div>
       <div className="dropdown absolute relative flex h-8 w-6 items-center">
-        <Menu as="div" className="realative inline-block text-left">
+        <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className=" flex items-center">
               <AiOutlineMore className="h-5 w-5" />
