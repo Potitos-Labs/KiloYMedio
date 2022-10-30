@@ -60,9 +60,11 @@ function Product({
           <DotMenu id={id} />
         </div>
       )}
-      <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
-        {name}
-      </p>
+      <Link href={`/product/${id}`}>
+        <p className="cursor-pointer pb-2 font-semibold text-kym4 first-letter:uppercase">
+          {name}
+        </p>
+      </Link>
       <div>
         <IncDecButtons
           setAmount={setAmount}

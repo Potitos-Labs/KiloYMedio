@@ -49,7 +49,6 @@ const CategoryDisplay: NextPage = () => {
         <div className="flex flex-col items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
           <div className="mb-5">
             <Link href={`/product`}>
-              {/* completar */}
               <a>
                 <Image
                   src="https://ecologiautil.com/wp-content/uploads/2020/07/productos-ecologicos-y-sin-plastico-1.jpg"

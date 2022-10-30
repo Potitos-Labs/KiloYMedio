@@ -27,9 +27,11 @@ function Category({
           </a>
         </Link>
       </div>
-      <h1 className="pb-2 font-semibold text-kym4 first-letter:uppercase">
-        {name}
-      </h1>
+      <Link href={`/product?category=${englishName}`}>
+        <h1 className="cursor-pointer pb-2 font-semibold text-kym4 first-letter:uppercase">
+          {name}
+        </h1>
+      </Link>
     </div>
   );
 }

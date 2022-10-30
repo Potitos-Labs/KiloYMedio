@@ -60,12 +60,12 @@ const ProductDetail = ({
         </div>
 
         <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
-          <div className="mt-5  flex max-h-64 flex-col items-center">
+          <div className="mt-3 mb-3 flex max-h-64 flex-col items-center">
             <img className="min-h-full rounded-md" src={img}></img>
           </div>
 
           <div className="mt-5  columns-1">
-            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold capitalize">
+            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
               {name}
             </h1>
             <div className="inline-block">
@@ -132,7 +132,7 @@ const DescriptionComponent = ({ description }: { description: string }) => {
           Descripción del producto
         </h2>
       </div>
-      <p className="mt-2 ml-2 normal-case">{description}</p>
+      <p className="mt-2 ml-2 first-letter:uppercase">{description}</p>
     </div>
   );
 };
@@ -141,9 +141,9 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
-    <div className=" p-6">
+    <div className="p-6">
       <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
+        <h2 className="mb-1 inline-block text-left text-xl font-bold">
           Descripción de los alérgenos
         </h2>
       </div>
@@ -153,7 +153,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
             allergens={[allergen]}
             size={30}
           ></AllergensComponent>
-          <p className="ml-2  inline-block normal-case">
+          <p className="ml-2 mt-1 inline-block first-letter:uppercase">
             {allergenTransalator?.get(allergen)}
           </p>
         </div>
