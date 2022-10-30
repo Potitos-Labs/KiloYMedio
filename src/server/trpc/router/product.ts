@@ -1,12 +1,13 @@
+import { Allergen, ECategory, NECategory } from "@prisma/client";
+import * as trpc from "@trpc/server";
 import { z } from "zod";
+
 import {
   categorySchema,
   productCreateSchema,
   productSchema,
 } from "../../../utils/validations/product";
-import * as trpc from "@trpc/server";
-import { Allergen, ECategory, NECategory } from "@prisma/client";
-import { router, publicProcedure, adminProcedure } from "../trpc";
+import { adminProcedure, publicProcedure, router } from "../trpc";
 
 export const productRouter = router({
   getAllProducts: publicProcedure

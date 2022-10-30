@@ -1,10 +1,11 @@
-import { useRouter } from "next/router";
-import { NextPage } from "next";
-import { trpc } from "../../utils/trpc";
-import Product from "../../components/product/Product";
-import Layout from "../../components/Layout";
 import { ECategory, NECategory } from "@prisma/client";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import { z } from "zod";
+
+import Layout from "../../components/Layout";
+import Product from "../../components/product/Product";
+import { trpc } from "../../utils/trpc";
 import { productSchema } from "../../utils/validations/product";
 
 const ProductDetails: NextPage = () => {

@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
+
 import { trpc } from "../../utils/trpc";
+import { IProduct } from "../../utils/validations/product";
 import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
-import { IProduct } from "../../utils/validations/product";
 
 function Product({ product }: { product: IProduct }) {
   const { data } = useSession();

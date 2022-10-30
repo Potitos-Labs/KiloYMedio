@@ -1,15 +1,16 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Allergen, ECategory } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import { trpc } from "../../utils/trpc";
 import {
   IProductCreate,
   productCreateSchema,
 } from "../../utils/validations/product";
-import { Allergen, ECategory } from "@prisma/client";
 import Listbox from "../Listbox";
-import { z } from "zod";
 
 export default function EdibleForm() {
   const router = useRouter();

@@ -1,10 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { TbLogout } from "react-icons/tb";
-import { CgProfile } from "react-icons/cg";
-import { BsFillPersonFill } from "react-icons/bs";
 import Link from "next/link";
+import { Fragment } from "react";
+import { BsFillPersonFill } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
+import { TbLogout } from "react-icons/tb";
+
 import { trpc } from "../utils/trpc";
 
 function Client_Header() {

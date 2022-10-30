@@ -1,13 +1,14 @@
 import { Allergen } from "@prisma/client";
-import React from "react";
-import Stars from "../Stars";
-import AllergensComponent from "../Allergen";
-import IncDecButtons from "./IncDecButtons";
-import { trpc } from "../../utils/trpc";
-import Link from "next/link";
-import { toast } from "react-toastify";
-import DotMenu from "../DotMenu";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import React from "react";
+import { toast } from "react-toastify";
+
+import { trpc } from "../../utils/trpc";
+import AllergensComponent from "../Allergen";
+import DotMenu from "../DotMenu";
+import Stars from "../Stars";
+import IncDecButtons from "./IncDecButtons";
 
 const ProductDetail = ({
   name,

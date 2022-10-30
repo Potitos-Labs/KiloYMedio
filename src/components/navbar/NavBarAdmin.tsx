@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   RiArrowDropDownLine,
-  RiMenuAddLine,
   RiEditFill,
   RiListUnordered,
+  RiMenuAddLine,
 } from "react-icons/ri";
-import { AiOutlineUserAdd } from "react-icons/ai";
 
 function NavBarAdmin() {
   return (

@@ -1,25 +1,26 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { useCallback, useState } from "react";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TRPCError } from "@trpc/server";
+import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
+import Error from "next/error";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
-  HiOutlineUser,
-  HiOutlineMail,
-  HiOutlineLocationMarker,
-  HiOutlinePhone,
   HiOutlineIdentification,
+  HiOutlineLocationMarker,
+  HiOutlineMail,
+  HiOutlinePhone,
+  HiOutlineUser,
 } from "react-icons/hi";
+
+import Layout from "../../components/Layout";
 import { trpc } from "../../utils/trpc";
 import {
   ISignUpByAdminSchema,
   signUpByAdminSchema,
 } from "../../utils/validations/auth";
-import { useSession } from "next-auth/react";
-import Error from "next/error";
-import Layout from "../../components/Layout";
-import { TRPCError } from "@trpc/server";
 
 const SignUpByAdmin: NextPage = () => {
   const [nifAlreadyExists, setNifAlreadyExists] = useState(false);

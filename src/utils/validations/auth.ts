@@ -1,9 +1,9 @@
-import isStrongPassword from "validator/lib/isStrongPassword";
-import * as z from "zod";
+import isAlpha from "validator/lib/isAlpha";
 import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
-import isAlpha from "validator/lib/isAlpha";
+import isStrongPassword from "validator/lib/isStrongPassword";
+import * as z from "zod";
 
 export const loginSchema = z.object({
   email: z

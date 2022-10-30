@@ -1,17 +1,18 @@
-import { hash } from "argon2";
 import * as trpc from "@trpc/server";
+import { hash } from "argon2";
+import { z } from "zod";
+
 import {
   signUpByAdminSchema,
   signUpSchema,
 } from "../../../utils/validations/auth";
+import { clientSchema } from "../../../utils/validations/client";
 import {
-  router,
-  publicProcedure,
   adminProcedure,
   clientProcedure,
+  publicProcedure,
+  router,
 } from "../trpc";
-import { z } from "zod";
-import { clientSchema } from "../../../utils/validations/client";
 
 export const userRouter = router({
   getClientById: publicProcedure

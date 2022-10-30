@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+
 import Layout from "../components/Layout";
 import { ILogin, loginSchema } from "../utils/validations/auth";
 

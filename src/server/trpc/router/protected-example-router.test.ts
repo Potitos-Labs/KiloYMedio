@@ -1,10 +1,11 @@
 /**
  * Integration test example for the `post` router
  */
+import { TRPCError } from "@trpc/server";
+
+import { prismaMock } from "../../db/singleton";
 import { createContextInner } from "../context";
 import { appRouter } from "./_app";
-import { prismaMock } from "../../db/singleton";
-import { TRPCError } from "@trpc/server";
 
 test("Probando jest con mocking de Prisma", async () => {
   // Arrange

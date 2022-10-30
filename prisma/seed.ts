@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma, PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
+
 const prisma = new PrismaClient();
 async function main() {
   const hashedPassword = await hash("potitos2022");

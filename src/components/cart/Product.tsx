@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
-import { AppRouterTypes, trpc } from "../../utils/trpc";
 import Image from "next/image";
-import IncDecButtons from "../product/IncDecButtons";
+import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
+
+import { AppRouterTypes, trpc } from "../../utils/trpc";
+import IncDecButtons from "../product/IncDecButtons";
+
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 function Product({

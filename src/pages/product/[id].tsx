@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
+
 import Layout from "../../components/Layout";
 import ProductDetail from "../../components/product/ProductDetail";
 import { trpc } from "../../utils/trpc";

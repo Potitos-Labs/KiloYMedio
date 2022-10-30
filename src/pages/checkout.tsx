@@ -1,14 +1,15 @@
-import CheckoutForm from "../components/payment/CheckoutForm";
-import Layout from "../components/Layout";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import Popup from "reactjs-popup";
+
+import Layout from "../components/Layout";
+import Bill from "../components/payment/Bill";
+import CheckoutForm from "../components/payment/CheckoutForm";
 import PaymentGateway from "../components/payment/PaymentGateway";
 import { useMultistepFrom } from "../components/payment/useMultistepForm";
-import Bill from "../components/payment/Bill";
-import { useRouter } from "next/router";
-import Popup from "reactjs-popup";
 import { trpc } from "../utils/trpc";
 
 type FormData = {

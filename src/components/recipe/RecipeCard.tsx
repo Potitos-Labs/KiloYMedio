@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import Stars from "../Stars";
 
 const RecipeCard = ({

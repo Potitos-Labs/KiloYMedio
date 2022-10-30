@@ -1,9 +1,10 @@
 import { NextPage } from "next";
-import { trpc } from "../../utils/trpc";
-import Layout from "../../components/Layout";
-import Category from "../../components/category/Category";
 import Image from "next/image";
 import Link from "next/link";
+
+import Layout from "../../components/Layout";
+import Category from "../../components/category/Category";
+import { trpc } from "../../utils/trpc";
 
 const CategoryDisplay: NextPage = () => {
   const { data: eCategories } = trpc.product.getAllEdibleCategories.useQuery();

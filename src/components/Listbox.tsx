@@ -1,6 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react";
-import { BsChevronDown, BsCheck } from "react-icons/bs";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
+import { BsCheck, BsChevronDown } from "react-icons/bs";
 
 export default function MyListbox(
   props: {

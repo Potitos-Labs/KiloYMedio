@@ -1,4 +1,5 @@
 import { Allergen } from "@prisma/client";
+
 import CeleryIcon from "./Allergens/CeleryIcon";
 import CrustaceanIcon from "./Allergens/CrustaceanIcon";
 import EggIcon from "./Allergens/EggIcon";

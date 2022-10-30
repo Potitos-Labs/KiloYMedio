@@ -1,9 +1,10 @@
 import Link from "next/link";
 import {
   RiArrowDropDownLine,
-  RiMenuAddLine,
   RiListUnordered,
+  RiMenuAddLine,
 } from "react-icons/ri";
+
 import DropdownCategories from "../category/DropdownCategories";
 
 function NavBarClient() {

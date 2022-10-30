@@ -1,5 +1,5 @@
+import { Allergen, ECategory, NECategory } from "@prisma/client";
 import * as z from "zod";
-import { ECategory, NECategory, Allergen } from "@prisma/client";
 
 export const productCreateSchema = z.object({
   name: z.string(),

@@ -1,14 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
+import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
-import Layout from "../components/Layout";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
