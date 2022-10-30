@@ -94,7 +94,6 @@ const Checkout = () => {
     const regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
 
     if (!regexp.test(name)) {
-      console.log("");
       updateFields({ errorName: "Introduzca el nombre completo." });
       return false;
     }

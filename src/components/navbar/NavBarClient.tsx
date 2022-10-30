@@ -35,7 +35,7 @@ function NavBarClient() {
                   Añadir recetas
                 </a>
               </Link>
-              <Link href={`/recipes`}>
+              <Link href={`/recipe`}>
                 <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
                   <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
                   Ver recetas
