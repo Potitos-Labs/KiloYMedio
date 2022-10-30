@@ -20,7 +20,7 @@ export const loginSchema = z.object({
       }),
     {
       message:
-        "La contraseña debe tener como mínimo una la longitud de 6, una minúscula y un número",
+        "La contraseña debe tener como mínimo una longitud de 6, una minúscula y un número",
     },
   ),
 });
