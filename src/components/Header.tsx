@@ -21,8 +21,12 @@ const Header: React.FC = () => {
   if (!session) {
     rightItems = (
       <div className="absolute top-6 right-10 flex items-center gap-6 py-2">
-        <Link href="/login">Iniciar sesión</Link>
-        <Link href="/register">Registrarse</Link>
+        <div className="hover:text-kym4">
+          <Link href="/login">Iniciar sesión</Link>
+        </div>
+        <div className="hover:text-kym4">
+          <Link href="/register">Registrarse</Link>
+        </div>
       </div>
     );
   }
@@ -37,7 +41,12 @@ const Header: React.FC = () => {
               : "right-40 top-8"
           }`}
         >
-          <p>{session.user?.name}</p>
+          <p>
+            {session.user?.name}{" "}
+            {session?.user?.role == "admin" ? (
+              <span>(Administrador)</span>
+            ) : undefined}
+          </p>
         </div>
         <div
           className={`absolute right-6 ${

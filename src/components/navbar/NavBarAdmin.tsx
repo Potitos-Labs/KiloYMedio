@@ -43,7 +43,7 @@ function NavBarAdmin() {
         </div>
 
         <div className="group relative">
-          <Link href={`/recipes`}>
+          <Link href={`/recipe`}>
             <button className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Recetas
               <RiArrowDropDownLine className="mt-1 -ml-1 h-9 w-9" />
@@ -57,7 +57,7 @@ function NavBarAdmin() {
                   Añadir recetas
                 </a>
               </Link>
-              <Link href={`/recipes`}>
+              <Link href={`/recipe`}>
                 <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
                   <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
                   Ver recetas
