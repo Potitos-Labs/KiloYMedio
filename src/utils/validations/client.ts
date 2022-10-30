@@ -11,4 +11,4 @@ export const clientSchema = z.object({
   nif: z.string().nullish(),
 });
 
-export type Client = z.infer<typeof clientSchema>;
+export type IClient = z.infer<typeof clientSchema>;
