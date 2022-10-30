@@ -1,21 +1,22 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { unstable_getServerSession } from "next-auth/next";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Popup from "reactjs-popup";
+import superjson from "superjson";
+
+import AllergensComponent from "../../components/Allergen";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
-import Image from "next/image";
-import { useState } from "react";
-import { AppRouterTypes, trpc } from "../../utils/trpc";
-import AllergensComponent from "../../components/Allergen";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Client, clientSchema } from "../../utils/validations/client";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
-import superjson from "superjson";
-import { useRouter } from "next/router";
-import Popup from "reactjs-popup";
+import { AppRouterTypes, trpc } from "../../utils/trpc";
+import { Client, clientSchema } from "../../utils/validations/client";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await unstable_getServerSession(
