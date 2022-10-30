@@ -5,7 +5,10 @@ import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
 
 export const loginSchema = z.object({
-  email: z.string().email({ message: "Email inválido" }),
+  email: z
+    .string()
+    .min(1, "Este campo no puede estar vacío")
+    .email({ message: "Introduce un correo válido" }),
   password: z.string().refine(
     (value) =>
       isStrongPassword(value, {
@@ -26,28 +29,30 @@ export const signUpSchema = loginSchema.extend({
   username: z
     .string()
     .min(3, { message: "El nombre tiene que tener como mínimo 3 carácteres" })
-    .max(20, {
+    .max(40, {
       message: "El nombre tiene que tener como máximo 20 carácteres",
     }),
 });
 
 export const signUpByAdminSchema = signUpSchema.extend({
-  nif: z.string().refine((value) => isIdentityCard(value, "ES"), {
-    message: "El formato introducido no es correcto",
-  }),
+  nif: z
+    .string()
+    .min(1, "Este campo no puede estar vacío")
+    .refine((value) => isIdentityCard(value, "ES"), {
+      message: "El formato introducido no es correcto",
+    }),
   address: z
     .string()
     .min(3, { message: "La dirección debe contener almenos 3 carácteres" }),
-  location: z
-    .string()
-    .min(3, { message: "La localización debe contener almenos 3 carácteres" }),
+  location: z.string().min(3, { message: "Introduce almenos 3 carácteres" }),
   code_postal: z
-    .number()
+    .number({ invalid_type_error: "Introduce un número" })
     .refine((value) => isPostalCode(value.toString(), "ES"), {
       message: "El CP introducido no es correcto",
     }),
   phoneNumber: z
     .string()
+    .min(1, "Este campo no puede estar vacío")
     .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {
       message: "El formato introducido no es correcto",
     }),

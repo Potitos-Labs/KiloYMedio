@@ -19,20 +19,25 @@ import {
 import { useSession } from "next-auth/react";
 import Error from "next/error";
 import Layout from "../../components/Layout";
+import { TRPCError } from "@trpc/server";
 
 const SignUpByAdmin: NextPage = () => {
+  const [nifAlreadyExists, setNifAlreadyExists] = useState(false);
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
 
   const router = useRouter();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ISignUpByAdminSchema>({
     resolver: zodResolver(signUpByAdminSchema),
     criteriaMode: "all",
     shouldUseNativeValidation: true,
   });
+
+  console.log(errors);
 
   const { mutateAsync } = trpc.user.createNewClientByAdmin.useMutation();
   const onSubmit = useCallback(
@@ -42,8 +47,10 @@ const SignUpByAdmin: NextPage = () => {
         if (result.status === 201) {
           router.push("/");
         }
-      } catch (error) {
-        setEmailAlreadyExists(true);
+      } catch (e) {
+        const error = e as TRPCError;
+        if (error.message.includes("email")) setEmailAlreadyExists(true);
+        if (error.message.includes("nif")) setNifAlreadyExists(true);
       }
     },
     [mutateAsync, router],
@@ -93,14 +100,23 @@ const SignUpByAdmin: NextPage = () => {
               <span className="mb-2">NIF *</span>
               <input
                 autoFocus
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
+                className={`peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600 ${
+                  nifAlreadyExists && "border-pink-600"
+                }`}
                 type="text"
                 placeholder="NIF o NIE"
-                {...register("nif")}
+                {...register("nif", {
+                  onChange: () => setNifAlreadyExists(false),
+                })}
               />
               <HiOutlineIdentification className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
-              <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+              <p
+                className={`-mt-3 text-sm text-pink-600 peer-invalid:visible ${
+                  nifAlreadyExists ? "visible" : "invisible"
+                }`}
+              >
                 {errors.nif?.message}
+                {nifAlreadyExists && "El NIF ya está registrado"}
               </p>
             </label>
             <label className="relative flex w-full flex-col">
@@ -121,7 +137,9 @@ const SignUpByAdmin: NextPage = () => {
               <span className="mb-2">Correo *</span>
               <input
                 autoFocus
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600"
+                className={`peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300 invalid:border-pink-600 ${
+                  emailAlreadyExists && "border-pink-600"
+                }`}
                 type="text"
                 placeholder="Correo"
                 {...register("email", {
@@ -129,7 +147,11 @@ const SignUpByAdmin: NextPage = () => {
                 })}
               />
               <HiOutlineMail className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
-              <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
+              <p
+                className={`-mt-3 text-sm text-pink-600 peer-invalid:visible ${
+                  emailAlreadyExists ? "visible" : "invisible"
+                }`}
+              >
                 {errors.email?.message}
                 {emailAlreadyExists && "El correo ya está registrado"}
               </p>
@@ -143,7 +165,7 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Localidad"
                 {...register("location")}
               />
-              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.location?.message}
               </p>
@@ -157,9 +179,9 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Código postal"
                 {...register("code_postal", { valueAsNumber: true })}
               />
-              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
-                {errors.location?.message}
+                {errors.code_postal?.message}
               </p>
             </label>
             <label className="relative flex w-full flex-col md:col-span-2">
@@ -179,6 +201,7 @@ const SignUpByAdmin: NextPage = () => {
             <button
               type="submit"
               className="whitespace-nowrap rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover  md:col-span-2"
+              onClick={() => setValue("password", "Potitos22")}
             >
               Registar cliente
             </button>
