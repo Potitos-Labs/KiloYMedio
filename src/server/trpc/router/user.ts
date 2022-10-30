@@ -85,6 +85,18 @@ export const userRouter = router({
         phoneNumber,
       } = input;
 
+      const nifExists = await ctx.prisma.user.findUnique({ where: { nif } });
+      const emailExists = await ctx.prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (nifExists || emailExists) {
+        throw new trpc.TRPCError({
+          code: "CONFLICT",
+          message: "" + (nifExists && "nif") + (emailExists && "email"),
+        });
+      }
+
       const hashedPassword = await hash(password);
 
       const result = await ctx.prisma.user.create({
