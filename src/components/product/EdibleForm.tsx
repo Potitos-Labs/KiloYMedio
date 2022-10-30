@@ -3,8 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
-import { IProduct, productSchema } from "../../utils/validations/product";
-import { ECategory } from "@prisma/client";
+import {
+  IProductCreate,
+  productCreateSchema,
+} from "../../utils/validations/product";
+import { Allergen, ECategory } from "@prisma/client";
 import Listbox from "../Listbox";
 import { z } from "zod";
 
@@ -12,13 +15,27 @@ export default function EdibleForm() {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
-  const { register, setValue, handleSubmit } = useForm<IProduct>({
-    resolver: zodResolver(productSchema),
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IProductCreate>({
+    resolver: zodResolver(productCreateSchema),
   });
-
+  console.log(errors);
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
   const { mutateAsync } = trpc.product.createNewProduct.useMutation();
+
+  const allergensList: { allergen: Allergen }[] = [];
+
+  const allergensHandler = (value: string) => {
+    const allergen = z.nativeEnum(Allergen).parse(value);
+    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
+    if (index != -1) allergensList.splice(index, 1);
+    else allergensList.push({ allergen });
+  };
 
   useEffect(() => {
     try {
@@ -30,7 +47,7 @@ export default function EdibleForm() {
   }, [category, setValue]);
 
   const onSubmit = useCallback(
-    async (data: IProduct) => {
+    async (data: IProductCreate) => {
       const result = await mutateAsync(data);
       if (result.status === 201) {
         router.push("/product");
@@ -69,7 +86,7 @@ export default function EdibleForm() {
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             min={0}
             required
-            {...register("Edible.price", {
+            {...register("Edible.priceByWeight", {
               valueAsNumber: true,
               required: true,
             })}
@@ -102,7 +119,7 @@ export default function EdibleForm() {
             type="url"
             placeholder="Imagen URL *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            {...register("image", { required: true })}
+            {...register("imageURL", { required: true })}
           />
           <Listbox
             list={
@@ -124,7 +141,7 @@ export default function EdibleForm() {
             <textarea
               placeholder="Ingredientes *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8 sm:col-span-2 md:col-span-4"
-              {...register("Edible.nutrittionFacts.ingredients", {
+              {...register("Edible.nutritionFacts.ingredients", {
                 required: true,
               })}
             />
@@ -132,7 +149,7 @@ export default function EdibleForm() {
               type="number"
               placeholder="Energía(kcal) *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-              {...register("Edible.nutrittionFacts.energy", {
+              {...register("Edible.nutritionFacts.energy", {
                 valueAsNumber: true,
                 required: true,
               })}
@@ -141,7 +158,7 @@ export default function EdibleForm() {
               type="number"
               placeholder="Grasas *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-              {...register("Edible.nutrittionFacts.fat", {
+              {...register("Edible.nutritionFacts.fat", {
                 valueAsNumber: true,
                 required: true,
               })}
@@ -150,7 +167,7 @@ export default function EdibleForm() {
               type="number"
               placeholder="Hidratos de carbono *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-              {...register("Edible.nutrittionFacts.carbohydrates", {
+              {...register("Edible.nutritionFacts.carbohydrates", {
                 valueAsNumber: true,
                 required: true,
               })}
@@ -159,7 +176,7 @@ export default function EdibleForm() {
               type="number"
               placeholder="Proteina *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-              {...register("Edible.nutrittionFacts.protein", {
+              {...register("Edible.nutritionFacts.protein", {
                 valueAsNumber: true,
                 required: true,
               })}
@@ -178,7 +195,7 @@ export default function EdibleForm() {
                     type="checkbox"
                     value={allergen.allergen}
                     className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-                    {...register("Edible.allergens")}
+                    onChange={(e) => allergensHandler(e.target.value)}
                   />
                   {allergen.allergenInSpanish}
                 </label>
@@ -191,6 +208,7 @@ export default function EdibleForm() {
         <button
           className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
           type="submit"
+          onClick={() => setValue("Edible.allergens", allergensList)}
         >
           Crear producto
         </button>

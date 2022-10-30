@@ -3,6 +3,7 @@ import * as z from "zod";
 import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
+import isAlpha from "validator/lib/isAlpha";
 
 export const loginSchema = z.object({
   email: z
@@ -31,7 +32,11 @@ export const signUpSchema = loginSchema.extend({
     .min(3, { message: "El nombre tiene que tener como mínimo 3 carácteres" })
     .max(40, {
       message: "El nombre tiene que tener como máximo 20 carácteres",
-    }),
+    })
+    .refine(
+      (value) => isAlpha(value, "es-ES"),
+      "Este campo no puede contener números",
+    ),
 });
 
 export const signUpByAdminSchema = signUpSchema.extend({
@@ -44,7 +49,13 @@ export const signUpByAdminSchema = signUpSchema.extend({
   address: z
     .string()
     .min(3, { message: "La dirección debe contener almenos 3 carácteres" }),
-  location: z.string().min(3, { message: "Introduce almenos 3 carácteres" }),
+  location: z
+    .string()
+    .min(3, { message: "Introduce almenos 3 carácteres" })
+    .refine(
+      (value) => isAlpha(value, "es-ES"),
+      "Este campo no puede contener números",
+    ),
   code_postal: z
     .number({ invalid_type_error: "Introduce un número" })
     .refine((value) => isPostalCode(value.toString(), "ES"), {

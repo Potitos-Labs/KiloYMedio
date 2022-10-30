@@ -3,7 +3,10 @@ import { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
-import { IProduct, productSchema } from "../../utils/validations/product";
+import {
+  IProductCreate,
+  productCreateSchema,
+} from "../../utils/validations/product";
 import Listbox from "../Listbox";
 import { NECategory } from "@prisma/client";
 import { z } from "zod";
@@ -12,8 +15,8 @@ export default function NonEdibleForm() {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
-  const { register, handleSubmit, setValue } = useForm<IProduct>({
-    resolver: zodResolver(productSchema),
+  const { register, handleSubmit, setValue } = useForm<IProductCreate>({
+    resolver: zodResolver(productCreateSchema),
   });
 
   const { data: categories } =
@@ -31,7 +34,7 @@ export default function NonEdibleForm() {
   }, [category, setValue]);
 
   const onSubmit = useCallback(
-    async (data: IProduct) => {
+    async (data: IProductCreate) => {
       console.log("entra en onSubmit");
       const result = await mutateAsync(data);
       if (result.status === 201) {
@@ -92,7 +95,7 @@ export default function NonEdibleForm() {
             placeholder="Imagen URL *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             required
-            {...register("image", { required: true })}
+            {...register("imageURL", { required: true })}
           />
           <Listbox
             list={

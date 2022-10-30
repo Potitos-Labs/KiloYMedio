@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   categorySchema,
+  productCreateSchema,
   productSchema,
 } from "../../../utils/validations/product";
 import * as trpc from "@trpc/server";
@@ -8,23 +9,52 @@ import { Allergen, ECategory, NECategory } from "@prisma/client";
 import { router, publicProcedure, adminProcedure } from "../trpc";
 
 export const productRouter = router({
-  getAllProducts: publicProcedure.query(async ({ ctx }) => {
-    const products = await ctx.prisma.product.findMany({
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        imageURL: true,
-        stock: true,
-        Edible: true,
-        NonEdible: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-    });
-    return products;
-  }),
+  getAllProducts: publicProcedure
+    .output(z.array(productSchema))
+    .query(async ({ ctx }) => {
+      const products = await ctx.prisma.product.findMany({
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageURL: true,
+          stock: true,
+          Edible: {
+            select: {
+              priceByWeight: true,
+              nutritionFacts: {
+                select: {
+                  ingredients: true,
+                  energy: true,
+                  fat: true,
+                  protein: true,
+                  carbohydrates: true,
+                },
+              },
+              allergens: {
+                select: {
+                  allergen: true,
+                },
+              },
+              category: true,
+              origin: true,
+              conservation: true,
+            },
+          },
+          NonEdible: {
+            select: {
+              category: true,
+              price: true,
+            },
+          },
+        },
+        orderBy: {
+          name: "asc",
+        },
+      });
+      const productsParsed = z.array(productSchema).parse(products);
+      return productsParsed;
+    }),
   getAllEdibleCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.eCategoryInSpanish.findMany({
       select: {
@@ -127,9 +157,9 @@ export const productRouter = router({
       } catch {}
     }),
   createNewProduct: publicProcedure
-    .input(productSchema)
+    .input(productCreateSchema)
     .mutation(async ({ input, ctx }) => {
-      const { name, description, stock, image, Edible, NonEdible } = input;
+      const { name, description, stock, imageURL, Edible, NonEdible } = input;
 
       if (!Edible && !NonEdible) {
         throw new trpc.TRPCError({
@@ -151,21 +181,21 @@ export const productRouter = router({
             name,
             description,
             stock,
-            imageURL: image,
+            imageURL,
             Edible: {
               create: {
-                priceByWeight: Edible.price,
+                priceByWeight: Edible.priceByWeight,
                 category: Edible.category,
                 Ingredient: { create: { name } }, //Se crea ingrediente con el mismo nombre
                 origin: Edible.origin,
                 conservation: Edible.conservation,
                 nutritionFacts: {
                   create: {
-                    ingredients: Edible.nutrittionFacts.ingredients,
-                    energy: Edible.nutrittionFacts.energy,
-                    fat: Edible.nutrittionFacts.fat,
-                    carbohydrates: Edible.nutrittionFacts.carbohydrates,
-                    protein: Edible.nutrittionFacts.protein,
+                    ingredients: Edible.nutritionFacts.ingredients,
+                    energy: Edible.nutritionFacts.energy,
+                    fat: Edible.nutritionFacts.fat,
+                    carbohydrates: Edible.nutritionFacts.carbohydrates,
+                    protein: Edible.nutritionFacts.protein,
                   },
                 },
               },
@@ -173,7 +203,7 @@ export const productRouter = router({
           },
         });
 
-        Edible.allergens.map(async (allergen) => {
+        Edible.allergens.map(async ({ allergen }) => {
           await ctx.prisma.edibleAllergen.create({
             data: { allergen, edibleId: productEdible.id },
           });
@@ -191,7 +221,7 @@ export const productRouter = router({
             name,
             description,
             stock,
-            imageURL: image,
+            imageURL,
             NonEdible: {
               create: {
                 category: NonEdible.category,

@@ -6,23 +6,13 @@ import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
+import { IProduct } from "../../utils/validations/product";
 
-function Product({
-  name,
-  imgUrl,
-  id,
-  stock,
-  isEdible,
-}: {
-  name: string;
-  imgUrl: string;
-  id: string;
-  stock: number;
-  isEdible: boolean;
-}) {
+function Product({ product }: { product: IProduct }) {
   const { data } = useSession();
+  const isEdible = product.Edible != null;
   const notify = () => toast.success("Producto añadido");
-  const stockLeft = stock * 1000 >= 100;
+  const stockLeft = product.stock * 1000 >= 100;
   const [amount, setAmount] = useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.cart.addProduct.useMutation({
@@ -34,17 +24,17 @@ function Product({
   function addToCart() {
     if (stockLeft) {
       notify();
-      mutation.mutateAsync({ productId: id, amount: amount });
+      mutation.mutateAsync({ productId: product.id, amount: amount });
     }
   }
 
   return (
     <div className="relative flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
       <div className="py-3">
-        <Link href={`/product/${id}`}>
+        <Link href={`/product/${product.id}`}>
           <a>
             <Image
-              src={imgUrl}
+              src={product.imageURL}
               alt="notfound"
               width="100"
               height="100"
@@ -57,19 +47,17 @@ function Product({
       </div>
       {data?.user?.role == "admin" && (
         <div className="absolute top-0 right-0">
-          <DotMenu id={id} />
+          <DotMenu id={product.id} />
         </div>
       )}
-      <Link href={`/product/${id}`}>
-        <p className="cursor-pointer pb-2 font-semibold text-kym4 first-letter:uppercase">
-          {name}
-        </p>
-      </Link>
+      <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+        {product.name}
+      </p>
       <div>
         <IncDecButtons
           setAmount={setAmount}
           amount={amount}
-          stock={stock}
+          stock={product.stock}
           stockLeft={stockLeft}
           isEdible={isEdible}
         />

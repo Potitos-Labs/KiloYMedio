@@ -5,6 +5,7 @@ import Product from "../../components/product/Product";
 import Layout from "../../components/Layout";
 import { ECategory, NECategory } from "@prisma/client";
 import { z } from "zod";
+import { productSchema } from "../../utils/validations/product";
 
 const ProductDetails: NextPage = () => {
   let { data } = trpc.product.getAllProducts.useQuery();
@@ -30,16 +31,12 @@ const ProductDetails: NextPage = () => {
     <Layout>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {data ? (
-          data.map((product) => (
-            <Product
-              key={product.id}
-              name={product.name}
-              imgUrl={product.imageURL}
-              id={product.id}
-              stock={product.stock}
-              isEdible={product.Edible ? true : false}
-            ></Product>
-          ))
+          data.map((product) => {
+            const productParsed = productSchema.safeParse(product);
+            if (productParsed.success)
+              return <Product product={productParsed.data}></Product>;
+            console.log(productParsed.error);
+          })
         ) : (
           <p className="font-semibold text-kym4">Cargando...</p>
         )}

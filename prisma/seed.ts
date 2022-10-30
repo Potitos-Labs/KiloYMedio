@@ -227,7 +227,16 @@ async function main() {
           category: "nuts",
           priceByWeight: 8.3,
           allergens: { create: { allergen: "nuts" } },
-          Ingredient: { create: { name: "pistachos" } },
+          nutritionFacts: {
+            create: {
+              ingredients: "nuts",
+              energy: 400,
+              fat: 90,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "nuts" } },
         },
       },
     },
@@ -244,6 +253,15 @@ async function main() {
         create: {
           category: "yeast",
           priceByWeight: 30,
+          nutritionFacts: {
+            create: {
+              ingredients: "levadura",
+              energy: 200,
+              fat: 1,
+              carbohydrates: 70,
+              protein: 0,
+            },
+          },
           Ingredient: { create: { name: "levadura nutricional" } },
         },
       },
@@ -261,7 +279,15 @@ async function main() {
         create: {
           category: "legumes",
           priceByWeight: 9.1,
-          nutritionFacts: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "lentejas",
+              energy: 400,
+              fat: 0,
+              carbohydrates: 30,
+              protein: 20,
+            },
+          },
           Ingredient: { create: { name: "lentejas" } },
         },
       },
@@ -279,6 +305,15 @@ async function main() {
         create: {
           category: "flours",
           priceByWeight: 5.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "harina de trigo",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
           allergens: { create: { allergen: "cereals" } },
           Ingredient: { create: { name: "harina de trigo" } },
         },
