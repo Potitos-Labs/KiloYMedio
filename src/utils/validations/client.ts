@@ -5,10 +5,10 @@ export const clientSchema = z.object({
   email: z.string().email(),
   image: z.string().nullish(),
   location: z.string().nullish(),
-  CP: z.number(),
+  CP: z.number().nullish(),
   address: z.string().nullish(),
-  phoneNumber: z.number(),
-  nif: z.string(),
+  phoneNumber: z.string().nullish(),
+  nif: z.string().nullish(),
 });
 
 export type Client = z.infer<typeof clientSchema>;

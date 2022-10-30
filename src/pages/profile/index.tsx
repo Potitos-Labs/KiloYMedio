@@ -80,9 +80,9 @@ const Profile = (
       address: client?.address,
       image: client?.image,
       location: client?.location,
-      CP: 100,
-      phoneNumber: 606796767,
-      nif: "29222420T",
+      CP: client?.CP,
+      phoneNumber: client?.phoneNumber,
+      nif: client?.nif,
     },
   });
 
@@ -92,6 +92,7 @@ const Profile = (
   function onSubmit() {
     setEdit(!edit);
   }
+
   return (
     <Layout>
       <p
@@ -172,22 +173,22 @@ const Profile = (
               ></input>
             </div>
             {/*Correo y Nombre*/}
-            <div className=" sm:grid-col-[10%_90%] grid w-full grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
+            <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
               <p className="py-2"> Población</p>
               <input
                 type="text"
-                name="Poblation"
+                name="poblacion"
                 className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p className="py-2 text-center"> Localidad</p>
+              <p className="py-2 md:text-center lg:text-center"> Localidad</p>
               <input
                 type="text"
                 {...register("location")}
                 className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                 disabled={!edit}
               ></input>
-              <p className="py-2 text-center">CP</p>
+              <p className="py-2 md:text-center lg:text-center">CP</p>
               <input
                 type="text"
                 {...register("CP")}
@@ -221,7 +222,7 @@ const Profile = (
         </div>
         <div className="my-10 w-full">
           <FormWrapper title="Mis alérgenos">
-            <div className="grid grid-cols-3 items-start sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid grid-cols-2 items-start sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {allergenList.map((allergen) => (
                 <div
                   className="align-left  mt-2 flex flex-col items-center py-2"
@@ -237,10 +238,7 @@ const Profile = (
                 </div>
               ))}
             </div>
-            <p
-              className="cursor-pointer text-right text-kym2 hover:text-kym4"
-              onClick={changeEdit}
-            >
+            <p className="cursor-pointer text-right text-kym2 hover:text-kym4">
               <u>Modificar alérgenos</u>
             </p>
           </FormWrapper>
