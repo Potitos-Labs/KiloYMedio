@@ -13,15 +13,15 @@ function DropdownCategories() {
   return (
     <div className="absolute z-10 hidden group-hover:block">
       <div className="flex w-[240px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
-        <div className="group">
+        <div className="relative">
           <Link href={`/category`}>
-            <button className="flex w-full flex-row px-5 py-3 hover:rounded-md hover:bg-background">
+            <button className=" peer flex w-full flex-row px-5 py-3 hover:rounded-md hover:bg-background">
               <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
               Comestibles
             </button>
           </Link>
-          <div className="absolute z-20 hidden">
-            <div className="flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
+          <div className="absolute left-20 z-20 hidden w-[200px] pl-10  hover:flex peer-hover:flex">
+            <div className=" flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4 ">
               <Link href={`/product?category=${englishName}`}>
                 <a className="px-5 py-3 hover:rounded-md hover:bg-background">
                   Harinas

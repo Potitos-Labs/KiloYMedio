@@ -12,6 +12,19 @@ import superjson from "superjson";
 import AllergensComponent from "../../components/Allergen";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
+<<<<<<< HEAD
+=======
+import Image from "next/image";
+import { useCallback, useState } from "react";
+import { AppRouterTypes, trpc } from "../../utils/trpc";
+import AllergensComponent from "../../components/Allergen";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { IClient, clientSchema } from "../../utils/validations/client";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+>>>>>>> f8a10d5 (Editar perfil y principio lérgenos)
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
 import { AppRouterTypes, trpc } from "../../utils/trpc";
@@ -62,10 +75,11 @@ const Profile = (
 ) => {
   const { client: c } = props;
   const client = c as AppRouterTypes["user"]["getClientById"]["output"];
-
   const [edit, setEdit] = useState(false);
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const router = useRouter();
+  const { mutateAsync } = trpc.user.updateClient.useMutation();
+
   const allergenList = data?.map((e) => e.allergen) ?? [];
   const [open, setOpen] = useState(false);
   const { data: allergenTransalator } =
@@ -75,7 +89,7 @@ const Profile = (
     router.push("/login");
   }
 
-  const { register, handleSubmit } = useForm<Client>({
+  const { register, handleSubmit } = useForm<IClient>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
       name: client?.name,
@@ -88,6 +102,7 @@ const Profile = (
       nif: client?.nif,
     },
   });
+
   function openPopUp() {
     setOpen(true);
   }
@@ -98,9 +113,12 @@ const Profile = (
   function changeEdit() {
     setEdit(!edit);
   }
-  function onSubmit() {
-    setEdit(!edit);
-  }
+  const onSubmit = useCallback(
+    async (data: IClient) => {
+      await mutateAsync(data);
+    },
+    [mutateAsync, router],
+  );
 
   return (
     <Layout>
@@ -115,31 +133,31 @@ const Profile = (
         Editar perfil
       </p>
       <div className="px-40">
-        <div className="mt-5 flex w-full flex-row">
-          <div className="mr-8 flex flex-col items-center pt-20">
-            <Image
-              src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
-              alt="notfound"
-              width="100"
-              height="100"
-              layout="fixed"
-              objectFit="cover"
-              className="rounded-md"
-            ></Image>
-            <p
-              className={` ${
-                edit
-                  ? "invisible pt-3"
-                  : "cursor-pointer pt-3 text-kym2 hover:text-kym4"
-              }`}
-            >
-              <u>Editar foto</u>
-            </p>
-          </div>
-          <div className="my-10 w-full">
-            <FormWrapper title="Datos personales">
-              {/*Nombre y apellidos*/}
-              <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mt-5 flex w-full flex-row">
+            <div className="mr-8 flex flex-col items-center pt-20">
+              <Image
+                src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
+                alt="notfound"
+                width="100"
+                height="100"
+                layout="fixed"
+                objectFit="cover"
+                className="rounded-md"
+              ></Image>
+              <p
+                className={` ${
+                  edit
+                    ? "invisible pt-3"
+                    : "cursor-pointer pt-3 text-kym2 hover:text-kym4"
+                }`}
+              >
+                <u>Editar foto</u>
+              </p>
+            </div>
+            <div className="my-10 w-full">
+              <FormWrapper title="Datos personales">
+                {/*Nombre y apellidos*/}
                 <div className="grid items-center lg:grid-cols-[20%_80%]">
                   <p className="py-2">Nombre completo</p>
                   <input
@@ -166,107 +184,107 @@ const Profile = (
                     disabled={!edit}
                   ></input>
                 </div>{" "}
-              </form>
-            </FormWrapper>
+              </FormWrapper>
+            </div>
           </div>
-        </div>
-        <div className="my-5 w-full">
-          <FormWrapper title="Dirección de envío">
-            <div className="relative flex w-full flex-row gap-4 py-8">
-              <p className="py-2">Dirección </p>
-              <input
-                type="text"
-                {...register("address")}
-                className="peer w-full  rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
-                disabled={!edit}
-              ></input>
-            </div>
-            {/*Correo y Nombre*/}
-            <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
-              <p className="py-2"> Población</p>
-              <input
-                type="text"
-                name="poblacion"
-                className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
-                disabled={!edit}
-              ></input>
-              <p className="py-2 md:text-center lg:text-center"> Localidad</p>
-              <input
-                type="text"
-                {...register("location")}
-                className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
-                disabled={!edit}
-              ></input>
-              <p className="py-2 md:text-center lg:text-center">CP</p>
-              <input
-                type="text"
-                {...register("CP")}
-                disabled={!edit}
-                className=" placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
-              ></input>
-            </div>
-          </FormWrapper>
-        </div>
-        <div className="my-10 w-full">
-          <FormWrapper title="Área de socio">
-            <div className="flex flex-col">
-              <div className="relative mb-5 flex w-full flex-row gap-4">
-                <p>DNI</p>
+          <div className="my-5 w-full">
+            <FormWrapper title="Dirección de envío">
+              <div className="relative flex w-full flex-row gap-4 py-8">
+                <p className="py-2">Dirección </p>
                 <input
                   type="text"
-                  {...register("nif")}
-                  value="29222420T"
-                  className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                  {...register("address")}
+                  className="peer w-full  rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                   disabled={!edit}
                 ></input>
-                <p className="text-bold "> Mis puntos: 100</p>
               </div>
-              <div>
-                <p className="cursor-pointer text-kym2 hover:text-kym4">
-                  <u>Mis facturas</u>
-                </p>
+              {/*Correo y Nombre*/}
+              <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
+                <p className="py-2"> Población</p>
+                <input
+                  type="text"
+                  name="poblacion"
+                  className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                  disabled={!edit}
+                ></input>
+                <p className="py-2 md:text-center lg:text-center"> Localidad</p>
+                <input
+                  type="text"
+                  {...register("location")}
+                  className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                  disabled={!edit}
+                ></input>
+                <p className="py-2 md:text-center lg:text-center">CP</p>
+                <input
+                  type="text"
+                  {...register("CP")}
+                  disabled={!edit}
+                  className=" placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
+                ></input>
               </div>
-            </div>
-          </FormWrapper>
-        </div>
-        <div className="my-10 w-full">
-          <FormWrapper title="Mis alérgenos">
-            <div className="grid grid-cols-2 items-start sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {allergenList.map((allergen) => (
-                <div
-                  className="align-left  mt-2 flex flex-col items-center py-2"
-                  key={allergen}
-                >
-                  <AllergensComponent
-                    allergens={[allergen]}
-                    size={70}
-                  ></AllergensComponent>
-                  <p className=" inline-block text-center normal-case">
-                    {allergenTransalator?.get(allergen)}
+            </FormWrapper>
+          </div>
+          <div className="my-10 w-full">
+            <FormWrapper title="Área de socio">
+              <div className="flex flex-col">
+                <div className="relative mb-5 flex w-full flex-row gap-4">
+                  <p>DNI</p>
+                  <input
+                    type="text"
+                    {...register("nif")}
+                    value="29222420T"
+                    className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    disabled={!edit}
+                  ></input>
+                  <p className="text-bold "> Mis puntos: 100</p>
+                </div>
+                <div>
+                  <p className="cursor-pointer text-kym2 hover:text-kym4">
+                    <u>Mis facturas</u>
                   </p>
                 </div>
-              ))}
-            </div>
-            <p
-              className="cursor-pointer text-right text-kym2 hover:text-kym4"
-              onClick={openPopUp}
+              </div>
+            </FormWrapper>
+          </div>
+          <div className="my-10 w-full">
+            <FormWrapper title="Mis alérgenos">
+              <div className="grid grid-cols-2 items-start sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                {allergenList.map((allergen) => (
+                  <div
+                    className="align-left  mt-2 flex flex-col items-center py-2"
+                    key={allergen}
+                  >
+                    <AllergensComponent
+                      allergens={[allergen]}
+                      size={70}
+                    ></AllergensComponent>
+                    <p className=" inline-block text-center normal-case">
+                      {allergenTransalator?.get(allergen)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p
+                className="cursor-pointer text-right text-kym2 hover:text-kym4"
+                onClick={openPopUp}
+              >
+                <u>Modificar alérgenos</u>
+              </p>
+            </FormWrapper>
+          </div>
+          <div className="mb-8 text-right">
+            <button
+              type="submit"
+              className={`${
+                edit
+                  ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
+                  : "invisible"
+              }`}
             >
-              <u>Modificar alérgenos</u>
-            </p>
-          </FormWrapper>
-        </div>
-        <div className="mb-8 text-right">
-          <button
-            type="submit"
-            className={`${
-              edit
-                ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
-                : "invisible"
-            }`}
-          >
-            Guardar cambios
-          </button>
-        </div>
+              Guardar cambios
+            </button>
+          </div>
+        </form>
       </div>
       <Popup open={open} modal closeOnDocumentClick onClose={closePopUp}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
