@@ -11,18 +11,24 @@ const RecipeDisplayer = ({
   recipes?: { id: string; name: string; imageURL: string }[];
 }) => {
   const [count, setCount] = useState(0);
-  //const MaxWidth = document.getElementById("slider")!.offsetWidth;
+  let MaxWidth = 0;
+  if (typeof window !== "undefined") {
+    MaxWidth = document.getElementById("slider")!.offsetWidth;
+  }
   const slideLeft = () => {
     const slider = document.getElementById("slider");
     slider!.scrollLeft = slider!.scrollLeft - 500;
     count > 500 ? setCount(count - 500) : setCount(0);
+    console.log(count);
   };
   const slideRight = () => {
     const slider = document.getElementById("slider");
     slider!.scrollLeft = slider!.scrollLeft + 500;
-    count < slider!.offsetWidth
+
+    count + 500 < slider!.offsetWidth
       ? setCount(count + 500)
       : setCount(slider!.offsetWidth);
+    console.log(count);
   };
 
   return (
@@ -52,7 +58,7 @@ const RecipeDisplayer = ({
         </div>
         <MdChevronRight
           className={`opacity-50 cursor-pointer ${
-            count >= 5800 ? "invisible" : "hover:opacity-100"
+            count == MaxWidth ? "  invisible" : "hover:opacity-100"
           }`}
           onClick={slideRight}
           size={40}
