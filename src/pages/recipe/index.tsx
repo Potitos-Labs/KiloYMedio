@@ -5,7 +5,7 @@ import { trpc } from "../../utils/trpc";
 const recipes = () => {
   const { data } = trpc.recipe.getAllRecipes.useQuery();
   console.log(data?.length);
-  const Testing = [
+  /*const Testing = [
     {
       id: 162,
       name: "Receta",
@@ -49,13 +49,14 @@ const recipes = () => {
         "https://pbs.twimg.com/profile_images/1571904629209812996/KGxejjwy_400x400.jpg",
     },
   ];
+  */
 
   return (
     <Layout>
       <div>
         <RecipeDisplayer
           title={"Todas las recetas"}
-          recipes={Testing}
+          recipes={data}
         ></RecipeDisplayer>
       </div>
     </Layout>
