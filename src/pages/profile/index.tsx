@@ -4,7 +4,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { unstable_getServerSession } from "next-auth/next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import Popup from "reactjs-popup";
 import superjson from "superjson";
@@ -12,23 +12,10 @@ import superjson from "superjson";
 import AllergensComponent from "../../components/Allergen";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
-<<<<<<< HEAD
-=======
-import Image from "next/image";
-import { useCallback, useState } from "react";
-import { AppRouterTypes, trpc } from "../../utils/trpc";
-import AllergensComponent from "../../components/Allergen";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { IClient, clientSchema } from "../../utils/validations/client";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
->>>>>>> f8a10d5 (Editar perfil y principio lérgenos)
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
 import { AppRouterTypes, trpc } from "../../utils/trpc";
-import { Client, clientSchema } from "../../utils/validations/client";
+import { IClient, clientSchema } from "../../utils/validations/client";
 import { authOptions } from "../api/auth/[...nextauth]";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
