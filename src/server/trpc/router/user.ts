@@ -1,3 +1,4 @@
+import { Allergen } from "@prisma/client";
 import * as trpc from "@trpc/server";
 import { hash } from "argon2";
 import { z } from "zod";
@@ -150,6 +151,68 @@ export const userRouter = router({
         status: 201,
         message: "Account created successfully",
         result: result.email,
+      };
+    }),
+
+  getAllClientAllergen: clientProcedure.query(async ({ ctx }) => {
+    const clientAllergen = await ctx.prisma.allergenClient.findMany({
+      select: {
+        clientId: true,
+        allergen: true,
+      },
+      where: { Client: { userId: ctx.session.user.id } },
+    });
+    return clientAllergen;
+  }),
+
+  addAllergen: clientProcedure
+    .input(
+      z.object({
+        allergen: z.nativeEnum(Allergen),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { allergen } = input;
+
+      const { clientId } = await ctx.prisma.allergenClient.findFirstOrThrow({
+        select: { clientId: true },
+        where: { clientId: ctx.session.user.id },
+      });
+
+      await ctx.prisma.allergenClient.create({
+        data: { clientId: clientId, allergen: allergen },
+      });
+
+      return {
+        status: 201,
+      };
+    }),
+
+  deleteAllergen: clientProcedure
+    .input(
+      z.object({
+        allergen: z.nativeEnum(Allergen),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { allergen } = input;
+
+      const { clientId } = await ctx.prisma.allergenClient.findFirstOrThrow({
+        select: { clientId: true },
+        where: { clientId: ctx.session.user.id },
+      });
+
+      await ctx.prisma.allergenClient.delete({
+        where: {
+          clientId_allergen: {
+            clientId,
+            allergen,
+          },
+        },
+      });
+
+      return {
+        status: 201,
       };
     }),
 });

@@ -1,3 +1,4 @@
+//import { Allergen } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
 import Popup from "reactjs-popup";
 
@@ -11,11 +12,39 @@ export function PopUpAllergen({
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }) {
+  //const utils = trpc.useContext();
+
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const allergenList = data?.map((e) => e.allergen) ?? [];
 
   const { data: allergenTranslator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
+
+  // const { data: allergens } = trpc.user.getAllClientAllergen.useQuery();
+  // const clientAllergenList =
+  //   allergens?.map((clientAllergen) => clientAllergen.allergen) ?? [];
+
+  // const addMutation = trpc.user.addAllergen.useMutation({
+  //   onSuccess() {
+  //     utils.user.getAllClientAllergen.invalidate();
+  //   },
+  // });
+
+  // const deleteMutation = trpc.user.deleteAllergen.useMutation({
+  //   onSuccess() {
+  //     utils.user.getAllClientAllergen.invalidate();
+  //   },
+  // });
+
+  // const allergen = Allergen.fish;
+
+  // function addAllergen() {
+  //   addMutation.mutateAsync({ allergen: allergen });
+  // }
+
+  // function deleteAllergen() {
+  //   deleteMutation.mutateAsync({ allergen: allergen });
+  // }
 
   function closePopUp() {
     setOpen(false);
@@ -45,13 +74,14 @@ export function PopUpAllergen({
                     size={25}
                   ></AllergensComponent>
                   <p>{allergenTranslator?.get(allergen)}</p>
+
                   <hr className="border-1 mt-5 border-gray-200 pb-3"></hr>
                 </div>
               ))}
             </div>
             <div className="text-right">
               <button
-                className=" m-3  mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                className="m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
                 onClick={closePopUp}
               >
                 Aceptar

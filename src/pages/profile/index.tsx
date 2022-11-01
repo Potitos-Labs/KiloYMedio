@@ -52,7 +52,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-
   return {
     props: { trpcState: ssg.dehydrate(), client },
   };
@@ -64,7 +63,7 @@ const Profile = (
   const { client: c } = props;
   const client = c as AppRouterTypes["user"]["getClientById"]["output"];
   const [edit, setEdit] = useState(false);
-  const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
+  const { data } = trpc.user.getAllClientAllergen.useQuery();
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { mutateAsync } = trpc.user.updateClient.useMutation();
@@ -93,6 +92,7 @@ const Profile = (
   function changeEdit() {
     setEdit(!edit);
   }
+
   const onSubmit = useCallback(
     async (data: IClient) => {
       await mutateAsync(data);
@@ -174,7 +174,7 @@ const Profile = (
             <div className="my-5 w-full">
               <FormWrapper title="Dirección de envío">
                 <div className="relative flex w-full flex-row gap-4 py-8">
-                  <p className="py-2">Dirección </p>
+                  <p className="py-2">Dirección</p>
                   <input
                     type="text"
                     {...register("address")}
@@ -184,7 +184,7 @@ const Profile = (
                 </div>
                 {/*Correo y Nombre*/}
                 <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
-                  <p className="py-2"> Población</p>
+                  <p className="py-2">Población</p>
                   <input
                     type="text"
                     name="poblacion"
@@ -223,7 +223,7 @@ const Profile = (
                       className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                       disabled={!edit}
                     ></input>
-                    <p className="text-bold "> Mis puntos: 100</p>
+                    <p className="text-bold ">Mis puntos: 100</p>
                   </div>
                   <div>
                     <p className="cursor-pointer text-kym2 hover:text-kym4">

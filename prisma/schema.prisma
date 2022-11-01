@@ -139,7 +139,7 @@ model Client {
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
-    AllergenClient           AllergenClient[]
+    allergenClient           AllergenClient[]
 }
 
 model Comment {
