@@ -49,6 +49,14 @@ model AllergenInSpanish {
     allergenInSpanish String
 }
 
+model AllergenClient {
+    Client   Client   @relation(fields: [clientId], references: [userId], onDelete: Cascade)
+    clientId String
+    allergen Allergen
+
+    @@id([clientId, allergen])
+}
+
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique
@@ -131,6 +139,7 @@ model Client {
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
+    AllergenClient           AllergenClient[]
 }
 
 model Comment {
