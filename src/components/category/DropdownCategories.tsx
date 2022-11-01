@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { RiListUnordered } from "react-icons/ri";
+import { GiGrain } from "react-icons/gi";
+import { RiListUnordered, RiShoppingBasket2Line } from "react-icons/ri";
 
 import { trpc } from "../../utils/trpc";
 
@@ -13,14 +14,14 @@ function DropdownCategories() {
       <div className="flex w-[240px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
         <div className="relative">
           <Link href={`/category`}>
-            <button className=" peer flex w-full flex-row px-5 py-3 hover:rounded-md hover:bg-background">
+            <button className="peer flex w-full flex-row px-5 py-3 hover:rounded-md hover:bg-background">
               <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
               Comestibles
             </button>
           </Link>
 
-          <div className="absolute left-20 z-20 hidden w-[200px] pl-10 hover:grid peer-hover:grid">
-            <div className="grid w-[800px] grid-cols-3 rounded-md bg-white text-kym4 shadow-sm shadow-kym4 ">
+          <div className="absolute left-40 top-8 z-20 hidden hover:grid peer-hover:grid">
+            <div className="grid w-[800px] grid-cols-3 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
               {eCategories ? (
                 eCategories?.map((eCategory) => {
                   return (
@@ -28,7 +29,8 @@ function DropdownCategories() {
                       href={`/product?category=${eCategory.category}`}
                       key={eCategory.id}
                     >
-                      <a className="px-5 py-3 hover:rounded-md hover:bg-background">
+                      <a className="px-5 py-3 flex flex-row hover:rounded-md gap-1 hover:bg-background">
+                        <GiGrain className="mr-1 h-6 w-6 fill-kym2" />
                         {eCategory.categoryInSpanish}
                       </a>
                     </Link>
@@ -47,8 +49,8 @@ function DropdownCategories() {
               No comestibles
             </a>
           </Link>
-          <div className="absolute left-20 z-20 hidden w-[200px] pl-10 hover:flex peer-open:hidden peer-hover:flex">
-            <div className="flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4 ">
+          <div className="absolute left-40 top-8 z-20 hidden hover:grid peer-hover:grid">
+            <div className="grid w-[500px] grid-cols-2 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
               {nCategories ? (
                 nCategories?.map((nCategory) => {
                   return (
@@ -56,7 +58,8 @@ function DropdownCategories() {
                       href={`/product?category=${nCategory.category}`}
                       key={nCategory.id}
                     >
-                      <a className="px-5 py-3 hover:rounded-md hover:bg-background">
+                      <a className="px-5 py-3 flex flex-row hover:rounded-md hover:bg-background">
+                        <RiShoppingBasket2Line className="mr-1 h-6 w-6 fill-kym2" />
                         {nCategory.categoryInSpanish}
                       </a>
                     </Link>
