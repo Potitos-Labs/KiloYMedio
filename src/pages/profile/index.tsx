@@ -184,15 +184,7 @@ const Profile = (
                 </div>
                 {/*Correo y Nombre*/}
                 <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
-                  <p className="py-2">Población</p>
-                  <input
-                    type="text"
-                    name="poblacion"
-                    className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
-                    disabled={!edit}
-                  ></input>
                   <p className="py-2 md:text-center lg:text-center">
-                    {" "}
                     Localidad
                   </p>
                   <input
@@ -219,7 +211,6 @@ const Profile = (
                     <input
                       type="text"
                       {...register("nif")}
-                      value="29222420T"
                       className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                       disabled={!edit}
                     ></input>
