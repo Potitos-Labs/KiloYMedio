@@ -1,4 +1,4 @@
-//import { Allergen } from "@prisma/client";
+import { Allergen } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
 import Popup from "reactjs-popup";
 
@@ -12,7 +12,7 @@ export function PopUpAllergen({
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }) {
-  //const utils = trpc.useContext();
+  const utils = trpc.useContext();
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const allergenList = data?.map((e) => e.allergen) ?? [];
@@ -20,31 +20,29 @@ export function PopUpAllergen({
   const { data: allergenTranslator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
-  // const { data: allergens } = trpc.user.getAllClientAllergen.useQuery();
-  // const clientAllergenList =
-  //   allergens?.map((clientAllergen) => clientAllergen.allergen) ?? [];
+  const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
+  const clientAllergenList =
+    clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
 
-  // const addMutation = trpc.user.addAllergen.useMutation({
-  //   onSuccess() {
-  //     utils.user.getAllClientAllergen.invalidate();
-  //   },
-  // });
+  const addMutation = trpc.user.addAllergen.useMutation({
+    onSuccess() {
+      utils.user.getAllClientAllergen.invalidate();
+    },
+  });
 
-  // const deleteMutation = trpc.user.deleteAllergen.useMutation({
-  //   onSuccess() {
-  //     utils.user.getAllClientAllergen.invalidate();
-  //   },
-  // });
+  const deleteMutation = trpc.user.deleteAllergen.useMutation({
+    onSuccess() {
+      utils.user.getAllClientAllergen.invalidate();
+    },
+  });
 
-  // const allergen = Allergen.fish;
+  function addAllergen({ allergen }: { allergen: Allergen }) {
+    addMutation.mutateAsync({ allergen: allergen });
+  }
 
-  // function addAllergen() {
-  //   addMutation.mutateAsync({ allergen: allergen });
-  // }
-
-  // function deleteAllergen() {
-  //   deleteMutation.mutateAsync({ allergen: allergen });
-  // }
+  function deleteAllergen({ allergen }: { allergen: Allergen }) {
+    deleteMutation.mutateAsync({ allergen: allergen });
+  }
 
   function closePopUp() {
     setOpen(false);
@@ -66,16 +64,41 @@ export function PopUpAllergen({
             <div className=" p-10 grid-cols items-left grid">
               {allergenList.map((allergen) => (
                 <div
-                  className="align-left grid-cols-[10%_90%] mt-2 grid py-2"
+                  className=" grid-cols-[10%_50%_20%_20%] grid py-2"
                   key={allergen}
                 >
                   <AllergensComponent
                     allergens={[allergen]}
                     size={25}
                   ></AllergensComponent>
-                  <p>{allergenTranslator?.get(allergen)}</p>
 
-                  <hr className="border-1 mt-5 border-gray-200 pb-3"></hr>
+                  <p>{allergenTranslator?.get(allergen)}</p>
+                  <button
+                    disabled={clientAllergenList.includes(allergen)}
+                    className={`${
+                      clientAllergenList.includes(allergen)
+                        ? "text-gray-400"
+                        : " text-kym2 hover:text-kym4"
+                    } text-right`}
+                    onClick={() => {
+                      addAllergen({ allergen });
+                    }}
+                  >
+                    Añadir
+                  </button>
+                  <button
+                    disabled={!clientAllergenList.includes(allergen)}
+                    className={`${
+                      !clientAllergenList.includes(allergen)
+                        ? "text-gray-400"
+                        : " text-kym2 hover:text-kym4"
+                    } text-right`}
+                    onClick={() => {
+                      deleteAllergen({ allergen });
+                    }}
+                  >
+                    Eliminar
+                  </button>
                 </div>
               ))}
             </div>
