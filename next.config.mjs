@@ -50,6 +50,7 @@ export default defineNextConfig({
       "www.frutasluisi.eu",
       "uxwing.com",
       "pbs.twimg.com",
+      "www.kindpng.com",
     ],
     remotePatterns: [
       {

@@ -42,7 +42,7 @@ const SignIn: NextPage = () => {
     router.query.error == "CredentialsSignin" &&
     emailNotExists == ""
   ) {
-    setEmailNotExists("Email y/o contraseña invalido");
+    setEmailNotExists("Email y/o contraseña inválido");
     router.replace("/login", undefined, { shallow: true });
   }
 
@@ -91,7 +91,7 @@ const SignIn: NextPage = () => {
                 type="email"
                 className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out invalid:border-2 invalid:border-red-500 focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
                 id="emailInput"
-                placeholder="Correo electrónico	"
+                placeholder="Correo electrónico"
                 {...register("email", {
                   onChange: () => setEmailNotExists(""),
                 })}
@@ -117,7 +117,7 @@ const SignIn: NextPage = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500">Contraseña invalida</p>
+                <p className="text-red-500">Contraseña inválida</p>
               )}
               <p className="font-semibold text-red-500">{emailNotExists}</p>
             </div>

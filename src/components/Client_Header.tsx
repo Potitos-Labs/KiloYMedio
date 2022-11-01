@@ -59,7 +59,7 @@ function Client_Header() {
         <div className="dropdown relative flex h-10 w-8 items-center">
           <Menu as="div" className="realative inline-block text-left">
             <div>
-              <Menu.Button className=" flex items-center">
+              <Menu.Button className="flex items-center">
                 <BsFillPersonFill className="h-11 w-11 fill-white" />
               </Menu.Button>
             </div>
@@ -72,7 +72,7 @@ function Client_Header() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                 <Menu.Item>
                   <Link href={`/profile`}>
                     <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
@@ -81,8 +81,8 @@ function Client_Header() {
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item>
-                  <Link href={`/`}>
+                <Link href={`/`}>
+                  <Menu.Item>
                     <button
                       className="flex w-full flex-row px-5 py-3 text-kym4 hover:rounded-md hover:bg-button hover:text-white"
                       onClick={() => {
@@ -92,8 +92,8 @@ function Client_Header() {
                       <TbLogout className="mr-2 h-6 w-6" />
                       Cerrar sesión
                     </button>
-                  </Link>
-                </Menu.Item>
+                  </Menu.Item>
+                </Link>
               </Menu.Items>
             </Transition>
           </Menu>
