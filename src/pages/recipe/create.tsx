@@ -14,7 +14,6 @@ const RecipeForm: NextPage = () => {
   const { register, setValue, getValues, /* handleSubmit,*/ watch } =
     useForm<ICreateRecipe>({
       resolver: zodResolver(createRecipeSchema),
-      defaultValues: { portions: 1 },
     });
 
   console.log(watch());
@@ -23,7 +22,6 @@ const RecipeForm: NextPage = () => {
     <Layout>
       <section>
         <div className="mt-12 pl-10">
-          {/* <form> */}
           {/*Details*/}
           <section className="flex flex-col gap-6">
             <div className="flex flex-row items-center gap-2">
@@ -47,7 +45,7 @@ const RecipeForm: NextPage = () => {
                 <input {...register("difficulty")} type="radio" value="easy" />
                 <p>Baja</p>
                 <input
-                  {...register("difficulty")}
+                  {...register("difficulty", {})}
                   type="radio"
                   value="moderate"
                 />
@@ -58,6 +56,13 @@ const RecipeForm: NextPage = () => {
             </div>
             <div className="flex flex-row items-center gap-2">
               <div className="text-lg">Duración </div>
+              {/* <Controller
+                name="timeSpan.hour"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <p>{value}</p>
+                )}
+              ></Controller> */}
               <IncDecRecipe
                 maximum={23}
                 property={"timeSpan.hour"}
@@ -132,7 +137,6 @@ const RecipeForm: NextPage = () => {
             </div>
           </section>
           {/*End Recipe*/}
-          {/* </form> */}
         </div>
       </section>
     </Layout>

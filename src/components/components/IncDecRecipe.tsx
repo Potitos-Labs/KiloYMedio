@@ -41,7 +41,7 @@ function IncDecRecipe({
       <button
         disabled={(getVal || 0) == min}
         className={`border-r-[1px] border-black bg-transparent px-3 font-semibold ${
-          getValues(property) == min ? "cursor-not-allowed opacity-60" : ""
+          getVal == min ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
           setValue(property, getVal - 1);
@@ -52,7 +52,10 @@ function IncDecRecipe({
       <input
         className="w-16 text-center focus-within:outline-none"
         type="text"
+        min="1"
+        max="5"
         maxLength={length}
+        defaultValue="1"
         {...register}
       />
       <button
