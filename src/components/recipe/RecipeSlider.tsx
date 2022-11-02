@@ -11,10 +11,7 @@ const RecipeDisplayer = ({
   recipes?: { id: string; name: string; imageURL: string }[];
 }) => {
   const [count, setCount] = useState(0);
-  let MaxWidth = 0;
-  if (typeof window !== "undefined") {
-    MaxWidth = document.getElementById("slider")!.offsetWidth;
-  }
+
   const slideLeft = () => {
     const slider = document.getElementById("slider");
     slider!.scrollLeft = slider!.scrollLeft - 500;
@@ -32,19 +29,18 @@ const RecipeDisplayer = ({
   };
 
   return (
-    <div className="mt-4">
-      <p>{title}</p>
-      <div className="relative flex items-center">
+    <div className="mt-4 mx-6">
+      <p className="font-bold mb-2 text-kym3  normal-case text-2xl">{title}</p>
+
+      <div className="relative flex items-center  border-slate-200 border-2  rounded-md shadow-xl">
         <MdChevronLeft
-          className={`opacity-50 cursor-pointer ${
-            count <= 0 ? "invisible" : "hover:opacity-100"
-          }`}
+          className="opacity-50 cursor-pointer  hover:opacity-100"
           onClick={slideLeft}
           size={40}
         />
         <div
           id="slider"
-          className="w-full h-full  py-6 overflow-x-auto whitespace-nowrap scroll-smooth"
+          className="hide-scroll-bar w-full h-full  py-6 overflow-x-auto whitespace-nowrap scroll-smooth align-middle items-center flex"
         >
           {recipes?.map((recipe) => (
             <RecipeCard
@@ -57,9 +53,7 @@ const RecipeDisplayer = ({
           ))}
         </div>
         <MdChevronRight
-          className={`opacity-50 cursor-pointer ${
-            count == MaxWidth ? "  invisible" : "hover:opacity-100"
-          }`}
+          className="opacity-50 cursor-pointer  hover:opacity-100"
           onClick={slideRight}
           size={40}
         />

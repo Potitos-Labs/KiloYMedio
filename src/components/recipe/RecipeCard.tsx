@@ -15,7 +15,7 @@ const RecipeCard = ({
   imageURL: string;
 }) => {
   return (
-    <div className="relative flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4 w-44 h-64 inline-block mx-4">
+    <div className="relative  rounded-md py-8 text-center shadow-lg hover:shadow-kym4 w-48 h-64 min-w-48 inline-block mx-4 flex-col items-center justify-center flex-none">
       <div className="py-3">
         <Link href={`/product/${id}`}>
           <a>
@@ -31,11 +31,10 @@ const RecipeCard = ({
           </a>
         </Link>
       </div>
-
-      <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+      <p className="mb-2 mx-1 font-semibold text-kym4 first-letter:uppercase whitespace-normal">
         {name}
       </p>
-      <div>
+      <div className="absolute bottom-0  flex-col justify-center  items-center w-full mb-1">
         <Stars average={ratings}></Stars>
       </div>
     </div>
