@@ -7,17 +7,19 @@ import { z } from "zod";
 
 import { trpc } from "../../utils/trpc";
 import {
+  IProduct,
   IProductCreate,
   productCreateSchema,
 } from "../../utils/validations/product";
 import Listbox from "../Listbox";
 
-export default function NonEdibleForm() {
+export default function NonEdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
   const { register, handleSubmit, setValue } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
+    defaultValues: product,
   });
 
   const { data: categories } =

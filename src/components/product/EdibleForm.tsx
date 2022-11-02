@@ -7,12 +7,13 @@ import { z } from "zod";
 
 import { trpc } from "../../utils/trpc";
 import {
+  IProduct,
   IProductCreate,
   productCreateSchema,
 } from "../../utils/validations/product";
 import Listbox from "../Listbox";
 
-export default function EdibleForm() {
+export default function EdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
@@ -23,6 +24,7 @@ export default function EdibleForm() {
     handleSubmit,
   } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
+    defaultValues: product,
   });
   console.log(errors);
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();

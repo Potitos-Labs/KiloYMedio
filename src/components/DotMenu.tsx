@@ -65,6 +65,7 @@ const DotMenu = ({ id }: { id: string }) => {
                     className={`${
                       active && "bg-background"
                     } group flex w-full items-center  px-2 py-2 text-sm`}
+                    onClick={() => router.push(`/product/edit/${id}`)}
                   >
                     <AiOutlineEdit className="mr-2 fill-kym2" />
                     Editar
