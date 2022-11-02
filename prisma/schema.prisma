@@ -322,7 +322,7 @@ model RecipeComment {
 }
 
 model RecipeDirections {
-    id         String   @id
+    id         String   @id @default(cuid())
     number     Int      @unique
     directions String   @db.Text
     Recipe     Recipe[]
