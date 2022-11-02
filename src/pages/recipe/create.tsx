@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import Layout from "../../components/Layout";
 import IncDecRecipe from "../../components/components/IncDecRecipe";
+import { clearNumber } from "../../components/payment/utils";
 import {
   ICreateRecipe,
   createRecipeSchema,
@@ -11,7 +12,7 @@ import {
 
 const RecipeForm: NextPage = () => {
   //   const { data: allProducts } = trpc.product.getAllProducts.useQuery();
-  const { register, setValue, getValues, /* handleSubmit,*/ watch } =
+  const { register, setValue, getValues, control, /* handleSubmit,*/ watch } =
     useForm<ICreateRecipe>({
       resolver: zodResolver(createRecipeSchema),
     });
@@ -56,20 +57,48 @@ const RecipeForm: NextPage = () => {
             </div>
             <div className="flex flex-row items-center gap-2">
               <div className="text-lg">Duración </div>
-              {/* <Controller
+              <Controller
                 name="timeSpan.hour"
                 control={control}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <p>{value}</p>
+                  <>
+                    <button
+                      disabled={(value || 0) == 0}
+                      className={`border-r-[1px] border-black bg-transparent px-3 font-semibold ${
+                        value == 0 ? "cursor-not-allowed opacity-60" : ""
+                      }`}
+                      onClick={() => {
+                        onChange(Number(value) - 1);
+                      }}
+                    >
+                      -
+                    </button>
+                    <input
+                      className="w-16 text-center focus-within:outline-none"
+                      type="text"
+                      maxLength={2}
+                      defaultValue="1"
+                      value={value}
+                      onChange={({ target: { value } }) =>
+                        onChange(
+                          Number(clearNumber(value) || 0) > 10
+                            ? 10
+                            : Number(clearNumber(value) || 0),
+                        )
+                      }
+                      onBlur={onBlur}
+                      ref={ref}
+                    />
+                  </>
                 )}
-              ></Controller> */}
-              <IncDecRecipe
+              ></Controller>
+              {/* <IncDecRecipe
                 maximum={23}
                 property={"timeSpan.hour"}
                 register={register("timeSpan.hour")}
                 getValues={getValues}
                 setValue={setValue}
-              ></IncDecRecipe>
+              ></IncDecRecipe> */}
               <p>horas</p>
               <IncDecRecipe
                 maximum={59}
