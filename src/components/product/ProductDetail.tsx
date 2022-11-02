@@ -5,33 +5,18 @@ import React from "react";
 import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
+import { IProduct } from "../../utils/validations/product";
 import AllergensComponent from "../Allergen";
 import DotMenu from "../DotMenu";
 import Stars from "../Stars";
 import IncDecButtons from "./IncDecButtons";
 
-const ProductDetail = ({
-  name,
-  img,
-  description,
-  isEdible,
-  allergensList,
-  price,
-  id,
-  stock,
-}: {
-  name: string;
-  img: string;
-  description: string;
-  isEdible: boolean;
-  allergensList: Allergen[];
-  price: number;
-  id: string;
-  stock: number;
-}) => {
+const ProductDetail = ({ product }: { product: IProduct }) => {
   const { data } = useSession();
+  const isEdible = product.Edible != null;
+  const allergensList = product.Edible?.allergens.map((e) => e.allergen) ?? [];
 
-  const stockLeft = stock * 1000 >= 100;
+  const stockLeft = product.stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
@@ -42,9 +27,9 @@ const ProductDetail = ({
   });
 
   function addToCart() {
-    if (stock * 1000 >= 100) {
+    if (product.stock * 1000 >= 100) {
       notify();
-      mutation.mutateAsync({ productId: id, amount: amount });
+      mutation.mutateAsync({ productId: product.id, amount: amount });
     }
   }
 
@@ -62,17 +47,19 @@ const ProductDetail = ({
 
         <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
           <div className="mt-3 mb-3 flex max-h-64 flex-col items-center">
-            <img className="min-h-full rounded-md" src={img}></img>
+            <img className="min-h-full rounded-md" src={product.imageURL}></img>
           </div>
 
           <div className="mt-5  columns-1">
             <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
-              {name}
+              {product.name}
             </h1>
             <div className="inline-block">
               <Stars average={4}></Stars>
               <div className="mx-2 inline-block">
-                {data?.user?.role == "admin" && <DotMenu id={id}></DotMenu>}
+                {data?.user?.role == "admin" && (
+                  <DotMenu id={product.id}></DotMenu>
+                )}
               </div>
             </div>
 
@@ -88,7 +75,11 @@ const ProductDetail = ({
 
             <p className="mt-4">Precio:</p>
             <p className="mb-3 inline-block text-left text-xl  capitalize">
-              {price} {isEdible ? <span> €/Kg </span> : <span> € </span>}
+              {isEdible ? (
+                <span> {product.Edible?.priceByWeight} €/Kg </span>
+              ) : (
+                <span> {product.NonEdible?.price} € </span>
+              )}
             </p>
 
             <div className="flex items-center">
@@ -96,7 +87,7 @@ const ProductDetail = ({
                 <IncDecButtons
                   setAmount={setAmount}
                   amount={amount}
-                  stock={stock}
+                  stock={product.stock}
                   isEdible={isEdible}
                   stockLeft={stockLeft} //cambiar
                 />
@@ -117,7 +108,7 @@ const ProductDetail = ({
         </div>
       </div>
 
-      <DescriptionComponent description={description} />
+      <DescriptionComponent description={product.description} />
       {allergensList.length > 0 ? (
         <AllergenDescription allergens={allergensList} />
       ) : null}

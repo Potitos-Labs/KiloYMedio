@@ -101,16 +101,28 @@ export const productRouter = router({
             select: {
               priceByWeight: true,
               category: true,
+              nutritionFacts: {
+                select: {
+                  ingredients: true,
+                  energy: true,
+                  fat: true,
+                  protein: true,
+                  carbohydrates: true,
+                },
+              },
               allergens: {
                 select: {
                   allergen: true,
                 },
               },
+              origin: true,
+              conservation: true,
             },
           },
           NonEdible: {
             select: {
               price: true,
+              category: true,
             },
           },
         },
