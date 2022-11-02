@@ -14,6 +14,7 @@ import {
   publicProcedure,
   router,
 } from "../trpc";
+import { clientRouter } from "./user/client";
 
 export const userRouter = router({
   getClientById: publicProcedure
@@ -215,4 +216,5 @@ export const userRouter = router({
         status: 201,
       };
     }),
+  client: clientRouter,
 });
