@@ -409,6 +409,22 @@ async function main() {
       description: "Que bello es mi novio <3",
     },
   });
+
+  /*
+  const macarronesConTomatico = await prisma.recipe.create({
+    data: {
+      name: "Macarrones con Tomatico",
+      difficulty: "easy",
+      Directions: {
+        create: {
+          directions: "Poner un cazo de agua a hervir a 180º",
+          number: 1,
+        },
+      },
+    },
+  });
+  */
+
   //   const paellaValencia = await prisma.recipe.create({
   //     data: {
   //       name: "Paella Valenciana",
