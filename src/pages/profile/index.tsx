@@ -225,7 +225,7 @@ const Profile = (
               </FormWrapper>
             </div>
             <div className="my-10 w-full">
-              <FormWrapper title="Mis recetas"></FormWrapper>
+              {/* <FormWrapper title="Mis recetas"></FormWrapper> */}
             </div>
             <div className="my-10 w-full">
               <FormWrapper title="Mis alérgenos">
