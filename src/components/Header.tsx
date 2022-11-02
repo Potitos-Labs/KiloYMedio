@@ -61,7 +61,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <div className="bg-header py-6">
+    <div className="z-10 w-full fixed bg-header py-6">
       <div className="mx-6 flex flex-shrink-0 items-center justify-between text-white">
         <Link href={`/`}>
           <h3 className="w-[500px] cursor-pointer font-sans text-2xl font-semibold">

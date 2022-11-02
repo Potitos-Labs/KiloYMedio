@@ -142,7 +142,7 @@ const Profile = (
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className="grid items-center lg:grid-cols-[20%_80%]">
+                  <div className="grid items-center lg:grid-cols-[15%_85%]">
                     <p className="py-2">Nombre completo</p>
                     <input
                       type="text"
@@ -152,7 +152,7 @@ const Profile = (
                     ></input>
                   </div>
                   {/*Correo y Nombre*/}
-                  <div className="my-5 grid grid-cols-[18%_82%] lg:grid-cols-[8%_52%_10%_30%]">
+                  <div className="my-5 grid grid-cols-[18%_82%] lg:grid-cols-[15%_45%_10%_30%]">
                     <p className="py-2">Correo</p>
                     <input
                       type="text"
@@ -171,38 +171,38 @@ const Profile = (
                 </FormWrapper>
               </div>
             </div>
+
             <div className="my-5 w-full">
               <FormWrapper title="Dirección de envío">
-                <div className="relative flex w-full flex-row gap-4 py-8">
+                <div className=" grid grid-cols-1 md:grid-cols-[15%_85%] lg:grid-cols-[10%_90%] relative w-full py-8">
                   <p className="py-2">Dirección</p>
                   <input
                     type="text"
                     {...register("address")}
-                    className="peer w-full  rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
                 </div>
                 {/*Correo y Nombre*/}
-                <div className=" sm:grid-col-[10%_90%] grid-col-[10%_90%] grid w-full md:grid-cols-[15%_35%_15%_35%]  lg:grid-cols-[10%_28%_10%_27%_5%_20%_]  ">
-                  <p className="py-2 md:text-center lg:text-center">
-                    Localidad
-                  </p>
+                <div className="sm:grid-col-[10%_90%] grid-cols-[20%_80%] grid w-full md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_15%_35%]">
+                  <p className="py-2">Localidad</p>
                   <input
                     type="text"
                     {...register("location")}
-                    className=" peer w-auto rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
+                    className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
                   ></input>
-                  <p className="py-2 md:text-center lg:text-center">CP</p>
+                  <p className="py-2 md:text-center">CP</p>
                   <input
                     type="text"
                     {...register("CP", { valueAsNumber: true })}
                     disabled={!edit}
-                    className=" placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
+                    className="placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
                   ></input>
                 </div>
               </FormWrapper>
             </div>
+
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">
@@ -223,6 +223,9 @@ const Profile = (
                   </div>
                 </div>
               </FormWrapper>
+            </div>
+            <div className="my-10 w-full">
+              <FormWrapper title="Mis recetas"></FormWrapper>
             </div>
             <div className="my-10 w-full">
               <FormWrapper title="Mis alérgenos">
