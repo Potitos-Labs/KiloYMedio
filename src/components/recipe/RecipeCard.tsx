@@ -17,7 +17,7 @@ const RecipeCard = ({
   return (
     <div className="relative  rounded-md py-8 text-center shadow-lg hover:shadow-kym4 w-48 h-64 min-w-48 inline-block mx-4 flex-col items-center justify-center flex-none">
       <div className="py-3">
-        <Link href={`/product/${id}`}>
+        <Link href={`/recipe/${id}`}>
           <a>
             <Image
               src={imageURL}
