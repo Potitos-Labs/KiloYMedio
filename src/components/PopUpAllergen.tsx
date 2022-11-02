@@ -1,6 +1,7 @@
 import { Allergen } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
 import Popup from "reactjs-popup";
+import { z } from "zod";
 
 import { trpc } from "../utils/trpc";
 import AllergensComponent from "./Allergen";
@@ -12,7 +13,16 @@ export function PopUpAllergen({
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }) {
-  const utils = trpc.useContext();
+  const allergensList: { allergen: Allergen }[] = [];
+
+  const allergensHandler = (value: string) => {
+    const allergen = z.nativeEnum(Allergen).parse(value);
+    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
+    if (index != -1) allergensList.splice(index, 1);
+    else allergensList.push({ allergen });
+  };
+
+  //const utils = trpc.useContext();
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const allergenList = data?.map((e) => e.allergen) ?? [];
@@ -24,28 +34,15 @@ export function PopUpAllergen({
   const clientAllergenList =
     clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
 
-  const addMutation = trpc.user.addAllergen.useMutation({
-    onSuccess() {
-      utils.user.getAllClientAllergen.invalidate();
-    },
-  });
-
-  const deleteMutation = trpc.user.deleteAllergen.useMutation({
-    onSuccess() {
-      utils.user.getAllClientAllergen.invalidate();
-    },
-  });
-
-  function addAllergen({ allergen }: { allergen: Allergen }) {
-    addMutation.mutateAsync({ allergen: allergen });
-  }
-
-  function deleteAllergen({ allergen }: { allergen: Allergen }) {
-    deleteMutation.mutateAsync({ allergen: allergen });
-  }
+  // const updateMutation = trpc.user.client.updateAllergen.useMutation({
+  //   onSuccess() {
+  //     utils.user.getAllClientAllergen.invalidate();
+  //   },
+  // });
 
   function closePopUp() {
     setOpen(false);
+    //updateMutation.mutateAsync({allergensList}: {allergensList:  });
   }
   return (
     <div>
@@ -71,34 +68,17 @@ export function PopUpAllergen({
                     allergens={[allergen]}
                     size={25}
                   ></AllergensComponent>
-
-                  <p>{allergenTranslator?.get(allergen)}</p>
-                  <button
-                    disabled={clientAllergenList.includes(allergen)}
-                    className={`${
-                      clientAllergenList.includes(allergen)
-                        ? "text-gray-400"
-                        : " text-kym2 hover:text-kym4"
-                    } text-right`}
-                    onClick={() => {
-                      addAllergen({ allergen });
-                    }}
-                  >
-                    Añadir
-                  </button>
-                  <button
-                    disabled={!clientAllergenList.includes(allergen)}
-                    className={`${
-                      !clientAllergenList.includes(allergen)
-                        ? "text-gray-400"
-                        : " text-kym2 hover:text-kym4"
-                    } text-right`}
-                    onClick={() => {
-                      deleteAllergen({ allergen });
-                    }}
-                  >
-                    Eliminar
-                  </button>
+                  <label key={allergen}>
+                    {allergenTranslator?.get(allergen)}
+                    <input
+                      className="form-check-input appearance-none h-4 w-4 border border-gray-500 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-right mr-2 cursor-pointer"
+                      type="checkbox"
+                      value={allergen}
+                      id="flexCheckChecked"
+                      defaultChecked={clientAllergenList.includes(allergen)}
+                      onChange={(e) => allergensHandler(e.target.value)}
+                    ></input>
+                  </label>
                 </div>
               ))}
             </div>
