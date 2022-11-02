@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint:next": "next lint",
-    "lint": "eslint ./ && tsc --noemit",
+    "lint": "echo \"\n-----Eslint-----\n\" && eslint ./ && echo \"\n---Typescript---\n\" && npx tsc --noemit",
     "format": "prettier -w ./",
     "postinstall": "prisma generate",
     "check-types": "tsc --noemit",
