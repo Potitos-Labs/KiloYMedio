@@ -12,6 +12,12 @@ function DropdownCategories() {
   return (
     <div className="absolute z-10 hidden group-hover:block">
       <div className="flex w-[240px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
+        <Link href={`/product`}>
+          <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
+            <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
+            Todos los productos
+          </a>
+        </Link>
         <div className="relative">
           <Link href={`/category`}>
             <button className="peer flex w-full flex-row px-5 py-3 hover:rounded-md hover:bg-background">
@@ -71,13 +77,6 @@ function DropdownCategories() {
             </div>
           </div>
         </div>
-
-        <Link href={`/product`}>
-          <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
-            <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
-            Todos los productos
-          </a>
-        </Link>
       </div>
     </div>
   );

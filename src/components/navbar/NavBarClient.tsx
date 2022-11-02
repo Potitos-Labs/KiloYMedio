@@ -10,22 +10,22 @@ import {
 import DropdownCategories from "../category/DropdownCategories";
 
 function NavBarClient() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <nav className="flex w-full gap-4 text-lg">
-      <div className="block lg:hidden">
+      <div className="lg:hidden">
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+          className="px-3 py-2 border-2 items-center border-white rounded text-white hover:text-kym4 hover:border-kym4"
         >
           <GiHamburgerMenu />
         </button>
       </div>
       <div
         className={`${
-          !open && "lg:flex-row md:hidden"
-        } flex lg:visible flex-col text-left`}
+          !open && "hidden"
+        } w-full block flex-grow lg:flex lg:w-auto`}
       >
         <div className="group">
           <Link href={`/product`}>
@@ -62,13 +62,15 @@ function NavBarClient() {
           </div>
         </div>
 
-        <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
-          Talleres
-        </button>
+        <div className="flex lg:flex-row lg:items-center items-start flex-col">
+          <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
+            Talleres
+          </button>
 
-        <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
-          Contacto
-        </button>
+          <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
+            Contacto
+          </button>
+        </div>
       </div>
     </nav>
   );

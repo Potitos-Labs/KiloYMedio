@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
   if (!session) {
     rightItems = (
-      <div className="absolute top-6 right-10 flex items-center gap-6 py-2">
+      <div className="absolute top-6 right-10 flex gap-6 py-2">
         <div className="hover:text-kym4">
           <Link href="/login">Iniciar sesión</Link>
         </div>
