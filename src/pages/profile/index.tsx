@@ -99,6 +99,7 @@ const Profile = (
     },
     [mutateAsync, router],
   );
+
   function openPopup() {
     setOpen(true);
   }
@@ -106,7 +107,7 @@ const Profile = (
   return (
     <Layout>
       <div className={`${open ? "blur-sm" : ""}`}>
-        <p
+        <u
           className={`${
             edit
               ? "invisible"
@@ -115,7 +116,7 @@ const Profile = (
           onClick={changeEdit}
         >
           Editar perfil
-        </p>
+        </u>
         <div className="px-40">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-5 flex w-full flex-row">
@@ -129,15 +130,6 @@ const Profile = (
                   objectFit="cover"
                   className="rounded-md"
                 ></Image>
-                <p
-                  className={` ${
-                    edit
-                      ? "invisible pt-3"
-                      : "cursor-pointer pt-3 text-kym2 hover:text-kym4"
-                  }`}
-                >
-                  <u>Editar foto</u>
-                </p>
               </div>
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
@@ -256,6 +248,7 @@ const Profile = (
             <div className="mb-8 text-right">
               <button
                 type="submit"
+                onClick={changeEdit}
                 className={`${
                   edit
                     ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
