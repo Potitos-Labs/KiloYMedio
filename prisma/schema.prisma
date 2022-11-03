@@ -302,8 +302,7 @@ model Recipe {
     createdAt        DateTime           @default(now())
     description      String?
     difficulty       RecipeDifficulty
-    directionsId     String
-    Directions       RecipeDirections   @relation(fields: [directionsId], references: [id])
+    directions       RecipeDirections[]
     imageURL         String
     name             String
     portions         Int
@@ -322,10 +321,11 @@ model RecipeComment {
 }
 
 model RecipeDirections {
-    id         String   @id @default(cuid())
-    number     Int      @unique
-    directions String   @db.Text
-    Recipe     Recipe[]
+    id         String @id @default(cuid())
+    number     Int
+    directions String @db.Text
+    recipeId   String
+    Recipe     Recipe @relation(fields: [recipeId], references: [id])
 }
 
 model RecipeIngredient {
