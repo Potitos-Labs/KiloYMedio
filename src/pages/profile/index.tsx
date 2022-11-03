@@ -134,7 +134,7 @@ const Profile = (
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className=" grid items-center lg:grid-cols-[17%_83%]">
+                  <div className=" grid items-center gird-cols-1 lg:grid-cols-[17%_83%]">
                     <p className="py-2">Nombre completo</p>
                     <input
                       type="text"
@@ -144,7 +144,7 @@ const Profile = (
                     ></input>
                   </div>
                   {/*Correo y Nombre*/}
-                  <div className="grid  grid-cols-[20%_80%] md:grid-cols-[15%_75%]  lg:grid-cols-[17%_43%_12%_28%] my-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-[20%_80%] md:grid-cols-[15%_75%]  lg:grid-cols-[17%_43%_12%_28%] my-5">
                     <p className="py-2">Correo</p>
                     <input
                       type="text"
@@ -198,7 +198,7 @@ const Profile = (
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">
-                  <div className="relative mb-5 flex w-full flex-row gap-4">
+                  <div className="relative mb-5 flex w-full flex-row gap-4 grid grid-cols-2 lg:grid-cols-3 sm:grid-cols-3 md:grid-cols-3 ">
                     <p>DNI</p>
                     <input
                       type="text"
