@@ -30,7 +30,7 @@ const ProductDetails: NextPage = () => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="grid xs:grid-cols-1 grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {data ? (
           data.map((product) => {
             const productParsed = productSchema.safeParse(product);
