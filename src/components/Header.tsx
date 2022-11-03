@@ -24,10 +24,11 @@ const Header: React.FC = () => {
       <div>
         <div className="gap-4 absolute top-5 right-10 md:top-8 md:flex lg:top-9">
           <div className="hover:text-kym4">
-            <Link href="/login">Iniciar sesión</Link>
+            <Link href="/login">INICIAR SESIÓN</Link>
           </div>
+          <p className="hidden md:flex">|</p>
           <div className="hover:text-kym4">
-            <Link href="/register">Registrarse</Link>
+            <Link href="/register">REGISTRARSE</Link>
           </div>
         </div>
       </div>
@@ -36,26 +37,18 @@ const Header: React.FC = () => {
 
   if (session) {
     rightItems = (
-      <nav className="mx-auto absolute w-full right-10 lg:absolute lg:top-4 flex flex-row items-center justify-between">
+      <nav className="mx-auto w-full flex flex-row lg:absolute top-2 -right-4">
         <div
           className={`absolute ${
-            session?.user?.role == "admin"
-              ? "right-24 top-10"
-              : "right-40 top-8"
+            session?.user?.role == "admin" ? "right-24 top-8" : "right-40 top-8"
           }`}
         >
-          <p>
-            {session.user?.name}{" "}
-            {session?.user?.role == "admin" ? (
-              <span>(Administrador)</span>
-            ) : undefined}
+          <p className="hidden gap-1 md:flex">
+            {session.user?.name}
+            {session?.user?.role == "admin" ? <span>(Admin)</span> : undefined}
           </p>
         </div>
-        <div
-          className={`absolute right-6 ${
-            session?.user?.role == "admin" ? "top-8" : "top-6"
-          }`}
-        >
+        <div className="absolute right-6 top-6">
           <Client_Header />
         </div>
       </nav>
