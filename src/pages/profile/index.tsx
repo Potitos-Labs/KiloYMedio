@@ -134,8 +134,8 @@ const Profile = (
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className="grid items-center lg:grid-cols-[17%_83%]">
-                    <p className="py-2 pl-1">Nombre completo</p>
+                  <div className=" grid items-center lg:grid-cols-[17%_83%]">
+                    <p className="py-2">Nombre completo</p>
                     <input
                       type="text"
                       {...register("name")}
