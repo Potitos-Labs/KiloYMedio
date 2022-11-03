@@ -14,6 +14,7 @@ export function PopUpAllergen({
   open: boolean;
 }) {
   const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
+  const clientAllergenList = clientAllergen?.map((e) => e.allergen) ?? [];
 
   const allergensList: { allergen: Allergen }[] =
     clientAllergen?.map((clientAllergen) => {
@@ -28,7 +29,7 @@ export function PopUpAllergen({
   };
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
-  const allergenList = data?.map((e) => e.allergen) ?? [];
+  const AllallergenList = data?.map((e) => e.allergen) ?? [];
 
   const { data: allergenTranslator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
@@ -40,9 +41,11 @@ export function PopUpAllergen({
     },
   });
 
+  function closeAndSavePopUp() {
+    mutateAsync({ allergen: AllallergenList });
+  }
   function closePopUp() {
     setOpen(false);
-    mutateAsync({ allergen: allergenList });
   }
 
   return (
@@ -52,15 +55,15 @@ export function PopUpAllergen({
         lockScroll
         modal
         closeOnDocumentClick
-        onClose={closePopUp}
+        onClose={closeAndSavePopUp}
       >
         <div className=" overflow-y-scroll rounded-md shadow-lg shadow-kym4 backdrop-blur-sm  fixed inset-1/3">
-          <div className="bg-white ">
+          <div className="bg-white  w-full">
             <h1 className="w-full bg-button py-2 text-center text-lg font-bold text-white">
               Alérgenos
             </h1>
-            <div className=" p-10 grid-cols items-left grid">
-              {allergenList.map((allergen) => (
+            <div className="p-10 grid-cols items-left grid">
+              {AllallergenList.map((allergen) => (
                 <div
                   className=" grid-cols-[10%_50%_20%_20%] grid py-2"
                   key={allergen}
@@ -76,20 +79,30 @@ export function PopUpAllergen({
                       type="checkbox"
                       value={allergen}
                       id="flexCheckChecked"
-                      defaultChecked={allergenList.includes(allergen)}
+                      defaultChecked={clientAllergenList.includes(allergen)}
                       onChange={(e) => allergensHandler(e.target.value)}
                     ></input>
                   </label>
                 </div>
               ))}
             </div>
-            <div className="text-right">
-              <button
-                className="m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
-                onClick={closePopUp}
-              >
-                Aceptar
-              </button>
+            <div className="grid grid-cols-2">
+              <div className="text-left">
+                <button
+                  className="m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                  onClick={closePopUp}
+                >
+                  Cancelar
+                </button>
+              </div>
+              <div className="text-right">
+                <button
+                  className=" m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                  onClick={closeAndSavePopUp}
+                >
+                  Aceptar
+                </button>
+              </div>
             </div>
           </div>
         </div>
