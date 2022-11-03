@@ -40,6 +40,7 @@ export function PopUpAllergen({
   });
 
   function closeAndSavePopUp() {
+    setOpen(false);
     mutateAsync({ allergen: allergensList });
   }
   function closePopUp() {
