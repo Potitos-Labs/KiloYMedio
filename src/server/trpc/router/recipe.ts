@@ -1,3 +1,5 @@
+import * as z from "zod";
+
 import { publicProcedure, router } from "../trpc";
 
 export const recipeRouter = router({
@@ -20,6 +22,34 @@ export const recipeRouter = router({
         User: false,
         userId: false,
       },
+    });
+  }),
+  getById: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    return await ctx.prisma.recipe.findFirst({
+      where: { id: input },
+      select: {
+        id: true,
+        createdAt: true,
+        _count: true,
+        description: true,
+        difficulty: true,
+        Directions: true,
+        directionsId: true,
+        imageURL: true,
+        name: true,
+        portions: true,
+        RecipeComment: true,
+        RecipeIngredient: true,
+        timeSpan: true,
+        User: true,
+        userId: true,
+      },
+    });
+  }),
+  getRecentRecipes: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.recipe.findMany({
+      take: 6,
+      orderBy: { createdAt: "desc" },
     });
   }),
 });

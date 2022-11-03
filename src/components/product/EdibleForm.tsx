@@ -17,21 +17,16 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
   const [category, setCategory] = useState("");
 
-  const {
-    register,
-    setValue,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<IProductCreate>({
+  const { register, setValue, handleSubmit } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
     defaultValues: product,
   });
-  console.log(errors);
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
   const { mutateAsync } = trpc.product.createNewProduct.useMutation();
 
-  const allergensList: { allergen: Allergen }[] = [];
+  const allergensList: { allergen: Allergen }[] =
+    product?.Edible?.allergens ?? [];
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
@@ -48,6 +43,10 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
       console.log("error en useEffect");
     }
   }, [category, setValue]);
+
+  useEffect(() => {
+    setCategory(product?.Edible?.category ?? "");
+  }, []);
 
   const onSubmit = useCallback(
     async (data: IProductCreate) => {
@@ -132,6 +131,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             }
             label="Categoría: "
             setValue={setCategory}
+            defaultValue={product?.Edible?.category}
           />
         </div>
         <div>
@@ -197,6 +197,13 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
                   <input
                     type="checkbox"
                     value={allergen.allergen}
+                    defaultChecked={
+                      product?.Edible?.allergens.find(
+                        (a) => a.allergen == allergen.allergen,
+                      )
+                        ? true
+                        : false
+                    }
                     className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
                     onChange={(e) => allergensHandler(e.target.value)}
                   />

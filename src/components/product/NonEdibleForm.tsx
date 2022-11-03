@@ -21,11 +21,14 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
     resolver: zodResolver(productCreateSchema),
     defaultValues: product,
   });
-
   const { data: categories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
 
   const { mutateAsync } = trpc.product.createNewProduct.useMutation();
+
+  useEffect(() => {
+    setCategory(product?.NonEdible?.category ?? "Ninguno");
+  }, []);
 
   useEffect(() => {
     try {
@@ -108,6 +111,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             }
             label="Categoría:"
             setValue={setCategory}
+            defaultValue={product?.NonEdible?.category}
           />
         </div>
         <button

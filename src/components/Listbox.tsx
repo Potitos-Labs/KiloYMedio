@@ -9,11 +9,11 @@ export default function MyListbox(
       text: string;
     }[];
     label?: string;
+    defaultValue?: string;
   } & { setValue: Dispatch<SetStateAction<string>> },
 ) {
-  const [selected, setSelected] = useState("Ninguno");
-
-  const { list, label, setValue } = props;
+  const { list, label, setValue, defaultValue } = props;
+  const [selected, setSelected] = useState(defaultValue ?? "Ninguno");
 
   function handleChange(input: string) {
     setSelected(input);
