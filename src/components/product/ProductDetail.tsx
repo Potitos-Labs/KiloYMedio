@@ -82,28 +82,30 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
               )}
             </p>
 
-            <div className="flex items-center">
-              <div className="mr-4">
-                <IncDecButtons
-                  setAmount={setAmount}
-                  amount={amount}
-                  stock={product.stock}
-                  isEdible={isEdible}
-                  stockLeft={stockLeft} //cambiar
-                />
-              </div>
+            {data?.user?.role != "admin" && (
+              <div className="flex items-center">
+                <div className="mr-4">
+                  <IncDecButtons
+                    setAmount={setAmount}
+                    amount={amount}
+                    stock={product.stock}
+                    isEdible={isEdible}
+                    stockLeft={stockLeft} //cambiar
+                  />
+                </div>
 
-              <button
-                onClick={addToCart}
-                className={`rounded-xl border border-button bg-transparent px-12 text-kym4  ${
-                  !stockLeft
-                    ? "cursor-not-allowed px-10 opacity-50"
-                    : "hover:border-transparent hover:bg-button_hover hover:text-white"
-                }`}
-              >
-                Añadir al carrito
-              </button>
-            </div>
+                <button
+                  onClick={addToCart}
+                  className={`rounded-xl border border-button bg-transparent px-12 text-kym4  ${
+                    !stockLeft
+                      ? "cursor-not-allowed px-10 opacity-50"
+                      : "hover:border-transparent hover:bg-button_hover hover:text-white"
+                  }`}
+                >
+                  Añadir al carrito
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

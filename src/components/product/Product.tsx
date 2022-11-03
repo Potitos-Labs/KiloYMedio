@@ -54,26 +54,28 @@ function Product({ product }: { product: IProduct }) {
       <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
         {product.name}
       </p>
-      <div>
-        <IncDecButtons
-          setAmount={setAmount}
-          amount={amount}
-          stock={product.stock}
-          stockLeft={stockLeft}
-          isEdible={isEdible}
-        />
-        <button
-          disabled={!stockLeft}
-          onClick={addToCart}
-          className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
-            !stockLeft
-              ? "cursor-not-allowed px-10 opacity-50"
-              : "hover:border-transparent hover:bg-button_hover hover:text-white"
-          }`}
-        >
-          {stockLeft ? "Añadir" : "Agotado"}
-        </button>
-      </div>
+      {data?.user?.role != "admin" && (
+        <div>
+          <IncDecButtons
+            setAmount={setAmount}
+            amount={amount}
+            stock={product.stock}
+            stockLeft={stockLeft}
+            isEdible={isEdible}
+          />
+          <button
+            disabled={!stockLeft}
+            onClick={addToCart}
+            className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
+              !stockLeft
+                ? "cursor-not-allowed px-10 opacity-50"
+                : "hover:border-transparent hover:bg-button_hover hover:text-white"
+            }`}
+          >
+            {stockLeft ? "Añadir" : "Agotado"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -9,13 +9,13 @@ import { TbLogout } from "react-icons/tb";
 import { trpc } from "../utils/trpc";
 
 function Client_Header() {
-  const { data: allCartProduct } = trpc.cart.getAllCartProduct.useQuery();
-  const numberCartProducts = allCartProduct?.productList.length ?? 0;
-
   const { data: session } = useSession();
   let cartIcon = null;
 
   if (session?.user?.role != "admin") {
+    const { data: allCartProduct } = trpc.cart.getAllCartProduct.useQuery();
+    const numberCartProducts = allCartProduct?.productList.length ?? 0;
+
     cartIcon = (
       <div className="relative mr-5 flex cursor-pointer items-center">
         <Link href={"/cart"}>
@@ -55,7 +55,6 @@ function Client_Header() {
     >
       <div className="flex flex-row">
         {cartIcon}
-
         <div className="dropdown relative flex h-10 w-8 items-center">
           <Menu as="div" className="realative inline-block text-left">
             <div>
