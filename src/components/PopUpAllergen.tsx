@@ -16,16 +16,14 @@ export function PopUpAllergen({
   const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
   const clientAllergenList = clientAllergen?.map((e) => e.allergen) ?? [];
 
-  const allergensList: { allergen: Allergen }[] =
-    clientAllergen?.map((clientAllergen) => {
-      return { allergen: clientAllergen.allergen };
-    }) ?? [];
+  const allergensList: Allergen[] =
+    clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
-    const index = allergensList.findIndex((al) => al.allergen == allergen);
+    const index = allergensList.indexOf(allergen);
     if (index != -1) allergensList.splice(index, 1);
-    else allergensList.push({ allergen: allergen });
+    else allergensList.push(allergen);
   };
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
@@ -42,7 +40,7 @@ export function PopUpAllergen({
   });
 
   function closeAndSavePopUp() {
-    mutateAsync({ allergen: AllallergenList });
+    mutateAsync({ allergen: allergensList });
   }
   function closePopUp() {
     setOpen(false);
