@@ -246,9 +246,11 @@ async function main() {
   const almendra = await prisma.product.create({
     data: {
       name: "almendras",
-      description: "Se trata de ",
+      description:
+        "Las almendras son indicadas para su alto contenido de calcio y de grasas saludables, así como para disminuir el índice de azúcar en sangre.",
       stock: 16.5,
-      imageURL: "",
+      imageURL:
+        "https://fruitsec.cat/botigafruitsecs/34-home_default/almendra-cruda-con-piel.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -303,7 +305,8 @@ async function main() {
       description:
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
-      imageURL: "",
+      imageURL:
+        "https://fruitsec.cat/botigafruitsecs/43-home_default/cacahuete-salado.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -381,7 +384,8 @@ async function main() {
       name: "garbanzos",
       description: "Que ricos los garbanzos ñam",
       stock: 48.1,
-      imageURL: "",
+      imageURL:
+        "https://www.gastronomiavasca.net/uploads/image/file/4233/w700_garbanzo.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -403,11 +407,12 @@ async function main() {
 
   const judias = await prisma.product.create({
     data: {
-      name: "judías",
+      name: "judía blanca",
       description:
         "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
       stock: 48.1,
-      imageURL: "",
+      imageURL:
+        "https://www.gastronomiavasca.net/uploads/image/file/3889/w700_alubia_blanca.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -459,7 +464,8 @@ async function main() {
       description:
         "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
       stock: 18,
-      imageURL: "",
+      imageURL:
+        "https://www.elgraneldecorredera.com/wp-content/uploads/2017/04/HARINA-DE-MAIZ.jpg",
       Edible: {
         create: {
           category: "flours",
@@ -484,7 +490,8 @@ async function main() {
       description:
         "La harina de almendra se hace moliendo almendras dulces. Suele hacerse con almendra pelada (sin piel) o con la almendra entera.",
       stock: 18,
-      imageURL: "",
+      imageURL:
+        "https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1024/https://www.tiendaspy.com/wp-content/uploads/2020/04/harina-de-almendras-2-1024x783.jpg",
       Edible: {
         create: {
           category: "flours",
@@ -498,8 +505,139 @@ async function main() {
               protein: 2,
             },
           },
-          allergens: undefined,
           Ingredient: { create: { name: "harina de almendra" } },
+        },
+      },
+    },
+  });
+  const espaguetis = await prisma.product.create({
+    data: {
+      name: "espaguetis",
+      description:
+        "El espagueti es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
+      stock: 18,
+      imageURL:
+        "https://www.sanpellegrinofruitbeverages.com/mx/sites/g/files/xknfdk901/files/2019-10/spaghetti_pasta_frittata.jpg",
+      Edible: {
+        create: {
+          category: "pastas",
+          priceByWeight: 1.1,
+          nutritionFacts: {
+            create: {
+              ingredients: "espaguetis",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          allergens: { create: { allergen: "cereals" } },
+          Ingredient: { create: { name: "espaguetis" } },
+        },
+      },
+    },
+  });
+  const macarrones = await prisma.product.create({
+    data: {
+      name: "macarrones",
+      description:
+        "Los macarrones es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
+      stock: 18,
+      imageURL:
+        "https://dietamediterranea.com/wp-content/uploads/2018/10/20181022-Macarrones-de-fraile-2000x1497.jpg",
+      Edible: {
+        create: {
+          category: "pastas",
+          priceByWeight: 1.1,
+          nutritionFacts: {
+            create: {
+              ingredients: "macarrones",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          allergens: { create: { allergen: "cereals" } },
+          Ingredient: { create: { name: "macarrones" } },
+        },
+      },
+    },
+  });
+  const pasas = await prisma.product.create({
+    data: {
+      name: "uva pasa",
+      description:
+        "Una pasa es una fruta seca obtenida del proceso de secado de una uva, con el objetivo de disminuir su humedad para lograr así su conservación por un periodo prolongado.",
+      stock: 10,
+      imageURL:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Sunmaid-Raisin-Pile.jpg/300px-Sunmaid-Raisin-Pile.jpg",
+      Edible: {
+        create: {
+          category: "driedFruits",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "uva pasa",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "uva pasa" } },
+        },
+      },
+    },
+  });
+  const teVerde = await prisma.product.create({
+    data: {
+      name: "té verde",
+      description:
+        "El té verde (en chino tradicional, 綠茶; en chino simplificado, 绿茶; pinyin, Lǜ chá) proviene de la planta Camellia sinensis; «es el tipo de té no fermentado.",
+      stock: 10,
+      imageURL:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Maojian.jpg/330px-Maojian.jpg",
+      Edible: {
+        create: {
+          category: "teas",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "té verde",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "té verde" } },
+        },
+      },
+    },
+  });
+  const rooibos = await prisma.product.create({
+    data: {
+      name: "rooibos",
+      description:
+        "El rooibos (nombre científico Aspalathus linearis) es una planta de origen sudafricano cuyo nombre en afrikáans significa arbusto rojo y se pronuncia «roibos».",
+      stock: 10,
+      imageURL:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Rooibos.jpg/375px-Rooibos.jpg",
+      Edible: {
+        create: {
+          category: "teas",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "rooibos",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "rooibos" } },
         },
       },
     },

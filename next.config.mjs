@@ -28,6 +28,12 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
+        "upload.wikimedia.org",
+        "dietamediterranea.com",
+        "www.sanpellegrinofruitbeverages.com",
+        "sp-ao.shortpixel.ai",
+        "www.elgraneldecorredera.com",
+        "www.gastronomiavasca.net",
         "fruitsec.cat",
         "lh3.googleusercontent.com",
         "www.atida.com",
