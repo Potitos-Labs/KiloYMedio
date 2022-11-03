@@ -31,7 +31,7 @@ function NavBarClient() {
           <Link href={`/product`}>
             <button className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Productos
-              <RiArrowDropDownLine className="h-9 w-9" />
+              <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
             </button>
           </Link>
           <DropdownCategories />
@@ -41,7 +41,7 @@ function NavBarClient() {
           <Link href={`/recipe`}>
             <button className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Recetas
-              <RiArrowDropDownLine className="h-9 w-9" />
+              <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
             </button>
           </Link>
           <div className="absolute z-10 hidden group-hover:block">
@@ -62,7 +62,7 @@ function NavBarClient() {
           </div>
         </div>
 
-        <div className="flex lg:flex-row lg:items-center items-start flex-col">
+        <div className="flex lg:flex-row items-center flex-col">
           <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
             Talleres
           </button>

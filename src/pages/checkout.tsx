@@ -51,7 +51,6 @@ const Checkout = () => {
 
   const [data, setData] = useState(INITIAL_DATA);
   const [open, setOpen] = useState(false);
-  //const closeModal = () => setOpen(false);
 
   const { mutateAsync: createNewOrder } =
     trpc.checkout.createNewOrder.useMutation({
