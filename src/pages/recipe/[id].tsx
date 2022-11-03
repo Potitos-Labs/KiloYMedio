@@ -1,26 +1,20 @@
 import { NextPage } from "next";
 import Error from "next/error";
+import { useRouter } from "next/router";
 
-//import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
-//import RecipeDetail from "../../components/recipe/RecipeDetail";
+import RecipeDetail from "../../components/recipe/RecipeDetail";
 import { trpc } from "../../utils/trpc";
 
 const RecipeDetails: NextPage = () => {
-  //const router = useRouter();
-  //const id = router.query.id as string;
-  const { data, isFetched } = trpc.recipe.getAllRecipes.useQuery();
+  const router = useRouter();
+  const id = router.query.id as string;
+  const { data, isFetched } = trpc.recipe.getById.useQuery({ id });
 
   if (data)
     return (
       <Layout>
-        {/* <RecipeDetail
-          name={data.name}
-          img={data.imageURL}
-          description={data.description}
-          allergensList={data.Edible?.allergens.map((e) => e.allergen) ?? []}
-          id={data.id}
-        /> */}
+        <RecipeDetail name={data.name} imageURL={data.imageURL} rattings={5} />
       </Layout>
     );
 
