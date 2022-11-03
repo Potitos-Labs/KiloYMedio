@@ -21,12 +21,14 @@ const Header: React.FC = () => {
 
   if (!session) {
     rightItems = (
-      <div className="absolute top-6 right-10 flex gap-6 py-2">
-        <div className="hover:text-kym4">
-          <Link href="/login">Iniciar sesión</Link>
-        </div>
-        <div className="hover:text-kym4">
-          <Link href="/register">Registrarse</Link>
+      <div>
+        <div className="gap-4 absolute top-5 right-10 md:top-8 md:flex lg:top-9">
+          <div className="hover:text-kym4">
+            <Link href="/login">Iniciar sesión</Link>
+          </div>
+          <div className="hover:text-kym4">
+            <Link href="/register">Registrarse</Link>
+          </div>
         </div>
       </div>
     );
@@ -34,7 +36,7 @@ const Header: React.FC = () => {
 
   if (session) {
     rightItems = (
-      <nav className="mx-auto flex flex-row items-center justify-between">
+      <nav className="mx-auto absolute w-full right-10 lg:absolute lg:top-4 flex flex-row items-center justify-between">
         <div
           className={`absolute ${
             session?.user?.role == "admin"
