@@ -13,16 +13,19 @@ export function PopUpAllergen({
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }) {
-  const allergensList: { allergen: Allergen }[] = [];
+  const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
+
+  const allergensList: { allergen: Allergen }[] =
+    clientAllergen?.map((clientAllergen) => {
+      return { allergen: clientAllergen.allergen };
+    }) ?? [];
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
-    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
+    const index = allergensList.findIndex((al) => al.allergen == allergen);
     if (index != -1) allergensList.splice(index, 1);
-    else allergensList.push({ allergen });
+    else allergensList.push({ allergen: allergen });
   };
-
-  //const utils = trpc.useContext();
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
   const allergenList = data?.map((e) => e.allergen) ?? [];
@@ -30,20 +33,18 @@ export function PopUpAllergen({
   const { data: allergenTranslator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
-  const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
-  const clientAllergenList =
-    clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
-
-  // const updateMutation = trpc.user.client.updateAllergen.useMutation({
-  //   onSuccess() {
-  //     utils.user.getAllClientAllergen.invalidate();
-  //   },
-  // });
+  const utils = trpc.useContext();
+  const { mutateAsync } = trpc.user.client.updateAllergen.useMutation({
+    onSuccess() {
+      utils.user.getAllClientAllergen.invalidate();
+    },
+  });
 
   function closePopUp() {
     setOpen(false);
-    //updateMutation.mutateAsync({allergensList}: {allergensList:  });
+    mutateAsync({ allergen: allergenList });
   }
+
   return (
     <div>
       <Popup
@@ -75,7 +76,7 @@ export function PopUpAllergen({
                       type="checkbox"
                       value={allergen}
                       id="flexCheckChecked"
-                      defaultChecked={clientAllergenList.includes(allergen)}
+                      defaultChecked={allergenList.includes(allergen)}
                       onChange={(e) => allergensHandler(e.target.value)}
                     ></input>
                   </label>
