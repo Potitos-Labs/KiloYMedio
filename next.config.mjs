@@ -28,6 +28,7 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
+        "fruitsec.cat",
         "lh3.googleusercontent.com",
         "www.atida.com",
         "as01.epimg.net",

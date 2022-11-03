@@ -275,7 +275,8 @@ async function main() {
       description:
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
-      imageURL: "",
+      imageURL:
+        "https://fruitsec.cat/botigafruitsecs/174-large_default/kikos-pequenos-125-grs.jpg",
       Edible: {
         create: {
           category: "nuts",
