@@ -97,7 +97,7 @@ const Profile = (
     async (data: IClient) => {
       await mutateAsync(data);
     },
-    [mutateAsync, router],
+    [mutateAsync],
   );
 
   function openPopup() {

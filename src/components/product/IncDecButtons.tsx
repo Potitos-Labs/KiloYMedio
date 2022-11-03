@@ -24,7 +24,7 @@ function IncDecButtons({
   }
 
   return (
-    <div className="flex flex-row py-4">
+    <div className="w-auto flex flex-row py-4">
       <button
         disabled={!stockLeft || amount == 100 || amount == 1}
         className={`rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4 ${
