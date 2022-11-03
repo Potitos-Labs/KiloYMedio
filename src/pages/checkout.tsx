@@ -158,7 +158,7 @@ const Checkout = () => {
             </span>
           </p>
         </div>
-        <label className="relative flex w-full flex-col pl-3 pt-8">
+        <label className="mx-1 relative flex w-full flex-col pl-3 pt-8">
           <span className="mb-3">Correo electrónico</span>
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
@@ -187,10 +187,10 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
+        <div className="mt-12 mx-8 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
           <section>
             {/*Contact info*/}
-            <div className="mx-20 h-full">
+            <div className="h-full">
               <div>{display}</div>
               <form onSubmit={onSubmit}>
                 <div className="grid py-10">

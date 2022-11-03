@@ -37,7 +37,7 @@ const CheckoutForm = ({
       </h1>
 
       {/*Nombre y apellidos*/}
-      <div className="flex-col-2 relative flex w-full gap-4">
+      <div className=" mx-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 relative grid w-full gap-4">
         <label className="relative flex w-full flex-col">
           <span className="mb-3">Nombre</span>
           <input
@@ -98,7 +98,7 @@ const CheckoutForm = ({
         </label>
       </div>
 
-      <div className="w-full rounded-md border border-black">
+      <div className="mx-5 w-full rounded-md border border-black">
         <RadioGroup>
           <RadioGroup.Option value={1} className="px-2 pt-4">
             <input
