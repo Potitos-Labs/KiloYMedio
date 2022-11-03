@@ -817,15 +817,177 @@ async function main() {
     },
   });
 
-  /*
+  const panPueblo = await prisma.recipe.create({
+    data: {
+      name: "pan de pueblo",
+      difficulty: "easy",
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-pan-de-pueblo-receta-muy-facil.JPG",
+      portions: 6,
+      timeSpan: 30,
+      description:
+        "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
+      RecipeComment: undefined,
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: harinaTrigo.id,
+            unit: "grams",
+          },
+        },
+      },
+    },
+  });
+  const arrozConCostra = await prisma.recipe.create({
+    data: {
+      name: "arroz con costra",
+      difficulty: "hard",
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cdn1.cocina-familiar.com/recetas/thumb/arroz-con-costra-al-estilo-de-elche.JPG",
+      portions: 6,
+      timeSpan: 30,
+      description:
+        "Hoy os traigo un arroz muy especial se trata del tradicional y conocido arroz con costra al estilo de Elche.",
+      RecipeComment: undefined,
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: harinaTrigo.id,
+            unit: "grams",
+          },
+        },
+      },
+    },
+  });
+  const tartaQueso = await prisma.recipe.create({
+    data: {
+      name: "tarta de queso",
+      difficulty: "easy",
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-cheesecake-de-mango.JPG",
+      portions: 8,
+      timeSpan: 30,
+      description:
+        "Esta frésquisima tarta de queso esta riquisima, ¿Podrás aguantar a que se enfrie antes de incarle el diente?",
+      RecipeComment: undefined,
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: harinaTrigo.id,
+            unit: "grams",
+          },
+        },
+      },
+    },
+  });
+  const poteNavero = await prisma.recipe.create({
+    data: {
+      name: "pote navero",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cdn1.cocina-familiar.com/recetas/thumb/patatas-revolconas-o-patatas-meneas.JPG",
+      portions: 6,
+      timeSpan: 30,
+      description:
+        "El pote navero, también conocido como patatas meneas, es un típico plato castellano, muy sencillo de hacer y muy rico (sobretodo cuando va acompañado de una picante piparra).",
+      RecipeComment: undefined,
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: harinaTrigo.id,
+            unit: "grams",
+          },
+        },
+      },
+    },
+  });
+  const huevos = await prisma.recipe.create({
+    data: {
+      name: "huevos croquetones",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cdn1.cocina-familiar.com/recetas/thumb/croquetas-rellenas-con-huevo-cocido.JPG",
+      portions: 6,
+      timeSpan: 30,
+      description:
+        "Hoy os traigo una receta tradicional española, muy sencilla y riquisima. Croquetas rellenas de huevo duro, que están buenísimas",
+      RecipeComment: undefined,
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: harinaTrigo.id,
+            unit: "grams",
+          },
+        },
+      },
+    },
+  });
+
   const macarronesConTomatico = await prisma.recipe.create({
     data: {
       name: "Macarrones con Tomatico",
       difficulty: "easy",
-      Directions: {
-        create: {
-          directions: "Poner un cazo de agua a hervir a 180º",
-          number: 1,
+      directions: {
+        createMany: {
+          data: {
+            directions: "Paso para la receta",
+            number: 1,
+          },
         },
       },
       imageURL:
@@ -835,8 +997,8 @@ async function main() {
       description:
         "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
       RecipeComment: undefined,
-      User: { connect: { id: alicia.id } },
-      createdAt: "2022-02-22",
+      User: { connect: { id: pilar.id } },
+      createdAt: new Date(),
       RecipeIngredient: {
         createMany: {
           data: {
@@ -848,7 +1010,6 @@ async function main() {
       },
     },
   });
-  */
 
   //   const paellaValencia = await prisma.recipe.create({
   //     data: {

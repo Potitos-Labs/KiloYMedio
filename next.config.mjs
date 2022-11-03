@@ -28,6 +28,7 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
+        "cdn1.cocina-familiar.com",
         "cocinista-vsf.netdna-ssl.com",
         "www.objetivobienestar.com",
         "upload.wikimedia.org",
