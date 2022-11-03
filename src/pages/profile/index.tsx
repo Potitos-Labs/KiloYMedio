@@ -111,15 +111,15 @@ const Profile = (
           className={`${
             edit
               ? "invisible"
-              : "absolute right-40 cursor-pointer text-right text-kym2 hover:text-kym4"
+              : "absolute right-5 cursor-pointer text-right text-kym2 hover:text-kym4"
           }`}
           onClick={changeEdit}
         >
           Editar perfil
         </u>
-        <div className="px-40">
+        <div className="lg:px-40 px-14 md:px-32">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-5 flex w-full flex-row">
+            <div className="mt-5 flex w-full flex-col md:fx-row lg:flex-row">
               <div className="mr-8 flex flex-col items-center pt-20">
                 <Image
                   src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
@@ -134,8 +134,8 @@ const Profile = (
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className="grid items-center lg:grid-cols-[15%_85%]">
-                    <p className="py-2">Nombre completo</p>
+                  <div className="grid items-center lg:grid-cols-[17%_83%]">
+                    <p className="py-2 pl-1">Nombre completo</p>
                     <input
                       type="text"
                       {...register("name")}
@@ -144,7 +144,7 @@ const Profile = (
                     ></input>
                   </div>
                   {/*Correo y Nombre*/}
-                  <div className="my-5 grid grid-cols-[18%_82%] lg:grid-cols-[15%_45%_10%_30%]">
+                  <div className="grid  grid-cols-[20%_80%] md:grid-cols-[15%_75%]  lg:grid-cols-[17%_43%_12%_28%] my-5">
                     <p className="py-2">Correo</p>
                     <input
                       type="text"
@@ -152,7 +152,7 @@ const Profile = (
                       className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
                     ></input>
-                    <p className="py-2 text-center">Teléfono</p>
+                    <p className="py-2 lg:text-center">Teléfono</p>
                     <input
                       type="text"
                       {...register("phoneNumber")}
@@ -176,7 +176,7 @@ const Profile = (
                   ></input>
                 </div>
                 {/*Correo y Nombre*/}
-                <div className="sm:grid-col-[10%_90%] grid-cols-[20%_80%] grid w-full md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_15%_35%]">
+                <div className=":grid-cols-1 sm:grid-cols-[20%_80%] grid w-full md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
                   <p className="py-2">Localidad</p>
                   <input
                     type="text"

@@ -243,6 +243,86 @@ async function main() {
     },
   });
 
+  const almendra = await prisma.product.create({
+    data: {
+      name: "almendras",
+      description: "Se trata de ",
+      stock: 16.5,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "nuts",
+          priceByWeight: 8.3,
+          allergens: { create: { allergen: "nuts" } },
+          nutritionFacts: {
+            create: {
+              ingredients: "nuts",
+              energy: 400,
+              fat: 90,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "almendra" } },
+        },
+      },
+    },
+  });
+
+  const quicos = await prisma.product.create({
+    data: {
+      name: "quicos",
+      description:
+        "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
+      stock: 16.5,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "nuts",
+          priceByWeight: 8.3,
+          allergens: { create: { allergen: "nuts" } },
+          nutritionFacts: {
+            create: {
+              ingredients: "nuts",
+              energy: 400,
+              fat: 90,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "quicos" } },
+        },
+      },
+    },
+  });
+
+  const cacahuetes = await prisma.product.create({
+    data: {
+      name: "cacahuetes",
+      description:
+        "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
+      stock: 10.5,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "nuts",
+          priceByWeight: 8.3,
+          allergens: { create: { allergen: "peanuts" } },
+          nutritionFacts: {
+            create: {
+              ingredients: "nuts",
+              energy: 400,
+              fat: 90,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "nuts" } },
+        },
+      },
+    },
+  });
+
   const levaduraNutricional = await prisma.product.create({
     data: {
       name: "levadura nutricional",
@@ -295,6 +375,57 @@ async function main() {
     },
   });
 
+  const garbanzos = await prisma.product.create({
+    data: {
+      name: "garbanzos",
+      description: "Que ricos los garbanzos ñam",
+      stock: 48.1,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "legumes",
+          priceByWeight: 5.1,
+          nutritionFacts: {
+            create: {
+              ingredients: "garbanzos",
+              energy: 400,
+              fat: 0,
+              carbohydrates: 30,
+              protein: 20,
+            },
+          },
+          Ingredient: { create: { name: "garbanzos" } },
+        },
+      },
+    },
+  });
+
+  const judias = await prisma.product.create({
+    data: {
+      name: "judías",
+      description:
+        "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
+      stock: 48.1,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "legumes",
+          priceByWeight: 5.1,
+          nutritionFacts: {
+            create: {
+              ingredients: "judias",
+              energy: 400,
+              fat: 0,
+              carbohydrates: 30,
+              protein: 20,
+            },
+          },
+          Ingredient: { create: { name: "judias" } },
+        },
+      },
+    },
+  });
+
   const harinaTrigo = await prisma.product.create({
     data: {
       name: "harina de trigo",
@@ -317,6 +448,57 @@ async function main() {
           },
           allergens: { create: { allergen: "cereals" } },
           Ingredient: { create: { name: "harina de trigo" } },
+        },
+      },
+    },
+  });
+  const harinaMaiz = await prisma.product.create({
+    data: {
+      name: "harina de maiz",
+      description:
+        "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
+      stock: 18,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "flours",
+          priceByWeight: 4.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "harina de maiz",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "harina de maiz" } },
+        },
+      },
+    },
+  });
+  const harinaAlmendra = await prisma.product.create({
+    data: {
+      name: "harina de almendra",
+      description:
+        "La harina de almendra se hace moliendo almendras dulces. Suele hacerse con almendra pelada (sin piel) o con la almendra entera.",
+      stock: 18,
+      imageURL: "",
+      Edible: {
+        create: {
+          category: "flours",
+          priceByWeight: 7.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "harina de almendra",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          allergens: undefined,
+          Ingredient: { create: { name: "harina de almendra" } },
         },
       },
     },
@@ -359,8 +541,14 @@ async function main() {
   console.log(`📦 Productos creados...`);
   console.log(
     pistachos.name,
+    almendra.name,
+    cacahuetes.name,
+    quicos.name,
+    garbanzos.name,
+    judias.name,
     levaduraNutricional.name,
     harinaTrigo.name,
+    harinaAlmendra.name,
     cepilloDeDientes.name,
   );
 
@@ -419,6 +607,24 @@ async function main() {
         create: {
           directions: "Poner un cazo de agua a hervir a 180º",
           number: 1,
+        },
+      },
+      imageURL:
+        "https://pbs.twimg.com/profile_images/1571904629209812996/KGxejjwy_400x400.jpg",
+      portions: 6,
+      timeSpan: 30,
+      description:
+        "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
+      RecipeComment: undefined,
+      User: { connect: { id: alicia.id } },
+      createdAt: "2022-02-22",
+      RecipeIngredient: {
+        createMany: {
+          data: {
+            amount: 2,
+            ingredientId: pistachos.id,
+            unit: "grams",
+          },
         },
       },
     },
