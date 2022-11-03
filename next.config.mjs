@@ -28,6 +28,8 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
+        "cocinista-vsf.netdna-ssl.com",
+        "www.objetivobienestar.com",
         "upload.wikimedia.org",
         "dietamediterranea.com",
         "www.sanpellegrinofruitbeverages.com",

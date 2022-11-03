@@ -642,6 +642,86 @@ async function main() {
       },
     },
   });
+
+  const sirope = await prisma.product.create({
+    data: {
+      name: "sirope de arce",
+      description:
+        "Los jarabes  llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
+      stock: 23,
+      imageURL:
+        "https://www.objetivobienestar.com/uploads/s1/12/21/30/4/jarabe-arce-25964_101_940x557.jpg",
+      Edible: {
+        create: {
+          category: "syrups",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "sirope de arce",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "sirope de arce" } },
+        },
+      },
+    },
+  });
+
+  const mermeladaMelon = await prisma.product.create({
+    data: {
+      name: "mermelada de melón",
+      description:
+        "Las mermeladas industriales estan dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
+      stock: 23,
+      imageURL:
+        "https://www.objetivobienestar.com/uploads/s1/11/93/36/5/receta-mermelada-de-melon_101_940x557.jpeg",
+      Edible: {
+        create: {
+          category: "jams",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "mermelada de melon",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "mermelada de melon" } },
+        },
+      },
+    },
+  });
+  const aceiteOliva = await prisma.product.create({
+    data: {
+      name: "aceite de oliva virgen extra",
+      description:
+        "El aceite de oliva es típico de la cuenca mediterránea, siendo España el primer productor mundial. Se usa a diario en la cocina mediterránea.",
+      stock: 23,
+      imageURL:
+        "https://cocinista-vsf.netdna-ssl.com/download/bancorecursos/ingredientes/ingrediente-aceite-oliva-2.jpg",
+      Edible: {
+        create: {
+          category: "oils",
+          priceByWeight: 2.3,
+          nutritionFacts: {
+            create: {
+              ingredients: "aceite de oliva virgen extra",
+              energy: 300,
+              fat: 0,
+              carbohydrates: 70,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "aceite de oliva virgen extra" } },
+        },
+      },
+    },
+  });
   //#endregion Edible
 
   //#region NonEdible
