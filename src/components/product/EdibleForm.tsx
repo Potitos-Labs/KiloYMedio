@@ -16,6 +16,7 @@ import Listbox from "../Listbox";
 export default function EdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
   const [category, setCategory] = useState("");
+  const [isUniqueName, setUniqueName] = useState(true);
 
   const { register, setValue, handleSubmit } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
@@ -23,7 +24,9 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
   });
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
-  const { mutateAsync } = trpc.product.createNewProduct.useMutation();
+  const { mutateAsync: createProduct } =
+    trpc.product.createNewProduct.useMutation();
+  const { mutateAsync: updateProduct } = trpc.product.update.useMutation();
 
   const allergensList: { allergen: Allergen }[] =
     product?.Edible?.allergens ?? [];
@@ -50,12 +53,18 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
 
   const onSubmit = useCallback(
     async (data: IProductCreate) => {
-      const result = await mutateAsync(data);
-      if (result.status === 201) {
-        router.push("/product");
+      try {
+        const result = product
+          ? await updateProduct({ ...data, id: product.id })
+          : await createProduct(data);
+        if (result.status === 201) {
+          router.push("/product");
+        }
+      } catch {
+        setUniqueName(false);
       }
     },
-    [mutateAsync, router],
+    [updateProduct, createProduct, router],
   );
 
   return (
@@ -68,13 +77,21 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           Nuevo producto comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <input
-            type="text"
-            placeholder="Nombre del producto *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            required
-            {...register("name", { required: true })}
-          />
+          <div className="relative flex w-full flex-col">
+            <input
+              type="text"
+              placeholder="Nombre del producto *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              required
+              {...register("name", {
+                required: true,
+                onChange: () => setUniqueName(true),
+              })}
+            />
+            <p className="text-sm text-pink-600">
+              {!isUniqueName && "Este producto ya existe"}
+            </p>
+          </div>
           <input
             type="text"
             placeholder="Descripción *"
@@ -84,6 +101,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           />
           <input
             type="number"
+            step="any"
             placeholder="Precio/kg *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             min={0}
@@ -95,6 +113,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           />
           <input
             type="number"
+            step="any"
             placeholder="Stock(gr) *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             min={0}
@@ -104,7 +123,6 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               required: true,
             })}
           />
-
           <input
             type="text"
             placeholder="Origen del producto"
@@ -159,6 +177,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             />
             <input
               type="number"
+              step="any"
               placeholder="Grasas *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
               {...register("Edible.nutritionFacts.fat", {
@@ -168,6 +187,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             />
             <input
               type="number"
+              step="any"
               placeholder="Hidratos de carbono *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
               {...register("Edible.nutritionFacts.carbohydrates", {
@@ -177,6 +197,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             />
             <input
               type="number"
+              step="any"
               placeholder="Proteina *"
               className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
               {...register("Edible.nutritionFacts.protein", {
@@ -215,13 +236,24 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             )}
           </div>
         </div>
-        <button
-          className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
-          type="submit"
-          onClick={() => setValue("Edible.allergens", allergensList)}
-        >
-          Crear producto
-        </button>
+        <div className="flex flex-row relative">
+          {product && (
+            <button
+              className="md:px-26 m-2 mt-3 block rounded border-button_hover border
+               py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
+              onClick={() => router.back()}
+            >
+              Cancelar
+            </button>
+          )}
+          <button
+            className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
+            type="submit"
+            onClick={() => setValue("Edible.allergens", allergensList)}
+          >
+            {product ? "Editar producto" : "Crear producto"}
+          </button>
+        </div>
       </div>
     </form>
   );

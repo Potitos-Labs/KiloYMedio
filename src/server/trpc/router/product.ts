@@ -174,20 +174,6 @@ export const productRouter = router({
     .mutation(async ({ input, ctx }) => {
       const { name, description, stock, imageURL, Edible, NonEdible } = input;
 
-      if (!Edible && !NonEdible) {
-        throw new trpc.TRPCError({
-          code: "BAD_REQUEST",
-          message: "Product must be Edible or NonEdible",
-        });
-      }
-
-      if (Edible && NonEdible) {
-        throw new trpc.TRPCError({
-          code: "BAD_REQUEST",
-          message: "Product can not be Edible and NonEdible at the same time",
-        });
-      }
-
       if (Edible) {
         const productEdible = await ctx.prisma.product.create({
           data: {
@@ -237,6 +223,88 @@ export const productRouter = router({
             imageURL,
             NonEdible: {
               create: {
+                category: NonEdible.category,
+                price: NonEdible.price,
+              },
+            },
+          },
+        });
+        return {
+          status: 201,
+          product: productNonEdible,
+        };
+      }
+
+      throw new trpc.TRPCError({
+        code: "BAD_REQUEST",
+        message: "Error not controlled",
+      });
+    }),
+  update: adminProcedure
+    .input(productSchema)
+    .mutation(async ({ input, ctx }) => {
+      const { id, name, description, stock, imageURL, Edible, NonEdible } =
+        input;
+
+      if (Edible) {
+        const productEdible = await ctx.prisma.product.update({
+          where: { id },
+          data: {
+            name,
+            description,
+            stock,
+            imageURL,
+            Edible: {
+              update: {
+                priceByWeight: Edible.priceByWeight,
+                category: Edible.category,
+                Ingredient: { update: { name } }, //Se crea ingrediente con el mismo nombre
+                origin: Edible.origin,
+                conservation: Edible.conservation,
+                nutritionFacts: {
+                  update: {
+                    ingredients: Edible.nutritionFacts.ingredients,
+                    energy: Edible.nutritionFacts.energy,
+                    fat: Edible.nutritionFacts.fat,
+                    carbohydrates: Edible.nutritionFacts.carbohydrates,
+                    protein: Edible.nutritionFacts.protein,
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        await ctx.prisma.edibleAllergen.deleteMany({
+          where: {
+            allergen: { notIn: Edible.allergens.map((a) => a.allergen) },
+            edibleId: id,
+          },
+        });
+
+        await ctx.prisma.edibleAllergen.createMany({
+          data: Edible.allergens.map((a) => {
+            return { allergen: a.allergen, edibleId: id };
+          }),
+          skipDuplicates: true,
+        });
+
+        return {
+          status: 201,
+          product: productEdible,
+        };
+      }
+
+      if (NonEdible) {
+        const productNonEdible = await ctx.prisma.product.update({
+          where: { id },
+          data: {
+            name,
+            description,
+            stock,
+            imageURL,
+            NonEdible: {
+              update: {
                 category: NonEdible.category,
                 price: NonEdible.price,
               },

@@ -16,6 +16,7 @@ import Listbox from "../Listbox";
 export default function NonEdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
   const [category, setCategory] = useState("");
+  const [isUniqueName, setUniqueName] = useState(true);
 
   const { register, handleSubmit, setValue } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
@@ -24,7 +25,9 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
   const { data: categories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
 
-  const { mutateAsync } = trpc.product.createNewProduct.useMutation();
+  const { mutateAsync: createProduct } =
+    trpc.product.createNewProduct.useMutation();
+  const { mutateAsync: updateProduct } = trpc.product.update.useMutation();
 
   useEffect(() => {
     setCategory(product?.NonEdible?.category ?? "Ninguno");
@@ -41,13 +44,18 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
 
   const onSubmit = useCallback(
     async (data: IProductCreate) => {
-      console.log("entra en onSubmit");
-      const result = await mutateAsync(data);
-      if (result.status === 201) {
-        router.push("/product");
+      try {
+        const result = product
+          ? await updateProduct({ ...data, id: product.id })
+          : await createProduct(data);
+        if (result.status === 201) {
+          router.push("/product");
+        }
+      } catch {
+        setUniqueName(false);
       }
     },
-    [mutateAsync, router],
+    [updateProduct, createProduct, router],
   );
 
   return (
@@ -60,13 +68,21 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
           Nuevo producto no comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <input
-            type="text"
-            placeholder="Nombre del producto *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            required
-            {...register("name", { required: true })}
-          />
+          <div className="">
+            <input
+              type="text"
+              placeholder="Nombre del producto *"
+              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+              required
+              {...register("name", {
+                required: true,
+                onChange: () => setUniqueName(true),
+              })}
+            />
+            <p className="text-sm text-pink-600">
+              {!isUniqueName && "Este producto ya existe"}
+            </p>
+          </div>
           <input
             type="text"
             placeholder="Descripción *"
@@ -76,6 +92,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
           />
           <input
             type="number"
+            step="any"
             placeholder="Precio *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             min={0}
@@ -87,6 +104,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
           />
           <input
             type="number"
+            step="any"
             placeholder="Stock *"
             className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
             min={0}
@@ -114,12 +132,23 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             defaultValue={product?.NonEdible?.category}
           />
         </div>
-        <button
-          className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
-          type="submit"
-        >
-          Crear producto
-        </button>
+        <div className="flex flex-row relative">
+          {product && (
+            <button
+              className="md:px-26 m-2 mt-3 block rounded border-button_hover border
+            py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
+              onClick={() => router.back()}
+            >
+              Cancelar
+            </button>
+          )}
+          <button
+            className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
+            type="submit"
+          >
+            {product ? "Editar producto" : "Crear producto"}
+          </button>
+        </div>
       </div>
     </form>
   );

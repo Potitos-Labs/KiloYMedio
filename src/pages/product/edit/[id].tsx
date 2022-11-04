@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Error from "next/error";
 import { useRouter } from "next/router";
 
+import Layout from "../../../components/Layout";
 import EdibleForm from "../../../components/product/EdibleForm";
 import NonEdibleForm from "../../../components/product/NonEdibleForm";
 import { trpc } from "../../../utils/trpc";
@@ -26,12 +27,14 @@ const EditProduct: NextPage = () => {
   }
 
   const isEdible = data?.Edible != null;
+  let form = <></>;
   if (isEdible) {
-    return <EdibleForm product={data} />;
+    form = <EdibleForm product={data} />;
   } else if (data?.NonEdible) {
-    return <NonEdibleForm product={data} />;
+    form = <NonEdibleForm product={data} />;
   }
-  return <></>;
+
+  return <Layout>{form}</Layout>;
 };
 
 export default EditProduct;
