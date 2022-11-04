@@ -50,7 +50,7 @@ export default function NavBar() {
           <div className="absolute right-40 top-8">
             <p className="hidden gap-1 md:flex">{session.user?.name}</p>
           </div>
-          <div className="absolute right-6 top-6">
+          <div className="absolute right-6 top-4">
             <ClientHeader />
           </div>
         </nav>
@@ -63,11 +63,11 @@ export default function NavBar() {
       <>
         <NavBarAdmin />
         <nav className="mx-auto w-full flex flex-row lg:absolute top-2 -right-4">
-          <div className="absolute right-24 top-8">
+          <div className="absolute right-24 top-6">
             <p className="hidden gap-1 md:flex">{session.user?.name}</p>
             <span>(Admin)</span>
           </div>
-          <div className="absolute right-6 top-6">
+          <div className="absolute right-6 top-4">
             <AdminHeader />
           </div>
         </nav>
