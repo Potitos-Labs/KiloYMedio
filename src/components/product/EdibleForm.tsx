@@ -28,7 +28,10 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
   const { mutateAsync: updateProduct } = trpc.product.update.useMutation({
-    onSuccess: () => utils.product.getById.invalidate(),
+    onSuccess: () => {
+      utils.product.getById.invalidate();
+      utils.product.getAllProducts.invalidate();
+    },
   });
 
   const allergensList: { allergen: Allergen }[] =
