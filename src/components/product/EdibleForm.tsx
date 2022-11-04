@@ -22,11 +22,14 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     resolver: zodResolver(productCreateSchema),
     defaultValues: product,
   });
+  const utils = trpc.useContext();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
-  const { mutateAsync: updateProduct } = trpc.product.update.useMutation();
+  const { mutateAsync: updateProduct } = trpc.product.update.useMutation({
+    onSuccess: () => utils.product.getById.invalidate(),
+  });
 
   const allergensList: { allergen: Allergen }[] =
     product?.Edible?.allergens ?? [];
@@ -58,7 +61,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           ? await updateProduct({ ...data, id: product.id })
           : await createProduct(data);
         if (result.status === 201) {
-          router.push("/product");
+          router.back();
         }
       } catch {
         setUniqueName(false);
@@ -74,7 +77,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     >
       <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
         <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
-          Nuevo producto comestible
+          {product ? "Editar" : "Nuevo"} producto comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="relative flex w-full flex-col">
@@ -236,11 +239,12 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             )}
           </div>
         </div>
-        <div className="flex flex-row relative">
+        <div className="flex flex-row">
           {product && (
             <button
               className="md:px-26 m-2 mt-3 block rounded border-button_hover border
                py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
+              type="button"
               onClick={() => router.back()}
             >
               Cancelar

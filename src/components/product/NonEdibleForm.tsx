@@ -25,9 +25,12 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
   const { data: categories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
 
+  const utils = trpc.useContext();
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
-  const { mutateAsync: updateProduct } = trpc.product.update.useMutation();
+  const { mutateAsync: updateProduct } = trpc.product.update.useMutation({
+    onSuccess: () => utils.product.getById.invalidate(),
+  });
 
   useEffect(() => {
     setCategory(product?.NonEdible?.category ?? "Ninguno");
@@ -49,7 +52,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
           ? await updateProduct({ ...data, id: product.id })
           : await createProduct(data);
         if (result.status === 201) {
-          router.push("/product");
+          router.back();
         }
       } catch {
         setUniqueName(false);
@@ -65,7 +68,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
     >
       <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
         <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
-          Nuevo producto no comestible
+          {product ? "Editar" : "Nuevo"} producto no comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="">
@@ -132,11 +135,12 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             defaultValue={product?.NonEdible?.category}
           />
         </div>
-        <div className="flex flex-row relative">
+        <div className="flex flex-row">
           {product && (
             <button
               className="md:px-26 m-2 mt-3 block rounded border-button_hover border
             py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
+              type="button"
               onClick={() => router.back()}
             >
               Cancelar
