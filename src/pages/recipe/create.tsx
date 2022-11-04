@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 
 import Layout from "../../components/Layout";
 import IncDecRecipe from "../../components/components/IncDecRecipe";
-import { clearNumber } from "../../components/payment/utils";
 import {
   ICreateRecipe,
   createRecipeSchema,
@@ -12,9 +11,14 @@ import {
 
 const RecipeForm: NextPage = () => {
   //   const { data: allProducts } = trpc.product.getAllProducts.useQuery();
-  const { register, setValue, getValues, control, /* handleSubmit,*/ watch } =
+  const { register, control, /* handleSubmit,*/ watch } =
     useForm<ICreateRecipe>({
       resolver: zodResolver(createRecipeSchema),
+      defaultValues: {
+        timeSpan: { hour: 1, minute: 1 },
+        portions: 1,
+        ingredients: { amount: 1 },
+      },
     });
 
   console.log(watch());
@@ -61,63 +65,46 @@ const RecipeForm: NextPage = () => {
                 name="timeSpan.hour"
                 control={control}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <>
-                    <button
-                      disabled={(value || 0) == 0}
-                      className={`border-r-[1px] border-black bg-transparent px-3 font-semibold ${
-                        value == 0 ? "cursor-not-allowed opacity-60" : ""
-                      }`}
-                      onClick={() => {
-                        onChange(Number(value) - 1);
-                      }}
-                    >
-                      -
-                    </button>
-                    <input
-                      className="w-16 text-center focus-within:outline-none"
-                      type="text"
-                      maxLength={2}
-                      defaultValue="1"
-                      value={value}
-                      onChange={({ target: { value } }) =>
-                        onChange(
-                          Number(clearNumber(value) || 0) > 10
-                            ? 10
-                            : Number(clearNumber(value) || 0),
-                        )
-                      }
-                      onBlur={onBlur}
-                      ref={ref}
-                    />
-                  </>
+                  <IncDecRecipe
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    ref={ref}
+                    maxValue={23}
+                  ></IncDecRecipe>
                 )}
               ></Controller>
-              {/* <IncDecRecipe
-                maximum={23}
-                property={"timeSpan.hour"}
-                register={register("timeSpan.hour")}
-                getValues={getValues}
-                setValue={setValue}
-              ></IncDecRecipe> */}
               <p>horas</p>
-              <IncDecRecipe
-                maximum={59}
-                property={"timeSpan.minute"}
-                register={register("timeSpan.minute")}
-                getValues={getValues}
-                setValue={setValue}
-              ></IncDecRecipe>
+              <Controller
+                name="timeSpan.minute"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <IncDecRecipe
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    ref={ref}
+                    maxValue={59}
+                  ></IncDecRecipe>
+                )}
+              ></Controller>
               <p>minutos</p>
             </div>
             <div className="flex flex-row items-center gap-2">
               <div className="text-lg">Raciones </div>
-              <IncDecRecipe
-                maximum={15}
-                property={"portions"}
-                register={register("portions")}
-                getValues={getValues}
-                setValue={setValue}
-              ></IncDecRecipe>
+              <Controller
+                name="portions"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <IncDecRecipe
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    ref={ref}
+                    maxValue={15}
+                  ></IncDecRecipe>
+                )}
+              ></Controller>
             </div>
 
             <div className="flex flex-row items-center gap-2">
@@ -143,13 +130,19 @@ const RecipeForm: NextPage = () => {
                 placeholder="sdfdsfsefae"
                 {...register("ingredients.name", {})}
               />
-              <IncDecRecipe
-                maximum={999}
-                property={"ingredients.amount"}
-                register={register("ingredients.amount")}
-                getValues={getValues}
-                setValue={setValue}
-              ></IncDecRecipe>
+              <Controller
+                name="ingredients.amount"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <IncDecRecipe
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    ref={ref}
+                    maxValue={999}
+                  ></IncDecRecipe>
+                )}
+              ></Controller>
               <select {...register("ingredients.unit", { required: true })}>
                 <option value="Mr">Taza</option>
                 <option value="Mrs">Gramos</option>

@@ -1,50 +1,30 @@
-import {
-  UseFormGetValues,
-  UseFormRegisterReturn,
-  UseFormSetValue,
-} from "react-hook-form";
+import { Noop, RefCallBack } from "react-hook-form";
 
-import { ICreateRecipe } from "../../utils/validations/recipe";
+import { clearNumber } from "../../components/payment/utils";
 
 function IncDecRecipe({
-  maximum,
-  property,
-  register,
-  getValues,
-  setValue,
+  onChange,
+  onBlur,
+  value,
+  ref,
+  maxValue,
 }: {
-  maximum: number;
-  property:
-    | "portions"
-    | "timeSpan.hour"
-    | "timeSpan.minute"
-    | "ingredients.amount";
-  register: UseFormRegisterReturn<string>;
-  getValues: UseFormGetValues<ICreateRecipe>;
-  setValue: UseFormSetValue<ICreateRecipe>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (...event: any[]) => void;
+  onBlur: Noop;
+  value: number;
+  ref: RefCallBack;
+  maxValue: number;
 }) {
-  const getVal = Number(getValues(property));
-  const min = 0;
-
-  //   const maximumValues = {
-  //     portion: 15,
-  //     hour: 23,
-  //     minute: 59,
-  //     ingredient: 999,
-  //   };
-
-  const max = maximum;
-  const length = max.toString.length + 1;
-
   return (
-    <div className="flex flex-row border-[1px] border-solid border-black">
+    <>
       <button
-        disabled={(getVal || 0) == min}
+        disabled={(value || 0) == 0}
         className={`border-r-[1px] border-black bg-transparent px-3 font-semibold ${
-          getVal == min ? "cursor-not-allowed opacity-60" : ""
+          value == 0 ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
-          setValue(property, getVal - 1);
+          onChange(Number(value) - 1);
         }}
       >
         -
@@ -52,24 +32,31 @@ function IncDecRecipe({
       <input
         className="w-16 text-center focus-within:outline-none"
         type="text"
-        min="1"
-        max="5"
-        maxLength={length}
-        defaultValue="1"
-        {...register}
+        maxLength={2}
+        value={value}
+        onChange={({ target: { value } }) =>
+          onChange(
+            Number(clearNumber(value) || 0) > maxValue
+              ? maxValue
+              : Number(clearNumber(value) || 0),
+          )
+        }
+        onBlur={onBlur}
+        ref={ref}
       />
       <button
-        disabled={getVal >= max}
+        disabled={(value || 0) == maxValue}
         className={`border-l-[1px] border-black bg-transparent px-3 font-semibold  ${
-          getVal >= max ? "cursor-not-allowed opacity-60" : ""
+          value >= maxValue ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
-          setValue(property, (getVal || 0) + 1);
+          console.log({ value });
+          onChange(Number(value) + 1);
         }}
       >
         +
       </button>
-    </div>
+    </>
   );
 }
 
