@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -23,9 +24,10 @@ function NavBarClient() {
         </button>
       </div>
       <div
-        className={`${
-          !open && "hidden"
-        } w-full block flex-grow lg:flex lg:w-auto`}
+        className={clsx(
+          { hidden: !open },
+          "w-full block flex-grow lg:flex lg:w-auto",
+        )}
       >
         <div className="group">
           <Link href={`/product`}>
