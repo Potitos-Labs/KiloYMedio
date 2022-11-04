@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import clsx from "clsx";
 
 import EdibleForm from "./EdibleForm";
 import NonEdibleForm from "./NonEdibleForm";
@@ -23,7 +24,7 @@ export default function TabProduct() {
             <Tab
               key={type.name}
               className={({ selected }) =>
-                classNames(
+                clsx(
                   "text-bold text-md w-40 rounded-lg py-2.5 text-lg font-medium leading-5 md:w-44",
                   "ring-white ring-opacity-60 ring-offset-2 ring-offset-kym2 focus:outline-none focus:ring-2",
                   selected
@@ -44,8 +45,4 @@ export default function TabProduct() {
       </Tab.Group>
     </div>
   );
-}
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
 }

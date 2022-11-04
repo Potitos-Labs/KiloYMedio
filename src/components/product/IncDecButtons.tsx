@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Dispatch, SetStateAction } from "react";
 
 function IncDecButtons({
@@ -27,11 +28,14 @@ function IncDecButtons({
     <div className="w-auto flex flex-row py-4">
       <button
         disabled={!stockLeft || amount == 100 || amount == 1}
-        className={`rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4 ${
+        className={clsx(
+          `rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4`,
           !stockLeft || amount == 100 || amount == 1
             ? "cursor-not-allowed opacity-60"
-            : "hover:border-transparent hover:bg-button_hover hover:text-white"
-        }`}
+            : "hover:border-transparent hover:bg-button_hover hover:text-white",
+          `
+        }`,
+        )}
         onClick={decrementClick}
       >
         -
