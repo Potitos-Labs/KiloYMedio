@@ -9,13 +9,13 @@ const recipes = () => {
   return (
     <Layout>
       <div>
-        {mostRecentRecipes && (
+        {mostRecentRecipes?.length == 0 && (
           <RecipeDisplayer
             title={"Lo más nuevo"}
             recipes={mostRecentRecipes}
           ></RecipeDisplayer>
         )}
-        {allRecipes && (
+        {allRecipes?.length == 0 && (
           <RecipeDisplayer
             title={"Todas las recetas"}
             recipes={allRecipes}
