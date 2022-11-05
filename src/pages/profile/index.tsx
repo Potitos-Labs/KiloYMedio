@@ -108,7 +108,7 @@ const Profile = (
     <Layout>
       <div className={`${open ? "blur-sm" : ""}`}>
         <u
-          className={`${
+          className={`mr-4 ${
             edit
               ? "invisible"
               : "absolute right-5 cursor-pointer text-right text-kym2 hover:text-kym4"
@@ -119,7 +119,7 @@ const Profile = (
         </u>
         <div className="lg:px-40 px-14 md:px-32">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-5 flex w-full flex-col md:fx-row lg:flex-row">
+            <div className="mt-10 flex w-full flex-col md:fx-row lg:flex-row">
               <div className="mr-8 flex flex-col items-center pt-20">
                 <Image
                   src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
@@ -198,7 +198,7 @@ const Profile = (
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">
-                  <div className="relative mb-5 flex w-full flex-row gap-4 grid grid-cols-2 lg:grid-cols-3 sm:grid-cols-3 md:grid-cols-3 ">
+                  <div className="relative items-center mb-10 w-full grid grid-cols-2 lg:grid-cols-[10%_45%_45%] sm:grid-cols-3 md:grid-cols-3 ">
                     <p>DNI</p>
                     <input
                       type="text"
@@ -224,7 +224,7 @@ const Profile = (
                 <div className="grid grid-cols-2 items-start sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                   {allergenList.map((allergen) => (
                     <div
-                      className="align-left  mt-2 flex flex-col items-center py-2"
+                      className="align-left mt-2 flex flex-col items-center py-2"
                       key={allergen}
                     >
                       <AllergensComponent
@@ -238,7 +238,7 @@ const Profile = (
                   ))}
                 </div>
                 <p
-                  className="cursor-pointer text-right text-kym2 hover:text-kym4"
+                  className="cursor-pointer mt-8 mr-3 text-right text-kym2 hover:text-kym4"
                   onClick={openPopup}
                 >
                   <u>Modificar alérgenos</u>

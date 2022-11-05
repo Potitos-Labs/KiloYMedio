@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
@@ -30,36 +29,40 @@ function NavBarClient() {
         )}
       >
         <div className="group">
-          <Link href={`/product`}>
-            <button className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
-              Productos
-              <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
-            </button>
-          </Link>
+          <a
+            href={`/product`}
+            className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4"
+          >
+            Productos
+            <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
+          </a>
           <DropdownCategories />
         </div>
 
         <div className="group">
-          <Link href={`/recipe`}>
-            <button className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
-              Recetas
-              <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
-            </button>
-          </Link>
+          <a
+            href={`/recipe`}
+            className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4"
+          >
+            Recetas
+            <RiArrowDropDownLine className="h-9 w-9 -ml-1" />
+          </a>
           <div className="absolute z-10 hidden group-hover:block">
             <div className="flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
-              <Link href={`/recipe/create`}>
-                <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
-                  <RiMenuAddLine className="mr-1 h-6 w-6 fill-kym2" />
-                  Añadir recetas
-                </a>
-              </Link>
-              <Link href={`/recipe`}>
-                <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
-                  <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
-                  Ver recetas
-                </a>
-              </Link>
+              <a
+                href={`/recipe/create`}
+                className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background"
+              >
+                <RiMenuAddLine className="mr-1 h-6 w-6 fill-kym2" />
+                Añadir recetas
+              </a>
+              <a
+                href={`/recipe`}
+                className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background"
+              >
+                <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
+                Ver recetas
+              </a>
             </div>
           </div>
         </div>

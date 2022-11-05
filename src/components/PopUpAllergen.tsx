@@ -56,7 +56,7 @@ export function PopUpAllergen({
         closeOnDocumentClick
         onClose={closeAndSavePopUp}
       >
-        <div className=" overflow-y-scroll rounded-md shadow-lg shadow-kym4 backdrop-blur-sm  fixed inset-1/3">
+        <div className="overflow-y-scroll rounded-md shadow-lg shadow-kym4 backdrop-blur-sm  fixed inset-1/3">
           <div className="bg-white w-full">
             <h1 className="w-full bg-button py-2 text-center text-lg font-bold text-white">
               Alérgenos
@@ -74,7 +74,7 @@ export function PopUpAllergen({
                   <label key={allergen}>
                     {allergenTranslator?.get(allergen)}
                     <input
-                      className="form-check-input h-4 w-4 border  dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 border-gray-500 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-right mr-2 cursor-pointer"
+                      className="form-check-input h-4 w-4 border focus:ring-2 border-gray-500 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-right mr-2 cursor-pointer"
                       type="checkbox"
                       value={allergen}
                       id="flexCheckChecked"
