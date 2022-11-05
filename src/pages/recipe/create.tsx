@@ -3,7 +3,8 @@ import { NextPage } from "next";
 import { Controller, useForm } from "react-hook-form";
 
 import Layout from "../../components/Layout";
-import IncDecRecipe from "../../components/components/IncDecRecipe";
+import IncDecRecipe from "../../components/ui/IncDecRecipe";
+import ListboxDesign from "../../components/ui/ListboxDesign";
 import {
   ICreateRecipe,
   createRecipeSchema,
@@ -17,9 +18,22 @@ const RecipeForm: NextPage = () => {
       defaultValues: {
         timeSpan: { hour: 1, minute: 1 },
         portions: 1,
-        ingredients: { amount: 1 },
+        ingredients: { amount: 1, unit: "tazas" },
       },
     });
+
+  const units = [
+    "tazas",
+    "gramos",
+    "kilogramos",
+    "litros",
+    "mililitros",
+    "onzas",
+    "libras",
+    "cucharadas",
+    "cucharaditas",
+    "unidades",
+  ];
 
   console.log(watch());
 
@@ -30,10 +44,9 @@ const RecipeForm: NextPage = () => {
           {/*Details*/}
           <section className="flex flex-col gap-6">
             <div className="flex flex-row items-center gap-2">
-              <div className="text-lg">Título </div>
+              <div className="">Título </div>
               <input
-                autoFocus
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-3 pr-2 placeholder-gray-300"
+                className="input input-bordered w-full max-w-xs"
                 type="text"
                 placeholder="Título"
                 {...register("name")}
@@ -119,7 +132,7 @@ const RecipeForm: NextPage = () => {
             <div>
               <div className="text-lg">Descripción </div>
               <textarea
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-3 pr-2 placeholder-gray-300"
+                className="textarea textarea-bordered"
                 {...register("description", {})}
               />
             </div>
@@ -143,17 +156,32 @@ const RecipeForm: NextPage = () => {
                   ></IncDecRecipe>
                 )}
               ></Controller>
-              <select {...register("ingredients.unit", { required: true })}>
+              <Controller
+                name="ingredients.unit"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <ListboxDesign
+                    onChange={onChange}
+                    value={value}
+                    list={units}
+                  ></ListboxDesign>
+                )}
+              ></Controller>
+
+              {/* <select
+                className="select select-bordered w-full max-w-xs"
+                {...register("ingredients.unit", { required: true })}
+              >
                 <option value="Mr">Taza</option>
                 <option value="Mrs">Gramos</option>
                 <option value="Miss">Cucharada</option>
                 <option value="Dr">Etc</option>
-              </select>
+              </select> */}
             </div>
             <div>
               <div className="text-lg">Pasos </div>
               <textarea
-                className="peer rounded-md border-2 border-gray-300 py-2 pl-3 pr-2 placeholder-gray-300"
+                className="textarea textarea-bordered"
                 {...register("directions", {})}
               />
             </div>

@@ -1,6 +1,6 @@
 import { Noop, RefCallBack } from "react-hook-form";
 
-import { clearNumber } from "../../components/payment/utils";
+import { clearNumber } from "../payment/utils";
 
 function IncDecRecipe({
   onChange,
@@ -30,7 +30,7 @@ function IncDecRecipe({
         -
       </button>
       <input
-        className="w-16 text-center focus-within:outline-none"
+        className="input w-16 text-center focus-within:outline-none"
         type="text"
         maxLength={2}
         value={value}
