@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Stars from "../Stars";
 
-const RecipeCard = ({
+export function RecipeCard({
   id,
   name,
   ratings,
@@ -13,9 +13,13 @@ const RecipeCard = ({
   name: string;
   ratings: number;
   imageURL: string;
-}) => {
+}) {
   return (
-    <div className="relative  rounded-md py-8 text-center shadow-lg hover:shadow-kym4 w-48 h-64 min-w-48 inline-block mx-4 flex-col items-center justify-center flex-none">
+    <div
+      role="button"
+      tabIndex={0}
+      className="min-w-48  relative mx-4 my-3 inline-block h-64 w-48 flex-none flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4"
+    >
       <div className="py-3">
         <Link href={`/recipe/${id}`}>
           <a>
@@ -31,13 +35,12 @@ const RecipeCard = ({
           </a>
         </Link>
       </div>
-      <p className="mb-2 mx-1 font-semibold text-kym4 first-letter:uppercase whitespace-normal">
+      <p className="mx-1 mb-2 whitespace-normal font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>
-      <div className="absolute bottom-0  flex-col justify-center  items-center w-full mb-1">
+      <div className="absolute bottom-0  mb-1 w-full  flex-col items-center justify-center">
         <Stars average={ratings}></Stars>
       </div>
     </div>
   );
-};
-export default RecipeCard;
+}
