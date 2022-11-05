@@ -1,6 +1,7 @@
 import * as z from "zod";
 
-import { publicProcedure, router } from "../trpc";
+import { createRecipeSchema } from "../../../utils/validations/recipe";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const recipeRouter = router({
   getAllRecipes: publicProcedure.query(async ({ ctx }) => {
@@ -53,4 +54,41 @@ export const recipeRouter = router({
       orderBy: { createdAt: "desc" },
     });
   }),
+  create: protectedProcedure
+    .input(createRecipeSchema)
+    .mutation(
+      async ({
+        ctx,
+        input: {
+          description,
+          difficulty,
+          directions,
+          imageURL,
+          name,
+          ingredients,
+          portions,
+          timeSpan,
+        },
+      }) => {
+        return await ctx.prisma.recipe.create({
+          data: {
+            difficulty,
+            imageURL,
+            name,
+            portions,
+            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            description,
+            directions: { create: { directions, number: 1 } },
+            userId: ctx.session.user.id,
+            RecipeIngredient: {
+              create: {
+                ingredient: { create: { name: ingredients.name } },
+                amount: ingredients.amount,
+                unit: "kilograms",
+              },
+            },
+          },
+        });
+      },
+    ),
 });
