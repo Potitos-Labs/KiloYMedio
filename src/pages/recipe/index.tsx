@@ -8,7 +8,7 @@ const recipes = () => {
   console.log(allRecipes);
   return (
     <Layout>
-      <div>
+      <div className="my-6">
         {mostRecentRecipes?.length != 0 && (
           <RecipeDisplayer
             title={"Lo más nuevo"}

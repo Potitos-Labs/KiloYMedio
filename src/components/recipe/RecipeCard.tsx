@@ -18,7 +18,7 @@ export function RecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="min-w-48  relative mx-4 my-3 inline-block h-64 w-48 flex-none flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4"
+      className="min-w-48  relative mx-4 my-4 inline-block h-64 w-48 flex-none flex-col items-center justify-center rounded-md py-8 text-center shadow-md hover:shadow-kym4"
     >
       <div className="py-3">
         <Link href={`/recipe/${id}`}>

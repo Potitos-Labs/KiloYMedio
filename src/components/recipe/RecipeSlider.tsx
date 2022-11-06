@@ -11,7 +11,7 @@ const RecipeDisplayer = ({
   recipes?: { id: string; name: string; imageURL: string }[];
 }) => {
   return (
-    <div className="mx-6 mt-4">
+    <div className="mx-6 mt-6 mb-8">
       <p className="mb-2 text-2xl font-bold  normal-case text-kym3">{title}</p>
 
       <div className="rounded-md border-2  shadow-md">
