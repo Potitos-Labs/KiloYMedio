@@ -10,11 +10,10 @@ const RecipeDetails: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
   const { data, isFetched } = trpc.recipe.getById.useQuery({ id });
-
   if (data)
     return (
       <Layout>
-        <RecipeDetail name={data.name} imageURL={data.imageURL} rattings={5} />
+        <RecipeDetail id={id} />
       </Layout>
     );
 

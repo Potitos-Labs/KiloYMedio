@@ -14,7 +14,7 @@ function NavBarClient() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="flex w-full gap-4 text-lg">
+    <nav className="w-full text-lg">
       <div className="lg:hidden">
         <button
           onClick={() => setOpen(!open)}
