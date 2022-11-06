@@ -75,8 +75,14 @@ const Profile = (
     router.push("/login");
   }
 
-  const { register, handleSubmit } = useForm<IClient>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IClient>({
     resolver: zodResolver(clientSchema),
+    shouldUseNativeValidation: true, // need for :invalid tag tailwind
+    criteriaMode: "all",
     defaultValues: {
       name: client?.name,
       email: client?.email,
@@ -97,13 +103,13 @@ const Profile = (
     async (data: IClient) => {
       await mutateAsync(data);
     },
-    [mutateAsync],
+    [mutateAsync, router],
   );
 
   function openPopup() {
     setOpen(true);
   }
-
+  console.log({ errors });
   return (
     <Layout>
       <div className={`${open ? "blur-sm" : ""}`}>
@@ -141,7 +147,11 @@ const Profile = (
                       {...register("name")}
                       className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    ></input>
+                    >
+                      {errors.name && (
+                        <p className="text-red-500">{errors.name.message}</p>
+                      )}
+                    </input>
                   </div>
                   {/*Correo y Nombre*/}
                   <div className="grid grid-cols-1 sm:grid-cols-[20%_80%] md:grid-cols-[15%_75%]  lg:grid-cols-[17%_43%_12%_28%] my-5">
@@ -151,14 +161,24 @@ const Profile = (
                       {...register("email")}
                       className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    ></input>
+                    >
+                      {errors.email && (
+                        <p className="text-red-500">{errors.email.message}</p>
+                      )}
+                    </input>
                     <p className="py-2 lg:text-center">Teléfono</p>
                     <input
                       type="text"
                       {...register("phoneNumber")}
                       className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    ></input>
+                    >
+                      {errors.phoneNumber && (
+                        <p className="text-red-500">
+                          {errors.phoneNumber.message}
+                        </p>
+                      )}
+                    </input>
                   </div>{" "}
                 </FormWrapper>
               </div>
@@ -173,7 +193,11 @@ const Profile = (
                     {...register("address")}
                     className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
-                  ></input>
+                  >
+                    {errors.address && (
+                      <p className="text-red-500">{errors.address.message}</p>
+                    )}
+                  </input>
                 </div>
                 {/*Correo y Nombre*/}
                 <div className=":grid-cols-1 sm:grid-cols-[20%_80%] grid w-full md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
@@ -183,14 +207,22 @@ const Profile = (
                     {...register("location")}
                     className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
-                  ></input>
+                  >
+                    {errors.location && (
+                      <p className="text-red-500">{errors.location.message}</p>
+                    )}
+                  </input>
                   <p className="py-2 md:text-center">CP</p>
                   <input
                     type="text"
                     {...register("CP", { valueAsNumber: true })}
                     disabled={!edit}
                     className="placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
-                  ></input>
+                  >
+                    {errors.CP && (
+                      <p className="text-red-500">{errors.CP.message}</p>
+                    )}
+                  </input>
                 </div>
               </FormWrapper>
             </div>
@@ -205,7 +237,11 @@ const Profile = (
                       {...register("nif")}
                       className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                       disabled={!edit}
-                    ></input>
+                    >
+                      {errors.nif && (
+                        <p className="text-red-500">{errors.nif.message}</p>
+                      )}
+                    </input>
                     <p className="text-bold ">Mis puntos: 100</p>
                   </div>
                   <div>
@@ -248,7 +284,7 @@ const Profile = (
             <div className="mb-8 text-right">
               <button
                 type="submit"
-                onClick={changeEdit}
+                //onClick={changeEdit}
                 className={`${
                   edit
                     ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
