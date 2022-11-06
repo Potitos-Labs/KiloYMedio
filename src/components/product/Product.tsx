@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import router from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -13,6 +14,7 @@ function Product({ product }: { product: IProduct }) {
   const { data } = useSession();
   const isEdible = product.Edible != null;
   const notify = () => toast.success("Producto añadido");
+  const notifyDeleted = () => toast.success("Producto eliminado");
   const stockLeft = product.stock * 1000 >= 100;
   const [amount, setAmount] = useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
@@ -21,6 +23,22 @@ function Product({ product }: { product: IProduct }) {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
+
+  const { mutateAsync } = trpc.product.delete.useMutation({
+    onSuccess() {
+      utils.product.getAllProducts.invalidate();
+    },
+  });
+
+  const updateProduct = (id: string) => {
+    router.push(`/product/edit/${id}`);
+  };
+
+  const deleteProduct = (id: string) => {
+    mutateAsync({ productId: id });
+    router.push(`/product`);
+    notifyDeleted();
+  };
 
   function addToCart() {
     if (stockLeft) {
@@ -48,7 +66,11 @@ function Product({ product }: { product: IProduct }) {
       </div>
       {data?.user?.role == "admin" && (
         <div className="absolute top-0 right-0">
-          <DotMenu id={product.id} />
+          <DotMenu
+            id={product.id}
+            updateFunction={updateProduct}
+            deleteFunction={deleteProduct}
+          />
         </div>
       )}
       <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">

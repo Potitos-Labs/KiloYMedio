@@ -1,6 +1,7 @@
 import { Allergen } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import router from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 
@@ -18,6 +19,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
   const stockLeft = product.stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");
+  const notifyDeleted = () => toast.success("Producto eliminado");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.cart.addProduct.useMutation({
@@ -25,6 +27,22 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
+
+  const { mutateAsync } = trpc.product.delete.useMutation({
+    onSuccess() {
+      utils.product.getAllProducts.invalidate();
+    },
+  });
+
+  const updateProduct = (id: string) => {
+    router.push(`/product/edit/${id}`);
+  };
+
+  const deleteProduct = (id: string) => {
+    mutateAsync({ productId: id });
+    router.push(`/product`);
+    notifyDeleted();
+  };
 
   function addToCart() {
     if (product.stock * 1000 >= 100) {
@@ -58,7 +76,11 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
               <Stars average={4}></Stars>
               <div className="mx-2 inline-block">
                 {data?.user?.role == "admin" && (
-                  <DotMenu id={product.id}></DotMenu>
+                  <DotMenu
+                    id={product.id}
+                    deleteFunction={deleteProduct}
+                    updateFunction={updateProduct}
+                  ></DotMenu>
                 )}
               </div>
             </div>

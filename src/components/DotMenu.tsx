@@ -1,29 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineMore } from "react-icons/ai";
-import { toast } from "react-toastify";
 import Popup from "reactjs-popup";
 
-import { trpc } from "../utils/trpc";
+interface DotMenuProps {
+  id: string;
+  updateFunction: (id: string) => void;
+  deleteFunction: (id: string) => void;
+}
 
-const DotMenu = ({ id }: { id: string }) => {
-  const notify = () => toast.success("¡Producto eliminado!");
-  const router = useRouter();
+const DotMenu = ({ id, updateFunction, deleteFunction }: DotMenuProps) => {
   const [open, setOpen] = useState(false);
-
-  const { data } = useSession();
-
-  if (data?.user?.role != "admin") {
-    return <div></div>;
-  }
-  const utils = trpc.useContext();
-  const { mutateAsync } = trpc.product.delete.useMutation({
-    onSuccess() {
-      utils.product.getAllProducts.invalidate();
-    },
-  });
 
   function cancelHandler() {
     setOpen(false);
@@ -31,9 +18,7 @@ const DotMenu = ({ id }: { id: string }) => {
 
   function AcceptHandler() {
     setOpen(false);
-    mutateAsync({ productId: id });
-    router.push(`/product`);
-    notify();
+    deleteFunction(id);
   }
 
   function confirmAction() {
@@ -42,7 +27,7 @@ const DotMenu = ({ id }: { id: string }) => {
 
   return (
     <div>
-      <div className="dropdown absolute relative flex h-8 w-6 items-center">
+      <div className="dropdown relative  flex h-8 w-6 items-center">
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className=" flex items-center">
@@ -65,7 +50,7 @@ const DotMenu = ({ id }: { id: string }) => {
                     className={`${
                       active && "bg-background"
                     } group flex w-full items-center  px-2 py-2 text-sm`}
-                    onClick={() => router.push(`/product/edit/${id}`)}
+                    onClick={() => updateFunction(id)}
                   >
                     <AiOutlineEdit className="mr-2 fill-kym2" />
                     Editar
