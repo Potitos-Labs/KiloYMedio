@@ -20,7 +20,7 @@ export const recipeRouter = router({
         RecipeIngredient: false,
         timeSpan: false,
         User: false,
-        userId: false,
+        userId: true,
       },
     });
   }),
@@ -91,4 +91,18 @@ export const recipeRouter = router({
         });
       },
     ),
+  delete: publicProcedure
+    .input(
+      z.object({
+        recipeId: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { recipeId } = input;
+      await ctx.prisma.recipe.delete({
+        where: {
+          id: recipeId,
+        },
+      });
+    }),
 });

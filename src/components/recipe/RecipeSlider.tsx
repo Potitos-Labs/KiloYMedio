@@ -31,6 +31,7 @@ const RecipeDisplayer = ({
                 name={recipe.name}
                 ratings={0}
                 imageURL={recipe.imageURL}
+                authorID={recipe.id}
                 key={recipe.id}
               ></RecipeCard>
             ))

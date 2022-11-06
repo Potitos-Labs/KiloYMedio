@@ -1,5 +1,10 @@
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import router from "next/router";
+import { toast } from "react-toastify";
+import { trpc } from "../../utils/trpc";
+import DotMenu from "../DotMenu";
 
 import Stars from "../Stars";
 
@@ -8,12 +13,34 @@ export function RecipeCard({
   name,
   ratings,
   imageURL,
+  authorID,
 }: {
   id: string;
   name: string;
   ratings: number;
   imageURL: string;
+  authorID: string;
 }) {
+  const { data } = useSession();
+  const utils = trpc.useContext();
+  const notifyDeleted = () => toast.success("Receta eliminada");
+  const { mutateAsync } = trpc.recipe.delete.useMutation({
+    onSuccess() {
+      utils.recipe.getAllRecipes.invalidate();
+      utils.recipe.getRecentRecipes.invalidate();
+    },
+  });
+
+  const updateRecipe = (id: string) => {
+    //ACABAR
+    console.log(id + "HAY QUE COMPLETAR METODO WOO");
+  };
+
+  const deleteRecipe = (id: string) => {
+    mutateAsync({ recipeId: id });
+    router.push(`/recipe`);
+    notifyDeleted();
+  };
   return (
     <div
       role="button"
@@ -35,6 +62,15 @@ export function RecipeCard({
           </a>
         </Link>
       </div>
+      {data?.user?.id == authorID && (
+        <div className="absolute top-0 right-0">
+          <DotMenu
+            id={id}
+            updateFunction={updateRecipe}
+            deleteFunction={deleteRecipe}
+          />
+        </div>
+      )}
       <p className="mx-1 mb-2 whitespace-normal font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>
