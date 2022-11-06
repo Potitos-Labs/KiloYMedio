@@ -5,13 +5,14 @@
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
     "bradlc.vscode-tailwindcss",
-    "Prisma.prisma",
+    "prisma.prisma",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "dsznajder.es7-react-js-snippets",
     "mhutchie.git-graph",
     "mikestead.dotenv",
-    "usernamehw.errorlens"
+    "usernamehw.errorlens",
+    "naumovs.color-highlight"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
