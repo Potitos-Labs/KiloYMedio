@@ -8,7 +8,7 @@ const RecipeDisplayer = ({
   recipes,
 }: {
   title: string;
-  recipes?: { id: string; name: string; imageURL: string }[];
+  recipes?: { id: string; name: string; imageURL: string; userId: string }[];
 }) => {
   return (
     <div className="mx-6 mt-6 mb-8">
@@ -31,7 +31,7 @@ const RecipeDisplayer = ({
                 name={recipe.name}
                 ratings={0}
                 imageURL={recipe.imageURL}
-                authorID={recipe.id}
+                authorID={recipe.userId}
                 key={recipe.id}
               ></RecipeCard>
             ))
