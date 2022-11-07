@@ -31,7 +31,7 @@ const RecipeForm: NextPage = () => {
     formState: { errors },
   } = useForm<ICreateRecipe>({
     resolver: zodResolver(createRecipeSchema),
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: false,
     criteriaMode: "all",
     defaultValues: {
       timeSpan: { hour: 0, minute: 1 },
