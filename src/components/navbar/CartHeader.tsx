@@ -10,7 +10,7 @@ export default function CartHeader() {
 
   return (
     <div className="group relative mr-5 flex cursor-pointer items-center">
-      <Link href={"/cart"}>
+      <Link href={"/c"}>
         <svg
           aria-hidden="true"
           focusable="false"
@@ -30,7 +30,9 @@ export default function CartHeader() {
       <span className="absolute -mt-7 ml-7 h-5 w-5 rounded-full bg-gray-700 pt-0.5 pl-1.5 text-xs font-bold text-white">
         {numberCartProducts}
       </span>
-      <DropDownCart />
+      <div>
+        <DropDownCart />
+      </div>
     </div>
   );
 }
