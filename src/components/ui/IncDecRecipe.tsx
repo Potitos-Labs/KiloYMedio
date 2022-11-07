@@ -17,10 +17,10 @@ function IncDecRecipe({
   maxValue: number;
 }) {
   return (
-    <>
+    <div className="h-full rounded border border-black">
       <button
         disabled={(value || 0) == 0}
-        className={`border-r-[1px] border-black bg-transparent px-3 font-semibold ${
+        className={`h-full border-r-[1px] border-black bg-transparent px-3 font-semibold ${
           value == 0 ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
@@ -30,9 +30,8 @@ function IncDecRecipe({
         -
       </button>
       <input
-        className="input w-16 text-center focus-within:outline-none"
+        className="input h-full w-16 text-center focus-within:outline-none"
         type="text"
-        maxLength={2}
         value={value}
         onChange={({ target: { value } }) =>
           onChange(
@@ -46,7 +45,7 @@ function IncDecRecipe({
       />
       <button
         disabled={(value || 0) == maxValue}
-        className={`border-l-[1px] border-black bg-transparent px-3 font-semibold  ${
+        className={`h-full border-l-[1px] border-black bg-transparent px-3 font-semibold  ${
           value >= maxValue ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
@@ -56,7 +55,7 @@ function IncDecRecipe({
       >
         +
       </button>
-    </>
+    </div>
   );
 }
 

@@ -78,12 +78,14 @@ export const recipeRouter = router({
             portions,
             timeSpan: timeSpan.hour * 60 + timeSpan.minute,
             description,
-            directions: { create: { directions, number: 1 } },
+            directions: {
+              create: { directions: directions[0]?.direction ?? "", number: 1 },
+            },
             userId: ctx.session.user.id,
             RecipeIngredient: {
               create: {
-                ingredient: { create: { name: ingredients.name } },
-                amount: ingredients.amount,
+                ingredient: { create: { name: ingredients[0]?.name ?? "" } },
+                amount: ingredients[0]?.amount ?? 1,
                 unit: "kilograms",
               },
             },
