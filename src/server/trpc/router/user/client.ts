@@ -4,6 +4,30 @@ import { z } from "zod";
 import { clientProcedure, router } from "../../trpc";
 
 export const clientRouter = router({
+  addFavouriteRecipe: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .mutation(async ({ ctx, input: { recipeId } }) => {
+      await ctx.prisma.recipeUser.create({
+        data: {
+          recipeId,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      return { status: 201 };
+    }),
+  getFavouriteRecipes: clientProcedure.mutation(async ({ ctx }) => {
+    await ctx.prisma.recipeUser.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      select: {
+        Recipe: { select: { name: true, imageURL: true } },
+      },
+    });
+
+    return { status: 201 };
+  }),
   updateAllergen: clientProcedure
     .input(
       z.object({
@@ -38,8 +62,6 @@ export const clientRouter = router({
         }),
       });
 
-      return {
-        status: 201,
-      };
+      return { status: 201 };
     }),
 });

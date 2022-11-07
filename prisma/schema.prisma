@@ -66,21 +66,21 @@ model Session {
 }
 
 model User {
-    id                String    @id @default(cuid())
-    accounts          Account[]
-    Admin             Admin?
-    Client            Client?
-    Comment           Comment[]
-    email             String    @unique
-    emailVerified     DateTime?
-    passwordHash      String?
-    image             String?   @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
-    name              String
-    nif               String?   @unique
-    role              Role      @default(client)
-    sessions          Session[]
-    Recipe            Recipe[]  @relation("author")
-    FavouritesRecipes Recipe[]  @relation("favouritesRecipes")
+    id            String       @id @default(cuid())
+    accounts      Account[]
+    Admin         Admin?
+    Client        Client?
+    Comment       Comment[]
+    email         String       @unique
+    emailVerified DateTime?
+    passwordHash  String?
+    image         String?      @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
+    name          String
+    nif           String?      @unique
+    role          Role         @default(client)
+    sessions      Session[]
+    RecipeUser    RecipeUser[]
+    Recipe        Recipe[]
 }
 
 model VerificationToken {
@@ -311,9 +311,8 @@ model Recipe {
     RecipeIngredient RecipeIngredient[]
     timeSpan         Int
     userId           String
-    favouriteUserId  String?
-    FavouriteUser    User?              @relation(name: "favouritesRecipes", fields: [favouriteUserId], references: [id])
-    User             User               @relation(name: "author", fields: [userId], references: [id])
+    User             User               @relation(fields: [userId], references: [id])
+    RecipeUser       RecipeUser[]
 }
 
 model RecipeComment {
@@ -340,6 +339,15 @@ model RecipeIngredient {
     unit         IngredientUnit
 
     @@id([recipeId, ingredientId])
+}
+
+model RecipeUser {
+    recipeId String
+    Recipe   Recipe @relation(fields: [recipeId], references: [id])
+    userId   String
+    User     User   @relation(fields: [userId], references: [id])
+
+    @@id([recipeId, userId])
 }
 
 model ReportedComment {
