@@ -24,6 +24,7 @@ export function RecipeCard({
   const { data } = useSession();
   const utils = trpc.useContext();
   const notifyDeleted = () => toast.success("Receta eliminada");
+  const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
@@ -33,6 +34,7 @@ export function RecipeCard({
 
   const updateRecipe = (id: string) => {
     //ACABAR
+    notifyUpdate();
     console.log(id + "HAY QUE COMPLETAR METODO WOO");
   };
 
@@ -62,15 +64,18 @@ export function RecipeCard({
           </a>
         </Link>
       </div>
-      {data?.user?.id == authorID && (
-        <div className="absolute top-0 right-0">
-          <DotMenu
-            id={id}
-            updateFunction={updateRecipe}
-            deleteFunction={deleteRecipe}
-          />
-        </div>
-      )}
+      {data?.user?.id == authorID ||
+        (data?.user?.role == "admin" && (
+          <div className="absolute top-0 right-0">
+            <DotMenu
+              id={id}
+              name={name}
+              type="receta"
+              updateFunction={updateRecipe}
+              deleteFunction={deleteRecipe}
+            />
+          </div>
+        ))}
       <p className="mx-1 mb-2 whitespace-normal font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>

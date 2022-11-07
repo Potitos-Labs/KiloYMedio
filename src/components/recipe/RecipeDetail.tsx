@@ -5,12 +5,37 @@ import { trpc } from "../../utils/trpc";
 import { toast } from "react-toastify";
 //import { trpc } from "../../utils/trpc";
 import Stars from "../Stars";
+import DotMenu from "../DotMenu";
+import { useSession } from "next-auth/react";
+import router from "next/router";
 
 const RecipeDetail = ({ id }: { id: string }) => {
+  const { data: userData } = useSession();
   const { data } = trpc.recipe.getById.useQuery({ id });
   const notify = () => toast.success("Receta guardada");
+  const notifyDeleted = () => toast.success("Receta eliminada");
+  const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
+  const utils = trpc.useContext();
   // const utils = trpc.useContext();
 
+  const { mutateAsync } = trpc.recipe.delete.useMutation({
+    onSuccess() {
+      utils.recipe.getAllRecipes.invalidate();
+      utils.recipe.getRecentRecipes.invalidate();
+    },
+  });
+
+  const updateRecipe = (id: string) => {
+    //ACABAR
+    notifyUpdate();
+    console.log(id + "HAY QUE COMPLETAR METODO WOO");
+  };
+
+  const deleteRecipe = (id: string) => {
+    mutateAsync({ recipeId: id });
+    router.push(`/recipe`);
+    notifyDeleted();
+  };
   function saveRecipe() {
     notify();
     // guardar receta en el perfil
@@ -23,8 +48,18 @@ const RecipeDetail = ({ id }: { id: string }) => {
           <h1 className="inline-block text-left text-2xl font-bold uppercase">
             RECETA DE {data?.name}
           </h1>
-          <div className="mt-1">
+          <div className=" inline-flex items-center justify-center">
             <Stars average={4}></Stars>
+            {userData?.user?.id == data?.userId ||
+              (userData?.user?.role == "admin" && (
+                <DotMenu
+                  id={id}
+                  name={data ? data.name : "Error Ocurred"}
+                  type="receta"
+                  updateFunction={updateRecipe}
+                  deleteFunction={deleteRecipe}
+                />
+              ))}
           </div>
           <u
             onClick={saveRecipe}

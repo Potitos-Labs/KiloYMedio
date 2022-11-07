@@ -5,11 +5,19 @@ import Popup from "reactjs-popup";
 
 interface DotMenuProps {
   id: string;
+  name: string;
+  type: string;
   updateFunction: (id: string) => void;
   deleteFunction: (id: string) => void;
 }
 
-const DotMenu = ({ id, updateFunction, deleteFunction }: DotMenuProps) => {
+const DotMenu = ({
+  id,
+  name,
+  type,
+  updateFunction,
+  deleteFunction,
+}: DotMenuProps) => {
   const [open, setOpen] = useState(false);
 
   function cancelHandler() {
@@ -77,29 +85,30 @@ const DotMenu = ({ id, updateFunction, deleteFunction }: DotMenuProps) => {
 
       <Popup open={open} modal closeOnDocumentClick onClose={cancelHandler}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
-          <div className="w-1/3 rounded-md bg-white">
+          <div className="w-11/12 rounded-md bg-white sm:w-2/5">
             <h1 className="rounded-t-md bg-red-500 py-2 text-center text-lg font-bold text-white">
-              Eliminar Producto
+              Eliminar {type}
             </h1>
             <p className="m-3">
               <span className="font-bold">¡Atención!</span>
             </p>
-            <p className="m-3">
-              Estás apunto de eliminar este elemento de la web, esta acción es
-              irreversible.
+            <p className="m-3 text-justify">
+              Estás apunto de eliminar {type == "producto" ? "el" : "la"} {type}{" "}
+              <span className="font-medium italic">{name}</span> de la web, esta
+              acción es irreversible.
             </p>
             <p className="m-3 mt-4 text-center">
               ¿Estás seguro de que quieres continuar?
             </p>
-            <div className="flex justify-end">
+            <div className="mb-3 mr-3 flex justify-end ">
               <button
-                className="mb-3 mt-5 rounded-md bg-button py-1 px-2 text-white hover:bg-button_hover"
+                className="  mt-3 rounded-md bg-button p-1 text-white hover:bg-button_hover sm:mt-5  sm:py-1 sm:px-2"
                 onClick={AcceptHandler}
               >
                 Confirmar
               </button>
               <button
-                className="m-3  mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                className=" ml-3 mt-3 rounded-md border  border-button bg-transparent px-1 hover:border-transparent hover:bg-button_hover hover:text-white  sm:mt-5 sm:px-3"
                 onClick={cancelHandler}
               >
                 Cancelar

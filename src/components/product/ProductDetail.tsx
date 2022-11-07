@@ -78,6 +78,8 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
                 {data?.user?.role == "admin" && (
                   <DotMenu
                     id={product.id}
+                    name={product.name}
+                    type="producto"
                     deleteFunction={deleteProduct}
                     updateFunction={updateProduct}
                   ></DotMenu>

@@ -68,6 +68,8 @@ function Product({ product }: { product: IProduct }) {
         <div className="absolute top-0 right-0">
           <DotMenu
             id={product.id}
+            name={product.name}
+            type="producto"
             updateFunction={updateProduct}
             deleteFunction={deleteProduct}
           />
