@@ -10,11 +10,7 @@ export const clientSchema = z.object({
     .min(3, { message: "El nombre tiene que tener como mínimo 3 carácteres" })
     .max(40, {
       message: "El nombre tiene que tener como máximo 20 carácteres",
-    })
-    .refine(
-      (value) => isAlpha(value, "es-ES"),
-      "Este campo no puede contener números",
-    ),
+    }),
   email: z
     .string()
     .min(1, "Este campo no puede estar vacío")
