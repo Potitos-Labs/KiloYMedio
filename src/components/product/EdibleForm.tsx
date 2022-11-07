@@ -200,11 +200,9 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           </label>
         </div>
         <div>
-          <h3 className="mt-8 mb-8 text-center font-semibold sm:mx-[10%] sm:bg-black sm:leading-[0.09]">
-            <span className="bg-white px-2">
-              Información nutricional por cada 100gr
-            </span>
-          </h3>
+          <div className="divider sm:mx-[10%]">
+            Información nutricional por cada 100gr
+          </div>
           <div className="xs:grid-cols-1 m-6 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             <label className="flex w-full flex-col sm:col-span-2 md:col-span-4">
               <span className="mb-2">Ingredientes *</span>
@@ -276,9 +274,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
           </div>
         </div>
         <div className="w-full">
-          <h3 className="mt-8 mb-8 text-center font-semibold sm:mx-[10%] sm:bg-black sm:leading-[0.09]">
-            <span className="bg-white px-2">Alérgenos</span>
-          </h3>
+          <div className="divider sm:mx-[10%]">Alérgenos</div>
           <div className="m-6 grid w-full sm:grid-cols-2 md:ml-[10%] md:grid-cols-4">
             {allergens ? (
               allergens.map((allergen) => (
