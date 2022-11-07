@@ -6,12 +6,12 @@ export const createRecipeSchema = z.object({
     .string()
     .min(3, { message: "Título muy corto" })
     .max(30, { message: "Título muy largo" }),
-  description: z.string(),
+  description: z.string().nullable(),
   difficulty: z.nativeEnum(RecipeDifficulty),
   directions: z.array(
     z.object({
-      index: z.number().nullable(),
-      direction: z.string().min(2).max(120).nullable(),
+      index: z.number(),
+      direction: z.string().min(2).max(120),
     }),
   ),
   imageURL: z.string().url(),

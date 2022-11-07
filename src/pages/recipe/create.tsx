@@ -96,12 +96,13 @@ const RecipeForm: NextPage = () => {
             <div className="flex flex-row items-center gap-2">
               <div className="text-lg">Dificultad </div>
 
-              <div className="form-control" aria-required="true">
+              <div className="form-control">
                 <label className="label cursor-pointer">
                   <input
                     type="radio"
-                    name="difficulty"
+                    value="easy"
                     className="radio radio-sm border-black checked:bg-blue-500"
+                    {...register("difficulty")}
                   />
                   <span className="label-text pl-2">Baja</span>
                 </label>
@@ -110,8 +111,9 @@ const RecipeForm: NextPage = () => {
                 <label className="label cursor-pointer">
                   <input
                     type="radio"
-                    name="difficulty"
+                    value="moderate"
                     className="radio radio-sm border-black checked:bg-blue-500"
+                    {...register("difficulty")}
                   />
                   <span className="label-text pl-2">Media</span>
                 </label>
@@ -120,8 +122,9 @@ const RecipeForm: NextPage = () => {
                 <label className="label cursor-pointer">
                   <input
                     type="radio"
-                    name="difficulty"
+                    value="hard"
                     className="radio radio-sm border-black checked:bg-blue-500"
+                    {...register("difficulty")}
                   />
                   <span className="label-text pl-2">Alta</span>
                 </label>
@@ -191,12 +194,13 @@ const RecipeForm: NextPage = () => {
             {/* Image End */}
           </section>
           {/*End Details*/}
+
           {/*Recipe*/}
           <section className="flex flex-col gap-6 pt-6">
             {/* Description */}
             <div>
               <div className="text-lg">Descripción </div>
-              <input
+              <textarea
                 className="textarea textarea-bordered w-80 border-black"
                 {...register("description", {})}
               />
@@ -283,14 +287,14 @@ const RecipeForm: NextPage = () => {
             <div>
               <div className="text-lg">Pasos </div>
 
-              <ul className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 {fieldsDirections.map((field, index) => {
                   return (
-                    <li key={field.id}>
+                    <div key={field.id}>
                       <section className="section flex flex-row gap-3">
                         <div>{index + 1 + "."}</div>
                         <div className="flex flex-col justify-center">
-                          <input
+                          <textarea
                             placeholder="Paso"
                             className="input input-bordered w-80 border-black"
                             {...register(`directions.${index}.direction`)}
@@ -303,16 +307,16 @@ const RecipeForm: NextPage = () => {
                           <FaTimes className="text-xl text-red-600"></FaTimes>
                         </button>
                       </section>
-                    </li>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
               <button
                 type="button"
                 onClick={() =>
                   appendDirections({
-                    direction: null,
-                    index: null,
+                    direction: "",
+                    index: 0,
                   })
                 }
                 className="inline-flex items-center gap-2 pt-2"
