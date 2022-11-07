@@ -1,21 +1,24 @@
 import { Allergen, ECategory, NECategory } from "@prisma/client";
 import * as z from "zod";
+import isURL from "validator/lib/isURL";
 
 export const productCreateSchema = z.object({
-  name: z.string(),
-  description: z.string(),
-  stock: z.number(),
-  imageURL: z.string(),
+  name: z.string().min(1, "El campo no puede estar vacío"),
+  description: z.string().min(1, "El campo no puede estar vacío"),
+  stock: z.number({ invalid_type_error: "Introduce un número" }),
+  imageURL: z
+    .string()
+    .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
   Edible: z
     .object({
-      priceByWeight: z.number(),
+      priceByWeight: z.number({ invalid_type_error: "Introduce un número" }),
       category: z.nativeEnum(ECategory),
       nutritionFacts: z.object({
-        ingredients: z.string(),
-        energy: z.number(),
-        fat: z.number(),
-        protein: z.number(),
-        carbohydrates: z.number(),
+        ingredients: z.string().min(1, "El campo no puede estar vacío"),
+        energy: z.number({ invalid_type_error: "Introduce un número" }),
+        fat: z.number({ invalid_type_error: "Introduce un número" }),
+        protein: z.number({ invalid_type_error: "Introduce un número" }),
+        carbohydrates: z.number({ invalid_type_error: "Introduce un número" }),
       }),
       allergens: z.array(z.object({ allergen: z.nativeEnum(Allergen) })),
       origin: z.string().nullable().optional(),
@@ -24,7 +27,10 @@ export const productCreateSchema = z.object({
     .nullable()
     .optional(),
   NonEdible: z
-    .object({ price: z.number(), category: z.nativeEnum(NECategory) })
+    .object({
+      price: z.number({ invalid_type_error: "Introduce un número" }),
+      category: z.nativeEnum(NECategory),
+    })
     .nullable()
     .optional(),
 });

@@ -18,13 +18,25 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
   const [category, setCategory] = useState("");
   const [isUniqueName, setUniqueName] = useState(true);
 
-  const { register, handleSubmit, setValue } = useForm<IProductCreate>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setValue,
+  } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
+    criteriaMode: "all",
+    shouldUseNativeValidation: true,
     defaultValues: product,
   });
+  console.log(watch());
   const { data: categories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
-
+  const productCategoryInSpanish = categories?.find(
+    (c) => c.category == product?.NonEdible?.category,
+  )?.categoryInSpanish;
+  console.log(productCategoryInSpanish);
   const utils = trpc.useContext();
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
@@ -33,7 +45,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
   });
 
   useEffect(() => {
-    setCategory(product?.NonEdible?.category ?? "Ninguno");
+    setCategory(product?.NonEdible?.category ?? "");
   }, []);
 
   useEffect(() => {
@@ -71,74 +83,92 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
           {product ? "Editar" : "Nuevo"} producto no comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="">
+          <label className="relative flex w-full flex-col">
+            <span className="mb-2">Nombre *</span>
             <input
               type="text"
-              placeholder="Nombre del producto *"
-              className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-              required
+              placeholder="Nombre del producto"
+              className={`rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600 ${
+                !isUniqueName && "border-pink-600"
+              }`}
               {...register("name", {
-                required: true,
                 onChange: () => setUniqueName(true),
               })}
             />
             <p className="text-sm text-pink-600">
-              {!isUniqueName && "Este producto ya existe"}
+              {(!isUniqueName && "Este producto ya existe") ||
+                errors.name?.message}
             </p>
-          </div>
-          <input
-            type="text"
-            placeholder="Descripción *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            required
-            {...register("description", { required: true })}
-          />
-          <input
-            type="number"
-            step="any"
-            placeholder="Precio *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            min={0}
-            required
-            {...register("NonEdible.price", {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-          <input
-            type="number"
-            step="any"
-            placeholder="Stock *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            min={0}
-            required
-            {...register("stock", {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-          <input
-            type="url"
-            placeholder="Imagen URL *"
-            className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
-            required
-            {...register("imageURL", { required: true })}
-          />
-          <Listbox
-            list={
-              categories?.map((c) => {
-                return { text: c.categoryInSpanish, value: c.category };
-              }) ?? []
-            }
-            label="Categoría:"
-            setValue={setCategory}
-            defaultValue={product?.NonEdible?.category}
-          />
+          </label>
+          <label className="relative flex w-full flex-col">
+            <span className="mb-2">Descripción *</span>
+            <input
+              type="text"
+              placeholder="Descripción"
+              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              {...register("description")}
+            />
+            <p className="text-sm text-pink-600">
+              {errors.description?.message}
+            </p>
+          </label>
+          <label className="relative flex w-full flex-col">
+            <span className="mb-2">Precio *</span>
+            <input
+              type="number"
+              step="any"
+              placeholder="Precio"
+              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              min={0}
+              {...register("NonEdible.price", {
+                valueAsNumber: true,
+              })}
+            />
+            <p className="text-sm text-pink-600">
+              {errors.NonEdible?.price?.message}
+            </p>
+          </label>
+          <label className="relative flex w-full flex-col">
+            <span className="mb-2">Stock *</span>
+            <input
+              type="number"
+              step="any"
+              placeholder="Stock(gr)"
+              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              min={0}
+              {...register("stock", {
+                valueAsNumber: true,
+              })}
+            />
+            <p className="text-sm text-pink-600">{errors.stock?.message}</p>
+          </label>
+          <label className="flex w-full flex-col">
+            <span className="mb-2">URL *</span>
+            <input
+              type="text"
+              placeholder="Imagen URL"
+              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              {...register("imageURL")}
+            />
+            <p className="text-sm text-pink-600">{errors.imageURL?.message}</p>
+          </label>
+          <label className="flex w-full flex-col">
+            <span className="mb-2">Categoría *</span>
+            <Listbox
+              list={
+                categories?.map((c) => {
+                  return { text: c.categoryInSpanish, value: c.category };
+                }) ?? []
+              }
+              setValue={setCategory}
+              defaultValue={productCategoryInSpanish}
+            />
+          </label>
         </div>
         <div className="flex flex-row">
           {product && (
             <button
-              className="md:px-26 m-2 mt-3 block rounded border-button_hover border
+              className="md:px-26 m-2 mt-3 block rounded border border-button_hover
             py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
               type="button"
               onClick={() => router.back()}
