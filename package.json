@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "yarn lint:eslint && yarn lint:ts",
+    "lint": "npm run lint:eslint && npm run lint:ts",
     "lint:next": "next lint",
     "lint:eslint": "eslint .",
     "lint:ts": "npx tsc --noemit",
