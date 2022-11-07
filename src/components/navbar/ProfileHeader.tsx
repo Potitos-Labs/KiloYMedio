@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg";
 import { TbLogout } from "react-icons/tb";
 
 export default function ProfileHeader() {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role == "admin";
   return (
     <div className="dropdown relative flex h-10 w-8 items-center">
       <Menu as="div" className="realative inline-block text-left">
@@ -25,14 +27,17 @@ export default function ProfileHeader() {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-            <Menu.Item>
-              <Link href={`/profile`}>
-                <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
-                  <CgProfile className="mr-2 h-6 w-6" />
-                  Ver perfil
-                </a>
-              </Link>
-            </Menu.Item>
+            {!isAdmin && (
+              <Menu.Item>
+                <Link href={`/profile`}>
+                  <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
+                    <CgProfile className="mr-2 h-6 w-6" />
+                    Ver perfil
+                  </a>
+                </Link>
+              </Menu.Item>
+            )}
+
             <Link href={`/`}>
               <Menu.Item>
                 <button

@@ -6,13 +6,22 @@ function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className=" absolute right-0 z-10 hidden  py-5 group-hover:block">
-      <div className=" flex h-[200px]  w-[350px] flex-col overflow-y-scroll rounded-md bg-white py-2 text-kym4 shadow-sm shadow-kym4">
+    <div className=" absolute right-0 z-10 hidden group-hover:block">
+      <div className=" flex h-[200px]  w-[350px] flex-col overflow-y-scroll rounded-md bg-white  text-kym4 shadow-sm shadow-kym4">
         <div>
-          <p className="text-md mb-10 bg-background pl-3">
+          <p className="text-md mb-5 bg-background pl-3">
             {numberCartProducts} productos en la cesta
           </p>
         </div>
+        <div className="flex flex-col px-2 pb-2 font-medium ">
+          <p className="py-2">Total: {myCart?.totalPrice} €</p>
+          <Link href={"/cart"}>
+            <a className="m-2 rounded-md border border-button bg-transparent text-center text-kym4 hover:bg-button">
+              Ver cesta
+            </a>
+          </Link>
+        </div>
+        <hr className=" border-1 mt-5 w-full border-gray-400 py-2"></hr>
         {/* Bill -> Products */}
         <div className="grid pl-1">
           {myCart ? (
@@ -49,15 +58,6 @@ function DropDownCart() {
             <p className="text-right">Cargando...</p>
           )}
         </div>
-        <div className="grid grid-cols-[80%_20%] p-5 font-medium">
-          <p>Subtotal:</p>
-          {myCart?.totalPrice} €
-        </div>
-        <Link href={"/cart"}>
-          <a className="mb-2 w-full rounded-xl border border-button bg-transparent px-12 text-center text-kym4 hover:bg-button">
-            Acceder al carrito
-          </a>
-        </Link>
       </div>
     </div>
   );
