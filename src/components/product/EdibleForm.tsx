@@ -293,10 +293,12 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
                         ? true
                         : false
                     }
-                    className="mb-4 border-l-4 border-l-kym2 bg-background/[0.5] py-1 px-8"
+                    className="checkbox checkbox-xs"
                     onChange={(e) => allergensHandler(e.target.value)}
                   />
-                  {allergen.allergenInSpanish}
+                  <span className="label-text pl-2">
+                    {allergen.allergenInSpanish}
+                  </span>
                 </label>
               ))
             ) : (
