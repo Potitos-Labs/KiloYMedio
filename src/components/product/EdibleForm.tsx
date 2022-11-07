@@ -270,7 +270,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
                 })}
               />
               <p className="text-sm text-pink-600">
-                {errors.Edible?.nutritionFacts?.energy?.message}
+                {errors.Edible?.nutritionFacts?.protein?.message}
               </p>
             </label>
           </div>
