@@ -241,6 +241,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const almendra = await prisma.product.create({
@@ -268,6 +273,11 @@ async function main() {
           Ingredient: { create: { name: "almendra" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
 
@@ -297,6 +307,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const cacahuetes = await prisma.product.create({
@@ -325,6 +340,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const levaduraNutricional = await prisma.product.create({
@@ -350,6 +370,11 @@ async function main() {
           Ingredient: { create: { name: "levadura nutricional" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
 
@@ -377,6 +402,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const garbanzos = await prisma.product.create({
@@ -402,6 +432,11 @@ async function main() {
           Ingredient: { create: { name: "garbanzos" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
 
@@ -430,6 +465,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const harinaTrigo = await prisma.product.create({
@@ -457,6 +497,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const harinaMaiz = await prisma.product.create({
     data: {
@@ -483,6 +528,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const harinaAlmendra = await prisma.product.create({
     data: {
@@ -508,6 +558,11 @@ async function main() {
           Ingredient: { create: { name: "harina de almendra" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
   const espaguetis = await prisma.product.create({
@@ -536,6 +591,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const macarrones = await prisma.product.create({
     data: {
@@ -563,6 +623,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const pasas = await prisma.product.create({
     data: {
@@ -588,6 +653,11 @@ async function main() {
           Ingredient: { create: { name: "uva pasa" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
   const teVerde = await prisma.product.create({
@@ -615,6 +685,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const rooibos = await prisma.product.create({
     data: {
@@ -640,6 +715,11 @@ async function main() {
           Ingredient: { create: { name: "rooibos" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
 
@@ -668,6 +748,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
 
   const mermeladaMelon = await prisma.product.create({
@@ -695,6 +780,11 @@ async function main() {
         },
       },
     },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
   });
   const aceiteOliva = await prisma.product.create({
     data: {
@@ -720,6 +810,11 @@ async function main() {
           Ingredient: { create: { name: "aceite de oliva virgen extra" } },
         },
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
   //#endregion Edible
@@ -842,7 +937,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: harinaTrigo.id,
+            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },
@@ -874,7 +969,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: harinaTrigo.id,
+            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },
@@ -906,7 +1001,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: harinaTrigo.id,
+            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },
@@ -938,7 +1033,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: harinaTrigo.id,
+            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },
@@ -970,7 +1065,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: harinaTrigo.id,
+            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },
@@ -1003,7 +1098,7 @@ async function main() {
         createMany: {
           data: {
             amount: 2,
-            ingredientId: pistachos.id,
+            ingredientId: pistachos.Edible?.Ingredient?.id ?? "",
             unit: "grams",
           },
         },

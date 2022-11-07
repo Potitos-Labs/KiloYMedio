@@ -43,7 +43,9 @@ export const recipeRouter = router({
           RecipeComment: true,
           RecipeIngredient: {
             select: {
-              ingredient: true,
+              Ingredient: true,
+              amount: true,
+              unit: true,
             },
           },
           timeSpan: true,
@@ -88,7 +90,7 @@ export const recipeRouter = router({
             userId: ctx.session.user.id,
             RecipeIngredient: {
               create: {
-                ingredient: { create: { name: ingredients[0]?.name ?? "" } },
+                Ingredient: { create: { name: ingredients[0]?.name ?? "" } },
                 amount: ingredients[0]?.amount ?? 1,
                 unit: "kilograms",
               },
