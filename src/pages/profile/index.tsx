@@ -147,12 +147,13 @@ const Profile = (
                       {...register("name")}
                       className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    >
-                      {errors.name && (
-                        <p className="text-red-500">{errors.name?.message}</p>
-                      )}
-                    </input>
+                    />
                   </div>
+                  {errors.name && (
+                    <p className="w-full text-red-500">
+                      {errors.name?.message}
+                    </p>
+                  )}
                   {/*Correo y Nombre*/}
                   <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%]  md:grid-cols-[15%_75%] lg:grid-cols-[17%_43%_12%_28%]">
                     <p className="py-2">Correo</p>
@@ -161,25 +162,24 @@ const Profile = (
                       {...register("email")}
                       className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    >
-                      {errors.email && (
-                        <p className="text-red-500">{errors.email?.message}</p>
-                      )}
-                    </input>
+                    />
+
                     <p className="py-2 lg:text-center">Teléfono</p>
                     <input
                       type="text"
                       {...register("phoneNumber")}
                       className="peer mb-2 w-full rounded-md border-2 border-gray-300 py-2 pl-5 placeholder-gray-300"
                       disabled={!edit}
-                    >
-                      {errors.phoneNumber && (
-                        <p className="text-red-500">
-                          {errors.phoneNumber?.message}
-                        </p>
-                      )}
-                    </input>
-                  </div>{" "}
+                    />
+                  </div>
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email?.message}</p>
+                  )}
+                  {errors.phoneNumber && (
+                    <p className="text-red-500">
+                      {errors.phoneNumber?.message}
+                    </p>
+                  )}
                 </FormWrapper>
               </div>
             </div>
@@ -193,12 +193,11 @@ const Profile = (
                     {...register("address")}
                     className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
-                  >
-                    {errors.address && (
-                      <p className="text-red-500">{errors.address?.message}</p>
-                    )}
-                  </input>
+                  />
                 </div>
+                {errors.address && (
+                  <p className="text-red-500">{errors.address?.message}</p>
+                )}
                 {/*Correo y Nombre*/}
                 <div className=":grid-cols-1 grid w-full sm:grid-cols-[20%_80%] md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
                   <p className="py-2">Localidad</p>
@@ -207,23 +206,22 @@ const Profile = (
                     {...register("location")}
                     className="peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                     disabled={!edit}
-                  >
-                    {errors.location && (
-                      <p className="text-red-500">{errors.location?.message}</p>
-                    )}
-                  </input>
+                  />
+
                   <p className="py-2 md:text-center">CP</p>
                   <input
                     type="text"
                     {...register("CP", { valueAsNumber: true })}
                     disabled={!edit}
                     className="placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
-                  >
-                    {errors.CP && (
-                      <p className="text-red-500">{errors.CP?.message}</p>
-                    )}
-                  </input>
+                  />
                 </div>
+                {errors.location && (
+                  <p className="text-red-500">{errors.location?.message}</p>
+                )}
+                {errors.CP && (
+                  <p className="text-red-500">{errors.CP?.message}</p>
+                )}
               </FormWrapper>
             </div>
 
@@ -237,13 +235,12 @@ const Profile = (
                       {...register("nif")}
                       className="peer w-[200px] rounded-md border-2 border-gray-300 py-2 pl-5 pr-2 placeholder-gray-300"
                       disabled={!edit}
-                    >
-                      {errors.nif && (
-                        <p className="text-red-500">{errors.nif?.message}</p>
-                      )}
-                    </input>
+                    />
                     <p className="text-bold ">Mis puntos: 100</p>
                   </div>
+                  {errors.nif && (
+                    <p className="text-red-500">{errors.nif?.message}</p>
+                  )}
                   <div>
                     <p className="cursor-pointer text-kym2 hover:text-kym4">
                       <u>Mis facturas</u>

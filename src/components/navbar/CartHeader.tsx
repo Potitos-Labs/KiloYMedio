@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import DropDownCart from "../cart/DropDownCart";
 
 import { trpc } from "../../utils/trpc";
 
@@ -8,7 +9,7 @@ export default function CartHeader() {
   const numberCartProducts = allCartProduct?.productList.length ?? 0;
 
   return (
-    <div className="relative mr-5 flex cursor-pointer items-center">
+    <div className="group relative mr-5 flex cursor-pointer items-center">
       <Link href={"/cart"}>
         <svg
           aria-hidden="true"
@@ -29,6 +30,7 @@ export default function CartHeader() {
       <span className="absolute -mt-7 ml-7 h-5 w-5 rounded-full bg-gray-700 pt-0.5 pl-1.5 text-xs font-bold text-white">
         {numberCartProducts}
       </span>
+      <DropDownCart />
     </div>
   );
 }
