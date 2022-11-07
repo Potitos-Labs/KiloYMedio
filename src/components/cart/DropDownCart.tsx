@@ -4,8 +4,8 @@ import Image from "next/image";
 function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   return (
-    <div className="absolute z-10  hidden group-hover:block ">
-      <div className="flex flex-col">
+    <div className=" absolute right-0 z-10  hidden group-hover:block">
+      <div className="flex  h-[200px] w-[300px] flex-col overflow-y-scroll rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
         <div>
           <h1 className="mb-10 bg-background py-2 pl-3 text-xl">Factura</h1>
         </div>
@@ -44,6 +44,7 @@ function DropDownCart() {
             <p className="text-right">Cargando...</p>
           )}
         </div>
+        <button> Comprar</button>
       </div>
     </div>
   );
