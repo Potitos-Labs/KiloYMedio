@@ -41,7 +41,11 @@ export const recipeRouter = router({
           name: true,
           portions: true,
           RecipeComment: true,
-          RecipeIngredient: true,
+          RecipeIngredient: {
+            select: {
+              ingredient: true,
+            },
+          },
           timeSpan: true,
           User: true,
           userId: true,
