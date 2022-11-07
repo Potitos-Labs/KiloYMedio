@@ -81,8 +81,6 @@ const Profile = (
     formState: { errors },
   } = useForm<IClient>({
     resolver: zodResolver(clientSchema),
-    shouldUseNativeValidation: true, // need for :invalid tag tailwind
-    criteriaMode: "all",
     defaultValues: {
       name: client?.name,
       email: client?.email,
@@ -101,7 +99,10 @@ const Profile = (
 
   const onSubmit = useCallback(
     async (data: IClient) => {
-      await mutateAsync(data);
+      const result = await mutateAsync(data);
+      if (result.status === 201) {
+        setEdit(!edit);
+      }
     },
     [mutateAsync, router],
   );

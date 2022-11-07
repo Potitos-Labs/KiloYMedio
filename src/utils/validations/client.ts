@@ -18,32 +18,26 @@ export const clientSchema = z.object({
   image: z.string().nullish(),
   location: z
     .string()
-    .min(3, { message: "Introduce al menos 3 caracteres" })
     .refine(
       (value) => isAlpha(value, "es-ES"),
       "Este campo no puede contener números",
     )
     .nullable(),
   CP: z
-    .number({ invalid_type_error: "Introduce un número" })
+    .number({ invalid_type_error: "CP solo acepta números" })
     .refine((value) => isPostalCode(value.toString(), "ES"), {
       message: "El CP introducido no es correcto",
     })
     .nullable(),
-  address: z
-    .string()
-    .min(3, { message: "La dirección debe contener al menos 3 caracteres" })
-    .nullable(),
+  address: z.string().nullable(),
   phoneNumber: z
     .string()
-    .min(1, "Este campo no puede estar vacío")
     .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {
       message: "El formato introducido no es correcto",
     })
     .nullable(),
   nif: z
     .string()
-    .min(1, "Este campo no puede estar vacío")
     .refine((value) => isIdentityCard(value, "ES"), {
       message: "El formato introducido no es correcto",
     })
