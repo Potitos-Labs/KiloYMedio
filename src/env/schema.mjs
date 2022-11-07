@@ -12,9 +12,9 @@ export const serverSchema = z.object({
   NEXTAUTH_URL: z.string().url(),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  AWS_ACCESS_KEY: z.string(),
-  AWS_SECRET_KEY: z.string(),
-  AWS_BUCKET_NAME: z.string(),
+  ACCESS_KEY: z.string(),
+  SECRET_KEY: z.string(),
+  BUCKET_NAME: z.string(),
 });
 
 /**

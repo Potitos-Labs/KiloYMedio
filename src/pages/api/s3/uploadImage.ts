@@ -11,7 +11,7 @@ const uploadImage = async (req: NextApiRequest, res: NextApiResponse) => {
     const { name, type } = req.body;
 
     const fileParams = {
-      Bucket: env.AWS_BUCKET_NAME,
+      Bucket: env.BUCKET_NAME,
       Key: name,
       Expires: 600,
       ContentType: type,
