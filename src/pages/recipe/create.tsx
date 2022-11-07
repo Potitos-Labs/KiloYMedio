@@ -196,7 +196,7 @@ const RecipeForm: NextPage = () => {
             {/* Description */}
             <div>
               <div className="text-lg">Descripción </div>
-              <textarea
+              <input
                 className="textarea textarea-bordered w-80 border-black"
                 {...register("description", {})}
               />
@@ -212,10 +212,7 @@ const RecipeForm: NextPage = () => {
                   {fieldsIngredients.map((field, index) => {
                     return (
                       <div key={field.id}>
-                        <section
-                          className="section flex flex-row gap-3"
-                          key={field.id}
-                        >
+                        <section className="section flex flex-row gap-3">
                           <div className="flex flex-col justify-center">
                             <input
                               placeholder="Ingrediente"
@@ -286,17 +283,14 @@ const RecipeForm: NextPage = () => {
             <div>
               <div className="text-lg">Pasos </div>
 
-              <div className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2">
                 {fieldsDirections.map((field, index) => {
                   return (
-                    <div key={field.id}>
-                      <section
-                        className="section flex flex-row gap-3"
-                        key={field.id}
-                      >
+                    <li key={field.id}>
+                      <section className="section flex flex-row gap-3">
                         <div>{index + 1 + "."}</div>
                         <div className="flex flex-col justify-center">
-                          <textarea
+                          <input
                             placeholder="Paso"
                             className="input input-bordered w-80 border-black"
                             {...register(`directions.${index}.direction`)}
@@ -309,16 +303,16 @@ const RecipeForm: NextPage = () => {
                           <FaTimes className="text-xl text-red-600"></FaTimes>
                         </button>
                       </section>
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
               <button
                 type="button"
                 onClick={() =>
                   appendDirections({
-                    direction: "",
-                    index: 0,
+                    direction: null,
+                    index: null,
                   })
                 }
                 className="inline-flex items-center gap-2 pt-2"

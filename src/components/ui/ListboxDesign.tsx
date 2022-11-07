@@ -22,7 +22,6 @@ function ListboxDesign({
         value={options.find((o) => o.name == value)}
         onChange={(o) => onChange(o.name)}
       >
-        {/* <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"> */}
         <Listbox.Button className="btn btn-outline btn-sm w-full justify-start capitalize">
           {value}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

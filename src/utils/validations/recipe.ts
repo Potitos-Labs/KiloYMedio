@@ -10,8 +10,8 @@ export const createRecipeSchema = z.object({
   difficulty: z.nativeEnum(RecipeDifficulty),
   directions: z.array(
     z.object({
-      index: z.number(),
-      direction: z.string().min(2).max(120),
+      index: z.number().nullable(),
+      direction: z.string().min(2).max(120).nullable(),
     }),
   ),
   imageURL: z.string().url(),
