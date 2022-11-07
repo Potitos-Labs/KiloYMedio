@@ -123,9 +123,9 @@ const Profile = (
         >
           Editar perfil
         </u>
-        <div className="lg:px-40 px-14 md:px-32">
+        <div className="px-14 md:px-32 lg:px-40">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-10 flex w-full flex-col md:fx-row lg:flex-row">
+            <div className="md:fx-row mt-10 flex w-full flex-col lg:flex-row">
               <div className="mr-8 flex flex-col items-center pt-20">
                 <Image
                   src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
@@ -140,7 +140,7 @@ const Profile = (
               <div className="my-10 w-full">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className=" grid items-center gird-cols-1 lg:grid-cols-[17%_83%]">
+                  <div className=" gird-cols-1 grid items-center lg:grid-cols-[17%_83%]">
                     <p className="py-2">Nombre completo</p>
                     <input
                       type="text"
@@ -149,12 +149,12 @@ const Profile = (
                       disabled={!edit}
                     >
                       {errors.name && (
-                        <p className="text-red-500">{errors.name.message}</p>
+                        <p className="text-red-500">{errors.name?.message}</p>
                       )}
                     </input>
                   </div>
                   {/*Correo y Nombre*/}
-                  <div className="grid grid-cols-1 sm:grid-cols-[20%_80%] md:grid-cols-[15%_75%]  lg:grid-cols-[17%_43%_12%_28%] my-5">
+                  <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%]  md:grid-cols-[15%_75%] lg:grid-cols-[17%_43%_12%_28%]">
                     <p className="py-2">Correo</p>
                     <input
                       type="text"
@@ -163,7 +163,7 @@ const Profile = (
                       disabled={!edit}
                     >
                       {errors.email && (
-                        <p className="text-red-500">{errors.email.message}</p>
+                        <p className="text-red-500">{errors.email?.message}</p>
                       )}
                     </input>
                     <p className="py-2 lg:text-center">Teléfono</p>
@@ -175,7 +175,7 @@ const Profile = (
                     >
                       {errors.phoneNumber && (
                         <p className="text-red-500">
-                          {errors.phoneNumber.message}
+                          {errors.phoneNumber?.message}
                         </p>
                       )}
                     </input>
@@ -186,7 +186,7 @@ const Profile = (
 
             <div className="my-5 w-full">
               <FormWrapper title="Dirección de envío">
-                <div className=" grid grid-cols-1 md:grid-cols-[15%_85%] lg:grid-cols-[10%_90%] relative w-full py-8">
+                <div className=" relative grid w-full grid-cols-1 py-8 md:grid-cols-[15%_85%] lg:grid-cols-[10%_90%]">
                   <p className="py-2">Dirección</p>
                   <input
                     type="text"
@@ -195,12 +195,12 @@ const Profile = (
                     disabled={!edit}
                   >
                     {errors.address && (
-                      <p className="text-red-500">{errors.address.message}</p>
+                      <p className="text-red-500">{errors.address?.message}</p>
                     )}
                   </input>
                 </div>
                 {/*Correo y Nombre*/}
-                <div className=":grid-cols-1 sm:grid-cols-[20%_80%] grid w-full md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
+                <div className=":grid-cols-1 grid w-full sm:grid-cols-[20%_80%] md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
                   <p className="py-2">Localidad</p>
                   <input
                     type="text"
@@ -209,7 +209,7 @@ const Profile = (
                     disabled={!edit}
                   >
                     {errors.location && (
-                      <p className="text-red-500">{errors.location.message}</p>
+                      <p className="text-red-500">{errors.location?.message}</p>
                     )}
                   </input>
                   <p className="py-2 md:text-center">CP</p>
@@ -220,7 +220,7 @@ const Profile = (
                     className="placeholder-gray-300r peer w-full rounded-md border-2 border-gray-300 py-2 pl-5 pr-2"
                   >
                     {errors.CP && (
-                      <p className="text-red-500">{errors.CP.message}</p>
+                      <p className="text-red-500">{errors.CP?.message}</p>
                     )}
                   </input>
                 </div>
@@ -230,7 +230,7 @@ const Profile = (
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">
-                  <div className="relative items-center mb-10 w-full grid grid-cols-2 lg:grid-cols-[10%_45%_45%] sm:grid-cols-3 md:grid-cols-3 ">
+                  <div className="relative mb-10 grid w-full grid-cols-2 items-center sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-[10%_45%_45%] ">
                     <p>DNI</p>
                     <input
                       type="text"
@@ -239,7 +239,7 @@ const Profile = (
                       disabled={!edit}
                     >
                       {errors.nif && (
-                        <p className="text-red-500">{errors.nif.message}</p>
+                        <p className="text-red-500">{errors.nif?.message}</p>
                       )}
                     </input>
                     <p className="text-bold ">Mis puntos: 100</p>
@@ -274,7 +274,7 @@ const Profile = (
                   ))}
                 </div>
                 <p
-                  className="cursor-pointer mt-8 mr-3 text-right text-kym2 hover:text-kym4"
+                  className="mt-8 mr-3 cursor-pointer text-right text-kym2 hover:text-kym4"
                   onClick={openPopup}
                 >
                   <u>Modificar alérgenos</u>
