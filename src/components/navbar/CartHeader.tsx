@@ -30,7 +30,7 @@ export default function CartHeader() {
       <span className="absolute -mt-7 ml-7 h-5 w-5 rounded-full bg-gray-700 pt-0.5 pl-1.5 text-xs font-bold text-white">
         {numberCartProducts}
       </span>
-      <div className="">
+      <div className="invisible sm:visible">
         <DropDownCart />
       </div>
     </div>
