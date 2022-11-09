@@ -1,12 +1,11 @@
 import React from "react";
-import { trpc } from "../../utils/trpc";
-import { useSession } from "next-auth/react";
-
-import { toast } from "react-toastify";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import Stars from "../Stars";
+import { toast } from "react-toastify";
+
+import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
-import router from "next/router";
+//import { trpc } from "../../utils/trpc";
+import Stars from "../Stars";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });

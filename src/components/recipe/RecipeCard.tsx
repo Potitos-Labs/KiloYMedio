@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
+
 import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
-
 import Stars from "../Stars";
 
 export function RecipeCard({

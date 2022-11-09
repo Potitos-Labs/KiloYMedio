@@ -1,6 +1,6 @@
 import { Allergen, ECategory, NECategory } from "@prisma/client";
-import * as z from "zod";
 import isURL from "validator/lib/isURL";
+import * as z from "zod";
 
 export const productCreateSchema = z.object({
   name: z.string().min(1, "El campo no puede estar vacío"),

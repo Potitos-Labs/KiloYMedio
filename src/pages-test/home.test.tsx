@@ -1,9 +1,9 @@
-import { Mock, test, vi } from "vitest";
-import { render } from "@testing-library/react";
-import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
+import Home from "@pages/index";
 import "@testing-library/jest-dom";
-import MyApp from "@pages/_app";
+import { render } from "@testing-library/react";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
+import { Mock, test, vi } from "vitest";
 
 vi.mock("next-auth/react");
 
@@ -15,5 +15,5 @@ test.todo("Home page", () => {
 
   (useSession as Mock).mockReturnValueOnce([mockSession, false]);
 
-  render(<MyApp />);
+  render(<Home />);
 });

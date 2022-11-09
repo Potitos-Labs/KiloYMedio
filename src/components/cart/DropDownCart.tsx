@@ -1,6 +1,7 @@
-import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+
+import { trpc } from "../../utils/trpc";
 
 function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();

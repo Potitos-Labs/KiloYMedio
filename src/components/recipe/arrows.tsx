@@ -1,6 +1,6 @@
 import React from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Arrow({
   children,

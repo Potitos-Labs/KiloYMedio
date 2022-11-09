@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import DropDownCart from "../cart/DropDownCart";
 
 import { trpc } from "../../utils/trpc";
+import DropDownCart from "../cart/DropDownCart";
 
 export default function CartHeader() {
   const { data: allCartProduct } = trpc.cart.getAllCartProduct.useQuery();
