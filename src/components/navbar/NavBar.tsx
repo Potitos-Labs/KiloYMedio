@@ -13,9 +13,6 @@ export default function NavBar() {
     return (
       <>
         <NavBarClient />
-        <div className="ml-auto">
-          <p>Validating session ...</p>
-        </div>
       </>
     );
   }

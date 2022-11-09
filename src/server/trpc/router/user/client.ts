@@ -16,8 +16,8 @@ export const clientRouter = router({
 
       return { status: 201 };
     }),
-  getFavouriteRecipes: clientProcedure.mutation(async ({ ctx }) => {
-    await ctx.prisma.recipeUser.findMany({
+  getFavouriteRecipes: clientProcedure.query(async ({ ctx }) => {
+    const recipes = await ctx.prisma.recipeUser.findMany({
       where: {
         userId: ctx.session.user.id,
       },
@@ -25,8 +25,7 @@ export const clientRouter = router({
         Recipe: { select: { name: true, imageURL: true } },
       },
     });
-
-    return { status: 201 };
+    return recipes;
   }),
   updateAllergen: clientProcedure
     .input(
