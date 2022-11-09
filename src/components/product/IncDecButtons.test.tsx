@@ -1,0 +1,17 @@
+import IncDecButtons from "./IncDecButtons";
+import { render } from "@testing-library/react";
+import { vi } from "vitest";
+
+describe("SelectMenu test", () => {
+  it("should render and select", () => {
+    render(
+      <IncDecButtons
+        amount={10}
+        isEdible={false}
+        setAmount={vi.fn()}
+        stock={100}
+        stockLeft={true}
+      ></IncDecButtons>,
+    );
+  });
+});

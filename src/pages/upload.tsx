@@ -17,11 +17,15 @@ const uploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.currentTarget.files?.item(0);
   if (!file) return;
 
+  const formData = new FormData();
+  formData.append("file", file);
+
   const {
     data: { url },
   } = await axios.post("/api/s3/uploadImage", {
     name: file.name,
     type: file.type,
+    file: formData,
   });
 
   const { data: newData } = await axios.put(url, file, {
