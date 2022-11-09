@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -11,6 +13,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
   const ingredients = recipe?.RecipeIngredient;
   const directions = recipe?.directions;
+  const router = useRouter();
 
   const notify = () => toast.success("Receta guardada");
   const notifyDeleted = () => toast.success("Receta eliminada");
