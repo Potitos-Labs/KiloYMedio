@@ -4,7 +4,7 @@ import { z } from "zod";
 import { clientProcedure, router } from "../../trpc";
 
 export const clientRouter = router({
-  addFavouriteRecipe: clientProcedure
+  addFavoriteRecipe: clientProcedure
     .input(z.object({ recipeId: z.string() }))
     .mutation(async ({ ctx, input: { recipeId } }) => {
       await ctx.prisma.recipeUser.create({
@@ -16,7 +16,7 @@ export const clientRouter = router({
 
       return { status: 201 };
     }),
-  getFavouriteRecipes: clientProcedure.query(async ({ ctx }) => {
+  getFavoriteRecipes: clientProcedure.query(async ({ ctx }) => {
     const recipes = await ctx.prisma.recipeUser.findMany({
       where: {
         userId: ctx.session.user.id,

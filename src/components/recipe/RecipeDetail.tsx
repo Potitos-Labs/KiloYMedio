@@ -21,9 +21,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const utils = trpc.useContext();
   // const utils = trpc.useContext();
 
-  const mutation = trpc.user.client.addFavouriteRecipe.useMutation({
+  const mutation = trpc.user.client.addFavoriteRecipe.useMutation({
     onSuccess() {
-      utils.user.client.getFavouriteRecipes.invalidate();
+      utils.user.client.getFavoriteRecipes.invalidate();
     },
   });
 
