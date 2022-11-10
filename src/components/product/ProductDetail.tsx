@@ -1,5 +1,6 @@
 import { Allergen } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import React from "react";
@@ -53,8 +54,8 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
   return (
     <div className="">
-      <div>
-        <div className="bg-kym3 p-4 font-bold text-white">
+      <div className="flex flex-col items-center">
+        <div className="w-full bg-kym3 p-4 font-bold text-white">
           {isEdible ? (
             <Link href={`/category`}>Comestible</Link>
           ) : (
@@ -63,9 +64,16 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
           {}
         </div>
 
-        <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
+        <div className="item-center mx-10 mt-16 grid min-w-fit grid-cols-1 content-center gap-4 sm:grid-cols-2">
           <div className="mt-3 mb-3 flex max-h-64 flex-col items-center">
-            <img className="min-h-full rounded-md" src={product.imageURL}></img>
+            <Image
+              height="500"
+              width={300}
+              layout="intrinsic"
+              objectFit="cover"
+              alt={product.name}
+              src={product.imageURL}
+            />
           </div>
 
           <div className="mt-5  columns-1">
@@ -134,17 +142,21 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </div>
       </div>
 
-      <DescriptionComponent description={product.description} />
-      {allergensList.length > 0 ? (
-        <AllergenDescription allergens={allergensList} />
-      ) : null}
+      <div className="flex flex-col items-center justify-center">
+        <div>
+          <DescriptionComponent description={product.description} />
+          {allergensList.length > 0 && (
+            <AllergenDescription allergens={allergensList} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
 const DescriptionComponent = ({ description }: { description: string }) => {
   return (
-    <div className="mt-6 p-6">
+    <div className="mt-6 max-w-6xl p-6">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
           Descripción del producto
