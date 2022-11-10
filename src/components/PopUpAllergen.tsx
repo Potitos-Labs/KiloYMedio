@@ -56,51 +56,55 @@ export function PopUpAllergen({
         closeOnDocumentClick
         onClose={closeAndSavePopUp}
       >
-        <div className="overflow-y-scroll rounded-md shadow-lg shadow-kym4 backdrop-blur-sm  fixed inset-1/3">
-          <div className="bg-white w-full">
+        <div className="fixed inset-1/3 flex flex-col">
+          <div className="w-full">
             <h1 className="w-full bg-button py-2 text-center text-lg font-bold text-white">
               Alérgenos
             </h1>
-            <div className="p-10 grid-cols items-left grid">
-              {AllallergenList.map((allergen) => (
-                <div
-                  className=" grid-cols-[10%_50%_20%_20%] grid py-2"
-                  key={allergen}
-                >
-                  <AllergensComponent
-                    allergens={[allergen]}
-                    size={25}
-                  ></AllergensComponent>
-                  <label key={allergen}>
-                    {allergenTranslator?.get(allergen)}
-                    <input
-                      className="form-check-input h-4 w-4 border focus:ring-2 border-gray-500 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-right mr-2 cursor-pointer"
-                      type="checkbox"
-                      value={allergen}
-                      id="flexCheckChecked"
-                      defaultChecked={clientAllergenList.includes(allergen)}
-                      onChange={(e) => allergensHandler(e.target.value)}
-                    ></input>
-                  </label>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="text-left">
-                <button
-                  className="m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
-                  onClick={closePopUp}
-                >
-                  Cancelar
-                </button>
+          </div>
+          <div className="inset-1/3 overflow-y-scroll rounded-md shadow-lg  shadow-kym4 backdrop-blur-sm">
+            <div className="w-full bg-white ">
+              <div className=" grid-cols items-left grid p-10">
+                {AllallergenList.map((allergen) => (
+                  <div
+                    className=" grid grid-cols-[10%_50%_20%_20%] py-2"
+                    key={allergen}
+                  >
+                    <AllergensComponent
+                      allergens={[allergen]}
+                      size={25}
+                    ></AllergensComponent>
+                    <label key={allergen}>
+                      {allergenTranslator?.get(allergen)}
+                      <input
+                        className="form-check-input float-right mt-1 mr-2 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
+                        type="checkbox"
+                        value={allergen}
+                        id="flexCheckChecked"
+                        defaultChecked={clientAllergenList.includes(allergen)}
+                        onChange={(e) => allergensHandler(e.target.value)}
+                      ></input>
+                    </label>
+                  </div>
+                ))}
               </div>
-              <div className="text-right">
-                <button
-                  className=" m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
-                  onClick={closeAndSavePopUp}
-                >
-                  Aceptar
-                </button>
+              <div className="grid grid-cols-2">
+                <div className="text-left">
+                  <button
+                    className="m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                    onClick={closePopUp}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+                <div className="text-right">
+                  <button
+                    className=" m-3 mt-5 rounded-md border border-button bg-transparent px-3 hover:border-transparent hover:bg-button_hover hover:text-white"
+                    onClick={closeAndSavePopUp}
+                  >
+                    Aceptar
+                  </button>
+                </div>
               </div>
             </div>
           </div>

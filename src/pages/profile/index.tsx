@@ -1,7 +1,7 @@
-import AllergensComponent from "@components/Allergen";
-import Layout from "@components/Layout";
-import { PopUpAllergen } from "@components/PopUpAllergen";
-import { FormWrapper } from "@components/payment/FormWrapper";
+import AllergensComponent from "../../components/Allergen";
+import Layout from "../../components/Layout";
+import { PopUpAllergen } from "../../components/PopUpAllergen";
+import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
