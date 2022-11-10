@@ -69,6 +69,7 @@ export default withBundleAnalyzer(
         "uxwing.com",
         "pbs.twimg.com",
         "www.kindpng.com",
+        "grjkjrkjpycphptekssf.supabase.co",
       ],
     },
   }),
