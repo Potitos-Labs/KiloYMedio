@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
+import Heart from "../Heart";
+
 import Stars from "../Stars";
 
 export function RecipeCard({
@@ -64,9 +66,16 @@ export function RecipeCard({
           </a>
         </Link>
       </div>
-      {data?.user?.id == authorID ||
-        (data?.user?.role == "admin" && (
-          <div className="absolute top-0 right-0">
+      <div className="absolute top-0 right-0 inline-flex">
+        <Heart
+          id={id}
+          name={name}
+          favorite={false}
+          addFavorite={() => console.log("por hacer")}
+          removeFavorite={() => console.log("por hacer")}
+        ></Heart>
+        {data?.user?.id == authorID ||
+          (data?.user?.role == "admin" && (
             <DotMenu
               id={id}
               name={name}
@@ -74,8 +83,8 @@ export function RecipeCard({
               updateFunction={updateRecipe}
               deleteFunction={deleteRecipe}
             />
-          </div>
-        ))}
+          ))}
+      </div>
       <p className="mx-1 mb-2 whitespace-normal font-semibold text-kym4 first-letter:uppercase">
         {name}
       </p>
