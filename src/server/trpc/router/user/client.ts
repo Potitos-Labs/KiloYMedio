@@ -8,11 +8,22 @@ export const clientRouter = router({
   addFavoriteRecipe: clientProcedure
     .input(z.object({ recipeId: z.string() }))
     .mutation(async ({ ctx, input: { recipeId } }) => {
-      await ctx.prisma.recipeUser.create({
-        data: {
-          recipeId,
-          userId: ctx.session.user.id,
+      const userId = ctx.session.user.id;
+      await ctx.prisma.recipeUser.upsert({
+        where: {
+          recipeId_userId: { recipeId, userId },
         },
+        create: { recipeId, userId },
+        update: {},
+      });
+
+      return { status: 201 };
+    }),
+  deleteFavouriteRecipe: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .mutation(async ({ ctx, input: { recipeId } }) => {
+      await ctx.prisma.recipeUser.delete({
+        where: { recipeId_userId: { recipeId, userId: ctx.session.user.id } },
       });
 
       return { status: 201 };
