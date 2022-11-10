@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from "react";
 import Popup from "reactjs-popup";
 import { z } from "zod";
 
-import { trpc } from "../utils/trpc";
-import AllergensComponent from "./Allergen";
+import { trpc } from "../../utils/trpc";
+import AllergensComponent from "../Allergen";
 
 export function PopUpAllergen({
   open,

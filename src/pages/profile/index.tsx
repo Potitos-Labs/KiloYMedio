@@ -1,6 +1,6 @@
 import AllergensComponent from "../../components/Allergen";
 import Layout from "../../components/Layout";
-import { PopUpAllergen } from "../../components/PopUpAllergen";
+import { PopUpAllergen } from "../../components/profile/PopUpAllergen";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import superjson from "superjson";
+import FavouriteRecipes from "../../components/profile/FavouriteRecipes";
 
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
@@ -69,6 +70,7 @@ const Profile = (
   const allergenList = data?.map((e) => e.allergen) ?? [];
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
+  const { data: userRecipes } = trpc.user.client.getFavoriteRecipes.useQuery();
 
   if (!client) {
     router.push("/login");
@@ -224,7 +226,26 @@ const Profile = (
                 )}
               </FormWrapper>
             </div>
-
+            <div className="my-10 w-full">
+              <FormWrapper title="Mis Recetas Favoritas">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+                  {userRecipes ? (
+                    userRecipes.map((e) => {
+                      return (
+                        <FavouriteRecipes
+                          key={e.Recipe.id}
+                          id={e.Recipe.id}
+                          name={e.Recipe.name}
+                          image={e.Recipe.imageURL}
+                        />
+                      );
+                    })
+                  ) : (
+                    <p> no tienes ninguna receta guardada </p>
+                  )}
+                </div>
+              </FormWrapper>
+            </div>
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">

@@ -1,4 +1,5 @@
 import { Allergen } from "@prisma/client";
+//import { i } from "vitest/dist/index-2f5b6168";
 import { z } from "zod";
 
 import { clientProcedure, router } from "../../trpc";
@@ -22,7 +23,7 @@ export const clientRouter = router({
         userId: ctx.session.user.id,
       },
       select: {
-        Recipe: { select: { name: true, imageURL: true } },
+        Recipe: { select: { name: true, imageURL: true, id: true } },
       },
     });
     return recipes;
