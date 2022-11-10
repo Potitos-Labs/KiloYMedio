@@ -1,10 +1,10 @@
+import Layout from "@components/Layout";
+import Product from "@components/cart/Product";
+import Bill from "@components/payment/Bill";
+import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
 
-import Layout from "../components/Layout";
-import Product from "../components/cart/Product";
-import Bill from "../components/payment/Bill";
 import { FormWrapper } from "../components/payment/FormWrapper";
-import { trpc } from "../utils/trpc";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.cart.getAllCartProduct.useQuery();

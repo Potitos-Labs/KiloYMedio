@@ -1,6 +1,9 @@
+import AllergensComponent from "@components/Allergen";
+import Layout from "@components/Layout";
+import { PopUpAllergen } from "@components/PopUpAllergen";
+import { FormWrapper } from "@components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-//import { map } from "@trpc/server/observable";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { unstable_getServerSession } from "next-auth/next";
 import Image from "next/image";
@@ -9,10 +12,6 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import superjson from "superjson";
 
-import AllergensComponent from "../../components/Allergen";
-import Layout from "../../components/Layout";
-import { PopUpAllergen } from "../../components/PopUpAllergen";
-import { FormWrapper } from "../../components/payment/FormWrapper";
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
 import { AppRouterTypes, trpc } from "../../utils/trpc";
