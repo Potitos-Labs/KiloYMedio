@@ -10,7 +10,7 @@ const config: Config = {
   coveragePathIgnorePatterns: ["playwright/**/*.ts"],
   testRegex: "src.*\\.(test|spec).(ts|tsx|js)$",
   transform: {
-    "^.+\\.(ts|tsx|mjs)$": ["ts-jest", {}],
+    "^.+\\.(ts|mjs)$": ["ts-jest", {}],
   },
 };
 
