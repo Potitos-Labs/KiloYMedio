@@ -178,7 +178,7 @@ export const productRouter = router({
         const productEdible = await ctx.prisma.product.create({
           data: {
             name,
-            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+            plainName: name.normalize("NFD").replace(/[\u0300-\u0301]/g, ""),
             description,
             stock,
             imageURL,
@@ -219,7 +219,7 @@ export const productRouter = router({
         const productNonEdible = await ctx.prisma.product.create({
           data: {
             name,
-            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+            plainName: name.normalize("NFD").replace(/[\u0300-\u0301]/g, ""),
             description,
             stock,
             imageURL,
@@ -253,7 +253,7 @@ export const productRouter = router({
           where: { id },
           data: {
             name,
-            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+            plainName: name.normalize("NFD").replace(/[\u0300-\u0301]/g, ""),
             description,
             stock,
             imageURL,
@@ -303,7 +303,7 @@ export const productRouter = router({
           where: { id },
           data: {
             name,
-            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+            plainName: name.normalize("NFD").replace(/[\u0300-\u0301]/g, ""),
             description,
             stock,
             imageURL,
