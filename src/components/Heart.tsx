@@ -3,7 +3,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 interface HeartProps {
   id: string;
-  favorite: boolean;
+  favorite: boolean | undefined;
   addFavorite: (id: string) => void;
   removeFavorite: (id: string) => void;
 }
@@ -18,11 +18,11 @@ const Heart = ({ id, favorite, addFavorite, removeFavorite }: HeartProps) => {
 
   return (
     <div>
-      <div className="dropdown relative  flex h-8 w-6 items-center">
+      <div className="dropdown relative flex h-8 w-6 cursor-pointer items-center">
         {isFavorite ? (
-          <FaHeart onClick={() => changeFavorite()} />
+          <FaHeart className="text-kym4" onClick={() => changeFavorite()} />
         ) : (
-          <FaRegHeart onClick={() => changeFavorite()} />
+          <FaRegHeart className="text-kym4" onClick={() => changeFavorite()} />
         )}
       </div>
     </div>

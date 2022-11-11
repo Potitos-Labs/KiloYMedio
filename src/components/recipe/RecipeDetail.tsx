@@ -1,34 +1,38 @@
+import Heart from "@components/Heart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
-//import { trpc } from "../../utils/trpc";
 import Stars from "../Stars";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
   const ingredients = recipe?.RecipeIngredient;
   const directions = recipe?.directions;
+
+  const utils = trpc.useContext();
   const router = useRouter();
 
-  const notify = () => toast.success("Receta guardada");
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role == "admin";
+
   const notifyDeleted = () => toast.success("Receta eliminada");
   const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
-  const utils = trpc.useContext();
-  // const utils = trpc.useContext();
 
-  const mutation = trpc.user.client.addFavoriteRecipe.useMutation({
+  const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
     onSuccess() {
       utils.user.client.getFavoriteRecipes.invalidate();
     },
   });
 
-  const { data: session } = useSession();
-  const isAdmin = session?.user?.role == "admin";
+  const unsaveMutation = trpc.user.client.deleteFavouriteRecipe.useMutation({
+    onSuccess() {
+      utils.user.client.getFavoriteRecipes.invalidate();
+    },
+  });
 
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
@@ -48,9 +52,13 @@ const RecipeDetail = ({ id }: { id: string }) => {
     router.push(`/recipe`);
     notifyDeleted();
   };
+
   function saveRecipe() {
-    notify();
-    mutation.mutateAsync({ recipeId: id });
+    saveMutation.mutateAsync({ recipeId: id });
+  }
+
+  function unsaveRecipe() {
+    unsaveMutation.mutateAsync({ recipeId: id });
   }
 
   return (
@@ -63,7 +71,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
           alt="not found"
         ></img>
 
-        {/* Title, ratting, button and description */}
+        {/* Title, ratting, heart and description */}
         <div className="">
           <div className="flex w-full gap-4">
             <h1 className="flex text-2xl font-bold uppercase">
@@ -83,30 +91,27 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 ))}
             </div>
             <div>
-              <u
-                onClick={saveRecipe}
-                className={`${
-                  isAdmin && "invisible"
-                } mt-1 flex w-full cursor-pointer items-center gap-1 font-semibold text-kym2 hover:text-kym4`}
-              >
-                <AiOutlineCheckCircle className="h-4 w-4" />
-                Guardar receta
-              </u>
+              <Heart
+                id={id}
+                favorite={recipe?.isFav}
+                addFavorite={saveRecipe}
+                removeFavorite={unsaveRecipe}
+              />
             </div>
           </div>
           <div className="my-8">{recipe?.description}</div>
 
           {/* Features */}
           <hr className="border-1 my-5 border-orange-200"></hr>
-          <div className="grid grid-cols-[33%_33%_33%]">
+          <div className="grid grid-cols-[33%_37%_29%]">
             <h2 className="flex flex-col">
-              <span className="text-xs">RACIONES </span> {recipe?.portions}
+              <span className="text-xs">RACIONES</span> {recipe?.portions}
             </h2>
             <h2 className="flex flex-col">
-              <span className="text-xs">DIFICULTAD </span> {recipe?.difficulty}
+              <span className="text-xs">DIFICULTAD</span> {recipe?.difficulty}
             </h2>
             <h2 className="flex flex-col">
-              <span className="text-xs">TIEMPO </span> {recipe?.timeSpan} min.
+              <span className="text-xs">TIEMPO</span> {recipe?.timeSpan} min.
             </h2>
           </div>
           <hr className="border-1 my-5 border-orange-200"></hr>
@@ -145,6 +150,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
           </div>
         </div>
       </div>
+      {/* End Ingredients and Directions */}
 
       {/* Footer */}
       <hr className="border-1 my-24 border-orange-200"></hr>
