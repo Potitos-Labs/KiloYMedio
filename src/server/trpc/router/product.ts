@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import {
   categorySchema,
+  filterProduct,
   productCreateSchema,
   productSchema,
 } from "../../../utils/validations/product";
@@ -55,6 +56,50 @@ export const productRouter = router({
       });
       const productsParsed = z.array(productSchema).parse(products);
       return productsParsed;
+    }),
+  getFilteredProducts: publicProcedure
+    .input(filterProduct)
+    .query(async ({ ctx, input }) => {
+      /*#################### EN PRUEBAS ####################*/
+      const {
+        name,
+        minPrice,
+        maxPrice,
+        eCategories,
+        neCategories,
+        allergens,
+        orderByPrice,
+        orderByName,
+      } = input;
+      const products = await ctx.prisma.product.findMany({
+        where: {
+          name: { contains: name },
+          OR: [
+            {
+              Edible: {
+                category: { in: eCategories },
+                priceByWeight: { gte: minPrice, lte: maxPrice },
+                allergens: { none: { allergen: { in: allergens } } },
+              },
+            },
+            {
+              NonEdible: {
+                category: { in: neCategories },
+                price: { gte: minPrice, lte: maxPrice },
+              },
+            },
+          ],
+        },
+        include: { Edible: { include: { allergens: true } }, NonEdible: true },
+        orderBy:
+          // debe ser solo ordenador por uno, cambiar
+          [
+            { name: orderByName },
+            { Edible: { priceByWeight: orderByPrice } },
+            { NonEdible: { price: orderByPrice } },
+          ],
+      });
+      return products;
     }),
   getAllEdibleCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.eCategoryInSpanish.findMany({

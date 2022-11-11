@@ -37,6 +37,18 @@ export const productCreateSchema = z.object({
 
 export const productSchema = productCreateSchema.extend({ id: z.string() });
 
+export const filterProduct = z.object({
+  name: z.string().optional(),
+  minPrice: z.number(),
+  maxPrice: z.number(),
+  eCategories: z.array(z.nativeEnum(ECategory)),
+  neCategories: z.array(z.nativeEnum(NECategory)),
+  allergens: z.array(z.nativeEnum(Allergen)),
+  typeProduct: z.array(z.enum(["Edible", "NonEdible"])).optional(),
+  orderByPrice: z.enum(["asc", "desc"]).optional(),
+  orderByName: z.enum(["asc", "desc"]).optional(),
+});
+
 export const categorySchema = z.union([
   z.nativeEnum(ECategory),
   z.nativeEnum(NECategory),
@@ -45,3 +57,4 @@ export const categorySchema = z.union([
 
 export type IProductCreate = z.infer<typeof productCreateSchema>;
 export type IProduct = z.infer<typeof productSchema>;
+export type IFilterProduct = z.infer<typeof filterProduct>;
