@@ -7,12 +7,14 @@ interface SearchProps {
 const SearchBar = ({ updateSearchFunction }: SearchProps) => {
   const searchHandler = () => {
     updateSearchFunction(
-      (document.getElementById("searchBar") as HTMLInputElement).value,
+      (document.getElementById("searchBar") as HTMLInputElement).value
+        .normalize("NFD")
+        .replace(/[\u0300-\u0301]/g, ""),
     );
   };
 
   return (
-    <div className="flex h-4/5 w-4/5 rounded-lg bg-white px-2 shadow-md sm:h-auto sm:w-auto sm:px-4">
+    <div className="mb-2 flex h-4/5 w-4/5 rounded-lg bg-white px-2 shadow-md sm:h-auto sm:w-auto sm:px-4">
       <input
         className="w-full focus:outline-0 sm:py-1 "
         id="searchBar"
