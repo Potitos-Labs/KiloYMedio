@@ -219,6 +219,7 @@ async function main() {
   const pistachos = await prisma.product.create({
     data: {
       name: "pistachos",
+      plainName: "pistachos",
       description: "pistachos ecológicos",
       stock: 10.5,
       imageURL:
@@ -251,6 +252,7 @@ async function main() {
   const almendra = await prisma.product.create({
     data: {
       name: "almendras",
+      plainName: "almendras",
       description:
         "Las almendras son indicadas para su alto contenido de calcio y de grasas saludables, así como para disminuir el índice de azúcar en sangre.",
       stock: 16.5,
@@ -284,6 +286,7 @@ async function main() {
   const quicos = await prisma.product.create({
     data: {
       name: "quicos",
+      plainName: "quicos",
       description:
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
@@ -317,6 +320,7 @@ async function main() {
   const cacahuetes = await prisma.product.create({
     data: {
       name: "cacahuetes",
+      plainName: "cacahuetes",
       description:
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
@@ -350,6 +354,7 @@ async function main() {
   const levaduraNutricional = await prisma.product.create({
     data: {
       name: "levadura nutricional",
+      plainName: "levadura nutricional",
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
@@ -381,6 +386,7 @@ async function main() {
   const lentejas = await prisma.product.create({
     data: {
       name: "lentejas",
+      plainName: "lentejas",
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
@@ -412,6 +418,7 @@ async function main() {
   const garbanzos = await prisma.product.create({
     data: {
       name: "garbanzos",
+      plainName: "garbanzos",
       description: "Que ricos los garbanzos ñam",
       stock: 48.1,
       imageURL:
@@ -443,6 +450,7 @@ async function main() {
   const judias = await prisma.product.create({
     data: {
       name: "judía blanca",
+      plainName: "judia blanca",
       description:
         "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
       stock: 48.1,
@@ -475,6 +483,7 @@ async function main() {
   const harinaTrigo = await prisma.product.create({
     data: {
       name: "harina de trigo",
+      plainName: "harina de trigo",
       description: "harina de trigo",
       stock: 18,
       imageURL:
@@ -505,7 +514,8 @@ async function main() {
   });
   const harinaMaiz = await prisma.product.create({
     data: {
-      name: "harina de maiz",
+      name: "harina de maíz",
+      plainName: "harina de maiz",
       description:
         "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
       stock: 18,
@@ -537,6 +547,7 @@ async function main() {
   const harinaAlmendra = await prisma.product.create({
     data: {
       name: "harina de almendra",
+      plainName: "harina de almendra",
       description:
         "La harina de almendra se hace moliendo almendras dulces. Suele hacerse con almendra pelada (sin piel) o con la almendra entera.",
       stock: 18,
@@ -568,6 +579,7 @@ async function main() {
   const espaguetis = await prisma.product.create({
     data: {
       name: "espaguetis",
+      plainName: "espaguetis",
       description:
         "El espagueti es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
@@ -600,6 +612,7 @@ async function main() {
   const macarrones = await prisma.product.create({
     data: {
       name: "macarrones",
+      plainName: "macarrones",
       description:
         "Los macarrones es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
@@ -632,6 +645,7 @@ async function main() {
   const pasas = await prisma.product.create({
     data: {
       name: "uva pasa",
+      plainName: "uva pasa",
       description:
         "Una pasa es una fruta seca obtenida del proceso de secado de una uva, con el objetivo de disminuir su humedad para lograr así su conservación por un periodo prolongado.",
       stock: 10,
@@ -663,6 +677,7 @@ async function main() {
   const teVerde = await prisma.product.create({
     data: {
       name: "té verde",
+      plainName: "te verde",
       description:
         "El té verde (en chino tradicional, 綠茶; en chino simplificado, 绿茶; pinyin, Lǜ chá) proviene de la planta Camellia sinensis; «es el tipo de té no fermentado.",
       stock: 10,
@@ -694,6 +709,7 @@ async function main() {
   const rooibos = await prisma.product.create({
     data: {
       name: "rooibos",
+      plainName: "rooibos",
       description:
         "El rooibos (nombre científico Aspalathus linearis) es una planta de origen sudafricano cuyo nombre en afrikáans significa arbusto rojo y se pronuncia «roibos».",
       stock: 10,
@@ -726,6 +742,7 @@ async function main() {
   const sirope = await prisma.product.create({
     data: {
       name: "sirope de arce",
+      plainName: "sirope de arce",
       description:
         "Los jarabes  llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
       stock: 23,
@@ -758,6 +775,7 @@ async function main() {
   const mermeladaMelon = await prisma.product.create({
     data: {
       name: "mermelada de melón",
+      plainName: "mermelada de melon",
       description:
         "Las mermeladas industriales estan dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
       stock: 23,
@@ -789,6 +807,7 @@ async function main() {
   const aceiteOliva = await prisma.product.create({
     data: {
       name: "aceite de oliva virgen extra",
+      plainName: "aceite de oliva virgen extra",
       description:
         "El aceite de oliva es típico de la cuenca mediterránea, siendo España el primer productor mundial. Se usa a diario en la cocina mediterránea.",
       stock: 23,
@@ -823,6 +842,7 @@ async function main() {
   const cepilloDeDientes = await prisma.product.create({
     data: {
       name: "cepillo de dientes",
+      plainName: "cepillo de dientes",
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
@@ -839,6 +859,7 @@ async function main() {
   const jabon = await prisma.product.create({
     data: {
       name: "jabón",
+      plainName: "jabon",
       description: "jabón artesanal",
       stock: 12,
       imageURL:

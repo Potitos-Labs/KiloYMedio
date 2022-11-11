@@ -280,6 +280,7 @@ model Product {
     Edible         Edible?
     imageURL       String
     name           String           @unique
+    plainName      String           @unique
     NonEdible      NonEdible?
     orders         ProductOrder[]
     cartProduct    CartProduct[]
