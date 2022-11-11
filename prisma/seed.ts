@@ -1106,6 +1106,20 @@ async function main() {
     },
   });
 
+  const unidadesDeMedida = await prisma.ingredientUnitInSpanish.createMany({
+    data: [
+      /*  1 **/ { ingredientUnit: "grams", unitInSpanish: "gramos" },
+      /*  2 **/ { ingredientUnit: "liters", unitInSpanish: "litros" },
+      /*  3 **/ { ingredientUnit: "unit", unitInSpanish: "unidades" },
+      /*  4 **/ { ingredientUnit: "cup", unitInSpanish: "tazas" },
+      /*  5 **/ { ingredientUnit: "kilograms", unitInSpanish: "kilogramos" },
+      /*  6 **/ { ingredientUnit: "milliliters", unitInSpanish: "mililitros" },
+      /*  7 **/ { ingredientUnit: "ounce", unitInSpanish: "onzas" },
+      /*  8 **/ { ingredientUnit: "pound", unitInSpanish: "libras" },
+      /*  9 **/ { ingredientUnit: "tablespoon", unitInSpanish: "cucharadas" },
+      /* 10 **/ { ingredientUnit: "teaspoon", unitInSpanish: "cucharaditas" },
+    ],
+  });
   //   const paellaValencia = await prisma.recipe.create({
   //     data: {
   //       name: "Paella Valenciana",

@@ -188,6 +188,12 @@ model Ingredient {
     Edible           Edible?
 }
 
+model IngredientUnitInSpanish {
+    id             String         @id @default(cuid())
+    ingredientUnit IngredientUnit @unique
+    unitInSpanish  String
+}
+
 model NECategoryInSpanish {
     id                String     @id @default(cuid())
     category          NECategory @unique
