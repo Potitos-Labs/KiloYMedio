@@ -48,7 +48,7 @@ function Product({ product }: { product: IProduct }) {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center rounded-md py-8 text-center shadow-lg hover:shadow-kym4">
+    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-8 text-center shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>
