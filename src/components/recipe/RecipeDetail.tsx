@@ -62,9 +62,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="mx-28 mt-16 sm:grid-cols-2">
+    <div className="mx-28 mt-16">
       {/* Upper section */}
-      <div className="mb-14 flex gap-14">
+      <div className="mb-14 flex flex-col gap-14 lg:flex-row">
         <img
           className="max-h-64 min-h-full w-96 rounded-md"
           src={recipe?.imageURL}
@@ -72,33 +72,35 @@ const RecipeDetail = ({ id }: { id: string }) => {
         ></img>
 
         {/* Title, ratting, heart and description */}
-        <div className="">
+        <div>
+          {/* Name, ratting, dot/heart */}
           <div className="flex w-full gap-4">
-            <h1 className="flex text-2xl font-bold uppercase">
-              {recipe?.name}
-            </h1>
-            <div className="inline-flex items-center justify-center">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <h1 className="text-2xl font-bold uppercase">{recipe?.name}</h1>
               <Stars average={4}></Stars>
-              {session?.user?.id == recipe?.userId ||
-                (isAdmin && (
-                  <DotMenu
-                    id={id}
-                    name={recipe ? recipe.name : "Error Ocurred"}
-                    type="receta"
-                    updateFunction={updateRecipe}
-                    deleteFunction={deleteRecipe}
-                  />
-                ))}
             </div>
+            {session?.user?.id == recipe?.userId ||
+              (isAdmin && (
+                <DotMenu
+                  id={id}
+                  name={recipe ? recipe.name : "Error Ocurred"}
+                  type="receta"
+                  updateFunction={updateRecipe}
+                  deleteFunction={deleteRecipe}
+                />
+              ))}
             <div>
-              <Heart
-                id={id}
-                favorite={recipe?.isFav}
-                addFavorite={saveRecipe}
-                removeFavorite={unsaveRecipe}
-              />
+              {!isAdmin && (
+                <Heart
+                  id={id}
+                  favorite={recipe?.isFav}
+                  addFavorite={saveRecipe}
+                  removeFavorite={unsaveRecipe}
+                />
+              )}
             </div>
           </div>
+          {/* End Name, ratting, dot/heart */}
           <div className="my-8">{recipe?.description}</div>
 
           {/* Features */}

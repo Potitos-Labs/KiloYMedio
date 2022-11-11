@@ -227,7 +227,7 @@ const Profile = (
               </FormWrapper>
             </div>
             <div className="my-10 w-full">
-              <FormWrapper title="Mis recetas guardadas">
+              <FormWrapper title="Mis recetas favoritas">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
                   {userRecipes ? (
                     userRecipes.map((e) => {

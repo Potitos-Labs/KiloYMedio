@@ -20,9 +20,15 @@ const Heart = ({ id, favorite, addFavorite, removeFavorite }: HeartProps) => {
     <div>
       <div className="dropdown relative flex h-8 w-6 cursor-pointer items-center">
         {isFavorite ? (
-          <FaHeart className="text-kym4" onClick={() => changeFavorite()} />
+          <FaHeart
+            className="text-violet-800"
+            onClick={() => changeFavorite()}
+          />
         ) : (
-          <FaRegHeart className="text-kym4" onClick={() => changeFavorite()} />
+          <FaRegHeart
+            className="text-violet-800"
+            onClick={() => changeFavorite()}
+          />
         )}
       </div>
     </div>
