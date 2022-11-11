@@ -253,6 +253,7 @@ export const productRouter = router({
           where: { id },
           data: {
             name,
+            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
             description,
             stock,
             imageURL,
@@ -302,6 +303,7 @@ export const productRouter = router({
           where: { id },
           data: {
             name,
+            plainName: name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
             description,
             stock,
             imageURL,
