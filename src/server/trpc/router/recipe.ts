@@ -26,9 +26,8 @@ export const recipeRouter = router({
   }),
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const { id } = input;
-      return await ctx.prisma.recipe.findFirst({
+    .query(async ({ ctx, input: { id } }) => {
+      const recipe = await ctx.prisma.recipe.findFirst({
         where: { id },
         select: {
           id: true,
@@ -53,6 +52,12 @@ export const recipeRouter = router({
           userId: true,
         },
       });
+      const isFav = (await ctx.prisma.recipeUser.findFirst({
+        where: { recipeId: id, userId: ctx.session?.user?.id },
+      }))
+        ? true
+        : false;
+      return recipe != null ? { ...recipe, isFav } : null;
     }),
   getRecentRecipes: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.recipe.findMany({
