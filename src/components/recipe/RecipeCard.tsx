@@ -69,7 +69,6 @@ export function RecipeCard({
       <div className="absolute top-0 right-0 inline-flex">
         <Heart
           id={id}
-          name={name}
           favorite={false}
           addFavorite={() => console.log("por hacer")}
           removeFavorite={() => console.log("por hacer")}
