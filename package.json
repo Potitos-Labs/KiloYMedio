@@ -51,6 +51,7 @@
     "react-toastify": "^9.0.8",
     "reactjs-popup": "^2.0.5",
     "superjson": "^1.9.1",
+    "uuid": "^9.0.0",
     "validator": "^13.7.0",
     "zod": "^3.18.0"
   },
