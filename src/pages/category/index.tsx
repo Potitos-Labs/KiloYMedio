@@ -12,7 +12,9 @@ const CategoryDisplay: NextPage = () => {
     trpc.product.getAllNonEdibleCategories.useQuery();
   return (
     <Layout>
-      <div className="bg-kym3 p-4 font-bold text-white">Comestibles</div>
+      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
+        <p className="font-bold sm:text-lg">Comestibles</p>
+      </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {eCategories ? (
           eCategories.map((ecategory) => (
@@ -28,8 +30,11 @@ const CategoryDisplay: NextPage = () => {
         )}
       </div>
 
-      <div id="nCat" className="bg-kym3 p-4 font-bold text-white">
-        No comestibles
+      <div
+        id="nCat"
+        className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3"
+      >
+        <p className="font-bold sm:text-lg">No comestibles</p>
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {nCategories ? (
@@ -45,22 +50,22 @@ const CategoryDisplay: NextPage = () => {
           <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}
       </div>
-      <div className="bg-kym3 p-4 font-bold text-white">General</div>
+      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
+        <p className="font-bold sm:text-lg">General</p>
+      </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        <div className="flex flex-col items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
+        <div className="items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
           <div className="mb-5">
             <Link href={`/product`}>
-              <a>
-                <Image
-                  src="https://ecologiautil.com/wp-content/uploads/2020/07/productos-ecologicos-y-sin-plastico-1.jpg"
-                  alt="notfound"
-                  width="100"
-                  height="100"
-                  layout="fixed"
-                  objectFit="cover"
-                  className="rounded-md"
-                ></Image>
-              </a>
+              <Image
+                src="https://ecologiautil.com/wp-content/uploads/2020/07/productos-ecologicos-y-sin-plastico-1.jpg"
+                alt="notfound"
+                width="100"
+                height="100"
+                layout="fixed"
+                objectFit="cover"
+                className="rounded-md"
+              ></Image>
             </Link>
           </div>
           <h1 className="pb-2 font-semibold text-kym4 first-letter:uppercase">
