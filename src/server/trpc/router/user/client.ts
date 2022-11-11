@@ -37,6 +37,14 @@ export const clientRouter = router({
         Recipe: { select: { name: true, imageURL: true, id: true } },
       },
     });
+
+    return recipes;
+  }),
+  getOwnRecipes: clientProcedure.query(async ({ ctx }) => {
+    const recipes = await ctx.prisma.recipe.findMany({
+      where: { userId: ctx.session.user.id },
+    });
+
     return recipes;
   }),
   updateAllergen: clientProcedure
