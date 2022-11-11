@@ -8,7 +8,7 @@ const config: Config = {
   setupFilesAfterEnv: ["<rootDir>/src/server/db/singleton.ts"],
   verbose: true,
   coveragePathIgnorePatterns: ["playwright/**/*.ts"],
-  testRegex: "src.*\\.(test|spec).(ts|tsx|js)$",
+  testRegex: "src.*\\.(test|spec).(ts|js)$",
   transform: {
     "^.+\\.(ts|mjs)$": ["ts-jest", {}],
   },
