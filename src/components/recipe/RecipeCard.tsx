@@ -45,6 +45,27 @@ export function RecipeCard({
     router.push(`/recipe`);
     notifyDeleted();
   };
+
+  const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
+    onSuccess() {
+      utils.user.client.getFavoriteRecipes.invalidate();
+    },
+  });
+
+  const unsaveMutation = trpc.user.client.deleteFavouriteRecipe.useMutation({
+    onSuccess() {
+      utils.user.client.getFavoriteRecipes.invalidate();
+    },
+  });
+
+  function saveRecipe() {
+    saveMutation.mutateAsync({ recipeId: id });
+  }
+
+  function unsaveRecipe() {
+    unsaveMutation.mutateAsync({ recipeId: id });
+  }
+
   return (
     <div
       role="button"
@@ -70,8 +91,8 @@ export function RecipeCard({
         <Heart
           id={id}
           favorite={false}
-          addFavorite={() => console.log("por hacer")}
-          removeFavorite={() => console.log("por hacer")}
+          addFavorite={saveRecipe}
+          removeFavorite={unsaveRecipe}
         ></Heart>
         {data?.user?.id == authorID ||
           (data?.user?.role == "admin" && (

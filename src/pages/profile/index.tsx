@@ -227,8 +227,8 @@ const Profile = (
               </FormWrapper>
             </div>
             <div className="my-10 w-full">
-              <FormWrapper title="Mis Recetas Favoritas">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+              <FormWrapper title="Mis recetas guardadas">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
                   {userRecipes ? (
                     userRecipes.map((e) => {
                       return (
@@ -241,7 +241,7 @@ const Profile = (
                       );
                     })
                   ) : (
-                    <p> no tienes ninguna receta guardada </p>
+                    <p>No tienes ninguna receta guardada todavía.</p>
                   )}
                 </div>
               </FormWrapper>

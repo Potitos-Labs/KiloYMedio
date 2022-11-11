@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Heart from "../../components/Heart";
 import { trpc } from "@utils/trpc";
-import { toast } from "react-toastify";
+
 function FavouriteRecipes({
   name,
   image,
@@ -13,21 +13,21 @@ function FavouriteRecipes({
   id: string;
 }) {
   const utils = trpc.useContext();
-  const notifyDeleted = () => toast.success("Receta eliminada");
 
   const { mutateAsync } = trpc.user.client.deleteFavouriteRecipe.useMutation({
     onSuccess() {
       utils.user.client.getFavoriteRecipes.invalidate();
     },
   });
+
   const deleteRecipe = (id: string) => {
     mutateAsync({ recipeId: id });
-    notifyDeleted();
   };
+
   return (
-    <div className="flex flex-row shadow-lg hover:shadow-kym4">
+    <div className="flex flex-row rounded-md p-4 shadow-md shadow-kym4 hover:shadow-lg hover:shadow-kym4">
       <Link href={`/recipe/${id}`}>
-        <a>
+        <div className="flex w-full cursor-pointer items-center gap-4">
           <Image
             src={image}
             alt="notfound"
@@ -37,9 +37,10 @@ function FavouriteRecipes({
             objectFit="cover"
             className="rounded-md"
           ></Image>
-        </a>
+          <p className="first-letter:uppercase">{name}</p>
+        </div>
       </Link>
-      <p className="m-5"> {name} </p>
+
       <Heart
         id={id}
         favorite={true}
