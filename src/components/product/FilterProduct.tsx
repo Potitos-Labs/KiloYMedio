@@ -9,7 +9,7 @@ export default function FilterProduct({
   filter: IFilterProduct;
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
 }) {
-  const { data: eCategories } = trpc.product.getAllEdibleCategories.useQuery();
+  const { data: eCategories } = trpc.product.getAllCategories.useQuery();
   const { data: neCategories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
@@ -50,7 +50,7 @@ export default function FilterProduct({
             <p className="grow whitespace-nowrap border-b-2 font-medium sm:text-sm">
               Comestibles
             </p>
-            {eCategories?.categories.map((c) => {
+            {eCategories?.eCategories.map((c) => {
               return (
                 <label key={c.id}>
                   <input

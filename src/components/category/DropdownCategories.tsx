@@ -6,10 +6,14 @@ import { BsChevronRight } from "react-icons/bs";
 import { trpc } from "../../utils/trpc";
 
 function DropdownCategories() {
-  const { data: eCategories } = trpc.product.getAllEdibleCategories.useQuery();
-  const { data: nCategories } =
-    trpc.product.getAllNonEdibleCategories.useQuery();
+  const { data: categories } = trpc.product.getAllCategories.useQuery();
 
+  let eCategories;
+  let nCategories;
+  if (categories) {
+    eCategories = categories.eCategories;
+    nCategories = categories.neCategories;
+  }
   return (
     <div className="absolute z-10 hidden group-hover:block">
       <div className="flex w-[260px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
@@ -31,7 +35,7 @@ function DropdownCategories() {
           <div className="absolute left-40 top-8 z-20 hidden lg:hover:grid lg:peer-hover:grid">
             <div className="grid w-[760px] grid-cols-3 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
               {eCategories ? (
-                eCategories.categories?.map((eCategory) => {
+                eCategories.map((eCategory) => {
                   return (
                     <Link
                       href={`/product?category=${eCategory.category}`}

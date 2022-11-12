@@ -1,17 +1,62 @@
 import FilterProduct from "components/product/FilterProduct";
 import SearchBar from "@components/product/SearchBar";
 import { ECategory, NECategory } from "@prisma/client";
-import { NextPage } from "next";
+import { InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { z } from "zod";
 
+import superjson from "superjson";
 import Layout from "../../components/Layout";
 import Product from "../../components/product/Product";
 import { trpc } from "../../utils/trpc";
 import { IFilterProduct, productSchema } from "../../utils/validations/product";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { appRouter } from "@server/trpc/router/_app";
+import { createContextInner } from "@server/trpc/context";
 
-const ProductDetails: NextPage = () => {
+export async function getStaticProps() {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: await createContextInner({ session: null }),
+    transformer: superjson,
+  });
+
+  const { eCategories, neCategories } =
+    await ssg.product.getAllCategories.fetch();
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      categories: { eCategories, neCategories },
+    },
+    revalidate: 1,
+  };
+}
+export default function CreateProdcut(
+  props: InferGetStaticPropsType<typeof getStaticProps>,
+) {
+  const {
+    categories: { eCategories, neCategories },
+  } = props;
+
+  function inSpanish(category: ECategory | NECategory | "") {
+    if (category === "") return "";
+    const ecategory = z.nativeEnum(ECategory).safeParse(category);
+    const necategory = z.nativeEnum(NECategory).safeParse(category);
+    if (ecategory.success) {
+      return (
+        eCategories.find((eCategory) => eCategory.category === ecategory.data)
+          ?.categoryInSpanish ?? category
+      );
+    }
+    if (necategory.success) {
+      return (
+        neCategories.find((eCategory) => eCategory.category === necategory.data)
+          ?.categoryInSpanish ?? category
+      );
+    }
+  }
+
   const [searchInput, setSearchInput] = useState("");
   //let { data } = trpc.product.getAllProducts.useQuery();
 
@@ -54,7 +99,9 @@ const ProductDetails: NextPage = () => {
           {/* Meterlo en un componente -> codigo mas limpio */}
           <div className="mr-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
             <p className="grow font-bold capitalize sm:text-lg">
-              {category ? category : "Todos los productos"}
+              {category
+                ? inSpanish(category as ECategory | NECategory)
+                : "Todos los productos"}
             </p>
             <div className="b-1 justify-end align-middle">
               <SearchBar updateSearchFunction={setSearchInput} />
@@ -76,5 +123,4 @@ const ProductDetails: NextPage = () => {
       </div>
     </Layout>
   );
-};
-export default ProductDetails;
+}

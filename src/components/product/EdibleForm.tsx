@@ -31,7 +31,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
   });
   const utils = trpc.useContext();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
-  const { data: categories } = trpc.product.getAllEdibleCategories.useQuery();
+  const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
   const { mutateAsync: updateProduct } = trpc.product.update.useMutation({
@@ -187,14 +187,14 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             <span className="mb-2">Categoría *</span>
             <Listbox
               list={
-                categories?.categories.map((c) => {
+                categories?.eCategories.map((c) => {
                   return { value: c.category, text: c.categoryInSpanish };
                 }) ?? []
               }
               setValue={setCategory}
-              defaultValue={categories?.inSpanish(
-                product?.Edible?.category ?? "",
-              )}
+              // defaultValue={categories?.inSpanish(
+              //   product?.Edible?.category ?? "",
+              // )}
             />
           </label>
         </div>

@@ -7,7 +7,7 @@ import Category from "../../components/category/Category";
 import { trpc } from "../../utils/trpc";
 
 const CategoryDisplay: NextPage = () => {
-  const { data: eCategories } = trpc.product.getAllEdibleCategories.useQuery();
+  const { data: eCategories } = trpc.product.getAllCategories.useQuery();
   const { data: nCategories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
   return (
@@ -17,7 +17,7 @@ const CategoryDisplay: NextPage = () => {
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {eCategories ? (
-          eCategories.categories.map(
+          eCategories.eCategories.map(
             ({ id, category, imageURL, categoryInSpanish }) => (
               <Category
                 key={id}
