@@ -57,7 +57,6 @@ export default function CreateProdcut(
     }
   }
 
-  const [searchInput, setSearchInput] = useState("");
   //let { data } = trpc.product.getAllProducts.useQuery();
 
   const [filter, setFilter] = useState<IFilterProduct>({
@@ -71,12 +70,10 @@ export default function CreateProdcut(
     orderByPrice: undefined,
     typeProduct: ["Edible", "NonEdible"],
   });
-
+  console.log(filter);
   let { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
   console.log(data);
-  //BORRAR LUEGO :]
-  console.log(searchInput);
 
   const router = useRouter();
   const category = router.query.category as string;
@@ -105,19 +102,27 @@ export default function CreateProdcut(
                 : "Todos los productos"}
             </p>
             <div className="b-1 justify-end align-middle">
-              <SearchBar updateSearchFunction={setSearchInput} />
+              <SearchBar filter={filter} setFilter={setFilter} />
             </div>
           </div>
           <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 py-12 pr-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {data ? (
-              data.map((product) => {
-                const productParsed = productSchema.safeParse(product);
-                if (productParsed.success)
-                  return <Product product={productParsed.data}></Product>;
-                console.log(productParsed.error);
-              })
+              data.length !== 0 ? (
+                data.map((product) => {
+                  const productParsed = productSchema.safeParse(product);
+                  if (productParsed.success)
+                    return <Product product={productParsed.data}></Product>;
+                  console.log(productParsed.error);
+                })
+              ) : (
+                <p className="absolute self-center justify-self-center font-light text-kym4">
+                  Tú búsqueda no obtuvo ningún resultado...😢
+                </p>
+              )
             ) : (
-              <p className="font-semibold text-kym4">Cargando...</p>
+              <p className="absolute self-center justify-self-center font-light text-kym4">
+                Cargando...
+              </p>
             )}
           </div>
         </div>
