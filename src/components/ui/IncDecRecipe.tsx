@@ -1,4 +1,4 @@
-import { Noop, RefCallBack } from "react-hook-form";
+import { Noop } from "react-hook-form";
 
 import { clearNumber } from "../payment/utils";
 
@@ -6,18 +6,17 @@ function IncDecRecipe({
   onChange,
   onBlur,
   value,
-  ref,
+  // ref,
   maxValue,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void;
   onBlur: Noop;
   value: number;
-  ref: RefCallBack;
   maxValue: number;
 }) {
   return (
-    <div className="h-full rounded border border-black">
+    <div className="rounded border border-black">
       <button
         disabled={(value || 0) == 0}
         className={`h-full border-r-[1px] border-black bg-transparent px-3 font-semibold ${
@@ -26,6 +25,7 @@ function IncDecRecipe({
         onClick={() => {
           onChange(Number(value) - 1);
         }}
+        type="button"
       >
         -
       </button>
@@ -41,17 +41,17 @@ function IncDecRecipe({
           )
         }
         onBlur={onBlur}
-        ref={ref}
       />
       <button
         disabled={(value || 0) == maxValue}
-        className={`h-full border-l-[1px] border-black bg-transparent px-3 font-semibold  ${
+        className={`h-full border-l-[1px] border-black bg-transparent px-3 font-semibold ${
           value >= maxValue ? "cursor-not-allowed opacity-60" : ""
         }`}
         onClick={() => {
           console.log({ value });
           onChange(Number(value) + 1);
         }}
+        type="button"
       >
         +
       </button>

@@ -12,11 +12,14 @@ function ListboxDesign({
   value: string;
   list: Record<IngredientUnit, string>;
 }) {
-  const options = Object.keys(list).map((key, i) => ({
-    id: i,
-    name: list[key as IngredientUnit],
-    value: key as IngredientUnit,
-  }));
+  const options = Object.keys(list)
+    .map((key, i) => ({
+      id: i,
+      name: list[key as IngredientUnit],
+      value: key as IngredientUnit,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="dropdown  w-40 ">
       <Listbox
