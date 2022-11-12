@@ -23,7 +23,7 @@ export default function NavBar() {
       <>
         <NavBarClient />
         <div>
-          <div className="absolute top-5 right-10 gap-4 md:top-8 md:flex lg:top-9">
+          <div className="absolute top-5 right-5 gap-4 md:top-8 md:flex lg:top-9">
             <div className="hover:text-kym4">
               <Link href="/login">INICIAR SESIÓN</Link>
             </div>
@@ -60,11 +60,11 @@ export default function NavBar() {
       <>
         <NavBarAdmin />
         <nav className="top-2 -right-4 mx-auto flex w-full flex-row lg:absolute">
-          <div className="absolute right-24 top-6">
+          <div className="absolute right-24 top-6 flex gap-2 md:top-8">
             <p className="hidden gap-1 md:flex">{session.user?.name}</p>
-            <span className="absolute top-2.5 right-2 md:static">(Admin)</span>
+            <span className="absolute top-2.5 -right-8 md:static">(Admin)</span>
           </div>
-          <div className="absolute right-6 top-4">
+          <div className="absolute right-1 top-3 md:right-6">
             <AdminHeader />
           </div>
         </nav>

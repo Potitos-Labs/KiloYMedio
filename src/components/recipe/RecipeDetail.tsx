@@ -25,12 +25,14 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
     onSuccess() {
       utils.user.client.getFavoriteRecipes.invalidate();
+      utils.recipe.getById.invalidate();
     },
   });
 
   const unsaveMutation = trpc.user.client.deleteFavouriteRecipe.useMutation({
     onSuccess() {
       utils.user.client.getFavoriteRecipes.invalidate();
+      utils.recipe.getById.invalidate();
     },
   });
 
@@ -132,7 +134,15 @@ const RecipeDetail = ({ id }: { id: string }) => {
               return (
                 <div key={"id"}>
                   <hr className="border-1 my-5 border-orange-200"></hr>
-                  <p className="first-letter:uppercase">{i.Ingredient.name}</p>
+                  <div className="flex justify-between">
+                    <p className="first-letter:uppercase">
+                      {i.Ingredient.name}
+                    </p>
+                    <div className="flex gap-2">
+                      <span>{i.amount}</span>
+                      <span>{i.unit}</span> {/* provisional */}
+                    </div>
+                  </div>
                 </div>
               );
             })}
