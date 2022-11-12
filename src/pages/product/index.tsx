@@ -33,8 +33,8 @@ const ProductDetails: NextPage = () => {
 
   return (
     <Layout>
-      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2  border-kym3">
-        <p className=" font-bold capitalize sm:text-lg">
+      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
+        <p className="font-bold sm:text-lg">
           {category ? category : "Todos los productos"}
         </p>
         <div className="mb-1 flex justify-end align-middle">

@@ -55,28 +55,40 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
     <div className="">
       <div className="flex flex-col items-center">
-        <div className="w-full bg-kym3 p-4 font-bold text-white">
+        <div className="w-full">
           {isEdible ? (
-            <Link href={`/category`}>Comestible</Link>
+            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
+              <Link href={`/category`}>
+                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
+                  Comestible
+                </p>
+              </Link>
+            </div>
           ) : (
-            <Link href={`/category`}>No comestible</Link>
+            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
+              <Link href={`/category`}>
+                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
+                  No comestible
+                </p>
+              </Link>
+            </div>
           )}
-          {}
         </div>
 
-        <div className="item-center mx-10 mt-16 grid min-w-fit grid-cols-1 content-center gap-4 sm:grid-cols-2">
-          <div className="mt-3 mb-3 flex max-h-64 flex-col items-center">
+        <div className="item-center mx-10 mt-4 grid min-w-fit grid-cols-1 content-center gap-14 sm:grid-cols-2">
+          <div className="mb-10 flex max-h-64 flex-col items-center">
             <Image
               height="500"
               width={300}
               layout="intrinsic"
               objectFit="cover"
+              className="rounded-md"
               alt={product.name}
               src={product.imageURL}
             />
           </div>
 
-          <div className="mt-5  columns-1">
+          <div className="columns-1 lg:mt-3">
             <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
               {product.name}
             </h1>
@@ -142,13 +154,11 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
-        <div>
-          <DescriptionComponent description={product.description} />
-          {allergensList.length > 0 && (
-            <AllergenDescription allergens={allergensList} />
-          )}
-        </div>
+      <div className="flex flex-col">
+        <DescriptionComponent description={product.description} />
+        {allergensList.length > 0 && (
+          <AllergenDescription allergens={allergensList} />
+        )}
       </div>
     </div>
   );
@@ -156,9 +166,9 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
 const DescriptionComponent = ({ description }: { description: string }) => {
   return (
-    <div className="mt-6 max-w-6xl p-6">
+    <div className="my-6 mx-20 p-6">
       <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
+        <h2 className="mb-1 text-xl font-bold normal-case">
           Descripción del producto
         </h2>
       </div>
@@ -171,11 +181,9 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
-    <div className="p-6">
+    <div className="mx-20 p-6">
       <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 inline-block text-left text-xl font-bold">
-          Descripción de los alérgenos
-        </h2>
+        <h2 className="mb-1 text-xl font-bold">Descripción de los alérgenos</h2>
       </div>
       {allergens.map((allergen) => (
         <div className="mt-2 ml-2 flex py-2 align-middle" key={allergen}>
