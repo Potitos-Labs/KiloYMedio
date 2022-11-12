@@ -29,7 +29,7 @@ const SearchBar = ({
   };
 
   return (
-    <div className="relative h-4/5 w-4/5 sm:h-auto md:w-64">
+    <div className="group relative h-4/5 w-4/5 sm:h-auto md:w-64">
       <div className="mb-2 flex  rounded-lg bg-white px-2 shadow-md  sm:px-4">
         <input
           className="w-full truncate focus:outline-0 sm:py-1"
@@ -52,31 +52,34 @@ const SearchBar = ({
           <FaSearch />
         </div>
       </div>
-      <div className="scrollbar-hide absolute z-50  w-full overflow-auto rounded-md bg-slate-50 shadow-xl ">
-        {data
-          ?.filter((product) => {
-            return (
-              value &&
-              product.name.toLowerCase().startsWith(value) &&
-              product.name.toLowerCase() !== value
-            );
-          })
-          .slice(0, 10)
-          .map((product) => (
-            <div
-              className="cursor-pointer pl-4 hover:bg-background"
-              key={product.id}
-              onClick={() =>
-                searchHandler({
-                  searchInput:
-                    product.name.charAt(0).toUpperCase() +
-                    product.name.slice(1),
-                })
-              }
-            >
-              {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
-            </div>
-          ))}
+
+      <div className="scrollbar-hide absolute top-8  z-10 hidden w-full group-hover:block">
+        <div className="scrollbar-hide  mt-2 w-full overflow-auto rounded-md bg-slate-50 shadow-xl">
+          {data
+            ?.filter((product) => {
+              return (
+                value &&
+                product.name.toLowerCase().startsWith(value.toLowerCase()) &&
+                product.name.toLowerCase() !== value.toLowerCase()
+              );
+            })
+            .slice(0, 10)
+            .map((product) => (
+              <div
+                className="cursor-pointer pl-4 hover:bg-background"
+                key={product.id}
+                onClick={() =>
+                  searchHandler({
+                    searchInput:
+                      product.name.charAt(0).toUpperCase() +
+                      product.name.slice(1),
+                  })
+                }
+              >
+                {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
