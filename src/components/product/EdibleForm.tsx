@@ -187,15 +187,14 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             <span className="mb-2">Categoría *</span>
             <Listbox
               list={
-                categories?.map((c) => {
+                categories?.categories.map((c) => {
                   return { value: c.category, text: c.categoryInSpanish };
                 }) ?? []
               }
               setValue={setCategory}
-              defaultValue={
-                categories?.find((c) => c.category == product?.Edible?.category)
-                  ?.categoryInSpanish
-              }
+              defaultValue={categories?.inSpanish(
+                product?.Edible?.category ?? "",
+              )}
             />
           </label>
         </div>

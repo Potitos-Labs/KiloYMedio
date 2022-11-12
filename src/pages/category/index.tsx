@@ -17,14 +17,16 @@ const CategoryDisplay: NextPage = () => {
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {eCategories ? (
-          eCategories.map((ecategory) => (
-            <Category
-              key={ecategory.id}
-              name={ecategory.categoryInSpanish}
-              imgURL={ecategory.imageURL}
-              englishName={ecategory.category}
-            ></Category>
-          ))
+          eCategories.categories.map(
+            ({ id, category, imageURL, categoryInSpanish }) => (
+              <Category
+                key={id}
+                name={categoryInSpanish}
+                imgURL={imageURL}
+                englishName={category}
+              ></Category>
+            ),
+          )
         ) : (
           <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}

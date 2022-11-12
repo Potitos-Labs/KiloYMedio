@@ -29,13 +29,13 @@ function DropdownCategories() {
           <div className="absolute left-40 top-8 z-20 hidden hover:grid peer-hover:grid">
             <div className="grid w-[800px] grid-cols-3 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
               {eCategories ? (
-                eCategories?.map((eCategory) => {
+                eCategories.categories?.map((eCategory) => {
                   return (
                     <Link
                       href={`/product?category=${eCategory.category}`}
                       key={eCategory.id}
                     >
-                      <a className="px-5 py-3 flex flex-row hover:rounded-md gap-1 hover:bg-background">
+                      <a className="flex flex-row gap-1 px-5 py-3 hover:rounded-md hover:bg-background">
                         <GiGrain className="mr-1 h-6 w-6 fill-kym2" />
                         {eCategory.categoryInSpanish}
                       </a>
@@ -64,7 +64,7 @@ function DropdownCategories() {
                       href={`/product?category=${nCategory.category}`}
                       key={nCategory.id}
                     >
-                      <a className="px-5 py-3 flex flex-row hover:rounded-md hover:bg-background">
+                      <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
                         <RiShoppingBasket2Line className="mr-1 h-6 w-6 fill-kym2" />
                         {nCategory.categoryInSpanish}
                       </a>

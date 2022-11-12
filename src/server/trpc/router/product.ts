@@ -102,7 +102,7 @@ export const productRouter = router({
       return products;
     }),
   getAllEdibleCategories: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.eCategoryInSpanish.findMany({
+    const eCategories = await ctx.prisma.eCategoryInSpanish.findMany({
       select: {
         id: true,
         category: true,
@@ -110,6 +110,18 @@ export const productRouter = router({
         categoryInSpanish: true,
       },
     });
+    const res = {
+      inSpanish(e: ECategory | "") {
+        if (e === "") return "";
+        return (
+          this.categories.find((eCategory) => eCategory.category === e)
+            ?.categoryInSpanish ?? e
+        );
+      },
+      categories: eCategories,
+    };
+
+    return res;
   }),
   getAllNonEdibleCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.nECategoryInSpanish.findMany({
