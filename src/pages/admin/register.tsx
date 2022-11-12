@@ -40,7 +40,7 @@ const SignUpByAdmin: NextPage = () => {
 
   console.log(errors);
 
-  const { mutateAsync } = trpc.user.createNewClientByAdmin.useMutation();
+  const { mutateAsync } = trpc.user.client.createNewByAdmin.useMutation();
   const onSubmit = useCallback(
     async (data: ISignUpByAdminSchema) => {
       try {

@@ -42,7 +42,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   });
 
   const id = session.user?.id;
-  const client = id ? await ssg.user.getClientById.fetch({ id }) : null;
+  const client = id ? await ssg.user.client.getById.fetch({ id }) : null;
 
   if (!client) {
     return {
@@ -61,18 +61,24 @@ const Profile = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
   const { client: c } = props;
-  const client = c as AppRouterTypes["user"]["getClientById"]["output"];
-  const [edit, setEdit] = useState(false);
+  const client = c as AppRouterTypes["user"]["client"]["getById"]["output"];
+
   const { data } = trpc.user.getAllClientAllergen.useQuery();
+  const { mutateAsync } = trpc.user.client.update.useMutation();
+
+  const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { mutateAsync } = trpc.user.updateClient.useMutation();
-  const allergenList = data?.map((e) => e.allergen) ?? [];
+
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
+
   const { data: favoriteUserRecipes } =
     trpc.user.client.getFavoriteRecipes.useQuery();
+
   const { data: userRecipes } = trpc.user.client.getOwnRecipes.useQuery();
+
+  const allergenList = data?.map((e) => e.allergen) ?? [];
 
   if (!client) {
     router.push("/login");
@@ -107,7 +113,7 @@ const Profile = (
         setEdit(!edit);
       }
     },
-    [mutateAsync, router],
+    [mutateAsync, setEdit, edit],
   );
 
   function openPopup() {
