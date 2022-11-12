@@ -1,3 +1,4 @@
+import FilterProduct from "components/product/FilterProduct";
 import SearchBar from "@components/product/SearchBar";
 import { ECategory, NECategory } from "@prisma/client";
 import { NextPage } from "next";
@@ -8,12 +9,26 @@ import { z } from "zod";
 import Layout from "../../components/Layout";
 import Product from "../../components/product/Product";
 import { trpc } from "../../utils/trpc";
-import { productSchema } from "../../utils/validations/product";
+import { IFilterProduct, productSchema } from "../../utils/validations/product";
 
 const ProductDetails: NextPage = () => {
   const [searchInput, setSearchInput] = useState("");
-  let { data } = trpc.product.getAllProducts.useQuery();
+  //let { data } = trpc.product.getAllProducts.useQuery();
 
+  const [filter, setFilter] = useState<IFilterProduct>({
+    name: "",
+    eCategories: [],
+    neCategories: [],
+    minPrice: 0,
+    maxPrice: 1000,
+    allergens: [],
+    orderByName: undefined,
+    orderByPrice: undefined,
+  });
+
+  let { data } = trpc.product.getFilteredProducts.useQuery(filter);
+
+  console.log(data);
   //BORRAR LUEGO :]
   console.log(searchInput);
 
@@ -33,25 +48,31 @@ const ProductDetails: NextPage = () => {
 
   return (
     <Layout>
-      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
-        <p className="font-bold sm:text-lg">
-          {category ? category : "Todos los productos"}
-        </p>
-        <div className="mb-1 flex justify-end align-middle">
-          <SearchBar updateSearchFunction={setSearchInput} />
+      <div className="flex flex-row">
+        <FilterProduct filter={filter} setFilter={setFilter} />
+        <div className="grow">
+          {/* Meterlo en un componente -> codigo mas limpio */}
+          <div className="mr-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
+            <p className="grow font-bold capitalize sm:text-lg">
+              {category ? category : "Todos los productos"}
+            </p>
+            <div className="b-1 justify-end align-middle">
+              <SearchBar updateSearchFunction={setSearchInput} />
+            </div>
+          </div>
+          <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 py-12 pr-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+            {data ? (
+              data.map((product) => {
+                const productParsed = productSchema.safeParse(product);
+                if (productParsed.success)
+                  return <Product product={productParsed.data}></Product>;
+                console.log(productParsed.error);
+              })
+            ) : (
+              <p className="font-semibold text-kym4">Cargando...</p>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        {data ? (
-          data.map((product) => {
-            const productParsed = productSchema.safeParse(product);
-            if (productParsed.success)
-              return <Product product={productParsed.data}></Product>;
-            console.log(productParsed.error);
-          })
-        ) : (
-          <p className="font-semibold text-kym4">Cargando...</p>
-        )}
       </div>
     </Layout>
   );

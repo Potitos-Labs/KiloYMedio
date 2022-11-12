@@ -78,20 +78,29 @@ export const productRouter = router({
           OR: [
             {
               Edible: {
-                category: { in: eCategories },
+                category:
+                  eCategories?.length == 0
+                    ? { notIn: eCategories }
+                    : { in: eCategories },
                 priceByWeight: { gte: minPrice, lte: maxPrice },
                 allergens: { none: { allergen: { in: allergens } } },
               },
             },
             {
               NonEdible: {
-                category: { in: neCategories },
+                category:
+                  neCategories?.length == 0
+                    ? { notIn: neCategories }
+                    : { in: neCategories },
                 price: { gte: minPrice, lte: maxPrice },
               },
             },
           ],
         },
-        include: { Edible: { include: { allergens: true } }, NonEdible: true },
+        include: {
+          Edible: { include: { allergens: true, nutritionFacts: true } },
+          NonEdible: true,
+        },
       });
 
       if (orderByName) {
