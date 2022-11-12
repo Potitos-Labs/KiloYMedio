@@ -42,7 +42,7 @@ export const recipeRouter = router({
           RecipeComment: true,
           RecipeIngredient: {
             select: {
-              Ingredient: true,
+              Ingredient: { select: { id: true, name: true, Edible: true } },
               amount: true,
               unit: true,
             },
