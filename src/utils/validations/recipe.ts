@@ -1,4 +1,4 @@
-import { RecipeDifficulty } from "@prisma/client";
+import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import * as z from "zod";
 
 export const createRecipeSchema = z.object({
@@ -20,7 +20,7 @@ export const createRecipeSchema = z.object({
     z.object({
       name: z.string().min(2),
       amount: z.number().nonnegative(),
-      unit: z.string(),
+      unit: z.nativeEnum(IngredientUnit),
     }),
   ),
   timeSpan: z.object({

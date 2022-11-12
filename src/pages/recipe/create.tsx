@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NextPage } from "next";
+import { createContextInner } from "@server/trpc/context";
+import { appRouter } from "@server/trpc/router/_app";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { InferGetStaticPropsType } from "next";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
+import superjson from "superjson";
 import Layout from "../../components/Layout";
 import IncDecRecipe from "../../components/ui/IncDecRecipe";
 import ListboxDesign from "../../components/ui/ListboxDesign";
@@ -12,8 +16,27 @@ import {
   createRecipeSchema,
 } from "../../utils/validations/recipe";
 
-const RecipeForm: NextPage = () => {
+export async function getStaticProps() {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: await createContextInner({ session: null }),
+    transformer: superjson,
+  });
+
+  const units = await ssg.recipe.getIngredientUnitInSpanish.fetch();
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      units,
+    },
+    revalidate: 1,
+  };
+}
+export default function CreateRecipe(
+  props: InferGetStaticPropsType<typeof getStaticProps>,
+) {
   //   const { data: allProducts } = trpc.product.getAllProducts.useQuery();
+  const { units } = props;
 
   const { mutateAsync } = trpc.recipe.create.useMutation();
 
@@ -36,23 +59,10 @@ const RecipeForm: NextPage = () => {
     defaultValues: {
       timeSpan: { hour: 0, minute: 1 },
       portions: 1,
-      ingredients: [{ amount: 1, unit: "tazas" }],
+      ingredients: [{ amount: 1, unit: "unit" }],
       directions: [{ direction: "", index: 0 }],
     },
   });
-
-  const units = [
-    "tazas",
-    "gramos",
-    "kilogramos",
-    "litros",
-    "mililitros",
-    "onzas",
-    "libras",
-    "cucharadas",
-    "cucharaditas",
-    "unidades",
-  ];
 
   const {
     fields: fieldsIngredients,
@@ -271,7 +281,7 @@ const RecipeForm: NextPage = () => {
                     appendIngredients({
                       name: "",
                       amount: 1,
-                      unit: "tazas",
+                      unit: "unit",
                     })
                   }
                   className="inline-flex items-center gap-2 pt-2"
@@ -338,6 +348,4 @@ const RecipeForm: NextPage = () => {
       </section>
     </Layout>
   );
-};
-
-export default RecipeForm;
+}

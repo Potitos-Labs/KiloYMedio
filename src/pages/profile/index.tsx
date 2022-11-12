@@ -12,7 +12,7 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import superjson from "superjson";
 import FavouriteRecipes from "../../components/profile/FavouriteRecipes";
-
+import MyRecipes from "@components/profile/MyRecipes";
 import { createContextInner } from "../../server/trpc/context";
 import { appRouter } from "../../server/trpc/router/_app";
 import { AppRouterTypes, trpc } from "../../utils/trpc";
@@ -70,7 +70,9 @@ const Profile = (
   const allergenList = data?.map((e) => e.allergen) ?? [];
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
-  const { data: userRecipes } = trpc.user.client.getFavoriteRecipes.useQuery();
+  const { data: favoriteUserRecipes } =
+    trpc.user.client.getFavoriteRecipes.useQuery();
+  const { data: userRecipes } = trpc.user.client.getOwnRecipes.useQuery();
 
   if (!client) {
     router.push("/login");
@@ -227,10 +229,30 @@ const Profile = (
               </FormWrapper>
             </div>
             <div className="my-10 w-full">
-              <FormWrapper title="Mis recetas favoritas">
+              <FormWrapper title="Mis recetas">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
                   {userRecipes ? (
                     userRecipes.map((e) => {
+                      return (
+                        <MyRecipes
+                          key={e.id}
+                          id={e.id}
+                          name={e.name}
+                          image={e.imageURL}
+                        />
+                      );
+                    })
+                  ) : (
+                    <p>No tienes ninguna receta guardada todavía.</p>
+                  )}
+                </div>
+              </FormWrapper>
+            </div>
+            <div className="my-10 w-full">
+              <FormWrapper title="Mis recetas favoritas">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+                  {favoriteUserRecipes ? (
+                    favoriteUserRecipes.map((e) => {
                       return (
                         <FavouriteRecipes
                           key={e.Recipe.id}

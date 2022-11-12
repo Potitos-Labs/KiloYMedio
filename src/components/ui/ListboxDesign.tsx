@@ -1,4 +1,5 @@
 import { Listbox } from "@headlessui/react";
+import { IngredientUnit } from "@prisma/client";
 import { IoIosArrowDown } from "react-icons/io";
 
 function ListboxDesign({
@@ -9,21 +10,21 @@ function ListboxDesign({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void;
   value: string;
-  list: string[];
+  list: Record<IngredientUnit, string>;
 }) {
-  let i = 0;
-  const options = list.map((o) => {
-    return { id: i++, name: o };
-  });
-
+  const options = Object.keys(list).map((key, i) => ({
+    id: i,
+    name: list[key as IngredientUnit],
+    value: key as IngredientUnit,
+  }));
   return (
     <div className="dropdown  w-40 ">
       <Listbox
-        value={options.find((o) => o.name == value)}
-        onChange={(o) => onChange(o.name)}
+        value={options.find((o) => o.value == value)}
+        onChange={(o) => onChange(o.value)}
       >
         <Listbox.Button className="btn btn-outline btn-sm w-full justify-start capitalize">
-          {value}
+          {list[value as IngredientUnit]}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <IoIosArrowDown className="h-5 w-5" />
           </span>

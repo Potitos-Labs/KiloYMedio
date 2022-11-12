@@ -1,3 +1,4 @@
+import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
 
 import { createRecipeSchema } from "../../../utils/validations/recipe";
@@ -118,4 +119,19 @@ export const recipeRouter = router({
         },
       });
     }),
+  getIngredientUnitInSpanish: publicProcedure.query(async ({ ctx }) => {
+    const allergen = await ctx.prisma.ingredientUnitInSpanish.findMany();
+    const keys = Object.keys(IngredientUnit) as IngredientUnit[];
+
+    const res: Record<IngredientUnit, string> = {} as Record<
+      IngredientUnit,
+      string
+    >;
+
+    keys.forEach((key) => {
+      res[key] =
+        allergen.find((a) => a.ingredientUnit === key)?.unitInSpanish ?? "";
+    });
+    return res;
+  }),
 });
