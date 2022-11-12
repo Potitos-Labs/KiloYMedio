@@ -22,14 +22,10 @@ function NavBarAdmin() {
           <GiHamburgerMenu />
         </button>
       </div>
-      <div
-        className={`${
-          !open && "hidden"
-        } block w-full flex-grow lg:flex lg:w-auto`}
-      >
+      <div className={`${!open && "hidden"} block flex-grow lg:flex lg:w-auto`}>
         <div className="group relative">
           <Link href={`/product`}>
-            <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+            <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Productos
               <RiArrowDropDownLine className="mt-1 -ml-1 h-9 w-9" />
             </a>
@@ -60,7 +56,7 @@ function NavBarAdmin() {
 
         <div className="group relative">
           <Link href={`/recipe`}>
-            <a className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+            <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Recetas
               <RiArrowDropDownLine className="mt-1 -ml-1 h-9 w-9" />
             </a>
@@ -83,12 +79,12 @@ function NavBarAdmin() {
           </div>
         </div>
 
-        <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
+        <button className="mr-4 py-2 font-semibold text-white hover:text-kym4 lg:px-5">
           Talleres
         </button>
 
         <div className="group relative">
-          <button className="peer ml-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+          <button className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
             Usuarios
             <RiArrowDropDownLine className="mt-1 -ml-1 h-9 w-9" />
           </button>
@@ -104,7 +100,7 @@ function NavBarAdmin() {
           </div>
         </div>
 
-        <button className="px-5 py-2 font-semibold text-white hover:text-kym4">
+        <button className="py-2 font-semibold text-white hover:text-kym4 lg:px-5">
           Soporte
         </button>
       </div>
