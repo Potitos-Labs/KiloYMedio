@@ -1,8 +1,10 @@
+import { UploadImage } from "@components/ui/UploadImage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { InferGetStaticPropsType } from "next";
+import Image from "next/image";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
@@ -196,11 +198,23 @@ export default function CreateRecipe(
             {/* Portions End*/}
 
             {/* Image */}
-            <div className="flex flex-row items-center gap-2">
-              <button className="border-2 border-black">Añadir imagen</button>
-              <button className="border-2 border-black">Cambiar imagen</button>
-              {/* <input type="url" placeholder="img" {...register("img", {})} /> */}
-            </div>
+            <Controller
+              name="imageURL"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <UploadImage setImageURL={onChange} />
+                  <Image
+                    src={value}
+                    alt={value}
+                    height={100}
+                    width={100}
+                    layout="fixed"
+                    objectFit="cover"
+                  />
+                </>
+              )}
+            ></Controller>
             {/* Image End */}
           </section>
           {/*End Details*/}
