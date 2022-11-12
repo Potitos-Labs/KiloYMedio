@@ -29,10 +29,10 @@ const SearchBar = ({
   };
 
   return (
-    <div className="relative h-4/5 w-4/5 sm:h-auto sm:w-auto">
+    <div className="relative h-4/5 w-4/5 sm:h-auto md:w-64">
       <div className="mb-2 flex  rounded-lg bg-white px-2 shadow-md  sm:px-4">
         <input
-          className="w-full focus:outline-0 sm:py-1 "
+          className="w-full truncate focus:outline-0 sm:py-1"
           autoComplete="off"
           id="searchBar"
           value={value}
@@ -64,7 +64,7 @@ const SearchBar = ({
           .slice(0, 10)
           .map((product) => (
             <div
-              className="ml-4 cursor-pointer"
+              className="cursor-pointer pl-4 hover:bg-background"
               key={product.id}
               onClick={() =>
                 searchHandler({
