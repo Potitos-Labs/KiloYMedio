@@ -50,7 +50,7 @@ export default function FilterProduct({
             <p className="grow whitespace-nowrap border-b-2 font-medium sm:text-sm">
               Comestibles
             </p>
-            {eCategories?.map((c) => {
+            {eCategories?.categories.map((c) => {
               return (
                 <label key={c.id}>
                   <input
