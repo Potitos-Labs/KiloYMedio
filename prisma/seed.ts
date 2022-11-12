@@ -952,7 +952,7 @@ async function main() {
       description:
         "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       RecipeComment: undefined,
-      User: { connect: { id: pilar.id } },
+      User: { connect: { id: juan.id } },
       createdAt: new Date(),
       RecipeIngredient: {
         createMany: {
