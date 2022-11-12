@@ -1,7 +1,7 @@
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
 import { RecipeCard } from "./RecipeCard";
-import { LeftArrow, RightArrow } from "./arrows";
+import { LeftArrow, RightArrow } from "./Arrows";
 
 const RecipeDisplayer = ({
   title,
