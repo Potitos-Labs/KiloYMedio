@@ -62,7 +62,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="mx-28 mt-16">
+    <div className="mx-8 mt-16 sm:mx-28">
       {/* Upper section */}
       <div className="mb-14 flex flex-col gap-14 lg:flex-row">
         <img
@@ -124,7 +124,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
       {/* End Upper section */}
 
       {/* Ingredients and Directions */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="mb-40 grid grid-cols-2 gap-4">
         <div>
           <h2 className="mb-2 text-lg font-bold">INGREDIENTES</h2>
           <div className="pr-14">
@@ -153,6 +153,22 @@ const RecipeDetail = ({ id }: { id: string }) => {
         </div>
       </div>
       {/* End Ingredients and Directions */}
+
+      {/* Products */}
+      <div className="mb-14 text-center">
+        <h2 className="text-lg font-bold">COMPRA NUESTROS PRODUCTOS</h2>
+        <hr className="border-3 mt-5 mb-10 border-orange-200"></hr>
+        <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {ingredients ? (
+            ingredients.map((i) => {
+              if (i.Ingredient.Edible) return <p>Aquí irán los productos</p>;
+            })
+          ) : (
+            <p className="font-semibold text-kym4">Cargando...</p>
+          )}
+        </div>
+      </div>
+      {/* End Products */}
 
       {/* Footer */}
       <hr className="border-1 my-24 border-orange-200"></hr>
