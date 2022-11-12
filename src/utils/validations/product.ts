@@ -38,13 +38,12 @@ export const productCreateSchema = z.object({
 export const productSchema = productCreateSchema.extend({ id: z.string() });
 
 export const filterProduct = z.object({
-  name: z.string().optional(),
+  name: z.string().optional(), //Pasar en plain text
   minPrice: z.number(),
   maxPrice: z.number(),
   eCategories: z.array(z.nativeEnum(ECategory)),
   neCategories: z.array(z.nativeEnum(NECategory)),
   allergens: z.array(z.nativeEnum(Allergen)),
-  typeProduct: z.array(z.enum(["Edible", "NonEdible"])).optional(),
   orderByPrice: z.enum(["asc", "desc"]).optional(),
   orderByName: z.enum(["asc", "desc"]).optional(),
 });

@@ -71,9 +71,10 @@ export const productRouter = router({
         orderByPrice,
         orderByName,
       } = input;
-      const products = await ctx.prisma.product.findMany({
+
+      let products = await ctx.prisma.product.findMany({
         where: {
-          name: { contains: name },
+          plainName: { contains: name },
           OR: [
             {
               Edible: {
@@ -91,14 +92,34 @@ export const productRouter = router({
           ],
         },
         include: { Edible: { include: { allergens: true } }, NonEdible: true },
-        orderBy:
-          // debe ser solo ordenador por uno, cambiar
-          [
-            { name: orderByName },
-            { Edible: { priceByWeight: orderByPrice } },
-            { NonEdible: { price: orderByPrice } },
-          ],
       });
+
+      if (orderByName) {
+        products =
+          orderByName == "asc"
+            ? products.sort((a, b) => a.name.localeCompare(b.name))
+            : products.sort((a, b) => b.name.localeCompare(a.name));
+      } else if (orderByPrice) {
+        products =
+          orderByPrice == "asc"
+            ? products.sort((a, b) => {
+                return (
+                  (a.Edible
+                    ? a.Edible.priceByWeight
+                    : a.NonEdible?.price ?? 0) -
+                  (b.Edible ? b.Edible.priceByWeight : b.NonEdible?.price ?? 0)
+                );
+              })
+            : products.sort((a, b) => {
+                return (
+                  (b.Edible
+                    ? b.Edible.priceByWeight
+                    : b.NonEdible?.price ?? 0) -
+                  (a.Edible ? a.Edible.priceByWeight : a.NonEdible?.price ?? 0)
+                );
+              });
+      }
+
       return products;
     }),
   getAllEdibleCategories: publicProcedure.query(async ({ ctx }) => {
