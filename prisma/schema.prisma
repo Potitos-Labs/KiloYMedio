@@ -330,11 +330,11 @@ model RecipeComment {
 }
 
 model RecipeDirections {
-    id         String @id @default(cuid())
-    number     Int
-    directions String @db.Text
-    recipeId   String
-    Recipe     Recipe @relation(fields: [recipeId], references: [id])
+    id        String @id @default(cuid())
+    number    Int
+    direction String @db.Text
+    recipeId  String
+    Recipe    Recipe @relation(fields: [recipeId], references: [id])
 }
 
 model RecipeIngredient {

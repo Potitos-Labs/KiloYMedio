@@ -940,7 +940,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },
@@ -972,7 +972,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },
@@ -1004,7 +1004,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },
@@ -1036,7 +1036,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },
@@ -1068,7 +1068,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },
@@ -1101,7 +1101,7 @@ async function main() {
       directions: {
         createMany: {
           data: {
-            directions: "Paso para la receta",
+            direction: "Paso para la receta",
             number: 1,
           },
         },

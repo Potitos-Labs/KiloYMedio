@@ -62,6 +62,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
 
   useEffect(() => {
     setCategory(product?.Edible?.category ?? "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = useCallback(
@@ -77,7 +78,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
         setUniqueName(false);
       }
     },
-    [updateProduct, createProduct, router],
+    [updateProduct, createProduct, router, product],
   );
 
   return (

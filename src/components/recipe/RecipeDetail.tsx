@@ -155,7 +155,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
             {directions?.map((d) => {
               return (
                 <ol key={"id"} className="list-inside list-decimal">
-                  <li className="first-letter:uppercase">{d.directions}</li>
+                  <li className="first-letter:uppercase">{d.direction}</li>
                 </ol>
               );
             })}

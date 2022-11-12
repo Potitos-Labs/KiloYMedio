@@ -82,6 +82,16 @@ export const recipeRouter = router({
           timeSpan,
         },
       }) => {
+        const prismaIngredients = await Promise.all(
+          ingredients.map(async ({ name, amount, unit }) => {
+            const res = await ctx.prisma.ingredient.create({
+              data: { name },
+              select: { id: true, name: true },
+            });
+            return { ...res, amount, unit };
+          }),
+        );
+
         return await ctx.prisma.recipe.create({
           data: {
             difficulty,
@@ -91,14 +101,21 @@ export const recipeRouter = router({
             timeSpan: timeSpan.hour * 60 + timeSpan.minute,
             description,
             directions: {
-              create: { directions: directions[0]?.direction ?? "", number: 1 },
+              createMany: {
+                data: directions.map(({ direction, index }) => ({
+                  direction: direction,
+                  number: index,
+                })),
+              },
             },
-            userId: ctx.session.user.id,
+            User: { connect: { id: ctx.session.user.id } },
             RecipeIngredient: {
-              create: {
-                Ingredient: { create: { name: ingredients[0]?.name ?? "" } },
-                amount: ingredients[0]?.amount ?? 1,
-                unit: "kilograms",
+              createMany: {
+                data: prismaIngredients.map(({ id, amount, unit }) => ({
+                  amount: amount,
+                  unit: unit,
+                  ingredientId: id,
+                })),
               },
             },
           },

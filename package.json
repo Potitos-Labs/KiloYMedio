@@ -18,6 +18,7 @@
     "check-types": "tsc --noemit",
     "prisma:pushWithForceReset": "prisma db push --force-reset",
     "prisma:seed": "prisma db push --force-reset && prisma db seed",
+    "prisma:studio": "prisma studio",
     "prepare": "husky install",
     "test": "jest -i"
   },
