@@ -70,30 +70,46 @@ export const productRouter = router({
         allergens,
         orderByPrice,
         orderByName,
+        typeProduct,
       } = input;
-
+      const isNot = { isNot: null };
+      const is = { is: null };
       let products = await ctx.prisma.product.findMany({
         where: {
           plainName: { contains: name },
           OR: [
             {
-              Edible: {
-                category:
-                  eCategories?.length == 0
-                    ? { notIn: eCategories }
-                    : { in: eCategories },
-                priceByWeight: { gte: minPrice, lte: maxPrice },
-                allergens: { none: { allergen: { in: allergens } } },
-              },
+              AND: [
+                {
+                  Edible: {
+                    category:
+                      eCategories?.length == 0
+                        ? { notIn: eCategories }
+                        : { in: eCategories },
+                    priceByWeight: { gte: minPrice, lte: maxPrice },
+                    allergens: { none: { allergen: { in: allergens } } },
+                  },
+                },
+                {
+                  Edible: typeProduct.includes("Edible") ? isNot : is,
+                },
+              ],
             },
             {
-              NonEdible: {
-                category:
-                  neCategories?.length == 0
-                    ? { notIn: neCategories }
-                    : { in: neCategories },
-                price: { gte: minPrice, lte: maxPrice },
-              },
+              AND: [
+                {
+                  NonEdible: {
+                    category:
+                      neCategories?.length == 0
+                        ? { notIn: neCategories }
+                        : { in: neCategories },
+                    price: { gte: minPrice, lte: maxPrice },
+                  },
+                },
+                {
+                  NonEdible: typeProduct.includes("NonEdible") ? isNot : is,
+                },
+              ],
             },
           ],
         },
