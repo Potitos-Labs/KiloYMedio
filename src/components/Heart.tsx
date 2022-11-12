@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 interface HeartProps {
@@ -9,17 +8,14 @@ interface HeartProps {
 }
 
 const Heart = ({ id, favorite, addFavorite, removeFavorite }: HeartProps) => {
-  const [isFavorite, setFavorite] = useState(favorite);
-
   function changeFavorite() {
-    !isFavorite ? addFavorite(id) : removeFavorite(id);
-    setFavorite(!favorite);
+    !favorite ? addFavorite(id) : removeFavorite(id);
   }
 
   return (
     <div>
       <div className="dropdown relative flex h-8 w-6 cursor-pointer items-center">
-        {isFavorite ? (
+        {favorite ? (
           <FaHeart
             className="text-violet-800"
             onClick={() => changeFavorite()}
