@@ -93,7 +93,12 @@ export default function CreateProdcut(
                 data.map((product) => {
                   const productParsed = productSchema.safeParse(product);
                   if (productParsed.success)
-                    return <Product product={productParsed.data}></Product>;
+                    return (
+                      <Product
+                        key={product.id}
+                        product={productParsed.data}
+                      ></Product>
+                    );
                   console.log(productParsed.error);
                 })
               ) : (

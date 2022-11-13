@@ -1,8 +1,10 @@
+import { UploadImage } from "@components/ui/UploadImage";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Allergen, ECategory } from "@prisma/client";
+import { Allergen } from "@prisma/client";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { trpc } from "../../utils/trpc";
@@ -11,11 +13,10 @@ import {
   IProductCreate,
   productCreateSchema,
 } from "../../utils/validations/product";
-import Listbox from "../Listbox";
+import Listbox from "../ui/Listbox";
 
 export default function EdibleForm({ product }: { product?: IProduct }) {
   const router = useRouter();
-  const [category, setCategory] = useState("");
   const [isUniqueName, setUniqueName] = useState(true);
 
   const {
@@ -23,17 +24,21 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     setValue,
     formState: { errors },
     handleSubmit,
+    control,
   } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
     criteriaMode: "all",
     shouldUseNativeValidation: true,
     defaultValues: product,
   });
-  const utils = trpc.useContext();
+
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllCategories.useQuery();
+
   const { mutateAsync: createProduct } =
     trpc.product.createNewProduct.useMutation();
+
+  const utils = trpc.useContext();
   const { mutateAsync: updateProduct } = trpc.product.update.useMutation({
     onSuccess: () => {
       utils.product.getById.invalidate();
@@ -50,20 +55,6 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     if (index != -1) allergensList.splice(index, 1);
     else allergensList.push({ allergen });
   };
-
-  useEffect(() => {
-    try {
-      const eCategory = z.nativeEnum(ECategory).parse(category);
-      setValue("Edible.category", eCategory);
-    } catch (error) {
-      console.log("error en useEffect");
-    }
-  }, [category, setValue]);
-
-  useEffect(() => {
-    setCategory(product?.Edible?.category ?? "");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const onSubmit = useCallback(
     async (data: IProductCreate) => {
@@ -174,29 +165,43 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               {errors.Edible?.conservation?.message}
             </p>
           </label>
-          <label className="flex w-full flex-col">
-            <span className="mb-2">URL *</span>
-            <input
-              type="text"
-              placeholder="Imagen URL"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
-              {...register("imageURL")}
-            />
-            <p className="text-sm text-pink-600">{errors.imageURL?.message}</p>
-          </label>
           <label className="relative flex w-full flex-col">
             <span className="mb-2">Categoría *</span>
-            <Listbox
-              list={
-                categories?.eCategories.map((c) => {
-                  return { value: c.category, text: c.categoryInSpanish };
-                }) ?? []
-              }
-              setValue={setCategory}
-              // defaultValue={categories?.inSpanish(
-              //   product?.Edible?.category ?? "",
-              // )}
+            <Controller
+              name="Edible.category"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <Listbox
+                  list={
+                    categories?.eCategories.map((c) => {
+                      return { value: c.category, text: c.categoryInSpanish };
+                    }) ?? []
+                  }
+                  setValue={onChange}
+                />
+              )}
+            ></Controller>
+          </label>
+          <label className="col-span-2 flex w-full flex-col">
+            <span className="mb-2">Imagen *</span>
+            <Controller
+              control={control}
+              name="imageURL"
+              render={({ field: { onChange, value } }) => (
+                <div className="m-2 flex flex-col gap-4 md:flex-row">
+                  <UploadImage setImageURL={onChange}></UploadImage>
+                  <Image
+                    src={value ?? "/img/placeholder.jpg"}
+                    width={100}
+                    height={100}
+                    layout="intrinsic"
+                    objectFit="contain"
+                    alt="Imagen del producto"
+                  ></Image>
+                </div>
+              )}
             />
+            <p className="text-sm text-pink-600">{errors.imageURL?.message}</p>
           </label>
         </div>
         <div>
