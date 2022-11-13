@@ -41,7 +41,7 @@ const SearchBar = ({
           onChange={(e) => onChange({ searchInput: e.target.value })}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              onChange({ searchInput: value });
+              searchHandler({ searchInput: value });
             }
           }}
         ></input>
