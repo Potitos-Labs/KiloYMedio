@@ -57,45 +57,35 @@ export default function CreateProdcut(
     }
   }
 
-  //let { data } = trpc.product.getAllProducts.useQuery();
+  const router = useRouter();
+  const category = router.query.category as string;
+  const ecategory = z.nativeEnum(ECategory).safeParse(category);
+  const necategory = z.nativeEnum(NECategory).safeParse(category);
 
   const [filter, setFilter] = useState<IFilterProduct>({
     name: "",
-    eCategories: [],
-    neCategories: [],
+    eCategories: ecategory.success ? [ecategory.data] : [],
+    neCategories: necategory.success ? [necategory.data] : [],
     minPrice: 0,
     maxPrice: 1000,
     allergens: [],
     orderByName: undefined,
     orderByPrice: undefined,
-    typeProduct: ["Edible", "NonEdible"],
+    typeProduct: ecategory.success
+      ? ["Edible"]
+      : necategory.success
+      ? ["NonEdible"]
+      : ["Edible", "NonEdible"],
   });
-  console.log(filter);
-  let { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
-  console.log(data);
-
-  const router = useRouter();
-  const category = router.query.category as string;
-
-  if (category && data) {
-    const ecategory = z.nativeEnum(ECategory).safeParse(category);
-    const necategory = z.nativeEnum(NECategory).safeParse(category);
-
-    if (ecategory.success) {
-      data = data.filter((p) => p.Edible?.category === ecategory.data);
-    } else if (necategory.success) {
-      data = data.filter((p) => p.NonEdible?.category === necategory.data);
-    }
-  }
+  const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
   return (
     <Layout>
       <div className="flex flex-row">
         <FilterProduct filter={filter} setFilter={setFilter} />
         <div className="grow">
-          {/* Meterlo en un componente -> codigo mas limpio */}
-          <div className="mr-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
+          <div className="mx-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
             <p className="grow font-bold capitalize sm:text-lg">
               {category
                 ? inSpanish(category as ECategory | NECategory)
@@ -105,7 +95,7 @@ export default function CreateProdcut(
               <SearchBar filter={filter} setFilter={setFilter} />
             </div>
           </div>
-          <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 py-12 pr-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 py-12 px-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {data ? (
               data.length !== 0 ? (
                 data.map((product) => {

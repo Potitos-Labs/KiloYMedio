@@ -1,6 +1,6 @@
 import { trpc } from "@utils/trpc";
 import { IFilterProduct } from "@utils/validations/product";
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { FcInfo } from "react-icons/fc";
 
 export default function FilterProduct({
@@ -13,51 +13,95 @@ export default function FilterProduct({
   const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
 
+  const handleOrderByChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    let selected = {};
+    switch (true) {
+      case value.startsWith("name"):
+        value.endsWith("asc")
+          ? (selected = { orderByName: "asc", orderByPrice: undefined })
+          : (selected = { orderByName: "desc", orderByPrice: undefined });
+        break;
+      case value.startsWith("price"):
+        value.endsWith("asc")
+          ? (selected = { orderByName: undefined, orderByPrice: "asc" })
+          : (selected = { orderByName: undefined, orderByPrice: "desc" });
+        break;
+      default:
+        selected = { orderByName: undefined, orderByPrice: undefined };
+    }
+    setFilter({ ...filter, ...selected });
+  };
+
   return (
-    <div className="w-72">
-      <div className="mx-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
-        <p className="grow whitespace-nowrap sm:text-lg">Filtros de búsqueda</p>
+    <div className="sm:w-full sm:max-w-xs">
+      <div className="ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
+        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
+          Filtros de búsqueda
+        </p>
       </div>
-      <div className="m-12 rounded-md bg-white p-4">
-        <div>
-          <p className="sm:text-md grow whitespace-nowrap font-semibold">
+      <div className="ml-12 mt-12 rounded-md bg-white p-4">
+        <div className="flex flex-col">
+          <span className="whitespace-nowrap font-semibold sm:text-lg">
+            Ordenar por:
+          </span>
+          <select
+            onChange={handleOrderByChange}
+            className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[90%] bg-white"
+          >
+            <option selected>{"<Sin orden>"}</option>
+            <option value={"priceasc"}>Precios más barato primero</option>
+            <option value={"pricedesc"}>Precios más caros primero</option>
+            <option value={"nameasc"}>Nombre: de A-Z</option>
+            <option value={"namedesc"}>Nombre: de Z-A</option>
+          </select>
+        </div>
+        <div className="mt-2">
+          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
             Precio
           </p>
-          <input
-            type="number"
-            placeholder="min."
-            className="input h-6 w-full"
-            onChange={(e) => {
-              return setFilter({
-                ...filter,
-                minPrice: e.target.valueAsNumber ? e.target.valueAsNumber : 0,
-              });
-            }}
-          />
-          <input
-            type="number"
-            placeholder="max."
-            className="input mt-2 h-6 w-full"
-            onChange={(e) =>
-              setFilter({
-                ...filter,
-                maxPrice: e.target.valueAsNumber
-                  ? e.target.valueAsNumber
-                  : 1000000,
-              })
-            }
-          />
+          <label className="ml-4 flex">
+            <span>Min:</span>
+            <input
+              type="number"
+              placeholder="0€"
+              className="input ml-2 h-6 w-20"
+              onChange={(e) => {
+                return setFilter({
+                  ...filter,
+                  minPrice: e.target.valueAsNumber ? e.target.valueAsNumber : 0,
+                });
+              }}
+            />
+          </label>
+          <label className="mt-2 ml-4 flex">
+            <span>Max:</span>
+            <input
+              type="number"
+              placeholder="100€"
+              className="input ml-2 h-6 w-20"
+              onChange={(e) =>
+                setFilter({
+                  ...filter,
+                  maxPrice:
+                    e.target.valueAsNumber || e.target.valueAsNumber == 0
+                      ? e.target.valueAsNumber
+                      : 100,
+                })
+              }
+            />
+          </label>
         </div>
-        <div className="flex flex-col">
-          <p className="sm:text-md grow whitespace-nowrap font-semibold">
+        <div className="mt-2 flex flex-col">
+          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
             Tipo de producto
           </p>
           <label>
             <input
               type="checkbox"
               placeholder="min."
-              className="checkbox checkbox-xs ml-3"
-              defaultChecked={true}
+              className="checkbox checkbox-xs ml-4"
+              defaultChecked={filter.typeProduct.includes("Edible")}
               onChange={() => {
                 const index = filter.typeProduct.indexOf("Edible");
                 index == -1
@@ -72,8 +116,8 @@ export default function FilterProduct({
             <input
               type="checkbox"
               placeholder="max."
-              className="checkbox checkbox-xs ml-3"
-              defaultChecked={true}
+              className="checkbox checkbox-xs ml-4"
+              defaultChecked={filter.typeProduct.includes("NonEdible")}
               onChange={() => {
                 const index = filter.typeProduct.indexOf("NonEdible");
                 index == -1
@@ -85,35 +129,42 @@ export default function FilterProduct({
             <span className="pl-1">No comestibles</span>
           </label>
         </div>
-        <div>
-          <p className="sm:text-md grow whitespace-nowrap font-semibold">
+        <div className="mt-2">
+          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
             Categorías
           </p>
-          <div className="flex flex-col pl-3">
-            {categories?.eCategories.map((c) => {
-              return (
-                <label key={c.id}>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-xs"
-                    onChange={() => {
-                      const index = filter.eCategories.indexOf(c.category);
-                      index == -1
-                        ? filter.eCategories.splice(0, 0, c.category)
-                        : filter.eCategories.splice(index, 1);
-                      return setFilter({ ...filter });
-                    }}
-                  />
-                  <span className="pl-1">{c.categoryInSpanish}</span>
-                </label>
-              );
-            })}
+          <div className="flex flex-col pl-4">
+            {categories?.eCategories
+              .sort((a, b) =>
+                a.categoryInSpanish.localeCompare(b.categoryInSpanish),
+              )
+              .map((c) => {
+                return (
+                  <label key={c.id}>
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-xs"
+                      defaultChecked={filter.eCategories.includes(c.category)}
+                      onChange={() => {
+                        const index = filter.eCategories.indexOf(c.category);
+                        index == -1
+                          ? filter.eCategories.splice(0, 0, c.category)
+                          : filter.eCategories.splice(index, 1);
+                        return setFilter({ ...filter });
+                      }}
+                    />
+                    <span className="pl-1">{c.categoryInSpanish}</span>
+                  </label>
+                );
+              })}
+            <hr className="my-1 ml-4 w-[75%]"></hr>
             {categories?.neCategories.map((c) => {
               return (
                 <label key={c.id}>
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs"
+                    defaultChecked={filter.neCategories.includes(c.category)}
                     onChange={() => {
                       const index = filter.neCategories.indexOf(c.category);
                       index == -1
@@ -128,22 +179,22 @@ export default function FilterProduct({
             })}
           </div>
         </div>
-        <div>
+        <div className="mt-2">
           <div
             className="flex flex-row"
             data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
           >
-            <p className="sm:text-md mr-1 whitespace-nowrap font-semibold">
+            <p className="mr-1 whitespace-nowrap font-semibold sm:text-lg">
               Alérgenos
             </p>
             <div
-              className="tooltip tooltip-right tooltip-info mt-1"
+              className="tooltip tooltip-right tooltip-info mt-2"
               data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
             >
               <FcInfo />
             </div>
           </div>
-          <div className="flex flex-col pl-3">
+          <div className="flex flex-col pl-4">
             {allergens
               ?.sort((a, b) =>
                 a.allergenInSpanish.localeCompare(b.allergenInSpanish),
