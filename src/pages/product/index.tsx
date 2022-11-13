@@ -14,6 +14,7 @@ import { IFilterProduct, productSchema } from "../../utils/validations/product";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
+import Tittle from "@components/product/Tittle";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -81,11 +82,7 @@ export default function CreateProdcut(
         <FilterProduct filter={filter} setFilter={setFilter} />
         <div className="grow">
           <div className="mx-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
-            <p className="grow font-bold capitalize sm:text-lg">
-              {category
-                ? inSpanish(category as ECategory | NECategory)
-                : "Todos los productos"}
-            </p>
+            <Tittle filter={filter} inSpanish={inSpanish} />
             <div className="b-1 justify-end align-middle">
               <SearchBar filter={filter} setFilter={setFilter} />
             </div>
