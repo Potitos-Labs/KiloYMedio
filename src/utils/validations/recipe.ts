@@ -10,16 +10,16 @@ export const createRecipeSchema = z.object({
   timeSpan: z
     .object(
       {
-        hour: z.number().min(0).max(23),
-        minute: z.number().min(1).max(59),
+        hour: z.number().min(0, { message: "Duración inválida" }).max(23),
+        minute: z.number().min(1, { message: "Duración inválida" }).max(59),
       },
       { required_error: "Duración inválida" },
     )
     .or(
       z.object(
         {
-          hour: z.number().min(1).max(23),
-          minute: z.number().min(0).max(59),
+          hour: z.number().min(1, { message: "Duración inválida" }).max(23),
+          minute: z.number().min(0, { message: "Duración inválida" }).max(59),
         },
         { required_error: "Duración inválida" },
       ),
