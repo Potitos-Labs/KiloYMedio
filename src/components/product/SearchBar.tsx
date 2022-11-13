@@ -11,7 +11,12 @@ const SearchBar = ({
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
 }) => {
   const [value, setValue] = useState("");
-  const { data } = trpc.product.getAllProducts.useQuery();
+  const { data } = trpc.product.getFilteredProducts.useQuery({
+    name: "",
+    eCategories: filter.eCategories,
+    neCategories: filter.neCategories,
+    allergens: filter.allergens,
+  });
 
   const onChange = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
