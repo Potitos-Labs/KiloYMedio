@@ -154,7 +154,7 @@ export default function FilterProduct({
               Alérgenos
             </p>
             <div
-              className="tooltip tooltip-right tooltip-info mt-2"
+              className="tooltip tooltip-right tooltip-info z-10 mt-2"
               data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
             >
               <FcInfo />
