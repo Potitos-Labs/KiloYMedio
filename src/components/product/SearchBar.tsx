@@ -11,18 +11,13 @@ const SearchBar = ({
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
 }) => {
   const [value, setValue] = useState("");
-  const { data } = trpc.product.getFilteredProducts.useQuery({
-    name: "",
-    typeProduct: filter.typeProduct,
-    eCategories: filter.eCategories,
-    neCategories: filter.neCategories,
-    allergens: filter.allergens,
-  });
+  const { data } = trpc.product.getAllProducts.useQuery();
 
+  /*
   const onChange = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
   };
-
+*/
   const searchHandler = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
     return setFilter({
@@ -44,7 +39,7 @@ const SearchBar = ({
           value={value}
           type="text"
           placeholder="Buscar... "
-          onChange={(e) => onChange({ searchInput: e.target.value })}
+          onChange={(e) => searchHandler({ searchInput: e.target.value })}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               searchHandler({ searchInput: value });
@@ -65,7 +60,10 @@ const SearchBar = ({
             ?.filter((product) => {
               return (
                 value &&
-                product.name.toLowerCase().startsWith(value.toLowerCase()) &&
+                (product.name.toLowerCase().startsWith(value.toLowerCase()) ||
+                  product.name
+                    .toLowerCase()
+                    .includes(" " + value.toLowerCase())) &&
                 product.name.toLowerCase() !== value.toLowerCase()
               );
             })
