@@ -71,11 +71,6 @@ export default function CreateProdcut(
     allergens: [],
     orderByName: undefined,
     orderByPrice: undefined,
-    typeProduct: ecategory.success
-      ? ["Edible"]
-      : necategory.success
-      ? ["NonEdible"]
-      : ["Edible", "NonEdible"],
   });
 
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);

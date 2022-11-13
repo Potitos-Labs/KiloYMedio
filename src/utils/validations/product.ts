@@ -46,9 +46,6 @@ export const filterProduct = z.object({
   allergens: z.array(z.nativeEnum(Allergen)),
   orderByPrice: z.enum(["asc", "desc"]).optional(),
   orderByName: z.enum(["asc", "desc"]).optional(),
-  typeProduct: z
-    .array(z.enum(["Edible", "NonEdible"]))
-    .default(["Edible", "NonEdible"]),
 });
 
 export const categorySchema = z.union([

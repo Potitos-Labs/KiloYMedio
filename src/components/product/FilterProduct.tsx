@@ -92,43 +92,6 @@ export default function FilterProduct({
             />
           </label>
         </div>
-        <div className="mt-2 flex flex-col">
-          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-            Tipo de producto
-          </p>
-          <label>
-            <input
-              type="checkbox"
-              placeholder="min."
-              className="checkbox checkbox-xs ml-4"
-              defaultChecked={filter.typeProduct.includes("Edible")}
-              onChange={() => {
-                const index = filter.typeProduct.indexOf("Edible");
-                index == -1
-                  ? filter.typeProduct.splice(0, 0, "Edible")
-                  : filter.typeProduct.splice(index, 1);
-                return setFilter({ ...filter });
-              }}
-            />
-            <span className="pl-1">Comestibles</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              placeholder="max."
-              className="checkbox checkbox-xs ml-4"
-              defaultChecked={filter.typeProduct.includes("NonEdible")}
-              onChange={() => {
-                const index = filter.typeProduct.indexOf("NonEdible");
-                index == -1
-                  ? filter.typeProduct.splice(0, 0, "NonEdible")
-                  : filter.typeProduct.splice(index, 1);
-                return setFilter({ ...filter });
-              }}
-            />
-            <span className="pl-1">No comestibles</span>
-          </label>
-        </div>
         <div className="mt-2">
           <p className="grow whitespace-nowrap font-semibold sm:text-lg">
             Categorías
