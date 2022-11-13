@@ -25,12 +25,14 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     formState: { errors },
     handleSubmit,
     control,
+    watch,
   } = useForm<IProductCreate>({
     resolver: zodResolver(productCreateSchema),
     criteriaMode: "all",
     shouldUseNativeValidation: true,
     defaultValues: product,
   });
+  console.log(watch());
 
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const { data: categories } = trpc.product.getAllCategories.useQuery();
@@ -46,14 +48,16 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
     },
   });
 
-  const allergensList: { allergen: Allergen }[] =
-    product?.Edible?.allergens ?? [];
+  const [allergensList, setAllergensList] = useState<{ allergen: Allergen }[]>(
+    product?.Edible?.allergens ?? [],
+  );
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
     const index = allergensList.findIndex((obj) => obj.allergen == allergen);
     if (index != -1) allergensList.splice(index, 1);
     else allergensList.push({ allergen });
+    setAllergensList(allergensList);
   };
 
   const onSubmit = useCallback(
