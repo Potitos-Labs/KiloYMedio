@@ -27,22 +27,29 @@ export const createRecipeSchema = z.object({
   portions: z.number().min(1, { message: "Las raciones no pueden ser 0" }),
   imageURL: z.string({ required_error: "Campo obligatorio" }).url(),
   description: z.string().nullable(),
-  ingredients: z.array(
-    z.object({
-      name: z.string().min(1, { message: "Campo obligatorio" }),
-      amount: z.number().nonnegative().min(1, { message: "Cantidad inválida" }),
-      unit: z.nativeEnum(IngredientUnit),
-    }),
-  ),
-  directions: z.array(
-    z.object({
-      index: z.number(),
-      direction: z
-        .string()
-        .min(2, { message: "Campo muy corto" })
-        .max(120, { message: "Campo muy largo" }),
-    }),
-  ),
+  ingredients: z
+    .array(
+      z.object({
+        name: z.string().min(1, { message: "Campo obligatorio" }),
+        amount: z
+          .number()
+          .nonnegative()
+          .min(1, { message: "Cantidad inválida" }),
+        unit: z.nativeEnum(IngredientUnit),
+      }),
+    )
+    .nonempty({ message: "La receta debe tener al menos un ingrediente" }),
+  directions: z
+    .array(
+      z.object({
+        index: z.number(),
+        direction: z
+          .string()
+          .min(2, { message: "Campo muy corto" })
+          .max(120, { message: "Campo muy largo" }),
+      }),
+    )
+    .nonempty({ message: "Debes añadir al menos una instrucción" }),
 });
 
 export type ICreateRecipe = z.infer<typeof createRecipeSchema>;

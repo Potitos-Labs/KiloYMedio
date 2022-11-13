@@ -320,6 +320,9 @@ export default function CreateRecipe(
                       );
                     })}
                   </div>
+                  <p className="flex text-sm text-red-500">
+                    {errors.ingredients?.message}
+                  </p>
                   <button
                     type="button"
                     onClick={() =>
@@ -371,6 +374,9 @@ export default function CreateRecipe(
                     );
                   })}
                 </div>
+                <p className="flex text-sm text-red-500">
+                  {errors.directions?.message}
+                </p>
                 <button
                   type="button"
                   onClick={() =>
