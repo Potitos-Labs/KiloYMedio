@@ -4,7 +4,6 @@ import { useState } from "react";
 const SearchBar = () => {
   const [value, setValue] = useState("");
   const { data } = trpc.product.getFilteredProducts.useQuery({
-    typeProduct: ["Edible"],
     allergens: [],
     eCategories: [],
     neCategories: [],
