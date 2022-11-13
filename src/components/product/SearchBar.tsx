@@ -13,6 +13,7 @@ const SearchBar = ({
   const [value, setValue] = useState("");
   const { data } = trpc.product.getFilteredProducts.useQuery({
     name: "",
+    typeProduct: filter.typeProduct,
     eCategories: filter.eCategories,
     neCategories: filter.neCategories,
     allergens: filter.allergens,
