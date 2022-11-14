@@ -28,7 +28,9 @@ export const createRecipeSchema = z.object({
   imageURL: z.string({ required_error: "Campo obligatorio" }).url(),
   description: z
     .string()
-    .max(600, { message: "La descripción no puede tener más de 6 caracteres" })
+    .max(600, {
+      message: "La descripción no puede tener más de 600 caracteres",
+    })
     .nullable(),
   ingredients: z
     .array(
