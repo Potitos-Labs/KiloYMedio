@@ -16,6 +16,8 @@ import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
 import { AiOutlineLoading } from "react-icons/ai";
+import { BsFilterSquare } from "react-icons/bs";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -77,16 +79,51 @@ export default function CreateProdcut(
 
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
+  const [openFilter, setOpenFilter] = useState(false);
+
   return (
     <Layout>
       <div className="flex flex-row">
-        <FilterProduct filter={filter} setFilter={setFilter} />
+        <div className="flex flex-col">
+          <div
+            className={`${
+              openFilter ? "hidden" : "hidden sm:block"
+            } ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3`}
+          >
+            <p className="grow whitespace-nowrap font-semibold sm:text-lg">
+              Filtros de búsqueda
+            </p>
+          </div>
+          <div
+            className={`${openFilter ? "absolute mt-2" : ""} z-10 md:max-w-xs`}
+          >
+            <IoIosCloseCircleOutline
+              size={"2rem"}
+              onClick={() => setOpenFilter(false)}
+              className={`${
+                openFilter ? "block" : "hidden"
+              } absolute right-2 top-2`}
+            />
+            <FilterProduct
+              className={`${
+                openFilter
+                  ? "rounded-r-md bg-opacity-95 pt-5 shadow-lg"
+                  : "my-12 ml-12 hidden rounded-md sm:block"
+              } bg-white`}
+              filter={filter}
+              setFilter={setFilter}
+            />
+          </div>
+        </div>
         <div className="grow">
           <div className="mx-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
             <Tittle filter={filter} inSpanish={inSpanish} />
             <div className="b-1 justify-end align-middle">
               <SearchBar filter={filter} setFilter={setFilter} />
             </div>
+            <button onClick={() => setOpenFilter(true)}>
+              <BsFilterSquare size="2rem" className="ml-3 sm:hidden" />
+            </button>
           </div>
           <div className="min-h-screen py-12 px-12">
             {data ? (

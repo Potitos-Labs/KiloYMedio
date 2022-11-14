@@ -15,9 +15,11 @@ export function CheckboxLoad() {
 export default function FilterProduct({
   filter,
   setFilter,
+  className,
 }: {
   filter: IFilterProduct;
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
+  className?: string;
 }) {
   const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
@@ -43,133 +45,107 @@ export default function FilterProduct({
   };
 
   return (
-    <div className="hidden sm:block md:max-w-xs">
-      <div className="ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
-        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-          Filtros de búsqueda
-        </p>
+    <div className={`${className} p-4`}>
+      <div className="flex flex-col">
+        <span className="whitespace-nowrap font-semibold sm:text-lg">
+          Ordenar por:
+        </span>
+        <select
+          onChange={handleOrderByChange}
+          className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[80%] bg-white"
+        >
+          <option disabled selected value={"noSelection"}>
+            Seleccionar
+          </option>
+          <option value={"priceasc"}>Precios más barato primero</option>
+          <option value={"pricedesc"}>Precios más caros primero</option>
+          <option value={"nameasc"}>Nombre: de A-Z</option>
+          <option value={"namedesc"}>Nombre: de Z-A</option>
+        </select>
       </div>
-      <div className="ml-12 mt-12 rounded-md bg-white p-4">
-        <div className="flex flex-col">
-          <span className="whitespace-nowrap font-semibold sm:text-lg">
-            Ordenar por:
-          </span>
-          <select
-            onChange={handleOrderByChange}
-            className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[90%] bg-white"
-          >
-            <option disabled selected value={"noSelection"}>
-              Seleccionar
-            </option>
-            <option value={"priceasc"}>Precios más barato primero</option>
-            <option value={"pricedesc"}>Precios más caros primero</option>
-            <option value={"nameasc"}>Nombre: de A-Z</option>
-            <option value={"namedesc"}>Nombre: de Z-A</option>
-          </select>
-        </div>
-        <div className="mt-2">
-          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-            Precio
-          </p>
-          <label className="ml-4 flex">
-            <span>Min:</span>
-            <input
-              type="number"
-              placeholder="0€"
-              step="any"
-              className={`input ml-2 h-6 w-20 ${
-                errorPrice && "border-pink-600"
-              } `}
-              onChange={(e) => {
-                const minValue = e.target.valueAsNumber
-                  ? e.target.valueAsNumber
-                  : 0;
-                if (filter.maxPrice < minValue) {
-                  setErrorPrice(true);
-                  return;
-                }
-                setErrorPrice(false);
-                setFilter({
-                  ...filter,
-                  minPrice: minValue,
-                });
-              }}
-            />
-            <div
-              className={`tooltip tooltip-top tooltip-accent ${
-                errorPrice && "tooltip-open"
-              } tooltip-error z-10`}
-              data-tip="El precio mínimo no puede ser mayor al máximo"
-            />
-          </label>
-          <label className="mt-2 ml-4 flex">
-            <span>Max:</span>
-            <input
-              type="number"
-              placeholder="5000€"
-              step="any"
-              className={`input ml-2 h-6 w-20 ${
-                errorPrice && "border-pink-600"
-              } `}
-              onChange={(e) => {
-                const maxValue = e.target.valueAsNumber
-                  ? e.target.valueAsNumber
-                  : 5000;
-                if (maxValue < filter.minPrice) {
-                  setErrorPrice(true);
-                  return;
-                }
-                setErrorPrice(false);
-                setFilter({
-                  ...filter,
-                  maxPrice: maxValue,
-                });
-              }}
-            />
-          </label>
-        </div>
-        <div className="mt-2">
-          <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-            Categorías
-          </p>
-          {categories ? (
-            <div className="flex flex-col pl-4">
-              {categories?.eCategories
-                .sort((a, b) =>
-                  a.categoryInSpanish.localeCompare(b.categoryInSpanish),
-                )
-                .map((c) => {
-                  return (
-                    <label key={c.id}>
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-xs"
-                        defaultChecked={filter.eCategories.includes(c.category)}
-                        onChange={() => {
-                          const index = filter.eCategories.indexOf(c.category);
-                          index == -1
-                            ? filter.eCategories.splice(0, 0, c.category)
-                            : filter.eCategories.splice(index, 1);
-                          return setFilter({ ...filter });
-                        }}
-                      />
-                      <span className="pl-1">{c.categoryInSpanish}</span>
-                    </label>
-                  );
-                })}
-              <hr className="my-1 ml-4 w-[75%]"></hr>
-              {categories?.neCategories.map((c) => {
+      <div className="mt-2">
+        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
+          Precio
+        </p>
+        <label className="ml-4 flex">
+          <span>Min:</span>
+          <input
+            type="number"
+            placeholder="0€"
+            step="any"
+            className={`input ml-2 h-6 w-20 ${
+              errorPrice && "border-pink-600"
+            } `}
+            onChange={(e) => {
+              const minValue = e.target.valueAsNumber
+                ? e.target.valueAsNumber
+                : 0;
+              if (filter.maxPrice < minValue) {
+                setErrorPrice(true);
+                return;
+              }
+              setErrorPrice(false);
+              setFilter({
+                ...filter,
+                minPrice: minValue,
+              });
+            }}
+          />
+          <div
+            className={`tooltip tooltip-top tooltip-accent ${
+              errorPrice && "tooltip-open"
+            } tooltip-error z-10`}
+            data-tip="El precio mínimo no puede ser mayor al máximo"
+          />
+        </label>
+        <label className="mt-2 ml-4 flex">
+          <span>Max:</span>
+          <input
+            type="number"
+            placeholder="5000€"
+            step="any"
+            className={`input ml-2 h-6 w-20 ${
+              errorPrice && "border-pink-600"
+            } `}
+            onChange={(e) => {
+              const maxValue = e.target.valueAsNumber
+                ? e.target.valueAsNumber
+                : 5000;
+              if (maxValue < filter.minPrice) {
+                setErrorPrice(true);
+                return;
+              }
+              setErrorPrice(false);
+              setFilter({
+                ...filter,
+                maxPrice: maxValue,
+              });
+            }}
+          />
+        </label>
+      </div>
+      <div className="mt-2">
+        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
+          Categorías
+        </p>
+        {categories ? (
+          <div className="flex flex-col pl-4">
+            {categories?.eCategories
+              .sort((a, b) =>
+                a.categoryInSpanish.localeCompare(b.categoryInSpanish),
+              )
+              .map((c) => {
                 return (
                   <label key={c.id}>
                     <input
                       type="checkbox"
                       className="checkbox checkbox-xs"
-                      defaultChecked={filter.neCategories.includes(c.category)}
+                      defaultChecked={filter.eCategories.includes(c.category)}
                       onChange={() => {
-                        const index = filter.neCategories.indexOf(c.category);
+                        const index = filter.eCategories.indexOf(c.category);
                         index == -1
-                          ? filter.neCategories.splice(0, 0, c.category)
-                          : filter.neCategories.splice(index, 1);
+                          ? filter.eCategories.splice(0, 0, c.category)
+                          : filter.eCategories.splice(index, 1);
                         return setFilter({ ...filter });
                       }}
                     />
@@ -177,56 +153,75 @@ export default function FilterProduct({
                   </label>
                 );
               })}
-            </div>
-          ) : (
-            [...Array(14)].map((e, i) => {
-              return <CheckboxLoad key={i} />;
-            })
-          )}
-        </div>
-        <div className="mt-2">
+            <hr className="my-1 ml-4 w-[75%]"></hr>
+            {categories?.neCategories.map((c) => {
+              return (
+                <label key={c.id}>
+                  <input
+                    type="checkbox"
+                    className="checkbox checkbox-xs"
+                    defaultChecked={filter.neCategories.includes(c.category)}
+                    onChange={() => {
+                      const index = filter.neCategories.indexOf(c.category);
+                      index == -1
+                        ? filter.neCategories.splice(0, 0, c.category)
+                        : filter.neCategories.splice(index, 1);
+                      return setFilter({ ...filter });
+                    }}
+                  />
+                  <span className="pl-1">{c.categoryInSpanish}</span>
+                </label>
+              );
+            })}
+          </div>
+        ) : (
+          [...Array(14)].map((e, i) => {
+            return <CheckboxLoad key={i} />;
+          })
+        )}
+      </div>
+      <div className="mt-2">
+        <div
+          className="flex flex-row"
+          data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
+        >
+          <p className="mr-1 whitespace-nowrap font-semibold sm:text-lg">
+            Alérgenos
+          </p>
           <div
-            className="flex flex-row"
+            className="tooltip tooltip-right tooltip-info z-10 mt-2"
             data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
           >
-            <p className="mr-1 whitespace-nowrap font-semibold sm:text-lg">
-              Alérgenos
-            </p>
-            <div
-              className="tooltip tooltip-right tooltip-info z-10 mt-2"
-              data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
-            >
-              <FcInfo />
-            </div>
+            <FcInfo />
           </div>
-          <div className="flex flex-col pl-4">
-            {allergens
-              ? allergens
-                  .sort((a, b) =>
-                    a.allergenInSpanish.localeCompare(b.allergenInSpanish),
-                  )
-                  .map((a) => {
-                    return (
-                      <label key={a.id}>
-                        <input
-                          type="checkbox"
-                          className="checkbox checkbox-xs"
-                          onChange={() => {
-                            const index = filter.allergens.indexOf(a.allergen);
-                            index == -1
-                              ? filter.allergens.splice(0, 0, a.allergen)
-                              : filter.allergens.splice(index, 1);
-                            return setFilter({ ...filter });
-                          }}
-                        />
-                        <span className="pl-1">{a.allergenInSpanish}</span>
-                      </label>
-                    );
-                  })
-              : [...Array(12)].map((e, i) => {
-                  return <CheckboxLoad key={i} />;
-                })}
-          </div>
+        </div>
+        <div className="flex flex-col pl-4">
+          {allergens
+            ? allergens
+                .sort((a, b) =>
+                  a.allergenInSpanish.localeCompare(b.allergenInSpanish),
+                )
+                .map((a) => {
+                  return (
+                    <label key={a.id}>
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-xs"
+                        onChange={() => {
+                          const index = filter.allergens.indexOf(a.allergen);
+                          index == -1
+                            ? filter.allergens.splice(0, 0, a.allergen)
+                            : filter.allergens.splice(index, 1);
+                          return setFilter({ ...filter });
+                        }}
+                      />
+                      <span className="pl-1">{a.allergenInSpanish}</span>
+                    </label>
+                  );
+                })
+            : [...Array(12)].map((e, i) => {
+                return <CheckboxLoad key={i} />;
+              })}
         </div>
       </div>
     </div>
