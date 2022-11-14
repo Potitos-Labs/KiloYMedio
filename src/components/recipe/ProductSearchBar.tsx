@@ -9,6 +9,8 @@ const SearchBar = ({
 }) => {
   const { data } = trpc.product.getFilteredProducts.useQuery({
     name: "",
+    maxPrice: 5000,
+    minPrice: 0,
     allergens: [],
     eCategories: [],
     neCategories: [],

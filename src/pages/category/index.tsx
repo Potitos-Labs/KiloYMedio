@@ -56,7 +56,7 @@ const CategoryDisplay: NextPage = () => {
         <p className="font-bold sm:text-lg">General</p>
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        <div className="items-center justify-center rounded-md pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
+        <div className="cursor-pointer items-center justify-center rounded-md bg-white pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
           <div className="mb-5">
             <Link href={`/product`}>
               <Image

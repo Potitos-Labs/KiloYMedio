@@ -15,6 +15,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -68,9 +69,9 @@ export default function CreateProdcut(
     eCategories: ecategory.success ? [ecategory.data] : [],
     neCategories: necategory.success ? [necategory.data] : [],
     minPrice: 0,
-    maxPrice: 1000,
+    maxPrice: 5000,
     allergens: [],
-    orderByName: undefined,
+    orderByName: "asc",
     orderByPrice: undefined,
   });
 
@@ -87,29 +88,38 @@ export default function CreateProdcut(
               <SearchBar filter={filter} setFilter={setFilter} />
             </div>
           </div>
-          <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 py-12 px-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div className="min-h-screen py-12 px-12">
             {data ? (
               data.length !== 0 ? (
-                data.map((product) => {
-                  const productParsed = productSchema.safeParse(product);
-                  if (productParsed.success)
-                    return (
-                      <Product
-                        key={product.id}
-                        product={productParsed.data}
-                      ></Product>
-                    );
-                  console.log(productParsed.error);
-                })
+                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+                  {data.map((product) => {
+                    const productParsed = productSchema.safeParse(product);
+                    if (productParsed.success)
+                      return (
+                        <Product
+                          key={product.id}
+                          product={productParsed.data}
+                        ></Product>
+                      );
+                    console.log(productParsed.error);
+                  })}
+                </div>
               ) : (
                 <p className="absolute self-center justify-self-center font-light text-kym4">
                   Tú búsqueda no obtuvo ningún resultado...😢
                 </p>
               )
             ) : (
-              <p className="absolute self-center justify-self-center font-light text-kym4">
-                Cargando...
-              </p>
+              <div className="mt-12 flex flex-col items-center justify-center">
+                <AiOutlineLoading
+                  color="#d28125"
+                  size="3rem"
+                  className="animate-spin"
+                />
+                <p className="mt-2 font-semibold text-kym4">
+                  Cargando productos...
+                </p>
+              </div>
             )}
           </div>
         </div>
