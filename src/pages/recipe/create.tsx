@@ -5,11 +5,12 @@ import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { InferGetStaticPropsType } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import router from "next/router";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { FaPlus, FaTimes } from "react-icons/fa";
-
+import Error from "next/error";
 import superjson from "superjson";
 import Layout from "../../components/Layout";
 import IncDecRecipe from "../../components/ui/IncDecRecipe";
@@ -36,10 +37,10 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 }
+
 export default function CreateRecipe(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
-  //   const { data: allProducts } = trpc.product.getAllProducts.useQuery();
   const { units } = props;
 
   const { mutateAsync } = trpc.recipe.create.useMutation();
@@ -83,6 +84,12 @@ export default function CreateRecipe(
     control,
     name: "directions",
   });
+
+  const { status } = useSession();
+
+  if (status == "unauthenticated") {
+    return <Error statusCode={404}></Error>;
+  }
 
   console.log(watch());
   console.log({ errors });
