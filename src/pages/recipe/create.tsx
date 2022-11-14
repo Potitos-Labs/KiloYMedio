@@ -10,7 +10,6 @@ import Image from "next/image";
 import router from "next/router";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import Error from "next/error";
 import superjson from "superjson";
 import Layout from "../../components/Layout";
 import IncDecRecipe from "../../components/ui/IncDecRecipe";
@@ -41,6 +40,16 @@ export async function getStaticProps() {
 export default function CreateRecipe(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
+  const session = useSession();
+  if (session.status === "loading") {
+    <p className="absolute self-center justify-self-center font-light text-kym4">
+      Cargando...
+    </p>;
+  }
+
+  if (session.status === "unauthenticated") {
+    router.push("/login");
+  }
   const { units } = props;
 
   const { mutateAsync } = trpc.recipe.create.useMutation();
@@ -54,7 +63,6 @@ export default function CreateRecipe(
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ICreateRecipe>({
     resolver: zodResolver(createRecipeSchema),
@@ -84,15 +92,6 @@ export default function CreateRecipe(
     control,
     name: "directions",
   });
-
-  const { status } = useSession();
-
-  if (status == "unauthenticated") {
-    return <Error statusCode={404}></Error>;
-  }
-
-  console.log(watch());
-  console.log({ errors });
 
   return (
     <Layout>
