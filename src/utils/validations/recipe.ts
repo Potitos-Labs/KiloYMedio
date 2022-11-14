@@ -26,7 +26,10 @@ export const createRecipeSchema = z.object({
     ),
   portions: z.number().min(1, { message: "Las raciones no pueden ser 0" }),
   imageURL: z.string({ required_error: "Campo obligatorio" }).url(),
-  description: z.string().nullable(),
+  description: z
+    .string()
+    .max(600, { message: "La descripción no puede tener más de 6 caracteres" })
+    .nullable(),
   ingredients: z
     .array(
       z.object({
