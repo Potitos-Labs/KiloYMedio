@@ -48,11 +48,11 @@ export default function FilterProduct({
           <select
             onChange={handleOrderByChange}
             className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[90%] bg-white"
-            value={"noSelection"}
           >
             <option disabled value={"noSelection"}>
               Seleccionar
             </option>
+            <option>Sin orden</option>
             <option value={"priceasc"}>Precios más barato primero</option>
             <option value={"pricedesc"}>Precios más caros primero</option>
             <option value={"nameasc"}>Nombre: de A-Z</option>
