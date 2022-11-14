@@ -1,4 +1,6 @@
 import Heart from "@components/Heart";
+import Product from "@components/product/Product";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
@@ -74,7 +76,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         ></img>
 
         {/* Title, ratting, heart and description */}
-        <div>
+        <div className="w-full">
           {/* Name, ratting, dot/heart */}
           <div className="flex w-full gap-4">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
@@ -173,7 +175,10 @@ const RecipeDetail = ({ id }: { id: string }) => {
         <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {ingredients ? (
             ingredients.map((i) => {
-              if (i.Ingredient.Edible) return <p>Aquí irán los productos</p>;
+              if (i.Ingredient.Edible)
+                return (
+                  <Product product={i.Ingredient.Edible.product}></Product>
+                );
             })
           ) : (
             <p className="font-semibold text-kym4">Cargando...</p>

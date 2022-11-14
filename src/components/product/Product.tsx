@@ -48,59 +48,59 @@ function Product({ product }: { product: IProduct }) {
   }
 
   return (
-    <Link href={`/product/${product.id}`}>
-      <div className="relative flex cursor-pointer flex-col items-center justify-center rounded-md bg-white py-8 text-center shadow-lg hover:shadow-kym4">
-        <div className="py-3">
-          <a>
-            <Image
-              src={product.imageURL}
-              alt="notfound"
-              width="100"
-              height="100"
-              layout="fixed"
-              objectFit="cover"
-              className="rounded-md"
-            ></Image>
-          </a>
+    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-8 text-center shadow-lg hover:shadow-kym4">
+      <div className="py-3">
+        <Link href={`/product/${product.id}`}>
+          <Image
+            src={product.imageURL}
+            alt="notfound"
+            width="100"
+            height="100"
+            layout="fixed"
+            objectFit="cover"
+            className="cursor-pointer rounded-md"
+          ></Image>
+        </Link>
+      </div>
+      {data?.user?.role == "admin" && (
+        <div className="absolute top-0 right-0">
+          <DotMenu
+            id={product.id}
+            name={product.name}
+            type="producto"
+            updateFunction={updateProduct}
+            deleteFunction={deleteProduct}
+          />
         </div>
-        {data?.user?.role == "admin" && (
-          <div className="absolute top-0 right-0">
-            <DotMenu
-              id={product.id}
-              name={product.name}
-              type="producto"
-              updateFunction={updateProduct}
-              deleteFunction={deleteProduct}
-            />
-          </div>
-        )}
-        <p className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+      )}
+      <Link href={`/product/${product.id}`}>
+        <p className="cursor-pointer pb-2 font-semibold text-kym4 first-letter:uppercase">
           {product.name}
         </p>
-        {data?.user?.role != "admin" && (
-          <div>
-            <IncDecButtons
-              setAmount={setAmount}
-              amount={amount}
-              stock={product.stock}
-              stockLeft={stockLeft}
-              isEdible={isEdible}
-            />
-            <button
-              disabled={!stockLeft}
-              onClick={addToCart}
-              className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
-                !stockLeft
-                  ? "cursor-not-allowed px-10 opacity-50"
-                  : "hover:border-transparent hover:bg-button_hover hover:text-white"
-              }`}
-            >
-              {stockLeft ? "Añadir" : "Agotado"}
-            </button>
-          </div>
-        )}
-      </div>
-    </Link>
+      </Link>
+      {data?.user?.role != "admin" && (
+        <div>
+          <IncDecButtons
+            setAmount={setAmount}
+            amount={amount}
+            stock={product.stock}
+            stockLeft={stockLeft}
+            isEdible={isEdible}
+          />
+          <button
+            disabled={!stockLeft}
+            onClick={addToCart}
+            className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
+              !stockLeft
+                ? "cursor-not-allowed px-10 opacity-50"
+                : "hover:border-transparent hover:bg-button_hover hover:text-white"
+            }`}
+          >
+            {stockLeft ? "Añadir" : "Agotado"}
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 export default Product;
