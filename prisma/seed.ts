@@ -1136,6 +1136,7 @@ async function main() {
       /*  5 **/ { ingredientUnit: "kilograms", unitInSpanish: "kilogramos" },
       /*  6 **/ { ingredientUnit: "milliliters", unitInSpanish: "mililitros" },
       /*  7 **/ { ingredientUnit: "ounce", unitInSpanish: "onzas" },
+      /* 11 **/ { ingredientUnit: "pinch", unitInSpanish: "pizca" },
       /*  8 **/ { ingredientUnit: "pound", unitInSpanish: "libras" },
       /*  9 **/ { ingredientUnit: "tablespoon", unitInSpanish: "cucharadas" },
       /* 10 **/ { ingredientUnit: "teaspoon", unitInSpanish: "cucharaditas" },

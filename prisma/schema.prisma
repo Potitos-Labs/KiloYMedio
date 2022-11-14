@@ -441,6 +441,7 @@ enum IngredientUnit {
     liters
     milliliters
     ounce
+    pinch
     pound
     tablespoon
     teaspoon

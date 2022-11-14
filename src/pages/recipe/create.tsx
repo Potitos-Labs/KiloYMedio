@@ -1,3 +1,4 @@
+import ProductSearchBar from "@components/recipe/ProductSearchBar";
 import { UploadImage } from "@components/ui/UploadImage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createContextInner } from "@server/trpc/context";
@@ -60,7 +61,7 @@ export default function CreateRecipe(
     defaultValues: {
       timeSpan: { hour: 0, minute: 1 },
       portions: 1,
-      ingredients: [{ amount: 1, unit: "tablespoon" }],
+      ingredients: [{ name: "", amount: 1, unit: "tablespoon" }],
       directions: [{ direction: "", index: 0 }],
     },
   });
@@ -221,7 +222,7 @@ export default function CreateRecipe(
                     <>
                       <UploadImage setImageURL={onChange} />
                       <Image
-                        src={value}
+                        src={value ?? "/img/placeholder.jpg"}
                         alt={value}
                         height={100}
                         width={100}
@@ -264,11 +265,16 @@ export default function CreateRecipe(
                         <div key={field.id}>
                           <section className="section flex flex-row gap-3">
                             <div className="flex flex-col justify-center">
-                              <input
-                                placeholder="Ingrediente"
-                                className="input input-bordered max-h-8 border-black"
-                                {...register(`ingredients.${index}.name`)}
-                              />
+                              <Controller
+                                name={`ingredients.${index}.name`}
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                  <ProductSearchBar
+                                    value={value}
+                                    setValue={onChange}
+                                  ></ProductSearchBar>
+                                )}
+                              ></Controller>
                               {errors.ingredients?.[index] && (
                                 <p className="flex text-sm text-red-500">
                                   {errors.ingredients?.[index]?.name?.message}

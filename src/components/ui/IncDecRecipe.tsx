@@ -6,7 +6,6 @@ function IncDecRecipe({
   onChange,
   onBlur,
   value,
-  // ref,
   maxValue,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

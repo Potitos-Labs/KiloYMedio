@@ -152,13 +152,15 @@ const RecipeDetail = ({ id }: { id: string }) => {
         <div>
           <h2 className="mb-10 text-lg font-bold">INSTRUCCIONES</h2>
           <div>
-            {directions?.map((d) => {
-              return (
-                <ol key={"id"} className="list-inside list-decimal">
-                  <li className="first-letter:uppercase">{d.direction}</li>
-                </ol>
-              );
-            })}
+            <ol key={"id"} className="list-inside list-decimal">
+              {directions?.map((d) => {
+                return (
+                  <li key={d.number} className="first-letter:uppercase">
+                    {d.direction}
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         </div>
       </div>

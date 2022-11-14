@@ -108,7 +108,7 @@ export const recipeRouter = router({
             description,
             directions: {
               createMany: {
-                data: directions.map(({ direction, index }) => ({
+                data: directions.map(({ direction }, index) => ({
                   direction: direction,
                   number: index,
                 })),
