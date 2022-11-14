@@ -38,7 +38,7 @@ export const productCreateSchema = z.object({
 export const productSchema = productCreateSchema.extend({ id: z.string() });
 
 export const filterProduct = z.object({
-  name: z.string().optional(), //Pasar en plain text
+  name: z.string(), //Pasar en plain text
   minPrice: z.number().default(0).optional(),
   maxPrice: z.number().default(Infinity).optional(),
   eCategories: z.array(z.nativeEnum(ECategory)),
