@@ -91,7 +91,7 @@ export default function CreateProdcut(
           <div className="min-h-screen py-12 px-12">
             {data ? (
               data.length !== 0 ? (
-                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
                   {data.map((product) => {
                     const productParsed = productSchema.safeParse(product);
                     if (productParsed.success)

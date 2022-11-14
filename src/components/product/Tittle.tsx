@@ -10,7 +10,7 @@ const Tittle = ({ filter, inSpanish }: tittleProps) => {
   {
     if (filter.eCategories.length == 0 && filter.neCategories.length == 0) {
       return (
-        <p className="grow font-bold normal-case sm:text-lg">
+        <p className="grow whitespace-nowrap font-bold normal-case sm:text-lg">
           Todos los productos
         </p>
       );

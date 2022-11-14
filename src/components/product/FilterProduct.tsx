@@ -43,7 +43,7 @@ export default function FilterProduct({
   };
 
   return (
-    <div className="sm:w-full sm:max-w-xs">
+    <div className="hidden sm:block md:max-w-xs">
       <div className="ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
         <p className="grow whitespace-nowrap font-semibold sm:text-lg">
           Filtros de búsqueda
