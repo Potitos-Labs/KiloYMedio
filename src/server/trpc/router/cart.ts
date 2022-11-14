@@ -109,6 +109,7 @@ export const cartRouter = router({
 
       return {
         status: 201,
+        productId,
       };
     }),
   updateAmountProduct: clientProcedure

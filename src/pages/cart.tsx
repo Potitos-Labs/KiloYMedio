@@ -4,10 +4,12 @@ import Bill from "../components/payment/Bill";
 import { FormWrapper } from "../components/payment/FormWrapper";
 import { trpc } from "../utils/trpc";
 import { NextPage } from "next";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.cart.getAllCartProduct.useQuery();
 
+  const [listRef] = useAutoAnimate<HTMLDivElement>();
   return (
     <Layout>
       <section>
@@ -16,7 +18,7 @@ const Cart: NextPage = () => {
           <section>
             {/*Shopping cart*/}
             <FormWrapper title="Carrito de compra">
-              <div className="m-0 grid gap-4">
+              <div className="m-0 grid gap-4" ref={listRef}>
                 {cartProducts ? (
                   cartProducts.productList.map((cartProduct) => (
                     <div key={cartProduct.productId}>
