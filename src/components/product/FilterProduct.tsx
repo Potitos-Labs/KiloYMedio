@@ -48,6 +48,7 @@ export default function FilterProduct({
           <select
             onChange={handleOrderByChange}
             className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[90%] bg-white"
+            defaultValue={"noSelection"}
           >
             <option disabled value={"noSelection"}>
               Seleccionar
