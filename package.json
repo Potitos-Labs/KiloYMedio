@@ -23,6 +23,7 @@
     "test": "jest -i"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.3",
     "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.8",
     "@next-auth/prisma-adapter": "^1.0.4",

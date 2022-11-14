@@ -19,6 +19,7 @@ import {
   ICreateRecipe,
   createRecipeSchema,
 } from "../../utils/validations/recipe";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -92,6 +93,9 @@ export default function CreateRecipe(
     control,
     name: "directions",
   });
+
+  const [listRef] = useAutoAnimate<HTMLDivElement>();
+  const [listRef2] = useAutoAnimate<HTMLDivElement>();
 
   return (
     <Layout>
@@ -265,7 +269,7 @@ export default function CreateRecipe(
                 <div>
                   <div className="w-full text-lg">Ingredientes </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2" ref={listRef}>
                     {fieldsIngredients.map((field, index) => {
                       return (
                         <div key={field.id}>
@@ -357,7 +361,7 @@ export default function CreateRecipe(
               <div>
                 <div className="text-lg">Pasos </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2" ref={listRef2}>
                   {fieldsDirections.map((field, index) => {
                     return (
                       <div key={field.id}>
