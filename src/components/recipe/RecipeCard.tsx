@@ -66,16 +66,15 @@ export function RecipeCard({
         </Link>
       </div>
       <div className="absolute top-0 right-0 inline-flex">
-        {data?.user?.id == authorID ||
-          (data?.user?.role == "admin" && (
-            <DotMenu
-              id={id}
-              name={name}
-              type="receta"
-              updateFunction={editRecipe}
-              deleteFunction={deleteRecipe}
-            />
-          ))}
+        {(data?.user?.id == authorID || data?.user?.role == "admin") && (
+          <DotMenu
+            id={id}
+            name={name}
+            type="receta"
+            updateFunction={editRecipe}
+            deleteFunction={deleteRecipe}
+          />
+        )}
       </div>
       <p className="mx-1 mb-2 whitespace-normal font-semibold text-kym4 first-letter:uppercase">
         {name}
