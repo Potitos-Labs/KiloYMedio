@@ -116,7 +116,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             <input
               type="number"
               step="any"
-              placeholder="Stock(gr)"
+              placeholder="Stock(u)"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               min={0}
               {...register("stock", {

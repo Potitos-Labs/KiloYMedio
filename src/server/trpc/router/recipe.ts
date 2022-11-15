@@ -68,7 +68,7 @@ export const recipeRouter = router({
     }),
   getRecentRecipes: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.recipe.findMany({
-      take: 6,
+      take: 10,
       orderBy: { createdAt: "desc" },
     });
   }),
