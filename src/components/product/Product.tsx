@@ -48,7 +48,7 @@ function Product({ product }: { product: IProduct }) {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-8 text-center shadow-lg hover:shadow-kym4">
+    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-4 text-center shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <Image
@@ -74,12 +74,12 @@ function Product({ product }: { product: IProduct }) {
         </div>
       )}
       <Link href={`/product/${product.id}`}>
-        <p className="cursor-pointer pb-2 font-semibold text-kym4 first-letter:uppercase">
+        <p className="mx-2 mb-2 h-10 cursor-pointer self-center pb-2 font-semibold text-kym4 first-letter:uppercase">
           {product.name}
         </p>
       </Link>
       {data?.user?.role != "admin" && (
-        <div>
+        <div className="">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}

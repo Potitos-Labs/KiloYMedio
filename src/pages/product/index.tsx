@@ -95,7 +95,7 @@ export default function CreateProdcut(
             </p>
           </div>
           <div
-            className={`${openFilter ? "absolute mt-2" : ""} z-10 md:max-w-xs`}
+            className={`${openFilter ? "absolute mt-2" : ""} z-10 sm:max-w-xs`}
           >
             <IoIosCloseCircleOutline
               size={"2rem"}
@@ -107,7 +107,7 @@ export default function CreateProdcut(
             <FilterProduct
               className={`${
                 openFilter
-                  ? "rounded-r-md bg-opacity-95 pt-5 shadow-lg"
+                  ? "rounded-r-sm bg-opacity-95 pt-5 shadow-lg"
                   : "my-12 ml-12 hidden rounded-md sm:block"
               } bg-white`}
               filter={filter}
@@ -116,22 +116,24 @@ export default function CreateProdcut(
           </div>
         </div>
         <div className="grow">
-          <div className="mx-12 mt-12 flex h-11 flex-row border-b-2 border-kym3">
+          <div className="mx-6 mt-12 grid h-11 flex-row sm:mx-12 sm:grid-cols-2 sm:border-b-2 sm:border-kym3">
             <Tittle filter={filter} inSpanish={inSpanish} />
-            <div className="b-1 justify-end align-middle">
-              <SearchBar filter={filter} setFilter={setFilter} />
-            </div>
-            <div
-              className="flex items-center justify-center justify-items-center"
-              onClick={() => setOpenFilter(true)}
-            >
-              <BsFilterSquare className="ml-3 mb-4 h-6 w-6 self-center justify-self-center sm:hidden" />
+            <div className="mt-2 grid grid-cols-[80%_20%] border-b-2 border-kym3 sm:relative sm:mt-0 sm:border-0">
+              <div className="b-1 justify-end align-middle">
+                <SearchBar filter={filter} setFilter={setFilter} />
+              </div>
+              <div
+                className="flex items-center justify-center justify-items-center"
+                onClick={() => setOpenFilter(true)}
+              >
+                <BsFilterSquare className="ml-3 mb-3 h-6 w-6 self-center justify-self-center sm:hidden" />
+              </div>
             </div>
           </div>
-          <div className="min-h-screen py-12 px-12">
+          <div className="min-h-screen py-12 px-6 sm:px-12">
             {data ? (
               data.length !== 0 ? (
-                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
                   {data.map((product) => {
                     const productParsed = productSchema.safeParse(product);
                     if (productParsed.success)

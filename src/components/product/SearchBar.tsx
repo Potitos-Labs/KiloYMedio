@@ -41,10 +41,10 @@ const SearchBar = ({
   };
 
   return (
-    <div className="group relative h-auto w-auto self-end md:w-64 ">
-      <div className="mx-2 mb-2  flex rounded-lg bg-white px-2 shadow-md  sm:px-4">
+    <div className="group relative h-auto w-auto grow self-end sm:absolute sm:right-0 sm:top-0 ">
+      <div className="mx-2 mb-2 flex grow rounded-lg bg-white px-2 shadow-md  sm:px-4">
         <input
-          className="w-full truncate focus:outline-0 sm:py-1"
+          className=" grow truncate py-1 focus:outline-0  sm:w-full"
           autoComplete="off"
           id="searchBar"
           value={value}
