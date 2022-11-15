@@ -118,16 +118,16 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
             ) : null}
 
             <p className="mt-4">Precio:</p>
-            <p className="mb-3 inline-block text-left text-xl  capitalize">
+            <p className="mb-3 inline-block text-left text-xl">
               {isEdible ? (
-                <span> {product.Edible?.priceByWeight} €/Kg </span>
+                <span> {product.Edible?.priceByWeight} €/Kg</span>
               ) : (
-                <span> {product.NonEdible?.price} € </span>
+                <span> {product.NonEdible?.price} €</span>
               )}
             </p>
 
             {data?.user?.role != "admin" && (
-              <div className="flex items-center">
+              <div className="flex flex-col md:flex-row md:items-center">
                 <div className="mr-4">
                   <IncDecButtons
                     setAmount={setAmount}
@@ -140,7 +140,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
                 <button
                   onClick={addToCart}
-                  className={`rounded-xl border border-button bg-transparent px-12 text-kym4  ${
+                  className={`w-[200px] rounded-xl border border-button bg-transparent px-0 text-kym4 sm:w-auto md:px-12 ${
                     !stockLeft
                       ? "cursor-not-allowed px-10 opacity-50"
                       : "hover:border-transparent hover:bg-button_hover hover:text-white"
@@ -166,7 +166,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
 const DescriptionComponent = ({ description }: { description: string }) => {
   return (
-    <div className="my-6 mx-20 p-6">
+    <div className="my-6 p-6 sm:mx-2 md:mx-6 lg:mx-20">
       <div className="border-b-2 border-orange-400">
         <h2 className="mb-1 text-xl font-bold normal-case">
           Descripción del producto

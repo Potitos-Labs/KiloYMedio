@@ -128,10 +128,10 @@ const RecipeDetail = ({ id }: { id: string }) => {
       {/* End Upper section */}
 
       {/* Ingredients and Directions */}
-      <div className="mb-40 grid grid-cols-2 gap-4">
+      <div className="mb-40 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4">
         <div>
           <h2 className="mb-2 text-lg font-bold">INGREDIENTES</h2>
-          <div className="pr-14">
+          <div className="mb-4 pr-14">
             {ingredients?.map((i) => {
               return (
                 <div key={"id"}>
@@ -152,7 +152,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         </div>
 
         <div>
-          <h2 className="mb-10 text-lg font-bold">INSTRUCCIONES</h2>
+          <h2 className="mb-6 text-lg font-bold md:mb-10">INSTRUCCIONES</h2>
           <div>
             <ol key={"id"} className="list-inside list-decimal">
               {directions?.map((d) => {

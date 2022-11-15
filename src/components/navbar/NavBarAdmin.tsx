@@ -22,7 +22,11 @@ function NavBarAdmin() {
           <GiHamburgerMenu />
         </button>
       </div>
-      <div className={`${!open && "hidden"} block flex-grow lg:flex lg:w-auto`}>
+      <div
+        className={`${
+          !open && "hidden"
+        } mt-6 mr-6 block flex-grow md:ml-4 md:mr-0 md:mt-0 lg:flex lg:w-auto`}
+      >
         <div className="group relative">
           <Link href={`/product`}>
             <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
