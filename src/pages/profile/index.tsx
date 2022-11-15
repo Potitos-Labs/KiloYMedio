@@ -60,7 +60,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 const Profile = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
+  // Cliente
   const { client: c } = props;
+<<<<<<< HEAD
   const client = c as AppRouterTypes["user"]["client"]["getById"]["output"];
 
   const { data } = trpc.user.getAllClientAllergen.useQuery();
@@ -73,6 +75,23 @@ const Profile = (
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
+=======
+  const client = c as AppRouterTypes["user"]["getClientById"]["output"];
+  const router = useRouter();
+  const { mutateAsync } = trpc.user.updateClient.useMutation();
+
+  //Alergenos
+  const { data } = trpc.user.getAllClientAllergen.useQuery();
+  const allergenList = data?.map((e) => e.allergen) ?? [];
+  const { data: allergenTransalator } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
+
+  // UseStates
+  const [edit, setEdit] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  //Metodos recetas
+>>>>>>> 9780dcb (refactoring)
   const { data: favoriteUserRecipes } =
     trpc.user.client.getFavoriteRecipes.useQuery();
 
