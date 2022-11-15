@@ -4,12 +4,15 @@ import FilterRecipe from "components/recipe/FilterRecipe";
 import { trpc } from "../../utils/trpc";
 import { useState } from "react";
 import { BsFilterSquare } from "react-icons/bs";
+import { IFilterRecipe } from "@utils/validations/recipe";
 
 const Recipes = () => {
   const { data: allRecipes } = trpc.recipe.getAllRecipes.useQuery();
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   console.log(allRecipes);
-  //const [filter, setFilter] = useState(allRecipes);
+  const [filter, setFilter] = useState<IFilterRecipe>({
+    dificultty: "all",
+  });
   const [openFilter, setOpenFilter] = useState(false);
   return (
     <Layout>
@@ -26,7 +29,7 @@ const Recipes = () => {
           </button>
         </div>
         <div className={`w-full ${!openFilter ? "hidden" : "flex"}`}>
-          <FilterRecipe />
+          <FilterRecipe filter={filter} setFilter={setFilter} />
         </div>
         {allRecipes?.length != 0 && (
           <RecipeDisplayer recipes={allRecipes}></RecipeDisplayer>
