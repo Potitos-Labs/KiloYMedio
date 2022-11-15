@@ -121,9 +121,12 @@ export default function CreateProdcut(
             <div className="b-1 justify-end align-middle">
               <SearchBar filter={filter} setFilter={setFilter} />
             </div>
-            <button onClick={() => setOpenFilter(true)}>
-              <BsFilterSquare size="2rem" className="ml-3 sm:hidden" />
-            </button>
+            <div
+              className="flex items-center justify-center justify-items-center"
+              onClick={() => setOpenFilter(true)}
+            >
+              <BsFilterSquare className="ml-3 mb-4 h-6 w-6 self-center justify-self-center sm:hidden" />
+            </div>
           </div>
           <div className="min-h-screen py-12 px-12">
             {data ? (

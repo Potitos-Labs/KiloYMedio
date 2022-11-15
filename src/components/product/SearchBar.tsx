@@ -13,11 +13,9 @@ const SearchBar = ({
   const [value, setValue] = useState("");
   const { data } = trpc.product.getAllProducts.useQuery();
 
-  /*
   const onChange = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
   };
-*/
   const searchHandler = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
     return setFilter({
@@ -30,8 +28,8 @@ const SearchBar = ({
   };
 
   return (
-    <div className="group relative h-4/5 w-4/5 sm:h-auto md:w-64">
-      <div className="mb-2 flex  rounded-lg bg-white px-2 shadow-md  sm:px-4">
+    <div className="group relative h-auto w-auto self-end md:w-64 ">
+      <div className="mx-2 mb-2  flex rounded-lg bg-white px-2 shadow-md  sm:px-4">
         <input
           className="w-full truncate focus:outline-0 sm:py-1"
           autoComplete="off"
@@ -39,7 +37,7 @@ const SearchBar = ({
           value={value}
           type="text"
           placeholder="Buscar... "
-          onChange={(e) => searchHandler({ searchInput: e.target.value })}
+          onChange={(e) => onChange({ searchInput: e.target.value })}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               searchHandler({ searchInput: value });
@@ -70,7 +68,7 @@ const SearchBar = ({
             .slice(0, 10)
             .map((product) => (
               <div
-                className="cursor-pointer pl-4 hover:bg-background"
+                className="cursor-pointer hover:bg-background md:pl-4"
                 key={product.id}
                 onClick={() =>
                   searchHandler({
