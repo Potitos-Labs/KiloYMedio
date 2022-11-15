@@ -4,16 +4,12 @@ import { RecipeCard } from "./RecipeCard";
 import { LeftArrow, RightArrow } from "./Arrows";
 
 const RecipeDisplayer = ({
-  title,
   recipes,
 }: {
-  title: string;
   recipes?: { id: string; name: string; imageURL: string; userId: string }[];
 }) => {
   return (
     <div className="mx-6 mt-6 mb-8">
-      <p className="mb-2 text-2xl font-bold  normal-case text-kym3">{title}</p>
-
       <div className="rounded-md border-2  shadow-md">
         <ScrollMenu
           LeftArrow={LeftArrow}

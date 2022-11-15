@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
 import DotMenu from "../DotMenu";
-import Heart from "../Heart";
 
 import Stars from "../Stars";
 
@@ -46,26 +45,6 @@ export function RecipeCard({
     notifyDeleted();
   };
 
-  const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
-    onSuccess() {
-      utils.user.client.getFavoriteRecipes.invalidate();
-    },
-  });
-
-  const unsaveMutation = trpc.user.client.deleteFavouriteRecipe.useMutation({
-    onSuccess() {
-      utils.user.client.getFavoriteRecipes.invalidate();
-    },
-  });
-
-  function saveRecipe() {
-    saveMutation.mutateAsync({ recipeId: id });
-  }
-
-  function unsaveRecipe() {
-    unsaveMutation.mutateAsync({ recipeId: id });
-  }
-
   return (
     <div
       role="button"
@@ -88,12 +67,6 @@ export function RecipeCard({
         </Link>
       </div>
       <div className="absolute top-0 right-0 inline-flex">
-        <Heart
-          id={id}
-          favorite={false}
-          addFavorite={saveRecipe}
-          removeFavorite={unsaveRecipe}
-        ></Heart>
         {data?.user?.id == authorID ||
           (data?.user?.role == "admin" && (
             <DotMenu
