@@ -72,17 +72,9 @@ export const productRouter = router({
         orderByName,
       } = input;
 
-      if (name?.trim().length > 0) {
-        return await ctx.prisma.product.findMany({
-          where: {
-            plainName: { contains: name.trimEnd() },
-          },
-          orderBy: { name: "asc" },
-        });
-      }
-
       let products = await ctx.prisma.product.findMany({
         where: {
+          plainName: { contains: name.trimEnd() },
           OR: [
             {
               AND: [

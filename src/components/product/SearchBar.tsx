@@ -15,15 +15,28 @@ const SearchBar = ({
 
   const onChange = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
+    if (searchInput.length == 0 || searchInput == "") {
+      return setFilter({
+        ...filter,
+        name: searchInput
+          .normalize("NFD")
+          .replace(/[\u0300-\u0301]/g, "")
+          .toLowerCase(),
+      });
+    }
   };
   const searchHandler = ({ searchInput }: { searchInput: string }) => {
     setValue(searchInput);
     return setFilter({
-      ...filter,
       name: searchInput
         .normalize("NFD")
         .replace(/[\u0300-\u0301]/g, "")
         .toLowerCase(),
+      allergens: [],
+      eCategories: [],
+      neCategories: [],
+      maxPrice: undefined,
+      minPrice: undefined,
     });
   };
 
