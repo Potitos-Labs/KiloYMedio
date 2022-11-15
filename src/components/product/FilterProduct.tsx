@@ -24,6 +24,7 @@ export default function FilterProduct({
   const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const [errorPrice, setErrorPrice] = useState(false);
+
   const handleOrderByChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     let selected = {};
@@ -52,9 +53,16 @@ export default function FilterProduct({
         </span>
         <select
           onChange={handleOrderByChange}
+          value={
+            filter.orderByName
+              ? "name" + filter.orderByName
+              : filter.orderByPrice
+              ? "price" + filter.orderByPrice
+              : "noSelection"
+          }
           className="select select-bordered select-xs mx-4 mt-1 w-full max-w-[80%] bg-white"
         >
-          <option disabled selected value={"noSelection"}>
+          <option disabled value={"noSelection"}>
             Seleccionar
           </option>
           <option value={"priceasc"}>Precios más barato primero</option>
@@ -68,7 +76,7 @@ export default function FilterProduct({
           Precio
         </p>
         <label className="ml-4 flex">
-          <span>Min:</span>
+          <span>Mín:</span>
           <input
             type="number"
             placeholder="0€"
@@ -80,7 +88,7 @@ export default function FilterProduct({
               const minValue = e.target.valueAsNumber
                 ? e.target.valueAsNumber
                 : 0;
-              if (filter.maxPrice < minValue) {
+              if (filter.maxPrice ?? 5000 < minValue) {
                 setErrorPrice(true);
                 return;
               }
@@ -99,7 +107,7 @@ export default function FilterProduct({
           />
         </label>
         <label className="mt-2 ml-4 flex">
-          <span>Max:</span>
+          <span>Máx:</span>
           <input
             type="number"
             placeholder="5000€"
@@ -111,7 +119,7 @@ export default function FilterProduct({
               const maxValue = e.target.valueAsNumber
                 ? e.target.valueAsNumber
                 : 5000;
-              if (maxValue < filter.minPrice) {
+              if (filter.minPrice ?? 0 > maxValue) {
                 setErrorPrice(true);
                 return;
               }
@@ -128,7 +136,7 @@ export default function FilterProduct({
         <p className="grow whitespace-nowrap font-semibold sm:text-lg">
           Categorías
         </p>
-        {categories ? (
+        {categories && allergens ? (
           <div className="flex flex-col pl-4">
             {categories?.eCategories
               .sort((a, b) =>
@@ -140,7 +148,7 @@ export default function FilterProduct({
                     <input
                       type="checkbox"
                       className="checkbox checkbox-xs"
-                      defaultChecked={filter.eCategories.includes(c.category)}
+                      checked={filter.eCategories.includes(c.category)}
                       onChange={() => {
                         const index = filter.eCategories.indexOf(c.category);
                         index == -1
@@ -160,7 +168,7 @@ export default function FilterProduct({
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs"
-                    defaultChecked={filter.neCategories.includes(c.category)}
+                    checked={filter.neCategories.includes(c.category)}
                     onChange={() => {
                       const index = filter.neCategories.indexOf(c.category);
                       index == -1
@@ -207,6 +215,7 @@ export default function FilterProduct({
                       <input
                         type="checkbox"
                         className="checkbox checkbox-xs"
+                        checked={filter.allergens.includes(a.allergen)}
                         onChange={() => {
                           const index = filter.allergens.indexOf(a.allergen);
                           index == -1
