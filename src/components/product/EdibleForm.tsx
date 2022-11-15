@@ -228,6 +228,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               <span className="mb-2">Energía *</span>
               <input
                 type="number"
+                step="any"
                 placeholder="Energía(kcal)"
                 className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
                 {...register("Edible.nutritionFacts.energy", {
@@ -242,6 +243,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               <span className="mb-2">Grasas *</span>
               <input
                 type="number"
+                step="any"
                 placeholder="Grasas"
                 className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
                 {...register("Edible.nutritionFacts.fat", {
@@ -256,6 +258,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               <span className="mb-2">Hidratos *</span>
               <input
                 type="number"
+                step="any"
                 placeholder="Hidratos de carbono"
                 className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
                 {...register("Edible.nutritionFacts.carbohydrates", {
@@ -270,6 +273,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
               <span className="mb-2">Proteína *</span>
               <input
                 type="number"
+                step="any"
                 placeholder="Proteína"
                 className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
                 {...register("Edible.nutritionFacts.protein", {
