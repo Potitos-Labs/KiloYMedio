@@ -43,7 +43,7 @@ export default function ProfileHeader() {
                 <button
                   className="flex w-full flex-row px-5 py-3 text-kym4 hover:rounded-md hover:bg-button hover:text-white"
                   onClick={() => {
-                    signOut();
+                    signOut({ callbackUrl: "/" });
                   }}
                 >
                   <TbLogout className="mr-2 h-6 w-6" />
