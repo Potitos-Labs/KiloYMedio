@@ -22,7 +22,7 @@ function MyRecipes({
       utils.user.client.getOwnRecipes.invalidate();
     },
   });
-  const updateRecipe = (id: string) => {
+  const editRecipe = (id: string) => {
     //ACABAR
     notifyUpdate();
     console.log(id + "HAY QUE COMPLETAR METODO WOO");
@@ -53,7 +53,7 @@ function MyRecipes({
         id={id}
         name={name}
         type="receta"
-        updateFunction={updateRecipe}
+        updateFunction={editRecipe}
         deleteFunction={deleteRecipe}
       />
     </div>

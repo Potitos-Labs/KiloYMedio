@@ -45,7 +45,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
     },
   });
 
-  const updateRecipe = (id: string) => {
+  const editRecipe = (id: string) => {
     //ACABAR
     notifyUpdate();
     console.log(id + "HAY QUE COMPLETAR METODO WOO");
@@ -89,7 +89,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   id={id}
                   name={recipe ? recipe.name : "Error Ocurred"}
                   type="receta"
-                  updateFunction={updateRecipe}
+                  updateFunction={editRecipe}
                   deleteFunction={deleteRecipe}
                 />
               ))}

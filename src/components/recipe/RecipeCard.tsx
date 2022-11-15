@@ -25,7 +25,6 @@ export function RecipeCard({
   const { data } = useSession();
   const utils = trpc.useContext();
   const notifyDeleted = () => toast.success("Receta eliminada");
-  const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
@@ -33,9 +32,9 @@ export function RecipeCard({
     },
   });
 
-  const updateRecipe = (id: string) => {
+  const editRecipe = (id: string) => {
     //ACABAR
-    notifyUpdate();
+    router.push(`/recipe/edit/${id}`);
     console.log(id + "HAY QUE COMPLETAR METODO WOO");
   };
 
@@ -73,7 +72,7 @@ export function RecipeCard({
               id={id}
               name={name}
               type="receta"
-              updateFunction={updateRecipe}
+              updateFunction={editRecipe}
               deleteFunction={deleteRecipe}
             />
           ))}
