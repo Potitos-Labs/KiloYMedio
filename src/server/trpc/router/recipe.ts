@@ -1,7 +1,10 @@
 import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
 
-import { createRecipeSchema } from "../../../utils/validations/recipe";
+import {
+  createRecipeSchema,
+  filterRecipeSchema,
+} from "../../../utils/validations/recipe";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const recipeRouter = router({
@@ -25,6 +28,18 @@ export const recipeRouter = router({
       },
     });
   }),
+  getFilteredRecipes: publicProcedure
+    .input(filterRecipeSchema)
+    .query(async ({ ctx, input }) => {
+      const { minTime, maxTime, portions, difficulty } = input;
+      return await ctx.prisma.recipe.findMany({
+        where: {
+          portions,
+          timeSpan: { gte: minTime, lte: maxTime },
+          difficulty,
+        },
+      });
+    }),
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {

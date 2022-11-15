@@ -9,10 +9,10 @@ import { IFilterRecipe } from "@utils/validations/recipe";
 const Recipes = () => {
   const { data: allRecipes } = trpc.recipe.getAllRecipes.useQuery();
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
-  console.log(allRecipes);
-  const [filter, setFilter] = useState<IFilterRecipe>({
-    dificultty: "all",
-  });
+  const [filter, setFilter] = useState<IFilterRecipe>({});
+  const { data: filteredRecipes } =
+    trpc.recipe.getFilteredRecipes.useQuery(filter);
+  console.log(filteredRecipes);
   const [openFilter, setOpenFilter] = useState(false);
   return (
     <Layout>

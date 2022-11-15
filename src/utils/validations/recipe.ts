@@ -57,10 +57,10 @@ export const createRecipeSchema = z.object({
     .nonempty({ message: "Debes añadir al menos una instrucción" }),
 });
 export const filterRecipeSchema = z.object({
-  numPortions: z.number().optional(),
+  portions: z.number().optional(),
   minTime: z.number().optional(),
   maxTime: z.number().optional(),
-  dificultty: z.enum(["hard", "moderate", "easy", "all"]),
+  difficulty: z.nativeEnum(RecipeDifficulty).optional(),
 });
 export type ICreateRecipe = z.infer<typeof createRecipeSchema>;
 export type IFilterRecipe = z.infer<typeof filterRecipeSchema>;
