@@ -150,7 +150,7 @@ export default function CreateProdcut(
                 </p>
               )
             ) : (
-              <Loading message="Cargando productos" />
+              <Loading message="Cargando productos..." />
             )}
           </div>
         </div>
