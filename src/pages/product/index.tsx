@@ -15,9 +15,9 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
-import { AiOutlineLoading } from "react-icons/ai";
 import { BsFilterSquare } from "react-icons/bs";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import Loading from "@components/ui/Loading";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -150,16 +150,7 @@ export default function CreateProdcut(
                 </p>
               )
             ) : (
-              <div className="mt-12 flex flex-col items-center justify-center">
-                <AiOutlineLoading
-                  color="#d28125"
-                  size="3rem"
-                  className="animate-spin"
-                />
-                <p className="mt-2 font-semibold text-kym4">
-                  Cargando productos...
-                </p>
-              </div>
+              <Loading message="Cargando productos" />
             )}
           </div>
         </div>
