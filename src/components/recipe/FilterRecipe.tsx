@@ -1,4 +1,5 @@
 function FilterRecipe() {
+  //const difficulty = ["easy", "moderate", "hard"];
   return (
     <div className="mx-5 flex w-full justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
       <div className="flex flex-col px-5 py-3">Duración</div>
