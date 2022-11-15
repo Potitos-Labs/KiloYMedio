@@ -200,7 +200,7 @@ export default function FilterProduct({
             className="tooltip tooltip-right tooltip-info z-10 mt-2"
             data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
           >
-            <FcInfo />
+            <FcInfo className="-mt-0.5" />
           </div>
         </div>
         <div className="flex flex-col pl-4">

@@ -18,15 +18,15 @@ const Recipes = () => {
           <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
         )}
         <div className="flex flex-row">
-          <p className=" ml-5 mb-2 text-2xl font-bold  normal-case text-kym3">
+          <p className="mx-5 my-2 text-2xl font-bold text-kym3">
             Todas las recetas
           </p>
           <button onClick={() => setOpenFilter(!openFilter)}>
-            <BsFilterSquare size="2rem" className="ml-3" />
+            <BsFilterSquare size="1.5rem" className="peer mt-1.5 text-kym4" />
           </button>
-          <div className={`${!openFilter ? "hidden" : "flex"}`}>
-            <FilterRecipe />
-          </div>
+        </div>
+        <div className={`w-full ${!openFilter ? "hidden" : "flex"}`}>
+          <FilterRecipe />
         </div>
         {allRecipes?.length != 0 && (
           <RecipeDisplayer recipes={allRecipes}></RecipeDisplayer>
