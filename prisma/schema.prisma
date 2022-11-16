@@ -329,6 +329,12 @@ model RecipeComment {
     recipe    Recipe  @relation(fields: [recipeId], references: [id])
 }
 
+model RecipeDifficultyInSpanish {
+    id                  String           @id @default(cuid())
+    difficulty          RecipeDifficulty @unique
+    difficultyInSpanish String
+}
+
 model RecipeDirections {
     id        String @id @default(cuid())
     number    Int
