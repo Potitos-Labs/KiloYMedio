@@ -90,24 +90,20 @@ export default function CreateProdcut(
               openFilter ? "hidden" : "hidden sm:block"
             } ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3`}
           >
-            <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-              Filtros de búsqueda
-            </p>
+            <p className="font-bold">Filtros de búsqueda</p>
           </div>
-          <div
-            className={`${openFilter ? "absolute mt-2" : ""} z-10 sm:max-w-xs`}
-          >
+          <div className={`${openFilter && "absolute mt-2"} z-10 sm:max-w-xs`}>
             <IoIosCloseCircleOutline
               size={"2rem"}
               onClick={() => setOpenFilter(false)}
               className={`${
-                openFilter ? "block" : "hidden"
-              } absolute right-2 top-2`}
+                openFilter ? "flex" : "hidden"
+              } absolute right-2 top-2 cursor-pointer`}
             />
             <FilterProduct
               className={`${
                 openFilter
-                  ? "rounded-r-sm bg-opacity-95 pt-5 shadow-lg"
+                  ? "rounded-r-md bg-opacity-95 pt-5"
                   : "my-12 ml-12 hidden rounded-md sm:block"
               } bg-white`}
               filter={filter}
@@ -115,7 +111,7 @@ export default function CreateProdcut(
             />
           </div>
         </div>
-        <div className="grow">
+        <div className={`${openFilter && "blur-sm"} grow`}>
           <div className="mx-6 mt-12 grid h-11 flex-row sm:mx-12 sm:grid-cols-2 sm:border-b-2 sm:border-kym3">
             <Tittle filter={filter} inSpanish={inSpanish} />
             <div className="mt-2 grid grid-cols-[80%_20%] border-b-2 border-kym3 sm:relative sm:mt-0 sm:border-0">
@@ -123,17 +119,17 @@ export default function CreateProdcut(
                 <SearchBar filter={filter} setFilter={setFilter} />
               </div>
               <div
-                className="flex items-center justify-center justify-items-center"
+                className="flex justify-center"
                 onClick={() => setOpenFilter(true)}
               >
-                <BsFilterSquare className="ml-3 mb-3 h-6 w-6 self-center justify-self-center sm:hidden" />
+                <BsFilterSquare className="ml-3 mb-3 h-6 w-6 justify-self-center sm:hidden" />
               </div>
             </div>
           </div>
-          <div className="min-h-screen py-12 px-6 sm:px-12">
+          <div className="py-12 px-6">
             {data ? (
               data.length !== 0 ? (
-                <div className="xs:grid-cols-1 grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
                   {data.map((product) => {
                     const productParsed = productSchema.safeParse(product);
                     if (productParsed.success)
