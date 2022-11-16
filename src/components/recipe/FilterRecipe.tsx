@@ -8,7 +8,6 @@ function FilterRecipe({
   filter: IFilterRecipe;
   setFilter: Dispatch<SetStateAction<IFilterRecipe>>;
 }) {
-  //const difficulty = ["easy", "moderate", "hard"];
   return (
     <div className="mx-5 flex w-full justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
       <div className="flex flex-col px-5 py-3">
@@ -126,9 +125,66 @@ function FilterRecipe({
           </label>
         </div>
       </div>
-      <div className="flex flex-row px-5 py-3">
+      <div className="flex flex-col px-5 py-3">
         Raciones
-        <div className="flex flex-col"></div>
+        <div className="flex flex-col">
+          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            <input
+              id="default-radio-4"
+              type="radio"
+              value=""
+              name="default-radio-three"
+              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              onChange={() => {
+                return setFilter({
+                  ...filter,
+                  minPortion: undefined,
+                  maxPortion: undefined,
+                });
+              }}
+            />
+            Todas
+          </label>
+          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            <input
+              id="default-radio-4"
+              type="radio"
+              value=""
+              name="default-radio-three"
+              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              onChange={() => {
+                return setFilter({ ...filter, minPortion: 1, maxPortion: 2 });
+              }}
+            />
+            1-2 raciones
+          </label>
+          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            <input
+              id="default-radio-4"
+              type="radio"
+              value=""
+              name="default-radio-three"
+              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              onChange={() => {
+                return setFilter({ ...filter, minPortion: 2, maxPortion: 4 });
+              }}
+            />
+            2-4 raciones
+          </label>
+          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            <input
+              id="default-radio-4"
+              type="radio"
+              value=""
+              name="default-radio-three"
+              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              onChange={() => {
+                return setFilter({ ...filter, minPortion: 5 });
+              }}
+            />
+            +4 raciones
+          </label>
+        </div>
       </div>
     </div>
   );
