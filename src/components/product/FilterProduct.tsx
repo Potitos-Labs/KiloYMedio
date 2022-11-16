@@ -136,24 +136,45 @@ export default function FilterProduct({
         <p className="grow whitespace-nowrap font-semibold sm:text-lg">
           Categorías
         </p>
-        {categories && allergens ? (
-          <div className="flex flex-col pl-4">
-            {categories?.eCategories
-              .sort((a, b) =>
-                a.categoryInSpanish.localeCompare(b.categoryInSpanish),
-              )
-              .map((c) => {
+        <div className="pl-4">
+          {categories && allergens ? (
+            <div className="flex flex-col">
+              {categories?.eCategories
+                .sort((a, b) =>
+                  a.categoryInSpanish.localeCompare(b.categoryInSpanish),
+                )
+                .map((c) => {
+                  return (
+                    <label key={c.id}>
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-xs"
+                        checked={filter.eCategories.includes(c.category)}
+                        onChange={() => {
+                          const index = filter.eCategories.indexOf(c.category);
+                          index == -1
+                            ? filter.eCategories.splice(0, 0, c.category)
+                            : filter.eCategories.splice(index, 1);
+                          return setFilter({ ...filter });
+                        }}
+                      />
+                      <span className="pl-1">{c.categoryInSpanish}</span>
+                    </label>
+                  );
+                })}
+              <hr className="my-1 ml-4 w-[75%]"></hr>
+              {categories?.neCategories.map((c) => {
                 return (
                   <label key={c.id}>
                     <input
                       type="checkbox"
                       className="checkbox checkbox-xs"
-                      checked={filter.eCategories.includes(c.category)}
+                      checked={filter.neCategories.includes(c.category)}
                       onChange={() => {
-                        const index = filter.eCategories.indexOf(c.category);
+                        const index = filter.neCategories.indexOf(c.category);
                         index == -1
-                          ? filter.eCategories.splice(0, 0, c.category)
-                          : filter.eCategories.splice(index, 1);
+                          ? filter.neCategories.splice(0, 0, c.category)
+                          : filter.neCategories.splice(index, 1);
                         return setFilter({ ...filter });
                       }}
                     />
@@ -161,32 +182,13 @@ export default function FilterProduct({
                   </label>
                 );
               })}
-            <hr className="my-1 ml-4 w-[75%]"></hr>
-            {categories?.neCategories.map((c) => {
-              return (
-                <label key={c.id}>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-xs"
-                    checked={filter.neCategories.includes(c.category)}
-                    onChange={() => {
-                      const index = filter.neCategories.indexOf(c.category);
-                      index == -1
-                        ? filter.neCategories.splice(0, 0, c.category)
-                        : filter.neCategories.splice(index, 1);
-                      return setFilter({ ...filter });
-                    }}
-                  />
-                  <span className="pl-1">{c.categoryInSpanish}</span>
-                </label>
-              );
-            })}
-          </div>
-        ) : (
-          [...Array(14)].map((e, i) => {
-            return <CheckboxLoad key={i} />;
-          })
-        )}
+            </div>
+          ) : (
+            [...Array(14)].map((e, i) => {
+              return <CheckboxLoad key={i} />;
+            })
+          )}
+        </div>
       </div>
       <div className="mt-2">
         <div
