@@ -9,11 +9,11 @@ function FilterRecipe({
   setFilter: Dispatch<SetStateAction<IFilterRecipe>>;
 }) {
   return (
-    <div className="mx-5 flex w-full justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
+    <div className="mx-5 flex  justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
       <div className="flex flex-col px-5 py-3">
-        Duración
+        <p className="font-bold">Duración </p>
         <div className="flex flex-col">
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-2"
               type="radio"
@@ -21,12 +21,16 @@ function FilterRecipe({
               name="default-radio"
               className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
               onChange={() => {
-                return setFilter({ ...filter, maxTime: 30, minTime: 0 });
+                return setFilter({
+                  ...filter,
+                  maxTime: undefined,
+                  minTime: undefined,
+                });
               }}
             />
-            0-30 min
+            <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-3"
               type="radio"
@@ -37,9 +41,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, maxTime: 60, minTime: 30 });
               }}
             />
-            30-60 min
+            <p className="pl-2">0-60 mins</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
@@ -50,9 +54,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, maxTime: 120, minTime: 60 });
               }}
             />
-            1-2 horas
+            <p className="pl-2">1-2 horas raciones</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-5"
               type="radio"
@@ -63,15 +67,15 @@ function FilterRecipe({
                 return setFilter({ ...filter, minTime: 120 });
               }}
             />
-            +2 horas
+            <p className="pl-2">+2 horas</p>
           </label>
         </div>
       </div>
 
       <div className="flex flex-col px-5 py-3">
-        Dificultad
+        <p className="font-bold">Dificultad </p>
         <div className="flex flex-col">
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-1"
               type="radio"
@@ -82,9 +86,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: undefined });
               }}
             />
-            Todas
+            <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-2"
               type="radio"
@@ -95,9 +99,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "hard" });
               }}
             />
-            Difícil
+            <p className="pl-2">Dificil</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-3"
               type="radio"
@@ -108,9 +112,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "moderate" });
               }}
             />
-            Medio
+            <p className="pl-2">Medio</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
@@ -121,14 +125,14 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "easy" });
               }}
             />
-            Fácil
+            <p className="pl-2">Facil</p>
           </label>
         </div>
       </div>
       <div className="flex flex-col px-5 py-3">
-        Raciones
+        <p className="font-bold">Raciones</p>
         <div className="flex flex-col">
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
@@ -143,9 +147,9 @@ function FilterRecipe({
                 });
               }}
             />
-            Todas
+            <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
@@ -156,22 +160,22 @@ function FilterRecipe({
                 return setFilter({ ...filter, minPortion: 1, maxPortion: 2 });
               }}
             />
-            1-2 raciones
+            <p className="pl-2">1-2 raciones</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-three"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4 border-gray-300 bg-gray-100  text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
               onChange={() => {
                 return setFilter({ ...filter, minPortion: 2, maxPortion: 4 });
               }}
             />
-            2-4 raciones
+            <p className="pl-2">2-4 raciones</p>
           </label>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-4"
               type="radio"
@@ -182,7 +186,7 @@ function FilterRecipe({
                 return setFilter({ ...filter, minPortion: 5 });
               }}
             />
-            +4 raciones
+            <p className="pl-2">+4 raciones</p>
           </label>
         </div>
       </div>
