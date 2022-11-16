@@ -1,6 +1,6 @@
 function LoadingCard() {
   return (
-    <div className="min-w-48  hover:shadow-kym4mx-auto relative mx-4 my-4 inline-block h-64 w-48  max-w-sm flex-none flex-col items-center justify-center rounded-md rounded-md border border-blue-300 p-4 py-8 text-center shadow-md shadow">
+    <div className="min-w-48  hover:shadow-kym4mx-auto relative mx-4 my-4 inline-block h-64 w-48  max-w-sm flex-none flex-col items-center justify-center rounded-md border p-4 py-8 text-center shadow-md shadow">
       <div className="flex animate-pulse flex-col items-center gap-2 space-x-4">
         <div className="h-28 w-28 rounded-md bg-slate-200"></div>
       </div>
