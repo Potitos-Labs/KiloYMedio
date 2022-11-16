@@ -15,6 +15,8 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const ingredients = recipe?.RecipeIngredient;
   const directions = recipe?.directions;
 
+  const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
+
   const utils = trpc.useContext();
   const router = useRouter();
 
@@ -132,22 +134,23 @@ const RecipeDetail = ({ id }: { id: string }) => {
         <div>
           <h2 className="mb-2 text-lg font-bold">INGREDIENTES</h2>
           <div className="mb-4 pr-14">
-            {ingredients?.map((i) => {
-              return (
-                <div key={"id"}>
-                  <hr className="border-1 my-5 border-orange-200"></hr>
-                  <div className="flex justify-between">
-                    <p className="first-letter:uppercase">
-                      {i.Ingredient.name}
-                    </p>
-                    <div className="flex gap-2">
-                      <span>{i.amount}</span>
-                      <span>{i.unit}</span> {/* provisional */}
+            {units &&
+              ingredients?.map((i) => {
+                return (
+                  <div key={"id"}>
+                    <hr className="border-1 my-5 border-orange-200"></hr>
+                    <div className="flex justify-between">
+                      <p className="first-letter:uppercase">
+                        {i.Ingredient.name}
+                      </p>
+                      <div className="flex gap-2">
+                        <span>{i.amount}</span>
+                        <span>{units[i.unit]}</span> {/* provisional */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
 
