@@ -7,7 +7,6 @@ import { BsFilterSquare } from "react-icons/bs";
 import { IFilterRecipe } from "@utils/validations/recipe";
 
 const Recipes = () => {
-  const { data: allRecipes } = trpc.recipe.getAllRecipes.useQuery();
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   const [filter, setFilter] = useState<IFilterRecipe>({});
   const { data: filteredRecipes } =
@@ -31,9 +30,7 @@ const Recipes = () => {
         <div className={`w-full ${!openFilter ? "hidden" : "flex"}`}>
           <FilterRecipe filter={filter} setFilter={setFilter} />
         </div>
-        {allRecipes?.length != 0 && (
-          <RecipeDisplayer recipes={allRecipes}></RecipeDisplayer>
-        )}
+        <RecipeDisplayer recipes={filteredRecipes}></RecipeDisplayer>
       </div>
     </Layout>
   );
