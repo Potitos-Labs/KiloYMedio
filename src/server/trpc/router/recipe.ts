@@ -31,10 +31,10 @@ export const recipeRouter = router({
   getFilteredRecipes: publicProcedure
     .input(filterRecipeSchema)
     .query(async ({ ctx, input }) => {
-      const { minTime, maxTime, portions, difficulty } = input;
+      const { minTime, maxTime, minPortion, maxPortion, difficulty } = input;
       return await ctx.prisma.recipe.findMany({
         where: {
-          portions,
+          portions: { gte: minPortion, lte: maxPortion },
           timeSpan: { gte: minTime, lte: maxTime },
           difficulty,
         },
