@@ -63,8 +63,8 @@ function DropdownCategories() {
               <BsChevronRight className="invisible ml-14 mt-1 fill-kym4 lg:visible" />
             </a>
           </Link>
-          <div className="lg;hover:grid absolute left-40 top-8 z-20 hidden lg:peer-hover:grid">
-            <div className="grid w-[500px] grid-cols-2 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
+          <div className="absolute left-40 top-8 z-20 hidden lg:hover:grid lg:peer-hover:grid">
+            <div className="grid w-[760px] grid-cols-3 rounded-md bg-white text-kym4 shadow-md shadow-kym4">
               {nCategories ? (
                 nCategories?.map((nCategory) => {
                   return (
