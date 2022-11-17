@@ -133,7 +133,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
       <div className="mb-40 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4">
         <div>
           <h2 className="mb-2 text-lg font-bold">INGREDIENTES</h2>
-          <div className="mb-4 pr-14">
+          <div className="mb-4 md:pr-14">
             {units &&
               ingredients?.map((i) => {
                 return (
@@ -160,7 +160,10 @@ const RecipeDetail = ({ id }: { id: string }) => {
             <ol key={"id"} className="list-inside list-decimal">
               {directions?.map((d) => {
                 return (
-                  <li key={d.number} className="first-letter:uppercase">
+                  <li
+                    key={d.number}
+                    className="first-letter:uppercase marker:font-bold marker:text-kym2"
+                  >
                     {d.direction}
                   </li>
                 );
