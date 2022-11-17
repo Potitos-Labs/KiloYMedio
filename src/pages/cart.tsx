@@ -5,6 +5,7 @@ import { FormWrapper } from "../components/payment/FormWrapper";
 import { trpc } from "../utils/trpc";
 import { NextPage } from "next";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Loading from "@components/ui/Loading";
 
 const Cart: NextPage = () => {
   const { data: cartProducts } = trpc.cart.getAllCartProduct.useQuery();
@@ -20,13 +21,19 @@ const Cart: NextPage = () => {
             <FormWrapper title="Carrito de compra">
               <div className="m-0 grid gap-4" ref={listRef}>
                 {cartProducts ? (
-                  cartProducts.productList.map((cartProduct) => (
-                    <div key={cartProduct.productId}>
-                      <Product cartProduct={cartProduct}></Product>
-                    </div>
-                  ))
+                  cartProducts.productList.length > 0 ? (
+                    cartProducts.productList.map((cartProduct) => (
+                      <div key={cartProduct.productId}>
+                        <Product cartProduct={cartProduct}></Product>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="absolute mt-20 self-center justify-self-center font-light text-kym4">
+                      No tienes aún ningún producto en el carrito 😢
+                    </p>
+                  )
                 ) : (
-                  <p className="">Cargando...</p>
+                  <Loading message="Cargando productos..." />
                 )}
               </div>
             </FormWrapper>
