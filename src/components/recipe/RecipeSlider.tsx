@@ -1,7 +1,7 @@
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
-import { RecipeCard } from "./RecipeCard";
 import { LeftArrow, RightArrow } from "./Arrows";
 import LoadingCard from "./LoadingCard";
+import { RecipeCard } from "./RecipeCard";
 
 const RecipeDisplayer = ({
   recipes,
@@ -10,7 +10,7 @@ const RecipeDisplayer = ({
 }) => {
   return (
     <div className="mx-6 mt-6 mb-8">
-      <div className="rounded-md border-2  shadow-md">
+      <div className="rounded-md ">
         <ScrollMenu
           LeftArrow={LeftArrow}
           RightArrow={RightArrow}

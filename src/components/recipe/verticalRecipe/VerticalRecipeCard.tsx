@@ -1,15 +1,13 @@
+import DotMenu from "@components/DotMenu";
+import Stars from "@components/Stars";
+import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
 
-import { trpc } from "../../utils/trpc";
-import DotMenu from "../DotMenu";
-
-import Stars from "../Stars";
-
-export function RecipeCard({
+export function VerticalRecipeCard({
   id,
   name,
   ratings,
@@ -48,7 +46,7 @@ export function RecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="min-w-48 border-2a mx-4  my-4 inline-block h-64 w-48 rounded-md bg-white text-center hover:scale-110  hover:shadow-md"
+      className="min-w-48 w-fill border-2a  mx-4 my-4 inline-block h-64 rounded-md bg-white text-center hover:scale-110  hover:shadow-md"
     >
       <div className="w-fill  relative h-32 overflow-hidden rounded-t-md object-contain">
         <Link href={`/recipe/${id}`}>
