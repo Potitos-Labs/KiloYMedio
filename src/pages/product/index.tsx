@@ -111,7 +111,10 @@ export default function CreateProdcut(
             />
           </div>
         </div>
-        <div className={`${openFilter && "blur-sm"} grow`}>
+        <div
+          className={`${openFilter && "mr-0 blur-sm"} grow`}
+          onClick={() => openFilter && setOpenFilter(false)}
+        >
           <div className="mx-6 mt-12 grid h-11 flex-row sm:mx-12 sm:grid-cols-2 sm:border-b-2 sm:border-kym3">
             <Tittle filter={filter} inSpanish={inSpanish} />
             <div className="mt-2 grid grid-cols-[80%_20%] border-b-2 border-kym3 sm:relative sm:mt-0 sm:border-0">
