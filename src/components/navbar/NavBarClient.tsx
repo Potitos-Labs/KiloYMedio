@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   RiArrowDropDownLine,
@@ -12,6 +13,7 @@ import DropdownCategories from "../category/DropdownCategories";
 
 function NavBarClient() {
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <nav className="w-full text-lg">
@@ -49,7 +51,11 @@ function NavBarClient() {
           <div className="absolute z-10 hidden group-hover:block">
             <div className="flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
               <Link href={`/recipe/create`}>
-                <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
+                <a
+                  className={`flex flex-row px-5 py-3 hover:rounded-md hover:bg-background ${
+                    !session && "hidden"
+                  }`}
+                >
                   <RiMenuAddLine className="mr-1 h-6 w-6 fill-kym2" />
                   Añadir recetas
                 </a>

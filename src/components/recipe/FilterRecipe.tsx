@@ -9,9 +9,9 @@ function FilterRecipe({
   setFilter: Dispatch<SetStateAction<IFilterRecipe>>;
 }) {
   return (
-    <div className="mx-5 flex  justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
+    <div className="mx-5 flex justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
       <div className="flex flex-col px-5 py-3">
-        <p className="font-bold">Duración </p>
+        <p className="font-bold">Duración</p>
         <div className="flex flex-col">
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
@@ -73,7 +73,7 @@ function FilterRecipe({
       </div>
 
       <div className="flex flex-col px-5 py-3">
-        <p className="font-bold">Dificultad </p>
+        <p className="font-bold">Dificultad</p>
         <div className="flex flex-col">
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
@@ -99,9 +99,9 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "hard" });
               }}
             />
-            <p className="pl-2">Dificil</p>
+            <p className="pl-2">Difícil</p>
           </label>
-          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-3"
               type="radio"
@@ -112,7 +112,7 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "moderate" });
               }}
             />
-            <p className="pl-2">Medio</p>
+            <p className="pl-2">Media</p>
           </label>
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
@@ -125,7 +125,7 @@ function FilterRecipe({
                 return setFilter({ ...filter, difficulty: "easy" });
               }}
             />
-            <p className="pl-2">Facil</p>
+            <p className="pl-2">Fácil</p>
           </label>
         </div>
       </div>
