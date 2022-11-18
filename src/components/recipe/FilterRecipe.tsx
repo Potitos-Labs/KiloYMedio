@@ -64,7 +64,7 @@ function FilterRecipe({
               name="default-radio"
               className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
               onChange={() => {
-                return setFilter({ ...filter, minTime: 120 });
+                return setFilter({ ...filter, minTime: 121 });
               }}
             />
             <p className="pl-2">+2 horas</p>
