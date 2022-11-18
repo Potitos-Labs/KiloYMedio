@@ -54,7 +54,7 @@ function FilterRecipe({
                 return setFilter({ ...filter, maxTime: 120, minTime: 60 });
               }}
             />
-            <p className="pl-2">1-2 horas raciones</p>
+            <p className="pl-2">1-2 horas</p>
           </label>
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
