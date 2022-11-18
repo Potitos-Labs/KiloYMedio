@@ -9,8 +9,8 @@ function FilterRecipe({
   setFilter: Dispatch<SetStateAction<IFilterRecipe>>;
 }) {
   return (
-    <div className="mx-5 flex justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4">
-      <div className="flex flex-col px-5 py-3">
+    <div className=" mx-5 flex   justify-between rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4 sm:w-auto">
+      <div className="mr-3 flex flex-col py-3 sm:px-5">
         <p className="font-bold">Duración</p>
         <div className="flex flex-col">
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -30,7 +30,7 @@ function FilterRecipe({
             />
             <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2  flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
             <input
               id="default-radio-3"
               type="radio"
@@ -72,7 +72,7 @@ function FilterRecipe({
         </div>
       </div>
 
-      <div className="flex flex-col px-5 py-3">
+      <div className="mr-4 flex flex-col py-3 sm:px-5">
         <p className="font-bold">Dificultad</p>
         <div className="flex flex-col">
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -129,7 +129,7 @@ function FilterRecipe({
           </label>
         </div>
       </div>
-      <div className="flex flex-col px-5 py-3">
+      <div className="flex flex-col px-0 py-3 sm:px-5">
         <p className="font-bold">Raciones</p>
         <div className="flex flex-col">
           <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">

@@ -17,13 +17,15 @@ const Recipes = () => {
   return (
     <Layout>
       <div className="my-6">
-        <p className="mx-5 my-2 text-2xl font-bold text-kym3">Lo más nuevo</p>
+        <p className="mx-5 my-2 mb-2 grow whitespace-nowrap text-2xl  normal-case">
+          Lo más nuevo
+        </p>
         <hr className="border-1 mx-5 border-kym3"></hr>
         {mostRecentRecipes?.length != 0 && (
           <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
         )}
         <div className="mx-5 flex flex-row">
-          <p className="my-2 mr-5 mb-2 text-2xl font-bold text-kym3">
+          <p className="my-2 mr-5 mb-2 grow whitespace-nowrap text-2xl  normal-case">
             Todas las recetas
           </p>
           <button onClick={() => setOpenFilter(!openFilter)}>
@@ -31,7 +33,7 @@ const Recipes = () => {
           </button>
         </div>
         <hr className="border-1 mx-5 border-kym3"></hr>
-        <div className={`w-full ${!openFilter ? "hidden" : "flex"}`}>
+        <div className={` mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
           <FilterRecipe filter={filter} setFilter={setFilter} />
         </div>
         <VerticalRecipeDisplayer

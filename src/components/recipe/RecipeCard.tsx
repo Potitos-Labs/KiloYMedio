@@ -48,9 +48,9 @@ export function RecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="min-w-48 border-2a mx-4  my-4 inline-block h-64 w-48 rounded-md bg-white text-center hover:scale-110  hover:shadow-md"
+      className="border-2a mx-2 my-4 inline-block h-48  w-32 rounded-md bg-white text-center hover:scale-110 hover:shadow-md sm:mx-4 sm:h-64  sm:w-48"
     >
-      <div className="w-fill  relative h-32 overflow-hidden rounded-t-md object-contain">
+      <div className="w-fill  relative h-24 overflow-hidden rounded-t-md object-contain sm:h-32">
         <Link href={`/recipe/${id}`}>
           <a>
             <Image
@@ -74,7 +74,7 @@ export function RecipeCard({
             />
           )}
         </div>
-        <p className="mx-1 mb-2 text-xl font-semibold first-letter:uppercase  ">
+        <p className="mx-1 mb-2 text-lg  font-semibold first-letter:uppercase sm:text-xl  ">
           {name}
         </p>
         <div className="">
