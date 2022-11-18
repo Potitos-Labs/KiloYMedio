@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
@@ -31,7 +32,7 @@ export function RecipeCard({
       utils.recipe.getRecentRecipes.invalidate();
     },
   });
-
+  const [focused, setFocused] = useState(false);
   const editRecipe = (id: string) => {
     //ACABAR
     router.push(`/recipe/edit/${id}`);
@@ -48,7 +49,9 @@ export function RecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="border-2a mx-2 my-4 inline-block h-48  w-32 rounded-md bg-white text-center hover:scale-110 hover:shadow-md sm:mx-4 sm:h-64  sm:w-48"
+      className="border-2a mx-2 my-4 inline-block h-48  w-32 rounded-md bg-white text-center duration-200 hover:shadow-md motion-safe:hover:scale-105 sm:mx-4 sm:h-64  sm:w-48"
+      onMouseEnter={() => setFocused(true)}
+      onMouseLeave={() => setFocused(false)}
     >
       <div className="w-fill  relative h-24 overflow-hidden rounded-t-md object-contain sm:h-32">
         <Link href={`/recipe/${id}`}>
@@ -74,7 +77,11 @@ export function RecipeCard({
             />
           )}
         </div>
-        <p className="mx-1 mb-2 text-lg  font-semibold first-letter:uppercase sm:text-xl  ">
+        <p
+          className={`mx-1 mb-2 text-lg font-semibold  first-letter:uppercase sm:mt-4 sm:text-xl ${
+            focused && "underline decoration-kym3 duration-200"
+          } `}
+        >
           {name}
         </p>
         <div className="">

@@ -46,7 +46,9 @@ export function LeftArrow() {
 
   return (
     <Arrow disabled={disabled} onClick={() => scrollPrev()}>
-      <MdChevronLeft size={25}></MdChevronLeft>
+      <div className=" m-2 rounded-full bg-button duration-100 hover:bg-button_hover">
+        <MdChevronLeft className="fill-white" size={25}></MdChevronLeft>
+      </div>
     </Arrow>
   );
 }
@@ -67,7 +69,9 @@ export function RightArrow() {
 
   return (
     <Arrow disabled={disabled} onClick={() => scrollNext()}>
-      <MdChevronRight size={25}></MdChevronRight>
+      <div className="m-2 rounded-full bg-button duration-100 hover:bg-button_hover">
+        <MdChevronRight className="fill-white" size={25}></MdChevronRight>
+      </div>
     </Arrow>
   );
 }

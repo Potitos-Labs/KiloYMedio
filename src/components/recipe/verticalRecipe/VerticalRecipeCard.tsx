@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 export function VerticalRecipeCard({
@@ -23,6 +24,7 @@ export function VerticalRecipeCard({
   const { data } = useSession();
   const utils = trpc.useContext();
   const notifyDeleted = () => toast.success("Receta eliminada");
+  const [focused, setFocused] = useState(false);
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
@@ -46,7 +48,9 @@ export function VerticalRecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="min-w-48 w-fill border-2a  mx-4 my-4 inline-block h-64 rounded-md bg-white text-center hover:scale-110  hover:shadow-md"
+      className="min-w-48 w-fill border-2a  mx-4 my-4 inline-block h-64 rounded-md bg-white text-center duration-200 hover:shadow-md  motion-safe:hover:scale-105"
+      onMouseEnter={() => setFocused(true)}
+      onMouseLeave={() => setFocused(false)}
     >
       <div className="w-fill  relative h-32 overflow-hidden rounded-t-md object-contain">
         <Link href={`/recipe/${id}`}>
@@ -72,7 +76,11 @@ export function VerticalRecipeCard({
             />
           )}
         </div>
-        <p className="mx-1 mb-2 text-xl font-semibold first-letter:uppercase  ">
+        <p
+          className={`mx-1 mb-2 text-xl font-semibold first-letter:uppercase  ${
+            focused && "underline decoration-kym3 duration-200"
+          } `}
+        >
           {name}
         </p>
         <div className="">
