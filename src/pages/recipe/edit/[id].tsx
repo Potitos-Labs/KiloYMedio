@@ -3,7 +3,7 @@ import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { trpc } from "@utils/trpc";
-import { ICreateRecipe } from "@utils/validations/recipe";
+import { ICreateRecipe, IUpdateRecipe } from "@utils/validations/recipe";
 import { InferGetStaticPropsType } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -61,7 +61,8 @@ export default function EditRecipe(
     index: index,
   })) as ICreateRecipe["directions"];
 
-  const recipeArgs: ICreateRecipe = {
+  const recipeArgs: IUpdateRecipe = {
+    id: recipe.id,
     description: recipe.description,
     difficulty: recipe.difficulty,
     directions,

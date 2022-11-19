@@ -10,6 +10,7 @@ import ListboxDesign from "../../components/ui/ListboxDesign";
 import { trpc } from "../../utils/trpc";
 import {
   ICreateRecipe,
+  IUpdateRecipe,
   createRecipeSchema,
 } from "../../utils/validations/recipe";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -28,13 +29,19 @@ const defaultRecipe: ICreateRecipe = {
 
 export default function CreateEdit(props: {
   units: Record<IngredientUnit, string>;
-  recipe?: ICreateRecipe;
+  recipe?: IUpdateRecipe;
 }) {
   const { units, recipe = defaultRecipe } = props;
-  const { mutateAsync } = trpc.recipe.create.useMutation();
+  const { mutateAsync: createMutation } = trpc.recipe.create.useMutation();
+  const { mutateAsync: updateMutation } = trpc.recipe.update.useMutation();
 
   async function onSubmit(recipe: ICreateRecipe) {
-    await mutateAsync(recipe);
+    if (!!props.recipe) {
+      // If we are editing a recipe
+      await updateMutation({ ...recipe, id: props.recipe.id });
+    } else {
+      await createMutation(recipe);
+    }
     router.push("/recipe");
   }
 

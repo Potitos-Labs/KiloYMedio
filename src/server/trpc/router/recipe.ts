@@ -4,8 +4,10 @@ import * as z from "zod";
 import {
   createRecipeSchema,
   filterRecipeSchema,
+  updateRecipeSchema,
 } from "../../../utils/validations/recipe";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
+import { findOrCreteRecipeIngredients } from "./common/recipe-ingredients";
 
 export const recipeRouter = router({
   getAllRecipes: publicProcedure.query(async ({ ctx }) => {
@@ -87,6 +89,67 @@ export const recipeRouter = router({
       orderBy: { createdAt: "desc" },
     });
   }),
+  update: protectedProcedure
+    .input(updateRecipeSchema)
+    .mutation(
+      async ({
+        ctx,
+        input: {
+          description,
+          difficulty,
+          directions,
+          imageURL,
+          name,
+          ingredients,
+          portions,
+          timeSpan,
+          id,
+        },
+      }) => {
+        // Delete all recipe ingredients and directions, then recreate them
+        await ctx.prisma.recipeIngredient.deleteMany({
+          where: { recipeId: id },
+        });
+        await ctx.prisma.recipeDirections.deleteMany({
+          where: { recipeId: id },
+        });
+
+        const prismaIngredients = await findOrCreteRecipeIngredients(
+          ingredients,
+          ctx.prisma,
+        );
+
+        return await ctx.prisma.recipe.update({
+          where: { id },
+          data: {
+            difficulty,
+            imageURL,
+            name,
+            portions,
+            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            description,
+            directions: {
+              createMany: {
+                data: directions.map(({ direction }, index) => ({
+                  direction: direction,
+                  number: index,
+                })),
+              },
+            },
+            User: { connect: { id: ctx.session.user.id } },
+            RecipeIngredient: {
+              createMany: {
+                data: prismaIngredients.map(({ id, amount, unit }) => ({
+                  amount: amount,
+                  unit: unit,
+                  ingredientId: id,
+                })),
+              },
+            },
+          },
+        });
+      },
+    ),
   create: protectedProcedure
     .input(createRecipeSchema)
     .mutation(
@@ -103,14 +166,9 @@ export const recipeRouter = router({
           timeSpan,
         },
       }) => {
-        const prismaIngredients = await Promise.all(
-          ingredients.map(async ({ name, amount, unit }) => {
-            const res = await ctx.prisma.ingredient.create({
-              data: { name },
-              select: { id: true, name: true },
-            });
-            return { ...res, amount, unit };
-          }),
+        const prismaIngredients = await findOrCreteRecipeIngredients(
+          ingredients,
+          ctx.prisma,
         );
 
         return await ctx.prisma.recipe.create({
