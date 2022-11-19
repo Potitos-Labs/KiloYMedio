@@ -44,7 +44,7 @@ function DropDownCart() {
                 href={"/product"}
               >
                 <a className="m-2 rounded-md border border-kym3 bg-white text-center text-kym4 hover:bg-kym3 hover:text-white">
-                  Buscar Productos
+                  Buscar productos
                 </a>
               </Link>
             )}

@@ -31,11 +31,8 @@ const CategoryDisplay: NextPage = () => {
           <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}
       </div>
-
-      <div
-        id="nCat"
-        className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3"
-      >
+      <div id="nCat" className="h-16"></div>
+      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
         <p className="font-bold sm:text-lg">No comestibles</p>
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
@@ -52,7 +49,7 @@ const CategoryDisplay: NextPage = () => {
           <p className="items-center font-semibold text-kym4">Cargando...</p>
         )}
       </div>
-      <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
+      <div className="mx-12 mt-20 grid grid-cols-2 border-b-2 border-kym3">
         <p className="font-bold sm:text-lg">General</p>
       </div>
       <div className="grid grid-cols-2 gap-4 p-12 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">

@@ -20,9 +20,9 @@ function NavBarClient() {
       <div className="lg:hidden">
         <button
           onClick={() => setOpen(!open)}
-          className="items-center rounded border-2 border-white px-3 py-2 text-white hover:border-kym4 hover:text-kym4"
+          className="items-center py-2 text-white hover:text-kym4"
         >
-          <GiHamburgerMenu />
+          <GiHamburgerMenu className="h-7 w-7" />
         </button>
       </div>
       <div
@@ -35,7 +35,7 @@ function NavBarClient() {
           <Link href={`/product`}>
             <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Productos
-              <RiArrowDropDownLine className="-ml-1 h-9 w-9" />
+              <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
             </a>
           </Link>
           <DropdownCategories />
@@ -45,7 +45,7 @@ function NavBarClient() {
           <Link href={`/recipe`}>
             <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Recetas
-              <RiArrowDropDownLine className="-ml-1 h-9 w-9" />
+              <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
             </a>
           </Link>
           <div className="absolute z-10 hidden group-hover:block">

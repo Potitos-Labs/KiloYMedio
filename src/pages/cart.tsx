@@ -29,7 +29,7 @@ const Cart: NextPage = () => {
                     ))
                   ) : (
                     <p className="absolute mt-20 self-center justify-self-center font-light text-kym4">
-                      No tienes aún ningún producto en el carrito 😢
+                      Todavía no tienes ningún producto en el carrito 😢
                     </p>
                   )
                 ) : (

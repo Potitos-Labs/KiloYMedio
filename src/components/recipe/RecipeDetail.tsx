@@ -145,7 +145,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                       </p>
                       <div className="flex gap-2">
                         <span>{i.amount}</span>
-                        <span>{units[i.unit]}</span> {/* provisional */}
+                        <span>{units[i.unit]}</span>
                       </div>
                     </div>
                   </div>
