@@ -77,6 +77,8 @@ export default function CreateEdit(props: {
   const [listRef] = useAutoAnimate<HTMLDivElement>();
   const [listRef2] = useAutoAnimate<HTMLDivElement>();
 
+  const buttonText = props.recipe ? "Guardar" : "Crear receta";
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <section>
@@ -389,12 +391,23 @@ export default function CreateEdit(props: {
             {/* Directions End*/}
           </section>
           {/*End Recipe*/}
-          <button
-            className="btn mt-6 border-black bg-button capitalize text-black hover:bg-button_hover"
-            type="submit"
-          >
-            Crear receta
-          </button>
+          {/* Button */}
+          <div className="flex gap-5 pb-6">
+            <button
+              className="btn mt-6 border-black bg-button capitalize text-black hover:bg-button_hover"
+              type="button"
+              onClick={() => router.push("/recipe")}
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="btn mt-6 border-black bg-button capitalize text-black hover:bg-button_hover"
+            >
+              {buttonText}
+            </button>
+          </div>
+          {/* Button End */}
         </div>
       </section>
     </form>

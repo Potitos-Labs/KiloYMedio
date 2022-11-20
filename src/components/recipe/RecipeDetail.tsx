@@ -24,7 +24,6 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const isAdmin = session?.user?.role == "admin";
 
   const notifyDeleted = () => toast.success("Receta eliminada");
-  const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
 
   const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
     onSuccess() {
@@ -48,9 +47,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
   });
 
   const editRecipe = (id: string) => {
-    //ACABAR
-    notifyUpdate();
-    console.log(id + "HAY QUE COMPLETAR METODO WOO");
+    router.push(`/recipe/edit/${id}`);
   };
 
   const deleteRecipe = (id: string) => {
@@ -85,16 +82,15 @@ const RecipeDetail = ({ id }: { id: string }) => {
               <h1 className="text-2xl font-bold uppercase">{recipe?.name}</h1>
               <Stars average={4}></Stars>
             </div>
-            {session?.user?.id == recipe?.userId ||
-              (isAdmin && (
-                <DotMenu
-                  id={id}
-                  name={recipe ? recipe.name : "Error Ocurred"}
-                  type="receta"
-                  updateFunction={editRecipe}
-                  deleteFunction={deleteRecipe}
-                />
-              ))}
+            {(session?.user?.id == recipe?.userId || isAdmin) && (
+              <DotMenu
+                id={id}
+                name={recipe ? recipe.name : "Error Ocurred"}
+                type="receta"
+                updateFunction={editRecipe}
+                deleteFunction={deleteRecipe}
+              />
+            )}
             <div>
               {!isAdmin && (
                 <Heart
@@ -176,7 +172,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
 
       {/* Products */}
       <div className="mb-14 text-center">
-        <h2 className="text-lg font-bold">COMPRA NUESTROS PRODUCTOS</h2>
+        <h2 className="text-lg font-bold">COMPRA LOS INGREDIENTES</h2>
         <hr className="border-3 mt-5 mb-10 border-orange-200"></hr>
         <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {ingredients ? (

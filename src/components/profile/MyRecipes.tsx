@@ -3,6 +3,7 @@ import Image from "next/image";
 import DotMenu from "@components/DotMenu";
 import { trpc } from "@utils/trpc";
 import { toast } from "react-toastify";
+import router from "next/router";
 
 function MyRecipes({
   name,
@@ -15,7 +16,6 @@ function MyRecipes({
 }) {
   const utils = trpc.useContext();
   const notifyDeleted = () => toast.success("Receta eliminada");
-  const notifyUpdate = () => toast.warn("METODO POR IMPLEMENTAR");
 
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
@@ -23,9 +23,7 @@ function MyRecipes({
     },
   });
   const editRecipe = (id: string) => {
-    //ACABAR
-    notifyUpdate();
-    console.log(id + "HAY QUE COMPLETAR METODO WOO");
+    router.push(`/recipe/edit/${id}`);
   };
 
   const deleteRecipe = (id: string) => {

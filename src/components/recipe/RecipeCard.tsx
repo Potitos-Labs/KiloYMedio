@@ -34,9 +34,7 @@ export function RecipeCard({
   });
   const [focused, setFocused] = useState(false);
   const editRecipe = (id: string) => {
-    //ACABAR
     router.push(`/recipe/edit/${id}`);
-    console.log(id + "HAY QUE COMPLETAR METODO WOO");
   };
 
   const deleteRecipe = (id: string) => {
