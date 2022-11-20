@@ -1,4 +1,4 @@
-import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
+import { Allergen, IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import * as z from "zod";
 
 export const createRecipeSchema = z.object({
@@ -64,6 +64,13 @@ export const filterRecipeSchema = z.object({
   minTime: z.number().optional(),
   maxTime: z.number().optional(),
   difficulty: z.nativeEnum(RecipeDifficulty).optional(),
+  allergens: z
+    .array(z.nativeEnum(Allergen))
+    // unique() is not supported by zod
+    .refine((array) => {
+      return new Set([...array]).size === array.length;
+    })
+    .optional(),
 });
 export type ICreateRecipe = z.infer<typeof createRecipeSchema>;
 export type IUpdateRecipe = z.infer<typeof updateRecipeSchema>;

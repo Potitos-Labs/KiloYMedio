@@ -12,5 +12,6 @@
     "source.fixAll": true
   },
   "git.autofetch": true,
-  "git.autoStash": true
+  "git.autoStash": true,
+  "jest.autoRun": {}
 }
