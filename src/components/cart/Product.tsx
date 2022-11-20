@@ -73,6 +73,7 @@ function Product({
               stock={stock}
               stockLeft={stockLeft}
               isEdible={isEdible}
+              productUnit={cartProduct.product.ProductUnit}
             />
           </div>
         </div>

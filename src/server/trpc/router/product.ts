@@ -21,6 +21,7 @@ export const productRouter = router({
           description: true,
           imageURL: true,
           stock: true,
+          ProductUnit: true,
           Edible: {
             select: {
               priceByWeight: true,
@@ -195,6 +196,7 @@ export const productRouter = router({
           description: true,
           imageURL: true,
           stock: true,
+          ProductUnit: true,
           Edible: {
             select: {
               priceByWeight: true,
@@ -298,6 +300,7 @@ export const productRouter = router({
                 },
               },
             },
+            ProductUnit: "grams",
           },
         });
 
@@ -327,6 +330,7 @@ export const productRouter = router({
                 price: NonEdible.price,
               },
             },
+            ProductUnit: "unit",
           },
         });
         return {

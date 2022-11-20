@@ -1,4 +1,4 @@
-import { Allergen, ECategory, NECategory } from "@prisma/client";
+import { Allergen, ECategory, NECategory, ProductUnit } from "@prisma/client";
 import isURL from "validator/lib/isURL";
 import * as z from "zod";
 
@@ -33,6 +33,7 @@ export const productCreateSchema = z.object({
     })
     .nullable()
     .optional(),
+  ProductUnit: z.nativeEnum(ProductUnit),
 });
 
 export const productSchema = productCreateSchema.extend({ id: z.string() });

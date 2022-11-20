@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 import { z } from "zod";
 
 import { trpc } from "../../utils/trpc";
-import AllergensComponent from "../Allergen";
+import AllergensComponent from "../Allergens";
 
 export function PopUpAllergen({
   open,

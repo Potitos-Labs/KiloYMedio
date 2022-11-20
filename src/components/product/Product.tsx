@@ -16,13 +16,21 @@ function Product({ product }: { product: IProduct }) {
   const notify = () => toast.success("Producto añadido");
   const notifyDeleted = () => toast.success("Producto eliminado");
   const stockLeft = product.stock * 1000 >= 100;
-  const [amount, setAmount] = useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
+
+  const defaultValue = {
+    grams: 100,
+    kilograms: 0.5,
+    liters: 0.5,
+    milliliters: 100,
+    unit: 1,
+  };
+  const [amount, setAmount] = useState(defaultValue[product.ProductUnit]);
 
   const { mutateAsync } = trpc.product.delete.useMutation({
     onSuccess() {
@@ -51,15 +59,17 @@ function Product({ product }: { product: IProduct }) {
     <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-4 text-center shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
-          <Image
-            src={product.imageURL}
-            alt="notfound"
-            width="100"
-            height="100"
-            layout="fixed"
-            objectFit="cover"
-            className="cursor-pointer rounded-md"
-          ></Image>
+          <a>
+            <Image
+              src={product.imageURL}
+              alt="notfound"
+              width="100"
+              height="100"
+              layout="fixed"
+              objectFit="cover"
+              className="cursor-pointer rounded-md"
+            ></Image>
+          </a>
         </Link>
       </div>
       {data?.user?.role == "admin" && (
@@ -86,6 +96,7 @@ function Product({ product }: { product: IProduct }) {
             stock={product.stock}
             stockLeft={stockLeft}
             isEdible={isEdible}
+            productUnit={product.ProductUnit}
           />
           <button
             disabled={!stockLeft}

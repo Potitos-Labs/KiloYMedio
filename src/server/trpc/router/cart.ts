@@ -20,6 +20,7 @@ export const cartRouter = router({
             NonEdible: { select: { price: true } },
             imageURL: true,
             stock: true,
+            ProductUnit: true,
           },
         },
       },

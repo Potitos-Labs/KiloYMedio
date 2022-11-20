@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
-import AllergensComponent from "../Allergen";
+import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
 import Stars from "../Stars";
 import IncDecButtons from "./IncDecButtons";
@@ -51,6 +51,14 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
       mutation.mutateAsync({ productId: product.id, amount: amount });
     }
   }
+
+  const unitPrice = {
+    grams: "Kg",
+    kilograms: "Kg",
+    liters: "L",
+    milliliters: "L",
+    unit: "U",
+  };
 
   return (
     <div className="">
@@ -119,11 +127,13 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
 
             <p className="mt-4">Precio:</p>
             <p className="mb-3 inline-block text-left text-xl">
+              {" "}
               {isEdible ? (
-                <span> {product.Edible?.priceByWeight} €/Kg</span>
+                <span>{product.Edible?.priceByWeight}</span>
               ) : (
-                <span> {product.NonEdible?.price} €</span>
+                <span>{product.NonEdible?.price}</span>
               )}
+              €/{unitPrice[product.ProductUnit]}
             </p>
 
             {data?.user?.role != "admin" && (
@@ -135,6 +145,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
                     stock={product.stock}
                     isEdible={isEdible}
                     stockLeft={stockLeft} //cambiar
+                    productUnit={product.ProductUnit}
                   />
                 </div>
 
