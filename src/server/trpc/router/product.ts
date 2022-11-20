@@ -272,7 +272,15 @@ export const productRouter = router({
   createNewProduct: publicProcedure
     .input(productCreateSchema)
     .mutation(async ({ input, ctx }) => {
-      const { name, description, stock, imageURL, Edible, NonEdible } = input;
+      const {
+        name,
+        description,
+        stock,
+        imageURL,
+        Edible,
+        NonEdible,
+        ProductUnit,
+      } = input;
 
       if (Edible) {
         const productEdible = await ctx.prisma.product.create({
@@ -300,7 +308,7 @@ export const productRouter = router({
                 },
               },
             },
-            ProductUnit: "grams",
+            ProductUnit,
           },
         });
 
@@ -330,7 +338,7 @@ export const productRouter = router({
                 price: NonEdible.price,
               },
             },
-            ProductUnit: "unit",
+            ProductUnit,
           },
         });
         return {
@@ -347,8 +355,16 @@ export const productRouter = router({
   update: adminProcedure
     .input(productSchema)
     .mutation(async ({ input, ctx }) => {
-      const { id, name, description, stock, imageURL, Edible, NonEdible } =
-        input;
+      const {
+        id,
+        name,
+        description,
+        stock,
+        imageURL,
+        Edible,
+        NonEdible,
+        ProductUnit,
+      } = input;
 
       if (Edible) {
         const productEdible = await ctx.prisma.product.update({
@@ -377,6 +393,7 @@ export const productRouter = router({
                 },
               },
             },
+            ProductUnit,
           },
         });
 
@@ -415,6 +432,7 @@ export const productRouter = router({
                 price: NonEdible.price,
               },
             },
+            ProductUnit,
           },
         });
         return {

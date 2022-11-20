@@ -32,6 +32,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
   const { mutateAsync } = trpc.product.delete.useMutation({
     onSuccess() {
       utils.product.getAllProducts.invalidate();
+      utils.product.getFilteredProducts.invalidate();
     },
   });
 

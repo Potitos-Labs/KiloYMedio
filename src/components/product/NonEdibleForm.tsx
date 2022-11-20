@@ -1,5 +1,6 @@
 import { UploadImage } from "@components/ui/UploadImage";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ProductUnit } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -27,7 +28,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
     resolver: zodResolver(productCreateSchema),
     criteriaMode: "all",
     shouldUseNativeValidation: true,
-    defaultValues: product,
+    defaultValues: product ?? { ProductUnit: "unit" },
   });
   console.log(watch());
 
@@ -55,6 +56,14 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
     },
     [updateProduct, createProduct, router, product],
   );
+
+  const unitPrice = {
+    grams: "Kg",
+    kilograms: "Kg",
+    liters: "L",
+    milliliters: "L",
+    unit: "U",
+  };
 
   return (
     <form
@@ -100,7 +109,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             <input
               type="number"
               step="any"
-              placeholder="Precio"
+              placeholder={`Precio/${unitPrice[watch("ProductUnit")]}`}
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               min={0}
               {...register("NonEdible.price", {
@@ -112,11 +121,29 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             </p>
           </label>
           <label className="relative flex w-full flex-col">
+            <span className="mb-2">Unidad *</span>
+            <Controller
+              name="ProductUnit"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <Listbox
+                  //TODO: spanish version
+                  defaultValue={ProductUnit.unit}
+                  list={Object.keys(ProductUnit).map((p) => ({
+                    value: p,
+                    text: p,
+                  }))}
+                  setValue={onChange}
+                />
+              )}
+            ></Controller>
+          </label>
+          <label className="relative flex w-full flex-col">
             <span className="mb-2">Stock *</span>
             <input
               type="number"
               step="any"
-              placeholder="Stock(u)"
+              placeholder={`Stock(${unitPrice[watch("ProductUnit")]})`}
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               min={0}
               {...register("stock", {
