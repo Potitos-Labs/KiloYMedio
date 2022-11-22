@@ -1,4 +1,4 @@
-import AllergensComponent from "../../components/Allergen";
+import AllergensComponent from "../../components/Allergens";
 import Layout from "../../components/Layout";
 import { PopUpAllergen } from "../../components/profile/PopUpAllergen";
 import { FormWrapper } from "../../components/payment/FormWrapper";

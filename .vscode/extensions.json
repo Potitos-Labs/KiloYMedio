@@ -12,7 +12,8 @@
     "mhutchie.git-graph",
     "mikestead.dotenv",
     "usernamehw.errorlens",
-    "naumovs.color-highlight"
+    "naumovs.color-highlight",
+    "Orta.vscode-jest"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

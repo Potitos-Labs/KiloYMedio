@@ -241,6 +241,7 @@ async function main() {
           Ingredient: { create: { name: "pistachos" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -275,6 +276,7 @@ async function main() {
           Ingredient: { create: { name: "almendras" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -309,6 +311,7 @@ async function main() {
           Ingredient: { create: { name: "quicos" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -343,6 +346,7 @@ async function main() {
           Ingredient: { create: { name: "cacahuetes" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -375,6 +379,7 @@ async function main() {
           Ingredient: { create: { name: "levadura nutricional" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -407,6 +412,7 @@ async function main() {
           Ingredient: { create: { name: "lentejas" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -439,6 +445,7 @@ async function main() {
           Ingredient: { create: { name: "garbanzos" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -472,6 +479,7 @@ async function main() {
           Ingredient: { create: { name: "judía blanca" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -505,6 +513,7 @@ async function main() {
           Ingredient: { create: { name: "harina de trigo" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -537,6 +546,7 @@ async function main() {
           Ingredient: { create: { name: "harina de maíz" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -569,6 +579,7 @@ async function main() {
           Ingredient: { create: { name: "harina de almendra" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -602,6 +613,7 @@ async function main() {
           Ingredient: { create: { name: "espaguetis" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -635,6 +647,7 @@ async function main() {
           Ingredient: { create: { name: "macarrones" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -667,6 +680,7 @@ async function main() {
           Ingredient: { create: { name: "uva pasa" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -699,6 +713,7 @@ async function main() {
           Ingredient: { create: { name: "té verde" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -731,6 +746,7 @@ async function main() {
           Ingredient: { create: { name: "rooibos" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -764,6 +780,7 @@ async function main() {
           Ingredient: { create: { name: "sirope de arce" } },
         },
       },
+      ProductUnit: "liters",
     },
     select: {
       id: true,
@@ -797,6 +814,7 @@ async function main() {
           Ingredient: { create: { name: "mermelada de melon" } },
         },
       },
+      ProductUnit: "grams",
     },
     select: {
       id: true,
@@ -829,6 +847,7 @@ async function main() {
           Ingredient: { create: { name: "aceite de oliva virgen extra" } },
         },
       },
+      ProductUnit: "liters",
     },
     select: {
       id: true,
@@ -853,6 +872,7 @@ async function main() {
           price: 3.5,
         },
       },
+      ProductUnit: "unit",
     },
   });
 
@@ -870,6 +890,7 @@ async function main() {
           price: 4.6,
         },
       },
+      ProductUnit: "unit",
     },
   });
 

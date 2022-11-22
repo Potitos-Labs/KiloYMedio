@@ -12,6 +12,7 @@ describe("SelectMenu test", () => {
         setAmount={vi.fn()}
         stock={100}
         stockLeft={true}
+        productUnit="unit"
       ></IncDecButtons>,
     );
   });

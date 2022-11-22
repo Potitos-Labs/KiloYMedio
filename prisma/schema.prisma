@@ -276,6 +276,7 @@ model Post {
 
 model Product {
     id             String           @id @default(cuid())
+    cartProduct    CartProduct[]
     description    String
     Edible         Edible?
     imageURL       String
@@ -283,9 +284,9 @@ model Product {
     plainName      String           @unique
     NonEdible      NonEdible?
     orders         ProductOrder[]
-    cartProduct    CartProduct[]
-    stock          Float
     ProductComment ProductComment[]
+    ProductUnit    ProductUnit
+    stock          Float
 }
 
 model ProductComment {
@@ -464,6 +465,14 @@ enum NECategory {
 enum PostType {
     news
     announcement
+}
+
+enum ProductUnit {
+    grams
+    kilograms
+    liters
+    milliliters
+    unit
 }
 
 enum RecipeDifficulty {
