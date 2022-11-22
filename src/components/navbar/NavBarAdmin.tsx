@@ -13,21 +13,21 @@ function NavBarAdmin() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="flex w-full gap-4 text-lg">
+    <nav className="w-full text-lg">
       <div className="lg:hidden">
         <button
           onClick={() => setOpen(!open)}
-          className="items-center rounded border-2 border-white px-3 py-2 text-white hover:border-kym4 hover:text-kym4"
+          className="items-center py-2 text-white hover:text-kym4"
         >
-          <GiHamburgerMenu />
+          <GiHamburgerMenu className="h-7 w-7" />
         </button>
       </div>
       <div
         className={`${
           !open && "hidden"
-        } mt-6 mr-6 block flex-grow md:ml-4 md:mr-0 md:mt-0 lg:flex lg:w-auto`}
+        } block w-full flex-grow lg:flex lg:w-auto`}
       >
-        <div className="group relative">
+        <div className="group">
           <Link href={`/product`}>
             <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Productos
@@ -58,7 +58,7 @@ function NavBarAdmin() {
           </div>
         </div>
 
-        <div className="group relative">
+        <div className="group">
           <Link href={`/recipe`}>
             <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
               Recetas
