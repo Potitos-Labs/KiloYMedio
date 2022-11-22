@@ -9,11 +9,19 @@ import VerticalRecipeDisplayer from "@components/recipe/verticalRecipe/VerticalR
 
 const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
-  const [filter, setFilter] = useState<IFilterRecipe>({});
+  const [filter, setFilter] = useState<IFilterRecipe>({
+    difficulty: undefined,
+    maxPortion: undefined,
+    minPortion: undefined,
+    allergens: undefined,
+    maxTime: undefined,
+    minTime: undefined,
+  });
   const { data: filteredRecipes } =
     trpc.recipe.getFilteredRecipes.useQuery(filter);
   console.log(filteredRecipes);
   const [openFilter, setOpenFilter] = useState(false);
+
   return (
     <Layout>
       <div className="m-6">
