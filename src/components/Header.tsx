@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         </div>
         <div>
           <Link href={`/`}>
-            <h3 className="absolute left-20 top-8 w-full cursor-pointer font-sans text-xl font-semibold lg:hidden">
+            <h3 className="absolute left-20 top-8 w-[160px] cursor-pointer font-sans text-xl font-semibold lg:hidden">
               Kilo Y Medio
             </h3>
           </Link>
