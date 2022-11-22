@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: http://localhost:3001
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
       NEXTAUTH_SECRET: 0
       NEXTAUTH_URL: http://localhost:3000/
       GOOGLE_CLIENT_ID: ""
