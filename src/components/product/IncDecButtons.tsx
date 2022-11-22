@@ -59,11 +59,9 @@ function IncDecButtons({
       >
         -
       </button>
-      <div className="w-full">
-        <p className="mx-2 rounded-md px-2">
-          {amount} {unitDisplay[productUnit]}
-        </p>
-      </div>
+      <p className="mx-2 rounded-md px-2">
+        {amount} {unitDisplay[productUnit]}
+      </p>
       <button
         disabled={!stockLeft || maxStock == amount}
         className={`rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4  ${

@@ -9,7 +9,7 @@ const RecipeDisplayer = ({
   recipes?: { id: string; name: string; imageURL: string; userId: string }[];
 }) => {
   return (
-    <div className="mx-6 mt-6 mb-8">
+    <div className="mt-6 mb-8">
       <div className="rounded-md ">
         <ScrollMenu
           LeftArrow={LeftArrow}

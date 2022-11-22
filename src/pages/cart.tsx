@@ -28,7 +28,7 @@ const Cart: NextPage = () => {
                       </div>
                     ))
                   ) : (
-                    <p className="absolute mt-20 mb-20 self-center justify-self-center font-light text-kym4">
+                    <p className="mx-2 font-light text-kym4">
                       Todavía no tienes ningún producto en el carrito 😢
                     </p>
                   )

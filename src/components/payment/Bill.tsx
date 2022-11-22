@@ -14,7 +14,7 @@ const Bill = ({
   const shippingCosts = null;
 
   return (
-    <div className="mx-3 mt-8 grid h-full md:mx-6 lg:mt-0">
+    <div className="mt-8 grid h-full md:mx-6 lg:mt-0">
       <div className="flex flex-col">
         <div>
           <h1 className="mb-10 bg-background py-2 pl-3 text-xl">Factura</h1>

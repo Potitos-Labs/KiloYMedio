@@ -7,7 +7,7 @@ const RecipeDisplayer = ({
   recipes?: { id: string; name: string; imageURL: string; userId: string }[];
 }) => {
   return (
-    <div className="  mb-8">
+    <div className="mb-8">
       <br></br>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {recipes

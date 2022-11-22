@@ -47,7 +47,7 @@ export function RecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="border-2a mx-2 my-4 inline-block h-48  w-32 rounded-md bg-white text-center duration-200 hover:shadow-md motion-safe:hover:scale-105 sm:mx-4 sm:h-64  sm:w-48"
+      className="mx-2 my-4 inline-block h-48 w-32 rounded-md bg-white text-center duration-200 hover:shadow-md motion-safe:hover:scale-105 sm:mx-4 sm:h-64 sm:w-48"
       onMouseEnter={() => setFocused(true)}
       onMouseLeave={() => setFocused(false)}
     >
