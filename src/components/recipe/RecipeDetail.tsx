@@ -103,7 +103,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
             </div>
           </div>
           {/* End Name, ratting, dot/heart */}
-          <div className="my-8">{recipe?.description}</div>
+          <div className="my-8 text-justify">{recipe?.description}</div>
 
           {/* Features */}
           <hr className="border-1 my-5 border-orange-200"></hr>

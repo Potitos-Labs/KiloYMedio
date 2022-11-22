@@ -332,7 +332,7 @@ export default function CreateEdit(props: {
                   className="inline-flex items-center gap-2 pt-2"
                 >
                   <FaPlus></FaPlus>
-                  Agregar ingrediente
+                  Añadir ingrediente
                 </button>
               </div>
             </div>
@@ -394,7 +394,7 @@ export default function CreateEdit(props: {
           {/* Button */}
           <div className="flex gap-5 pb-6">
             <button
-              className="btn mt-6 border-black bg-button capitalize text-black hover:bg-button_hover"
+              className="btn mt-6 border-black bg-button text-black hover:bg-button_hover"
               type="button"
               onClick={() => router.push("/recipe")}
             >
@@ -402,7 +402,7 @@ export default function CreateEdit(props: {
             </button>
             <button
               type="submit"
-              className="btn mt-6 border-black bg-button capitalize text-black hover:bg-button_hover"
+              className="btn mt-6 border-black bg-button text-black hover:bg-button_hover"
             >
               {buttonText}
             </button>

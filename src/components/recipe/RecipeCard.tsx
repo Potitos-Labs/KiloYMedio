@@ -51,7 +51,7 @@ export function RecipeCard({
       onMouseEnter={() => setFocused(true)}
       onMouseLeave={() => setFocused(false)}
     >
-      <div className="w-fill  relative h-24 overflow-hidden rounded-t-md object-contain sm:h-32">
+      <div className="relative h-24 w-full overflow-hidden rounded-t-md object-contain sm:h-32">
         <Link href={`/recipe/${id}`}>
           <a>
             <Image
@@ -75,14 +75,16 @@ export function RecipeCard({
             />
           )}
         </div>
-        <p
-          className={`mx-1 mb-2 text-lg font-semibold  first-letter:uppercase sm:mt-4 sm:text-xl ${
-            focused && "underline decoration-kym3 duration-200"
-          } `}
-        >
-          {name}
-        </p>
-        <div className="">
+        <Link href={`/recipe/${id}`}>
+          <p
+            className={`mx-1 mb-2 text-lg font-semibold first-letter:uppercase sm:mt-4 sm:text-xl ${
+              focused && "underline decoration-kym3 duration-200"
+            }`}
+          >
+            {name}
+          </p>
+        </Link>
+        <div>
           <Stars average={ratings}></Stars>
         </div>
       </div>
