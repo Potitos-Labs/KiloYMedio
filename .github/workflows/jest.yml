@@ -1,0 +1,30 @@
+name: Jest
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      NEXTAUTH_SECRET: 0
+      NEXTAUTH_URL: http://localhost:3000/
+      GOOGLE_CLIENT_ID: ""
+      GOOGLE_CLIENT_SECRET: ""
+      ACCESS_KEY: ""
+      SECRET_KEY: ""
+      BUCKET_NAME: "kilo-y-medio"
+      BUCKET_URL: "https://kilo-y-medio.s3.eu-west-3.amazonaws.com"
+      NEXT_PUBLIC_SUPABASE_KEY: ""
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn
+      - name: Run Playwright tests
+        run: yarn test

@@ -1,6 +1,7 @@
-import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+
+import { trpc } from "../../utils/trpc";
 
 const Bill = ({
   showExtras,
@@ -13,7 +14,7 @@ const Bill = ({
   const shippingCosts = null;
 
   return (
-    <div className="mx-3 mt-8 grid h-full md:mx-6 lg:mt-0">
+    <div className="mt-8 grid h-full md:mx-6 lg:mt-0">
       <div className="flex flex-col">
         <div>
           <h1 className="mb-10 bg-background py-2 pl-3 text-xl">Factura</h1>
@@ -105,9 +106,9 @@ const Bill = ({
         {/* Button */}
         {!showExtras && !(myCart?.productList.length == 0) && (
           <section>
-            <div className="mt-10 flex flex-col justify-end px-5">
+            <div className="mt-10 flex flex-col justify-end">
               <Link href={"/checkout"}>
-                <button className="mx-5 h-10 border border-black font-semibold text-black">
+                <button className="rounded-md border-2 border-button py-2 font-semibold text-kym4 hover:bg-button hover:text-white">
                   Comprar
                 </button>
               </Link>

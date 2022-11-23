@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import PeanutIcon from "../components/Allergens/PeanutIcon";
+
 import Layout from "../components/Layout";
 import { trpc } from "../utils/trpc";
 

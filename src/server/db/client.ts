@@ -1,5 +1,6 @@
 // src/server/db/client.ts
 import { PrismaClient } from "@prisma/client";
+
 import { env } from "../../env/server.mjs";
 
 declare global {
@@ -17,3 +18,5 @@ export const prisma =
 if (env.NODE_ENV !== "production") {
   global.prisma = prisma;
 }
+
+export default prisma;

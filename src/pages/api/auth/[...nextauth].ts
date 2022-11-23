@@ -1,11 +1,11 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "../../../server/db/client";
+import NextAuth, { type NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
 import { env } from "../../../env/server.mjs";
+import { prisma } from "../../../server/db/client";
 import { loginSchema } from "../../../utils/validations/auth";
 
 export const authOptions: NextAuthOptions = {

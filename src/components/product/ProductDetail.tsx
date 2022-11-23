@@ -1,33 +1,26 @@
 import { Allergen } from "@prisma/client";
-import React from "react";
-import Stars from "../Stars";
-import AllergensComponent from "../Allergen";
-import IncDecButtons from "./IncDecButtons";
-import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
+import router from "next/router";
+import React from "react";
 import { toast } from "react-toastify";
 
-const ProductDetail = ({
-  name,
-  img,
-  description,
-  isEdible,
-  allergensList,
-  price,
-  id,
-  stock,
-}: {
-  name: string;
-  img: string;
-  description: string;
-  isEdible: boolean;
-  allergensList: Allergen[];
-  price: number;
-  id: string;
-  stock: number;
-}) => {
-  const stockLeft = stock * 1000 >= 100;
+import { trpc } from "../../utils/trpc";
+import { IProduct } from "../../utils/validations/product";
+import AllergensComponent from "../Allergens";
+import DotMenu from "../DotMenu";
+import Stars from "../Stars";
+import IncDecButtons from "./IncDecButtons";
+
+const ProductDetail = ({ product }: { product: IProduct }) => {
+  const { data } = useSession();
+  const isEdible = product.Edible != null;
+  const allergensList = product.Edible?.allergens.map((e) => e.allergen) ?? [];
+
+  const stockLeft = product.stock * 1000 >= 100;
   const notify = () => toast.success("Producto añadido");
+  const notifyDeleted = () => toast.success("Producto eliminado");
   const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
   const utils = trpc.useContext();
   const mutation = trpc.cart.addProduct.useMutation({
@@ -36,35 +29,92 @@ const ProductDetail = ({
     },
   });
 
+  const { mutateAsync } = trpc.product.delete.useMutation({
+    onSuccess() {
+      utils.product.getAllProducts.invalidate();
+      utils.product.getFilteredProducts.invalidate();
+    },
+  });
+
+  const updateProduct = (id: string) => {
+    router.push(`/product/edit/${id}`);
+  };
+
+  const deleteProduct = (id: string) => {
+    mutateAsync({ productId: id });
+    router.push(`/product`);
+    notifyDeleted();
+  };
+
   function addToCart() {
-    if (stock * 1000 >= 100) {
+    if (product.stock * 1000 >= 100) {
       notify();
-      mutation.mutateAsync({ productId: id, amount: amount });
+      mutation.mutateAsync({ productId: product.id, amount: amount });
     }
   }
 
+  const unitPrice = {
+    grams: "Kg",
+    kilograms: "Kg",
+    liters: "L",
+    milliliters: "L",
+    unit: "U",
+  };
+
   return (
     <div className="">
-      <div>
-        <div className="bg-kym3 p-4 font-bold text-white">
+      <div className="flex flex-col items-center">
+        <div className="w-full">
           {isEdible ? (
-            <Link href={`/category`}>Comestible</Link>
+            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
+              <Link href={`/category`}>
+                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
+                  Comestible
+                </p>
+              </Link>
+            </div>
           ) : (
-            <Link href={`/category`}>No comestible</Link>
+            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
+              <Link href={`/category`}>
+                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
+                  No comestible
+                </p>
+              </Link>
+            </div>
           )}
-          {}
         </div>
 
-        <div className="item-center mx-10 mt-16 grid grid-cols-1 content-center gap-4 sm:grid-cols-2">
-          <div className="mt-5  flex max-h-64 flex-col items-center">
-            <img className="min-h-full rounded-md" src={img}></img>
+        <div className="item-center mx-10 mt-4 grid min-w-fit grid-cols-1 content-center gap-14 sm:grid-cols-2">
+          <div className="mb-10 flex max-h-64 flex-col items-center">
+            <Image
+              height="500"
+              width={300}
+              layout="intrinsic"
+              objectFit="cover"
+              className="rounded-md"
+              alt={product.name}
+              src={product.imageURL}
+            />
           </div>
 
-          <div className="mt-5  columns-1">
-            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold capitalize">
-              {name}
+          <div className="columns-1 lg:mt-3">
+            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
+              {product.name}
             </h1>
-            <Stars average={4}></Stars>
+            <div className="inline-block">
+              <Stars average={4}></Stars>
+              <div className="mx-2 inline-block">
+                {data?.user?.role == "admin" && (
+                  <DotMenu
+                    id={product.id}
+                    name={product.name}
+                    type="producto"
+                    deleteFunction={deleteProduct}
+                    updateFunction={updateProduct}
+                  ></DotMenu>
+                )}
+              </div>
+            </div>
 
             {allergensList.length > 0 ? (
               <div>
@@ -77,53 +127,64 @@ const ProductDetail = ({
             ) : null}
 
             <p className="mt-4">Precio:</p>
-            <p className="mb-3 inline-block text-left text-xl  capitalize">
-              {price} {isEdible ? <span> €/Kg </span> : <span> € </span>}
+            <p className="mb-3 inline-block text-left text-xl">
+              {" "}
+              {isEdible ? (
+                <span>{product.Edible?.priceByWeight}</span>
+              ) : (
+                <span>{product.NonEdible?.price}</span>
+              )}
+              €/{unitPrice[product.ProductUnit]}
             </p>
 
-            <div className="flex items-center">
-              <div className="mr-4">
-                <IncDecButtons
-                  setAmount={setAmount}
-                  amount={amount}
-                  stock={stock}
-                  isEdible={isEdible}
-                  stockLeft={stockLeft} //cambiar
-                />
-              </div>
+            {data?.user?.role != "admin" && (
+              <div className="flex flex-col md:flex-row md:items-center">
+                <div className="mr-4">
+                  <IncDecButtons
+                    setAmount={setAmount}
+                    amount={amount}
+                    stock={product.stock}
+                    isEdible={isEdible}
+                    stockLeft={stockLeft} //cambiar
+                    productUnit={product.ProductUnit}
+                  />
+                </div>
 
-              <button
-                onClick={addToCart}
-                className={`rounded-xl border border-button bg-transparent px-12 text-kym4  ${
-                  !stockLeft
-                    ? "cursor-not-allowed px-10 opacity-50"
-                    : "hover:border-transparent hover:bg-button_hover hover:text-white"
-                }`}
-              >
-                Añadir al carrito
-              </button>
-            </div>
+                <button
+                  onClick={addToCart}
+                  className={`w-[200px] rounded-xl border border-button bg-transparent px-0 text-kym4 sm:w-auto md:px-12 ${
+                    !stockLeft
+                      ? "cursor-not-allowed px-10 opacity-50"
+                      : "hover:border-transparent hover:bg-button_hover hover:text-white"
+                  }`}
+                >
+                  Añadir al carrito
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <DescriptionComponent description={description} />
-      {allergensList.length > 0 ? (
-        <AllergenDescription allergens={allergensList} />
-      ) : null}
+      <div className="flex flex-col">
+        <DescriptionComponent description={product.description} />
+        {allergensList.length > 0 && (
+          <AllergenDescription allergens={allergensList} />
+        )}
+      </div>
     </div>
   );
 };
 
 const DescriptionComponent = ({ description }: { description: string }) => {
   return (
-    <div className="mt-6 p-6">
+    <div className="my-6 p-6 sm:mx-2 md:mx-6 lg:mx-20">
       <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
+        <h2 className="mb-1 text-xl font-bold normal-case">
           Descripción del producto
         </h2>
       </div>
-      <p className="mt-2 ml-2 normal-case">{description}</p>
+      <p className="mt-2 ml-2 first-letter:uppercase">{description}</p>
     </div>
   );
 };
@@ -132,11 +193,9 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
-    <div className=" p-6">
+    <div className="mx-20 p-6">
       <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 inline-block text-left text-xl font-bold normal-case">
-          Descripción de los alérgenos
-        </h2>
+        <h2 className="mb-1 text-xl font-bold">Descripción de los alérgenos</h2>
       </div>
       {allergens.map((allergen) => (
         <div className="mt-2 ml-2 flex py-2 align-middle" key={allergen}>
@@ -144,7 +203,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
             allergens={[allergen]}
             size={30}
           ></AllergensComponent>
-          <p className="ml-2  inline-block normal-case">
+          <p className="ml-2 mt-1 inline-block first-letter:uppercase">
             {allergenTransalator?.get(allergen)}
           </p>
         </div>

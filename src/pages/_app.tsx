@@ -2,8 +2,9 @@
 import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/dist/shared/lib/utils";
 import { ToastContainer } from "react-toastify";
-import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+
+import "../styles/globals.css";
 import { trpc } from "../utils/trpc";
 
 const MyApp: AppType = ({

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
-import { AppRouterTypes, trpc } from "../../utils/trpc";
 import Image from "next/image";
-import IncDecButtons from "../product/IncDecButtons";
+import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
+
+import { AppRouterTypes, trpc } from "../../utils/trpc";
+import IncDecButtons from "../product/IncDecButtons";
+
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 function Product({
@@ -20,14 +22,25 @@ function Product({
   const [amount, setAmount] = useState(cartProduct.amount);
 
   const { mutateAsync: deleteMutation } = trpc.cart.deleteProduct.useMutation({
+    onMutate({ productId }) {
+      utils.cart.getAllCartProduct.setData((data) => ({
+        productList:
+          data?.productList?.filter(
+            (product) => product.productId !== productId,
+          ) ?? [],
+        totalAmountNEdible: data?.totalAmountNEdible ?? 0,
+        totalPrice: data?.totalPrice ?? "0",
+        totalWeightEdible: data?.totalWeightEdible ?? 0,
+      }));
+    },
     onSuccess() {
-      utils.cart.getAllCartProduct.invalidate();
+      utils.cart.getAllCartProduct.refetch();
     },
   });
   const { mutateAsync: updateMutation } =
     trpc.cart.updateAmountProduct.useMutation({
       onSuccess() {
-        utils.cart.getAllCartProduct.invalidate();
+        utils.cart.getAllCartProduct.refetch();
       },
     });
   useEffect(() => {
@@ -60,6 +73,7 @@ function Product({
               stock={stock}
               stockLeft={stockLeft}
               isEdible={isEdible}
+              productUnit={cartProduct.product.ProductUnit}
             />
           </div>
         </div>

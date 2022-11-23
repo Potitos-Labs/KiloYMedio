@@ -1,5 +1,4 @@
 import { RadioGroup } from "@headlessui/react";
-import { useState } from "react";
 
 type CheckOutData = {
   firstName: string;
@@ -23,8 +22,6 @@ const CheckoutForm = ({
   homeDelivery,
   updateFields,
 }: CheckOutFormProps) => {
-  const [selected, setSelected] = useState(true);
-
   function showShippingInfo() {
     updateFields({ homeDelivery: true });
   }
@@ -40,7 +37,7 @@ const CheckoutForm = ({
       </h1>
 
       {/*Nombre y apellidos*/}
-      <div className="flex-col-2 relative flex w-full gap-4">
+      <div className=" relative mx-5 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <label className="relative flex w-full flex-col">
           <span className="mb-3">Nombre</span>
           <input
@@ -101,7 +98,7 @@ const CheckoutForm = ({
         </label>
       </div>
 
-      <div className="w-full rounded-md border border-black">
+      <div className="mx-5 w-full rounded-md border border-black">
         <RadioGroup>
           <RadioGroup.Option value={1} className="px-2 pt-4">
             <input
@@ -148,7 +145,9 @@ const CheckoutForm = ({
               required={homeDelivery}
               name="address"
               value={city}
-              pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
+              pattern={
+                homeDelivery ? "^[a-zA-ZÀ-ÿ\u00f1\u00d1s]{2,50}" : "^[^]{0,500}"
+              }
               onChange={(e) => updateFields({ city: e.target.value })}
               placeholder="Localidad"
             />
@@ -205,7 +204,11 @@ const CheckoutForm = ({
                 value={postalCode}
                 required={homeDelivery}
                 maxLength={5}
-                pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
+                pattern={
+                  homeDelivery
+                    ? "^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$"
+                    : "^[^]{0,500}"
+                }
                 onChange={(e) => updateFields({ postalCode: e.target.value })}
                 placeholder="CP"
               />

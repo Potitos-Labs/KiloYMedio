@@ -31,8 +31,8 @@ const PaymentGateway = ({
   homeDelivery,
   updateFields,
 }: AddressFormProps) => {
-  const date = new Date();
-  const year = date.getUTCFullYear();
+  //const date = new Date();
+  //const year = date.getUTCFullYear();
 
   const handleInputChange = ({ target }: { target: HTMLInputElement }) => {
     if (target.name === "number") {

@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { clientProcedure, router } from "../trpc";
 
 export const cartRouter = router({
@@ -19,6 +20,7 @@ export const cartRouter = router({
             NonEdible: { select: { price: true } },
             imageURL: true,
             stock: true,
+            ProductUnit: true,
           },
         },
       },
@@ -108,6 +110,7 @@ export const cartRouter = router({
 
       return {
         status: 201,
+        productId,
       };
     }),
   updateAmountProduct: clientProcedure

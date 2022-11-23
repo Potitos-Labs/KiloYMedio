@@ -49,6 +49,14 @@ model AllergenInSpanish {
     allergenInSpanish String
 }
 
+model AllergenClient {
+    Client   Client   @relation(fields: [clientId], references: [userId], onDelete: Cascade)
+    clientId String
+    allergen Allergen
+
+    @@id([clientId, allergen])
+}
+
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique
@@ -58,20 +66,21 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String       @id @default(cuid())
     accounts      Account[]
     Admin         Admin?
     Client        Client?
     Comment       Comment[]
-    email         String    @unique
+    email         String       @unique
     emailVerified DateTime?
     passwordHash  String?
-    image         String?   @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
+    image         String?      @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
     name          String
-    nif           String?   @unique
-    Recipe        Recipe[]
-    role          Role      @default(client)
+    nif           String?      @unique
+    role          Role         @default(client)
     sessions      Session[]
+    RecipeUser    RecipeUser[]
+    Recipe        Recipe[]
 }
 
 model VerificationToken {
@@ -99,10 +108,10 @@ model Cart {
 
 model CartProduct {
     cartId    String
-    cart      Cart    @relation(fields: [cartId], references: [id])
+    cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
     amount    Float
     productId String
-    product   Product @relation(fields: [productId], references: [id])
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
     @@id([cartId, productId])
 }
@@ -121,6 +130,8 @@ model Client {
     numberOfReports          Int                        @default(0)
     phoneNumber              String?
     points                   Int                        @default(0)
+    location                 String?
+    CP                       Int?
     // socio  Bool
     cart                     Cart                       @relation(fields: [cartId], references: [id])
     cartId                   String                     @unique
@@ -129,6 +140,7 @@ model Client {
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
+    allergenClient           AllergenClient[]
 }
 
 model Comment {
@@ -148,20 +160,21 @@ model Comment {
 }
 
 model Edible {
-    productId      String           @id
-    product        Product          @relation(fields: [productId], references: [id])
-    Ingredient     Ingredient       @relation(fields: [ingredientId], references: [id])
-    category       ECategory
-    nutritionFacts NutritionFacts?
-    priceByWeight  Float
-    origin         String?
-    conservation   String?
-    allergens      EdibleAllergen[]
-    ingredientId   String           @unique
+    productId        String           @id
+    product          Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+    Ingredient       Ingredient       @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+    category         ECategory
+    nutritionFacts   NutritionFacts   @relation(fields: [nutritionFactsId], references: [id])
+    priceByWeight    Float
+    origin           String?
+    conservation     String?
+    allergens        EdibleAllergen[]
+    ingredientId     String           @unique
+    nutritionFactsId String           @unique
 }
 
 model EdibleAllergen {
-    edible   Edible   @relation(fields: [edibleId], references: [productId])
+    edible   Edible   @relation(fields: [edibleId], references: [productId], onDelete: Cascade)
     edibleId String
     allergen Allergen
 
@@ -170,9 +183,15 @@ model EdibleAllergen {
 
 model Ingredient {
     id               String             @id @default(cuid())
-    name             String
+    name             String             @unique
     RecipeIngredient RecipeIngredient[]
     Edible           Edible?
+}
+
+model IngredientUnitInSpanish {
+    id             String         @id @default(cuid())
+    ingredientUnit IngredientUnit @unique
+    unitInSpanish  String
 }
 
 model NECategoryInSpanish {
@@ -184,20 +203,19 @@ model NECategoryInSpanish {
 
 model NonEdible {
     productId String     @id
-    product   Product    @relation(fields: [productId], references: [id])
+    product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
     category  NECategory
     price     Float
 }
 
 model NutritionFacts {
-    id            String @id @default(cuid())
+    id            String  @id @default(cuid())
     ingredients   String
     energy        Float
     fat           Float
     carbohydrates Float
     protein       Float
-    edibleId      String @unique
-    Edible        Edible @relation(fields: [edibleId], references: [productId])
+    Edible        Edible?
 }
 
 model OnlineWorkshop {
@@ -258,15 +276,17 @@ model Post {
 
 model Product {
     id             String           @id @default(cuid())
+    cartProduct    CartProduct[]
     description    String
     Edible         Edible?
     imageURL       String
-    name           String
+    name           String           @unique
+    plainName      String           @unique
     NonEdible      NonEdible?
     orders         ProductOrder[]
-    cartProduct    CartProduct[]
-    stock          Float
     ProductComment ProductComment[]
+    ProductUnit    ProductUnit
+    stock          Float
 }
 
 model ProductComment {
@@ -288,12 +308,19 @@ model ProductOrder {
 
 model Recipe {
     id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    description      String?
+    difficulty       RecipeDifficulty
+    directions       RecipeDirections[]
+    imageURL         String
     name             String
-    directions       String             @db.Text
-    RecipeIngredient RecipeIngredient[]
-    userId           String
-    user             User               @relation(fields: [userId], references: [id])
+    portions         Int
     RecipeComment    RecipeComment[]
+    RecipeIngredient RecipeIngredient[]
+    timeSpan         Int
+    userId           String
+    User             User               @relation(fields: [userId], references: [id])
+    RecipeUser       RecipeUser[]
 }
 
 model RecipeComment {
@@ -303,14 +330,38 @@ model RecipeComment {
     recipe    Recipe  @relation(fields: [recipeId], references: [id])
 }
 
+model RecipeDifficultyInSpanish {
+    id                  String           @id @default(cuid())
+    difficulty          RecipeDifficulty @unique
+    difficultyInSpanish String
+}
+
+model RecipeDirections {
+    id        String @id @default(cuid())
+    number    Int
+    direction String @db.Text
+    recipeId  String
+    Recipe    Recipe @relation(fields: [recipeId], references: [id])
+}
+
 model RecipeIngredient {
     amount       Float
     ingredientId String
-    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+    Ingredient   Ingredient     @relation(fields: [ingredientId], references: [id])
     recipeId     String
-    recipe       Recipe     @relation(fields: [recipeId], references: [id])
+    Recipe       Recipe         @relation(fields: [recipeId], references: [id])
+    unit         IngredientUnit
 
     @@id([recipeId, ingredientId])
+}
+
+model RecipeUser {
+    recipeId String
+    Recipe   Recipe @relation(fields: [recipeId], references: [id])
+    userId   String
+    User     User   @relation(fields: [userId], references: [id])
+
+    @@id([recipeId, userId])
 }
 
 model ReportedComment {
@@ -390,6 +441,20 @@ enum ECategory {
     yeast
 }
 
+enum IngredientUnit {
+    cup
+    grams
+    kilograms
+    liters
+    milliliters
+    ounce
+    pinch
+    pound
+    tablespoon
+    teaspoon
+    unit
+}
+
 enum NECategory {
     accessories
     cleaningProducts
@@ -400,6 +465,20 @@ enum NECategory {
 enum PostType {
     news
     announcement
+}
+
+enum ProductUnit {
+    grams
+    kilograms
+    liters
+    milliliters
+    unit
+}
+
+enum RecipeDifficulty {
+    easy
+    moderate
+    hard
 }
 
 enum Role {
