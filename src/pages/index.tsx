@@ -23,36 +23,16 @@ const Home: NextPage = () => {
       </Head>
       <div className="carousel h-screen w-full">
         <div id="slide1" className="carousel-item relative w-full">
-          <Image
-            src="/img/fondo1.png"
-            className="w-full"
-            width="2000"
-            height="300"
-          />
+          <Image src="/img/fondo1.png" width="2000" height="300" />
         </div>
         <div id="slide2" className="carousel-item relative w-full">
-          <Image
-            src="/img/fondo2.png"
-            className="w-full"
-            width="2000"
-            height="300"
-          />
+          <Image src="/img/fondo2.png" width="2000" height="300" />
         </div>
         <div id="slide3" className="carousel-item relative w-full">
-          <Image
-            src="/img/fondo3.png"
-            className="w-full"
-            width="2000"
-            height="300"
-          />
+          <Image src="/img/fondo3.png" width="2000" height="300" />
         </div>
         <div id="slide4" className="carousel-item relative w-full">
-          <Image
-            src="/img/fondo4.png"
-            className="w-full"
-            width="2000"
-            height="300"
-          />
+          <Image src="/img/fondo4.png" width="2000" height="300" />
         </div>
         <div className="border-#F8F3ED absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] py-3 px-6">
           <a onClick={decrementSlide} href={`#slide${slide}`}>
