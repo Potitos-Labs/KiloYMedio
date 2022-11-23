@@ -13,12 +13,15 @@ export default function Layout({ children }: Props) {
       <Header></Header>
       <main>
         {children}
-        <div>
-          <div className="grid grid-cols-[50%_50%] bg-[#212529] pb-14 text-white">
+        <div className="w-full bg-[#212529] text-white">
+          <h1 className="sm:text-5xl w-full p-8 text-left font-bold sm:text-right">
+            info@Kiloymedio.com
+          </h1>
+          <div className="grid w-full grid-cols-1 pb-14 sm:grid-cols-2">
             <div className="grid-cols mr-80 grid">
               <div className="py-32 pl-5">
-                <p>lunes-viernes. 9:30-18:30</p>
-                <p>sábados. 9:30-14:30</p>
+                <p>lunes-viernes, 9:30-18:30</p>
+                <p>sábados, 9:30-14:30</p>
               </div>
               <div className="pb-14 pl-5">
                 <p>
@@ -38,21 +41,16 @@ export default function Layout({ children }: Props) {
               </div>
             </div>
             <div className="grid-cols ml-24 grid">
-              <div className="w-full">
-                <h1 className="w-full pt-8 text-5xl font-bold ">
-                  info@Kiloymedio.com
-                </h1>
-                <div className="mt-8 mr-10 flex justify-between">
-                  <p className="">Tienda física próximamente en Valencia</p>
-                  <p className="">606796767</p>
-                </div>
+              <div className="mt-8 mr-10 flex justify-between">
+                <p className="">Tienda física próximamente en Valencia</p>
+                <p className="">606796767</p>
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col gap-1">
-                  <Link href="/product">nuestra tienda</Link>
+                  <Link href="/product">Nuestra tienda</Link>
                   <Link href="/product">Salud y bienestar</Link>
-                  <Link href="/product">Iniciar sesión</Link>
-                  <Link href="/product">registrase</Link>
+                  <Link href="/login">Iniciar sesión</Link>
+                  <Link href="/">Registrarse</Link>
                 </div>
                 <div className="mx-3 mb-6 flex items-end justify-end gap-3">
                   <Link href="https://www.instagram.com/eco_pandas/">
@@ -75,11 +73,11 @@ export default function Layout({ children }: Props) {
             <div className="collapse w-full rounded-t-xl bg-[#31363B]">
               <input type="checkbox" />
               <div className="collapse-title flex justify-between text-xs text-white">
-                <p>Política de privacidad</p>
+                <p className="ml-4">Política de privacidad</p>
                 <p>Política de cookies</p>
                 <p>Aviso legal</p>
               </div>
-              <div className="collapse-content text-white ">
+              <div className="collapse-content text-xs text-white">
                 <p>Aquí irían las políticas</p>
               </div>
             </div>
