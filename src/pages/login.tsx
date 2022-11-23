@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
+import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -57,6 +58,12 @@ const SignIn: NextPage = () => {
   return (
     <Layout>
       <main className="flex h-screen flex-col items-center justify-center">
+        <Image
+          src="/img/fondoLogin.png"
+          width="2000"
+          height="300"
+          layout="fill"
+        />
         <div className="max-w-md rounded-md bg-white p-8 shadow-lg shadow-kym4">
           <div className="mb-3 text-center">
             <h6 className="text-sm font-bold text-gray-600">

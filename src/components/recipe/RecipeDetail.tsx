@@ -73,12 +73,12 @@ const RecipeDetail = ({ id }: { id: string }) => {
           {/* Upper section */}
           <div className="flex">
             <div className="mr-10 w-full gap-4">
-              <div className="mb-20 flex gap-4 lg:flex-row lg:items-center">
-                <h1 className="text-2xl font-bold uppercase">{recipe?.name}</h1>
+              <div className="mb-16 flex gap-4 lg:flex-row lg:items-center">
+                <h1 className="text-xl uppercase">{recipe?.name}</h1>
                 {(session?.user?.id == recipe?.userId || isAdmin) && (
                   <DotMenu
                     id={id}
-                    name={recipe ? recipe.name : "Error Ocurred"}
+                    name={recipe ? recipe.name : "Error ocurred"}
                     type="receta"
                     updateFunction={editRecipe}
                     deleteFunction={deleteRecipe}
@@ -113,7 +113,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
               </div>
               {/* End Features */}
             </div>
-            <div>
+            <div className="mt-6">
               <Image
                 className="rounded-md"
                 src={recipe?.imageURL ?? ""}
