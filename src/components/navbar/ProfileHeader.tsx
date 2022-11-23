@@ -30,7 +30,7 @@ export default function ProfileHeader() {
             {!isAdmin && (
               <Menu.Item>
                 <Link href={`/profile`}>
-                  <a className="flex flex-row px-5 py-3 text-kym4 hover:bg-button hover:text-white">
+                  <a className="flex flex-row px-5 py-3 text-kym4 hover:btn-sm hover:text-white">
                     <CgProfile className="mr-2 h-6 w-6" />
                     Ver perfil
                   </a>
@@ -41,7 +41,7 @@ export default function ProfileHeader() {
             <Link href={`/`}>
               <Menu.Item>
                 <button
-                  className="flex w-full flex-row px-5 py-3 text-kym4 hover:rounded-md hover:bg-button hover:text-white"
+                  className="flex w-full flex-row px-5 py-3 text-kym4 hover:btn-sm hover:rounded-md hover:text-white"
                   onClick={() => {
                     signOut({ callbackUrl: "/" });
                   }}

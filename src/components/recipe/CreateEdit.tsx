@@ -394,16 +394,13 @@ export default function CreateEdit(props: {
           {/* Button */}
           <div className="flex gap-5 pb-6">
             <button
-              className="btn mt-6 border-black bg-button text-black hover:bg-button_hover"
+              className="btn btn-sm mt-6"
               type="button"
               onClick={() => router.push("/recipe")}
             >
               Cancelar
             </button>
-            <button
-              type="submit"
-              className="btn mt-6 border-black bg-button text-black hover:bg-button_hover"
-            >
+            <button type="submit" className="btn btn-sm mt-6">
               {buttonText}
             </button>
           </div>

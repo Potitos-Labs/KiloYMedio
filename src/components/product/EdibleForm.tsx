@@ -353,7 +353,7 @@ export default function EdibleForm({ product }: { product?: IProduct }) {
             </button>
           )}
           <button
-            className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
+            className="md:px-26 btn-sm m-2 mt-3 block rounded py-1 px-20 font-semibold text-white hover:bg-button_hover"
             type="submit"
             onClick={() => setValue("Edible.allergens", allergensList)}
           >

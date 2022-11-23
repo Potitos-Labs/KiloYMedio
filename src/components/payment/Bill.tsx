@@ -108,7 +108,7 @@ const Bill = ({
           <section>
             <div className="mt-10 flex flex-col justify-end">
               <Link href={"/checkout"}>
-                <button className="rounded-md border-2 border-button py-2 font-semibold text-kym4 hover:bg-button hover:text-white">
+                <button className="rounded-md border-2 border-button py-2 font-semibold text-kym4 hover:btn-sm hover:text-white">
                   Comprar
                 </button>
               </Link>

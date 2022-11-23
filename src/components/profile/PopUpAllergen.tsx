@@ -58,7 +58,7 @@ export function PopUpAllergen({
       >
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className=" w-11/12 rounded-md bg-white sm:w-2/5">
-            <h1 className="w-full rounded-t-md bg-button py-2 text-center text-lg font-bold text-white">
+            <h1 className="btn-sm w-full rounded-t-md py-2 text-center text-lg font-bold text-white">
               Alérgenos
             </h1>
             <div className="scrollbar-hide inset-1/3 h-72 overflow-hidden overflow-y-scroll rounded-md  shadow-kym4 backdrop-blur-sm">

@@ -333,7 +333,7 @@ const Profile = (
                 //onClick={changeEdit}
                 className={`${
                   edit
-                    ? "rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
+                    ? "btn-sm rounded-md px-4 py-2 text-white hover:bg-button_hover"
                     : "invisible"
                 }`}
               >

@@ -56,7 +56,7 @@ const DotMenu = ({
                 {({ active }) => (
                   <button
                     className={`${
-                      active && "bg-background"
+                      active && "btn-sm"
                     } group flex w-full items-center  px-2 py-2 text-sm`}
                     onClick={() => updateFunction(id)}
                   >
@@ -70,7 +70,7 @@ const DotMenu = ({
                   <button
                     onClick={confirmAction}
                     className={`${
-                      active && "bg-background"
+                      active && "btn-sm"
                     } group flex w-full items-center rounded-b-md px-2 py-2 text-sm`}
                   >
                     <AiOutlineDelete className="mr-2 fill-kym2" />
@@ -102,7 +102,7 @@ const DotMenu = ({
             </p>
             <div className="mb-3 mr-3 flex justify-end ">
               <button
-                className="  mt-3 rounded-md bg-button p-1 text-white hover:bg-button_hover sm:mt-5  sm:py-1 sm:px-2"
+                className="btn-sm mt-3 rounded-md p-1 text-white hover:bg-button_hover sm:mt-5  sm:py-1 sm:px-2"
                 onClick={AcceptHandler}
               >
                 Confirmar

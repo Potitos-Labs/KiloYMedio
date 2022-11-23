@@ -158,7 +158,7 @@ const Checkout = () => {
             </span>
           </p>
         </div>
-        <label className="mx-1 relative flex w-full flex-col pl-3 pt-8">
+        <label className="relative mx-1 flex w-full flex-col pl-3 pt-8">
           <span className="mb-3">Correo electrónico</span>
           <input
             className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
@@ -187,7 +187,7 @@ const Checkout = () => {
     <Layout>
       <section>
         {/* Grid */}
-        <div className="mt-12 mx-8 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
+        <div className="mx-8 mt-12 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
           <section>
             {/*Contact info*/}
             <div className="h-full">
@@ -211,7 +211,7 @@ const Checkout = () => {
                       <button
                         type="submit"
                         name="Submit"
-                        className="rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover"
+                        className="btn-sm rounded-md px-4 py-2 text-white hover:bg-button_hover"
                       >
                         {!isLastStep
                           ? "Continuar con el pago"
@@ -246,7 +246,7 @@ const Checkout = () => {
             </p>
             <div className="flex justify-end">
               <button
-                className="m-3 mt-5 rounded-md bg-button py-1 px-2 text-white hover:bg-button_hover"
+                className="btn-sm m-3 mt-5 rounded-md py-1 px-2 text-white hover:bg-button_hover"
                 onClick={endTransaction}
               >
                 {" "}

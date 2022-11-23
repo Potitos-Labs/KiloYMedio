@@ -114,7 +114,7 @@ const SignUp: NextPage = () => {
                       </u>
                     </Link>
                     <button
-                      className="btn m-2 mt-3 block rounded-md bg-button px-20 py-1 font-semibold uppercase text-white hover:bg-button_hover"
+                      className="btn btn-sm m-2 mt-3 block rounded-md px-20 py-1 font-semibold uppercase text-white hover:bg-button_hover"
                       type="submit"
                     >
                       Crear cuenta

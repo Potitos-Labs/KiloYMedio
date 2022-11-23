@@ -201,7 +201,7 @@ const SignUpByAdmin: NextPage = () => {
             </label>
             <button
               type="submit"
-              className="whitespace-nowrap rounded-md bg-button px-4 py-2 text-white hover:bg-button_hover  md:col-span-2"
+              className="btn-sm whitespace-nowrap rounded-md px-4 py-2 text-white hover:bg-button_hover  md:col-span-2"
               onClick={() => setValue("password", "Potitos22")}
             >
               Registar cliente

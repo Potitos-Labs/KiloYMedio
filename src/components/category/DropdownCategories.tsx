@@ -26,7 +26,7 @@ function DropdownCategories() {
 
         <div className="relative">
           <Link href={`/category`}>
-            <button className="peer flex w-full flex-row py-3 pl-5 hover:rounded-md hover:bg-background">
+            <button className="peer flex w-full flex-row py-3 pl-5 hover:btn-sm hover:rounded-md">
               <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
               Comestibles
               <BsChevronRight className="invisible ml-20 mt-1 fill-kym4 lg:visible" />

@@ -65,7 +65,7 @@ const SignIn: NextPage = () => {
           </div>
           <div className="btn-wrapper text-center">
             <button
-              className="mr-1 mb-1 inline-flex items-center rounded bg-button px-4 py-2 font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
+              className="btn-sm mr-1 mb-1 inline-flex items-center rounded px-4 py-2 font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
               type="button"
               style={{ transition: "all .15s ease" }}
               onClick={() =>
@@ -123,7 +123,7 @@ const SignIn: NextPage = () => {
             </div>
             <button
               type="submit"
-              className="w-full rounded-md bg-button px-6 py-2.5 font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
+              className="btn-sm w-full rounded-md px-6 py-2.5 font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
             >
               Iniciar sesión
             </button>
