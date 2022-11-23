@@ -17,10 +17,8 @@ module.exports = {
         header: "#d28125",
       },
       fontFamily: {
-        // satoshi: "'Satoshi', sans",
-        // raleway: "'Raleway', sans-serif",
         sans: ["Satoshi", ...defaultTheme.fontFamily.sans],
-        serif: ["Raleway", ...defaultTheme.fontFamily.serif],
+        raleway: ["Raleway", ...defaultTheme.fontFamily.sans],
       },
     },
     fontSize: {
