@@ -44,30 +44,25 @@ function IncDecButtons({
   };
 
   return (
-    <div className="flex w-auto flex-row py-4">
+    <div className="flex h-full w-full flex-row rounded-full ring-1 ring-base-content ring-offset-0">
       <button
         disabled={!stockLeft || amount == incdecValues[productUnit]}
         className={clsx(
-          `rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4`,
-          !stockLeft || amount == incdecValues[productUnit]
-            ? "cursor-not-allowed opacity-60"
-            : "hover:border-transparent hover:bg-button_hover hover:text-white",
-          `
-        }`,
+          `w-8 flex-auto bg-transparent font-bold text-base-content`,
+          (!stockLeft || amount == incdecValues[productUnit]) &&
+            "cursor-not-allowed opacity-60",
         )}
         onClick={decrementClick}
       >
         -
       </button>
-      <p className="mx-2 rounded-md px-2">
+      <p className="place-content-center self-center whitespace-nowrap rounded-md px-1 text-center text-sm">
         {amount} {unitDisplay[productUnit]}
       </p>
       <button
         disabled={!stockLeft || maxStock == amount}
-        className={`rounded-xl border border-button bg-transparent px-3 font-semibold text-kym4  ${
-          !stockLeft || maxStock == amount
-            ? "cursor-not-allowed opacity-60"
-            : "hover:border-transparent hover:bg-button_hover hover:text-white"
+        className={`h-full w-8 flex-auto bg-transparent font-bold text-base-content  ${
+          (!stockLeft || maxStock == amount) && "cursor-not-allowed opacity-60"
         }`}
         onClick={incrementClick}
       >
