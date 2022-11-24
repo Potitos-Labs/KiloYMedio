@@ -1,3 +1,4 @@
+import Loading from "@components/ui/Loading";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -11,7 +12,7 @@ export default function NavBar() {
   if (status == "loading") {
     return (
       <>
-        <NavBar />
+        <Loading message="" />
       </>
     );
   }
