@@ -9,6 +9,7 @@ interface Props {
   headerBgLight: boolean;
   headerTextDark: boolean;
 }
+import { signOut } from "next-auth/react";
 
 export default function Layout({
   children,
@@ -62,6 +63,13 @@ export default function Layout({
                   <Link href="/product">Salud y bienestar</Link>
                   <Link href="/login">Iniciar sesión</Link>
                   <Link href="/">Registrarse</Link>
+                  <button
+                    onClick={() => {
+                      signOut({ callbackUrl: "/" });
+                    }}
+                  >
+                    Cerrar sesión
+                  </button>
                 </div>
                 <div className="mr-10 mb-4 flex items-end justify-start gap-3 py-4  sm:mb-14 sm:justify-end sm:py-0">
                   <Link href="https://www.instagram.com/eco_pandas/">
