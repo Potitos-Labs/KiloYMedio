@@ -2,11 +2,11 @@ import router from "next/router";
 import { useState } from "react";
 
 function CategoryCards() {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(Boolean);
   return (
     <div
       className={`${
-        clicked && "active:border-primary active:bg-primary active:text-white"
+        clicked && "border-primary bg-primary text-white"
       } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content px-5 pt-3 `}
     >
       <button onClick={() => setClicked(true)}>
