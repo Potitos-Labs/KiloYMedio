@@ -380,6 +380,19 @@ model SuggestionForm {
     type        SuggestionType
 }
 
+model SupraCategory {
+    id                    String                  @id @default(cuid())
+    SupraCategoryRelation SupraCategoryRelation[]
+    supraCategoryName     String                  @unique
+}
+
+model SupraCategoryRelation {
+    id              String        @id @default(cuid())
+    supraCategoryId String
+    SupraCategory   SupraCategory @relation(fields: [supraCategoryId], references: [id])
+    category        ECategory     @unique
+}
+
 model Ticket {
     id          String     @id
     adminId     String

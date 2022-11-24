@@ -28,6 +28,42 @@ async function main() {
     ],
   });
 
+  const frutosSecosYFrutasDeshidratas = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "Frutos secos y frutas deshidratas",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "nuts" }, { category: "driedFruits" }],
+        },
+      },
+    },
+  });
+
+  const harinasYPastas = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "Harinas y pastas",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "flours" }, { category: "pastas" }],
+        },
+      },
+    },
+  });
+
+  const semillasYEspacias = await prisma.supraCategory.createMany({
+    data: [
+      {
+        supraCategoryName: "Semillas y especias",
+      },
+    ],
+  });
+
+  const legumbresYArroces = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "legumbre y arroces",
+    },
+  });
+
   const ecategoryInSpanish = await prisma.eCategoryInSpanish.createMany({
     data: [
       /* 1 */ {
