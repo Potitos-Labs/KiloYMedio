@@ -13,7 +13,8 @@
     "mikestead.dotenv",
     "usernamehw.errorlens",
     "naumovs.color-highlight",
-    "Orta.vscode-jest"
+    "Orta.vscode-jest",
+    "csstools.postcss"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
