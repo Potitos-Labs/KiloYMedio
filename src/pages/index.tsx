@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Layout from "../components/Layout";
+// import { trpc } from "@utils/trpc";
 
 const Home: NextPage = () => {
   const [slide, setslide] = useState(1);
@@ -14,6 +15,14 @@ const Home: NextPage = () => {
   function decrementSlide() {
     slide == 1 ? setslide(4) : setslide(slide - 1);
   }
+  // const listProduct: string[] = [
+  //   "clapa6399001sh9ual83uh3um",
+  //   "clapa63vg0022h9ua3lav64sl",
+  //   "clapa65k7003gh9uamzi35eyw",
+  //   "clapa69gt006sh9ua9wc78qq2",
+  // ];
+  // const { data: Product1 } = trpc.product.getById.useQuery({ id });
+
   return (
     <Layout>
       <Head>
@@ -55,6 +64,42 @@ const Home: NextPage = () => {
           explorar tienda
           <BsArrowRight />
         </button>
+      </div>
+      <div className="z-10 w-full bg-base-100">
+        <div className="collapse w-full rounded-t-xl bg-base-100">
+          <input type="checkbox" />
+          <div className="collapse-title flex justify-between text-xs text-black">
+            <p className="ml-4">Desliza hijo de puta</p>
+          </div>
+          <div className="collapse-content text-xs text-black">
+            <p className=" pt-4 text-2xl">
+              Kilo y media es una tienda sostenible, comprometida y cercana que
+              ofrece productos orgánicos a granel, libres de plásticoy de
+              contaminación cruzada.
+            </p>
+            <div className="flex w-full justify-end">
+              <Image src="/img/bolsa.png" width="945" height="744" />
+            </div>
+            <div className="w-full">
+              <p className="font-raleway text-2xl">Productos destacados</p>
+            </div>
+            <div className="w-full">
+              <p className="font-raleway text-2xl">Nuestros objetivos</p>
+              <p className="p-8 text-base">
+                Si algo nos diferencia como tienda, es el compromiso que tenemos
+                con la salud de nuestros clientes. Cada día apostamos por
+                mejorar su bienestar y por ello, organizamos nuestros productos
+                de manera que no haya contaminación cruzada, utilizando para
+                cada producto un utensilio específico. Además, al crear tu
+                perfil puedes indicar tus alergias o intolerancias y a nosotros
+                nos aparecerá cuando compres un producto.
+              </p>
+            </div>
+            <div className="flex w-full justify-start">
+              <Image src="/img/bolas.png" width="500" height="300" />
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );
