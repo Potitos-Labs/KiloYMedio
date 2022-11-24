@@ -9,61 +9,72 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div>
+    <div className="">
       <Header></Header>
-      <main>
+      <main className="">
         {children}
         <div className="w-full bg-[#212529] text-white">
-          <h1 className="sm:text-5xl w-full p-8 text-left font-bold sm:text-right">
+          <h1 className="px-8 py-2 text-lg sm:text-2xl lg:text-right">
             info@Kiloymedio.com
           </h1>
-          <div className="grid w-full grid-cols-1 pb-14 sm:grid-cols-2">
-            <div className="grid-cols mr-80 grid">
-              <div className="py-32 pl-5">
-                <p>lunes-viernes, 9:30-18:30</p>
-                <p>sábados, 9:30-14:30</p>
+          <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
+            <div className="grid-cols mr-80 grid pl-10">
+              <div className="py-16 ">
+                <p className="text-xs">lunes-viernes, 9:30-18:30</p>
+                <p className="text-xs">sábados, 9:30-14:30</p>
               </div>
-              <div className="pb-14 pl-5">
-                <p>
+              <div className="pb-14">
+                <p className="text-sm">
                   suscríbete a boletín informativo - descubre nuestros
                   descuentos para recibir regalos
-                  <div className="mt-4 grid w-auto grid-cols-[80%_20%] items-center rounded-md bg-white p-2 pt-1">
-                    <input
-                      type="text"
-                      placeholder="tucorreo@gmail.com"
-                      className="pt-1 text-start"
-                    />
-                    <div className="items-center rounded-sm bg-[#212529] p-3">
-                      <IoMdSend color="white" />
-                    </div>
-                  </div>
                 </p>
+                <div className=" mt-4 grid w-[300px]  grid-cols-[80%_20%] items-center rounded-md bg-white p-2 pt-1">
+                  <input
+                    type="text"
+                    placeholder="tucorreo@gmail.com"
+                    className="pt-1 text-start"
+                  />
+                  <button className=" h-14 w-14 items-center justify-center rounded-lg bg-[#212529] px-3 text-center ">
+                    <IoMdSend color="white" size="30" />
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="grid-cols ml-24 grid">
-              <div className="mt-8 mr-10 flex justify-between">
-                <p className="">Tienda física próximamente en Valencia</p>
-                <p className="">606796767</p>
+            <div className="grid-cols ml-10  grid sm:ml-16">
+              <div className="mt-8 mr-10 flex flex-col justify-between py-5 sm:flex-row">
+                <p className="py-2 sm:py-0">
+                  Tienda física próximamente en Valencia
+                </p>
+                <p className="py-2 sm:py-0">606796767</p>
               </div>
-              <div className="grid grid-cols-2">
-                <div className="flex flex-col gap-1">
+              <div className="grid grid-cols-1 pt-6 sm:grid-cols-2">
+                <div className="flex flex-col gap-2">
                   <Link href="/product">Nuestra tienda</Link>
                   <Link href="/product">Salud y bienestar</Link>
                   <Link href="/login">Iniciar sesión</Link>
                   <Link href="/">Registrarse</Link>
                 </div>
-                <div className="mx-3 mb-6 flex items-end justify-end gap-3">
+                <div className="mr-10 mb-4 flex items-end justify-start gap-3 py-4  sm:mb-14 sm:justify-end sm:py-0">
                   <Link href="https://www.instagram.com/eco_pandas/">
-                    <AiFillInstagram color="white" className="cursor-pointer" />
-                  </Link>
-                  <Link href="https://www.instagram.com/eco_pandas/">
-                    <AiOutlineTwitter
+                    <AiFillInstagram
                       color="white"
+                      size="30"
                       className="cursor-pointer"
                     />
                   </Link>
                   <Link href="https://www.instagram.com/eco_pandas/">
-                    <BsFacebook color="white" className="cursor-pointer" />
+                    <AiOutlineTwitter
+                      color="white"
+                      size="30"
+                      className="cursor-pointer"
+                    />
+                  </Link>
+                  <Link href="https://www.instagram.com/eco_pandas/">
+                    <BsFacebook
+                      color="white"
+                      size="30"
+                      className="cursor-pointer"
+                    />
                   </Link>
                 </div>
               </div>
