@@ -18,9 +18,11 @@ export default function Layout({
   headerTextDark,
 }: Props) {
   return (
-    <div>
-      <Header bgLight={headerBgLight} textDark={headerTextDark}></Header>
-      <main className={`${bgColor} w-full`}>
+    <div className={`${bgColor} w-full`}>
+      <div className="px-4">
+        <Header bgLight={headerBgLight} textDark={headerTextDark}></Header>
+      </div>
+      <main>
         {children}
         {/* Footer */}
         <div className="bg-base-content text-base-100">
@@ -97,7 +99,7 @@ export default function Layout({
               </div>
             </div>
           </div>
-          <div className="z-10 w-full bg-[#212529] px-2">
+          <div className="z-10 w-full bg-[#212529] px-4">
             <div className="collapse w-full rounded-t-xl bg-[#31363B]">
               <input type="checkbox" />
               <div className="collapse-title flex justify-between text-xs text-white">

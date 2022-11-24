@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { TbGridDots } from "react-icons/tb";
 
 import DropdownCategories from "../category/DropdownCategories";
 
@@ -10,7 +10,7 @@ function NavBarClient() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="text-md w-full">
+    <nav>
       <div className="lg:hidden">
         <button onClick={() => setOpen(!open)} className="items-center py-2">
           <GiHamburgerMenu className="h-7 w-7" />
@@ -19,23 +19,21 @@ function NavBarClient() {
       <div
         className={clsx(
           { hidden: !open },
-          "block w-full flex-grow lg:flex lg:w-auto",
+          "block flex-grow items-center gap-5 lg:flex lg:w-auto",
         )}
       >
         <div className="group">
           <Link href={`/product`}>
-            <a className="peer mr-4 flex flex-row items-center py-2">
-              <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
+            <a className="peer my-3 flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-raleway text-xs text-base-100">
+              <TbGridDots className="h-4 w-4" />
               tienda
             </a>
           </Link>
           <DropdownCategories />
         </div>
-        <button className="py-2 lg:px-5">salud y bienestar</button>
-        <Link href={`/recipe`}>
-          <a className="py-2 lg:px-5">recetas</a>
-        </Link>
-        <button className="py-2 lg:px-5">talleres</button>
+        <Link href={`/recipe`}>salud y bienestar</Link>
+        <Link href={`/recipe`}>recetas</Link>
+        <Link href={`/recipe`}>talleres</Link>
       </div>
     </nav>
   );

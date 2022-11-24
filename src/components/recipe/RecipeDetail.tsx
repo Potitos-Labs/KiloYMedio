@@ -68,8 +68,8 @@ const RecipeDetail = ({ id }: { id: string }) => {
 
   return (
     <div>
-      <div className="mx-8 sm:mx-20">
-        <div className="my-4 rounded-lg bg-base-100 p-14">
+      <div className="mx-8 py-14 sm:mx-20">
+        <div className="rounded-lg bg-base-100 p-14">
           {/* Upper section */}
           <div className="flex">
             <div className="mr-10 w-full gap-4">
