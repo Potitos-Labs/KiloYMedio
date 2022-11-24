@@ -46,11 +46,11 @@ export function VerticalRecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="min-w-48 w-fill border-2a  mx-4 my-4 inline-block h-64 rounded-md bg-white text-center duration-200 hover:shadow-md  motion-safe:hover:scale-105"
+      className="mx-4 my-4 inline-block h-64 rounded-md bg-white text-center duration-200 hover:shadow-md motion-safe:hover:scale-105"
       onMouseEnter={() => setFocused(true)}
       onMouseLeave={() => setFocused(false)}
     >
-      <div className="w-fill  relative h-32 overflow-hidden rounded-t-md object-contain">
+      <div className="relative h-32 overflow-hidden rounded-t-md object-contain">
         <Link href={`/recipe/${id}`}>
           <a>
             <Image

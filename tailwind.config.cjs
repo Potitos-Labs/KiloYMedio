@@ -51,7 +51,7 @@ module.exports = {
           "neutral-content": "#212529", //button content
           "base-100": "#f8f3ed", //background
           "base-200": "#00FF00",
-          "base-300": "#00FF00", //cambiar
+          "base-300": "#f8f3ed", //cambiar
           "base-content": "#212529", //text
           info: "#00FF00", //cambiar
           success: "#00FF00", //cambiar

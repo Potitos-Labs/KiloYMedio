@@ -7,11 +7,12 @@ import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 
 import DotMenu from "../DotMenu";
-import Stars from "../Stars";
+import CommentSection from "./comments/CommentSection";
 
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { BsArrowLeftShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import Link from "next/link";
+import Loading from "@components/ui/Loading";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
@@ -70,6 +71,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
   return (
     <div>
       <div className="py-10 sm:px-24">
+        {/* Botón atrás (Recetas) */}
         <Link href={`/recipe`}>
           <div className="flex cursor-pointer items-center gap-4">
             <div className="-ml-10 rounded-lg bg-accent p-0.5">
@@ -78,6 +80,8 @@ const RecipeDetail = ({ id }: { id: string }) => {
             <h3 className="font-raleway text-lg text-base-100">RECETAS</h3>
           </div>
         </Link>
+        {/* End Botón atrás (Recetas) */}
+
         <div className="py-10">
           <div className="rounded-lg bg-base-100 p-14">
             {/* Upper section */}
@@ -180,27 +184,36 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
                   PASOS
                 </h2>
-                <div>
-                  <ol className="list-inside list-decimal space-y-6">
-                    {directions?.map((d) => {
-                      return (
-                        <li key={d.number} className="first-letter:uppercase">
-                          {d.direction}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </div>
+                <ol className="list-inside list-decimal space-y-6">
+                  {directions?.map((d) => {
+                    return (
+                      <li key={d.number} className="first-letter:uppercase">
+                        {d.direction}
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
             </div>
+            {/* End Ingredients and Directions */}
           </div>
-          {/* End Ingredients and Directions */}
 
           {/* Products */}
-          <div className="mt-24 rounded-lg bg-[#212529]">
-            <h2 className="mb-14 font-raleway text-xl text-base-100">
-              DIRECTO A TU CESTA
-            </h2>
+          <div className="mt-24 rounded-lg bg-base-content">
+            <div className="mb-14 flex flex-col justify-between lg:flex-row lg:items-center">
+              <h2 className="font-raleway text-xl text-base-100">
+                DIRECTO A TU CESTA
+              </h2>
+              <button className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10">
+                <div className="h-full rounded-full bg-secondary px-8 pt-2">
+                  6,85€
+                </div>
+                <div className="flex items-center gap-1">
+                  añadir todo
+                  <BsArrowRightShort size={18} />
+                </div>
+              </button>
+            </div>
             <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {ingredients ? (
                 ingredients.map((i) => {
@@ -210,18 +223,14 @@ const RecipeDetail = ({ id }: { id: string }) => {
                     );
                 })
               ) : (
-                <p className="font-semibold text-kym4">Cargando...</p>
+                <Loading message="Cargando productos" />
               )}
             </div>
           </div>
           {/* End Products */}
         </div>
       </div>
-      {/* Footer */}
-      <div className="bg-[#F8F3ED] p-8">
-        <h2 className="font-raleway text-xl">COMENTARIOS</h2>
-        <Stars average={4}></Stars>
-      </div>
+      {/* Comments */} <CommentSection />
     </div>
   );
 };
