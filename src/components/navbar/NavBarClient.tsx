@@ -19,12 +19,12 @@ function NavBarClient() {
       <div
         className={clsx(
           { hidden: !open },
-          "block flex-grow items-center gap-5 lg:flex lg:w-auto",
+          "block flex-grow items-center gap-8 lg:flex lg:w-auto",
         )}
       >
         <div className="group">
           <Link href={`/product`}>
-            <a className="peer my-3 flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-raleway text-xs text-base-100">
+            <a className="peer flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-raleway text-xs text-base-100">
               <TbGridDots className="h-4 w-4" />
               tienda
             </a>

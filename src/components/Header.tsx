@@ -22,7 +22,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
       <div className="mx-6 flex items-center justify-between">
         {session?.user?.role != "admin" ? <NavBarClient /> : <NavBarAdmin />}
         <Link href={`/`}>
-          <h3 className="hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
+          <h3 className="my-5 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
             kilo y medio
           </h3>
         </Link>
