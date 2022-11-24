@@ -2,6 +2,7 @@
 import Popup from "reactjs-popup";
 import CategoryCards from "./CategoryCards";
 import { BsX } from "react-icons/bs";
+import router from "next/router";
 function CategoriesHub() {
   /*
   const { data: categories } = trpc.product.getAllCategories.useQuery();
@@ -23,7 +24,7 @@ function CategoriesHub() {
   */
   return (
     <div>
-      <Popup open={true} lockScroll modal closeOnDocumentClick>
+      <Popup open={false} lockScroll modal closeOnDocumentClick>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 ">
           <button className="absolute top-4 left-8 flex rounded-full  bg-base-content px-5 py-1  text-base-100  ">
             <BsX className="mt-[3px] mr-2 h-5 w-5  fill-base-100" />
@@ -38,6 +39,14 @@ function CategoriesHub() {
             <CategoryCards />
             <CategoryCards />
             <CategoryCards />
+            <div className="flex items-end justify-end justify-items-end">
+              <button
+                className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "
+                onClick={() => router.push("/product")}
+              >
+                VER TODO
+              </button>
+            </div>
           </div>
         </div>
       </Popup>
