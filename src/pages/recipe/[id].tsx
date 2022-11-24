@@ -12,7 +12,11 @@ const RecipeDetails: NextPage = () => {
   const { data, isFetched } = trpc.recipe.getById.useQuery({ id });
   if (data)
     return (
-      <Layout>
+      <Layout
+        bgColor={"bg-base-content"}
+        headerBgLight={true}
+        headerTextDark={true}
+      >
         <RecipeDetail id={id} />
       </Layout>
     );
@@ -22,7 +26,7 @@ const RecipeDetails: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div>Cargando...</div>
     </Layout>
   );

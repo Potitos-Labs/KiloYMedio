@@ -6,7 +6,6 @@ import { InferGetStaticPropsType } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import superjson from "superjson";
-import Layout from "../../components/Layout";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -35,9 +34,5 @@ export default function CreateRecipe(
     router.push("/login");
   }
 
-  return (
-    <Layout>
-      <CreateEdit units={props.units}></CreateEdit>
-    </Layout>
-  );
+  return <CreateEdit units={props.units}></CreateEdit>;
 }

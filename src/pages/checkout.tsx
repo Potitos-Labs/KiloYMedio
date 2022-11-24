@@ -184,7 +184,7 @@ const Checkout = () => {
   }
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <section>
         {/* Grid */}
         <div className="mx-8 mt-12 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">

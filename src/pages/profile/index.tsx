@@ -121,7 +121,7 @@ const Profile = (
   }
   console.log({ errors });
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className={`${open ? "blur-sm" : ""}`}>
         <u
           className={`mr-4 ${

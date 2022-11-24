@@ -82,7 +82,7 @@ export default function CreateProdcut(
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className="flex flex-row">
         <div className="flex flex-col">
           <div

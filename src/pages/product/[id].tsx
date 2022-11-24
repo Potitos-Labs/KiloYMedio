@@ -12,7 +12,7 @@ const ProductDetails: NextPage = () => {
   const { data, isFetched } = trpc.product.getById.useQuery({ id });
   if (data)
     return (
-      <Layout>
+      <Layout bgColor={"bg-neutral"} headerBgLight={true} headerTextDark={true}>
         <ProductDetail product={data} />
       </Layout>
     );
@@ -22,7 +22,7 @@ const ProductDetails: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-neutral"} headerBgLight={true} headerTextDark={true}>
       <div>Cargando...</div>
     </Layout>
   );

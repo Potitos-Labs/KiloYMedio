@@ -5,15 +5,24 @@ import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
 interface Props {
   children: JSX.Element | JSX.Element[];
+  bgColor: string;
+  headerBgLight: boolean;
+  headerTextDark: boolean;
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({
+  children,
+  bgColor,
+  headerBgLight,
+  headerTextDark,
+}: Props) {
   return (
-    <div className="">
-      <Header></Header>
-      <main className="">
+    <div>
+      <Header bgLight={headerBgLight} textDark={headerTextDark}></Header>
+      <main className={`${bgColor} w-full`}>
         {children}
-        <div className="w-full bg-[#212529] text-white">
+        {/* Footer */}
+        <div className="bg-base-content text-base-100">
           <h1 className="px-8 py-2 text-lg sm:text-2xl lg:text-right">
             info@Kiloymedio.com
           </h1>
@@ -94,6 +103,7 @@ export default function Layout({ children }: Props) {
             </div>
           </div>
         </div>
+        {/* End Footer */}
       </main>
     </div>
   );

@@ -1,8 +1,9 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { BsFillPersonFill } from "react-icons/bs";
 
 import AdminHeader from "./AdminHeader";
-import ClientHeader from "./ClientHeader";
+import CartHeader from "./CartHeader";
 import NavBarAdmin from "./NavBarAdmin";
 import NavBarClient from "./NavBarClient";
 
@@ -24,11 +25,11 @@ export default function NavBar() {
         <NavBarClient />
         <div>
           <div className="absolute top-5 right-5 gap-4 md:top-8 md:flex lg:top-9">
-            <div className="hover:text-kym4">
+            <div>
               <Link href="/login">INICIAR SESIÓN</Link>
             </div>
             <p className="hidden md:flex">|</p>
-            <div className="hover:text-kym4">
+            <div>
               <Link href="/register">REGISTRARSE</Link>
             </div>
           </div>
@@ -43,12 +44,11 @@ export default function NavBar() {
     return (
       <>
         <NavBarClient />
-        <nav className="top-2 -right-4 mx-auto flex w-full flex-row lg:absolute">
-          <div className="absolute right-40 top-2">
+        <nav className="top-6 -right-4 mx-auto flex w-full flex-row lg:absolute">
+          <div className="absolute right-6 -top-2 flex">
+            <CartHeader />
+            <BsFillPersonFill className="h-6 w-6 fill-base-content" />
             <p className="hidden gap-1 md:flex">{session.user?.name}</p>
-          </div>
-          <div className="absolute right-6 -top-2">
-            <ClientHeader />
           </div>
         </nav>
       </>

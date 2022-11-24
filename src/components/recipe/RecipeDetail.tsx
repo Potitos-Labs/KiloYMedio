@@ -68,8 +68,8 @@ const RecipeDetail = ({ id }: { id: string }) => {
 
   return (
     <div>
-      <div className="mx-8 mt-24 sm:mx-20">
-        <div className="my-20 rounded-lg bg-base-100 p-14">
+      <div className="mx-8 sm:mx-20">
+        <div className="my-4 rounded-lg bg-base-100 p-14">
           {/* Upper section */}
           <div className="flex">
             <div className="mr-10 w-full gap-4">
@@ -117,7 +117,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
             </div>
             <div className="mt-6">
               <Image
-                className="rounded-md"
+                className="container rounded-md"
                 src={recipe?.imageURL ?? ""}
                 alt="not found"
                 width="300"
@@ -127,7 +127,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
               ></Image>
               <button
                 onClick={recipe?.isFav ? unsaveRecipe : saveRecipe}
-                className="absolute top-[490px] right-40 z-10 flex gap-2 rounded-full bg-base-100 px-4 pb-1 hover:bg-[#212529] hover:text-white"
+                className="relative bottom-14 left-44 z-10 flex gap-2 rounded-full bg-base-100 px-3 pb-1 hover:bg-[#212529] hover:text-white"
               >
                 {recipe?.isFav ? "eliminar" : "guardar"}
                 {recipe?.isFav ? (

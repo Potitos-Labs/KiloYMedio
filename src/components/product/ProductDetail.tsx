@@ -62,7 +62,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col items-center">
         <div className="w-full">
           {isEdible ? (

@@ -45,7 +45,11 @@ export default function EditRecipe(
 
   if (!recipe) {
     return (
-      <Layout>
+      <Layout
+        bgColor={"bg-base-100"}
+        headerBgLight={true}
+        headerTextDark={true}
+      >
         <p>Cargando...</p>
       </Layout>
     );
@@ -77,7 +81,7 @@ export default function EditRecipe(
   };
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <CreateEdit units={props.units} recipe={recipeArgs}></CreateEdit>
     </Layout>
   );

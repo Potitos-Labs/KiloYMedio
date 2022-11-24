@@ -11,7 +11,7 @@ const CategoryDisplay: NextPage = () => {
   const { data: nCategories } =
     trpc.product.getAllNonEdibleCategories.useQuery();
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
         <p className="font-bold sm:text-lg">Comestibles</p>
       </div>

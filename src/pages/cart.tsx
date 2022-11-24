@@ -12,7 +12,7 @@ const Cart: NextPage = () => {
 
   const [listRef] = useAutoAnimate<HTMLDivElement>();
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <section>
         {/* Grid */}
         <div className="mt-12 grid grid-cols-1 px-8 lg:grid-cols-[65%_35%]">

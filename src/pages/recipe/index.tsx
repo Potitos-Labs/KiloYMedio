@@ -23,7 +23,11 @@ const Recipes = () => {
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
-    <Layout>
+    <Layout
+      bgColor={"bg-base-content"}
+      headerBgLight={true}
+      headerTextDark={true}
+    >
       <div className="m-6">
         <p className="mx-5 my-10 mb-2 grow whitespace-nowrap text-2xl">
           Lo más nuevo
