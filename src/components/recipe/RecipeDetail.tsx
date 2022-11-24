@@ -69,12 +69,14 @@ const RecipeDetail = ({ id }: { id: string }) => {
   return (
     <div>
       <div className="mx-8 mt-24 sm:mx-20">
-        <div className="my-20 rounded-lg bg-[#F8F3ED] p-14">
+        <div className="my-20 rounded-lg bg-base-100 p-14">
           {/* Upper section */}
           <div className="flex">
             <div className="mr-10 w-full gap-4">
               <div className="mb-16 flex gap-4 lg:flex-row lg:items-center">
-                <h1 className="text-xl uppercase">{recipe?.name}</h1>
+                <h1 className="font-raleway text-xl uppercase">
+                  {recipe?.name}
+                </h1>
                 {(session?.user?.id == recipe?.userId || isAdmin) && (
                   <DotMenu
                     id={id}
@@ -91,25 +93,25 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   <span>Tiempo de preparación</span>
                   {recipe?.timeSpan} min
                 </h2>
-                <hr className="my-4 border-[#0000004D]"></hr>
+                <hr className="my-4 border-base-content"></hr>
                 <h2 className="flex justify-between">
                   <span>Cocinar</span>
                   {recipe?.timeSpan} min {/* Por hacer */}
                 </h2>
-                <hr className="my-4 border-[#0000004D]"></hr>
+                <hr className="my-4 border-base-content"></hr>
                 <h2 className="flex justify-between">
                   <span>Tiempo total</span>
                   {recipe?.timeSpan} min {/* Por hacer */}
                 </h2>
-                <hr className="my-4 border-[#0000004D]"></hr>
+                <hr className="my-4 border-base-content"></hr>
                 <h2 className="flex justify-between">
                   <span>Raciones</span> {recipe?.portions}
                 </h2>
-                <hr className="my-4 border-[#0000004D]"></hr>
+                <hr className="my-4 border-base-content"></hr>
                 <h2 className="flex justify-between">
                   <span>Dificultad</span> {recipe?.difficulty}
                 </h2>
-                <hr className="my-4 border-[#0000004D]"></hr>
+                <hr className="my-4 border-base-content"></hr>
               </div>
               {/* End Features */}
             </div>
@@ -125,7 +127,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
               ></Image>
               <button
                 onClick={recipe?.isFav ? unsaveRecipe : saveRecipe}
-                className="absolute top-[480px] right-40 z-10 flex gap-2 rounded-full bg-[#F8F3ED] px-4 pb-1 hover:bg-[#212529] hover:text-white"
+                className="absolute top-[490px] right-40 z-10 flex gap-2 rounded-full bg-base-100 px-4 pb-1 hover:bg-[#212529] hover:text-white"
               >
                 {recipe?.isFav ? "eliminar" : "guardar"}
                 {recipe?.isFav ? (
@@ -184,7 +186,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
 
         {/* Products */}
         <div className="mb-14 rounded-lg bg-[#212529]">
-          <h2 className="mb-10 text-2xl font-bold text-white">
+          <h2 className="mb-10 font-raleway text-xl text-white">
             DIRECTO A TU CESTA
           </h2>
           <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

@@ -44,10 +44,10 @@ export default function NavBar() {
       <>
         <NavBarClient />
         <nav className="top-2 -right-4 mx-auto flex w-full flex-row lg:absolute">
-          <div className="absolute right-40 top-8">
+          <div className="absolute right-40 top-2">
             <p className="hidden gap-1 md:flex">{session.user?.name}</p>
           </div>
-          <div className="absolute right-6 top-4">
+          <div className="absolute right-6 -top-2">
             <ClientHeader />
           </div>
         </nav>

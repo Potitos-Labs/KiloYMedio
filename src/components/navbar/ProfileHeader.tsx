@@ -14,7 +14,7 @@ export default function ProfileHeader() {
       <Menu as="div" className="realative inline-block text-left">
         <div>
           <Menu.Button className="flex items-center">
-            <BsFillPersonFill className="h-11 w-11 fill-white" />
+            <BsFillPersonFill className="h-6 w-6 fill-base-content" />
           </Menu.Button>
         </div>
         <Transition

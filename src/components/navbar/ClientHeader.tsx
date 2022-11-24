@@ -5,8 +5,8 @@ function ClientHeader() {
   return (
     <nav
       className="
-        navbar
-        navbar-expand-lg navbar-light
+        navbar-expand-lg
+        navbar-light navbar
         relative
         flex
         items-center

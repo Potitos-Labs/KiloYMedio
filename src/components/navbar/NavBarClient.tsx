@@ -16,11 +16,11 @@ function NavBarClient() {
   const { data: session } = useSession();
 
   return (
-    <nav className="w-full text-lg">
+    <nav className="text-md w-full text-base-content">
       <div className="lg:hidden">
         <button
           onClick={() => setOpen(!open)}
-          className="items-center py-2 text-white hover:text-kym4"
+          className="items-center py-2 text-base-content hover:text-kym4"
         >
           <GiHamburgerMenu className="h-7 w-7" />
         </button>
@@ -33,7 +33,7 @@ function NavBarClient() {
       >
         <div className="group">
           <Link href={`/product`}>
-            <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+            <a className="peer mr-4 flex flex-row items-center py-2 font-semibold">
               Productos
               <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
             </a>
@@ -43,7 +43,7 @@ function NavBarClient() {
 
         <div className="group">
           <Link href={`/recipe`}>
-            <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
+            <a className="peer flex flex-row items-center py-2 font-semibold">
               Recetas
               <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
             </a>
@@ -71,13 +71,9 @@ function NavBarClient() {
         </div>
 
         <div className="flex flex-col items-start lg:flex-row lg:items-center">
-          <button className="py-2 font-semibold text-white hover:text-kym4 lg:px-5">
-            Talleres
-          </button>
+          <button className="py-2 font-semibold lg:px-5">Talleres</button>
 
-          <button className="py-2 font-semibold text-white hover:text-kym4 lg:px-5">
-            Contacto
-          </button>
+          <button className="py-2 font-semibold lg:px-5">Contacto</button>
         </div>
       </div>
     </nav>
