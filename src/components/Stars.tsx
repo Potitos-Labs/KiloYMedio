@@ -22,7 +22,7 @@ function fromIntToStar(num: number, index: number) {
       <TiStarOutline
         key={index}
         size={20}
-        className="mb-1 inline-block fill-kym1"
+        className="mb-1 inline-block fill-accent"
       />
     );
   }
@@ -31,7 +31,7 @@ function fromIntToStar(num: number, index: number) {
       <TiStarFullOutline
         key={index}
         size={20}
-        className="mb-1 inline-block  fill-kym1"
+        className="mb-1 inline-block  fill-accent"
       />
     );
   }
@@ -39,7 +39,7 @@ function fromIntToStar(num: number, index: number) {
     <TiStarHalfOutline
       key={index}
       size={20}
-      className="mb-1 inline-block fill-kym1"
+      className="mb-1 inline-block fill-accent"
     />
   );
 }

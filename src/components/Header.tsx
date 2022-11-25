@@ -22,9 +22,9 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
 
   return (
     <div
-      className={`${bgColor} ${textColor} z-20 w-full justify-between rounded-b-2xl`}
+      className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl`}
     >
-      <div className="mx-4 flex items-center justify-between sm:mx-24">
+      <div className="mx-4 flex items-center justify-between sm:mx-10">
         <div className="lg:hidden">
           <Image
             src="/img/logopequeño.png"
@@ -37,7 +37,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
 
         {session?.user?.role != "admin" ? <NavBarClient /> : <NavBarAdmin />}
         <Link href={`/`}>
-          <h3 className="my-5 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
+          <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
             kilo y medio
           </h3>
         </Link>

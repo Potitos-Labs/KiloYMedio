@@ -43,6 +43,14 @@ const RecipeDetail = ({ id }: { id: string }) => {
     },
   });
 
+  function saveRecipe() {
+    saveMutation.mutateAsync({ recipeId: id });
+  }
+
+  function unsaveRecipe() {
+    unsaveMutation.mutateAsync({ recipeId: id });
+  }
+
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
@@ -60,16 +68,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
     notifyDeleted();
   };
 
-  function saveRecipe() {
-    saveMutation.mutateAsync({ recipeId: id });
-  }
-
-  function unsaveRecipe() {
-    unsaveMutation.mutateAsync({ recipeId: id });
-  }
-
   return (
     <div>
+      {/* Black background */}
       <div className="py-10 sm:px-24">
         {/* Botón atrás (Recetas) */}
         <Link href={`/recipe`}>
@@ -82,6 +83,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         </Link>
         {/* End Botón atrás (Recetas) */}
 
+        {/* Recipe and Products */}
         <div className="py-10">
           <div className="rounded-lg bg-base-100 p-14">
             {/* Upper section */}
@@ -131,11 +133,11 @@ const RecipeDetail = ({ id }: { id: string }) => {
               </div>
               <div className="mt-6">
                 <Image
-                  className="container rounded-md"
+                  className="container rounded-lg"
                   src={recipe?.imageURL ?? ""}
                   alt="not found"
                   width="300"
-                  height="380"
+                  height="400"
                   layout="fixed"
                   objectFit="cover"
                 ></Image>
@@ -166,12 +168,8 @@ const RecipeDetail = ({ id }: { id: string }) => {
                       ingredients?.map((i) => {
                         return (
                           <li key={""}>
-                            <div className="flex gap-2">
-                              <span>{i.amount}</span>
-                              <span>{units[i.unit]}</span>
-                              <p className="lowercase">
-                                de {i.Ingredient.name}
-                              </p>
+                            <div className="lowercase">
+                              {i.amount} {units[i.unit]} de {i.Ingredient.name}
                             </div>
                           </li>
                         );
@@ -204,7 +202,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
               <h2 className="font-raleway text-xl text-base-100">
                 DIRECTO A TU CESTA
               </h2>
-              <button className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10">
+              <button className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10 font-satoshiBold">
                 <div className="h-full rounded-full bg-secondary px-8 pt-2">
                   6,85€
                 </div>
@@ -229,7 +227,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
           </div>
           {/* End Products */}
         </div>
+        {/* End Recipe and Products */}
       </div>
+      {/* End Black background */}
       {/* Comments */} <CommentSection />
     </div>
   );

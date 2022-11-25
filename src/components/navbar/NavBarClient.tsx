@@ -19,19 +19,19 @@ function NavBarClient() {
       <div
         className={clsx(
           { hidden: !open },
-          "block flex-grow items-center gap-8 lg:flex lg:w-auto",
+          "block flex-grow items-center gap-6 lg:flex lg:w-auto",
         )}
       >
         <div className="group">
           <Link href={`/product`}>
-            <a className="peer flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-raleway text-xs text-base-100">
-              <TbGridDots className="h-4 w-4" />
+            <a className="peer flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-satoshiBold text-base-100">
+              <TbGridDots className="h-3 w-3" />
               tienda
             </a>
           </Link>
           <DropdownCategories />
         </div>
-        <div className="flex flex-col gap-2 sm:gap-4 md:flex-row">
+        <div className="flex flex-col gap-2 sm:gap-6 md:flex-row">
           <Link href={`/recipe`}>salud y bienestar</Link>
           <Link href={`/recipe`}>recetas</Link>
           <Link href={`/recipe`}>talleres</Link>

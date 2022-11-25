@@ -4,7 +4,7 @@ function Comment() {
   return (
     <div>
       <div className="w-[550px] rounded-lg bg-white p-8">
-        <p className="mb-2 font-raleway">ELENA MARTÍNEZ</p>
+        <p className="mb-2 font-satoshiBold">ELENA MARTÍNEZ</p>
         <p className="mb-10 text-justify">
           Me ha gustado mucho, gracias por compartirla. Probé a hacerla ayer y
           estaba deliciosa. Con un toque de pimienta, está mejor aún.
@@ -15,9 +15,9 @@ function Comment() {
         </div>
       </div>
 
-      {/* Esto no  estaría, sería un solo div llamado desde un map de comentarios */}
+      {/* Esto no  estaría, habría una tarjeta de comentario llamada desde un map de comentarios */}
       <div className="mt-10 w-[550px] rounded-xl bg-white p-8">
-        <p className="mb-2 font-raleway">RAÚL SORIANO</p>
+        <p className="mb-2 font-satoshiBold">RAÚL SORIANO</p>
         <p className="mb-10 text-justify">
           Es uno de mis platos favoritos, esta receta me recuerda mucho a la que
           hacía mi madre. Muy sencilla de hacer y con un alto contenido en
@@ -27,6 +27,12 @@ function Comment() {
           <Stars average={5}></Stars>
           16 de Noviembre
         </div>
+      </div>
+
+      <div className="text-center">
+        <button className="mt-8 w-32 rounded-full bg-base-content py-1 text-base-100">
+          cargar más
+        </button>
       </div>
     </div>
   );

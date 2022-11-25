@@ -11,7 +11,7 @@ export default function CartHeader() {
   return (
     <div className="group relative mr-5 flex cursor-pointer items-center">
       <Link href={"/cart"}>cesta</Link>
-      <span className="absolute ml-10 h-5 w-5 rounded-full bg-gray-700 pt-0.5 pl-1.5 text-xs font-bold">
+      <span className="absolute ml-10 h-6 w-6 rounded-full bg-gray-700 pl-2 text-xs text-base-100">
         {numberCartProducts}
       </span>
       <div className="invisible sm:visible">
