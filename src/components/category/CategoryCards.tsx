@@ -5,14 +5,17 @@ import { useState } from "react";
 function CategoryCards({
   name,
   relations,
+  closePopUp,
 }: {
   name: string;
   relations: SupraCategoryRelation[];
+  closePopUp: () => void;
 }) {
   const [clicked, setClicked] = useState(Boolean);
   function push() {
     setClicked(true);
     router.push("/product?category=" + name);
+    closePopUp();
   }
   return (
     <div
@@ -31,7 +34,10 @@ function CategoryCards({
           <button
             key={index}
             className="z-10 mr-2 rounded-full border-[1px] border-base-100 border-transparent px-2 hover:border-base-content active:border-primary active:bg-primary active:text-white"
-            onClick={() => router.push("/product?category=" + cat.category)}
+            onClick={() => {
+              router.push("/product?category=" + cat.category);
+              closePopUp();
+            }}
           >
             {cat.category}
           </button>

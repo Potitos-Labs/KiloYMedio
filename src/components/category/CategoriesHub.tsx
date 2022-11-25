@@ -40,6 +40,7 @@ function CategoriesHub({
                 key={index}
                 name={sc.supraCategoryName}
                 relations={sc.SupraCategoryRelation}
+                closePopUp={closePopUp}
               ></CategoryCards>
             ))}
             <div className="flex items-end justify-end justify-items-end">
