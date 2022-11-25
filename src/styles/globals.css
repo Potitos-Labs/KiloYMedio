@@ -60,6 +60,7 @@
     font-display: swap;
   }
 }
+
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -84,6 +85,10 @@
   overflow-x: hidden;
 }
 
+.btn {
+  @apply normal-case;
+}
+
 .btn-sm {
   @apply rounded-[30px] border-0;
   font-family: "Satoshi";
@@ -94,6 +99,14 @@
   font-family: "Raleway";
 }
 
-.btn:hover {
-  @apply border-[1px] border-solid border-[#4b4949];
+@layer components {
+  .btn-cgray {
+    @apply order-0 bg-[#4b4949] text-[#f8f3ed] hover:bg-[#4b4949];
+  }
+}
+
+@layer components {
+  .btn-cwhite {
+    @apply divide-black border-0 bg-[#f8f3ed] text-black hover:bg-[#f8f3ed];
+  }
 }

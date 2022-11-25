@@ -74,9 +74,13 @@ export default function EditRecipe(
     ingredients,
     name: recipe.name,
     portions: recipe.portions,
-    timeSpan: {
-      hour: Math.floor(recipe.timeSpan / 60),
-      minute: recipe.timeSpan % 60,
+    cookingTime: {
+      hour: Math.floor(recipe.cookingTime / 60),
+      minute: recipe.cookingTime % 60,
+    },
+    preparationTime: {
+      hour: Math.floor(recipe.preparationTime / 60),
+      minute: recipe.preparationTime % 60,
     },
   };
 

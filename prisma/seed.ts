@@ -1005,7 +1005,8 @@ async function main() {
       imageURL:
         "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-pan-de-pueblo-receta-muy-facil.JPG",
       portions: 6,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       User: { connect: { id: juan.id } },
@@ -1036,7 +1037,8 @@ async function main() {
       imageURL:
         "https://cdn1.cocina-familiar.com/recetas/thumb/arroz-con-costra-al-estilo-de-elche.JPG",
       portions: 6,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "Hoy os traigo un arroz muy especial se trata del tradicional y conocido arroz con costra al estilo de Elche.",
       User: { connect: { id: pilar.id } },
@@ -1067,7 +1069,8 @@ async function main() {
       imageURL:
         "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-cheesecake-de-mango.JPG",
       portions: 8,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "Esta frésquisima tarta de queso esta riquisima, ¿Podrás aguantar a que se enfrie antes de incarle el diente?",
       User: { connect: { id: pilar.id } },
@@ -1098,7 +1101,8 @@ async function main() {
       imageURL:
         "https://cdn1.cocina-familiar.com/recetas/thumb/patatas-revolconas-o-patatas-meneas.JPG",
       portions: 6,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "El pote navero, también conocido como patatas meneas, es un típico plato castellano, muy sencillo de hacer y muy rico (sobretodo cuando va acompañado de una picante piparra).",
       User: { connect: { id: pilar.id } },
@@ -1129,7 +1133,8 @@ async function main() {
       imageURL:
         "https://cdn1.cocina-familiar.com/recetas/thumb/croquetas-rellenas-con-huevo-cocido.JPG",
       portions: 6,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "Hoy os traigo una receta tradicional española, muy sencilla y riquisima. Croquetas rellenas de huevo duro, que están buenísimas",
       User: { connect: { id: pilar.id } },
@@ -1161,7 +1166,8 @@ async function main() {
       imageURL:
         "https://pbs.twimg.com/profile_images/1571904629209812996/KGxejjwy_400x400.jpg",
       portions: 6,
-      timeSpan: 30,
+      cookingTime: 30,
+      preparationTime: 30,
       description:
         "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
       User: { connect: { id: pilar.id } },

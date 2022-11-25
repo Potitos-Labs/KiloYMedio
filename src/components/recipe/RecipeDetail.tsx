@@ -107,17 +107,17 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 <div className="mr-20 text-sm">
                   <h2 className="flex justify-between">
                     <span>Tiempo de preparación</span>
-                    {recipe?.timeSpan} min
+                    {recipe?.preparationTime} min
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
                     <span>Cocinar</span>
-                    {recipe?.timeSpan} min {/* Por hacer */}
+                    {recipe?.preparationTime} min {/* Por hacer */}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
                     <span>Tiempo total</span>
-                    {recipe?.timeSpan} min {/* Por hacer */}
+                    {recipe?.preparationTime} min {/* Por hacer */}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">

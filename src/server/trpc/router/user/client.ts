@@ -148,7 +148,35 @@ export const clientRouter = router({
       });
       return comments;
     }),
+  getRecipeStatistics: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const ratings = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          rating: true,
+        },
+      });
 
+      const average =
+        ratings.reduce(
+          (acumulator, current) => acumulator + current.rating,
+          0,
+        ) / ratings.length;
+
+      //Obtener repetidos
+      let ranges: any = {};
+      ratings.forEach((e: { rating: number }) => {
+        const rangeStar = Math.ceil(e.rating);
+        ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
+      });
+      //Obtener porcentages
+      ranges = ranges.values().map((e: number) => (e * 100) / ratings.length);
+
+      return { count: ratings.length, average, ranges };
+    }),
   updateAllergen: clientProcedure
     .input(
       z.object({

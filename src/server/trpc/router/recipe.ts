@@ -23,7 +23,7 @@ export const recipeRouter = router({
         name: true,
         portions: false,
         RecipeIngredient: false,
-        timeSpan: false,
+        cookingTime: false,
         User: false,
         userId: true,
       },
@@ -43,7 +43,7 @@ export const recipeRouter = router({
       return await ctx.prisma.recipe.findMany({
         where: {
           portions: { gte: minPortion, lte: maxPortion },
-          timeSpan: { gte: minTime, lte: maxTime },
+          preparationTime: { gte: minTime, lte: maxTime },
           difficulty,
 
           RecipeIngredient: {
@@ -91,7 +91,8 @@ export const recipeRouter = router({
               unit: true,
             },
           },
-          timeSpan: true,
+          cookingTime: true,
+          preparationTime: true,
           User: true,
           userId: true,
         },
@@ -122,7 +123,7 @@ export const recipeRouter = router({
           name,
           ingredients,
           portions,
-          timeSpan,
+          cookingTime,
           id,
         },
       }) => {
@@ -146,7 +147,7 @@ export const recipeRouter = router({
             imageURL,
             name,
             portions,
-            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            cookingTime: cookingTime.hour * 60 + cookingTime.minute,
             description,
             directions: {
               createMany: {
@@ -183,7 +184,7 @@ export const recipeRouter = router({
           name,
           ingredients,
           portions,
-          timeSpan,
+          cookingTime,
         },
       }) => {
         const prismaIngredients = await findOrCreteRecipeIngredients(
@@ -197,7 +198,8 @@ export const recipeRouter = router({
             imageURL,
             name,
             portions,
-            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            cookingTime: cookingTime.hour * 60 + cookingTime.minute,
+            preparationTime: 30,
             description,
             directions: {
               createMany: {

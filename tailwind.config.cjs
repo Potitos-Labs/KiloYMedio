@@ -47,12 +47,12 @@ module.exports = {
           accent: "#ffa755",
           "accent-focus": "#00FF00", //cambiar
           "accent-content": "#00FF00", //cambiar
-          neutral: "#a6806d", //button
-          "neutral-focus": "#a6806d", //button hover
+          neutral: "#212529", //button
+          "neutral-focus": "#212529", //button hover
           "neutral-content": "#212529", //button content
           "base-100": "#f8f3ed", //background
-          "base-200": "#00FF00",
-          "base-300": "#f8f3ed", //cambiar
+          "base-200": "#a6806d",
+          "base-300": "#4b4949",
           "base-content": "#212529", //text
           info: "#00FF00", //cambiar
           success: "#00FF00", //cambiar
