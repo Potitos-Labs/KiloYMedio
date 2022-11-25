@@ -41,7 +41,9 @@ export default function NavBar() {
       <>
         <nav className="top-4 right-8 hidden flex-row gap-2 lg:flex">
           <p className="hidden gap-1 md:flex">{session.user?.name}</p>
-          <BsFillPersonFill className="mr-4 h-6 w-6 fill-base-content" />
+          <Link href={`/profile`}>
+            <BsFillPersonFill className="mr-4 h-6 w-6 fill-base-content" />
+          </Link>
           <CartHeader />
         </nav>
       </>
@@ -51,12 +53,13 @@ export default function NavBar() {
   if (session && isAdmin) {
     return (
       <>
-        <nav className="top-2 -right-4 mx-auto flex w-full flex-row lg:absolute">
-          <div className="absolute right-24 top-6 flex gap-2 md:top-8">
-            <p className="hidden gap-1 md:flex">{session.user?.name}</p>
-            <span className="absolute top-2.5 -right-8 md:static">(Admin)</span>
-          </div>
-          <div className="absolute right-1 top-3 md:right-6">
+        <nav className="top-4 right-8 hidden flex-row gap-2 lg:flex">
+          <p className=" hidden gap-1 pt-4 md:flex">
+            {session.user?.name}
+            <span>(Admin)</span>
+          </p>
+
+          <div className="right-1 top-3 md:right-6">
             <AdminHeader />
           </div>
         </nav>

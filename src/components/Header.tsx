@@ -1,10 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import NavBar from "./navbar/NavBar";
 import NavBarClient from "./navbar/NavBarClient";
-import NavBarAdmin from "./navbar/NavBarAdmin";
 import router from "next/router";
 
 interface HeaderProps {
@@ -17,8 +15,6 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
     ? "bg-base-100"
     : "bg-transparent absolute w-full pt-4 lg:pt-0 -mx-4";
   const textColor = textDark ? "text-base-content" : "text-base-100";
-
-  const { data: session } = useSession();
 
   return (
     <div
@@ -35,7 +31,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
           ></Image>
         </div>
 
-        {session?.user?.role != "admin" ? <NavBarClient /> : <NavBarAdmin />}
+        <NavBarClient />
         <Link href={`/`}>
           <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
             kilo y medio
