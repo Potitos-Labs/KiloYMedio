@@ -982,13 +982,13 @@ async function main() {
     ],
   });
 
-  const comentarioPaella = await prisma.comment.create({
+  /*const comentarioPaella = await prisma.comment.create({
     data: {
       rating: 5,
       user: { connect: { id: alicia.id } },
       description: "Que bello es mi novio <3",
     },
-  });
+  });*/
 
   const panPueblo = await prisma.recipe.create({
     data: {
@@ -1008,7 +1008,6 @@ async function main() {
       timeSpan: 30,
       description:
         "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
-      RecipeComment: undefined,
       User: { connect: { id: juan.id } },
       createdAt: new Date(),
       RecipeIngredient: {
@@ -1040,7 +1039,6 @@ async function main() {
       timeSpan: 30,
       description:
         "Hoy os traigo un arroz muy especial se trata del tradicional y conocido arroz con costra al estilo de Elche.",
-      RecipeComment: undefined,
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
       RecipeIngredient: {
@@ -1072,7 +1070,6 @@ async function main() {
       timeSpan: 30,
       description:
         "Esta frésquisima tarta de queso esta riquisima, ¿Podrás aguantar a que se enfrie antes de incarle el diente?",
-      RecipeComment: undefined,
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
       RecipeIngredient: {
@@ -1104,7 +1101,6 @@ async function main() {
       timeSpan: 30,
       description:
         "El pote navero, también conocido como patatas meneas, es un típico plato castellano, muy sencillo de hacer y muy rico (sobretodo cuando va acompañado de una picante piparra).",
-      RecipeComment: undefined,
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
       RecipeIngredient: {
@@ -1136,7 +1132,6 @@ async function main() {
       timeSpan: 30,
       description:
         "Hoy os traigo una receta tradicional española, muy sencilla y riquisima. Croquetas rellenas de huevo duro, que están buenísimas",
-      RecipeComment: undefined,
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
       RecipeIngredient: {
@@ -1169,7 +1164,6 @@ async function main() {
       timeSpan: 30,
       description:
         "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
-      RecipeComment: undefined,
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
       RecipeIngredient: {

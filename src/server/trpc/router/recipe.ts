@@ -22,7 +22,6 @@ export const recipeRouter = router({
         imageURL: true,
         name: true,
         portions: false,
-        RecipeComment: false,
         RecipeIngredient: false,
         timeSpan: false,
         User: false,
@@ -79,7 +78,6 @@ export const recipeRouter = router({
           imageURL: true,
           name: true,
           portions: true,
-          RecipeComment: true,
           RecipeIngredient: {
             select: {
               Ingredient: {

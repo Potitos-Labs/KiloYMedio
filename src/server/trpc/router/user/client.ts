@@ -11,6 +11,7 @@ import {
 import { clientSchema } from "@utils/validations/client";
 import { signUpByAdminSchema, signUpSchema } from "@utils/validations/auth";
 import { hash } from "argon2";
+import { commentSchema } from "@utils/validations/recipe";
 
 export const clientRouter = router({
   update: clientProcedure
@@ -109,6 +110,24 @@ export const clientRouter = router({
 
     return recipes;
   }),
+  newCommentRecipe: clientProcedure
+    .input(commentSchema)
+    .query(async ({ ctx, input }) => {
+      const { recipeId, title, description, rating } = input;
+      await ctx.prisma.comment.create({
+        data: {
+          recipeId,
+          title,
+          description,
+          rating,
+          userId: ctx.session.user.id,
+        },
+      });
+      return {
+        status: 201,
+        message: "Account updated successfully",
+      };
+    }),
 
   updateAllergen: clientProcedure
     .input(

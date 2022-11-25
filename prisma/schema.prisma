@@ -146,16 +146,17 @@ model Client {
 model Comment {
     id              String            @id @default(cuid())
     adminId         String?
-    admin           Admin?            @relation(fields: [adminId], references: [userId])
+    Admin           Admin?            @relation(fields: [adminId], references: [userId])
     description     String?           @db.TinyText
     imageURL        String?
     rating          Float
     reported        Boolean           @default(false)
     title           String?
     userId          String
-    user            User              @relation(fields: [userId], references: [id])
+    User            User              @relation(fields: [userId], references: [id])
+    recipeId        String
+    Recipe          Recipe            @relation(fields: [recipeId], references: [id])
     ProductComment  ProductComment[]
-    RecipeComment   RecipeComment[]
     ReportedComment ReportedComment[]
 }
 
@@ -315,19 +316,12 @@ model Recipe {
     imageURL         String
     name             String
     portions         Int
-    RecipeComment    RecipeComment[]
     RecipeIngredient RecipeIngredient[]
     timeSpan         Int
     userId           String
     User             User               @relation(fields: [userId], references: [id])
     RecipeUser       RecipeUser[]
-}
-
-model RecipeComment {
-    commentId String  @id
-    comment   Comment @relation(fields: [commentId], references: [id])
-    recipeId  String
-    recipe    Recipe  @relation(fields: [recipeId], references: [id])
+    Comment          Comment[]
 }
 
 model RecipeDifficultyInSpanish {
