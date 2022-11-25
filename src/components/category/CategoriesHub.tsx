@@ -46,7 +46,10 @@ function CategoriesHub({
             <div className="flex items-end justify-end justify-items-end">
               <button
                 className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "
-                onClick={() => router.push("/product")}
+                onClick={() => {
+                  router.push("/product");
+                  setOpen(false);
+                }}
               >
                 VER TODO
               </button>
