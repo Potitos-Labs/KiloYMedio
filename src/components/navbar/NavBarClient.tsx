@@ -1,5 +1,5 @@
-import CategoriesHub from "@components/category/CategoriesHub";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -10,12 +10,15 @@ function NavBarClient() {
   function openPopup() {
     setOpen(true);
   }
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role == "admin";
 
   return (
     <nav>
-      <div className="lg:hidden">
-        <button onClick={() => setOpen(!open)} className="items-center py-2">
-          <GiHamburgerMenu className="h-7 w-7" fill="base-content" />
+      <div className="flex flex-col"> </div>
+      <div className="flex justify-end lg:hidden">
+        <button onClick={() => setOpen(!open)} className="  py-2">
+          <GiHamburgerMenu className="h-7 w-7" />
         </button>
       </div>
       <div
@@ -32,13 +35,24 @@ function NavBarClient() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col gap-2 sm:gap-6 md:flex-row">
+        <div className="flex flex-col gap-2 text-end sm:gap-6 md:flex-row">
           <Link href={`/recipe`}>salud y bienestar</Link>
           <Link href={`/recipe`}>recetas</Link>
           <Link href={`/recipe`}>talleres</Link>
         </div>
+        {!session && open && (
+          <div className="flex flex-col pt-6 text-end">
+            <Link href="/login">iniciar sesion</Link>
+            <Link href="/register">registrarse</Link>
+          </div>
+        )}
+        {!isAdmin && open && session && (
+          <div className="flex flex-col pt-6 text-end">
+            <Link href="/cart">Cesta</Link>
+            <Link href={`/profile`}>Perfil</Link>
+          </div>
+        )}
       </div>
-      <CategoriesHub open={open} setOpen={setOpen} />
     </nav>
   );
 }
