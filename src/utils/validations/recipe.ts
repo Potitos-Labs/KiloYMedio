@@ -59,7 +59,6 @@ export const createRecipeSchema = z.object({
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
   recipeId: z.string(),
-  title: z.string().max(30, { message: "" }),
   description: z.string(),
   rating: z.number(),
 });

@@ -110,14 +110,13 @@ export const clientRouter = router({
 
     return recipes;
   }),
-  newCommentRecipe: clientProcedure
+  newRecipeComment: clientProcedure
     .input(commentSchema)
-    .query(async ({ ctx, input }) => {
-      const { recipeId, title, description, rating } = input;
+    .mutation(async ({ ctx, input }) => {
+      const { recipeId, description, rating } = input;
       await ctx.prisma.comment.create({
         data: {
           recipeId,
-          title,
           description,
           rating,
           userId: ctx.session.user.id,
@@ -127,6 +126,27 @@ export const clientRouter = router({
         status: 201,
         message: "Account updated successfully",
       };
+    }),
+
+  getRecipeComments: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          description: true,
+          rating: true,
+          createdAt: true,
+          User: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+      return comments;
     }),
 
   updateAllergen: clientProcedure
