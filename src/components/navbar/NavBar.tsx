@@ -39,7 +39,7 @@ export default function NavBar() {
   if (session && !isAdmin) {
     return (
       <>
-        <nav className="top-4 right-8 flex flex-row gap-2">
+        <nav className="top-4 right-8 hidden flex-row gap-2 lg:flex">
           <p className="hidden gap-1 md:flex">{session.user?.name}</p>
           <BsFillPersonFill className="mr-4 h-6 w-6 fill-base-content" />
           <CartHeader />

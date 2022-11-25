@@ -13,7 +13,7 @@ function NavBarClient() {
     <nav>
       <div className="lg:hidden">
         <button onClick={() => setOpen(!open)} className="items-center py-2">
-          <GiHamburgerMenu className="h-7 w-7" />
+          <GiHamburgerMenu className="h-7 w-7" fill="base-content" />
         </button>
       </div>
       <div

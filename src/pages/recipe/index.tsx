@@ -45,7 +45,7 @@ const Recipes = () => {
           </button>
         </div>
         <hr className="border-1 mx-5 border-kym3"></hr>
-        <div className={` mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
+        <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
           <FilterRecipe filter={filter} setFilter={setFilter} />
         </div>
         <VerticalRecipeDisplayer

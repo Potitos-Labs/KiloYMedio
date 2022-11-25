@@ -15,14 +15,14 @@ interface HeaderProps {
 const Header = ({ bgLight, textDark }: HeaderProps) => {
   const bgColor = bgLight
     ? "bg-base-100"
-    : "bg-transparent absolute w-screen -mx-9";
+    : "bg-transparent absolute w-full pt-4 lg:pt-0 -mx-4";
   const textColor = textDark ? "text-base-content" : "text-base-100";
 
   const { data: session } = useSession();
 
   return (
     <div
-      className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl`}
+      className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl p-2 lg:p-0`}
     >
       <div className="mx-4 flex items-center justify-between sm:mx-10">
         <div className="lg:hidden">
