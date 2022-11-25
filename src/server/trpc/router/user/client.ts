@@ -116,10 +116,10 @@ export const clientRouter = router({
       const { recipeId, description, rating } = input;
       await ctx.prisma.comment.create({
         data: {
-          recipeId,
+          Recipe: { connect: { id: recipeId } },
           description,
           rating,
-          userId: ctx.session.user.id,
+          User: { connect: { id: ctx.session.user.id } },
         },
       });
       return {

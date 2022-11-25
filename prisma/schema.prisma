@@ -153,12 +153,12 @@ model Comment {
     rating          Float
     reported        Boolean           @default(false)
     title           String?
-    userId          String
-    User            User              @relation(fields: [userId], references: [id])
-    recipeId        String
-    Recipe          Recipe            @relation(fields: [recipeId], references: [id])
     ProductComment  ProductComment[]
     ReportedComment ReportedComment[]
+    User            User?             @relation(fields: [userId], references: [id])
+    userId          String?
+    Recipe          Recipe?           @relation(fields: [recipeId], references: [id])
+    recipeId        String?
 }
 
 model Edible {

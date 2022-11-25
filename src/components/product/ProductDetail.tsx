@@ -16,7 +16,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
   const { data } = useSession();
 
   return (
-    <div className="flex flex-col bg-neutral">
+    <div className="flex flex-col bg-base-200">
       <div className="ml-16 pt-40">
         <div className="grid w-fit grid-cols-2 gap-3">
           <div className="flex h-auto w-full flex-col rounded-[20px] bg-base-100 px-16">
