@@ -259,7 +259,7 @@ async function main() {
       description: "pistachos ecológicos",
       stock: 10.5,
       imageURL:
-        "https://www.atida.com/es-es/blog/wp-content/uploads/2022/02/33-nuevo-blog.png",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pistachos.png",
       Edible: {
         create: {
           category: "nuts",
@@ -294,7 +294,7 @@ async function main() {
         "Las almendras son indicadas para su alto contenido de calcio y de grasas saludables, así como para disminuir el índice de azúcar en sangre.",
       stock: 16.5,
       imageURL:
-        "https://fruitsec.cat/botigafruitsecs/34-home_default/almendra-cruda-con-piel.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/almendras.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -329,7 +329,7 @@ async function main() {
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
       imageURL:
-        "https://fruitsec.cat/botigafruitsecs/174-large_default/kikos-pequenos-125-grs.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -364,7 +364,7 @@ async function main() {
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
       imageURL:
-        "https://fruitsec.cat/botigafruitsecs/43-home_default/cacahuete-salado.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -398,7 +398,7 @@ async function main() {
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
-        "https://as01.epimg.net/buenavida/imagenes/2017/04/10/portada/1491836256_032482_1491837182_noticia_normal.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levadura-nutricional.jpg",
       Edible: {
         create: {
           category: "yeast",
@@ -431,7 +431,7 @@ async function main() {
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
-        "https://estaticos.muyinteresante.es/uploads/images/gallery/56014df93eafe829aea881a3/lentejas3.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/lentejas.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -464,7 +464,7 @@ async function main() {
       description: "Que ricos los garbanzos ñam",
       stock: 48.1,
       imageURL:
-        "https://www.gastronomiavasca.net/uploads/image/file/4233/w700_garbanzo.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/garbanzos.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -498,7 +498,7 @@ async function main() {
         "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
       stock: 48.1,
       imageURL:
-        "https://www.gastronomiavasca.net/uploads/image/file/3889/w700_alubia_blanca.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/judia-blanca.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -531,7 +531,7 @@ async function main() {
       description: "harina de trigo",
       stock: 18,
       imageURL:
-        "https://www.mundorganico.co/wp-content/uploads/2020/05/harina-kamut-1.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina-de-trigo.jpg",
       Edible: {
         create: {
           category: "flours",
