@@ -1,13 +1,15 @@
+import CategoriesHub from "@components/category/CategoriesHub";
 import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { TbGridDots } from "react-icons/tb";
 
-import DropdownCategories from "../category/DropdownCategories";
-
 function NavBarClient() {
   const [open, setOpen] = useState(false);
+  function openPopup() {
+    setOpen(true);
+  }
 
   return (
     <nav>
@@ -23,13 +25,12 @@ function NavBarClient() {
         )}
       >
         <div className="group">
-          <Link href={`/product`}>
+          <div onClick={openPopup}>
             <a className="peer flex flex-row items-center gap-2 rounded-full bg-base-content px-3 font-satoshiBold text-base-100">
               <TbGridDots className="h-3 w-3" />
               tienda
             </a>
-          </Link>
-          <DropdownCategories />
+          </div>
         </div>
         <div className="flex flex-col gap-2 sm:gap-6 md:flex-row">
           <Link href={`/recipe`}>salud y bienestar</Link>
@@ -37,6 +38,7 @@ function NavBarClient() {
           <Link href={`/recipe`}>talleres</Link>
         </div>
       </div>
+      <CategoriesHub open={open} setOpen={setOpen} />
     </nav>
   );
 }

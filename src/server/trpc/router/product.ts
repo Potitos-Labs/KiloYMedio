@@ -140,6 +140,7 @@ export const productRouter = router({
 
       return products;
     }),
+
   getAllCategories: publicProcedure.query(async ({ ctx }) => {
     const eCategories = await ctx.prisma.eCategoryInSpanish.findMany({
       select: {
@@ -164,6 +165,16 @@ export const productRouter = router({
     };
 
     return res;
+  }),
+  getAllSupraCategories: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.supraCategory.findMany({
+      select: {
+        id: true,
+        supraCategoryName: true,
+        SupraCategoryRelation: true,
+        _count: false,
+      },
+    });
   }),
   getAllNonEdibleCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.nECategoryInSpanish.findMany({
@@ -269,6 +280,7 @@ export const productRouter = router({
         });
       } catch {}
     }),
+
   createNewProduct: publicProcedure
     .input(productCreateSchema)
     .mutation(async ({ input, ctx }) => {

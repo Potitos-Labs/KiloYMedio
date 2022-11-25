@@ -5,7 +5,6 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import Category from "../../components/category/Category";
 import { trpc } from "../../utils/trpc";
-import CategoriesHub from "@components/category/CategoriesHub";
 
 const CategoryDisplay: NextPage = () => {
   const { data: eCategories } = trpc.product.getAllCategories.useQuery();
@@ -13,7 +12,6 @@ const CategoryDisplay: NextPage = () => {
     trpc.product.getAllNonEdibleCategories.useQuery();
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <CategoriesHub />
       <div className="mx-12 mt-12 grid grid-cols-2 border-b-2 border-kym3">
         <p className="font-bold sm:text-lg">Comestibles</p>
       </div>
