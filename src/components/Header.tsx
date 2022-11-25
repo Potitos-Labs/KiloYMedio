@@ -25,7 +25,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
       className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl p-2 lg:p-0`}
     >
       <div className="mx-4 flex items-center justify-between sm:mx-10">
-        <div className="lg:hidden">
+        <div className="flex  lg:hidden">
           <Image
             src="/img/logopequeño.png"
             alt="not found"
