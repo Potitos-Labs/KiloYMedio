@@ -70,6 +70,7 @@ export default withBundleAnalyzer(
         "pbs.twimg.com",
         "www.kindpng.com",
         "grjkjrkjpycphptekssf.supabase.co",
+        "shields.io",
       ],
     },
   }),

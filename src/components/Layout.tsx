@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -28,11 +29,20 @@ export default function Layout({
         {children}
         {/* Footer */}
         <div className="bg-base-content text-base-100">
-          <h1 className="px-8 text-lg sm:text-xl lg:text-right">
-            info@kiloymedio.com
-          </h1>
+          <h1 className="px-8 text-lg lg:text-right">info@kiloymedio.com</h1>
           <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
             <div className="grid-cols mr-40 grid pl-10">
+              <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
+                <Image
+                  src="/img/powered.svg"
+                  alt=""
+                  className="rounded-full"
+                  width={300}
+                  height={41}
+                  layout="fixed"
+                  objectFit="contain"
+                />
+              </Link>
               <div className="py-16">
                 <p className="text-xs">lunes-viernes, 9:30-18:30</p>
                 <p className="text-xs">sábados, 9:30-14:30</p>
