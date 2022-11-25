@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { ILogin, loginSchema } from "../utils/validations/auth";
+import { IoEyeOffSharp, IoEyeSharp, IoLogoGoogle } from "react-icons/io5";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
@@ -54,87 +54,131 @@ const SignIn: NextPage = () => {
     });
   }, []);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  function showHidePassword() {
+    setShowPassword((showPassword) => !showPassword);
+  }
+
   return (
-    <main className="flex h-screen flex-col items-center justify-center">
-      <Image
-        src="/img/fondoLogin.png"
-        width="2000"
-        height="300"
-        // layout="fill"
-      />
-      <div className="max-w-md rounded-md bg-white p-8 shadow-lg shadow-kym4">
-        <div className="mb-3 text-center">
-          <h6 className="text-sm font-bold text-gray-600">
-            Iniciar sesión con
-          </h6>
-        </div>
-        <div className="btn-wrapper text-center">
-          <button
-            className="btn-sm mr-1 mb-1 inline-flex items-center rounded px-4 py-2 font-normal uppercase text-white shadow outline-none hover:font-bold hover:shadow-md focus:outline-none active:bg-gray-100"
-            type="button"
-            style={{ transition: "all .15s ease" }}
-            onClick={() =>
-              signIn("google", {
-                callbackUrl: "/",
-              })
-            }
-          >
-            Google
-          </button>
-          <p className="font-semibold text-button">{googleError}</p>
-        </div>
-        <hr className="border-b-1 my-6 border-gray-400" />
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group mb-6">
+    <>
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <h3 className="mt-[10px] ml-[10px] text-lg font-bold">
+            Haber estudiado
+          </h3>
+          <div className="modal-action">
             <label
-              form="emailInput"
-              className="form-label mb-2 inline-block text-gray-700"
+              htmlFor="my-modal"
+              className="btn btn-lg w-[100px] text-base-100"
             >
-              Correo electrónico
+              F
             </label>
-            <input
-              type="email"
-              className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out invalid:border-2 invalid:border-red-500 focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-              id="emailInput"
-              placeholder="Correo electrónico"
-              {...register("email", {
-                onChange: () => setEmailNotExists(""),
-              })}
-            />
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
-            )}
           </div>
-          <div className="form-group mb-6">
-            <label
-              form="passwordInput"
-              className="form-label mb-2 inline-block text-gray-700"
-            >
-              Contraseña
-            </label>
-            <input
-              type="password"
-              className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out invalid:border-2 invalid:border-red-500 focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-              id="passwordInput"
-              placeholder="Contraseña"
-              {...register("password", {
-                onChange: () => setEmailNotExists(""),
-              })}
-            />
-            {errors.password && (
-              <p className="text-red-500">Contraseña inválida</p>
-            )}
-            <p className="font-semibold text-red-500">{emailNotExists}</p>
-          </div>
-          <button
-            type="submit"
-            className="btn-sm w-full rounded-md px-6 py-2.5 font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-button_hover hover:shadow-lg focus:to-button_hover focus:shadow-lg focus:outline-none focus:ring-0 active:to-button_hover active:shadow-lg"
-          >
-            Iniciar sesión
-          </button>
-        </form>
+        </div>
       </div>
-    </main>
+
+      <main className="flex h-screen flex-col items-center justify-center bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoLogin.png')]">
+        <div className="h-[760px] w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:w-[540px]">
+          {/* Text */}
+          <div className="text-center">
+            <p className="mt-[80px] ml-[30px] mr-[175px] w-[335px] font-raleway text-[43px]">
+              ¡Hola de nuevo!
+            </p>
+            <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
+              ¿Aún no tienes una cuenta? Únete a kilo y medio {""}
+              <b className="font-satoshiBold">registrándote</b>.
+            </p>
+          </div>
+          {/* End Text */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Email + password */}
+            <div className="mt-[67px] flex flex-col items-center gap-[19px]">
+              <div className="mx-[30px] flex max-w-[480px]">
+                <input
+                  className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                  type="email"
+                  id="emailInput"
+                  placeholder="E-mail"
+                  {...register("email", {
+                    onChange: () => setEmailNotExists(""),
+                  })}
+                />
+                {errors.email && (
+                  <p className="ml-7 -mb-[16px] text-[14px] text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+              <div className="mx-[30px] max-w-[480px]">
+                <div className="flex items-center justify-end">
+                  <label className="swap absolute mr-[30px] md:ml-[430px]">
+                    <input
+                      type="checkbox"
+                      onClick={() => showHidePassword()}
+                    ></input>
+                    <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
+                    <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
+                  </label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    id="passwordInput"
+                    placeholder="Contraseña"
+                    {...register("password", {
+                      onChange: () => setEmailNotExists(""),
+                    })}
+                  />
+                </div>
+                {errors.password && (
+                  <p className="ml-7 -mb-[16px] text-[14px] text-red-500">
+                    Contraseña inválida
+                  </p>
+                )}
+                <div className="mt-[1px] w-full text-end">
+                  <label
+                    htmlFor="my-modal"
+                    className="ml-[327] cursor-pointer text-xs md:mr-[31px]"
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </label>
+                </div>
+                <p className="font-semibold text-red-500">{emailNotExists}</p>
+              </div>
+            </div>
+            {/* End Email + password */}
+            {/* Buttons */}
+            <div className="flex flex-col items-center">
+              <button
+                type="submit"
+                className="btn btn-lg mx-[15px] mt-[69px] h-[60px] w-[480px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px]"
+              >
+                Iniciar sesión
+              </button>
+              <hr className="mx-[16px] mt-[30px] flex h-0 w-[476px] border-spacing-0 border-black border-opacity-30 md:mx-[32px]"></hr>
+              <div className="mx-[15px] mt-[30px] flex items-center align-middle md:mx-[30px]">
+                <button
+                  className="btn h-[60px] w-[480px] rounded-[30px] border-[1px] border-[#212529] bg-base-100 font-raleway text-sm hover:bg-base-100"
+                  type="button"
+                  style={{ transition: "all .15s ease" }}
+                  onClick={() =>
+                    signIn("google", {
+                      callbackUrl: "/",
+                    })
+                  }
+                >
+                  Iniciar sesión con Google
+                </button>
+                <IoLogoGoogle className="absolute ml-[25px] h-[25px] w-[25px]"></IoLogoGoogle>
+              </div>
+              <p className="font-semibold text-button">{googleError}</p>
+            </div>
+            {/* End Buttons */}
+          </form>
+        </div>
+      </main>
+    </>
   );
 };
 
