@@ -3,13 +3,14 @@ import Header from "./Header";
 import Link from "next/link";
 import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
+import { signOut, useSession } from "next-auth/react";
+
 interface Props {
   children: JSX.Element | JSX.Element[];
   bgColor: string;
   headerBgLight: boolean;
   headerTextDark: boolean;
 }
-import { signOut } from "next-auth/react";
 
 export default function Layout({
   children,
@@ -17,6 +18,7 @@ export default function Layout({
   headerBgLight,
   headerTextDark,
 }: Props) {
+  const { data: session } = useSession();
   return (
     <div className={`${bgColor} w-full`}>
       <div className="px-4">
@@ -63,15 +65,19 @@ export default function Layout({
                 <div className="flex flex-col gap-2">
                   <Link href="/product">Nuestra tienda</Link>
                   <Link href="/product">Salud y bienestar</Link>
-                  <Link href="/login">Iniciar sesión</Link>
-                  <Link href="/">Registrarse</Link>
-                  <button
-                    onClick={() => {
-                      signOut({ callbackUrl: "/" });
-                    }}
-                  >
-                    Cerrar sesión
-                  </button>
+                  {!session ? (
+                    <Link href="/login">Iniciar sesión</Link>
+                  ) : (
+                    <button
+                      className="text-left"
+                      onClick={() => {
+                        signOut({ callbackUrl: "/" });
+                      }}
+                    >
+                      Cerrar sesión
+                    </button>
+                  )}
+                  {!session && <Link href="/">Registrarse</Link>}
                 </div>
                 <div className="mr-10 mb-4 flex items-end justify-start gap-3 py-4  sm:mb-14 sm:justify-end sm:py-0">
                   <Link href="https://www.instagram.com/eco_pandas/">

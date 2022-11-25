@@ -31,9 +31,11 @@ function NavBarClient() {
           </Link>
           <DropdownCategories />
         </div>
-        <Link href={`/recipe`}>salud y bienestar</Link>
-        <Link href={`/recipe`}>recetas</Link>
-        <Link href={`/recipe`}>talleres</Link>
+        <div className="flex flex-col gap-2 sm:gap-4 md:flex-row">
+          <Link href={`/recipe`}>salud y bienestar</Link>
+          <Link href={`/recipe`}>recetas</Link>
+          <Link href={`/recipe`}>talleres</Link>
+        </div>
       </div>
     </nav>
   );

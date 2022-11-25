@@ -60,7 +60,7 @@ const SignIn: NextPage = () => {
         src="/img/fondoLogin.png"
         width="2000"
         height="300"
-        layout="fill"
+        // layout="fill"
       />
       <div className="max-w-md rounded-md bg-white p-8 shadow-lg shadow-kym4">
         <div className="mb-3 text-center">
