@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { ILogin, loginSchema } from "../utils/validations/auth";
 import { IoEyeOffSharp, IoEyeSharp, IoLogoGoogle } from "react-icons/io5";
+import Link from "next/link";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
@@ -24,17 +25,6 @@ const SignIn: NextPage = () => {
   const { status } = useSession();
   if (status == "authenticated") {
     router.push("/");
-  }
-
-  const [googleError, setGoogleError] = useState("");
-
-  if (
-    router.query.error &&
-    router.query.error == "OAuthAccountNotLinked" &&
-    googleError == ""
-  ) {
-    setGoogleError("Ya existe una cuenta con ese correo de Google");
-    router.replace("/login", undefined, { shallow: true });
   }
 
   if (
@@ -88,23 +78,28 @@ const SignIn: NextPage = () => {
             </p>
             <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
               ¿Aún no tienes una cuenta? Únete a kilo y medio {""}
-              <b className="font-satoshiBold">registrándote</b>.
+              <Link href="/register">
+                <b className="cursor-pointer font-satoshiBold">registrándote</b>
+              </Link>
+              .
             </p>
           </div>
           {/* End Text */}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email + password */}
             <div className="mt-[67px] flex flex-col items-center gap-[19px]">
-              <div className="mx-[30px] flex max-w-[480px]">
-                <input
-                  className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                  type="email"
-                  id="emailInput"
-                  placeholder="E-mail"
-                  {...register("email", {
-                    onChange: () => setEmailNotExists(""),
-                  })}
-                />
+              <div className="mx-[30px]">
+                <div className="flex max-w-[480px]">
+                  <input
+                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    type="email"
+                    id="emailInput"
+                    placeholder="E-mail"
+                    {...register("email", {
+                      onChange: () => setEmailNotExists(""),
+                    })}
+                  />
+                </div>
                 {errors.email && (
                   <p className="ml-7 -mb-[16px] text-[14px] text-red-500">
                     {errors.email.message}
@@ -172,7 +167,6 @@ const SignIn: NextPage = () => {
                 </button>
                 <IoLogoGoogle className="absolute ml-[25px] h-[25px] w-[25px]"></IoLogoGoogle>
               </div>
-              <p className="font-semibold text-button">{googleError}</p>
             </div>
             {/* End Buttons */}
           </form>
