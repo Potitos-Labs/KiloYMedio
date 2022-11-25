@@ -318,7 +318,8 @@ model Recipe {
     name             String
     portions         Int
     RecipeIngredient RecipeIngredient[]
-    timeSpan         Int
+    preparationTime  Int
+    cookingTime      Int
     userId           String
     User             User               @relation(fields: [userId], references: [id])
     RecipeUser       RecipeUser[]

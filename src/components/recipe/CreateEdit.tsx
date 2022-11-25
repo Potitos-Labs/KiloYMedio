@@ -15,9 +15,11 @@ import {
 } from "../../utils/validations/recipe";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { IngredientUnit } from "@prisma/client";
+import TimeSpanForm from "@components/ui/TimeSpanForm";
 
 const defaultRecipe: ICreateRecipe = {
-  timeSpan: { hour: 0, minute: 1 },
+  cookingTime: { hour: 0, minute: 1 },
+  preparationTime: { hour: 0, minute: 1 },
   portions: 1,
   ingredients: [{ name: "", amount: 1, unit: "tablespoon" }],
   directions: [{ direction: "", index: 0 }],
@@ -49,12 +51,14 @@ export default function CreateEdit(props: {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<ICreateRecipe>({
     resolver: zodResolver(createRecipeSchema),
     criteriaMode: "all",
     defaultValues: recipe,
   });
+  console.log(watch());
 
   const {
     fields: fieldsIngredients,
@@ -142,44 +146,34 @@ export default function CreateEdit(props: {
             </div>
             {/* Difficulty End*/}
 
-            {/* Time Span */}
+            {/* Cooking time */}
             <div className="flex flex-row items-center gap-2">
-              <div className="text-lg">Duración </div>
-              <Controller
-                name="timeSpan.hour"
+              <TimeSpanForm
                 control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <>
-                    <IncDecRecipe
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                      maxValue={23}
-                    ></IncDecRecipe>
-                  </>
-                )}
-              ></Controller>
-              <p className="pr-5">horas</p>
-              <Controller
-                name="timeSpan.minute"
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <IncDecRecipe
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    maxValue={59}
-                  ></IncDecRecipe>
-                )}
-              ></Controller>
-              <p>minutos</p>
-              {errors.timeSpan && (
+                label={"cookingTime"}
+                name={"Tiempo de cocinado"}
+              />
+              {errors.cookingTime && (
                 <p className="flex text-sm text-red-500">
-                  {errors.timeSpan?.minute?.message}
+                  {errors.cookingTime?.minute?.message}
                 </p>
               )}
             </div>
-            {/* Time Span End*/}
+            {/* Cooking time End*/}
+            {/* Preparation time */}
+            <div className="flex flex-row items-center gap-2">
+              <TimeSpanForm
+                control={control}
+                label={"preparationTime"}
+                name={"Tiempo de preparación"}
+              />
+              {errors.preparationTime && (
+                <p className="flex text-sm text-red-500">
+                  {errors.preparationTime?.minute?.message}
+                </p>
+              )}
+            </div>
+            {/* Preparation time End*/}
 
             {/* Portions */}
             <div className="flex flex-row items-center gap-2">
@@ -213,12 +207,13 @@ export default function CreateEdit(props: {
                   <>
                     <UploadImage setImageURL={onChange} />
                     <Image
-                      src={value ?? "/img/placeholder.jpg"}
+                      src={value ? value : "/img/placeholder.jpg"}
                       alt={value}
                       height={100}
                       width={100}
                       layout="fixed"
                       objectFit="cover"
+                      priority={true}
                     />
                   </>
                 )}
