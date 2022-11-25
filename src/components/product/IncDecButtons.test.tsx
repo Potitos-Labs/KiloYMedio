@@ -13,6 +13,7 @@ describe("SelectMenu test", () => {
         stock={100}
         stockLeft={true}
         productUnit="unit"
+        classNameBorder="flex"
       ></IncDecButtons>,
     );
   });

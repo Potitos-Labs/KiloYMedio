@@ -8,20 +8,15 @@ import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import DotMenu from "../DotMenu";
+import Addproductchart from "./Addproductchart";
 import IncDecButtons from "./IncDecButtons";
 
 function Product({ product }: { product: IProduct }) {
   const { data } = useSession();
   const isEdible = product.Edible != null;
-  const notify = () => toast.success("Producto añadido");
   const notifyDeleted = () => toast.success("Producto eliminado");
   const stockLeft = product.stock * 1000 >= 100;
   const utils = trpc.useContext();
-  const mutation = trpc.cart.addProduct.useMutation({
-    onSuccess() {
-      utils.cart.getAllCartProduct.invalidate();
-    },
-  });
 
   const defaultValue = {
     grams: 100,
@@ -49,15 +44,8 @@ function Product({ product }: { product: IProduct }) {
     notifyDeleted();
   };
 
-  function addToCart() {
-    if (stockLeft) {
-      notify();
-      mutation.mutateAsync({ productId: product.id, amount: amount });
-    }
-  }
-
   return (
-    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-4 text-center shadow-lg hover:shadow-kym4">
+    <div className="bg-pase-100 flex h-full w-full flex-col items-center justify-center rounded-md border-2 border-black py-4  shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>
@@ -85,9 +73,7 @@ function Product({ product }: { product: IProduct }) {
         </div>
       )}
       <Link href={`/product/${product.id}`}>
-        <p className="mx-2 mb-2 h-10 cursor-pointer self-center pb-2 font-semibold text-kym4 first-letter:uppercase">
-          {product.name}
-        </p>
+        <p className="font-raleway text-base">{product.name}</p>
       </Link>
       {data?.user?.role != "admin" && (
         <div className="">
@@ -98,18 +84,13 @@ function Product({ product }: { product: IProduct }) {
             stockLeft={stockLeft}
             isEdible={isEdible}
             productUnit={product.ProductUnit}
+            classNameBorder={"flex"}
           />
-          <button
-            disabled={!stockLeft}
-            onClick={addToCart}
-            className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
-              !stockLeft
-                ? "cursor-not-allowed px-10 opacity-50"
-                : "hover:border-transparent hover:bg-button_hover hover:text-white"
-            }`}
-          >
-            {stockLeft ? "Añadir" : "Agotado"}
-          </button>
+          <Addproductchart
+            amount={amount}
+            product={product}
+            EditclassName={"w-30"}
+          />
         </div>
       )}
     </div>

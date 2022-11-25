@@ -9,6 +9,7 @@ function IncDecButtons({
   isEdible,
   stockLeft,
   productUnit,
+  classNameBorder,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
   amount: number;
@@ -16,6 +17,7 @@ function IncDecButtons({
   isEdible: boolean;
   stockLeft: boolean;
   productUnit: ProductUnit;
+  classNameBorder: string;
 }) {
   const maxStock = isEdible ? stock * 1000 : stock;
 
@@ -44,11 +46,11 @@ function IncDecButtons({
   };
 
   return (
-    <div className="flex h-full w-full flex-row rounded-full ring-1 ring-base-content ring-offset-0">
+    <div className={` ${classNameBorder} flex h-full w-full flex-row`}>
       <button
         disabled={!stockLeft || amount == incdecValues[productUnit]}
         className={clsx(
-          `w-8 flex-auto bg-transparent font-bold text-base-content`,
+          `w-8 flex-auto bg-transparent`,
           (!stockLeft || amount == incdecValues[productUnit]) &&
             "cursor-not-allowed opacity-60",
         )}
@@ -56,12 +58,12 @@ function IncDecButtons({
       >
         -
       </button>
-      <p className="place-content-center self-center whitespace-nowrap rounded-md px-1 text-center text-sm">
+      <p className="place-content-center self-center text-sm">
         {amount} {unitDisplay[productUnit]}
       </p>
       <button
         disabled={!stockLeft || maxStock == amount}
-        className={`h-full w-8 flex-auto bg-transparent font-bold text-base-content  ${
+        className={`h-full w-8 flex-auto bg-transparent  ${
           (!stockLeft || maxStock == amount) && "cursor-not-allowed opacity-60"
         }`}
         onClick={incrementClick}

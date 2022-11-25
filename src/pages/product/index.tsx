@@ -132,7 +132,7 @@ export default function CreateProdcut(
           <div className="py-12 px-6">
             {data ? (
               data.length !== 0 ? (
-                <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                   {data.map((product) => {
                     const productParsed = productSchema.safeParse(product);
                     if (productParsed.success)

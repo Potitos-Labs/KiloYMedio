@@ -74,6 +74,7 @@ function Product({
               stockLeft={stockLeft}
               isEdible={isEdible}
               productUnit={cartProduct.product.ProductUnit}
+              classNameBorder={"flex"}
             />
           </div>
         </div>
