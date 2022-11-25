@@ -1,4 +1,4 @@
-import Loading from "@components/ui/Loading";
+//import Loading from "@components/ui/Loading";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -7,15 +7,15 @@ import AdminHeader from "./AdminHeader";
 import CartHeader from "./CartHeader";
 
 export default function NavBar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  if (status == "loading") {
-    return (
-      <>
-        <Loading message="" />
-      </>
-    );
-  }
+  // if (status == "loading") {
+  //   return (
+  //     <>
+  //       <Loading message="" />
+  //     </>
+  //   );
+  // }
 
   // Not authenticated
   if (!session) {

@@ -1,15 +1,58 @@
+import { trpc } from "@utils/trpc";
+import { useState } from "react";
+
 import { TiStarFullOutline } from "react-icons/ti";
+
 import Stars from "../../Stars";
 import Comment from "./Comment";
 
-function CommentSection() {
+function CommentSection({ recipeId }: { recipeId: string }) {
+  const utils = trpc.useContext();
+
+  const { data } = trpc.user.client.getRecipeComments.useQuery({
+    recipeId: recipeId,
+  });
+
+  const mutation = trpc.user.client.newRecipeComment.useMutation({
+    onSuccess() {
+      utils.user.client.getRecipeComments.invalidate();
+    },
+  });
+
+  const [comment, setComment] = useState("");
+
+  function sendComment() {
+    mutation.mutateAsync({
+      recipeId: recipeId,
+      description: comment,
+      rating: 5,
+    });
+  }
+
   return (
     <div className="my-16">
       <a className="tab tab-active tab-lifted h-24 rounded-tr-[50px] font-raleway text-xl">
         <p className="mr-8">COMENTARIOS</p>
       </a>
       <div className="grid grid-cols-2 bg-base-100 px-8 py-16">
-        <Comment />
+        <div className="flex flex-col gap-6">
+          {data?.map((c) => {
+            return (
+              <Comment
+                key=""
+                user={c.User?.name ?? ""}
+                description={c.description ?? ""}
+                rating={c.rating}
+                date={c.createdAt}
+              />
+            );
+          })}
+          <div className="text-center">
+            <button className="w-32 rounded-full bg-base-content py-1 text-base-100">
+              cargar más
+            </button>
+          </div>
+        </div>
         <div>
           {/* Comments stats */}
           <div className="mb-14 flex gap-6">
@@ -55,12 +98,19 @@ function CommentSection() {
             <Stars average={5} />
 
             <textarea
-              id="message"
+              id="comment"
               className="mt-6 mr-2 block rounded-lg border p-3"
               placeholder="tu opinión"
+              value={comment}
+              onChange={(e) => {
+                setComment(e.target.value);
+                console.log(comment);
+              }}
             ></textarea>
-
-            <button className="my-4 w-28 rounded-full bg-base-content py-1 text-base-100">
+            <button
+              onClick={sendComment}
+              className="my-4 w-28 rounded-full bg-base-content py-1 text-base-100"
+            >
               enviar
             </button>
           </div>

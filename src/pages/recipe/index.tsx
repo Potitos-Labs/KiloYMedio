@@ -7,6 +7,9 @@ import { BsFilterSquare } from "react-icons/bs";
 import { IFilterRecipe } from "@utils/validations/recipe";
 import VerticalRecipeDisplayer from "@components/recipe/verticalRecipe/VerticalRecipeDisplayer";
 
+import Link from "next/link";
+import Image from "next/image";
+
 const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   const [filter, setFilter] = useState<IFilterRecipe>({
@@ -29,28 +32,53 @@ const Recipes = () => {
       headerTextDark={true}
     >
       <div className="m-6">
-        <p className="mx-5 my-10 mb-2 grow whitespace-nowrap text-2xl">
-          Lo más nuevo
-        </p>
-        <hr className="border-1 mx-5 border-kym3"></hr>
-        {mostRecentRecipes?.length != 0 && (
-          <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
-        )}
-        <div className="mx-5 flex flex-row">
-          <p className="my-2 mr-5 mb-2 grow whitespace-nowrap text-2xl">
-            Todas las recetas
+        <div>
+          <h1 className="mx-10 my-20 font-raleway text-3xl text-base-100">
+            ¿QUÉ TE APETECE COCINAR HOY?
+          </h1>
+          <div className="flex justify-between pr-14">
+            <div className="ml-10 flex w-48 flex-col gap-6">
+              <Link href="/recipe/create">
+                <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
+                  compartir recetas
+                </button>
+              </Link>
+              <Link href="/recipe">
+                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
+                  buscar recetas
+                </button>
+              </Link>
+            </div>
+            <Image
+              src="/img/fondoCucharasSinFondo.png"
+              width="700"
+              height="400"
+            />
+          </div>
+        </div>
+        <div className="rounded-xl bg-base-100">
+          <p className="mx-5 mb-10 p-8 font-raleway text-2xl">
+            NUESTRAS RECETAS
           </p>
-          <button onClick={() => setOpenFilter(!openFilter)}>
-            <BsFilterSquare size="1.5rem" className="peer mt-1.5 text-kym4" />
-          </button>
+          {mostRecentRecipes?.length != 0 && (
+            <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
+          )}
+          <div className="mx-5 flex flex-row">
+            <p className="my-2 mr-5 mb-2 grow whitespace-nowrap text-2xl">
+              Todas las recetas
+            </p>
+            <button onClick={() => setOpenFilter(!openFilter)}>
+              <BsFilterSquare size="1.5rem" className="peer mt-1.5 text-kym4" />
+            </button>
+          </div>
+          <hr className="border-1 mx-5 border-kym3"></hr>
+          <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
+            <FilterRecipe filter={filter} setFilter={setFilter} />
+          </div>
+          <VerticalRecipeDisplayer
+            recipes={filteredRecipes}
+          ></VerticalRecipeDisplayer>
         </div>
-        <hr className="border-1 mx-5 border-kym3"></hr>
-        <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
-          <FilterRecipe filter={filter} setFilter={setFilter} />
-        </div>
-        <VerticalRecipeDisplayer
-          recipes={filteredRecipes}
-        ></VerticalRecipeDisplayer>
       </div>
     </Layout>
   );

@@ -107,17 +107,20 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 <div className="mr-20 text-sm">
                   <h2 className="flex justify-between">
                     <span>Tiempo de preparación</span>
-                    {recipe?.preparationTime} min
+                    {recipe?.preparationTime ?? "-"} min
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
                     <span>Cocinar</span>
-                    {recipe?.preparationTime} min {/* Por hacer */}
+                    {recipe?.cookingTime ?? "-"} min
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
                     <span>Tiempo total</span>
-                    {recipe?.preparationTime} min {/* Por hacer */}
+                    {(recipe?.preparationTime ?? 0) +
+                      (recipe?.cookingTime ?? 0)}{" "}
+                    min
+                    {/* PROBAR LA SUMA */}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
@@ -230,7 +233,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         {/* End Recipe and Products */}
       </div>
       {/* End Black background */}
-      {/* Comments */} <CommentSection />
+      {/* Comments */} <CommentSection recipeId={id} />
     </div>
   );
 };
