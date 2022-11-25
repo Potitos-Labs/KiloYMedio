@@ -49,6 +49,16 @@
         format("woff"); /* Modern Browsers */
     font-display: swap;
   }
+
+  @font-face {
+    font-family: "SatoshiBold";
+    font-weight: 700;
+    font-style: bold;
+    src: url("../../public/fonts/Satoshi-Bold.woff2") format("woff2"),
+      /* Super Modern Browsers */ url("../../public/fonts/Satoshi-Bold.woff")
+        format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
 }
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {

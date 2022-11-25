@@ -19,6 +19,7 @@ module.exports = {
       fontFamily: {
         sans: ["Satoshi", ...defaultTheme.fontFamily.sans],
         raleway: ["Raleway", ...defaultTheme.fontFamily.sans],
+        satoshiBold: ["SatoshiBold", ...defaultTheme.fontFamily.sans],
       },
     },
     fontSize: {
