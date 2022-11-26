@@ -159,9 +159,35 @@ export const productRouter = router({
       },
     });
 
+    const inSpanish: Record<ECategory | NECategory, string> = {
+      driedFruits: "",
+      flours: "",
+      jams: "",
+      legumes: "",
+      nuts: "",
+      oils: "",
+      pastas: "",
+      syrups: "",
+      teas: "",
+      yeast: "",
+      accessories: "",
+      cleaningProducts: "",
+      personalCare: "",
+      home: "",
+    };
+
+    eCategories.forEach((eCategory) => {
+      inSpanish[eCategory.category] = eCategory.categoryInSpanish;
+    });
+
+    neCategories.forEach((neCategory) => {
+      inSpanish[neCategory.category] = neCategory.categoryInSpanish;
+    });
+
     const res = {
       eCategories,
       neCategories,
+      inSpanish,
     };
 
     return res;
