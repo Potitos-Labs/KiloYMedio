@@ -20,7 +20,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
     <div
       className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl p-2 lg:p-0`}
     >
-      <div className="absolute left-8 top-4 flex lg:hidden">
+      <div className="absolute left-8 top-4 flex cursor-pointer lg:hidden">
         <Image
           src="/img/logopequeño.png"
           alt="not found"

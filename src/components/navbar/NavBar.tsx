@@ -21,13 +21,13 @@ export default function NavBar() {
   if (!session) {
     return (
       <>
-        <div className="top-5 right-5 hidden gap-4 sm:top-8 sm:flex lg:top-9">
+        <div className="top-5 right-5 hidden gap-2 sm:top-8 sm:flex lg:top-9">
           <div>
-            <Link href="/login">INICIAR SESIÓN</Link>
+            <Link href="/register">registrarse</Link>
           </div>
-          <p className="hidden md:flex">|</p>
+          <p className="hidden md:flex">/</p>
           <div>
-            <Link href="/register">REGISTRARSE</Link>
+            <Link href="/login">iniciar sesión</Link>
           </div>
         </div>
       </>

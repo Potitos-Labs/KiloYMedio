@@ -1,18 +1,20 @@
-import Product from "@components/product/Product";
-import Image from "next/image";
+import React from "react";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React from "react";
 import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 
 import DotMenu from "../DotMenu";
+import Loading from "@components/ui/Loading";
+import Product from "@components/product/Product";
 import CommentSection from "./comments/CommentSection";
 
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+
 import Link from "next/link";
-import Loading from "@components/ui/Loading";
+import Image from "next/image";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });

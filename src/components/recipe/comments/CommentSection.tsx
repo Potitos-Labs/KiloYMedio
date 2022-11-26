@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import { TiStarFullOutline } from "react-icons/ti";
 
-import Stars from "../../Stars";
 import Comment from "./Comment";
+import HalfRating from "./HalfRating";
 
 function CommentSection({ recipeId }: { recipeId: string }) {
   const utils = trpc.useContext();
@@ -20,12 +20,13 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   });
 
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
 
   function sendComment() {
     mutation.mutateAsync({
       recipeId: recipeId,
       description: comment,
-      rating: 5,
+      rating: rating,
     });
   }
 
@@ -95,8 +96,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             <p className="mb-2 font-satoshiBold text-sm">
               DÉJANOS AQUÍ TU OPINIÓN
             </p>
-            <Stars average={5} />
-
+            <HalfRating setRating={setRating} />
             <textarea
               id="comment"
               className="mt-6 mr-2 block rounded-lg border p-3"
