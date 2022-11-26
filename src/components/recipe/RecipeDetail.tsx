@@ -222,7 +222,10 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 ingredients.map((i) => {
                   if (i.Ingredient.Edible)
                     return (
-                      <Product product={i.Ingredient.Edible.product}></Product>
+                      <Product
+                        product={i.Ingredient.Edible.product}
+                        showButtons={true}
+                      ></Product>
                     );
                 })
               ) : (

@@ -46,7 +46,7 @@ function IncDecButtons({
   };
 
   return (
-    <div className={` ${className} flex h-full w-full flex-row`}>
+    <div className={` ${className} flex h-full w-full flex-row font-bold`}>
       <button
         disabled={!stockLeft || amount == incdecValues[productUnit]}
         className={clsx(
@@ -63,7 +63,7 @@ function IncDecButtons({
       </p>
       <button
         disabled={!stockLeft || maxStock == amount}
-        className={`h-full w-8 flex-auto bg-transparent  ${
+        className={`h-full w-6 flex-auto bg-transparent font-bold ${
           (!stockLeft || maxStock == amount) && "cursor-not-allowed opacity-60"
         }`}
         onClick={incrementClick}

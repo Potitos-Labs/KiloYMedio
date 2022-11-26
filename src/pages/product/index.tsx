@@ -132,7 +132,7 @@ export default function CreateProdcut(
           <div className="py-12 px-6">
             {data ? (
               data.length !== 0 ? (
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {data.map((product) => {
                     const productParsed = productSchema.safeParse(product);
                     if (productParsed.success)
@@ -140,6 +140,7 @@ export default function CreateProdcut(
                         <Product
                           key={product.id}
                           product={productParsed.data}
+                          showButtons={true}
                         ></Product>
                       );
                     console.log(productParsed.error);

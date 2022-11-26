@@ -36,7 +36,7 @@ function Addproductchart({
   return (
     <button
       onClick={addToCart}
-      className={`h-full  flex-initial rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
+      className={`h-auto  rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
       } ${className}`}
     >

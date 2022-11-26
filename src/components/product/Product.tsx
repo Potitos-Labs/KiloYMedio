@@ -11,7 +11,13 @@ import DotMenu from "../DotMenu";
 import Addproductchart from "./Addproductchart";
 import IncDecButtons from "./IncDecButtons";
 
-function Product({ product }: { product: IProduct }) {
+function Product({
+  product,
+  showButtons,
+}: {
+  product: IProduct;
+  showButtons: boolean;
+}) {
   const { data } = useSession();
   const isEdible = product.Edible != null;
   const notifyDeleted = () => toast.success("Producto eliminado");
@@ -45,7 +51,7 @@ function Product({ product }: { product: IProduct }) {
   };
 
   return (
-    <div className="bg-pase-100 flex h-full w-full flex-col items-center justify-center rounded-md border-2 border-black py-4  shadow-lg hover:shadow-kym4">
+    <div className="bg-pase-100 flex flex-col items-center justify-center rounded-md border-2 border-black py-4  shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>
@@ -73,10 +79,12 @@ function Product({ product }: { product: IProduct }) {
         </div>
       )}
       <Link href={`/product/${product.id}`}>
-        <p className="font-raleway text-base">{product.name}</p>
+        <p className="mx-10 text-center font-raleway text-base">
+          {product.name}
+        </p>
       </Link>
-      {data?.user?.role != "admin" && (
-        <div className="">
+      {data?.user?.role != "admin" && showButtons && (
+        <div className="flex flex-col gap-4 pt-6">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
