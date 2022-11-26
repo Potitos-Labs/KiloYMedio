@@ -62,14 +62,16 @@ export default function CreateProdcut(
   }
 
   const router = useRouter();
-  const category = router.query.category as string;
-  const ecategory = z.nativeEnum(ECategory).safeParse(category);
-  const necategory = z.nativeEnum(NECategory).safeParse(category);
+  const fullCat = router.query.category as string;
+  const category = fullCat?.split(",");
+
+  const ecategory = z.array(z.nativeEnum(ECategory)).safeParse(category);
+  const necategory = z.array(z.nativeEnum(NECategory)).safeParse(category);
 
   const [filter, setFilter] = useState<IFilterProduct>({
     name: "",
-    eCategories: ecategory.success ? [ecategory.data] : [],
-    neCategories: necategory.success ? [necategory.data] : [],
+    eCategories: ecategory.success ? ecategory.data : [],
+    neCategories: necategory.success ? necategory.data : [],
     minPrice: undefined,
     maxPrice: undefined,
     allergens: [],
