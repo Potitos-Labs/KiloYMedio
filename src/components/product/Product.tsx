@@ -84,12 +84,11 @@ function Product({ product }: { product: IProduct }) {
             stockLeft={stockLeft}
             isEdible={isEdible}
             productUnit={product.ProductUnit}
-            classNameBorder={"flex"}
           />
           <Addproductchart
             amount={amount}
             product={product}
-            EditclassName={"w-30"}
+            className={"w-30"}
           />
         </div>
       )}

@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 function Addproductchart({
   amount,
   product,
-  EditclassName,
+  className,
 }: {
   amount: number;
   product: IProduct;
-  EditclassName: string;
+  className?: string;
 }) {
   const utils = trpc.useContext();
   const stockLeft = product.stock * 1000 >= 100;
@@ -38,7 +38,7 @@ function Addproductchart({
       onClick={addToCart}
       className={`h-full  flex-initial rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
-      } ${EditclassName}`}
+      } ${className}`}
     >
       <div className="flex h-full flex-row">
         <div className="flex h-full flex-col items-center justify-center self-center rounded-full bg-base-content text-center text-sm text-base-100">

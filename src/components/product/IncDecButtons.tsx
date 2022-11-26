@@ -9,7 +9,7 @@ function IncDecButtons({
   isEdible,
   stockLeft,
   productUnit,
-  classNameBorder,
+  className,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
   amount: number;
@@ -17,7 +17,7 @@ function IncDecButtons({
   isEdible: boolean;
   stockLeft: boolean;
   productUnit: ProductUnit;
-  classNameBorder: string;
+  className?: string;
 }) {
   const maxStock = isEdible ? stock * 1000 : stock;
 
@@ -46,7 +46,7 @@ function IncDecButtons({
   };
 
   return (
-    <div className={` ${classNameBorder} flex h-full w-full flex-row`}>
+    <div className={` ${className} flex h-full w-full flex-row`}>
       <button
         disabled={!stockLeft || amount == incdecValues[productUnit]}
         className={clsx(

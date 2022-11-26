@@ -211,10 +211,10 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
           isEdible={product.Edible ? true : false}
           stockLeft={stockLeft} //cambiar
           productUnit={product.ProductUnit}
-          classNameBorder={"flex"}
+          className={"rounded-full ring-1 ring-base-content ring-offset-0"}
         />
       </div>
-      <Addproductchart amount={amount} product={product} EditclassName={""} />
+      <Addproductchart amount={amount} product={product} />
     </div>
   );
 };
