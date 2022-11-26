@@ -20,17 +20,16 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
     <div
       className={`${bgColor} ${textColor} z-20 justify-between rounded-b-3xl p-2 lg:p-0`}
     >
-      <div className="mx-4 flex items-center justify-between sm:mx-10">
-        <div className="flex  lg:hidden">
-          <Image
-            src="/img/logopequeño.png"
-            alt="not found"
-            width="25"
-            height="30"
-            onClick={() => router.push("/")}
-          ></Image>
-        </div>
-
+      <div className="absolute left-8 top-4 flex lg:hidden">
+        <Image
+          src="/img/logopequeño.png"
+          alt="not found"
+          width="24"
+          height="28"
+          onClick={() => router.push("/")}
+        ></Image>
+      </div>
+      <div className="mx-4 flex items-center justify-end sm:mx-10 lg:justify-between">
         <NavBarClient />
         <Link href={`/`}>
           <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
