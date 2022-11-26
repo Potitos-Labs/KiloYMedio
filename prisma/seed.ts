@@ -39,28 +39,80 @@ async function main() {
     },
   });
 
-  const harinasYPastas = await prisma.supraCategory.create({
+  const Pastas = await prisma.supraCategory.create({
     data: {
       supraCategoryName: "Harinas y pastas",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "flours" }, { category: "pastas" }],
+          data: [{ category: "pastas" }],
         },
       },
     },
   });
 
-  const semillasYEspacias = await prisma.supraCategory.createMany({
-    data: [
-      {
-        supraCategoryName: "Semillas y especias",
+  const HarinasYLevaduras = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "Harinas, Levaduras y grano",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "flours" }, { category: "yeast" }],
+        },
       },
-    ],
+    },
+  });
+
+  const CuidadoPersonal = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "Productos cuidado",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "flours" }, { category: "yeast" }],
+        },
+      },
+    },
   });
 
   const legumbresYArroces = await prisma.supraCategory.create({
     data: {
       supraCategoryName: "legumbre y arroces",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "legumes" }],
+        },
+      },
+    },
+  });
+
+  const aceitesYVinagres = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "aceites y vinagres",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "oils" }],
+        },
+      },
+    },
+  });
+
+  const cafesYInfusiones = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "cafés, tés e infusiones",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "teas" }],
+        },
+      },
+    },
+  });
+
+  const mermeladasYSiropes = await prisma.supraCategory.create({
+    data: {
+      supraCategoryName: "mermeladas y siropes",
+      SupraCategoryRelation: {
+        createMany: {
+          data: [{ category: "jams" }, { category: "syrups" }],
+        },
+      },
     },
   });
 
