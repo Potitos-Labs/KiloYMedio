@@ -70,13 +70,13 @@ const SignIn: NextPage = () => {
       </div>
 
       <main className="flex h-screen flex-col items-center justify-center bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoLogin.png')]">
-        <div className="h-[760px] w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:w-[540px]">
+        <div className="h-screen w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:h-[760px] md:w-[540px]">
           {/* Text */}
           <div className="text-center">
-            <p className="mt-[80px] ml-[30px] mr-[175px] w-[335px] font-raleway text-[43px]">
+            <p className="ml-[15px] mr-[175px] mt-[80px] w-[335px] font-raleway text-[43px] md:ml-[30px]">
               ¡Hola de nuevo!
             </p>
-            <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
+            <p className="ml-[16px] mr-[17px] mt-[30px] text-left text-sm md:ml-[33px]">
               ¿Aún no tienes una cuenta? Únete a kilo y medio {""}
               <Link href="/register">
                 <b className="cursor-pointer font-satoshiBold">registrándote</b>
@@ -87,11 +87,11 @@ const SignIn: NextPage = () => {
           {/* End Text */}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email + password */}
-            <div className="mt-[67px] flex flex-col items-center gap-[19px]">
+            <div className="responsive mt-[67px] flex flex-col items-center gap-[19px]">
               <div className="mx-[30px]">
                 <div className="flex max-w-[480px]">
                   <input
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
                     type="email"
                     id="emailInput"
                     placeholder="E-mail"
@@ -106,7 +106,7 @@ const SignIn: NextPage = () => {
                   </p>
                 )}
               </div>
-              <div className="mx-[30px] max-w-[480px]">
+              <div className="mx-[30px] md:w-[480px]">
                 <div className="flex items-center justify-end">
                   <label className="swap absolute mr-[30px] md:ml-[430px]">
                     <input
@@ -118,7 +118,7 @@ const SignIn: NextPage = () => {
                   </label>
                   <input
                     type={showPassword ? "text" : "password"}
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
                     id="passwordInput"
                     placeholder="Contraseña"
                     {...register("password", {
@@ -147,14 +147,14 @@ const SignIn: NextPage = () => {
             <div className="flex flex-col items-center">
               <button
                 type="submit"
-                className="btn btn-lg mx-[15px] mt-[69px] h-[60px] w-[480px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px]"
+                className="responsive btn btn-lg mx-[15px] mt-[69px] h-[60px] w-[350px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:w-[480px]"
               >
                 Iniciar sesión
               </button>
-              <hr className="mx-[16px] mt-[30px] flex h-0 w-[476px] border-spacing-0 border-black border-opacity-30 md:mx-[32px]"></hr>
+              <hr className="mx-[16px] mt-[30px] flex h-0 w-[346px] border-spacing-0 border-black border-opacity-30 md:mx-[32px] md:w-[476px]"></hr>
               <div className="mx-[15px] mt-[30px] flex items-center align-middle md:mx-[30px]">
                 <button
-                  className="btn h-[60px] w-[480px] rounded-[30px] border-[1px] border-[#212529] bg-base-100 font-raleway text-sm hover:bg-base-100"
+                  className="btn h-[60px] w-[350px] rounded-[30px] border-[1px] border-[#212529] bg-base-100 font-raleway text-sm hover:bg-base-100 md:w-[480px]"
                   type="button"
                   style={{ transition: "all .15s ease" }}
                   onClick={() =>

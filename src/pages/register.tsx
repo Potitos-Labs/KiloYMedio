@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
@@ -14,20 +15,31 @@ const SignUp: NextPage = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
     shouldUseNativeValidation: true, // need for :invalid tag tailwind
     criteriaMode: "all",
+    reValidateMode: "onChange",
   });
+
+  const { status } = useSession();
+  if (status == "authenticated") {
+    router.push("/");
+  }
 
   const { mutateAsync } = trpc.user.client.createNew.useMutation();
 
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
+  const [matchPassword, setMatchPassword] = useState(false);
+  const [confirmPassword, setConfirmValue] = useState("");
 
+  console.log({ matchPassword });
   const onSubmit = useCallback(
     async (data: ISignUp) => {
       try {
+        if (!matchPassword) return;
         const result = await mutateAsync(data);
         if (result.status === 201) {
           router.push("/");
@@ -36,7 +48,7 @@ const SignUp: NextPage = () => {
         setEmailAlreadyExists(true);
       }
     },
-    [mutateAsync, router],
+    [mutateAsync, router, matchPassword],
   );
 
   const [showPassword, setShowPassword] = useState(false);
@@ -45,9 +57,17 @@ const SignUp: NextPage = () => {
     setShowPassword((showPassword) => !showPassword);
   }
 
-  // const [matchPassword, setMatchPassword] = useState(false);
-
-  // function passwordMatch(e) {}
+  useEffect(() => {
+    if (confirmPassword == "") {
+      setMatchPassword(false);
+      return;
+    }
+    if (getValues("password") != confirmPassword) {
+      setMatchPassword(false);
+    } else {
+      setMatchPassword(true);
+    }
+  }, [confirmPassword, getValues]);
 
   console.log({ errors });
   return (
@@ -141,7 +161,9 @@ const SignUp: NextPage = () => {
                     placeholder="Repetir contraseña"
                     id="passwordConfirm"
                     className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                    // onChange={(e) => passwordMatch(e.target.value)}
+                    onChange={(e) => {
+                      setConfirmValue(e.target.value ?? "");
+                    }}
                   />
                 </div>
                 {errors.password && (
@@ -149,13 +171,13 @@ const SignUp: NextPage = () => {
                     {errors.password.message}
                   </p>
                 )}
-                {/* {!errors.password &&
-                  document.getElementById("password") !==
-                    document.getElementById("passwordConfirm") && (
+                {!matchPassword &&
+                  !errors.password &&
+                  getValues("password") != "" && (
                     <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
                       Las contraseñas no coinciden
                     </p>
-                  )} */}
+                  )}
               </div>
             </div>
             {/* End Info */}
