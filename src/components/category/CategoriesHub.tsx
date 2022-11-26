@@ -14,6 +14,7 @@ function CategoriesHub({
 }) {
   const { data: supraCategories } =
     trpc.product.getAllSupraCategories.useQuery();
+  const { data: categories } = trpc.product.getAllCategories.useQuery();
   function closePopUp() {
     setOpen(false);
   }
@@ -35,14 +36,18 @@ function CategoriesHub({
             cerrar
           </button>
           <div className=" h-fill mx-4  grid h-5/6 w-full grid-cols-3 gap-8 rounded-md bg-base-100 py-12 px-4">
-            {supraCategories?.map((sc, index) => (
-              <CategoryCards
-                key={index}
-                name={sc.supraCategoryName}
-                relations={sc.SupraCategoryRelation}
-                closePopUp={closePopUp}
-              ></CategoryCards>
-            ))}
+            {categories &&
+              supraCategories?.map((sc, index) => (
+                <CategoryCards
+                  key={index}
+                  name={sc.supraCategoryName}
+                  relations={sc.SupraCategoryRelation.map((cat) => ({
+                    category: cat.category,
+                    text: categories.inSpanish[cat.category],
+                  }))}
+                  closePopUp={closePopUp}
+                ></CategoryCards>
+              ))}
             <div className="flex items-end justify-end justify-items-end">
               <button
                 className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "

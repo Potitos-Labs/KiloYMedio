@@ -64,7 +64,6 @@ export default function CreateProdcut(
   const router = useRouter();
   const fullCat = router.query.category as string;
   const category = fullCat?.split(",");
-
   const ecategory = z.array(z.nativeEnum(ECategory)).safeParse(category);
   const necategory = z.array(z.nativeEnum(NECategory)).safeParse(category);
 
@@ -78,6 +77,9 @@ export default function CreateProdcut(
     orderByName: "asc",
     orderByPrice: undefined,
   });
+
+  if (filter.eCategories.length > 0 || filter.neCategories.length > 0)
+    router.replace("/product", undefined, { shallow: true });
 
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 

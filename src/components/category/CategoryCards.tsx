@@ -1,4 +1,4 @@
-import { SupraCategoryRelation } from "@prisma/client";
+import { ECategory } from "@prisma/client";
 import Link from "next/link";
 import router from "next/router";
 import { useState } from "react";
@@ -9,7 +9,7 @@ function CategoryCards({
   closePopUp,
 }: {
   name: string;
-  relations: SupraCategoryRelation[];
+  relations: { category: ECategory; text: string }[];
   closePopUp: () => void;
 }) {
   const [clicked, setClicked] = useState(Boolean);
@@ -54,9 +54,7 @@ function CategoryCards({
               closePopUp();
             }}
           >
-            <Link className="" href={`/product?category=${cat.category}`}>
-              {cat.category}
-            </Link>
+            <Link href={`/product?category=${cat.category}`}>{cat.text}</Link>
           </div>
         ))}
       </div>
