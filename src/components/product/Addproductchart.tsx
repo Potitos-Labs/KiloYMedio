@@ -41,7 +41,7 @@ function Addproductchart({
       } ${className}`}
     >
       <div className="flex h-full flex-row">
-        <div className="flex h-full flex-col items-center justify-center self-center rounded-full bg-base-content text-center text-sm text-base-100">
+        <div className="flex h-full w-24 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100">
           <span className="px-2 text-sm">{getTotalPrice() + " €"}</span>
         </div>
         <div className=" flex-initial self-center whitespace-nowrap px-2 text-center text-sm">

@@ -14,18 +14,14 @@ import IncDecButtons from "./IncDecButtons";
 import Addproductchart from "./Addproductchart";
 
 const ProductDetail = ({ product }: { product: IProduct }) => {
-  const { data } = useSession();
-
   return (
-    <div className="flex flex-col bg-base-200">
-      <div className="ml-16 pt-40">
-        <div className="grid w-fit grid-cols-2 gap-3">
-          <div className="flex h-auto w-full flex-col rounded-[20px] bg-base-100 px-16">
-            <ProductCard product={product} />
-            {data?.user?.role != "admin" && (
-              <PurchaseOptions product={product} />
-            )}
-          </div>
+    <div className="relative z-0 flex flex-col bg-base-200">
+      <div className="lg:ml-16 lg:pt-40">
+        <div className="grid w-fit grid-rows-2 gap-3 lg:grid-cols-2">
+          <ProductCard
+            product={product}
+            className="h-auto w-full rounded-b-[20px] bg-base-100 px-5 lg:rounded-[20px] lg:px-16"
+          />
           <Image
             height="600"
             width={400}
@@ -36,7 +32,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
             src={product.imageURL}
           />
         </div>
-        <button onClick={() => router.back()} className="mt-12">
+        <button onClick={() => router.back()} className="mt-12 ml-6 lg:ml-0">
           <div className="flex flex-nowrap items-center">
             <HiArrowLeft
               color={"a6806d"}
@@ -50,97 +46,17 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </button>
       </div>
       {product.Edible != null && <NutritionFacts product={product} />}
-      {/*<div className="item-center mx-10 mt-4 grid min-w-fit grid-cols-1 content-center gap-14 sm:grid-cols-2">
-          <div className="mb-10 flex max-h-64 flex-col items-center">
-            <Image
-              height="500"
-              width={300}
-              layout="intrinsic"
-              objectFit="cover"
-              className="rounded-md"
-              alt={product.name}
-              src={product.imageURL}
-            />
-          </div>
-
-          <div className="columns-1 lg:mt-3">
-            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
-              {product.name}
-            </h1>
-            <div className="inline-block">
-              <Stars average={4}></Stars>
-              <div className="mx-2 inline-block">
-                {data?.user?.role == "admin" && (
-                  <DotMenu
-                    id={product.id}
-                    name={product.name}
-                    type="producto"
-                    deleteFunction={deleteProduct}
-                    updateFunction={updateProduct}
-                  ></DotMenu>
-                )}
-              </div>
-            </div>
-
-            {allergensList.length > 0 ? (
-              <div>
-                <p>Alérgenos:</p>
-                <AllergensComponent
-                  allergens={allergensList}
-                  size={29}
-                ></AllergensComponent>
-              </div>
-            ) : null}
-
-            <p className="mt-4">Precio:</p>
-            <p className="mb-3 inline-block text-left text-xl">
-              {" "}
-              {isEdible ? (
-                <span>{product.Edible?.priceByWeight}</span>
-              ) : (
-                <span>{product.NonEdible?.price}</span>
-              )}
-              €/{unitPrice[product.ProductUnit]}
-            </p>
-
-            {data?.user?.role != "admin" && (
-              <div className="flex flex-col md:flex-row md:items-center">
-                <div className="mr-4">
-                  <IncDecButtons
-                    setAmount={setAmount}
-                    amount={amount}
-                    stock={product.stock}
-                    isEdible={isEdible}
-                    stockLeft={stockLeft} //cambiar
-                    productUnit={product.ProductUnit}
-                  />
-                </div>
-
-                <button
-                  onClick={addToCart}
-                  className={`w-[200px] rounded-xl border border-button bg-transparent px-0 text-kym4 sm:w-auto md:px-12 ${
-                    !stockLeft
-                      ? "cursor-not-allowed px-10 opacity-50"
-                      : "hover:border-transparent hover:bg-button_hover hover:text-white"
-                  }`}
-                >
-                  Añadir al carrito
-                </button>
-              </div>
-            )}
-          </div>
-        </div>*/}
-      {/*<div className="flex flex-col">
-        <DescriptionComponent description={product.description} />
-        {allergensList.length > 0 && (
-          <AllergenDescription allergens={allergensList} />
-        )}
-      </div>*/}
     </div>
   );
 };
 
-const ProductCard = ({ product }: { product: IProduct }) => {
+const ProductCard = ({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) => {
   const utils = trpc.useContext();
   const { data } = useSession();
   const { mutateAsync } = trpc.product.delete.useMutation({
@@ -167,7 +83,9 @@ const ProductCard = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="flex h-full flex-1 flex-col place-content-center space-y-2">
+    <div
+      className={`flex h-full flex-1 flex-col place-content-between space-y-2 py-[10%] lg:place-content-center ${className}`}
+    >
       {data?.user?.role == "admin" && (
         <div className="inline-block">
           <DotMenu
@@ -179,13 +97,13 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           />
         </div>
       )}
-      <p className="font-balck inline-block font-raleway text-2xl uppercase text-base-content">
+      <p className="inline-block text-center font-raleway text-2xl font-black uppercase text-base-content lg:text-left">
         {product.name}
       </p>
-      <p className="pr-[10%] text-justify font-sans text-sm leading-[20px]">
+      <p className="text-center font-sans text-sm leading-[20px] lg:pr-[10%] lg:text-justify">
         {product.description}
       </p>
-      <p className="inline-block py-4 text-left font-sans text-base">
+      <p className="py-4 text-center font-sans text-base lg:text-left">
         {product.Edible ? (
           <span>{product.Edible?.priceByWeight}</span>
         ) : (
@@ -193,6 +111,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         )}
         €/{unitPrice[product.ProductUnit]}
       </p>
+      {data?.user?.role != "admin" && <PurchaseOptions product={product} />}
     </div>
   );
 };
@@ -233,8 +152,24 @@ const NutritionFacts = ({ product }: { product: IProduct }) => {
   return !product.Edible ? (
     <></>
   ) : (
-    <div className="mx-6 mt-14 rounded-3xl bg-base-100 px-24 pt-16">
-      <h1 className="font-raleway text-xl">INFORMACIÓN NUTRICIONAL</h1>
+    <div className="relative mx-6 my-14 rounded-3xl bg-base-100 px-24 pt-16 pb-16">
+      <div className="absolute -top-[78px] left-0 -z-10 flex w-full place-content-center">
+        <Image
+          src="/img/ellipse.svg"
+          alt=""
+          className="select-none"
+          width={"300%"}
+          height={"200%"}
+          layout="fixed"
+          objectFit="contain"
+        />
+        <button className="absolute top-8 h-12 font-satoshiBold text-xs">
+          saber más
+        </button>
+      </div>
+      <h1 className="whitespace-nowrap font-raleway text-sm lg:text-xl">
+        INFORMACIÓN NUTRICIONAL
+      </h1>
       <div className="mt-3 flex flex-row place-content-between">
         <div className="flex w-[35%] flex-col">
           {allergensList.length > 0 && (
@@ -246,7 +181,7 @@ const NutritionFacts = ({ product }: { product: IProduct }) => {
             </>
           )}
         </div>
-        <table className="my-3 w-[65%] table-auto text-base">
+        <table className="mt-3 w-[65%] table-auto text-base">
           <thead>
             <tr>
               <th className="pb-4 text-left"></th>
@@ -331,5 +266,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
     </>
   );
 };
+
+//const relatedRecipes = ({ product }: { product: IProduct }) => {};
 
 export default ProductDetail;

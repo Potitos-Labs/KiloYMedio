@@ -58,7 +58,7 @@ function IncDecButtons({
       >
         -
       </button>
-      <p className="place-content-center self-center text-sm">
+      <p className="place-content-center self-center whitespace-nowrap text-sm">
         {amount} {unitDisplay[productUnit]}
       </p>
       <button
