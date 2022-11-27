@@ -57,6 +57,12 @@ const SignUp: NextPage = () => {
     setShowPassword((showPassword) => !showPassword);
   }
 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  function showHideConfirmPassword() {
+    setShowConfirmPassword((showConfirmPassword) => !showConfirmPassword);
+  }
+
   useEffect(() => {
     if (confirmPassword == "") {
       setMatchPassword(false);
@@ -98,6 +104,7 @@ const SignUp: NextPage = () => {
                     type="text"
                     placeholder="Nombre"
                     className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    tabIndex={1}
                     {...register("username")}
                   />
                 </div>
@@ -113,6 +120,7 @@ const SignUp: NextPage = () => {
                     type="email"
                     placeholder="E-mail"
                     className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    tabIndex={2}
                     {...register("email")}
                   />
                 </div>
@@ -122,7 +130,7 @@ const SignUp: NextPage = () => {
                   </p>
                 )}
                 {emailAlreadyExists && (
-                  <p className="font-semibold text-red-500">
+                  <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
                     El email ya está siendo usado
                   </p>
                 )}
@@ -133,6 +141,7 @@ const SignUp: NextPage = () => {
                     <input
                       type="checkbox"
                       onClick={() => showHidePassword()}
+                      tabIndex={4}
                     ></input>
                     <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
                     <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
@@ -142,6 +151,7 @@ const SignUp: NextPage = () => {
                     placeholder="Contraseña"
                     id="password"
                     className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    tabIndex={3}
                     {...register("password")}
                   />
                 </div>
@@ -151,16 +161,18 @@ const SignUp: NextPage = () => {
                   <label className="swap absolute mr-[30px] md:ml-[430px]">
                     <input
                       type="checkbox"
-                      onClick={() => showHidePassword()}
+                      onClick={() => showHideConfirmPassword()}
+                      tabIndex={6}
                     ></input>
                     <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
                     <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
                   </label>
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder="Repetir contraseña"
                     id="passwordConfirm"
                     className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    tabIndex={5}
                     onChange={(e) => {
                       setConfirmValue(e.target.value ?? "");
                     }}
