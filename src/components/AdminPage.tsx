@@ -4,7 +4,7 @@ function AdminPage() {
   return (
     <div className="bg-accent">
       <div className="flex justify-between pr-14">
-        <div className="mt-32 ml-10 flex w-48 flex-col gap-6">
+        <div className="z-10 mx-10 mt-20  flex w-48 flex-col gap-6 sm:mt-28">
           <Link href="/admin/register">
             <button className="rounded-full bg-base-100  py-3 font-satoshiBold text-xs text-base-content">
               registrar usuario

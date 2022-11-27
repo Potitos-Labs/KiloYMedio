@@ -48,11 +48,11 @@ export default function Layout({
                 <p className="text-xs">sábados, 9:30-14:30</p>
               </div>
               <div className="pb-14">
-                <p className="text-sm">
+                <p className="text-xs sm:text-sm">
                   suscríbete a boletín informativo - descubre nuestros
                   descuentos para recibir regalos
                 </p>
-                <div className="mt-4 grid w-[400px] grid-cols-[80%_20%] items-center justify-between gap-4 rounded-md bg-base-100 p-2">
+                <div className="mt-4 grid grid-cols-[80%_20%] items-center justify-between gap-4 rounded-md bg-base-100 p-2 sm:w-[400px]">
                   <input
                     type="text"
                     placeholder="tucorreo@gmail.com"
