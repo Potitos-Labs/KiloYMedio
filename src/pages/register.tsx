@@ -87,7 +87,7 @@ const SignUp: NextPage = () => {
         <div className="h-[760px] w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:w-[540px]">
           {/* Text */}
           <div className="text-center">
-            <p className="mt-[80px] ml-[30px] mr-[51px] w-[459px] font-raleway text-[43px]">
+            <p className="mt-[80px] ml-[30px] mr-[51px] w-[459px] whitespace-nowrap font-raleway text-[43px]">
               ¡Únete a kilo y medio!
             </p>
             <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
