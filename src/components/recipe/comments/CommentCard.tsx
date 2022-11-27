@@ -1,6 +1,6 @@
 import Stars from "../../Stars";
 
-function Comment({
+function CommentCard({
   user,
   description,
   rating,
@@ -25,4 +25,4 @@ function Comment({
   );
 }
 
-export default Comment;
+export default CommentCard;

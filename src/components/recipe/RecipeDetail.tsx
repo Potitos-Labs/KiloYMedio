@@ -70,6 +70,17 @@ const RecipeDetail = ({ id }: { id: string }) => {
     notifyDeleted();
   };
 
+  // const cartMutation = trpc.cart.addProduct.useMutation({
+  //   onSuccess() {
+  //     utils.cart.getAllCartProduct.invalidate();
+  //   },
+  // });
+
+  // function addToCart() {
+  //     cartMutation.mutateAsync({ productId: , amount: });
+  //   }
+  // }
+
   return (
     <div>
       {/* Black background */}

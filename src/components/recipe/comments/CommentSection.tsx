@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import { TiStarFullOutline } from "react-icons/ti";
 
-import Comment from "./Comment";
-import HalfRating from "./HalfRating";
+import Comment from "./CommentCard";
+import HalfRating from "../RateHalfStars";
 
 function CommentSection({ recipeId }: { recipeId: string }) {
   const utils = trpc.useContext();
@@ -20,7 +20,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   });
 
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
 
   function sendComment() {
     mutation.mutateAsync({
@@ -31,11 +31,11 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   }
 
   return (
-    <div className="my-16">
+    <div className="my-16 mx-4">
       <a className="tab tab-active tab-lifted h-24 rounded-tr-[50px] font-raleway text-xl">
         <p className="mr-8">COMENTARIOS</p>
       </a>
-      <div className="grid grid-cols-2 bg-base-100 px-8 py-16">
+      <div className="grid grid-cols-2 rounded-b-lg rounded-tr-lg bg-base-100 px-8 py-16">
         <div className="flex flex-col gap-6">
           {data?.map((c) => {
             return (
@@ -99,16 +99,16 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             <HalfRating setRating={setRating} />
             <textarea
               id="comment"
-              className="mt-6 mr-2 block rounded-lg border p-3"
+              className="rounded-box mt-6 mr-2 block h-40 border border-none p-3"
               placeholder="tu opinión"
               value={comment}
               onChange={(e) => {
                 setComment(e.target.value);
-                console.log(comment);
               }}
             ></textarea>
             <button
               onClick={sendComment}
+              disabled={comment == ""}
               className="my-4 w-28 rounded-full bg-base-content py-1 text-base-100"
             >
               enviar

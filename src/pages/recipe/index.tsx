@@ -33,7 +33,7 @@ const Recipes = () => {
     >
       <div className="m-6">
         <div>
-          <h1 className="mx-10 my-20 font-raleway text-3xl text-base-100">
+          <h1 className="mx-10 my-20 font-raleway text-xl text-base-100 lg:mr-40 lg:text-3xl">
             ¿QUÉ TE APETECE COCINAR HOY?
           </h1>
           <div className="flex justify-between pr-14">
@@ -57,18 +57,18 @@ const Recipes = () => {
           </div>
         </div>
         <div className="rounded-xl bg-base-100">
-          <p className="mx-5 mb-10 p-8 font-raleway text-2xl">
+          <p className="mx-5 mb-10 p-8 font-raleway text-lg lg:text-2xl">
             NUESTRAS RECETAS
           </p>
           {mostRecentRecipes?.length != 0 && (
             <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
           )}
-          <div className="mx-5 flex flex-row">
-            <p className="my-2 mr-5 mb-2 grow whitespace-nowrap text-2xl">
-              Todas las recetas
+          <div className="mx-5 flex flex-row justify-between">
+            <p className="mb-10 p-8 font-raleway text-lg lg:text-2xl">
+              TODAS LAS RECETAS
             </p>
             <button onClick={() => setOpenFilter(!openFilter)}>
-              <BsFilterSquare size="1.5rem" className="peer mt-1.5 text-kym4" />
+              <BsFilterSquare size="2rem" className="peer" />
             </button>
           </div>
           <hr className="border-1 mx-5 border-kym3"></hr>

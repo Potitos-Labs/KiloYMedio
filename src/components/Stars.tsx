@@ -1,8 +1,4 @@
-import {
-  TiStarFullOutline,
-  TiStarHalfOutline,
-  TiStarOutline,
-} from "react-icons/ti";
+import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 
 const stars = [0, 0, 0, 0, 0];
 
@@ -31,30 +27,18 @@ function fromIntToStar(num: number, index: number) {
       <TiStarFullOutline
         key={index}
         size={20}
-        className="mb-1 inline-block  fill-accent"
+        className="mb-1 inline-block fill-accent"
       />
     );
   }
-  return (
-    <TiStarHalfOutline
-      key={index}
-      size={20}
-      className="mb-1 inline-block fill-accent"
-    />
-  );
 }
 
 function fromIntToArray(num: number) {
   for (let i = 0; i < 5; i++) {
     if (num >= 1) {
       stars[i] = 1;
-      num--;
-    } else {
-      if (num < 1) {
-        stars[i] = num;
-        break;
-      }
-    }
+    } else stars[i] = 0;
+    num--;
   }
   return stars;
 }
