@@ -33,23 +33,23 @@ function CategoryCards({
     <div
       className={`${
         clicked && "border-primary bg-primary text-white"
-      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content px-5 pt-3 `}
+      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content px-3 pt-1 sm:px-5 sm:pt-3 `}
     >
       <button
         className="h-full"
         onMouseDown={() => setClicked(true)}
         onMouseUp={() => push()}
       >
-        <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway text-lg uppercase">
+        <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway  text-xs uppercase sm:text-lg">
           {name}
         </h1>
       </button>
 
-      <div className="absolute bottom-5 flex gap-2 ">
+      <div className="absolute bottom-1 flex gap-1 sm:bottom-5 sm:gap-2 ">
         {relations.map((cat, index) => (
           <div
             key={index}
-            className="z-10 mr-2 flex rounded-full border-[1px] border-base-100 border-transparent px-2 hover:border-base-content active:border-primary active:bg-primary active:text-white"
+            className="z-10 mr-1 flex rounded-full border-[1px] border-base-100 border-transparent px-1 text-xs hover:border-base-content active:border-primary active:bg-primary active:text-white sm:mr-2 sm:px-2 sm:text-sm"
             onClick={() => {
               closePopUp();
             }}
