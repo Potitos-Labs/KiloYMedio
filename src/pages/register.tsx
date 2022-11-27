@@ -20,6 +20,11 @@ const SignUp: NextPage = () => {
   } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
     shouldUseNativeValidation: true, // need for :invalid tag tailwind
+    defaultValues: {
+      email: "",
+      password: "",
+      username: "",
+    },
     criteriaMode: "all",
     reValidateMode: "onChange",
   });
