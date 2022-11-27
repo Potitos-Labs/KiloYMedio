@@ -30,16 +30,36 @@ function ClientePage() {
     <div className={`bg-gradient-to-b ${color} to-base-content`}>
       <div className="carousel h-screen w-full">
         <div id="slide1" className="carousel-item relative w-full">
-          <Image src="/img/fondo1.png" width="2000" height="300" />
+          <Image
+            src="/img/fondo1.png"
+            width="2000"
+            height="300"
+            alt="notfound"
+          />
         </div>
         <div id="slide2" className="carousel-item relative w-full">
-          <Image src="/img/fondo2.png" width="2000" height="300" />
+          <Image
+            src="/img/fondo2.png"
+            width="2000"
+            height="300"
+            alt="notfound"
+          />
         </div>
         <div id="slide3" className="carousel-item relative w-full">
-          <Image src="/img/fondo3.png" width="2000" height="300" />
+          <Image
+            src="/img/fondo3.png"
+            width="2000"
+            height="300"
+            alt="notfound"
+          />
         </div>
         <div id="slide4" className="carousel-item relative w-full">
-          <Image src="/img/fondo4.png" width="2000" height="300" />
+          <Image
+            src="/img/fondo4.png"
+            width="2000"
+            height="300"
+            alt="notfound"
+          />
         </div>
         <div className="absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-3 px-6">
           <a onClick={decrementSlide} href={`#slide${slide}`}>
@@ -76,7 +96,12 @@ function ClientePage() {
               contaminación cruzada.
             </p>
             <div className="flex w-full justify-end">
-              <Image src="/img/bolsa.png" width="945" height="744" />
+              <Image
+                src="/img/bolsa.png"
+                width="945"
+                height="744"
+                alt="notfound"
+              />
             </div>
             <div className="">
               <p className="font-raleway text-2xl">Productos destacados</p>
@@ -109,7 +134,12 @@ function ClientePage() {
               </p>
             </div>
             <div className="flex w-full justify-start">
-              <Image src="/img/bolas.png" width="500" height="300" />
+              <Image
+                src="/img/bolas.png"
+                width="500"
+                height="300"
+                alt="notfound"
+              />
             </div>
           </div>
         </div>

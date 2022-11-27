@@ -1,11 +1,11 @@
 import Layout from "@components/Layout";
-import OnlineWorkshopForm from "@components/workshop/OnlineWorkshopForm";
-import OnsiteWorkshopForm from "@components/workshop/OnsiteWorkshopForm";
 import { Tab } from "@headlessui/react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Error from "next/error";
 import clsx from "clsx";
+import OnlineWorkshopForm from "@components/workshop/OnlineWorkshopform";
+import OnsiteWorkshopForm from "@components/workshop/OnsiteWorkshopform";
 
 const CreateWorkshop: NextPage = () => {
   const { data, status } = useSession();

@@ -51,7 +51,7 @@ function Product({
   };
 
   return (
-    <div className="bg-pase-100 flex flex-col items-center justify-center rounded-md border-2 border-black py-4  shadow-lg hover:shadow-kym4">
+    <div className="flex flex-col items-center justify-center rounded-md border-2 border-black bg-base-100 py-4  shadow-lg hover:shadow-kym4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>

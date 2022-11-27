@@ -21,7 +21,12 @@ function AdminPage() {
             </button>
           </Link>
         </div>
-        <Image src="/img/fondoCucharasSinFondo.png" width="700" height="400" />
+        <Image
+          src="/img/fondoCucharasSinFondo.png"
+          width="700"
+          height="400"
+          alt="notfound"
+        />
       </div>
     </div>
   );
