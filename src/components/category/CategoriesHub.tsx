@@ -35,7 +35,7 @@ function CategoriesHub({
             <BsX className="mt-[3px] mr-2 h-5 w-5  fill-base-100" />
             cerrar
           </button>
-          <div className=" h-fill mx-4  grid h-5/6 w-full grid-cols-2 gap-4 rounded-md bg-base-100 py-12 px-4 sm:gap-8 lg:grid-cols-3">
+          <div className=" h-fill mx-4  grid h-5/6 w-full grid-cols-2 gap-4 rounded-md bg-base-100 py-6 px-2 sm:gap-8 sm:px-4 sm:py-12 lg:grid-cols-3">
             {categories &&
               supraCategories?.map((sc, index) => (
                 <CategoryCards
