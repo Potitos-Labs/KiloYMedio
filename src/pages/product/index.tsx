@@ -3,7 +3,7 @@ import SearchBar from "@components/product/SearchBar";
 import { ECategory, NECategory } from "@prisma/client";
 import { InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
 import superjson from "superjson";
@@ -26,12 +26,12 @@ export async function getStaticProps() {
     transformer: superjson,
   });
 
-  const { eCategories, neCategories } =
+  const { eCategories, neCategories, inSpanish } =
     await ssg.product.getAllCategories.fetch();
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      categories: { eCategories, neCategories },
+      categories: { eCategories, neCategories, inSpanish },
     },
     revalidate: 1,
   };
@@ -40,46 +40,55 @@ export default function CreateProdcut(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const {
-    categories: { eCategories, neCategories },
+    categories: { inSpanish },
   } = props;
 
-  function inSpanish(category: ECategory | NECategory | "") {
-    if (category === "") return "";
-    const ecategory = z.nativeEnum(ECategory).safeParse(category);
-    const necategory = z.nativeEnum(NECategory).safeParse(category);
-    if (ecategory.success) {
-      return (
-        eCategories.find((eCategory) => eCategory.category === ecategory.data)
-          ?.categoryInSpanish ?? category
-      );
-    }
-    if (necategory.success) {
-      return (
-        neCategories.find((eCategory) => eCategory.category === necategory.data)
-          ?.categoryInSpanish ?? category
-      );
-    }
-  }
-
   const router = useRouter();
-  const fullCat = router.query.category as string;
-  const category = fullCat?.split(",");
-  const ecategory = z.array(z.nativeEnum(ECategory)).safeParse(category);
-  const necategory = z.array(z.nativeEnum(NECategory)).safeParse(category);
+  const { replace } = router;
+  const category = useMemo(
+    () => (router.query.category as string)?.split(","),
+    [router.query.category],
+  );
+
+  console.log(category);
+
+  useEffect(() => {
+    const ecategoryParse = z.array(z.nativeEnum(ECategory)).safeParse(category);
+    const necategoryParse = z
+      .array(z.nativeEnum(NECategory))
+      .safeParse(category);
+
+    if (ecategoryParse.success && ecategoryParse.data.length > 0) {
+      setFilter((prev) => ({
+        ...prev,
+        eCategories: ecategoryParse.data,
+        neCategories: [],
+      }));
+    }
+
+    if (necategoryParse.success && necategoryParse.data.length > 0) {
+      setFilter((prev) => ({
+        ...prev,
+        neCategories: necategoryParse.data,
+        eCategories: [],
+      }));
+    }
+
+    if (category) {
+      replace("/product", undefined, { shallow: true });
+    }
+  }, [category, replace]);
 
   const [filter, setFilter] = useState<IFilterProduct>({
     name: "",
-    eCategories: ecategory.success ? ecategory.data : [],
-    neCategories: necategory.success ? necategory.data : [],
+    eCategories: [],
+    neCategories: [],
     minPrice: undefined,
     maxPrice: undefined,
     allergens: [],
     orderByName: "asc",
     orderByPrice: undefined,
   });
-
-  if (filter.eCategories.length > 0 || filter.neCategories.length > 0)
-    router.replace("/product", undefined, { shallow: true });
 
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
