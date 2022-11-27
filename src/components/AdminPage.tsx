@@ -15,7 +15,7 @@ function AdminPage() {
               crear producto
             </button>
           </Link>
-          <Link href="/product/create">
+          <Link href="/workshops/create">
             <button className="rounded-full bg-base-100  py-3 font-satoshiBold text-xs text-base-content">
               crear taller
             </button>

@@ -61,16 +61,16 @@ async function main() {
     },
   });
 
-  const CuidadoPersonal = await prisma.supraCategory.create({
-    data: {
-      supraCategoryName: "Productos cuidado",
-      SupraCategoryRelation: {
-        createMany: {
-          data: [{ category: "flours" }, { category: "yeast" }],
-        },
-      },
-    },
-  });
+  // const CuidadoPersonal = await prisma.supraCategory.create({
+  //   data: {
+  //     supraCategoryName: "Productos cuidado",
+  //     SupraCategoryRelation: {
+  //       createMany: {
+  //         data: [{ category: "flours" }, { category: "yeast" }],
+  //       },
+  //     },
+  //   },
+  // });
 
   const legumbresYArroces = await prisma.supraCategory.create({
     data: {
@@ -1313,6 +1313,7 @@ async function main() {
       OnSiteWorkshop: {
         create: {
           date,
+          places: 50,
           OnSiteWorkshopAttendance: {
             createMany: {
               data: [{ clientId: juan.id }, { clientId: pilar.id }],

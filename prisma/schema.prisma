@@ -229,6 +229,7 @@ model OnlineWorkshop {
 
 model OnSiteWorkshop {
     date                     DateTime
+    places                   Int
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     workshopId               String                     @id
     workshop                 Workshop                   @relation(fields: [workshopId], references: [id])
