@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 export function VerticalRecipeCard({
@@ -24,7 +23,6 @@ export function VerticalRecipeCard({
   const { data } = useSession();
   const utils = trpc.useContext();
   const notifyDeleted = () => toast.success("Receta eliminada");
-  const [focused, setFocused] = useState(false);
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
@@ -46,20 +44,16 @@ export function VerticalRecipeCard({
     <div
       role="button"
       tabIndex={0}
-      className="mx-4 my-4 inline-block h-64 rounded-md bg-white text-center duration-200 hover:shadow-md motion-safe:hover:scale-105"
-      onMouseEnter={() => setFocused(true)}
-      onMouseLeave={() => setFocused(false)}
+      className="rounded-box mx-4 my-4 h-64 border-[1px] border-base-300"
     >
-      <div className="relative h-32 overflow-hidden rounded-t-md object-contain">
+      <div className="rounded-t-box relative h-32 overflow-hidden object-contain">
         <Link href={`/recipe/${id}`}>
-          <a>
-            <Image
-              src={imageURL}
-              objectFit="cover"
-              alt="notfound"
-              layout="fill"
-            ></Image>
-          </a>
+          <Image
+            src={imageURL}
+            objectFit="cover"
+            alt="notfound"
+            layout="fill"
+          ></Image>
         </Link>
       </div>
       <div className="relative h-auto py-2">
@@ -74,16 +68,8 @@ export function VerticalRecipeCard({
             />
           )}
         </div>
-        <p
-          className={`mx-1 mb-2 text-xl font-semibold first-letter:uppercase  ${
-            focused && "underline decoration-kym3 duration-200"
-          } `}
-        >
-          {name}
-        </p>
-        <div className="">
-          <Stars average={ratings}></Stars>
-        </div>
+        <Stars average={ratings}></Stars>
+        <p className="mx-1 mb-2 font-raleway uppercase">{name}</p>
       </div>
     </div>
   );

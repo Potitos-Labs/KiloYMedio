@@ -19,6 +19,10 @@ function CommentSection({ recipeId }: { recipeId: string }) {
     },
   });
 
+  const { data: stats } = trpc.user.client.getRecipeStatistics.useQuery({
+    recipeId: recipeId,
+  });
+
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
 
@@ -58,34 +62,35 @@ function CommentSection({ recipeId }: { recipeId: string }) {
           {/* Comments stats */}
           <div className="mb-14 flex gap-6">
             <div>
-              <p className="font-satoshiBold text-lg">4,8</p>25 comentarios
+              <p className="font-satoshiBold text-lg">{stats?.average ?? 0}</p>
+              {stats?.count ?? 0} comentarios
             </div>
             {/* Percentages */}
             <div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 5
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                75%
+                {stats?.ranges[5] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 4
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                14%
+                {stats?.ranges[4] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 3
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                6%
+                {stats?.ranges[3] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 2
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                4%
+                {stats?.ranges[2] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="mr-0.5 fill-accent" /> 1
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                1%
+                {stats?.ranges[1] ?? 0}%
               </div>
             </div>
             {/* End Percentages */}

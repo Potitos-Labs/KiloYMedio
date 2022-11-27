@@ -8,7 +8,6 @@ const RecipeDisplayer = ({
 }) => {
   return (
     <div className="mb-8">
-      <br></br>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {recipes
           ? recipes.map((recipe) => (

@@ -10,11 +10,11 @@ import Loading from "@components/ui/Loading";
 import Product from "@components/product/Product";
 import CommentSection from "./comments/CommentSection";
 
-import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 import Link from "next/link";
 import Image from "next/image";
+import SaveIcon from "./SaveIcon";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
@@ -30,28 +30,6 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const isAdmin = session?.user?.role == "admin";
 
   const notifyDeleted = () => toast.success("Receta eliminada");
-
-  const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
-    onSuccess() {
-      utils.user.client.getFavoriteRecipes.invalidate();
-      utils.recipe.getById.invalidate();
-    },
-  });
-
-  const unsaveMutation = trpc.user.client.deleteFavouriteRecipe.useMutation({
-    onSuccess() {
-      utils.user.client.getFavoriteRecipes.invalidate();
-      utils.recipe.getById.invalidate();
-    },
-  });
-
-  function saveRecipe() {
-    saveMutation.mutateAsync({ recipeId: id });
-  }
-
-  function unsaveRecipe() {
-    unsaveMutation.mutateAsync({ recipeId: id });
-  }
 
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
@@ -157,17 +135,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   layout="fixed"
                   objectFit="cover"
                 ></Image>
-                <button
-                  onClick={recipe?.isFav ? unsaveRecipe : saveRecipe}
-                  className="relative bottom-14 left-44 z-10 flex gap-2 rounded-full bg-base-100 px-3 pb-1 hover:bg-[#212529] hover:text-white"
-                >
-                  {recipe?.isFav ? "eliminar" : "guardar"}
-                  {recipe?.isFav ? (
-                    <IoBookmark className="mt-1.5" />
-                  ) : (
-                    <IoBookmarkOutline className="mt-1.5" />
-                  )}
-                </button>
+                <SaveIcon recipeId={id} />
               </div>
             </div>
             {/* End Upper section */}

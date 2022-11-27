@@ -25,7 +25,6 @@ const RecipeDisplayer = ({
                 <RecipeCard
                   id={recipe.id}
                   name={recipe.name}
-                  ratings={4}
                   imageURL={recipe.imageURL}
                   authorID={recipe.userId}
                   key={recipe.id}

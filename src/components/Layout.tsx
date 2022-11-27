@@ -29,7 +29,9 @@ export default function Layout({
         {children}
         {/* Footer */}
         <div className="bg-base-content text-base-100">
-          <h1 className="px-8 text-lg lg:text-right">info@kiloymedio.com</h1>
+          <h1 className="mx-10 mb-4 text-lg lg:mb-0 lg:text-right lg:text-2xl">
+            info@kiloymedio.com
+          </h1>
           <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
             <div className="grid-cols mr-40 grid pl-10">
               <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
@@ -52,7 +54,7 @@ export default function Layout({
                   suscríbete a boletín informativo - descubre nuestros
                   descuentos para recibir regalos
                 </p>
-                <div className="mt-4 grid grid-cols-[80%_20%] items-center justify-between gap-4 rounded-md bg-base-100 p-2 sm:w-[400px]">
+                <div className="mt-4 grid w-[400px] grid-cols-[80%_20%] items-center justify-between gap-4 rounded-md bg-base-100 p-2">
                   <input
                     type="text"
                     placeholder="tucorreo@gmail.com"

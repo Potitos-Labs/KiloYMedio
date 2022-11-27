@@ -51,21 +51,22 @@ const Recipes = () => {
             </div>
             <Image
               src="/img/fondoCucharasSinFondo.png"
+              alt=""
               width="700"
               height="400"
             />
           </div>
         </div>
         <div className="rounded-xl bg-base-100">
-          <p className="mx-5 mb-10 p-8 font-raleway text-lg lg:text-2xl">
+          <p className="mx-5 mb-10 w-[400px] p-8 font-raleway text-lg lg:text-2xl">
             NUESTRAS RECETAS
           </p>
           {mostRecentRecipes?.length != 0 && (
             <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
           )}
           <div className="mx-5 flex flex-row justify-between">
-            <p className="mb-10 p-8 font-raleway text-lg lg:text-2xl">
-              TODAS LAS RECETAS
+            <p className="mb-10 w-[600px] p-8 font-raleway text-lg lg:text-2xl">
+              RECETAS DE LA COMUNIDAD
             </p>
             <button onClick={() => setOpenFilter(!openFilter)}>
               <BsFilterSquare size="2rem" className="peer" />
