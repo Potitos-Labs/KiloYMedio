@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
+import Image from "next/image";
 
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
@@ -83,206 +84,145 @@ const SignUp: NextPage = () => {
   console.log({ errors });
   return (
     <div>
-      <main className="flex h-screen flex-col items-center justify-center bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
-        <div className="h-[760px] w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:w-[540px]">
-          {/* Text */}
-          <div className="text-center">
-            <p className="mt-[80px] ml-[30px] mr-[51px] w-[459px] whitespace-nowrap font-raleway text-[43px]">
-              ¡Únete a kilo y medio!
-            </p>
-            <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
-              ¿Ya tienes una cuenta? {""}
-              <Link href="/login">
-                <b className="cursor-pointer font-satoshiBold">
-                  Iniciar sesión
-                </b>
-              </Link>
-              .
-            </p>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Info */}
-            <div className="mt-[74px] flex flex-col items-center gap-[19px]">
-              <div className="mx-[30px]">
-                <div className="flex flex-row gap-[20px]">
-                  <input
-                    type="text"
-                    placeholder="Nombre"
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                    tabIndex={1}
-                    {...register("username")}
-                  />
-                </div>
-                {errors.username && (
-                  <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
-                    {errors.username.message}
-                  </p>
-                )}
-              </div>
-              <div className="mx-[30px]">
-                <div className="flex max-w-[480px]">
-                  <input
-                    type="email"
-                    placeholder="E-mail"
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                    tabIndex={2}
-                    {...register("email")}
-                  />
-                </div>
-                {errors.email && (
-                  <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
-                    {errors.email.message}
-                  </p>
-                )}
-                {emailAlreadyExists && (
-                  <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
-                    El email ya está siendo usado
-                  </p>
-                )}
-              </div>
-              <div className="mx-[30px] max-w-[480px]">
-                <div className="flex items-center justify-end">
-                  <label className="swap absolute mr-[30px] md:ml-[430px]">
+      <main className="bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
+        <div className="bg-[##FFA24B] flex w-screen flex-col items-center pt-[20px]">
+          <Image
+            src="/img/logoWhite.png"
+            alt="not found"
+            width={214.5}
+            height={45}
+            className="cursor-pointer"
+            onClick={() => router.push("/")}
+          ></Image>
+        </div>
+        <div className="flex h-screen flex-col justify-center md:-mt-[65px] md:items-end">
+          <div className="mt-[20px] h-full w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:h-[760px] md:w-[540px]">
+            {/* Text */}
+            <div className="text-center">
+              <p className="mt-[30px] mr-[51px] flex w-screen font-raleway text-[43px] leading-10 md:mt-[80px] md:ml-[30px] md:w-[459px] md:whitespace-nowrap">
+                ¡Únete a kilo y medio!
+              </p>
+              <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
+                ¿Ya tienes una cuenta? {""}
+                <Link href="/login">
+                  <b className="cursor-pointer font-satoshiBold">
+                    Iniciar sesión
+                  </b>
+                </Link>
+                .
+              </p>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {/* Info */}
+              <div className="mt-[30px] flex flex-col items-center gap-[19px] md:mt-[74px]">
+                <div className="mx-[30px]">
+                  <div className="flex flex-row gap-[20px]">
                     <input
-                      type="checkbox"
-                      onClick={() => showHidePassword()}
-                      tabIndex={4}
-                    ></input>
-                    <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
-                    <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
-                  </label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Contraseña"
-                    id="password"
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                    tabIndex={3}
-                    {...register("password")}
-                  />
-                </div>
-              </div>
-              <div className="mx-[30px] max-w-[480px]">
-                <div className="flex items-center justify-end">
-                  <label className="swap absolute mr-[30px] md:ml-[430px]">
-                    <input
-                      type="checkbox"
-                      onClick={() => showHideConfirmPassword()}
-                      tabIndex={6}
-                    ></input>
-                    <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
-                    <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
-                  </label>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Repetir contraseña"
-                    id="passwordConfirm"
-                    className="input input-bordered h-[60px] w-[480px] rounded-[30px] border-base-300 text-sm text-base-300"
-                    tabIndex={5}
-                    onChange={(e) => {
-                      setConfirmValue(e.target.value ?? "");
-                    }}
-                  />
-                </div>
-                {errors.password && (
-                  <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
-                    {errors.password.message}
-                  </p>
-                )}
-                {!matchPassword &&
-                  !errors.password &&
-                  getValues("password") != "" && (
-                    <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
-                      Las contraseñas no coinciden
+                      type="text"
+                      placeholder="Nombre"
+                      className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
+                      tabIndex={1}
+                      {...register("username")}
+                    />
+                  </div>
+                  {errors.username && (
+                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                      {errors.username.message}
                     </p>
                   )}
-              </div>
-            </div>
-            {/* End Info */}
-            {/* Button */}
-            <div className="flex flex-col items-center">
-              <button
-                type="submit"
-                className="btn btn-lg mx-[15px] mt-[78px] h-[60px] w-[480px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px]"
-              >
-                Crear cuenta
-              </button>
-            </div>
-            {/* End Buttons */}
-          </form>
-        </div>
-        {/* <form
-          className="flex h-screen w-full max-w-md items-center justify-center"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="m-64">
-            <div className="p-12 shadow-lg shadow-kym4">
-              <h2 className="mb-6 ml-6 cursor-default text-center text-xl font-bold text-kym3">
-                Crear nueva cuenta
-              </h2>
-              <div className="m-6">
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8 invalid:border-2 invalid:border-red-500"
-                  title=""
-                  {...register("username")}
-                />
-                {errors.username && (
-                  <p className="text-red-500">{errors.username.message}</p>
-                )}
-                <input
-                  type="email"
-                  placeholder="Correo"
-                  className="mb-4 border-l-4 border-l-button bg-gray-100 py-1 px-8 invalid:border-2 invalid:border-red-500"
-                  title=""
-                  {...register("email", {
-                    onChange: () => setEmailAlreadyExists(false),
-                  })}
-                />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
-                )}
-                {emailAlreadyExists && (
-                  <p className="font-semibold text-red-500">
-                    El email ya está siendo usado
-                  </p>
-                )}
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  className="mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
-                  {...register("password")}
-                />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
-                )}
-                <label>
-                  <input
-                    type="checkbox"
-                    className="mt-2 mb-2 border-l-4 border-l-button bg-gray-100 py-1 px-8"
-                    required
-                  />
-                  {" Acepto la política de privacidad"}
-                </label>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="m-auto text-center">
-                  <Link href="/login">
-                    <u className="cursor-pointer text-kym2 hover:text-kym4">
-                      Ir a Iniciar sesión
-                    </u>
-                  </Link>
-                  <button
-                    className="btn btn-sm m-2 mt-3 block rounded-md px-20 py-1 font-semibold uppercase text-white hover:bg-button_hover"
-                    type="submit"
-                  >
-                    Crear cuenta
-                  </button>
+                </div>
+                <div className="mx-[30px]">
+                  <div className="flex max-w-[480px]">
+                    <input
+                      type="email"
+                      placeholder="E-mail"
+                      className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
+                      tabIndex={2}
+                      {...register("email")}
+                    />
+                  </div>
+                  {errors.email && (
+                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
+                  {emailAlreadyExists && (
+                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                      El email ya está siendo usado
+                    </p>
+                  )}
+                </div>
+                <div className="mx-[30px] max-w-[480px]">
+                  <div className="flex items-center justify-end">
+                    <label className="swap absolute mr-[30px] md:ml-[430px]">
+                      <input
+                        type="checkbox"
+                        onClick={() => showHidePassword()}
+                        tabIndex={4}
+                      ></input>
+                      <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
+                      <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
+                    </label>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Contraseña"
+                      id="password"
+                      className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
+                      tabIndex={3}
+                      {...register("password")}
+                    />
+                  </div>
+                </div>
+                <div className="mx-[30px] max-w-[480px]">
+                  <div className="flex items-center justify-end">
+                    <label className="swap absolute mr-[30px] md:ml-[430px]">
+                      <input
+                        type="checkbox"
+                        onClick={() => showHideConfirmPassword()}
+                        tabIndex={6}
+                      ></input>
+                      <IoEyeSharp className="swap-on h-[25px] w-[25px]"></IoEyeSharp>
+                      <IoEyeOffSharp className="swap-off h-[25px] w-[25px]"></IoEyeOffSharp>
+                    </label>
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Repetir contraseña"
+                      id="passwordConfirm"
+                      className="input input-bordered h-[60px] w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
+                      tabIndex={5}
+                      onChange={(e) => {
+                        setConfirmValue(e.target.value ?? "");
+                      }}
+                    />
+                  </div>
+                  {errors.password && (
+                    <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
+                      {errors.password.message}
+                    </p>
+                  )}
+                  {!matchPassword &&
+                    !errors.password &&
+                    getValues("password") != "" && (
+                      <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
+                        Las contraseñas no coinciden
+                      </p>
+                    )}
                 </div>
               </div>
-            </div>
+              {/* End Info */}
+              {/* Button */}
+              <div className="flex flex-col items-center">
+                <button
+                  type="submit"
+                  className="responsive btn btn-lg mx-[15px] mb-[20px] mt-[60px] h-[60px] w-[350px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:mb-0 md:mt-[69px] md:w-[480px]"
+                >
+                  Crear cuenta
+                </button>
+              </div>
+              {/* End Buttons */}
+            </form>
           </div>
-        </form> */}
+        </div>
       </main>
     </div>
   );
