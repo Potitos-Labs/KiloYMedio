@@ -21,8 +21,14 @@ const Recipes = () => {
     maxTime: undefined,
     minTime: undefined,
   });
-  const { data: filteredRecipes } =
-    trpc.recipe.getFilteredRecipes.useQuery(filter);
+  // const { data: filteredRecipes } =
+  //   trpc.recipe.getFilteredRecipes.useQuery(filter);
+
+  const { data: recipes } = trpc.recipe.getAllRecipes.useQuery();
+  // const ourRecipes = recipes?.filter((recipe) => {
+  //   recipe.User?.role != "admin";
+  // });
+
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
@@ -75,9 +81,7 @@ const Recipes = () => {
               <FilterRecipe filter={filter} setFilter={setFilter} />
             </div>
             {/* End Filtros */}
-            <OurRecipesDisplayer
-              recipes={filteredRecipes}
-            ></OurRecipesDisplayer>
+            <OurRecipesDisplayer recipes={recipes}></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
           <div>

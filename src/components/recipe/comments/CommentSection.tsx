@@ -1,5 +1,6 @@
 import { trpc } from "@utils/trpc";
 import { useState } from "react";
+import Image from "next/image";
 
 import { TiStarFullOutline } from "react-icons/ti";
 
@@ -36,12 +37,27 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   }
 
   return (
-    <div className="my-16 mx-4">
-      <a className="tab tab-active tab-lifted h-24 rounded-tr-[50px] font-raleway text-xl">
-        <p className="mr-8">COMENTARIOS</p>
-      </a>
-      <div className="grid grid-cols-2 rounded-b-lg rounded-tr-lg bg-base-100 px-8 py-16">
-        <div className="flex flex-col gap-6">
+    <div className="relative z-0 my-16 mx-4">
+      {/* Elipse */}
+      <div className="absolute -top-[52px] -left-6 flex w-full px-[24px]">
+        <p className="rounded-tl-lg bg-base-100 px-8 pt-2 font-raleway text-xl">
+          COMENTARIOS
+        </p>
+        <div className="absolute -top-[127.9px] left-[342px] -z-10 ">
+          <Image
+            src="/img/ellipse.svg"
+            alt=""
+            className="select-none"
+            width={"300%"}
+            height={"405%"}
+            layout="fixed"
+            objectFit="contain"
+          />
+        </div>
+      </div>
+      {/* End Elipse */}
+      <div className="grid grid-cols-2 rounded-b-lg rounded-tr-lg bg-base-100 px-8 pt-32 pb-16">
+        <div className="grid content-between gap-6">
           {data?.map((c) => {
             return (
               <Comment

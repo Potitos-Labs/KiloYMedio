@@ -26,7 +26,7 @@ export const recipeRouter = router({
         portions: false,
         RecipeIngredient: false,
         cookingTime: false,
-        User: false,
+        User: true,
         userId: true,
       },
     });
