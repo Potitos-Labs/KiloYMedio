@@ -12,6 +12,7 @@ import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
 import Addproductchart from "./Addproductchart";
+import Link from "next/link";
 
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
@@ -36,7 +37,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </div>
         <button
           onClick={() => router.back()}
-          className="mt-12 ml-6 mb-16 lg:mb-32 lg:ml-0"
+          className="mt-12 ml-6 mb-16 w-fit lg:mb-40 lg:ml-0"
         >
           <div className="flex flex-nowrap items-center">
             <HiArrowLeft
@@ -91,7 +92,7 @@ const ProductCard = ({
 
   return (
     <div
-      className={`flex h-full flex-auto flex-col place-content-between gap-4 space-y-2 lg:place-content-center lg:py-10 ${className}`}
+      className={`flex h-full flex-auto flex-col place-content-between gap-4 space-y-2 pb-10 lg:place-content-center lg:py-10 ${className}`}
     >
       {data?.user?.role == "admin" && (
         <div className="inline-block">
@@ -168,7 +169,10 @@ const NutritionFacts = ({
     <div
       className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 lg:px-24 ${className}`}
     >
-      <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
+      <div
+        id="nutritionFacts"
+        className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]"
+      >
         <Image
           src="/img/ellipse.svg"
           alt=""
@@ -178,9 +182,11 @@ const NutritionFacts = ({
           layout="fixed"
           objectFit="contain"
         />
-        <button className="absolute top-8 h-12 font-satoshiBold text-xs">
-          saber más
-        </button>
+        <Link href="#nutritionFacts">
+          <button className="absolute top-8 h-12 font-satoshiBold text-xs">
+            saber más
+          </button>
+        </Link>
       </div>
       <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
         INFORMACIÓN NUTRICIONAL
@@ -217,46 +223,47 @@ const NutritionFacts = ({
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Grasas</td>
               <td className="whitespace-nowrap py-3 pr-14">
-                {product.Edible?.nutritionFacts.fat} {unit}
+                {product.Edible?.nutritionFacts.fat + " g"}
               </td>
               <td className="whitespace-nowrap py-3">
-                {Math.round(product.Edible?.nutritionFacts.fat * 0.3)} {unit}
+                {Math.round(product.Edible?.nutritionFacts.fat * 0.3) + " g"}
               </td>
             </tr>
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Ácidos grasos saturados</td>
-              <td className="whitespace-nowrap py-3 pr-14">- </td>
-              <td className="whitespace-nowrap py-3">- </td>
+              <td className="whitespace-nowrap py-3 pr-14"> {"-"} </td>
+              <td className="whitespace-nowrap py-3"> {"-"} </td>
             </tr>
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Hidratos</td>
               <td className="whitespace-nowrap py-3 pr-14">
-                {product.Edible?.nutritionFacts.carbohydrates} {unit}
+                {product.Edible?.nutritionFacts.carbohydrates + " g"}
               </td>
               <td className="whitespace-nowrap py-3">
-                {Math.round(product.Edible?.nutritionFacts.carbohydrates * 0.3)}{" "}
-                {unit}
+                {Math.round(
+                  product.Edible?.nutritionFacts.carbohydrates * 0.3,
+                ) + " g"}
               </td>
             </tr>
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Proteínas</td>
               <td className="whitespace-nowrap py-3 pr-14">
-                {product.Edible?.nutritionFacts.protein} {unit}
+                {product.Edible?.nutritionFacts.protein + " g"}
               </td>
               <td className="py-3">
-                {Math.round(product.Edible?.nutritionFacts.protein * 0.3)}{" "}
-                {unit}
+                {Math.round(product.Edible?.nutritionFacts.protein * 0.3) +
+                  " g"}
               </td>
             </tr>
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Fibra</td>
-              <td className="whitespace-nowrap py-3 pr-14">-</td>
-              <td className="py-3">-</td>
+              <td className="whitespace-nowrap py-3 pr-14">{"-"}</td>
+              <td className="py-3">{"-"}</td>
             </tr>
             <tr className="border-b border-base-content border-opacity-30">
               <td className="py-3 pr-14">Sal</td>
-              <td className="whitespace-nowrap py-3 pr-14">-</td>
-              <td className="whitespace-nowrap py-3">-</td>
+              <td className="whitespace-nowrap py-3 pr-14">{"-"}</td>
+              <td className="whitespace-nowrap py-3">{"-"}</td>
             </tr>
           </tbody>
         </table>
