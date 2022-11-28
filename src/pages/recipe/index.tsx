@@ -1,14 +1,15 @@
 import Layout from "../../components/Layout";
-import RecipeDisplayer from "../../components/recipe/RecipeSlider";
 import FilterRecipe from "components/recipe/FilterRecipe";
 import { trpc } from "../../utils/trpc";
 import { useState } from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { IFilterRecipe } from "@utils/validations/recipe";
-import VerticalRecipeDisplayer from "@components/recipe/verticalRecipe/VerticalRecipeDisplayer";
 
 import Link from "next/link";
 import Image from "next/image";
+
+import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplayer";
+import CommunityRecipesSlider from "../../components/recipe/Displayers/CommunityRecipesSlider";
 
 const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
@@ -22,7 +23,6 @@ const Recipes = () => {
   });
   const { data: filteredRecipes } =
     trpc.recipe.getFilteredRecipes.useQuery(filter);
-  console.log(filteredRecipes);
   const [openFilter, setOpenFilter] = useState(false);
 
   return (
@@ -31,7 +31,8 @@ const Recipes = () => {
       headerBgLight={true}
       headerTextDark={true}
     >
-      <div className="m-6">
+      <div className="m-4 2xl:m-8">
+        {/* Intro Recipes */}
         <div>
           <h1 className="mx-10 my-20 font-raleway text-xl text-base-100 lg:mr-40 lg:text-3xl">
             ¿QUÉ TE APETECE COCINAR HOY?
@@ -39,12 +40,12 @@ const Recipes = () => {
           <div className="flex justify-between pr-14">
             <div className="ml-10 flex w-48 flex-col gap-6">
               <Link href="/recipe/create">
-                <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
+                <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-base-content 2xl:text-sm">
                   compartir recetas
                 </button>
               </Link>
               <Link href="/recipe">
-                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
+                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content 2xl:text-sm">
                   buscar recetas
                 </button>
               </Link>
@@ -57,28 +58,38 @@ const Recipes = () => {
             />
           </div>
         </div>
-        <div className="rounded-xl bg-base-100">
-          <p className="mx-5 mb-10 w-[400px] p-8 font-raleway text-lg lg:text-2xl">
-            NUESTRAS RECETAS
-          </p>
-          {mostRecentRecipes?.length != 0 && (
-            <RecipeDisplayer recipes={mostRecentRecipes}></RecipeDisplayer>
-          )}
-          <div className="mx-5 flex flex-row justify-between">
-            <p className="mb-10 w-[600px] p-8 font-raleway text-lg lg:text-2xl">
+        {/* End Intro Recipes */}
+        <div className="rounded-xl bg-base-100 p-14 2xl:p-20">
+          {/* Our recipes Section */}
+          <div className="mb-32">
+            <div className="flex justify-between">
+              <p className="my-10 w-[400px] font-raleway text-lg lg:text-2xl">
+                NUESTRAS RECETAS
+              </p>
+              {/* Filtros */}
+              <button onClick={() => setOpenFilter(!openFilter)}>
+                <BsFilterSquare size="2rem" className="peer" />
+              </button>
+            </div>
+            <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
+              <FilterRecipe filter={filter} setFilter={setFilter} />
+            </div>
+            {/* End Filtros */}
+            <OurRecipesDisplayer
+              recipes={filteredRecipes}
+            ></OurRecipesDisplayer>
+          </div>
+          {/* End Our recipes Section */}
+          <div>
+            <p className="mb-10 font-raleway text-lg md:w-[600px] lg:text-2xl">
               RECETAS DE LA COMUNIDAD
             </p>
-            <button onClick={() => setOpenFilter(!openFilter)}>
-              <BsFilterSquare size="2rem" className="peer" />
-            </button>
+            {mostRecentRecipes?.length != 0 && (
+              <CommunityRecipesSlider
+                recipes={mostRecentRecipes}
+              ></CommunityRecipesSlider>
+            )}
           </div>
-          <hr className="border-1 mx-5 border-kym3"></hr>
-          <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
-            <FilterRecipe filter={filter} setFilter={setFilter} />
-          </div>
-          <VerticalRecipeDisplayer
-            recipes={filteredRecipes}
-          ></VerticalRecipeDisplayer>
         </div>
       </div>
     </Layout>

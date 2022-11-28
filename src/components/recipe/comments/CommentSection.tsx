@@ -16,6 +16,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   const mutation = trpc.user.client.newRecipeComment.useMutation({
     onSuccess() {
       utils.user.client.getRecipeComments.invalidate();
+      utils.user.client.getRecipeStatistics.invalidate();
     },
   });
 

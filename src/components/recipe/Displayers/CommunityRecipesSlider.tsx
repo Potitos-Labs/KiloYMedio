@@ -1,15 +1,15 @@
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
-import { LeftArrow, RightArrow } from "./Arrows";
-import LoadingCard from "./LoadingCard";
-import { RecipeCard } from "./RecipeCard";
+import { LeftArrow, RightArrow } from "../Arrows";
+import LoadingCard from "../LoadingCard";
+import VerticalRecipeCard from "./OurRecipesCard";
 
-const RecipeDisplayer = ({
+const CommunityRecipesSlider = ({
   recipes,
 }: {
   recipes?: { id: string; name: string; imageURL: string; userId: string }[];
 }) => {
   return (
-    <div className="mt-6 mb-8">
+    <div className="my-8">
       <div className="rounded-md ">
         <ScrollMenu
           LeftArrow={LeftArrow}
@@ -22,13 +22,13 @@ const RecipeDisplayer = ({
         >
           {recipes
             ? recipes.map((recipe) => (
-                <RecipeCard
+                <VerticalRecipeCard
                   id={recipe.id}
                   name={recipe.name}
                   imageURL={recipe.imageURL}
                   authorID={recipe.userId}
                   key={recipe.id}
-                ></RecipeCard>
+                ></VerticalRecipeCard>
               ))
             : [...Array(10)].map((e, i) => <LoadingCard key={i} />)}
         </ScrollMenu>
@@ -37,4 +37,4 @@ const RecipeDisplayer = ({
   );
 };
 
-export default RecipeDisplayer;
+export default CommunityRecipesSlider;

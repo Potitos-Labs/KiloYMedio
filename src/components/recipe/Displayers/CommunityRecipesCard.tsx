@@ -1,5 +1,4 @@
 import DotMenu from "@components/DotMenu";
-import Stars from "@components/Stars";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -7,16 +6,14 @@ import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
 
-export function VerticalRecipeCard({
+export default function RecipeCard({
   id,
   name,
-  ratings,
   imageURL,
   authorID,
 }: {
   id: string;
   name: string;
-  ratings: number;
   imageURL: string;
   authorID: string;
 }) {
@@ -68,7 +65,6 @@ export function VerticalRecipeCard({
             />
           )}
         </div>
-        <Stars average={ratings}></Stars>
         <p className="mx-1 mb-2 font-raleway uppercase">{name}</p>
       </div>
     </div>
