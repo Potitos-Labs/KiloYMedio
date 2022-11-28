@@ -183,9 +183,9 @@ const NutritionFacts = ({
           objectFit="contain"
         />
         <Link href="#nutritionFacts">
-          <button className="absolute top-8 h-12 font-satoshiBold text-xs">
+          <p className="absolute top-12 h-12 font-satoshiBold text-xs">
             saber más
-          </button>
+          </p>
         </Link>
       </div>
       <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">

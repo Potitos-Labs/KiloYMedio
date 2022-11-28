@@ -51,7 +51,7 @@ function Product({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-md border-2 border-base-content bg-base-100 py-4">
+    <div className="flex flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>

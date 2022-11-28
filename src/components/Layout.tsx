@@ -28,7 +28,7 @@ export default function Layout({
       <main>
         {children}
         {/* Footer */}
-        <div className="bg-base-content text-base-100">
+        <div className="bg-base-content pt-8 text-base-100">
           <h1 className="mx-10 mb-4 text-lg lg:mb-0 lg:text-right lg:text-2xl">
             info@kiloymedio.com
           </h1>
@@ -67,7 +67,7 @@ export default function Layout({
               </div>
             </div>
             <div className="grid-cols ml-10 grid sm:ml-20">
-              <div className="mt-8 mr-10 flex flex-col justify-between py-5 sm:flex-row">
+              <div className="mt-8 mr-10 flex flex-col py-5 lg:flex-row lg:justify-between">
                 <p className="py-2 sm:py-0">
                   TIENDA FÍSICA PRÓXIMAMENTE EN VALENCIA
                 </p>
