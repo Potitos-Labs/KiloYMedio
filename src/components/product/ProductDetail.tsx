@@ -182,7 +182,7 @@ const NutritionFacts = ({
           layout="fixed"
           objectFit="contain"
         />
-        <Link href="#nutritionFacts">
+        <Link replace={true} href="#nutritionFacts">
           <p className="absolute top-12 h-12 font-satoshiBold text-xs">
             saber más
           </p>
@@ -191,7 +191,7 @@ const NutritionFacts = ({
       <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
         INFORMACIÓN NUTRICIONAL
       </h1>
-      <div className="mt-3 flex flex-col gap-4 md:flex-row">
+      <div className="mt-3 flex flex-col gap-14 md:flex-row">
         <div className="flex flex-col">
           {allergensList.length > 0 && (
             <>

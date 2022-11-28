@@ -161,19 +161,21 @@ export const clientRouter = router({
       });
 
       const average =
-        ratings.reduce(
-          (acumulator, current) => acumulator + current.rating,
-          0,
-        ) / ratings.length;
+        Math.round(
+          (ratings.reduce(
+            (acumulator, current) => acumulator + current.rating,
+            0,
+          ) /
+            ratings.length) *
+            100,
+        ) / 100;
 
       //Obtener repetidos
-      let ranges: any = {};
+      const ranges: any = {};
       ratings.forEach((e: { rating: number }) => {
         const rangeStar = Math.ceil(e.rating);
         ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
       });
-      //Obtener porcentages
-      ranges = ranges.values().map((e: number) => (e * 100) / ratings.length);
 
       return { count: ratings.length, average, ranges };
     }),
