@@ -33,11 +33,15 @@ function ClientePage() {
       <div className="carousel h-screen w-full overflow-hidden">
         <div
           id="slide1"
-          className="carousel-item relative w-full bg-primary pb-20"
+          className="carousel-item relative w-full justify-center bg-primary pb-20"
         >
           <div className="z-10 mt-[250px] ml-10 -mr-[380px] hidden text-base-100 md:block xl:ml-10 xl:mt-[300px] xl:-mr-[350px]">
-            <p className="font-raleway md:text-xl lg:text-3xl">ECOLÓGICO</p>
-            <p>Nuestra tienda está comprometida con el medioambiente.</p>
+            <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-28">
+              ECOLÓGICO
+            </p>
+            <p className="xl:-ml-28">
+              Nuestra tienda está comprometida con el medioambiente.
+            </p>
           </div>
           <Image
             src="/img/mermeladaKM.png"
@@ -51,9 +55,11 @@ function ClientePage() {
           id="slide2"
           className="carousel-item relative w-full justify-center bg-secondary pb-20"
         >
-          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:-ml-20 xl:mt-[250px] xl:-mr-[380px]">
-            <p className="font-raleway md:text-xl lg:text-3xl">0 PLÁSTICOS</p>
-            <p className="ml-1 w-[480px] xl:w-[550px]">
+          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:mt-[270px]">
+            <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-6">
+              0 PLÁSTICOS
+            </p>
+            <p className="w-[480px] xl:-ml-6 xl:w-[550px]">
               Nuestros envases son de materiales reciclados y reutilizables para
               reducir el uso de plástico.
             </p>
@@ -61,16 +67,16 @@ function ClientePage() {
           <Image
             src="/img/paqueteKM.png"
             objectFit="cover"
-            width="900"
-            height="300"
+            width="1000"
+            height="400"
             alt="not found"
           />
         </div>
         <div
           id="slide3"
-          className="carousel-item relative w-full justify-center bg-[#8859FF] pb-20"
+          className="carousel-item relative w-full justify-between bg-[#8859FF] pb-20"
         >
-          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:-ml-20 xl:mt-[250px] xl:-mr-[380px]">
+          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:mt-[270px] xl:-mr-[300px]">
             <p className="font-raleway md:text-xl lg:text-3xl">PROMOCIÓN</p>
             <p className="ml-1 w-[480px] xl:w-[550px]">
               Por la primera compra por valor superior a 30€ te regalamos una
@@ -89,7 +95,7 @@ function ClientePage() {
           id="slide4"
           className="carousel-item relative w-full items-start justify-end bg-base-200 pb-20"
         >
-          <div className="z-10 mt-[180px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[140px] xl:mt-[180px] xl:-mr-[400px]">
+          <div className="z-10 mt-[180px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[140px] xl:mt-[180px] xl:-mr-[280px]">
             <p className="font-raleway md:text-xl xl:text-2xl">
               0 CONTAMINACIÓN CRUZADA
             </p>
