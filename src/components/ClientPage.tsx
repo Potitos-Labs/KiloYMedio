@@ -29,12 +29,13 @@ function ClientePage() {
 
   return (
     <div className={`bg-gradient-to-b ${color} to-base-content`}>
+      {/* Color Section */}
       <div className="carousel h-screen w-full overflow-hidden">
         <div
           id="slide1"
-          className="carousel-item relative w-full justify-center bg-primary pb-20"
+          className="carousel-item relative w-full bg-primary pb-20"
         >
-          <div className="z-10 mt-[250px] ml-6 -mr-[380px] hidden text-base-100 md:block xl:mt-[380px] xl:ml-10 xl:-mr-[350px]">
+          <div className="z-10 mt-[250px] ml-10 -mr-[380px] hidden text-base-100 md:block xl:ml-10 xl:mt-[300px] xl:-mr-[350px]">
             <p className="font-raleway md:text-xl lg:text-3xl">ECOLÓGICO</p>
             <p>Nuestra tienda está comprometida con el medioambiente.</p>
           </div>
@@ -43,35 +44,66 @@ function ClientePage() {
             objectFit="cover"
             width="900"
             height="300"
-            alt="notfound"
+            alt="not found"
           />
         </div>
         <div
           id="slide2"
-          className="carousel-item relative w-full justify-center bg-secondary"
+          className="carousel-item relative w-full justify-center bg-secondary pb-20"
         >
+          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:-ml-20 xl:mt-[250px] xl:-mr-[380px]">
+            <p className="font-raleway md:text-xl lg:text-3xl">0 PLÁSTICOS</p>
+            <p className="ml-1 w-[480px] xl:w-[550px]">
+              Nuestros envases son de materiales reciclados y reutilizables para
+              reducir el uso de plástico.
+            </p>
+          </div>
           <Image
             src="/img/paqueteKM.png"
             objectFit="cover"
             width="900"
             height="300"
-            alt="notfound"
+            alt="not found"
           />
         </div>
-        <div id="slide3" className="carousel-item relative w-full">
+        <div
+          id="slide3"
+          className="carousel-item relative w-full justify-center bg-[#8859FF] pb-20"
+        >
+          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:-ml-20 xl:mt-[250px] xl:-mr-[380px]">
+            <p className="font-raleway md:text-xl lg:text-3xl">PROMOCIÓN</p>
+            <p className="ml-1 w-[480px] xl:w-[550px]">
+              Por la primera compra por valor superior a 30€ te regalamos una
+              tote bag reutilizable.
+            </p>
+          </div>
           <Image
             src="/img/fondo3.png"
-            width="2000"
+            objectFit="cover"
+            width="900"
             height="300"
-            alt="notfound"
+            alt="not found"
           />
         </div>
-        <div id="slide4" className="carousel-item relative w-full">
+        <div
+          id="slide4"
+          className="carousel-item relative w-full items-start justify-end bg-base-200 pb-20"
+        >
+          <div className="z-10 mt-[180px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[140px] xl:mt-[180px] xl:-mr-[400px]">
+            <p className="font-raleway md:text-xl xl:text-2xl">
+              0 CONTAMINACIÓN CRUZADA
+            </p>
+            <p className="w-[480px] xl:w-[550px]">
+              Disponemos de un sistema de perfil de alérgenos para que nuestros
+              productos no sean contaminados.
+            </p>
+          </div>
           <Image
             src="/img/fondo4.png"
-            width="2000"
-            height="300"
-            alt="notfound"
+            objectFit="fill"
+            width="900"
+            height="600"
+            alt="not found"
           />
         </div>
         <div className="absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-3 px-6">
@@ -79,8 +111,7 @@ function ClientePage() {
             <BsArrowLeft className="text-base-100" />
           </a>
           <p className="px-2 text-base-100">
-            {" "}
-            <span className="font-semibold">0{slide}</span> / 04
+            <span className="font-raleway text-sm">0{slide}</span> / 04
           </p>
           <a onClick={incrementSlide} href={`#slide${slide}`}>
             <BsArrowRight className="text-base-100" />
@@ -96,6 +127,9 @@ function ClientePage() {
           <HiArrowNarrowRight className="mt-0.5" />
         </button>
       </div>
+      {/* End Color Section */}
+
+      {/* 'saber más' Section */}
       <div className="relative z-0 mx-4">
         <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
           <Image
@@ -125,9 +159,12 @@ function ClientePage() {
               alt="notfound"
             />
           </div>
+          {/* Productos destacados */}
           <div className="mb-20">
-            <p className="mb-10 font-raleway text-2xl">PRODUCTOS DESTACADOS</p>
-            <div className="mx-2 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
+              PRODUCTOS DESTACADOS
+            </p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {listProduct ? (
                 listProduct.map((e) => {
                   return (
@@ -143,9 +180,13 @@ function ClientePage() {
               )}
             </div>
           </div>
+          {/* End Productos destacados */}
+          {/* Objetivo */}
           <div>
-            <p className="mb-10 font-raleway text-2xl">NUESTRO OBJETIVO</p>
-            <p className="mb-20 mr-20 text-sm lg:mr-60">
+            <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
+              NUESTRO OBJETIVO
+            </p>
+            <p className="mb-20 text-sm md:mr-10 lg:mr-60">
               Si algo nos diferencia como tienda, es el compromiso que tenemos
               con la salud de nuestros clientes. Cada día apostamos por mejorar
               su bienestar y, por ello, organizamos nuestros productos de manera
@@ -155,6 +196,7 @@ function ClientePage() {
               aparecerá cuando compres un producto.
             </p>
           </div>
+          {/* End Objetivo */}
           <div className="ml-2 flex w-full justify-end">
             <Image
               src="/img/bolas.png"
@@ -165,6 +207,7 @@ function ClientePage() {
           </div>
         </div>
       </div>
+      {/* End 'saber más' Section */}
     </div>
   );
 }
