@@ -36,15 +36,17 @@ function Addproductchart({
   return (
     <button
       onClick={addToCart}
-      className={`h-auto  rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
+      className={`rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
       } ${className}`}
     >
       <div className="flex h-full flex-row">
-        <div className="flex h-full w-24 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100">
-          <span className="px-2 text-sm">{getTotalPrice() + " €"}</span>
+        <div className="flex h-full w-20 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-24">
+          <span className="px-2 text-xs sm:text-sm">
+            {getTotalPrice() + " €"}
+          </span>
         </div>
-        <div className=" flex-initial self-center whitespace-nowrap px-2 text-center text-sm">
+        <div className=" flex-initial self-center whitespace-nowrap px-2 text-center text-xs sm:text-sm">
           {stockLeft ? "añadir a la cesta" : "agotado"}
         </div>
       </div>

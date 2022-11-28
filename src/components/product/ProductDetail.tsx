@@ -16,23 +16,28 @@ import Addproductchart from "./Addproductchart";
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
     <div className="relative z-0 flex flex-col bg-base-200">
-      <div className="lg:ml-16 lg:pt-40">
-        <div className="grid w-fit grid-rows-2 gap-3 lg:grid-cols-2">
+      <div className="flex flex-col justify-around lg:ml-16 lg:min-h-screen">
+        <div className="flex w-full flex-auto flex-col items-center gap-3 lg:mt-[5%] lg:h-[70%] lg:flex-row">
           <ProductCard
             product={product}
-            className="h-auto w-full rounded-b-[20px] bg-base-100 px-5 lg:rounded-[20px] lg:px-16"
+            className="h-full w-full rounded-b-[20px] bg-base-100 px-5 lg:rounded-[20px] lg:px-16"
           />
-          <Image
-            height="600"
-            width={400}
-            layout="intrinsic"
-            objectFit="cover"
-            className="rounded-[20px]"
-            alt={product.name}
-            src={product.imageURL}
-          />
+          <div className="m-auto flex w-[50%] place-content-center">
+            <Image
+              height="600"
+              width="600"
+              layout="intrinsic"
+              objectFit="cover"
+              className="m-auto h-[50%] rounded-[20px]"
+              alt={product.name}
+              src={product.imageURL}
+            />
+          </div>
         </div>
-        <button onClick={() => router.back()} className="mt-12 ml-6 lg:ml-0">
+        <button
+          onClick={() => router.back()}
+          className="mt-12 ml-6 mb-16 lg:mb-32 lg:ml-0"
+        >
           <div className="flex flex-nowrap items-center">
             <HiArrowLeft
               color={"a6806d"}
@@ -45,7 +50,9 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
           </div>
         </button>
       </div>
-      {product.Edible != null && <NutritionFacts product={product} />}
+      {product.Edible != null && (
+        <NutritionFacts product={product} className="mx-4 mb-14 lg:-mt-20" />
+      )}
     </div>
   );
 };
@@ -84,7 +91,7 @@ const ProductCard = ({
 
   return (
     <div
-      className={`flex h-full flex-1 flex-col place-content-between space-y-2 py-[10%] lg:place-content-center ${className}`}
+      className={`flex h-full flex-auto flex-col place-content-between gap-4 space-y-2 lg:place-content-center lg:py-10 ${className}`}
     >
       {data?.user?.role == "admin" && (
         <div className="inline-block">
@@ -97,13 +104,13 @@ const ProductCard = ({
           />
         </div>
       )}
-      <p className="inline-block text-center font-raleway text-2xl font-black uppercase text-base-content lg:text-left">
+      <p className="inline-block text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left">
         {product.name}
       </p>
-      <p className="text-center font-sans text-sm leading-[20px] lg:pr-[10%] lg:text-justify">
+      <p className="text-center font-sans text-xs leading-[20px] sm:text-sm lg:pr-[10%] lg:text-justify">
         {product.description}
       </p>
-      <p className="py-4 text-center font-sans text-base lg:text-left">
+      <p className="py-4 text-center font-sans text-sm sm:text-base lg:text-left">
         {product.Edible ? (
           <span>{product.Edible?.priceByWeight}</span>
         ) : (
@@ -121,7 +128,7 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
   const [amount, setAmount] = React.useState(product.Edible ? 100 : 1);
 
   return (
-    <div className="mb-20 flex h-12 flex-row place-content-between space-x-6 md:items-center">
+    <div className="mb-20 flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">
       <div className="h-full w-36 flex-initial">
         <IncDecButtons
           setAmount={setAmount}
@@ -133,12 +140,18 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
           className={"rounded-full ring-1 ring-base-content ring-offset-0"}
         />
       </div>
-      <Addproductchart amount={amount} product={product} />
+      <Addproductchart amount={amount} product={product} className="h-full" />
     </div>
   );
 };
 
-const NutritionFacts = ({ product }: { product: IProduct }) => {
+const NutritionFacts = ({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) => {
   const allergensList = product.Edible?.allergens.map((e) => e.allergen) ?? [];
   const unitPrice = {
     grams: "g",
@@ -152,12 +165,14 @@ const NutritionFacts = ({ product }: { product: IProduct }) => {
   return !product.Edible ? (
     <></>
   ) : (
-    <div className="relative mx-6 my-14 rounded-3xl bg-base-100 px-24 pt-16 pb-16">
-      <div className="absolute -top-[78px] left-0 -z-10 flex w-full place-content-center">
+    <div
+      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 lg:px-24 ${className}`}
+    >
+      <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
         <Image
           src="/img/ellipse.svg"
           alt=""
-          className="select-none"
+          className="-z-10 select-none"
           width={"300%"}
           height={"200%"}
           layout="fixed"
@@ -167,26 +182,26 @@ const NutritionFacts = ({ product }: { product: IProduct }) => {
           saber más
         </button>
       </div>
-      <h1 className="whitespace-nowrap font-raleway text-sm lg:text-xl">
+      <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
         INFORMACIÓN NUTRICIONAL
       </h1>
-      <div className="mt-3 flex flex-row place-content-between">
-        <div className="flex w-[35%] flex-col">
+      <div className="mt-3 flex flex-col gap-4 md:flex-row">
+        <div className="flex flex-col">
           {allergensList.length > 0 && (
             <>
-              <p className="text-base">Alérgenos</p>
+              <p className="text-sm sm:text-base">Alérgenos</p>
               {allergensList.length > 0 && (
                 <AllergenDescription allergens={allergensList} />
               )}
             </>
           )}
         </div>
-        <table className="mt-3 w-[65%] table-auto text-base">
+        <table className="mt-3 table-auto text-xs sm:text-base lg:w-[65%]">
           <thead>
             <tr>
               <th className="pb-4 text-left"></th>
-              <th className="pb-4 text-left">100 {unit}</th>
-              <th className="pb-4 text-left">30 {unit}</th>
+              <th className="whitespace-nowrap pb-4 text-left">100 {unit}</th>
+              <th className="whitespace-nowrap pb-4 text-left">30 {unit}</th>
             </tr>
           </thead>
           <tbody>

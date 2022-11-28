@@ -50,7 +50,7 @@ function IncDecButtons({
       <button
         disabled={!stockLeft || amount == incdecValues[productUnit]}
         className={clsx(
-          `w-8 flex-auto bg-transparent`,
+          `w-6 flex-auto bg-transparent`,
           (!stockLeft || amount == incdecValues[productUnit]) &&
             "cursor-not-allowed opacity-60",
         )}
@@ -58,7 +58,7 @@ function IncDecButtons({
       >
         -
       </button>
-      <p className="place-content-center self-center whitespace-nowrap text-sm">
+      <p className="place-content-center self-center whitespace-nowrap text-xs sm:text-sm">
         {amount} {unitDisplay[productUnit]}
       </p>
       <button
