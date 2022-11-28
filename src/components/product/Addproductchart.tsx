@@ -1,15 +1,20 @@
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "@utils/validations/product";
 import { toast } from "react-toastify";
+import { Dispatch } from "react";
 
 function Addproductchart({
   amount,
   product,
   className,
+  index,
+  setPrices,
 }: {
   amount: number;
   product: IProduct;
   className?: string;
+  index?: number;
+  setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const utils = trpc.useContext();
   const stockLeft = product.stock * 1000 >= 100;
@@ -31,6 +36,9 @@ function Addproductchart({
       ? (amount / 1000) * product.Edible.priceByWeight
       : amount * (product.NonEdible?.price ?? 0);
     price = Math.round(price * 100) / 100;
+    if (setPrices && index) {
+      setPrices((prices) => prices.splice(index, 1, price));
+    }
     return price;
   }
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+//import React, { useState } from "react";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
 
 import DotMenu from "../DotMenu";
-import Loading from "@components/ui/Loading";
-import Product from "@components/product/Product";
+//import Loading from "@components/ui/Loading";
+//import Product from "@components/product/Product";
 import CommentSection from "./comments/CommentSection";
 
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
@@ -19,6 +19,9 @@ import SaveIcon from "./SaveIcon";
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
   const ingredients = recipe?.RecipeIngredient;
+
+  //const [prices, setPrices] = useState<number[]>([]);
+  //let cont = -1;
   const directions = recipe?.directions;
 
   const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
@@ -47,16 +50,22 @@ const RecipeDetail = ({ id }: { id: string }) => {
     router.push(`/recipe`);
     notifyDeleted();
   };
+  // function getTotalPrice() {
+  //   return prices.reduce((totalPrice, price) => totalPrice + price, 0);
+  // }
 
   // const cartMutation = trpc.cart.addProduct.useMutation({
-  //   onSuccess() {
-  //     utils.cart.getAllCartProduct.invalidate();
-  //   },
+  // onSuccess() {
+  // utils.cart.getAllCartProduct.invalidate();
+  //  },
   // });
 
-  // function addToCart() {
-  //     cartMutation.mutateAsync({ productId: , amount: });
-  //   }
+  //  function addToCart() {
+  //   ingredients?.map((i) => {
+  //     if (i.Ingredient.Edible) {
+  //       cartMutation.mutateAsync({ productId:i.Ingredient.Edible.product.id , amount: });
+  //      }
+  //   })
   // }
 
   return (
@@ -188,7 +197,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
               </h2>
               <button className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10 font-satoshiBold">
                 <div className="h-full rounded-full bg-secondary px-8 pt-2">
-                  6,85€
+                  {"10" + "€"}
                 </div>
                 <div className="flex items-center gap-1">
                   añadir todo
@@ -197,19 +206,23 @@ const RecipeDetail = ({ id }: { id: string }) => {
               </button>
             </div>
             <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {ingredients ? (
+              {/* {ingredients ? (
                 ingredients.map((i) => {
-                  if (i.Ingredient.Edible)
+                  if (i.Ingredient.Edible) {
+                    cont++;
                     return (
                       <Product
                         product={i.Ingredient.Edible.product}
                         showButtons={true}
+                        index={cont}
+                        setPrices={setPrices}
                       ></Product>
                     );
+                  }
                 })
               ) : (
                 <Loading message="Cargando productos" />
-              )}
+              )} */}
             </div>
           </div>
           {/* End Products */}
@@ -221,5 +234,4 @@ const RecipeDetail = ({ id }: { id: string }) => {
     </div>
   );
 };
-
 export default RecipeDetail;

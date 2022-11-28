@@ -26,9 +26,9 @@ function OnsiteWorkshopForm() {
 
   const onSubmit = useCallback(
     async (data: IWorkshopCreate) => {
-      console.log("miniflusi");
+      console.log("si");
       await createWorshop(data);
-      console.log("miniflusi");
+      console.log("si");
     },
     [createWorshop],
   );

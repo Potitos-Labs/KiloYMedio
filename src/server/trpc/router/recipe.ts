@@ -84,7 +84,7 @@ export const recipeRouter = router({
                 select: {
                   id: true,
                   name: true,
-                  Edible: { select: { product: true } },
+                  Edible: { select: { productId: true } },
                 },
               },
               amount: true,
@@ -97,6 +97,7 @@ export const recipeRouter = router({
           userId: true,
         },
       });
+      //const recipeProduct = recipe.RecipeIngredient.map((e) => e.Ingredient.E);
       const isFav = (await ctx.prisma.recipeUser.findFirst({
         where: { recipeId: id, userId: ctx.session?.user?.id },
       }))

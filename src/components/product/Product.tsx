@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { toast } from "react-toastify";
 
 import { trpc } from "../../utils/trpc";
@@ -14,9 +14,13 @@ import IncDecButtons from "./IncDecButtons";
 function Product({
   product,
   showButtons,
+  index,
+  setPrices,
 }: {
   product: IProduct;
   showButtons: boolean;
+  index?: number;
+  setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const { data } = useSession();
   const isEdible = product.Edible != null;
@@ -96,6 +100,8 @@ function Product({
           <Addproductchart
             amount={amount}
             product={product}
+            index={index}
+            setPrices={setPrices}
             className={"w-30"}
           />
         </div>
