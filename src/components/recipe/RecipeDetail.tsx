@@ -33,6 +33,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
   const utils = trpc.useContext();
   const router = useRouter();
 
+  let cont = -1;
+  let cont2 = -1;
+
   const { data: session } = useSession();
   const isAdmin = session?.user?.role == "admin";
 
@@ -55,19 +58,29 @@ const RecipeDetail = ({ id }: { id: string }) => {
     notifyDeleted();
   };
 
-  // const cartMutation = trpc.cart.addProduct.useMutation({
-  // onSuccess() {
-  // utils.cart.getAllCartProduct.invalidate();
-  //  },
-  // });
+  const cartMutation = trpc.cart.addProduct.useMutation({
+    onSuccess() {
+      utils.cart.getAllCartProduct.invalidate();
+    },
+  });
 
-  //  function addToCart() {
-  //   ingredients?.map((i) => {
-  //     if (i.Ingredient.Edible) {
-  //       cartMutation.mutateAsync({ productId:i.Ingredient.Edible.product.id , amount: });
-  //      }
-  //   })
-  // }
+  function addToCart() {
+    ingredients?.map((i) => {
+      cont2++;
+      if (i.Ingredient.Edible) {
+        const amount = Math.round(
+          ((prices[cont2] ?? 1) /
+            (i.Ingredient.Edible.Edible?.priceByWeight ?? 1)) *
+            1000,
+        );
+        i.Ingredient.Edible.Edible?.priceByWeight;
+        cartMutation.mutateAsync({
+          productId: i.Ingredient.Edible.id,
+          amount: amount,
+        });
+      }
+    });
+  }
 
   return (
     <div>
@@ -196,7 +209,10 @@ const RecipeDetail = ({ id }: { id: string }) => {
               <h2 className="font-raleway text-xl text-base-100">
                 DIRECTO A TU CESTA
               </h2>
-              <button className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10 font-satoshiBold">
+              <button
+                className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10 font-satoshiBold"
+                onClick={addToCart}
+              >
                 <div className="h-full rounded-full bg-secondary px-8 pt-2">
                   {prices.reduce((totalPrice, price) => totalPrice + price, 0) +
                     "€"}
@@ -211,11 +227,12 @@ const RecipeDetail = ({ id }: { id: string }) => {
               {ingredients ? (
                 ingredients.map((i, index) => {
                   if (i.Ingredient.Edible) {
+                    cont++;
                     return (
                       <Product
                         product={i.Ingredient.Edible}
                         showButtons={true}
-                        index={index}
+                        index={cont}
                         setPrices={setPrices}
                         key={index}
                       ></Product>
