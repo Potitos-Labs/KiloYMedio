@@ -17,19 +17,19 @@ import Link from "next/link";
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
     <div className="relative z-0 flex flex-col bg-base-200">
-      <div className="flex flex-col justify-around lg:ml-16 lg:min-h-screen">
-        <div className="flex w-full flex-auto flex-col items-center gap-3 lg:mt-[5%] lg:h-[70%] lg:flex-row">
+      <div className="lg:mx-16 lg:max-h-screen">
+        <div className="flex w-full flex-auto flex-col items-center gap-2 lg:mt-[5%] lg:flex-row">
           <ProductCard
             product={product}
-            className="h-full w-full rounded-b-[20px] bg-base-100 px-5 lg:rounded-[20px] lg:px-16"
+            className="flex-auto place-self-stretch rounded-b-[20px] bg-base-100 px-5 lg:w-[60%] lg:rounded-[20px] lg:px-16"
           />
-          <div className="m-auto flex w-[50%] place-content-center">
+          <div className="flex w-full place-content-center">
             <Image
               height="600"
               width="600"
               layout="intrinsic"
-              objectFit="cover"
-              className="m-auto h-[50%] rounded-[20px]"
+              objectFit="contain"
+              className="rounded-[20px]"
               alt={product.name}
               src={product.imageURL}
             />
@@ -37,7 +37,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </div>
         <button
           onClick={() => router.back()}
-          className="mt-12 ml-6 mb-16 w-fit lg:mb-40 lg:ml-0"
+          className="ml-6 mb-20 w-fit lg:mt-12 lg:ml-0"
         >
           <div className="flex flex-nowrap items-center">
             <HiArrowLeft
@@ -52,7 +52,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </button>
       </div>
       {product.Edible != null && (
-        <NutritionFacts product={product} className="mx-4 mb-14 lg:-mt-20" />
+        <NutritionFacts product={product} className="mx-4 mb-14 " />
       )}
     </div>
   );
@@ -92,7 +92,7 @@ const ProductCard = ({
 
   return (
     <div
-      className={`flex h-full flex-auto flex-col place-content-between gap-4 space-y-2 pb-10 lg:place-content-center lg:py-10 ${className}`}
+      className={`flex flex-col place-content-between space-y-4 pb-10 lg:place-content-center lg:py-10 ${className}`}
     >
       {data?.user?.role == "admin" && (
         <div className="inline-block">
@@ -105,7 +105,7 @@ const ProductCard = ({
           />
         </div>
       )}
-      <p className="inline-block text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left">
+      <p className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left">
         {product.name}
       </p>
       <p className="text-center font-sans text-xs leading-[20px] sm:text-sm lg:pr-[10%] lg:text-justify">
@@ -129,7 +129,7 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
   const [amount, setAmount] = React.useState(product.Edible ? 100 : 1);
 
   return (
-    <div className="mb-20 flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">
+    <div className="flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">
       <div className="h-full w-36 flex-initial">
         <IncDecButtons
           setAmount={setAmount}

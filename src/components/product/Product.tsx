@@ -65,7 +65,7 @@ function Product({
               width="100"
               height="100"
               layout="fixed"
-              objectFit="cover"
+              objectFit="contain"
               className="cursor-pointer rounded-md"
             ></Image>
           </a>

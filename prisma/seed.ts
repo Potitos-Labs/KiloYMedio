@@ -346,7 +346,7 @@ async function main() {
         "Las almendras son indicadas para su alto contenido de calcio y de grasas saludables, así como para disminuir el índice de azúcar en sangre.",
       stock: 16.5,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/almendras.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/almendras.png",
       Edible: {
         create: {
           category: "nuts",
@@ -381,7 +381,7 @@ async function main() {
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.png?t=2022-11-28T17%3A26%3A58.679Z",
       Edible: {
         create: {
           category: "nuts",
@@ -416,7 +416,7 @@ async function main() {
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.png?t=2022-11-28T17%3A27%3A31.769Z",
       Edible: {
         create: {
           category: "nuts",
@@ -450,7 +450,7 @@ async function main() {
       description: "levadura nutricional ecológica",
       stock: 22.8,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levadura-nutricional.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levadura%20nutricional.png",
       Edible: {
         create: {
           category: "yeast",
@@ -483,7 +483,7 @@ async function main() {
       description: "lentejas ecológicas",
       stock: 48.1,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/lentejas.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/lentejas.png",
       Edible: {
         create: {
           category: "legumes",
@@ -516,7 +516,7 @@ async function main() {
       description: "Que ricos los garbanzos ñam",
       stock: 48.1,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/garbanzos.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/garbanzos.png",
       Edible: {
         create: {
           category: "legumes",
@@ -550,7 +550,7 @@ async function main() {
         "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
       stock: 48.1,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/judia-blanca.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/judia%20blanca.png",
       Edible: {
         create: {
           category: "legumes",
@@ -583,7 +583,7 @@ async function main() {
       description: "harina de trigo",
       stock: 18,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina-de-trigo.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20trigo.png?t=2022-11-28T17%3A30%3A39.365Z",
       Edible: {
         create: {
           category: "flours",
@@ -617,7 +617,7 @@ async function main() {
         "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
       stock: 18,
       imageURL:
-        "https://www.elgraneldecorredera.com/wp-content/uploads/2017/04/HARINA-DE-MAIZ.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20maiz.png?t=2022-11-28T17%3A31%3A03.807Z",
       Edible: {
         create: {
           category: "flours",
@@ -650,7 +650,7 @@ async function main() {
         "La harina de almendra se hace moliendo almendras dulces. Suele hacerse con almendra pelada (sin piel) o con la almendra entera.",
       stock: 18,
       imageURL:
-        "https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1024/https://www.tiendaspy.com/wp-content/uploads/2020/04/harina-de-almendras-2-1024x783.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20almendra.png",
       Edible: {
         create: {
           category: "flours",
@@ -683,7 +683,7 @@ async function main() {
         "El espagueti es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
       imageURL:
-        "https://www.sanpellegrinofruitbeverages.com/mx/sites/g/files/xknfdk901/files/2019-10/spaghetti_pasta_frittata.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/espaguetis.png",
       Edible: {
         create: {
           category: "pastas",
@@ -717,7 +717,7 @@ async function main() {
         "Los macarrones es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
       imageURL:
-        "https://dietamediterranea.com/wp-content/uploads/2018/10/20181022-Macarrones-de-fraile-2000x1497.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/macarrones.png",
       Edible: {
         create: {
           category: "pastas",
@@ -751,7 +751,7 @@ async function main() {
         "Una pasa es una fruta seca obtenida del proceso de secado de una uva, con el objetivo de disminuir su humedad para lograr así su conservación por un periodo prolongado.",
       stock: 10,
       imageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Sunmaid-Raisin-Pile.jpg/300px-Sunmaid-Raisin-Pile.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pasas.png",
       Edible: {
         create: {
           category: "driedFruits",
@@ -784,7 +784,7 @@ async function main() {
         "El té verde (en chino tradicional, 綠茶; en chino simplificado, 绿茶; pinyin, Lǜ chá) proviene de la planta Camellia sinensis; «es el tipo de té no fermentado.",
       stock: 10,
       imageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Maojian.jpg/330px-Maojian.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/te%20verde.png?t=2022-11-28T17%3A32%3A53.906Z",
       Edible: {
         create: {
           category: "teas",
@@ -817,7 +817,7 @@ async function main() {
         "El rooibos (nombre científico Aspalathus linearis) es una planta de origen sudafricano cuyo nombre en afrikáans significa arbusto rojo y se pronuncia «roibos».",
       stock: 10,
       imageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Rooibos.jpg/375px-Rooibos.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/rooibos.png?t=2022-11-28T17%3A33%3A10.365Z",
       Edible: {
         create: {
           category: "teas",
@@ -851,7 +851,7 @@ async function main() {
         "Los jarabes  llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
       stock: 23,
       imageURL:
-        "https://www.objetivobienestar.com/uploads/s1/12/21/30/4/jarabe-arce-25964_101_940x557.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/sirope%20de%20arce.png?t=2022-11-28T17%3A33%3A30.371Z",
       Edible: {
         create: {
           category: "syrups",
@@ -885,7 +885,7 @@ async function main() {
         "Las mermeladas industriales estan dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
       stock: 23,
       imageURL:
-        "https://www.objetivobienestar.com/uploads/s1/11/93/36/5/receta-mermelada-de-melon_101_940x557.jpeg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermelada%20de%20melon.jpeg?t=2022-11-28T17%3A33%3A56.871Z",
       Edible: {
         create: {
           category: "jams",
@@ -918,7 +918,7 @@ async function main() {
         "El aceite de oliva es típico de la cuenca mediterránea, siendo España el primer productor mundial. Se usa a diario en la cocina mediterránea.",
       stock: 23,
       imageURL:
-        "https://cocinista-vsf.netdna-ssl.com/download/bancorecursos/ingredientes/ingrediente-aceite-oliva-2.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceite%20de%20oliva%20virgen%20extra.png?t=2022-11-28T17%3A34%3A12.965Z",
       Edible: {
         create: {
           category: "oils",
@@ -953,7 +953,7 @@ async function main() {
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
-        "https://www.adonianatur.com/media/catalog/product/c/e/cepillo-dientes-azul-adultos-nordics-bambu.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cepillo%20dientes.png?t=2022-11-28T17%3A34%3A26.608Z",
       NonEdible: {
         create: {
           category: "personalCare",
@@ -971,7 +971,7 @@ async function main() {
       description: "jabón artesanal",
       stock: 12,
       imageURL:
-        "https://http2.mlstatic.com/jabones-artesanales-100gr-D_NQ_NP_727085-MLM31223991710_062019-F.jpg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/jabon%20artesanal.png?t=2022-11-28T17%3A34%3A41.195Z",
       NonEdible: {
         create: {
           category: "personalCare",
