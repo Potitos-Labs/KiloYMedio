@@ -17,7 +17,7 @@ import Link from "next/link";
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
     <div className="relative z-0 flex flex-col bg-base-200">
-      <div className="lg:mx-16 lg:max-h-screen">
+      <div className="lg:mx-16">
         <div className="flex w-full flex-auto flex-col items-center gap-2 lg:mt-[5%] lg:flex-row">
           <ProductCard
             product={product}
@@ -92,18 +92,17 @@ const ProductCard = ({
 
   return (
     <div
-      className={`flex flex-col place-content-between space-y-4 pb-10 lg:place-content-center lg:py-10 ${className}`}
+      className={`relative flex flex-col place-content-between space-y-4 pb-10 lg:place-content-center lg:py-10 ${className}`}
     >
       {data?.user?.role == "admin" && (
-        <div className="inline-block">
-          <DotMenu
-            id={product.id}
-            name={product.name}
-            type="producto"
-            deleteFunction={deleteProduct}
-            updateFunction={updateProduct}
-          />
-        </div>
+        <DotMenu
+          id={product.id}
+          name={product.name}
+          type="producto"
+          deleteFunction={deleteProduct}
+          updateFunction={updateProduct}
+          className="absolute top-1 right-0 lg:top-5 lg:right-3"
+        />
       )}
       <p className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left">
         {product.name}
@@ -167,11 +166,11 @@ const NutritionFacts = ({
     <></>
   ) : (
     <div
-      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 lg:px-24 ${className}`}
+      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 sm:px-8 lg:px-24 ${className}`}
     >
       <div
         id="nutritionFacts"
-        className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]"
+        className="absolute -top-[78px] left-0 flex w-full select-none place-content-center px-[24px]"
       >
         <Image
           src="/img/ellipse.svg"
@@ -183,7 +182,7 @@ const NutritionFacts = ({
           objectFit="contain"
         />
         <Link replace={true} href="#nutritionFacts">
-          <p className="absolute top-12 h-12 font-satoshiBold text-xs">
+          <p className="absolute top-12 h-12 cursor-pointer font-satoshiBold text-xs">
             saber más
           </p>
         </Link>
@@ -191,18 +190,11 @@ const NutritionFacts = ({
       <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
         INFORMACIÓN NUTRICIONAL
       </h1>
-      <div className="mt-3 flex flex-col gap-14 md:flex-row">
-        <div className="flex flex-col">
-          {allergensList.length > 0 && (
-            <>
-              <p className="text-sm sm:text-base">Alérgenos</p>
-              {allergensList.length > 0 && (
-                <AllergenDescription allergens={allergensList} />
-              )}
-            </>
-          )}
-        </div>
-        <table className="mt-3 table-auto text-xs sm:text-base lg:w-[65%]">
+      <div className="mt-3 flex flex-col place-content-between lg:flex-row lg:gap-14">
+        {allergensList.length > 0 && (
+          <AllergenDescription allergens={allergensList} />
+        )}
+        <table className="mt-3 max-w-7xl grow table-auto text-xs sm:text-base">
           <thead>
             <tr>
               <th className="pb-4 text-left"></th>
@@ -276,7 +268,8 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
-    <>
+    <div className="flex flex-col">
+      <p className="text-sm sm:text-base">Alérgenos</p>
       {allergens.map((allergen) => (
         <div className="mt-2 flex py-2 align-middle" key={allergen}>
           <AllergensComponent allergens={[allergen]} size={30} />
@@ -285,7 +278,7 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
           </p>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

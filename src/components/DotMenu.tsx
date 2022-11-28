@@ -9,6 +9,7 @@ interface DotMenuProps {
   type: string;
   updateFunction: (id: string) => void;
   deleteFunction: (id: string) => void;
+  className?: string;
 }
 
 const DotMenu = ({
@@ -17,6 +18,7 @@ const DotMenu = ({
   type,
   updateFunction,
   deleteFunction,
+  className,
 }: DotMenuProps) => {
   const [open, setOpen] = useState(false);
 
@@ -34,12 +36,12 @@ const DotMenu = ({
   }
 
   return (
-    <div>
-      <div className="dropdown relative  flex h-8 w-6 items-center">
+    <div className={`${className}`}>
+      <div className="dropdown relative flex h-10 w-10 items-center">
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className=" flex items-center">
-              <AiOutlineMore className="h-5 w-5" />
+              <AiOutlineMore className="h-7 w-7" />
             </Menu.Button>
           </div>
           <Transition
