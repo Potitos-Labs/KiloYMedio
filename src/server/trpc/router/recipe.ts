@@ -8,6 +8,8 @@ import {
 } from "../../../utils/validations/recipe";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 import { findOrCreteRecipeIngredients } from "./common/recipe-ingredients";
+import { getProductById } from "./common/product";
+import { TRPCError } from "@trpc/server";
 
 export const recipeRouter = router({
   getAllRecipes: publicProcedure.query(async ({ ctx }) => {
@@ -97,13 +99,46 @@ export const recipeRouter = router({
           userId: true,
         },
       });
-      //const recipeProduct = recipe.RecipeIngredient.map((e) => e.Ingredient.E);
+
+      if (!recipe) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Recipe not found" });
+      }
+
+      const recipeIngredient = recipe.RecipeIngredient.map(async (e) => {
+        const Ingredient: {
+          id: string;
+          name: string;
+          Edible: Awaited<ReturnType<typeof getProductById>> | null;
+        } = {
+          id: e.Ingredient.id,
+          name: e.Ingredient.name,
+          Edible: null,
+        };
+        const amount = e.amount;
+        const unit = e.unit;
+
+        if (e.Ingredient.Edible) {
+          Ingredient.Edible = await getProductById(
+            e.Ingredient.Edible.productId,
+            ctx.prisma,
+          );
+        }
+
+        return { Ingredient, amount, unit };
+      });
+
+      const newRecipe = {
+        ...recipe,
+        RecipeIngredient: await Promise.all(recipeIngredient),
+      };
+
       const isFav = (await ctx.prisma.recipeUser.findFirst({
         where: { recipeId: id, userId: ctx.session?.user?.id },
       }))
         ? true
         : false;
-      return recipe != null ? { ...recipe, isFav } : null;
+
+      return { ...newRecipe, isFav };
     }),
   getRecentRecipes: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.recipe.findMany({

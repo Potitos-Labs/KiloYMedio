@@ -1,10 +1,7 @@
 import { Context } from "@server/trpc/context";
 
-export async function findOrCreteRecipeIngredients(
-  id: string,
-  prisma: Context["prisma"],
-) {
-  await prisma.product.findFirst({
+export async function getProductById(id: string, prisma: Context["prisma"]) {
+  return await prisma.product.findFirst({
     select: {
       id: true,
       name: true,
