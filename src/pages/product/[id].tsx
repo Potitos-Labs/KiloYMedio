@@ -13,7 +13,7 @@ const ProductDetails: NextPage = () => {
   if (data)
     return (
       <Layout
-        bgColor={"bg-base-200"}
+        bgColor={"lg:bg-base-200 bg-base-100"}
         headerBgLight={true}
         headerTextDark={true}
       >
