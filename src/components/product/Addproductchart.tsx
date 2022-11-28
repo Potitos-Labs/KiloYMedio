@@ -38,11 +38,7 @@ function Addproductchart({
 
   useEffect(() => {
     if (setPrices && typeof index === "number") {
-      setPrices((prices) => {
-        prices[index] = price;
-        console.log({ pricesModified: prices });
-        return prices;
-      });
+      setPrices((prices) => prices.map((p, i) => (i === index ? price : p)));
       console.log({ index, price, setPrices });
     }
   }, [index, price, setPrices]);
