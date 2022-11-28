@@ -21,7 +21,7 @@ export default function Layout({
 }: Props) {
   const { data: session } = useSession();
   return (
-    <div className={`${bgColor} w-full`}>
+    <div className={`${bgColor} w-full cursor-default`}>
       <div className="px-4">
         <Header bgLight={headerBgLight} textDark={headerTextDark}></Header>
       </div>

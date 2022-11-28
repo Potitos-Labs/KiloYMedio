@@ -35,7 +35,7 @@ function ClientePage() {
           id="slide1"
           className="carousel-item relative w-full justify-center bg-primary pb-20"
         >
-          <div className="z-10 mt-[250px] ml-10 -mr-[380px] hidden text-base-100 md:block xl:ml-10 xl:mt-[300px] xl:-mr-[350px]">
+          <div className="z-10 mt-[250px] ml-10 -mr-[380px] hidden text-base-100 md:block xl:-ml-4 xl:mt-[300px] xl:-mr-[400px]">
             <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-28">
               ECOLÓGICO
             </p>
@@ -55,7 +55,7 @@ function ClientePage() {
           id="slide2"
           className="carousel-item relative w-full justify-center bg-secondary pb-20"
         >
-          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:mt-[270px]">
+          <div className="z-10 mt-[270px] ml-10 -mr-[480px] hidden text-base-100 md:block lg:mt-[160px] xl:-ml-10 xl:mt-[270px]">
             <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-6">
               0 PLÁSTICOS
             </p>
@@ -137,6 +137,7 @@ function ClientePage() {
 
       {/* 'saber más' Section */}
       <div className="relative z-0 mx-4">
+        {/* Elipse */}
         <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
           <Image
             src="/img/ellipse.svg"
@@ -147,10 +148,11 @@ function ClientePage() {
             layout="fixed"
             objectFit="contain"
           />
-          <p className="absolute top-12 h-12 font-satoshiBold text-xs">
+          <p className="absolute top-12 h-12 cursor-default font-satoshiBold text-xs">
             saber más
           </p>
         </div>
+        {/* End Elipse */}
         <div className="rounded-box bg-base-100 px-14 pt-6 pb-0.5 text-xs text-base-content">
           <p className="text-lg md:text-xl lg:text-2xl">
             kilo y medio es una tienda sostenible, comprometida y cercana, que

@@ -89,16 +89,14 @@ export default function OurRecipesCard({
         </div>
         {/* End Features and Buttons */}
       </div>
-      <Link href={`/recipe/${id}`}>
-        <Image
-          src={imageURL}
-          className="rounded-r-box"
-          objectFit="cover"
-          width={300}
-          height={370}
-          alt="notfound"
-        ></Image>
-      </Link>
+      <Image
+        src={imageURL}
+        className="rounded-r-box"
+        objectFit="cover"
+        width={300}
+        height={370}
+        alt="notfound"
+      ></Image>
     </div>
   );
 }

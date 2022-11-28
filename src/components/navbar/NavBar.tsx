@@ -21,7 +21,7 @@ export default function NavBar() {
   if (!session) {
     return (
       <>
-        <div className="top-5 right-5 hidden gap-2 sm:top-8 sm:flex lg:top-9">
+        <div className="right-5 top-9 hidden gap-2 lg:flex">
           <div>
             <Link href="/register">registrarse</Link>
           </div>

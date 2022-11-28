@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { RiMenuLine } from "react-icons/ri";
 import { TbGridDots } from "react-icons/tb";
 
 function NavBarClient() {
@@ -24,7 +24,7 @@ function NavBarClient() {
       <div className="flex flex-col"> </div>
       <div className="flex justify-end lg:hidden">
         <button onClick={() => setOpen(!open)} className="py-2">
-          <GiHamburgerMenu className="h-7 w-7" />
+          <RiMenuLine className="h-7 w-7" />
         </button>
       </div>
       <div
