@@ -54,13 +54,13 @@ export default function Layout({
                   suscríbete a boletín informativo - descubre nuestros
                   descuentos para recibir regalos
                 </p>
-                <div className="mt-4 grid w-[400px] grid-cols-[80%_20%] items-center justify-between gap-4 rounded-md bg-base-100 p-2">
+                <div className="mt-4 flex w-auto items-center justify-between gap-4 rounded-md bg-base-100 py-2 px-4">
                   <input
                     type="text"
                     placeholder="tucorreo@gmail.com"
-                    className="bg-base-100 pl-1 text-base-content"
+                    className="bg-base-100 text-base-content"
                   />
-                  <button className="h-14 w-14 rounded-lg bg-base-content px-3">
+                  <button className="h-14 w-14 rounded-lg bg-base-content pl-3.5">
                     <IoMdSend color="base-100" size="30" />
                   </button>
                 </div>
