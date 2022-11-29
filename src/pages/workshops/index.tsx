@@ -5,6 +5,10 @@ import Image from "next/image";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function Workshops() {
+  // const { data: onlineWorkshops } =
+  //   trpc.workshop.getAllOnlineWorkshops.useQuery();
+  // const { data: onsiteWorkshops } =
+  //   trpc.workshop.getAllOnsiteWorkshops.useQuery();
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
