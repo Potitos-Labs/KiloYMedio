@@ -1,7 +1,7 @@
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { LeftArrow, RightArrow } from "../Arrows";
 import LoadingCard from "../LoadingCard";
-import VerticalRecipeCard from "./OurRecipesCard";
+import LittleRecipeCard from "./LittleRecipeCard";
 
 const CommunityRecipesSlider = ({
   recipes,
@@ -22,13 +22,13 @@ const CommunityRecipesSlider = ({
         >
           {recipes
             ? recipes.map((recipe) => (
-                <VerticalRecipeCard
+                <LittleRecipeCard
                   id={recipe.id}
                   name={recipe.name}
                   imageURL={recipe.imageURL}
                   authorID={recipe.userId}
                   key={recipe.id}
-                ></VerticalRecipeCard>
+                ></LittleRecipeCard>
               ))
             : [...Array(10)].map((e, i) => <LoadingCard key={i} />)}
         </ScrollMenu>

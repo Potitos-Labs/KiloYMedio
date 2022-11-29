@@ -6,7 +6,7 @@ import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
 
-export default function RecipeCard({
+export default function LittleRecipeCard({
   id,
   name,
   imageURL,

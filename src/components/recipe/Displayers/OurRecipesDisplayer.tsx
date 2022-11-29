@@ -1,5 +1,5 @@
 import LoadingCard from "../LoadingCard";
-import OurRecipesCard from "./OurRecipesCard";
+import BigRecipeCard from "./BigRecipeCard";
 
 const OurRecipesDisplayer = ({
   recipes,
@@ -10,13 +10,13 @@ const OurRecipesDisplayer = ({
     <div className="grid gap-y-10 gap-x-4 lg:grid-cols-2">
       {recipes
         ? recipes.map((recipe) => (
-            <OurRecipesCard
+            <BigRecipeCard
               id={recipe.id}
               name={recipe.name}
               imageURL={recipe.imageURL}
               authorID={recipe.userId}
               key={recipe.id}
-            ></OurRecipesCard>
+            ></BigRecipeCard>
           ))
         : [...Array(10)].map((e, i) => <LoadingCard key={i} />)}
     </div>

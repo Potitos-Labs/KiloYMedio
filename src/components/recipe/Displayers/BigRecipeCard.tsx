@@ -8,7 +8,7 @@ import router from "next/router";
 import { toast } from "react-toastify";
 import SaveIcon from "../SaveIcon";
 
-export default function OurRecipesCard({
+export default function BigRecipeCard({
   id,
   name,
   imageURL,
