@@ -44,7 +44,7 @@ function NavBarClient() {
         <div className="flex flex-col gap-2 text-end lg:flex-row lg:gap-6">
           <Link href={`/recipe`}>salud y bienestar</Link>
           <Link href={`/recipe`}>recetas</Link>
-          <Link href={`/recipe`}>talleres</Link>
+          <Link href={`/workshops`}>talleres</Link>
         </div>
         {!session && open && (
           <div className="flex flex-col pt-6 text-end">
