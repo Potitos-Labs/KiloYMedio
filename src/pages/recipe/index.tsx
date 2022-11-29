@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplayer";
+import SliderRecipes from "@components/SliderRecipes";
 
 const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
@@ -87,7 +88,9 @@ const Recipes = () => {
             <p className="mb-10 font-raleway text-lg md:w-[600px] lg:text-2xl">
               RECETAS DE LA COMUNIDAD
             </p>
-            {mostRecentRecipes?.length != 0 && <p> culo</p>}
+            {mostRecentRecipes?.length != 0 && (
+              <SliderRecipes isBig={false} recipes={recipes} />
+            )}
           </div>
         </div>
       </div>
