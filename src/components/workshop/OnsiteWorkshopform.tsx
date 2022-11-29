@@ -55,7 +55,7 @@ function OnsiteWorkshopForm() {
           <label className="relative flex w-full flex-col">
             <span className="mb-2">Descripción *</span>
             <input
-              type="textarea"
+              type="text"
               placeholder="Descripción"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               {...register("description")}
@@ -87,7 +87,7 @@ function OnsiteWorkshopForm() {
               step="any"
               placeholder="dia"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
-              {...register("Onsite.date")}
+              {...register("Onsite.date", { valueAsDate: true })}
             />
             <p className="text-sm text-pink-600">
               {errors.Onsite?.date?.message}
