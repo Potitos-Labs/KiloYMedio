@@ -8,6 +8,10 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { IRecipe } from "@utils/validations/recipe";
+import {
+  BsFillArrowLeftSquareFill,
+  BsFillArrowRightSquareFill,
+} from "react-icons/bs";
 
 function SliderRecipes({
   isBig,
@@ -17,21 +21,21 @@ function SliderRecipes({
   recipes?: IRecipe[];
 }) {
   return (
-    <div className="container mx-auto">
-      <div className="flex h-full w-full items-center justify-between py-24 px-4 sm:py-8">
+    <div className="w-ull h-ful container">
+      <div className="m-10 flex h-auto w-full items-center justify-between py-24 px-4 sm:py-8">
         {/* Carousel for desktop and large size devices */}
         <CarouselProvider
-          className="hidden lg:block"
-          naturalSlideWidth={200}
+          className="hidden h-full w-full lg:flex lg:flex-col"
+          naturalSlideWidth={100}
           naturalSlideHeight={100}
-          isIntrinsicHeight={true}
+          isIntrinsicHeight={false}
           totalSlides={recipes?.length ?? 0}
           visibleSlides={isBig ? 2 : 4}
           step={1}
-          infinite={true}
+          infinite={false}
         >
-          <div className="col relative flex w-full flex-col items-center justify-between">
-            <div className="mx-auto h-full w-full overflow-x-hidden overflow-y-hidden">
+          <div className=" flex w-full flex-col items-center justify-between">
+            <div className="mx-auto h-full w-full">
               <Slider>
                 <div
                   id="slider"
@@ -55,50 +59,22 @@ function SliderRecipes({
                 </div>
               </Slider>
             </div>
-            <div className="flex justify-end">
+            <div className="flex w-full justify-end py-10">
               <ButtonBack
                 role="button"
                 aria-label="slide backward"
-                className="absolute left-0 z-30 ml-8 cursor-pointer focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                className="left-0 z-30 ml-8 cursor-pointer focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
                 id="prev"
               >
-                <svg
-                  width={8}
-                  height={14}
-                  viewBox="0 0 8 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7 1L1 7L7 13"
-                    stroke="white"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <BsFillArrowLeftSquareFill className="h-[25px] w-[50px] rounded-sm" />
               </ButtonBack>
               <ButtonNext
                 role="button"
                 aria-label="slide forward"
-                className="absolute right-0 z-30 mr-8 focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                className="right-0 z-30 mr-8 focus:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
                 id="next"
               >
-                <svg
-                  width={8}
-                  height={14}
-                  viewBox="0 0 8 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1L7 7L1 13"
-                    stroke="white"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <BsFillArrowRightSquareFill className="h-[25px] w-[50px] rounded-sm" />
               </ButtonNext>
             </div>
           </div>
