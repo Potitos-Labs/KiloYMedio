@@ -1,5 +1,6 @@
 import { Allergen, ECategory, NECategory, ProductUnit } from "@prisma/client";
 import isURL from "validator/lib/isURL";
+import isDecimal from "validator/lib/isDecimal";
 import * as z from "zod";
 
 export const productCreateSchema = z.object({
@@ -11,7 +12,12 @@ export const productCreateSchema = z.object({
     .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
   Edible: z
     .object({
-      priceByWeight: z.number({ invalid_type_error: "Introduce un número" }),
+      priceByWeight: z
+        .number({ invalid_type_error: "Introduce un número" })
+        .refine(
+          (value) => isDecimal(value.toString(), { decimal_digits: "1" }),
+          { message: "Introduce como máximo un dígito" },
+        ),
       category: z.nativeEnum(ECategory),
       nutritionFacts: z.object({
         ingredients: z.string().min(1, "El campo no puede estar vacío"),
