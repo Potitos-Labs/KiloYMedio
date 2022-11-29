@@ -7,13 +7,14 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+import { IRecipe } from "@utils/validations/recipe";
 
 function SliderRecipes({
   isBig,
   recipes,
 }: {
   isBig: boolean;
-  recipes?: { id: string; name: string; imageURL: string; userId: string }[];
+  recipes?: IRecipe[];
 }) {
   return (
     <div className="container mx-auto">

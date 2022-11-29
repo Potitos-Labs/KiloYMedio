@@ -12,6 +12,7 @@ import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
 import Addproductchart from "./Addproductchart";
+import SliderRecipes from "@components/SliderRecipes";
 
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
@@ -53,6 +54,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
       {product.Edible != null && (
         <NutritionFacts product={product} className="mx-4 mb-14 " />
       )}
+      <RelatedRecipes />
     </div>
   );
 };
@@ -300,6 +302,15 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   );
 };
 
-//const relatedRecipes = ({ product }: { product: IProduct }) => {};
+const RelatedRecipes = ({ product }: { product: IProduct }) => {
+  return (
+    <SliderRecipes
+      isBig={true}
+      recipes={product.Edible?.Ingredient?.RecipeIngredient.map(
+        (recipe) => recipe.Recipe,
+      )}
+    />
+  );
+};
 
 export default ProductDetail;

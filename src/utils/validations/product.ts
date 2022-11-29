@@ -2,6 +2,7 @@ import { Allergen, ECategory, NECategory, ProductUnit } from "@prisma/client";
 import isURL from "validator/lib/isURL";
 import isDecimal from "validator/lib/isDecimal";
 import * as z from "zod";
+import { recipeSchema } from "./recipe";
 
 export const productCreateSchema = z.object({
   name: z.string().min(1, "El campo no puede estar vacío"),
@@ -29,6 +30,11 @@ export const productCreateSchema = z.object({
       allergens: z.array(z.object({ allergen: z.nativeEnum(Allergen) })),
       origin: z.string().nullable().optional(),
       conservation: z.string().nullable().optional(),
+      Ingredient: z
+        .object({
+          RecipeIngredient: z.array(z.object({ Recipe: recipeSchema })),
+        })
+        .optional(),
     })
     .nullable()
     .optional(),
@@ -42,7 +48,9 @@ export const productCreateSchema = z.object({
   ProductUnit: z.nativeEnum(ProductUnit),
 });
 
-export const productSchema = productCreateSchema.extend({ id: z.string() });
+export const productSchema = productCreateSchema.extend({
+  id: z.string(),
+});
 
 export const filterProduct = z.object({
   name: z.string(), //Pasar en plain text

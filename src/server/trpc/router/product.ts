@@ -254,6 +254,25 @@ export const productRouter = router({
               },
               origin: true,
               conservation: true,
+              Ingredient: {
+                select: {
+                  RecipeIngredient: {
+                    select: {
+                      Recipe: {
+                        select: {
+                          id: true,
+                          name: true,
+                          description: true,
+                          imageURL: true,
+                          cookingTime: true,
+                          portions: true,
+                          userId: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
           NonEdible: {

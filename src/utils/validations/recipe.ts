@@ -73,6 +73,16 @@ export const createRecipeSchema = z.object({
     )
     .nonempty({ message: "Debes añadir al menos una instrucción" }),
 });
+
+export const recipeSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  imageURL: z.string(),
+  userId: z.string(),
+  cookingTime: z.number().optional().nullable(),
+  description: z.string().optional().nullable(),
+  portions: z.number().optional().nullable(),
+});
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
   recipeId: z.string(),
@@ -97,4 +107,5 @@ export const filterRecipeSchema = z.object({
 export type ICreateRecipe = z.infer<typeof createRecipeSchema>;
 export type IUpdateRecipe = z.infer<typeof updateRecipeSchema>;
 export type IFilterRecipe = z.infer<typeof filterRecipeSchema>;
+export type IRecipe = z.infer<typeof recipeSchema>;
 export type IComment = z.infer<typeof commentSchema>;
