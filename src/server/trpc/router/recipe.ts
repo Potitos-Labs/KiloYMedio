@@ -2,6 +2,7 @@ import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
 
 import {
+  commentSchema,
   createRecipeSchema,
   filterRecipeSchema,
   updateRecipeSchema,
@@ -288,4 +289,81 @@ export const recipeRouter = router({
     });
     return res;
   }),
+  newComment: protectedProcedure
+    .input(commentSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { recipeId, description, rating } = input;
+      await ctx.prisma.comment.create({
+        data: {
+          Recipe: { connect: { id: recipeId } },
+          description,
+          rating,
+          User: { connect: { id: ctx.session.user.id } },
+        },
+      });
+      return {
+        status: 201,
+        message: "Account updated successfully",
+      };
+    }),
+
+  getComments: publicProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          description: true,
+          rating: true,
+          createdAt: true,
+          User: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+      return comments;
+    }),
+  getCommentsStatistics: publicProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const ratings = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          rating: true,
+        },
+      });
+
+      const average =
+        Math.round(
+          (ratings.reduce(
+            (acumulator, current) => acumulator + current.rating,
+            0,
+          ) /
+            ratings.length) *
+            100,
+        ) / 100;
+
+      //Obtener repetidos
+      const ranges: Record<number, number> = {};
+      ratings.forEach((e: { rating: number }) => {
+        const rangeStar = Math.ceil(e.rating);
+        ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
+      });
+
+      const rangesPercentage = {
+        1: ((ranges[1] ?? 0) * 100) / ratings.length,
+        2: ((ranges[2] ?? 0) * 100) / ratings.length,
+        3: ((ranges[3] ?? 0) * 100) / ratings.length,
+        4: ((ranges[4] ?? 0) * 100) / ratings.length,
+        5: ((ranges[5] ?? 0) * 100) / ratings.length,
+      };
+
+      return { count: ratings.length, average, rangesPercentage };
+    }),
 });

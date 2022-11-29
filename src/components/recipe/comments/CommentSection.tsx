@@ -10,18 +10,18 @@ import HalfRating from "../RateHalfStars";
 function CommentSection({ recipeId }: { recipeId: string }) {
   const utils = trpc.useContext();
 
-  const { data } = trpc.user.client.getRecipeComments.useQuery({
+  const { data } = trpc.recipe.getComments.useQuery({
     recipeId: recipeId,
   });
 
-  const mutation = trpc.user.client.newRecipeComment.useMutation({
+  const mutation = trpc.recipe.newComment.useMutation({
     onSuccess() {
-      utils.user.client.getRecipeComments.invalidate();
-      utils.user.client.getRecipeStatistics.invalidate();
+      utils.recipe.getComments.invalidate();
+      utils.recipe.getCommentsStatistics.invalidate();
     },
   });
 
-  const { data: stats } = trpc.user.client.getRecipeStatistics.useQuery({
+  const { data: stats } = trpc.recipe.getCommentsStatistics.useQuery({
     recipeId: recipeId,
   });
 
@@ -87,27 +87,27 @@ function CommentSection({ recipeId }: { recipeId: string }) {
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 5
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.ranges[5] ?? 0}%
+                {stats?.rangesPercentage[1] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 4
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.ranges[4] ?? 0}%
+                {stats?.rangesPercentage[4] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 3
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.ranges[3] ?? 0}%
+                {stats?.rangesPercentage[3] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 2
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.ranges[2] ?? 0}%
+                {stats?.rangesPercentage[2] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="mr-0.5 fill-accent" /> 1
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.ranges[1] ?? 0}%
+                {stats?.rangesPercentage[1] ?? 0}%
               </div>
             </div>
             {/* End Percentages */}
