@@ -321,6 +321,7 @@ export const recipeRouter = router({
           User: {
             select: {
               name: true,
+              image: true,
             },
           },
         },

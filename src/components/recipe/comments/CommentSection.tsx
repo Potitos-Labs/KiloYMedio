@@ -56,12 +56,13 @@ function CommentSection({ recipeId }: { recipeId: string }) {
         </div>
       </div>
       {/* End Elipse */}
-      <div className="grid grid-cols-2 rounded-b-lg rounded-tr-lg bg-base-100 px-8 pt-32 pb-16">
-        <div className="grid content-between gap-6">
+      <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-tr-lg bg-base-100 px-8 pt-24 pb-16 lg:grid">
+        <div className="order-2 grid content-between justify-center gap-6 lg:order-1 lg:justify-start">
           {data?.map((c) => {
             return (
               <Comment
                 key=""
+                imageURL={c.User?.image ?? ""}
                 user={c.User?.name ?? ""}
                 description={c.description ?? ""}
                 rating={c.rating}
@@ -75,38 +76,58 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             </button>
           </div>
         </div>
-        <div>
+        <div className="order-1 justify-center px-20 lg:order-2 lg:justify-start lg:px-0">
           {/* Comments stats */}
-          <div className="mb-14 flex gap-6">
-            <div>
+          <div className="mb-14 flex">
+            <div className="w-[150px]">
               <p className="font-satoshiBold text-lg">{stats?.average ?? 0}</p>
-              {stats?.count ?? 0} comentarios
+              <p className="flex">{stats?.count ?? 0} comentarios</p>
             </div>
             {/* Percentages */}
-            <div>
+            <div className="mr-10 w-96">
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 5
-                <hr className="h-1 w-80 border-0 bg-base-content"></hr>
+                <progress
+                  className="progress"
+                  value={stats?.rangesPercentage[5]}
+                  max="100"
+                ></progress>
                 {stats?.rangesPercentage[5] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 4
-                <hr className="h-1 w-80 border-0 bg-base-content"></hr>
+                <progress
+                  className="progress"
+                  value={stats?.rangesPercentage[4]}
+                  max="100"
+                ></progress>
                 {stats?.rangesPercentage[4] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 3
-                <hr className="h-1 w-80 border-0 bg-base-content"></hr>
+                <progress
+                  className="progress"
+                  value={stats?.rangesPercentage[3]}
+                  max="100"
+                ></progress>
                 {stats?.rangesPercentage[3] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 2
-                <hr className="h-1 w-80 border-0 bg-base-content"></hr>
+                <progress
+                  className="progress"
+                  value={stats?.rangesPercentage[2]}
+                  max="100"
+                ></progress>
                 {stats?.rangesPercentage[2] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="mr-0.5 fill-accent" /> 1
-                <hr className="h-1 w-80 border-0 bg-base-content"></hr>
+                <progress
+                  className="progress"
+                  value={stats?.rangesPercentage[1]}
+                  max="100"
+                ></progress>
                 {stats?.rangesPercentage[1] ?? 0}%
               </div>
             </div>
