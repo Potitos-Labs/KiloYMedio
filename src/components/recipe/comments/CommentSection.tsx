@@ -87,7 +87,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 5
                 <hr className="h-1 w-80 border-0 bg-base-content"></hr>
-                {stats?.rangesPercentage[1] ?? 0}%
+                {stats?.rangesPercentage[5] ?? 0}%
               </div>
               <div className="mb-2 flex items-center gap-4">
                 <TiStarFullOutline size={20} className="fill-accent" /> 4

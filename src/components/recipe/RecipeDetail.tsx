@@ -88,7 +88,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
       <div className="py-10 sm:px-24">
         {/* Botón atrás (Recetas) */}
         <Link href={`/recipe`}>
-          <div className="flex cursor-pointer items-center gap-4">
+          <div className="flex w-[150px] cursor-pointer items-center gap-4">
             <div className="-ml-10 rounded-lg bg-accent p-0.5">
               <BsArrowLeftShort className="text-base-100" size={25} />
             </div>
