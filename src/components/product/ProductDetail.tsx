@@ -12,7 +12,6 @@ import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
 import IncDecButtons from "./IncDecButtons";
 import Addproductchart from "./Addproductchart";
-import Link from "next/link";
 
 const ProductDetail = ({ product }: { product: IProduct }) => {
   return (
@@ -73,11 +72,13 @@ const ProductCard = ({
       utils.product.getFilteredProducts.invalidate();
     },
   });
+
   const deleteProduct = (id: string) => {
     mutateAsync({ productId: id });
     router.push(`/product`);
     toast.success("Producto eliminado");
   };
+
   const updateProduct = (id: string) => {
     router.push(`/product/edit/${id}`);
   };
@@ -160,7 +161,15 @@ const NutritionFacts = ({
     milliliters: "ml",
     unit: "u",
   };
+
   const unit = unitPrice[product.ProductUnit];
+
+  function scroll() {
+    window.scrollTo({
+      top: 220 + (document.getElementById("nutritionFacts")?.offsetLeft ?? 800),
+      behavior: "smooth",
+    });
+  }
 
   return !product.Edible ? (
     <></>
@@ -168,10 +177,7 @@ const NutritionFacts = ({
     <div
       className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 sm:px-8 lg:px-24 ${className}`}
     >
-      <div
-        id="nutritionFacts"
-        className="absolute -top-[78px] left-0 flex w-full select-none place-content-center px-[24px]"
-      >
+      <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
         <Image
           src="/img/ellipse.svg"
           alt=""
@@ -181,15 +187,18 @@ const NutritionFacts = ({
           layout="fixed"
           objectFit="contain"
         />
-        <Link replace={true} href="#nutritionFacts">
-          <p className="absolute top-12 h-12 cursor-pointer font-satoshiBold text-xs">
-            saber más
-          </p>
-        </Link>
+        <p
+          id="nutritionFacts"
+          onClick={scroll}
+          className="absolute top-12 h-12 cursor-pointer select-none font-satoshiBold text-xs"
+        >
+          saber más
+        </p>
       </div>
       <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
         INFORMACIÓN NUTRICIONAL
       </h1>
+
       <div className="mt-3 flex flex-col place-content-between lg:flex-row lg:gap-14">
         {allergensList.length > 0 && (
           <AllergenDescription allergens={allergensList} />

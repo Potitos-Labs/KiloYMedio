@@ -23,6 +23,12 @@ function ClientePage() {
     else if (slide == 3) setColor("from-[#7b61ff]");
     else setColor("from-[#a6806D]");
   }
+  function scroll() {
+    window.scrollTo({
+      top: document.getElementById("knowMore")?.offsetLeft,
+      behavior: "smooth",
+    });
+  }
 
   const { data } = trpc.product.getAllProducts.useQuery();
   const listProduct = data?.slice(0, 4);
@@ -148,7 +154,11 @@ function ClientePage() {
             layout="fixed"
             objectFit="contain"
           />
-          <p className="absolute top-12 h-12 cursor-default font-satoshiBold text-xs">
+          <p
+            id="knowMore"
+            onClick={scroll}
+            className="absolute top-12 h-12 cursor-pointer select-none font-satoshiBold text-xs"
+          >
             saber más
           </p>
         </div>
@@ -168,7 +178,7 @@ function ClientePage() {
             />
           </div>
           {/* Productos destacados */}
-          <div className="mb-20">
+          <div className="mb-20 lg:mb-32">
             <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
               PRODUCTOS DESTACADOS
             </p>
