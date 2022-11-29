@@ -9,7 +9,7 @@ export default function Workshops() {
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className="px-4 py-2">
         <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
-          <div className=" mb-2 flex gap-2 font-raleway sm:mb-0">
+          <div className=" sm: mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
             <button className="h-full rounded-full border-[1px]  border-base-content  px-4 py-1 sm:py-2">
               ONLINE
             </button>
@@ -20,7 +20,7 @@ export default function Workshops() {
 
           <WorkshopSearchBar />
         </div>
-        <div className="my-3 grid w-full grid-cols-[45%_55%] flex-col gap-2">
+        <div className="my-3 grid w-full grid-cols-1 flex-col gap-2 md:grid-cols-[45%_55%]">
           <div id="CARDS" className="">
             <WorkshopCard />
             <WorkshopCard />
@@ -28,7 +28,7 @@ export default function Workshops() {
           </div>
           <div
             id="PICTURES"
-            className="relative mb-2  rounded-lg border-[1px] border-base-content"
+            className="invisible relative mb-2 rounded-lg border-[1px] border-base-content md:visible"
           >
             <Image
               src="/img/fondoCucharasSinFondo.png"
@@ -38,10 +38,12 @@ export default function Workshops() {
             />
           </div>
         </div>
-        <button className="mb-3 flex h-full items-center gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway">
-          VER MÁS
-          <BsArrowRight />
-        </button>
+        <div className="flex justify-center md:justify-start">
+          <button className="mb-3 flex h-full items-center  gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway">
+            VER MÁS
+            <BsArrowRight />
+          </button>
+        </div>
       </div>
     </Layout>
   );
