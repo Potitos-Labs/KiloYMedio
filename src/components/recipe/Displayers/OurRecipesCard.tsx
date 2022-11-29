@@ -84,7 +84,7 @@ export default function OurRecipesCard({
                 </a>
               </Link>
             </div>
-            <SaveIcon recipeId={id} />
+            <SaveIcon recipeId={id} isAbsolute={false} />
           </div>
         </div>
         {/* End Features and Buttons */}

@@ -101,7 +101,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         <div className="py-10">
           <div className="rounded-lg bg-base-100 p-14">
             {/* Upper section */}
-            <div className="flex">
+            <div className="lg:flex">
               <div className="mr-10 w-full gap-4">
                 <div className="mb-16 flex gap-4 lg:flex-row lg:items-center">
                   <h1 className="font-raleway text-xl uppercase">
@@ -158,7 +158,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   layout="fixed"
                   objectFit="cover"
                 ></Image>
-                <SaveIcon recipeId={id} />
+                <SaveIcon recipeId={id} isAbsolute={true} />
               </div>
             </div>
             {/* End Upper section */}
