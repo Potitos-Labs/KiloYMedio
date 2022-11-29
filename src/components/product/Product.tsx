@@ -32,7 +32,7 @@ function Product({
     grams: 100,
     kilograms: 0.5,
     liters: 0.5,
-    milliliters: 100,
+    milliliters: 250,
     unit: 1,
   };
   const [amount, setAmount] = useState(defaultValue[product.ProductUnit]);

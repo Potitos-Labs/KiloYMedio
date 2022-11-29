@@ -25,7 +25,7 @@ function IncDecButtons({
     grams: 100,
     kilograms: 0.5,
     liters: 0.5,
-    milliliters: 100,
+    milliliters: 250,
     unit: 1,
   };
 

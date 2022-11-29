@@ -1,4 +1,4 @@
-import { Allergen } from "@prisma/client";
+import { Allergen, ProductUnit } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import router from "next/router";
@@ -126,7 +126,16 @@ const ProductCard = ({
 
 const PurchaseOptions = ({ product }: { product: IProduct }) => {
   const stockLeft = product.stock * 1000 >= 100;
-  const [amount, setAmount] = React.useState(product.Edible ? 100 : 1);
+  const productAmount: Record<ProductUnit, number> = {
+    grams: 100,
+    kilograms: 0.5,
+    liters: 0.5,
+    milliliters: 250,
+    unit: 1,
+  };
+  const [amount, setAmount] = React.useState(
+    productAmount[product.ProductUnit],
+  );
 
   return (
     <div className="flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">

@@ -935,7 +935,7 @@ async function main() {
           Ingredient: { create: { name: "aceite de oliva virgen extra" } },
         },
       },
-      ProductUnit: "liters",
+      ProductUnit: "milliliters",
     },
     select: {
       id: true,
