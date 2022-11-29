@@ -2,6 +2,15 @@ import { trpc } from "../../utils/trpc";
 import { IProduct } from "@utils/validations/product";
 import { toast } from "react-toastify";
 import { Dispatch, useEffect } from "react";
+import { ProductUnit } from "@prisma/client";
+
+const productPrice: Record<ProductUnit, number> = {
+  grams: 1000,
+  kilograms: 1,
+  liters: 1,
+  milliliters: 1000,
+  unit: 1,
+};
 
 function Addproductchart({
   amount,
@@ -32,8 +41,10 @@ function Addproductchart({
   }
 
   let price = product.Edible
-    ? (amount / 1000) * product.Edible.priceByWeight
-    : amount * (product.NonEdible?.price ?? 0);
+    ? (amount / productPrice[product.ProductUnit]) *
+      product.Edible.priceByWeight
+    : amount *
+      (product.NonEdible?.price ?? 0 / productPrice[product.ProductUnit]);
   price = Math.round(price * 100) / 100;
 
   useEffect(() => {
