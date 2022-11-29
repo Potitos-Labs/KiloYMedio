@@ -58,6 +58,14 @@ export default function CreateProdcut(
       .array(z.nativeEnum(NECategory))
       .safeParse(category);
 
+    if (category && category[0] == "all") {
+      setFilter((prev) => ({
+        ...prev,
+        eCategories: [],
+        neCategories: [],
+      }));
+    }
+
     if (ecategoryParse.success && ecategoryParse.data.length > 0) {
       setFilter((prev) => ({
         ...prev,
