@@ -49,7 +49,7 @@ export default function BigRecipeCard({
   return (
     <div
       tabIndex={0}
-      className="rounded-box grid grid-cols-[60%_40%] border-[1px] border-base-300 bg-base-100"
+      className="rounded-box flex grid-cols-[60%_40%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid"
     >
       <div className="grid content-between p-6">
         <div>
@@ -68,7 +68,7 @@ export default function BigRecipeCard({
           <p className="mb-2">{recipe?.description}</p>
         </div>
         {/* Features and Buttons */}
-        <div className="mr-4">
+        <div className="mr-2">
           <div className="mb-4 flex justify-between">
             <p>
               {recipe?.cookingTime ?? 0 + (recipe?.preparationTime ?? 0)} min
@@ -79,7 +79,7 @@ export default function BigRecipeCard({
           <div className="block items-center justify-between md:flex lg:block 2xl:flex">
             <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
               <Link href={`/recipe/${id}`}>
-                <a className="rounded-full bg-base-content px-4 py-1 text-base-100">
+                <a className="w-full rounded-full bg-base-content px-4 py-1 text-base-100">
                   ver receta completa
                 </a>
               </Link>
@@ -90,8 +90,8 @@ export default function BigRecipeCard({
         {/* End Features and Buttons */}
       </div>
       <Image
+        className="rounded-b-box sm:rounded-r-box"
         src={imageURL}
-        className="rounded-r-box"
         objectFit="cover"
         width={300}
         height={370}
