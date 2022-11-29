@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
-
 import DotMenu from "../DotMenu";
 //import Loading from "@components/ui/Loading";
 //import Product from "@components/product/Product";
@@ -80,6 +79,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         });
       }
     });
+    toast.success("Productos añadidos");
   }
 
   return (
