@@ -54,7 +54,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
       {product.Edible != null && (
         <NutritionFacts product={product} className="mx-4 mb-14 " />
       )}
-      <RelatedRecipes />
+      <RelatedRecipes product={product} />
     </div>
   );
 };
