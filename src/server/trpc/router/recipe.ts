@@ -348,7 +348,7 @@ export const recipeRouter = router({
           ) /
             ratings.length) *
             100,
-        ) / 100;
+        ) / 100 || 0;
 
       //Obtener repetidos
       const ranges: Record<number, number> = {};
@@ -358,11 +358,11 @@ export const recipeRouter = router({
       });
 
       const rangesPercentage = {
-        1: ((ranges[1] ?? 0) * 100) / ratings.length,
-        2: ((ranges[2] ?? 0) * 100) / ratings.length,
-        3: ((ranges[3] ?? 0) * 100) / ratings.length,
-        4: ((ranges[4] ?? 0) * 100) / ratings.length,
-        5: ((ranges[5] ?? 0) * 100) / ratings.length,
+        1: ((ranges[1] ?? 0) * 100) / ratings.length || 0,
+        2: ((ranges[2] ?? 0) * 100) / ratings.length || 0,
+        3: ((ranges[3] ?? 0) * 100) / ratings.length || 0,
+        4: ((ranges[4] ?? 0) * 100) / ratings.length || 0,
+        5: ((ranges[5] ?? 0) * 100) / ratings.length || 0,
       };
 
       return { count: ratings.length, average, rangesPercentage };
