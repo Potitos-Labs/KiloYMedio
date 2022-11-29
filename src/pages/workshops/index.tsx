@@ -1,5 +1,5 @@
 import Layout from "@components/Layout";
-import WorkshopCard from "@components/workshop/tinyComponents/workshopCard";
+import WorkshopCard from "@components/workshop/tinyComponents/WorkshopCard";
 import WorkshopSearchBar from "@components/workshop/tinyComponents/WorkshopSearchBar";
 import Image from "next/image";
 import { BsArrowRight } from "react-icons/bs";
