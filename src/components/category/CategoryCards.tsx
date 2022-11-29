@@ -33,11 +33,12 @@ function CategoryCards({
     <div
       className={`${
         clicked && "border-primary bg-primary text-white"
-      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content px-3 pt-1 lg:px-5 lg:pt-3 `}
+      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content  `}
     >
       <button
-        className="h-full"
+        className="h-full w-full px-3 pt-1 lg:px-5 lg:pt-3"
         onMouseDown={() => setClicked(true)}
+        onMouseLeave={() => setClicked(false)}
         onMouseUp={() => push()}
       >
         <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway  text-xs uppercase lg:text-lg">
@@ -45,7 +46,7 @@ function CategoryCards({
         </h1>
       </button>
 
-      <div className="absolute bottom-1 flex gap-1 md:gap-2 xl:bottom-5 ">
+      <div className="absolute bottom-1 left-1 flex gap-1 md:gap-2 xl:bottom-5 xl:left-5 ">
         {relations.map((cat, index) => (
           <div
             key={index}
