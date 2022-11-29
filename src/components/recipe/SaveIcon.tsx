@@ -8,9 +8,7 @@ function SaveIcon({
   recipeId: string;
   isAbsolute: boolean;
 }) {
-  const isAbs = isAbsolute
-    ? "lg:absolute -bottom-4 static right-44"
-    : "border-base-content border-[1px]";
+  const isAbs = isAbsolute ? "" : "border-base-content border-[1px]";
 
   const utils = trpc.useContext();
   const { data: recipe } = trpc.recipe.getById.useQuery({ id: recipeId });

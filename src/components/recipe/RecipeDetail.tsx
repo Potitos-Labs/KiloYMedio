@@ -85,20 +85,20 @@ const RecipeDetail = ({ id }: { id: string }) => {
   return (
     <div>
       {/* Black background */}
-      <div className="py-10 sm:px-24">
+      <div className="mx-4 py-10 sm:px-24">
         {/* Botón atrás (Recetas) */}
         <Link href={`/recipe`}>
           <div className="flex w-[150px] cursor-pointer items-center gap-4">
-            <div className="-ml-10 rounded-lg bg-accent p-0.5">
+            <div className="rounded-lg bg-accent p-0.5 sm:-ml-10">
               <BsArrowLeftShort className="text-base-100" size={25} />
             </div>
-            <h3 className="font-raleway text-lg text-base-100">RECETAS</h3>
+            <h3 className="flex font-raleway text-lg text-base-100">RECETAS</h3>
           </div>
         </Link>
         {/* End Botón atrás (Recetas) */}
 
         {/* Recipe and Products */}
-        <div className="py-10">
+        <div className="py-4 sm:py-10">
           <div className="rounded-lg bg-base-100 p-14">
             {/* Upper section */}
             <div className="lg:flex">
@@ -118,7 +118,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   )}
                 </div>
                 {/* Features */}
-                <div className="mr-20 text-sm">
+                <div className="text-sm lg:mr-20">
                   <h2 className="flex justify-between">
                     <span>Tiempo de preparación</span>
                     {recipe?.preparationTime ?? "-"} min
@@ -150,12 +150,12 @@ const RecipeDetail = ({ id }: { id: string }) => {
               </div>
               <div className="mt-6">
                 <Image
-                  className="container rounded-lg"
+                  className="rounded-lg"
                   src={recipe?.imageURL ?? ""}
                   alt="not found"
-                  width="300"
-                  height="400"
-                  layout="fixed"
+                  width="500"
+                  height="680"
+                  layout="intrinsic"
                   objectFit="cover"
                 ></Image>
                 <SaveIcon recipeId={id} isAbsolute={true} />
@@ -165,7 +165,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
 
             {/* Ingredients and Directions */}
             <div className="mt-20 mb-10 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-              <div className="mx-10">
+              <div className="mx-0 sm:mx-10">
                 <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
                   INGREDIENTES
                 </h2>
@@ -185,7 +185,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                 </div>
               </div>
 
-              <div className="mx-10">
+              <div className="mx-0 sm:mx-10">
                 <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
                   PASOS
                 </h2>
