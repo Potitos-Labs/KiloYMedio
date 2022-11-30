@@ -84,7 +84,7 @@ const Recipes = () => {
             <OurRecipesDisplayer recipes={recipes}></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
-          <div>
+          <div className="w-full">
             <p className="mb-10 font-raleway text-lg md:w-[600px] lg:text-2xl">
               RECETAS DE LA COMUNIDAD
             </p>

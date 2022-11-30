@@ -325,6 +325,7 @@ export const recipeRouter = router({
             },
           },
         },
+        orderBy: { createdAt: "desc" },
       });
       return comments;
     }),
