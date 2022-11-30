@@ -54,6 +54,16 @@ function SliderRecipes({
                           />
                         </Slide>
                       );
+                    } else {
+                      <Slide index={index} key={""}>
+                        <LittleRecipeCard
+                          key={r.id}
+                          id={r.id}
+                          name={r.name}
+                          imageURL={r.imageURL}
+                          authorID={r.userId}
+                        />
+                      </Slide>;
                     }
                   })}
                 </div>

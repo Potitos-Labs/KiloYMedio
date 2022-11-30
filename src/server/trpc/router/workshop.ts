@@ -18,9 +18,15 @@ export const workshopRouter = router({
             },
           },
         },
+        where: {
+          NOT: {
+            OnlineWorkshop: null,
+          },
+        },
       });
       return workshops;
     }),
+
   getAllOnsiteWorkshops: publicProcedure
     .output(z.array(workshopCreateSchema))
     .query(async ({ ctx }) => {
@@ -34,6 +40,11 @@ export const workshopRouter = router({
               places: true,
               date: true,
             },
+          },
+        },
+        where: {
+          NOT: {
+            OnSiteWorkshop: null,
           },
         },
       });
