@@ -1312,7 +1312,48 @@ async function main() {
       description: "Competición fuertemente inspirada en MasterChef",
       OnSiteWorkshop: {
         create: {
-          date,
+          date: new Date(),
+          places: 50,
+          OnSiteWorkshopAttendance: {
+            createMany: {
+              data: [{ clientId: juan.id }, { clientId: pilar.id }],
+            },
+          },
+        },
+      },
+    },
+  });
+  const Taller2 = await prisma.workshop.create({
+    data: {
+      name: "Cocina Japonesa",
+      imageURL:
+        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+      description:
+        "Únete a este taller para aprender a cocinar riquísimos platos del país del sol naciente. ¡No te arrepentirás!",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
+          places: 50,
+          OnSiteWorkshopAttendance: {
+            createMany: {
+              data: [{ clientId: juan.id }, { clientId: pilar.id }],
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const Taller3 = await prisma.workshop.create({
+    data: {
+      name: "Galletitas navideñas",
+      imageURL:
+        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+      description:
+        "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con autenticas obras de arte comestibles.",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
           places: 50,
           OnSiteWorkshopAttendance: {
             createMany: {

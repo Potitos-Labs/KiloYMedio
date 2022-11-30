@@ -1,23 +1,37 @@
 import Layout from "@components/Layout";
 import WorkshopCard from "@components/workshop/tinyComponents/WorkshopCard";
 import WorkshopSearchBar from "@components/workshop/tinyComponents/WorkshopSearchBar";
+import { trpc } from "@utils/trpc";
 import Image from "next/image";
+import { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function Workshops() {
-  // const { data: onlineWorkshops } =
-  //   trpc.workshop.getAllOnlineWorkshops.useQuery();
-  // const { data: onsiteWorkshops } =
-  //   trpc.workshop.getAllOnsiteWorkshops.useQuery();
+  const [showOnsite, setShowOnsite] = useState(true);
+  const { data: OnsiteWorkshops } =
+    trpc.workshop.getAllOnsiteWorkshops.useQuery();
+  const { data: OnlineWorkshops } =
+    trpc.workshop.getAllOnlineWorkshops.useQuery();
+
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
         <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
           <div className=" sm: mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
-            <button className="h-full rounded-full border-[1px]  border-base-content  px-4 py-1 sm:py-2">
+            <button
+              className={`${
+                !showOnsite && "border-primary bg-primary text-background"
+              } h-full rounded-full border-[1px]  border-base-content  px-4 py-1 sm:py-2`}
+              onClick={() => setShowOnsite(false)}
+            >
               ONLINE
             </button>
-            <button className="h-full rounded-full border-base-content bg-primary px-4 text-background ">
+            <button
+              className={`${
+                showOnsite && "border-primary bg-primary text-background"
+              } h-full rounded-full border-[1px] border-base-content px-4 `}
+              onClick={() => setShowOnsite(true)}
+            >
               PRESENCIAL
             </button>
           </div>
@@ -26,19 +40,38 @@ export default function Workshops() {
         </div>
         <div className="my-3 mb-2 grid h-full w-full grid-cols-1 flex-col gap-2 md:grid-cols-[45%_55%]">
           <div id="CARDS" className="">
-            <WorkshopCard />
-            <WorkshopCard />
-            <WorkshopCard />
+            {showOnsite
+              ? OnsiteWorkshops?.map((workshop, index) => {
+                  console.log(workshop.Onsite?.date);
+                  return (
+                    <WorkshopCard
+                      key={index}
+                      name={workshop.name}
+                      description={workshop.description}
+                      date={workshop.Onsite?.date}
+                    />
+                  );
+                })
+              : OnlineWorkshops?.map((workshop, index) => {
+                  return (
+                    <WorkshopCard
+                      key={index}
+                      name={workshop.name}
+                      description={workshop.description}
+                      date={null}
+                    />
+                  );
+                })}
           </div>
           <div
             id="PICTURES"
-            className="relative mb-3 hidden rounded-lg border-[1px] border-base-content md:block"
+            className="relative mb-2 hidden rounded-lg border-[1px] border-base-content md:block"
           >
             <div className="absolute z-10 m-3  flex gap-3">
-              <button className="h-full rounded-full border-[1px] border-base-content px-4  py-2 ">
+              <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
                 Inscribirse
               </button>
-              <button className="h-full rounded-full border-[1px]  border-base-content  px-4 py-2">
+              <button className="h-full rounded-full border-[1px] border-base-content bg-background  px-4 py-2 active:border-primary active:bg-primary active:text-background">
                 Saber más
               </button>
             </div>
