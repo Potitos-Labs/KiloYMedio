@@ -127,7 +127,6 @@ const ProductCard = ({
 };
 
 const PurchaseOptions = ({ product }: { product: IProduct }) => {
-  const stockLeft = product.stock * 1000 >= 100;
   const productAmount: Record<ProductUnit, number> = {
     grams: 100,
     kilograms: 0.5,
@@ -145,10 +144,8 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
         <IncDecButtons
           setAmount={setAmount}
           amount={amount}
-          stock={product.stock}
-          isEdible={product.Edible ? true : false}
-          stockLeft={stockLeft} //cambiar
-          productUnit={product.ProductUnit}
+          max={product.stock}
+          unit={product.ProductUnit}
           className={"rounded-full ring-1 ring-base-content ring-offset-0"}
         />
       </div>

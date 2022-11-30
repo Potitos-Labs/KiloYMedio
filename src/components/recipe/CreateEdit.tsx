@@ -16,6 +16,7 @@ import {
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { IngredientUnit } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
+import Layout from "@components/Layout";
 
 const defaultRecipe: ICreateRecipe = {
   cookingTime: { hour: 0, minute: 1 },
@@ -84,147 +85,158 @@ export default function CreateEdit(props: {
   const buttonText = props.recipe ? "Guardar" : "Crear receta";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <section>
-        <div className="mt-12 pl-10">
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
+      <div className="mt-[50px] ml-[80px] max-w-[769px] font-raleway text-xl">
+        COMPARTE TU RECETA EN UNOS SENCILLOS PASOS
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mt-12 ml-[80px]">
           {/*Details*/}
-          <section className="flex flex-col gap-6">
-            {/* Title */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="text-lg">Título </div>
-              <input
-                className="input input-bordered max-h-8 border-black"
-                type="text"
-                placeholder="Título"
-                {...register("name")}
-              />
-              {errors.name && (
-                <p className="flex text-sm text-red-500">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
-            {/* Title End*/}
-            {/* Difficulty */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="text-lg">Dificultad </div>
-
-              <div className="form-control">
-                <label className="label cursor-pointer">
-                  <input
-                    type="radio"
-                    value="easy"
-                    defaultChecked={true}
-                    className="radio radio-sm border-black checked:bg-blue-500"
-                    {...register("difficulty")}
-                  />
-                  <span className="label-text pl-2">Baja</span>
-                </label>
-              </div>
-              <div className="form-control">
-                <label className="label cursor-pointer">
-                  <input
-                    type="radio"
-                    value="moderate"
-                    className="radio radio-sm border-black checked:bg-blue-500"
-                    {...register("difficulty")}
-                  />
-                  <span className="label-text pl-2">Media</span>
-                </label>
-              </div>
-              <div className="form-control">
-                <label className="label cursor-pointer">
-                  <input
-                    type="radio"
-                    value="hard"
-                    className="radio radio-sm border-black checked:bg-blue-500"
-                    {...register("difficulty")}
-                  />
-                  <span className="label-text pl-2">Alta</span>
-                </label>
-              </div>
-            </div>
-            {/* Difficulty End*/}
-
-            {/* Cooking time */}
-            <div className="flex flex-row items-center gap-2">
-              <TimeSpanForm
-                control={control}
-                label={"cookingTime"}
-                name={"Tiempo de cocinado"}
-              />
-              {errors.cookingTime && (
-                <p className="flex text-sm text-red-500">
-                  {errors.cookingTime?.minute?.message}
-                </p>
-              )}
-            </div>
-            {/* Cooking time End*/}
-            {/* Preparation time */}
-            <div className="flex flex-row items-center gap-2">
-              <TimeSpanForm
-                control={control}
-                label={"preparationTime"}
-                name={"Tiempo de preparación"}
-              />
-              {errors.preparationTime && (
-                <p className="flex text-sm text-red-500">
-                  {errors.preparationTime?.minute?.message}
-                </p>
-              )}
-            </div>
-            {/* Preparation time End*/}
-
-            {/* Portions */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="text-lg">Raciones </div>
-              <Controller
-                name="portions"
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <IncDecRecipe
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    maxValue={15}
-                  ></IncDecRecipe>
+          <section className="flex flex-row">
+            <section className="flex flex-col gap-6">
+              {/* Title */}
+              <div className="flex flex-col gap-[30px]">
+                <div className="font-raleway text-lg">
+                  PONLE NOMBRE A TU RECETA
+                </div>
+                <input
+                  className="input input-bordered mr-[50px] h-[60px] rounded-[30px] border-base-300 text-sm text-base-300"
+                  type="text"
+                  placeholder="Título"
+                  {...register("name")}
+                />
+                {errors.name && (
+                  <p className="flex text-sm text-red-500">
+                    {errors.name.message}
+                  </p>
                 )}
-              ></Controller>
-              {errors.portions && (
-                <p className="flex text-sm text-red-500">
-                  {errors.portions.message}
-                </p>
-              )}
-            </div>
-            {/* Portions End*/}
+              </div>
+              {/* Title End*/}
+              {/* Info */}
+              <div className="mt-12 flex flex-col gap-[30px]">
+                <div className="font-raleway text-lg">TIEMPO Y PORCIONES</div>
 
-            {/* Image */}
-            <div className="flex flex-row">
-              <Controller
-                name="imageURL"
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <>
-                    <UploadImage setImageURL={onChange} />
-                    <Image
-                      src={value ? value : "/img/placeholder.jpg"}
-                      alt={value}
-                      height={100}
-                      width={100}
-                      layout="fixed"
-                      objectFit="cover"
-                      priority={true}
+                {/* Cooking time */}
+                <div className="flex flex-row items-center gap-2">
+                  <TimeSpanForm
+                    control={control}
+                    label={"cookingTime"}
+                    name={"Tiempo de cocinado"}
+                  />
+                  {errors.cookingTime && (
+                    <p className="flex text-sm text-red-500">
+                      {errors.cookingTime?.minute?.message}
+                    </p>
+                  )}
+                </div>
+                {/* Cooking time End*/}
+                {/* Preparation time */}
+                <div className="flex flex-row items-center gap-2">
+                  <TimeSpanForm
+                    control={control}
+                    label={"preparationTime"}
+                    name={"Tiempo de preparación"}
+                  />
+                  {errors.preparationTime && (
+                    <p className="flex text-sm text-red-500">
+                      {errors.preparationTime?.minute?.message}
+                    </p>
+                  )}
+                </div>
+                {/* Preparation time End*/}
+
+                {/* Portions */}
+                <div className="flex flex-row items-center gap-2">
+                  <div className="text-lg">Raciones </div>
+                  <Controller
+                    name="portions"
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <IncDecRecipe
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value}
+                        maxValue={15}
+                      ></IncDecRecipe>
+                    )}
+                  ></Controller>
+                  {errors.portions && (
+                    <p className="flex text-sm text-red-500">
+                      {errors.portions.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {/* Portions End*/}
+              {/* Difficulty */}
+              <div className="flex flex-row items-center gap-2">
+                <div className="text-lg">Dificultad </div>
+
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <input
+                      type="radio"
+                      value="easy"
+                      defaultChecked={true}
+                      className="radio radio-sm border-black checked:bg-blue-500"
+                      {...register("difficulty")}
                     />
-                  </>
+                    <span className="label-text pl-2">Baja</span>
+                  </label>
+                </div>
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <input
+                      type="radio"
+                      value="moderate"
+                      className="radio radio-sm border-black checked:bg-blue-500"
+                      {...register("difficulty")}
+                    />
+                    <span className="label-text pl-2">Media</span>
+                  </label>
+                </div>
+                <div className="form-control">
+                  <label className="label cursor-pointer">
+                    <input
+                      type="radio"
+                      value="hard"
+                      className="radio radio-sm border-black checked:bg-blue-500"
+                      {...register("difficulty")}
+                    />
+                    <span className="label-text pl-2">Alta</span>
+                  </label>
+                </div>
+              </div>
+              {/* Difficulty End*/}
+
+              {/* Image */}
+              <div className="flex flex-row">
+                <Controller
+                  name="imageURL"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <>
+                      <UploadImage setImageURL={onChange} />
+                      <Image
+                        src={value ? value : "/img/placeholder.jpg"}
+                        alt={value}
+                        height={100}
+                        width={100}
+                        layout="fixed"
+                        objectFit="cover"
+                        priority={true}
+                      />
+                    </>
+                  )}
+                ></Controller>
+                {errors.imageURL && (
+                  <p className="flex text-sm text-red-500">
+                    {errors.imageURL?.message}
+                  </p>
                 )}
-              ></Controller>
-              {errors.imageURL && (
-                <p className="flex text-sm text-red-500">
-                  {errors.imageURL?.message}
-                </p>
-              )}
-            </div>
-            {/* Image End */}
+              </div>
+              {/* Image End */}
+            </section>
           </section>
           {/*End Details*/}
 
@@ -401,7 +413,7 @@ export default function CreateEdit(props: {
           </div>
           {/* Button End */}
         </div>
-      </section>
-    </form>
+      </form>
+    </Layout>
   );
 }

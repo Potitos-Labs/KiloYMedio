@@ -15,8 +15,6 @@ function Product({
   >;
 }) {
   const stock = cartProduct.product.stock;
-  const stockLeft = stock * 1000 >= 100;
-  const isEdible = Boolean(cartProduct.product.Edible);
 
   const utils = trpc.useContext();
   const [amount, setAmount] = useState(cartProduct.amount);
@@ -70,10 +68,8 @@ function Product({
             <IncDecButtons
               setAmount={setAmount}
               amount={amount}
-              stock={stock}
-              stockLeft={stockLeft}
-              isEdible={isEdible}
-              productUnit={cartProduct.product.ProductUnit}
+              max={stock}
+              unit={cartProduct.product.ProductUnit}
             />
           </div>
         </div>

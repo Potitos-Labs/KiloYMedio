@@ -23,9 +23,7 @@ function Product({
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const { data } = useSession();
-  const isEdible = product.Edible != null;
   const notifyDeleted = () => toast.success("Producto eliminado");
-  const stockLeft = product.stock * 1000 >= 100;
   const utils = trpc.useContext();
 
   const defaultValue = {
@@ -92,10 +90,8 @@ function Product({
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
-            stock={product.stock}
-            stockLeft={stockLeft}
-            isEdible={isEdible}
-            productUnit={product.ProductUnit}
+            max={product.stock}
+            unit={product.ProductUnit}
           />
           <Addproductchart
             amount={amount}

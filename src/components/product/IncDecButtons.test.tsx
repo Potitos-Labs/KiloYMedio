@@ -8,11 +8,9 @@ describe("SelectMenu test", () => {
     render(
       <IncDecButtons
         amount={10}
-        isEdible={false}
         setAmount={vi.fn()}
-        stock={100}
-        stockLeft={true}
-        productUnit="unit"
+        max={100}
+        unit="unit"
       ></IncDecButtons>,
     );
   });

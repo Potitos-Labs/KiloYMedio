@@ -5,36 +5,43 @@ import { Dispatch, SetStateAction } from "react";
 function IncDecButtons({
   setAmount,
   amount,
-  stock,
-  isEdible,
-  stockLeft,
-  productUnit,
+  max, //stock
+  unit,
   className,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
   amount: number;
-  stock: number;
-  isEdible: boolean;
-  stockLeft: boolean;
-  productUnit: ProductUnit;
+  max: number;
+  unit: ProductUnit | "min" | "pers";
   className?: string;
 }) {
-  const maxStock = isEdible ? stock * 1000 : stock;
-
   const incdecValues = {
     grams: 100,
     kilograms: 0.5,
     liters: 0.5,
     milliliters: 250,
     unit: 1,
+    min: 1,
+    pers: 1,
+  };
+  const maxValues = {
+    grams: 1000,
+    kilograms: 1,
+    liters: 1,
+    milliliters: 1000,
+    unit: 1,
+    min: 1,
+    pers: 1,
   };
 
+  const stockLeft = amount + incdecValues[unit] <= max * maxValues[unit];
+
   function incrementClick() {
-    setAmount((amount) => amount + incdecValues[productUnit]);
+    setAmount((amount) => amount + incdecValues[unit]);
   }
 
   function decrementClick() {
-    setAmount((amount) => amount - incdecValues[productUnit]);
+    setAmount((amount) => amount - incdecValues[unit]);
   }
 
   const unitDisplay = {
@@ -43,15 +50,17 @@ function IncDecButtons({
     liters: "l",
     milliliters: "ml",
     unit: "u",
+    min: "min",
+    pers: "pers",
   };
 
   return (
     <div className={` ${className} flex h-full w-full flex-row font-bold`}>
       <button
-        disabled={!stockLeft || amount == incdecValues[productUnit]}
+        disabled={!stockLeft || amount == incdecValues[unit]}
         className={clsx(
           `w-6 flex-auto bg-transparent`,
-          (!stockLeft || amount == incdecValues[productUnit]) &&
+          (!stockLeft || amount == incdecValues[unit]) &&
             "cursor-not-allowed opacity-60",
         )}
         onClick={decrementClick}
@@ -59,12 +68,12 @@ function IncDecButtons({
         -
       </button>
       <p className="place-content-center self-center whitespace-nowrap text-xs sm:text-sm">
-        {amount} {unitDisplay[productUnit]}
+        {amount} {unitDisplay[unit]}
       </p>
       <button
-        disabled={!stockLeft || maxStock == amount}
+        disabled={!stockLeft}
         className={`h-full w-6 flex-auto bg-transparent font-bold ${
-          (!stockLeft || maxStock == amount) && "cursor-not-allowed opacity-60"
+          !stockLeft && "cursor-not-allowed opacity-60"
         }`}
         onClick={incrementClick}
       >
