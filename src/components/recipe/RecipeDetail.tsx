@@ -1,56 +1,49 @@
-//import React, { useState } from "react";
-
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
+
 import DotMenu from "../DotMenu";
-//import Loading from "@components/ui/Loading";
-//import Product from "@components/product/Product";
+import SaveIcon from "./SaveIcon";
+import Loading from "@components/ui/Loading";
+import Product from "@components/product/Product";
 import CommentSection from "./comments/CommentSection";
 
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 import Link from "next/link";
 import Image from "next/image";
-import SaveIcon from "./SaveIcon";
 import { useState } from "react";
-import Loading from "@components/ui/Loading";
-import Product from "@components/product/Product";
 
 const RecipeDetail = ({ id }: { id: string }) => {
   const { data: recipe } = trpc.recipe.getById.useQuery({ id });
   const ingredients = recipe?.RecipeIngredient;
+  const directions = recipe?.directions;
+  const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
 
   const [prices, setPrices] = useState<number[]>([
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
   ]);
-  const directions = recipe?.directions;
-
-  const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
+  let cont = -1;
+  let cont2 = -1;
 
   const utils = trpc.useContext();
   const router = useRouter();
 
-  let cont = -1;
-  let cont2 = -1;
-
   const { data: session } = useSession();
   const isAdmin = session?.user?.role == "admin";
 
-  const notifyDeleted = () => toast.success("Receta eliminada");
+  const editRecipe = (id: string) => {
+    router.push(`/recipe/edit/${id}`);
+  };
 
+  const notifyDeleted = () => toast.success("Receta eliminada");
   const { mutateAsync } = trpc.recipe.delete.useMutation({
     onSuccess() {
       utils.recipe.getAllRecipes.invalidate();
       utils.recipe.getRecentRecipes.invalidate();
     },
   });
-
-  const editRecipe = (id: string) => {
-    router.push(`/recipe/edit/${id}`);
-  };
-
   const deleteRecipe = (id: string) => {
     mutateAsync({ recipeId: id });
     router.push(`/recipe`);
@@ -62,7 +55,6 @@ const RecipeDetail = ({ id }: { id: string }) => {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
-
   function addToCart() {
     ingredients?.map((i) => {
       cont2++;
@@ -102,9 +94,9 @@ const RecipeDetail = ({ id }: { id: string }) => {
           <div className="rounded-lg bg-base-100 p-14">
             {/* Upper section */}
             <div className="lg:flex">
-              <div className="mr-10 w-full gap-4">
-                <div className="mb-16 flex gap-4 lg:flex-row lg:items-center">
-                  <h1 className="font-raleway text-xl uppercase">
+              <div className="mr-10 w-full">
+                <div className="mb-8 flex gap-4 sm:mb-16 lg:flex-row lg:items-center">
+                  <h1 className="font-raleway text-lg uppercase sm:text-xl">
                     {recipe?.name}
                   </h1>
                   {(session?.user?.id == recipe?.userId || isAdmin) && (
@@ -158,50 +150,55 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   layout="intrinsic"
                   objectFit="cover"
                 ></Image>
-                <SaveIcon recipeId={id} isAbsolute={true} />
+                <SaveIcon recipeId={id} />
               </div>
             </div>
             {/* End Upper section */}
 
-            {/* Ingredients and Directions */}
-            <div className="mt-20 mb-10 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-              <div className="mx-0 sm:mx-10">
-                <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
-                  INGREDIENTES
-                </h2>
-                <div className="mb-4 md:pr-14">
-                  <ul className="ml-5 list-disc space-y-2">
-                    {units &&
-                      ingredients?.map((i) => {
-                        return (
-                          <li key={""}>
-                            <div className="lowercase">
-                              {i.amount} {units[i.unit]} de {i.Ingredient.name}
-                            </div>
-                          </li>
-                        );
-                      })}
-                  </ul>
+            {/* Allergens, Ingredients and Directions */}
+            <div className="mt-20 mb-10">
+              {/* Ingredients and Directions */}
+              <div className="mx-0 grid grid-cols-1 sm:mx-10 md:grid-cols-2 md:gap-32">
+                <div>
+                  <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
+                    INGREDIENTES
+                  </h2>
+                  <div className="mb-4 md:pr-14">
+                    <ul className="ml-5 list-disc space-y-2">
+                      {units &&
+                        ingredients?.map((i) => {
+                          return (
+                            <li key={""}>
+                              <div className="lowercase">
+                                {i.amount} {units[i.unit]} de{" "}
+                                {i.Ingredient.name}
+                              </div>
+                            </li>
+                          );
+                        })}
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
+                    PASOS
+                  </h2>
+                  <ol className="list-inside list-decimal space-y-6">
+                    {directions?.map((d) => {
+                      return (
+                        <li key={d.number} className="first-letter:uppercase">
+                          {d.direction}
+                        </li>
+                      );
+                    })}
+                  </ol>
                 </div>
               </div>
-
-              <div className="mx-0 sm:mx-10">
-                <h2 className="mb-6 border-b-[1px] border-[#0000004D] font-raleway text-lg">
-                  PASOS
-                </h2>
-                <ol className="list-inside list-decimal space-y-6">
-                  {directions?.map((d) => {
-                    return (
-                      <li key={d.number} className="first-letter:uppercase">
-                        {d.direction}
-                      </li>
-                    );
-                  })}
-                </ol>
-              </div>
+              {/* End Ingredients and Directions */}
             </div>
-            {/* End Ingredients and Directions */}
           </div>
+          {/* End Allergens, Ingredients and Directions */}
 
           {/* Products */}
           <div className="mt-24 rounded-lg bg-base-content">
@@ -253,4 +250,5 @@ const RecipeDetail = ({ id }: { id: string }) => {
     </div>
   );
 };
+
 export default RecipeDetail;

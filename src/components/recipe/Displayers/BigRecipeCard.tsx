@@ -84,13 +84,13 @@ export default function BigRecipeCard({
                 </a>
               </Link>
             </div>
-            <SaveIcon recipeId={id} isAbsolute={false} />
+            <SaveIcon recipeId={id} />
           </div>
         </div>
         {/* End Features and Buttons */}
       </div>
       <Image
-        className="rounded-b-box sm:rounded-r-box"
+        className="rounded-b-box sm:rounded-r-box sm:rounded-bl-none"
         src={imageURL}
         objectFit="cover"
         width={300}

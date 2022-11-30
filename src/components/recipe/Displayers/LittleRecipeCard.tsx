@@ -1,4 +1,5 @@
 import DotMenu from "@components/DotMenu";
+import Stars from "@components/Stars";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -39,9 +40,8 @@ export default function LittleRecipeCard({
 
   return (
     <div
-      role="button"
       tabIndex={0}
-      className="rounded-box mx-4 my-4 h-64 border-[1px] border-base-300"
+      className="rounded-box my-4 h-64 w-auto border-[1px] border-base-300"
     >
       <div className="rounded-t-box relative h-32 overflow-hidden object-contain">
         <Link href={`/recipe/${id}`}>
@@ -65,7 +65,25 @@ export default function LittleRecipeCard({
             />
           )}
         </div>
-        <p className="mx-1 mb-2 font-raleway uppercase">{name}</p>
+        <div className="mx-2 grid content-between gap-4">
+          <div>
+            <Stars average={4}></Stars>
+            <p className="mx-1 my-2 font-raleway first-letter:uppercase">
+              {name}
+            </p>
+          </div>
+          <div className="ml-1 flex justify-between gap-4">
+            <p>17 min</p>
+            <p>6 pers</p>
+            <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
+              <Link href={`/recipe/${id}`}>
+                <a className="w-full rounded-full bg-base-content px-4 py-1 text-base-100">
+                  ver receta
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
