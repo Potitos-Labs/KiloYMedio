@@ -1308,7 +1308,7 @@ async function main() {
     data: {
       name: "MasterChef",
       imageURL:
-        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
       description: "Competición fuertemente inspirada en MasterChef",
       OnSiteWorkshop: {
         create: {
@@ -1327,7 +1327,7 @@ async function main() {
     data: {
       name: "Cocina Japonesa",
       imageURL:
-        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/hogar.jpg",
       description:
         "Únete a este taller para aprender a cocinar riquísimos platos del país del sol naciente. ¡No te arrepentirás!",
       OnSiteWorkshop: {
@@ -1348,7 +1348,7 @@ async function main() {
     data: {
       name: "Galletitas navideñas",
       imageURL:
-        "https://s3-eu-west-1.amazonaws.com/verema/images/valoraciones/0013/2050/logo-master-chef.jpg?1393416884",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cuidado-personal.jpg",
       description:
         "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con autenticas obras de arte comestibles.",
       OnSiteWorkshop: {

@@ -8,11 +8,14 @@ import { BsArrowRight } from "react-icons/bs";
 
 export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
+  const [image, setImage] = useState(String);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const { data: OnsiteWorkshops } =
     trpc.workshop.getAllOnsiteWorkshops.useQuery();
   const { data: OnlineWorkshops } =
     trpc.workshop.getAllOnlineWorkshops.useQuery();
-
+  console.log(activeIndex);
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
@@ -49,6 +52,10 @@ export default function Workshops() {
                       name={workshop.name}
                       description={workshop.description}
                       date={workshop.Onsite?.date}
+                      imageURL={workshop.imageURL}
+                      setImageURL={setImage}
+                      index={index}
+                      setIndex={setActiveIndex}
                     />
                   );
                 })
@@ -59,6 +66,10 @@ export default function Workshops() {
                       name={workshop.name}
                       description={workshop.description}
                       date={null}
+                      imageURL={workshop.imageURL}
+                      setImageURL={setImage}
+                      index={index}
+                      setIndex={setActiveIndex}
                     />
                   );
                 })}
@@ -76,8 +87,9 @@ export default function Workshops() {
               </button>
             </div>
             <Image
-              src="/img/fondoCucharasSinFondo.png"
+              src={image}
               objectFit="cover"
+              className="rounded-lg "
               alt="notfound"
               layout="fill"
             />
