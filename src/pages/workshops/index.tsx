@@ -9,6 +9,7 @@ import { BsArrowRight } from "react-icons/bs";
 export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
   const [image, setImage] = useState(String);
+  const [showMore, setShowMore] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { data: OnsiteWorkshops } =
@@ -25,7 +26,10 @@ export default function Workshops() {
               className={`${
                 !showOnsite && "border-primary bg-primary text-background"
               } h-full rounded-full border-[1px]  border-base-content  px-4 py-1 sm:py-2`}
-              onClick={() => setShowOnsite(false)}
+              onClick={() => {
+                setShowOnsite(false);
+                setShowMore(true);
+              }}
             >
               ONLINE
             </button>
@@ -33,7 +37,10 @@ export default function Workshops() {
               className={`${
                 showOnsite && "border-primary bg-primary text-background"
               } h-full rounded-full border-[1px] border-base-content px-4 `}
-              onClick={() => setShowOnsite(true)}
+              onClick={() => {
+                setShowOnsite(true);
+                setShowMore(true);
+              }}
             >
               PRESENCIAL
             </button>
@@ -44,7 +51,7 @@ export default function Workshops() {
         <div className="my-3 mb-2 grid h-full w-full grid-cols-1 flex-col gap-2 md:grid-cols-[45%_55%]">
           <div id="CARDS" className="">
             {showOnsite
-              ? OnsiteWorkshops?.map((workshop, index) => {
+              ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
                   console.log(workshop.Onsite?.date);
                   return (
                     <WorkshopCard
@@ -55,11 +62,12 @@ export default function Workshops() {
                       imageURL={workshop.imageURL}
                       setImageURL={setImage}
                       index={index}
+                      displayed={false}
                       setIndex={setActiveIndex}
                     />
                   );
                 })
-              : OnlineWorkshops?.map((workshop, index) => {
+              : OnlineWorkshops?.slice(0, 3).map((workshop, index) => {
                   return (
                     <WorkshopCard
                       key={index}
@@ -69,6 +77,7 @@ export default function Workshops() {
                       imageURL={workshop.imageURL}
                       setImageURL={setImage}
                       index={index}
+                      displayed={false}
                       setIndex={setActiveIndex}
                     />
                   );
@@ -76,7 +85,7 @@ export default function Workshops() {
           </div>
           <div
             id="PICTURES"
-            className="relative mb-2 hidden rounded-lg border-[1px] border-base-content md:block"
+            className="relative mb-2 mr-2 hidden rounded-lg border-[1px] border-base-content md:block"
           >
             <div className="absolute z-10 m-3  flex gap-3">
               <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
@@ -95,11 +104,55 @@ export default function Workshops() {
             />
           </div>
         </div>
-        <div className="flex justify-center md:justify-start">
-          <button className="mb-4 flex h-full items-center  gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway">
-            VER MÁS
-            <BsArrowRight />
-          </button>
+        <div className="">
+          {((showOnsite && (OnsiteWorkshops || []).length > 3 && showMore) ||
+            (showOnsite && (OnsiteWorkshops || []).length > 3 && showMore)) && (
+            <div className=" flex justify-center md:justify-start">
+              <button
+                className="mb-4 flex h-full items-center  gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway active:border-primary active:bg-primary active:text-background"
+                onClick={() => setShowMore(false)}
+              >
+                VER MÁS
+                <BsArrowRight />
+              </button>
+            </div>
+          )}
+          {!showMore
+            ? OnsiteWorkshops?.slice(3, OnsiteWorkshops?.length).map(
+                (workshop, index) => {
+                  console.log(workshop.Onsite?.date);
+                  return (
+                    <WorkshopCard
+                      key={index}
+                      name={workshop.name}
+                      description={workshop.description}
+                      date={workshop.Onsite?.date}
+                      imageURL={workshop.imageURL}
+                      setImageURL={setImage}
+                      index={index}
+                      displayed={true}
+                      setIndex={setActiveIndex}
+                    />
+                  );
+                },
+              )
+            : OnlineWorkshops?.slice(3, OnsiteWorkshops?.length).map(
+                (workshop, index) => {
+                  return (
+                    <WorkshopCard
+                      key={index}
+                      name={workshop.name}
+                      description={workshop.description}
+                      date={null}
+                      imageURL={workshop.imageURL}
+                      setImageURL={setImage}
+                      index={index}
+                      displayed={true}
+                      setIndex={setActiveIndex}
+                    />
+                  );
+                },
+              )}
         </div>
       </div>
     </Layout>

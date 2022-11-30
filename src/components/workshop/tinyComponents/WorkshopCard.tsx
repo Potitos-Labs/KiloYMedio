@@ -4,6 +4,7 @@ function WorskhopCard({
   date,
   imageURL,
   setImageURL,
+  displayed,
   index,
   setIndex,
 }: {
@@ -11,6 +12,7 @@ function WorskhopCard({
   description: string;
   date: Date | undefined | null;
   imageURL: string;
+  displayed: boolean;
   index: number;
   setImageURL: (name: string) => void;
   setIndex: (index: number) => void;
@@ -18,21 +20,25 @@ function WorskhopCard({
   console.log(date);
   return (
     <div
-      className=" mb-2 block h-[180px] max-h-[230px] w-full cursor-pointer rounded-md border-[1px] border-base-content px-8 py-3 active:bg-base-content active:text-background"
+      className={` ${
+        !displayed && "pl-0 sm:pl-8"
+      } mb-2 block h-[180px]  w-full cursor-pointer rounded-md border-[1px] border-base-content py-3 pr-8 active:bg-base-content active:text-background`}
       onMouseEnter={() => {
         setImageURL(imageURL);
         setIndex(index);
       }}
     >
-      {date && (
-        <div className="flex w-full  justify-end   align-middle">
-          <p>{date?.getDay() + "/" + date?.getMonth()}</p>
-        </div>
-      )}
-      <h1 className="flex font-raleway text-base uppercase md:text-[40px]">
-        {name}
-      </h1>
-      <p>{description}</p>
+      <div>
+        {date && (
+          <div className="flex w-full  justify-end   align-middle">
+            <p>{date?.getDay() + "/" + date?.getMonth()}</p>
+          </div>
+        )}
+        <h1 className="flex font-raleway text-[18px] uppercase lg:text-[35px]">
+          {name}
+        </h1>
+        <p className="text-[15px] md:text-xs">{description}</p>
+      </div>
     </div>
   );
 }
