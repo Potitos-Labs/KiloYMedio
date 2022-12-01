@@ -1,5 +1,6 @@
 import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
+import { Promise } from "bluebird";
 
 import {
   commentSchema,
@@ -36,6 +37,7 @@ export const recipeRouter = router({
     .input(filterRecipeSchema)
     .query(async ({ ctx, input }) => {
       const {
+        adminRecipes,
         minTime,
         maxTime,
         minPortion,
@@ -43,12 +45,14 @@ export const recipeRouter = router({
         difficulty,
         allergens,
       } = input;
-      return await ctx.prisma.recipe.findMany({
+      const recipes = await ctx.prisma.recipe.findMany({
         where: {
           portions: { gte: minPortion, lte: maxPortion },
           preparationTime: { gte: minTime, lte: maxTime },
           difficulty,
-
+          User: {
+            role: adminRecipes == true ? "admin" : "client",
+          },
           RecipeIngredient: {
             every: {
               OR: [
@@ -64,7 +68,28 @@ export const recipeRouter = router({
             },
           },
         },
+        select: {
+          id: true,
+          name: true,
+          imageURL: true,
+          userId: true,
+          description: true,
+          cookingTime: true,
+          portions: true,
+        },
       });
+
+      const listAverage = await Promise.map(
+        recipes,
+        async (recipe) =>
+          await prisma?.comment.aggregate({
+            where: { recipeId: recipe.id },
+            _avg: { rating: true },
+          }),
+        { concurrency: 8 },
+      );
+
+      return recipes.map((r, i) => ({ ...r, rating: listAverage[i] }));
     }),
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -325,7 +350,6 @@ export const recipeRouter = router({
             },
           },
         },
-        orderBy: { createdAt: "desc" },
       });
       return comments;
     }),
@@ -348,8 +372,8 @@ export const recipeRouter = router({
             0,
           ) /
             ratings.length) *
-            100,
-        ) / 100 || 0;
+            10,
+        ) / 10 || 0;
 
       //Obtener repetidos
       const ranges: Record<number, number> = {};

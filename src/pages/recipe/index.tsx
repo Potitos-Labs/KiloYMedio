@@ -14,6 +14,7 @@ import SliderRecipes from "@components/SliderRecipes";
 const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   const [filter, setFilter] = useState<IFilterRecipe>({
+    adminRecipes: true,
     difficulty: undefined,
     maxPortion: undefined,
     minPortion: undefined,
@@ -21,8 +22,7 @@ const Recipes = () => {
     maxTime: undefined,
     minTime: undefined,
   });
-  const { data: filteredRecipes } =
-    trpc.recipe.getFilteredRecipes.useQuery(filter);
+  const { data: recipes } = trpc.recipe.getFilteredRecipes.useQuery(filter);
 
   //const { data: recipes } = trpc.recipe.getAllRecipes.useQuery();
   // const ourRecipes = recipes?.filter((recipe) => {

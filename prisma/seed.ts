@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Prisma, PrismaClient } from "@prisma/client";
+import { IngredientUnit, Prisma, PrismaClient } from "@prisma/client";
 import { hash } from "argon2";
 
 const prisma = new PrismaClient();
@@ -1063,17 +1063,28 @@ async function main() {
         "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       User: { connect: { id: juan.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },
     },
   });
+
+  const panPuebloIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: panPueblo,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
   const arrozConCostra = await prisma.recipe.create({
     data: {
       name: "arroz con costra",
@@ -1095,17 +1106,28 @@ async function main() {
         "Hoy os traigo un arroz muy especial se trata del tradicional y conocido arroz con costra al estilo de Elche.",
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },
     },
   });
+
+  const arrozconcostraIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: arrozConCostra,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
   const tartaQueso = await prisma.recipe.create({
     data: {
       name: "tarta de queso",
@@ -1127,7 +1149,7 @@ async function main() {
         "Esta frésquisima tarta de queso esta riquisima, ¿Podrás aguantar a que se enfrie antes de incarle el diente?",
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
+      /*RecipeIngredient: {
         createMany: {
           data: {
             amount: 2,
@@ -1135,9 +1157,29 @@ async function main() {
             unit: "grams",
           },
         },
-      },
+      },*/
     },
   });
+
+  const tartaquesoIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: tartaQueso,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
   const poteNavero = await prisma.recipe.create({
     data: {
       name: "pote navero",
@@ -1159,7 +1201,7 @@ async function main() {
         "El pote navero, también conocido como patatas meneas, es un típico plato castellano, muy sencillo de hacer y muy rico (sobretodo cuando va acompañado de una picante piparra).",
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
+      /*RecipeIngredient: {
         createMany: {
           data: {
             amount: 2,
@@ -1167,9 +1209,29 @@ async function main() {
             unit: "grams",
           },
         },
-      },
+      },*/
     },
   });
+
+  const poteNaveroIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: poteNavero,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
   const huevos = await prisma.recipe.create({
     data: {
       name: "huevos croquetones",
@@ -1191,17 +1253,27 @@ async function main() {
         "Hoy os traigo una receta tradicional española, muy sencilla y riquisima. Croquetas rellenas de huevo duro, que están buenísimas",
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },
     },
   });
+
+  const huevosIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: huevos,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
 
   const macarronesConTomatico = await prisma.recipe.create({
     data: {
@@ -1224,17 +1296,27 @@ async function main() {
         "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
       User: { connect: { id: pilar.id } },
       createdAt: new Date(),
-      RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: pistachos.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },
     },
   });
+
+  const macarronesConTomaticoIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: macarronesConTomatico,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
 
   const unidadesDeMedida = await prisma.ingredientUnitInSpanish.createMany({
     data: [

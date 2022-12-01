@@ -91,6 +91,7 @@ export const commentSchema = z.object({
 });
 
 export const filterRecipeSchema = z.object({
+  adminRecipes: z.boolean(),
   minPortion: z.number().optional(),
   maxPortion: z.number().optional(),
   minTime: z.number().optional(),
