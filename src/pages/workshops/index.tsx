@@ -1,25 +1,37 @@
 import Layout from "@components/Layout";
-import WorkshopCard from "@components/workshop/tinyComponents/WorkshopCard";
+import OnlineWorkshopCard from "@components/workshop/tinyComponents/OnlineWorkshopCard";
+import OnsiteWorkshopCard from "@components/workshop/tinyComponents/OnsiteWorkshopCard";
 import WorkshopSearchBar from "@components/workshop/tinyComponents/WorkshopSearchBar";
 import { trpc } from "@utils/trpc";
 import Image from "next/image";
 import { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
+import YouTube from "react-youtube";
 
 export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
   const [image, setImage] = useState(String);
+  const [video, setVideo] = useState(String);
   const [showMore, setShowMore] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const youtubeOpts = {
+    height: "556",
+    width: "102%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+    },
+  };
   const { data: OnsiteWorkshops } =
     trpc.workshop.getAllOnsiteWorkshops.useQuery();
   const { data: OnlineWorkshops } =
     trpc.workshop.getAllOnlineWorkshops.useQuery();
   console.log(activeIndex);
+  console.log(video);
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
+        {/*---CABECERA---*/}
         <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
           <div className="  mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
             <button
@@ -45,16 +57,16 @@ export default function Workshops() {
               PRESENCIAL
             </button>
           </div>
-
           <WorkshopSearchBar />
         </div>
-        <div className="my-3 mb-2 grid h-full w-full grid-cols-1 flex-col gap-2 md:grid-cols-[45%_55%]">
+        {/*---TALLERES DISPLAYER CHIQUITO---*/}
+        <div className="my-3 mb-2 grid h-full w-full grid-cols-1 flex-col gap-2 md:mb-3  md:grid-cols-[45%_55%]">
           <div id="CARDS" className="">
             {showOnsite
               ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
                   console.log(workshop.Onsite?.date);
                   return (
-                    <WorkshopCard
+                    <OnsiteWorkshopCard
                       key={index}
                       name={workshop.name}
                       description={workshop.description}
@@ -69,44 +81,60 @@ export default function Workshops() {
                 })
               : OnlineWorkshops?.slice(0, 3).map((workshop, index) => {
                   return (
-                    <WorkshopCard
+                    <OnlineWorkshopCard
                       key={index}
                       name={workshop.name}
                       description={workshop.description}
-                      date={null}
-                      imageURL={workshop.imageURL}
-                      setImageURL={setImage}
-                      index={index}
+                      image={workshop.imageURL}
+                      videoURL={workshop.Online?.videoURL}
+                      setVideoURL={setVideo}
                       displayed={false}
-                      setIndex={setActiveIndex}
                     />
                   );
                 })}
           </div>
+
+          {/*---DISPLAYER VIDEO/FOTO---*/}
           <div
             id="PICTURES"
-            className="relative mt-2 mr-2 hidden rounded-lg border-[1px] border-base-content md:block"
+            className="relative mt-2 mr-2 hidden overflow-hidden rounded-lg border-[1px] border-base-content md:block"
           >
-            <div className="absolute z-10 m-3  flex gap-3">
-              <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
-                Inscribirse
-              </button>
-              <button className="h-full rounded-full border-[1px] border-base-content bg-background  px-4 py-2 active:border-primary active:bg-primary active:text-background">
-                Saber más
-              </button>
-            </div>
-            <Image
-              src={image}
-              objectFit="cover"
-              className="rounded-lg "
-              alt="notfound"
-              layout="fill"
-            />
+            {showOnsite ? (
+              <div>
+                <div className="absolute z-10 m-3  flex gap-3">
+                  <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
+                    Inscribirse
+                  </button>
+                  <button className="h-full rounded-full border-[1px] border-base-content bg-background  px-4 py-2 active:border-primary active:bg-primary active:text-background">
+                    Saber más
+                  </button>
+                </div>
+                <Image
+                  src={image}
+                  objectFit="cover"
+                  className="rounded-lg "
+                  alt="notfound"
+                  layout="fill"
+                />
+              </div>
+            ) : (
+              <div className="h-60 w-full">
+                <YouTube
+                  videoId="oTP5bXzfh1c"
+                  opts={youtubeOpts}
+                  className={"hidden md:block"}
+                />
+              </div>
+            )}
           </div>
         </div>
+
+        {/*---MOSTRAR MÁS---*/}
         <div className="">
           {((showOnsite && (OnsiteWorkshops || []).length > 3 && showMore) ||
-            (showOnsite && (OnsiteWorkshops || []).length > 3 && showMore)) && (
+            (!showOnsite &&
+              (OnlineWorkshops || []).length > 3 &&
+              showMore)) && (
             <div className=" flex justify-center md:justify-start">
               <button
                 className="mb-4 flex h-full items-center  gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway active:border-primary active:bg-primary active:text-background"
@@ -117,42 +145,41 @@ export default function Workshops() {
               </button>
             </div>
           )}
-          {!showMore
-            ? OnsiteWorkshops?.slice(3, OnsiteWorkshops?.length).map(
-                (workshop, index) => {
-                  console.log(workshop.Onsite?.date);
-                  return (
-                    <WorkshopCard
-                      key={index}
-                      name={workshop.name}
-                      description={workshop.description}
-                      date={workshop.Onsite?.date}
-                      imageURL={workshop.imageURL}
-                      setImageURL={setImage}
-                      index={index}
-                      displayed={true}
-                      setIndex={setActiveIndex}
-                    />
-                  );
-                },
-              )
-            : OnlineWorkshops?.slice(3, OnsiteWorkshops?.length).map(
-                (workshop, index) => {
-                  return (
-                    <WorkshopCard
-                      key={index}
-                      name={workshop.name}
-                      description={workshop.description}
-                      date={null}
-                      imageURL={workshop.imageURL}
-                      setImageURL={setImage}
-                      index={index}
-                      displayed={true}
-                      setIndex={setActiveIndex}
-                    />
-                  );
-                },
-              )}
+          {!showMore &&
+            (showOnsite
+              ? OnsiteWorkshops?.slice(3, OnsiteWorkshops?.length).map(
+                  (workshop, index) => {
+                    console.log(workshop.Onsite?.date);
+                    return (
+                      <OnsiteWorkshopCard
+                        key={index}
+                        name={workshop.name}
+                        description={workshop.description}
+                        date={workshop.Onsite?.date}
+                        imageURL={workshop.imageURL}
+                        setImageURL={setImage}
+                        index={index}
+                        displayed={true}
+                        setIndex={setActiveIndex}
+                      />
+                    );
+                  },
+                )
+              : OnlineWorkshops?.slice(3, OnsiteWorkshops?.length).map(
+                  (workshop, index) => {
+                    return (
+                      <OnlineWorkshopCard
+                        key={index}
+                        name={workshop.name}
+                        description={workshop.description}
+                        image={workshop.imageURL}
+                        videoURL={workshop.Online?.videoURL}
+                        setVideoURL={setVideo}
+                        displayed={false}
+                      />
+                    );
+                  },
+                ))}
         </div>
       </div>
     </Layout>

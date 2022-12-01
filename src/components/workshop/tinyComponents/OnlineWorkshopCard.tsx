@@ -1,25 +1,20 @@
 import Image from "next/image";
 
-function WorskhopCard({
+function OnlineWorskhopCard({
   name,
   description,
-  date,
-  imageURL,
-  setImageURL,
+  videoURL,
+  setVideoURL,
   displayed,
-  index,
-  setIndex,
+  image,
 }: {
   name: string;
   description: string;
-  date: Date | undefined | null;
-  imageURL: string;
+  videoURL: string | undefined;
   displayed: boolean;
-  index: number;
-  setImageURL: (name: string) => void;
-  setIndex: (index: number) => void;
+  image: string;
+  setVideoURL: (name: string) => void;
 }) {
-  console.log(date);
   return (
     <div
       className={` ${
@@ -27,9 +22,8 @@ function WorskhopCard({
           ? "grid-cols-[30%_70%]"
           : "grid-cols-[30%_70%] md:grid-cols-1 "
       } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
-      onMouseEnter={() => {
-        setImageURL(imageURL);
-        setIndex(index);
+      onClick={() => {
+        videoURL && setVideoURL(videoURL);
       }}
     >
       <div
@@ -38,7 +32,7 @@ function WorskhopCard({
         } `}
       >
         <Image
-          src={imageURL}
+          src={image}
           objectFit="cover"
           className="rounded-l-md"
           alt="notfound"
@@ -46,26 +40,21 @@ function WorskhopCard({
         />
       </div>
       <div className="w-fill h-fill relative p-2 md:p-4">
-        {
-          <div className="mb-1 flex  w-full justify-end align-middle text-[10px] md:text-xs">
-            <p>{date?.getDay() + "/" + date?.getMonth()}</p>
-          </div>
-        }
-        <h1 className=" font-raleway text-[16px] uppercase lg:text-[35px]">
+        <h1 className=" font-raleway text-[16px] uppercase md:text-[35px]">
           {name}
         </h1>
-        <p className=" flex w-fit text-[15px] line-clamp-3  md:text-xs">
+        <p className=" flex w-fit text-[15px] line-clamp-4  md:text-xs">
           {description}
         </p>
         <button
           className={` ${
             !displayed && "block md:hidden"
-          } absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2  active:border-primary active:bg-primary active:text-background`}
+          } absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2 active:border-primary active:bg-primary  active:text-background md:px-4 md:py-1`}
         >
-          Inscribirse
+          Reproducir
         </button>
       </div>
     </div>
   );
 }
-export default WorskhopCard;
+export default OnlineWorskhopCard;
