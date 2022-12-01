@@ -47,7 +47,7 @@ function IncDecButtons({
   const unitDisplay = {
     grams: "g",
     kilograms: "kg",
-    liters: "l",
+    liters: "L",
     milliliters: "ml",
     unit: "u",
     min: "min",
@@ -57,11 +57,10 @@ function IncDecButtons({
   return (
     <div className={` ${className} flex h-full w-full flex-row font-bold`}>
       <button
-        disabled={!stockLeft || amount == incdecValues[unit]}
+        disabled={amount == incdecValues[unit]}
         className={clsx(
           `w-6 flex-auto bg-transparent`,
-          (!stockLeft || amount == incdecValues[unit]) &&
-            "cursor-not-allowed opacity-60",
+          amount == incdecValues[unit] && "cursor-not-allowed opacity-60",
         )}
         onClick={decrementClick}
       >

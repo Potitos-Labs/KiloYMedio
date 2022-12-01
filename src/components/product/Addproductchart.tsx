@@ -3,6 +3,7 @@ import { IProduct } from "@utils/validations/product";
 import { toast } from "react-toastify";
 import { Dispatch, useEffect } from "react";
 import { ProductUnit } from "@prisma/client";
+import { BsArrowRightShort } from "react-icons/bs";
 
 const productPrice: Record<ProductUnit, number> = {
   grams: 1000,
@@ -15,18 +16,41 @@ const productPrice: Record<ProductUnit, number> = {
 function Addproductchart({
   amount,
   product,
+  message = "añadir a la cesta",
   className,
   index,
   setPrices,
 }: {
   amount: number;
   product: IProduct;
+  message?: "añadir a la cesta" | "añadir";
   className?: string;
   index?: number;
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
+  const incdecValues = {
+    grams: 100,
+    kilograms: 0.5,
+    liters: 0.5,
+    milliliters: 250,
+    unit: 1,
+    min: 1,
+    pers: 1,
+  };
+  const maxValues = {
+    grams: 1000,
+    kilograms: 1,
+    liters: 1,
+    milliliters: 1000,
+    unit: 1,
+    min: 1,
+    pers: 1,
+  };
+
+  const stockLeft =
+    amount + incdecValues[product.ProductUnit] <=
+    product.stock * maxValues[product.ProductUnit];
   const utils = trpc.useContext();
-  const stockLeft = product.stock * 1000 >= 100;
   const mutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
       utils.cart.getAllCartProduct.invalidate();
@@ -62,11 +86,14 @@ function Addproductchart({
       } ${className}`}
     >
       <div className="flex h-full flex-row">
-        <div className="flex h-full w-20 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-24">
+        <div className="flex h-full w-20 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-40">
           <span className="px-2 text-xs sm:text-sm">{price + " €"}</span>
         </div>
-        <div className=" flex-initial self-center whitespace-nowrap px-2 text-center text-xs sm:text-sm">
-          {stockLeft ? "añadir a la cesta" : "agotado"}
+        <div className=" flex w-full flex-initial flex-row justify-center">
+          <p className="self-center whitespace-nowrap text-center text-xs sm:text-sm">
+            {stockLeft ? message : "agotado"}
+          </p>
+          <BsArrowRightShort size={25} className="my-auto ml-2" />
         </div>
       </div>
     </button>

@@ -97,6 +97,7 @@ function Product({
             amount={amount}
             product={product}
             index={index}
+            message={"añadir"}
             setPrices={setPrices}
             className={"w-30"}
           />
