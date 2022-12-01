@@ -135,7 +135,7 @@ export default function Workshops() {
         </div>
 
         {/*---MOSTRAR MÁS---*/}
-        <div className="">
+        <div className={`${!showMore && "mb-6"}`}>
           {((showOnsite && (OnsiteWorkshops || []).length > 3 && showMore) ||
             (!showOnsite &&
               (OnlineWorkshops || []).length > 3 &&

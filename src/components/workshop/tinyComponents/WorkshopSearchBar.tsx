@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 const WorkshopSearchBar = () => {
   return (
     <div className="">
-      <div className="xs:mr-3 flex h-full grow rounded-full bg-primary px-2 shadow-md  sm:px-4">
+      <div className="xs:mr-3 flex h-full grow rounded-full bg-primary px-3 shadow-md  sm:px-4">
         <div className=" flex items-center justify-center">
           <FaSearch className="fill-background" />
         </div>
