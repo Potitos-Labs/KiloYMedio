@@ -42,29 +42,17 @@ function SliderRecipes({
                   id="slider"
                   className="flex h-full items-center justify-between gap-8 transition duration-700 ease-out"
                 >
-                  {recipes?.map((r, index) => {
+                  {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
                         <Slide index={index} key={""}>
-                          <SmallRecipeCard
-                            key={r.id}
-                            id={r.id}
-                            name={r.name}
-                            imageURL={r.imageURL}
-                            authorID={r.userId}
-                          />
+                          <SmallRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     } else {
                       return (
                         <Slide index={index} key={""}>
-                          <BigRecipeCard
-                            key={r.id}
-                            id={r.id}
-                            name={r.name}
-                            imageURL={r.imageURL}
-                            authorID={r.userId}
-                          />
+                          <BigRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     }
@@ -111,29 +99,17 @@ function SliderRecipes({
                   id="slider"
                   className="flex h-full items-center justify-between gap-8 transition duration-700 ease-out"
                 >
-                  {recipes?.map((r, index) => {
+                  {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
                         <Slide index={index} key={""}>
-                          <SmallRecipeCard
-                            key={r.id}
-                            id={r.id}
-                            name={r.name}
-                            imageURL={r.imageURL}
-                            authorID={r.userId}
-                          />
+                          <SmallRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     } else {
                       return (
                         <Slide index={index} key={""}>
-                          <BigRecipeCard
-                            key={r.id}
-                            id={r.id}
-                            name={r.name}
-                            imageURL={r.imageURL}
-                            authorID={r.userId}
-                          />
+                          <BigRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     }
@@ -178,16 +154,10 @@ function SliderRecipes({
                   id="slider"
                   className="flex h-full items-center  gap-6 transition duration-700 ease-out"
                 >
-                  {recipes?.map((r, index) => {
+                  {recipes?.map((recipe, index) => {
                     return (
                       <Slide index={index} key={""}>
-                        <SmallRecipeCard
-                          key={r.id}
-                          id={r.id}
-                          name={r.name}
-                          imageURL={r.imageURL}
-                          authorID={r.userId}
-                        />
+                        <SmallRecipeCard recipe={recipe} />
                       </Slide>
                     );
                   })}

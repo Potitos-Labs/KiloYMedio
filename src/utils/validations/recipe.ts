@@ -80,8 +80,10 @@ export const recipeSchema = z.object({
   imageURL: z.string(),
   userId: z.string(),
   cookingTime: z.number().optional().nullable(),
+  preparationTime: z.number().optional().nullable(),
   description: z.string().optional().nullable(),
   portions: z.number().optional().nullable(),
+  rating: z.number().optional().nullable(),
 });
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
@@ -91,7 +93,7 @@ export const commentSchema = z.object({
 });
 
 export const filterRecipeSchema = z.object({
-  adminRecipes: z.boolean(),
+  adminRecipes: z.boolean().optional(),
   minPortion: z.number().optional(),
   maxPortion: z.number().optional(),
   minTime: z.number().optional(),

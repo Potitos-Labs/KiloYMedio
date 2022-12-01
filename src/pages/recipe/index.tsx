@@ -15,19 +15,13 @@ const Recipes = () => {
   const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   const [filter, setFilter] = useState<IFilterRecipe>({
     adminRecipes: true,
-    difficulty: undefined,
-    maxPortion: undefined,
-    minPortion: undefined,
-    allergens: undefined,
-    maxTime: undefined,
-    minTime: undefined,
   });
-  const { data: recipes } = trpc.recipe.getFilteredRecipes.useQuery(filter);
-
-  //const { data: recipes } = trpc.recipe.getAllRecipes.useQuery();
-  // const ourRecipes = recipes?.filter((recipe) => {
-  //   recipe.User?.role != "admin";
-  // });
+  const { data: recipesAdmin } = trpc.recipe.getFilteredRecipes.useQuery({
+    adminRecipes: true,
+  });
+  const { data: recipesCommunity } = trpc.recipe.getFilteredRecipes.useQuery({
+    adminRecipes: false,
+  });
 
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -81,7 +75,7 @@ const Recipes = () => {
               <FilterRecipe filter={filter} setFilter={setFilter} />
             </div>
             {/* End Filtros */}
-            <OurRecipesDisplayer recipes={recipes}></OurRecipesDisplayer>
+            <OurRecipesDisplayer recipes={recipesAdmin}></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
           <div className="w-full">
@@ -89,7 +83,7 @@ const Recipes = () => {
               RECETAS DE LA COMUNIDAD
             </p>
             {mostRecentRecipes?.length != 0 && (
-              <SliderRecipes isBig={false} recipes={recipes} />
+              <SliderRecipes isBig={false} recipes={recipesCommunity} />
             )}
           </div>
         </div>

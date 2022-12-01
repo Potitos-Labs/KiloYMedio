@@ -75,6 +75,7 @@ export const recipeRouter = router({
           userId: true,
           description: true,
           cookingTime: true,
+          preparationTime: true,
           portions: true,
         },
       });
@@ -89,7 +90,10 @@ export const recipeRouter = router({
         { concurrency: 8 },
       );
 
-      return recipes.map((r, i) => ({ ...r, rating: listAverage[i] }));
+      return recipes.map((r, i) => ({
+        ...r,
+        rating: listAverage[i]?._avg.rating,
+      }));
     }),
   getById: publicProcedure
     .input(z.object({ id: z.string() }))

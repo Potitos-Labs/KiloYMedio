@@ -22,13 +22,7 @@ const CommunityRecipesSlider = ({
         >
           {recipes
             ? recipes.map((recipe) => (
-                <SmallRecipeCard
-                  id={recipe.id}
-                  name={recipe.name}
-                  imageURL={recipe.imageURL}
-                  authorID={recipe.userId}
-                  key={recipe.id}
-                ></SmallRecipeCard>
+                <SmallRecipeCard key={recipe.id} recipe={recipe} />
               ))
             : [...Array(10)].map((e, i) => <LoadingCard key={i} />)}
         </ScrollMenu>
