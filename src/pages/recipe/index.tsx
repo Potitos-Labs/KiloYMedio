@@ -81,9 +81,7 @@ const Recipes = () => {
               <FilterRecipe filter={filter} setFilter={setFilter} />
             </div>
             {/* End Filtros */}
-            <OurRecipesDisplayer
-              recipes={filteredRecipes}
-            ></OurRecipesDisplayer>
+            <OurRecipesDisplayer recipes={recipes}></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
           <div className="w-full">
@@ -91,7 +89,7 @@ const Recipes = () => {
               RECETAS DE LA COMUNIDAD
             </p>
             {mostRecentRecipes?.length != 0 && (
-              <SliderRecipes isBig={false} recipes={filteredRecipes} />
+              <SliderRecipes isBig={false} recipes={recipes} />
             )}
           </div>
         </div>
