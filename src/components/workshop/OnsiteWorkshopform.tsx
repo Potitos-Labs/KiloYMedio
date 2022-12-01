@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import Image from "next/image";
 import { useCallback } from "react";
 import { trpc } from "@utils/trpc";
+import { useRouter } from "next/router";
 
 function OnsiteWorkshopForm() {
   const { mutateAsync: createWorshop } =
@@ -21,21 +22,24 @@ function OnsiteWorkshopForm() {
   } = useForm<IWorkshopCreate>({
     resolver: zodResolver(workshopCreateSchema),
     criteriaMode: "all",
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: false,
   });
+  const router = useRouter();
 
   const onSubmit = useCallback(
     async (data: IWorkshopCreate) => {
       console.log("si");
       await createWorshop(data);
+      router.push(`/`);
       console.log("si");
     },
-    [createWorshop],
+    [createWorshop, router],
   );
   return (
     <form
       className="flex w-full items-center justify-center"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
     >
       <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
         <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">

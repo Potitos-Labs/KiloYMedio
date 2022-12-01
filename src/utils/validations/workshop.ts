@@ -9,9 +9,12 @@ export const workshopCreateSchema = z.object({
     .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
   Onsite: z
     .object({
-      date: z.date(),
+      date: z.date().refine((date) => {
+        return date > new Date(Date.now());
+      }, "La fecha ha de ser posterior al dia de hoy"),
+
       places: z
-        .number()
+        .number({ invalid_type_error: "Introduce un número" })
         .min(5, "El curso como mínimo tiene que tener 5 plazas "),
     })
     .nullable()

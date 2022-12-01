@@ -8,10 +8,13 @@ import { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Image from "next/image";
 import { trpc } from "@utils/trpc";
+import { useRouter } from "next/router";
 
 function OnlineWorkshopForm() {
   const { mutateAsync: createWorshop } =
     trpc.workshop.createNewWorkshop.useMutation();
+
+  const router = useRouter();
 
   const {
     register,
@@ -21,16 +24,15 @@ function OnlineWorkshopForm() {
   } = useForm<IWorkshopCreate>({
     resolver: zodResolver(workshopCreateSchema),
     criteriaMode: "all",
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: false,
   });
 
   const onSubmit = useCallback(
     async (data: IWorkshopCreate) => {
-      console.log("si");
       await createWorshop(data);
-      console.log("si");
+      router.push("/");
     },
-    [createWorshop],
+    [createWorshop, router],
   );
   return (
     <form
