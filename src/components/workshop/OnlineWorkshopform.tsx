@@ -68,16 +68,16 @@ function OnlineWorkshopForm() {
             <span className="mb-2">VideoURl*</span>
             <input
               type="text"
-              placeholder="dia"
+              placeholder="Dirección del Video"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               {...register("Online.videoURL")}
             />
             <p className="text-sm text-pink-600">
-              {errors.Onsite?.date?.message}
+              {errors.Online?.videoURL?.message}
             </p>
           </label>
           <label className="col-span-2 flex w-full flex-col">
-            <span className="mb-2">Imagen *</span>
+            <span className="mb-2">Imagen* </span>
             <Controller
               control={control}
               name="imageURL"

@@ -119,11 +119,17 @@ export default function Workshops() {
               </div>
             ) : (
               <div className="h-60 w-full">
-                <YouTube
-                  videoId="oTP5bXzfh1c"
-                  opts={youtubeOpts}
-                  className={"hidden md:block"}
-                />
+                {video ? (
+                  <YouTube
+                    videoId={video}
+                    opts={youtubeOpts}
+                    className={"hidden md:block"}
+                  />
+                ) : (
+                  <p className="absolute bottom-64 left-80  ">
+                    ¡Selecciona un video! 😊
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -167,6 +173,7 @@ export default function Workshops() {
                 )
               : OnlineWorkshops?.slice(3, OnsiteWorkshops?.length).map(
                   (workshop, index) => {
+                    console.log(workshop);
                     return (
                       <OnlineWorkshopCard
                         key={index}

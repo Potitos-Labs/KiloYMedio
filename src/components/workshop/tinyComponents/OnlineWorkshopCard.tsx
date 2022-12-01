@@ -1,3 +1,4 @@
+import router from "next/router";
 import Image from "next/image";
 
 function OnlineWorskhopCard({
@@ -15,6 +16,8 @@ function OnlineWorskhopCard({
   image: string;
   setVideoURL: (name: string) => void;
 }) {
+  const videoID = videoURL && videoURL.split("=").pop();
+  console.log(videoID);
   return (
     <div
       className={` ${
@@ -23,7 +26,8 @@ function OnlineWorskhopCard({
           : "grid-cols-[30%_70%] md:grid-cols-1 "
       } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
       onClick={() => {
-        videoURL && setVideoURL(videoURL);
+        videoID && setVideoURL(videoID);
+        console.log(videoID);
       }}
     >
       <div
@@ -50,6 +54,9 @@ function OnlineWorskhopCard({
           className={` ${
             !displayed && "block md:hidden"
           } absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2 active:border-primary active:bg-primary  active:text-background md:px-4 md:py-1`}
+          onClick={() => {
+            videoURL && router.push(videoURL);
+          }}
         >
           Reproducir
         </button>
