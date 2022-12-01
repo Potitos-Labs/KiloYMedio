@@ -21,10 +21,10 @@ const Recipes = () => {
     maxTime: undefined,
     minTime: undefined,
   });
-  // const { data: filteredRecipes } =
-  //   trpc.recipe.getFilteredRecipes.useQuery(filter);
+  const { data: filteredRecipes } =
+    trpc.recipe.getFilteredRecipes.useQuery(filter);
 
-  const { data: recipes } = trpc.recipe.getAllRecipes.useQuery();
+  //const { data: recipes } = trpc.recipe.getAllRecipes.useQuery();
   // const ourRecipes = recipes?.filter((recipe) => {
   //   recipe.User?.role != "admin";
   // });
@@ -40,11 +40,11 @@ const Recipes = () => {
       <div className="m-4 2xl:m-8">
         {/* Intro Recipes */}
         <div>
-          <h1 className="mx-10 my-20 font-raleway text-xl text-base-100 lg:mr-40 lg:text-3xl">
+          <h1 className="mx-10 my-10 font-raleway text-xl text-base-100 sm:my-20 lg:mr-40 lg:text-3xl">
             ¿QUÉ TE APETECE COCINAR HOY?
           </h1>
-          <div className="flex justify-between pr-14">
-            <div className="ml-10 flex w-48 flex-col gap-6">
+          <div className="flex flex-col justify-between sm:flex-row sm:pr-14">
+            <div className="ml-10 mb-20 flex w-48 flex-col gap-6 sm:mb-0">
               <Link href="/recipe/create">
                 <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-base-content 2xl:text-sm">
                   compartir recetas
@@ -81,7 +81,9 @@ const Recipes = () => {
               <FilterRecipe filter={filter} setFilter={setFilter} />
             </div>
             {/* End Filtros */}
-            <OurRecipesDisplayer recipes={recipes}></OurRecipesDisplayer>
+            <OurRecipesDisplayer
+              recipes={filteredRecipes}
+            ></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
           <div className="w-full">
@@ -89,7 +91,7 @@ const Recipes = () => {
               RECETAS DE LA COMUNIDAD
             </p>
             {mostRecentRecipes?.length != 0 && (
-              <SliderRecipes isBig={false} recipes={recipes} />
+              <SliderRecipes isBig={false} recipes={filteredRecipes} />
             )}
           </div>
         </div>
