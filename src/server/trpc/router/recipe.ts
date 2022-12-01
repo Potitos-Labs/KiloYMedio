@@ -1,6 +1,6 @@
 import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
-import { Promise } from "bluebird";
+import { Promise as PromiseBB } from "bluebird";
 
 import {
   commentSchema,
@@ -80,7 +80,7 @@ export const recipeRouter = router({
         },
       });
 
-      const listAverage = await Promise.map(
+      const listAverage = await PromiseBB.map(
         recipes,
         async (recipe) =>
           await prisma?.comment.aggregate({
