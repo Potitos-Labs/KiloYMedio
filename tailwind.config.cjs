@@ -32,13 +32,12 @@ module.exports = {
       "3xl": "90px", //title
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
   daisyui: {
     styled: true,
     themes: [
       {
         mytheme: {
-          primary: "#f1889f",
           "primary-focus": "#00FF00", //cambiar
           "primary-content": "#00FF00", //cambiar
           secondary: "#21cf84",
@@ -51,6 +50,7 @@ module.exports = {
           "neutral-focus": "#212529", //button hover
           "neutral-content": "#212529", //button content
           "base-100": "#f8f3ed", //background
+          primary: "#f1889f",
           "base-200": "#a6806d",
           "base-300": "#4b4949",
           "base-content": "#212529", //text

@@ -21,7 +21,7 @@ export default function Workshops() {
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
         <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
-          <div className=" sm: mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
+          <div className="  mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
             <button
               className={`${
                 !showOnsite && "border-primary bg-primary text-background"
@@ -85,7 +85,7 @@ export default function Workshops() {
           </div>
           <div
             id="PICTURES"
-            className="relative mb-2 mr-2 hidden rounded-lg border-[1px] border-base-content md:block"
+            className="relative mt-2 mr-2 hidden rounded-lg border-[1px] border-base-content md:block"
           >
             <div className="absolute z-10 m-3  flex gap-3">
               <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
