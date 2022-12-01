@@ -49,7 +49,7 @@ export default function BigRecipeCard({
   return (
     <div
       tabIndex={0}
-      className="rounded-box flex grid-cols-[60%_40%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid"
+      className="rounded-box flex grid-cols-[58%_42%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid"
     >
       <div className="grid content-between p-6">
         <div>
@@ -84,7 +84,7 @@ export default function BigRecipeCard({
                 </a>
               </Link>
             </div>
-            <SaveIcon recipeId={id} />
+            <SaveIcon recipeId={id} isBig={true} />
           </div>
         </div>
         {/* End Features and Buttons */}

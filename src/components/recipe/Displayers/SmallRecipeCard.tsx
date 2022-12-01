@@ -6,8 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
+import SaveIcon from "../SaveIcon";
 
-export default function LittleRecipeCard({
+export default function SmallRecipeCard({
   id,
   name,
   imageURL,
@@ -41,9 +42,12 @@ export default function LittleRecipeCard({
   return (
     <div
       tabIndex={0}
-      className="rounded-box my-4 h-64 w-auto border-[1px] border-base-300"
+      className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-300"
     >
-      <div className="rounded-t-box relative h-32 overflow-hidden object-contain">
+      <div className="absolute bottom-[280px] left-4 z-10">
+        <SaveIcon recipeId={id} isBig={false} />
+      </div>
+      <div className="rounded-t-box relative h-40 overflow-hidden object-contain">
         <Link href={`/recipe/${id}`}>
           <Image
             src={imageURL}
@@ -68,11 +72,11 @@ export default function LittleRecipeCard({
         <div className="mx-2 grid content-between gap-4">
           <div>
             <Stars average={4}></Stars>
-            <p className="mx-1 my-2 font-raleway first-letter:uppercase">
+            <p className="mx-1 mt-2 mb-8 font-raleway first-letter:uppercase">
               {name}
             </p>
           </div>
-          <div className="ml-1 flex justify-between gap-4">
+          <div className="mx-2 flex justify-between gap-4">
             <p>17 min</p>
             <p>6 pers</p>
             <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">

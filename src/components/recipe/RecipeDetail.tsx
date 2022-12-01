@@ -150,7 +150,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   layout="intrinsic"
                   objectFit="cover"
                 ></Image>
-                <SaveIcon recipeId={id} />
+                <SaveIcon recipeId={id} isBig={true} />
               </div>
             </div>
             {/* End Upper section */}

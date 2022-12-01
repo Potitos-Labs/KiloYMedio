@@ -1,4 +1,4 @@
-import LittleRecipeCard from "./recipe/Displayers/LittleRecipeCard";
+import SmallRecipeCard from "./recipe/Displayers/SmallRecipeCard";
 import {
   CarouselProvider,
   Slider,
@@ -45,7 +45,7 @@ function SliderRecipes({
                     if (!isBig) {
                       return (
                         <Slide index={index} key={""}>
-                          <LittleRecipeCard
+                          <SmallRecipeCard
                             key={r.id}
                             id={r.id}
                             name={r.name}
