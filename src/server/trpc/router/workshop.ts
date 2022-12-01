@@ -1,55 +1,51 @@
 import * as trpc from "@trpc/server";
 import { workshopCreateSchema } from "@utils/validations/workshop";
-import { z } from "zod";
+
 import { adminProcedure, publicProcedure, router } from "../trpc";
 
 export const workshopRouter = router({
-  getAllOnlineWorkshops: publicProcedure
-    .output(z.array(workshopCreateSchema))
-    .query(async ({ ctx }) => {
-      const workshops = await ctx.prisma.workshop.findMany({
-        select: {
-          name: true,
-          description: true,
-          imageURL: true,
-          OnlineWorkshop: {
-            select: {
-              videoURL: true,
-            },
+  getAllOnlineWorkshops: publicProcedure.query(async ({ ctx }) => {
+    const workshops = await ctx.prisma.workshop.findMany({
+      select: {
+        name: true,
+        description: true,
+        imageURL: true,
+        OnlineWorkshop: {
+          select: {
+            videoURL: true,
           },
         },
-        where: {
-          NOT: {
-            OnlineWorkshop: null,
-          },
+      },
+      where: {
+        NOT: {
+          OnlineWorkshop: null,
         },
-      });
-      return workshops;
-    }),
+      },
+    });
+    return workshops;
+  }),
 
-  getAllOnsiteWorkshops: publicProcedure
-    .output(z.array(workshopCreateSchema))
-    .query(async ({ ctx }) => {
-      const workshops = await ctx.prisma.workshop.findMany({
-        select: {
-          name: true,
-          description: true,
-          imageURL: true,
-          OnSiteWorkshop: {
-            select: {
-              places: true,
-              date: true,
-            },
+  getAllOnsiteWorkshops: publicProcedure.query(async ({ ctx }) => {
+    const workshops = await ctx.prisma.workshop.findMany({
+      select: {
+        name: true,
+        description: true,
+        imageURL: true,
+        OnSiteWorkshop: {
+          select: {
+            places: true,
+            date: true,
           },
         },
-        where: {
-          NOT: {
-            OnSiteWorkshop: null,
-          },
+      },
+      where: {
+        NOT: {
+          OnSiteWorkshop: null,
         },
-      });
-      return workshops;
-    }),
+      },
+    });
+    return workshops;
+  }),
 
   createNewWorkshop: adminProcedure
     .input(workshopCreateSchema)

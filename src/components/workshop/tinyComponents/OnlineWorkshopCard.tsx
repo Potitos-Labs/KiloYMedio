@@ -1,5 +1,6 @@
 import router from "next/router";
 import Image from "next/image";
+import { BsArrowRight } from "react-icons/bs";
 
 function OnlineWorskhopCard({
   name,
@@ -50,15 +51,15 @@ function OnlineWorskhopCard({
         <p className=" flex w-fit text-[15px] line-clamp-4  md:text-xs">
           {description}
         </p>
+
         <button
-          className={` ${
-            !displayed && "block md:hidden"
-          } absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2 active:border-primary active:bg-primary  active:text-background md:px-4 md:py-1`}
+          className=" absolute right-2 bottom-2 flex items-center gap-2 rounded-full border-[1px]  border-base-content bg-transparent px-2  active:border-primary active:bg-primary active:text-background md:px-4 md:py-1"
           onClick={() => {
             videoURL && router.push(videoURL);
           }}
         >
-          Reproducir
+          Ir a YouTube
+          <BsArrowRight />
         </button>
       </div>
     </div>

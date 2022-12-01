@@ -26,8 +26,8 @@ export default function Workshops() {
     trpc.workshop.getAllOnsiteWorkshops.useQuery();
   const { data: OnlineWorkshops } =
     trpc.workshop.getAllOnlineWorkshops.useQuery();
+
   console.log(activeIndex);
-  console.log(video);
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className=" px-4 py-1">
@@ -64,13 +64,12 @@ export default function Workshops() {
           <div id="CARDS" className="">
             {showOnsite
               ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
-                  console.log(workshop.Onsite?.date);
                   return (
                     <OnsiteWorkshopCard
                       key={index}
                       name={workshop.name}
                       description={workshop.description}
-                      date={workshop.Onsite?.date}
+                      date={workshop.OnSiteWorkshop?.date}
                       imageURL={workshop.imageURL}
                       setImageURL={setImage}
                       index={index}
@@ -86,7 +85,7 @@ export default function Workshops() {
                       name={workshop.name}
                       description={workshop.description}
                       image={workshop.imageURL}
-                      videoURL={workshop.Online?.videoURL}
+                      videoURL={workshop.OnlineWorkshop?.videoURL}
                       setVideoURL={setVideo}
                       displayed={false}
                     />
@@ -155,13 +154,13 @@ export default function Workshops() {
             (showOnsite
               ? OnsiteWorkshops?.slice(3, OnsiteWorkshops?.length).map(
                   (workshop, index) => {
-                    console.log(workshop.Onsite?.date);
+                    console.log(workshop.OnSiteWorkshop?.date);
                     return (
                       <OnsiteWorkshopCard
                         key={index}
                         name={workshop.name}
                         description={workshop.description}
-                        date={workshop.Onsite?.date}
+                        date={workshop.OnSiteWorkshop?.date}
                         imageURL={workshop.imageURL}
                         setImageURL={setImage}
                         index={index}
@@ -180,7 +179,7 @@ export default function Workshops() {
                         name={workshop.name}
                         description={workshop.description}
                         image={workshop.imageURL}
-                        videoURL={workshop.Online?.videoURL}
+                        videoURL={workshop.OnlineWorkshop?.videoURL}
                         setVideoURL={setVideo}
                         displayed={false}
                       />
