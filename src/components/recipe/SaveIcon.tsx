@@ -37,6 +37,7 @@ function SaveIcon({
   return (
     <button
       onClick={isFav ? unsaveRecipe : saveRecipe}
+      disabled={saveMutation.isLoading || unsaveMutation.isLoading}
       className={`${
         isBig
           ? "flex gap-2 border-[1px] border-base-content bg-base-100 px-3 pt-0.5 pb-1 hover:bg-base-content hover:text-base-100"

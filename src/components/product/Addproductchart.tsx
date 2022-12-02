@@ -81,6 +81,7 @@ function Addproductchart({
   return (
     <button
       onClick={addToCart}
+      disabled={mutation.isLoading}
       className={`rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
       } ${className}`}
