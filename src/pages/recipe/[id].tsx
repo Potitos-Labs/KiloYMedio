@@ -9,19 +9,19 @@ import { trpc } from "../../utils/trpc";
 const RecipeDetails: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isFetched } = trpc.recipe.getById.useQuery({ id });
-  if (data)
+  const { data: recipe, isFetched } = trpc.recipe.getById.useQuery({ id });
+  if (recipe)
     return (
       <Layout
         bgColor={"bg-base-content"}
         headerBgLight={true}
         headerTextDark={true}
       >
-        <RecipeDetail id={id} />
+        <RecipeDetail recipe={recipe} />
       </Layout>
     );
 
-  if (!data && isFetched) {
+  if (!recipe && isFetched) {
     return <Error statusCode={404}></Error>;
   }
 

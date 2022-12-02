@@ -2,7 +2,6 @@ import { Allergen, ECategory, NECategory, ProductUnit } from "@prisma/client";
 import isURL from "validator/lib/isURL";
 import isDecimal from "validator/lib/isDecimal";
 import * as z from "zod";
-import { recipeSchema } from "./recipe";
 
 export const productCreateSchema = z.object({
   name: z.string().min(1, "El campo no puede estar vacío"),
@@ -32,7 +31,22 @@ export const productCreateSchema = z.object({
       conservation: z.string().nullable().optional(),
       Ingredient: z
         .object({
-          RecipeIngredient: z.array(z.object({ Recipe: recipeSchema })),
+          RecipeIngredient: z.array(
+            z.object({
+              Recipe: z.object({
+                id: z.string(),
+                name: z.string(),
+                imageURL: z.string(),
+                userId: z.string(),
+                cookingTime: z.number().optional().nullable(),
+                preparationTime: z.number().optional().nullable(),
+                description: z.string().optional().nullable(),
+                portions: z.number().optional().nullable(),
+                rating: z.number().optional().nullable(),
+                isFav: z.boolean().optional().nullable(),
+              }),
+            }),
+          ),
         })
         .optional(),
     })

@@ -70,7 +70,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
                 </a>
               </Link>
             </div>
-            <SaveIcon recipeId={recipe.id} isBig={true} />
+            <SaveIcon recipe={recipe} isBig={true} />
           </div>
         </div>
         {/* End Features and Buttons */}

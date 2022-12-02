@@ -14,9 +14,9 @@ import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { IRecipe } from "@utils/validations/recipe";
 
-const RecipeDetail = ({ id }: { id: string }) => {
-  const { data: recipe } = trpc.recipe.getById.useQuery({ id });
+const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
   const ingredients = recipe?.RecipeIngredient;
   const directions = recipe?.directions;
   const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
@@ -101,7 +101,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   </h1>
                   {(session?.user?.id == recipe?.userId || isAdmin) && (
                     <DotMenu
-                      id={id}
+                      id={recipe.id}
                       name={recipe ? recipe.name : "Error ocurred"}
                       type="receta"
                       updateFunction={editRecipe}
@@ -150,7 +150,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                   layout="intrinsic"
                   objectFit="cover"
                 ></Image>
-                <SaveIcon recipeId={id} isBig={true} />
+                <SaveIcon recipe={recipe as IRecipe} isBig={true} />
               </div>
             </div>
             {/* End Upper section */}
@@ -232,7 +232,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
                         index={cont}
                         setPrices={setPrices}
                         key={index}
-                      ></Product>
+                      />
                     );
                   }
                 })
@@ -246,7 +246,7 @@ const RecipeDetail = ({ id }: { id: string }) => {
         {/* End Recipe and Products */}
       </div>
       {/* End Black background */}
-      {/* Comments */} <CommentSection recipeId={id} />
+      {/* Comments */} <CommentSection recipeId={recipe.id} />
     </div>
   );
 };

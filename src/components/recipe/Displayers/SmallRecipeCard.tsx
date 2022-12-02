@@ -36,7 +36,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
       className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-300"
     >
       <div className="absolute bottom-[280px] left-4 z-10">
-        <SaveIcon recipeId={recipe.id} isBig={false} />
+        <SaveIcon recipe={recipe} isBig={false} />
       </div>
       <div className="rounded-t-box relative h-40 overflow-hidden object-contain">
         <Link href={`/recipe/${recipe.id}`}>

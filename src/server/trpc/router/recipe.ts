@@ -80,19 +80,26 @@ export const recipeRouter = router({
         },
       });
 
-      const listAverage = await PromiseBB.map(
+      const listAverageAndFav = await PromiseBB.map(
         recipes,
-        async (recipe) =>
-          await prisma?.comment.aggregate({
+        async (recipe) => {
+          const avg = await prisma?.comment.aggregate({
             where: { recipeId: recipe.id },
             _avg: { rating: true },
-          }),
+          });
+          const isFav = (await ctx.prisma.recipeUser.findFirst({
+            where: { recipeId: recipe.id, userId: ctx.session?.user?.id },
+          }))
+            ? true
+            : false;
+          return { rating: avg?._avg.rating, isFav };
+        },
         { concurrency: 8 },
       );
 
       return recipes.map((r, i) => ({
         ...r,
-        rating: listAverage[i]?._avg.rating,
+        ...listAverageAndFav[i],
       }));
     }),
   getById: publicProcedure

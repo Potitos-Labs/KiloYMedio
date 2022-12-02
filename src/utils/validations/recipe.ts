@@ -1,5 +1,6 @@
 import { Allergen, IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import * as z from "zod";
+import { productSchema } from "./product";
 
 export const createRecipeSchema = z.object({
   name: z
@@ -84,6 +85,26 @@ export const recipeSchema = z.object({
   description: z.string().optional().nullable(),
   portions: z.number().optional().nullable(),
   rating: z.number().optional().nullable(),
+  isFav: z.boolean().optional().nullable(),
+  difficulty: z.nativeEnum(RecipeDifficulty).optional().nullable(),
+  directions: z
+    .array(z.object({ number: z.number(), direction: z.string() }))
+    .optional()
+    .nullable(),
+  RecipeIngredient: z
+    .array(
+      z.object({
+        Ingredient: z.object({
+          id: z.string(),
+          name: z.string(),
+          Edible: productSchema.nullable(),
+        }),
+        amount: z.number(),
+        unit: z.nativeEnum(IngredientUnit),
+      }),
+    )
+    .optional()
+    .nullable(),
 });
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
