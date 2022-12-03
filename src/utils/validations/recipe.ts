@@ -109,7 +109,12 @@ export const recipeSchema = z.object({
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
   recipeId: z.string(),
-  description: z.string(),
+  description: z
+    .string()
+    .min(1, { message: "Debes introducir una descripción de tu valoración" })
+    .max(200, {
+      message: "La descripción debe contener máximo 200 caractéres",
+    }),
   rating: z.number(),
 });
 
