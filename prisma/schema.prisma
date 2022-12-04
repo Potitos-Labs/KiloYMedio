@@ -97,7 +97,7 @@ model VerificationToken {
 //DataBase
 model Admin {
     userId  String    @id
-    user    User      @relation(fields: [userId], references: [id])
+    user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     Ticket  Ticket[]
     Post    Post[]
     Comment Comment[]
@@ -132,7 +132,7 @@ model ECategoryInSpanish {
 
 model Client {
     userId                   String                     @id
-    user                     User                       @relation(fields: [userId], references: [id])
+    user                     User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
     address                  String?
     numberOfReports          Int                        @default(0)
     phoneNumber              String?
@@ -140,7 +140,7 @@ model Client {
     location                 String?
     CP                       Int?
     // socio  Bool
-    cart                     Cart                       @relation(fields: [cartId], references: [id])
+    cart                     Cart                       @relation(fields: [cartId], references: [id], onDelete: Cascade)
     cartId                   String                     @unique
     order                    Order[]
     Ticket                   Ticket[]

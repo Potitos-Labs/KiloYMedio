@@ -33,9 +33,18 @@ export const userRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const { clientEmail } = input;
+
+      const client = await ctx.prisma.user.findFirst({
+        where: { email: clientEmail },
+      });
+
+      if (!client) {
+        return;
+      }
+
       await ctx.prisma.user.delete({
         where: {
-          email: clientEmail,
+          id: client.id,
         },
       });
     }),
