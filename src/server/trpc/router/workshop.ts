@@ -1,7 +1,13 @@
 import * as trpc from "@trpc/server";
 import { workshopCreateSchema } from "@utils/validations/workshop";
+import { z } from "zod";
 
-import { adminProcedure, publicProcedure, router } from "../trpc";
+import {
+  adminProcedure,
+  clientProcedure,
+  publicProcedure,
+  router,
+} from "../trpc";
 
 export const workshopRouter = router({
   getAllOnlineWorkshops: publicProcedure.query(async ({ ctx }) => {
@@ -93,5 +99,20 @@ export const workshopRouter = router({
         code: "BAD_REQUEST",
         message: "Error not controlled",
       });
+    }),
+
+  getWorkshopsParticipants: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .query(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      const participants = await ctx.prisma.onSiteWorkshopAttendance.findMany({
+        where: {
+          onSiteWorkshopId: onSiteWorkshopId,
+        },
+        select: {
+          clientId: true,
+        },
+      });
+
+      return participants;
     }),
 });

@@ -94,7 +94,9 @@ function OnsiteWorkshopForm() {
               {...register("Onsite.date", { valueAsDate: true })}
             />
             <p className="text-sm text-pink-600">
-              {errors.Onsite?.date?.message}
+              {errors.Onsite?.date?.message == "Invalid date"
+                ? "Fecha invalida"
+                : errors.Onsite?.date?.message}
             </p>
           </label>
           <label className="col-span-2 flex w-full flex-col">

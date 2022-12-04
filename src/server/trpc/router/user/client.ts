@@ -90,6 +90,35 @@ export const clientRouter = router({
       return { status: 201 };
     }),
 
+  enrollWorkshop: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      const clientId = ctx.session.user.id;
+      await ctx.prisma.onSiteWorkshopAttendance.upsert({
+        where: {
+          onSiteWorkshopId_clientId: { onSiteWorkshopId, clientId },
+        },
+        create: { onSiteWorkshopId, clientId },
+        update: {},
+      });
+
+      return { status: 201 };
+    }),
+  unenrollWorkshop: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      await ctx.prisma.onSiteWorkshopAttendance.delete({
+        where: {
+          onSiteWorkshopId_clientId: {
+            onSiteWorkshopId,
+            clientId: ctx.session.user.id,
+          },
+        },
+      });
+
+      return { status: 201 };
+    }),
+
   getFavoriteRecipes: clientProcedure.query(async ({ ctx }) => {
     const recipes = await ctx.prisma.recipeUser.findMany({
       where: {
