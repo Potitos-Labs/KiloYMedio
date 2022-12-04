@@ -21,12 +21,12 @@ function ListboxDesign({
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="dropdown  w-40 ">
+    <div className="dropdown w-40">
       <Listbox
         value={options.find((o) => o.value == value)}
         onChange={(o) => onChange(o.value)}
       >
-        <Listbox.Button className="btn btn-outline btn-sm w-full justify-start capitalize">
+        <Listbox.Button className="btn h-[60px] w-full justify-start rounded-[30px] bg-transparent text-sm hover:bg-transparent">
           {list[value as IngredientUnit]}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <IoIosArrowDown className="h-5 w-5" />
