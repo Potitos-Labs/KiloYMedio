@@ -10,7 +10,7 @@ import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
-import IncDecButtons from "./IncDecButtons";
+import IncDecButtons from "../ui/IncDecButtons";
 import Addproductchart from "./Addproductchart";
 import SliderRecipes from "@components/SliderRecipes";
 

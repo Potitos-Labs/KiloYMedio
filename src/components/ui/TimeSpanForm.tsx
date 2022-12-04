@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import type { Control } from "react-hook-form";
-import IncDecButtons from "@components/product/IncDecButtons";
+import IncDecButtons from "@components/ui/IncDecButtons";
 
 export default function TimeSpanForm({
   control,

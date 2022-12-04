@@ -9,7 +9,7 @@ import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import DotMenu from "../DotMenu";
 import Addproductchart from "./Addproductchart";
-import IncDecButtons from "./IncDecButtons";
+import IncDecButtons from "../ui/IncDecButtons";
 
 function Product({
   product,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
 import { AppRouterTypes, trpc } from "../../utils/trpc";
-import IncDecButtons from "../product/IncDecButtons";
+import IncDecButtons from "../ui/IncDecButtons";
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 

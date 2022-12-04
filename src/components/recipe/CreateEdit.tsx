@@ -13,7 +13,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { IngredientUnit } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
 import Layout from "@components/Layout";
-import IncDecButtons from "@components/product/IncDecButtons";
+import IncDecButtons from "@components/ui/IncDecButtons";
 import { Listbox } from "@headlessui/react";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useState } from "react";
