@@ -83,29 +83,19 @@ export default function CreateEdit(props: {
 
   const buttonText = props.recipe ? "Guardar" : "Crear receta";
 
-  // const difficultyOptions = [
-  //   { value: "easy", label: "Fácil" },
-  //   { value: "moderate", label: "Medio" },
-  //   { value: "hard", label: "Difícil" },
-  // ];
-
   const difficultyOptions: Record<RecipeDifficulty, string> = {
     easy: "Fácil",
     moderate: "Medio",
     hard: "Difícil",
   };
 
-  // const [selectedDifficulty, setSelectedDifficulty] = useState(
-  //   difficultyOptions[0],
-  // );
-
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mt-[50px] ml-[80px] max-w-[769px] font-raleway text-xl">
+      <div className="mt-[50px] ml-[20px] max-w-[769px] font-raleway text-[45px] md:ml-[80px] md:text-xl">
         COMPARTE TU RECETA EN UNOS SENCILLOS PASOS
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-12 ml-[80px]">
+        <div className="mt-12 ml-[20px] md:ml-[80px]">
           {/*Details*/}
           <section className="grid grid-cols-1 gap-8 xl:grid-cols-[50%_50%]">
             <div className="grid grid-cols-1">
@@ -132,12 +122,12 @@ export default function CreateEdit(props: {
                 <div className="mt-8 font-raleway text-lg">
                   TIEMPO Y PORCIONES
                 </div>
-                <div className="grid auto-cols-auto grid-cols-[30%_35%_35%] grid-rows-4 gap-y-[20px] gap-x-[10px] text-start">
+                <div className="grid auto-cols-auto grid-cols-[45%-55%] grid-rows-[35%-35%-15%-15%] gap-y-[20px] gap-x-[10px] text-start md:grid-cols-[30%_35%_35%] md:grid-rows-4">
                   {/* Grid Row 1: Preparation time */}
-                  <div className="col-start-1 row-start-1 self-center text-lg">
+                  <div className="col-start-1 row-start-1 self-start pt-3 text-lg md:self-center md:pt-0">
                     Tiempo de preparación:
                   </div>
-                  <div className="col-span-2 self-center text-lg">
+                  <div className="col-start-2 row-start-1 self-center text-lg md:col-span-2">
                     <TimeSpanForm control={control} label={"preparationTime"} />
                     {errors.preparationTime && (
                       <p className="flex text-sm text-red-500">
@@ -148,10 +138,10 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 1: Preparation time */}
 
                   {/* Grid Row 2: Cooking time */}
-                  <div className="col-start-1 row-start-2 self-center text-lg">
+                  <div className="col-start-1 row-start-2 self-start pt-3 text-lg md:self-center md:pt-0">
                     Tiempo de cocinado:
                   </div>
-                  <div className="col-span-2 self-center text-lg">
+                  <div className="col-span-2 col-start-2 row-start-2 self-center text-lg">
                     <TimeSpanForm control={control} label={"cookingTime"} />
                     {errors.cookingTime && (
                       <p className="flex text-sm text-red-500">
@@ -165,7 +155,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-3 self-center text-lg">
                     Porciones:
                   </div>
-                  <div className="flex flex-row items-center gap-2 self-center text-lg">
+                  <div className="col-start-2 row-start-3 flex flex-row items-center gap-2 self-center text-lg">
                     <Controller
                       name="portions"
                       control={control}
@@ -221,7 +211,7 @@ export default function CreateEdit(props: {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <>
-                      <div className="">
+                      <div>
                         <UploadImageRecipe
                           setImageURL={onChange}
                           value={value}
@@ -247,7 +237,7 @@ export default function CreateEdit(props: {
             <div className="flex max-w-[700px] flex-col gap-[30px]">
               <div className="font-raleway text-lg">DESCRIPCIÓN</div>
               <textarea
-                className="textarea textarea-bordered mr-[50px] h-[120px] rounded-[30px] border-base-300 text-sm leading-[30px] text-base-300"
+                className="textarea textarea-bordered mr-5 h-[120px] rounded-[30px] border-base-300 text-sm leading-[30px] text-base-300"
                 {...register("description", {})}
               />
               {errors.name && (
@@ -269,8 +259,8 @@ export default function CreateEdit(props: {
                   {fieldsIngredients.map((field, index) => {
                     return (
                       <div key={field.id}>
-                        <section className="section flex gap-3">
-                          <div className="flex justify-center">
+                        <section className="section flex flex-col gap-3 sm:flex-row">
+                          <div className="mr-5 flex sm:mr-0">
                             <Controller
                               name={`ingredients.${index}.name`}
                               control={control}
@@ -365,7 +355,7 @@ export default function CreateEdit(props: {
                 AÑADE PASOS
               </div>
 
-              <div className="flex flex-col gap-3" ref={listRef2}>
+              <div className="mr-5 flex flex-col gap-3 sm:mr-0" ref={listRef2}>
                 {fieldsDirections.map((field, index) => {
                   return (
                     <div key={field.id}>
@@ -433,9 +423,9 @@ export default function CreateEdit(props: {
           </section>
           {/*End Recipe*/}
           {/* Button */}
-          <div className="flex gap-5 pb-6">
+          <div className="flex flex-col-reverse gap-5 pb-6 md:flex-row">
             <button
-              className="btn mt-6 h-[60px] w-[220px] rounded-[30px] bg-transparent font-raleway text-sm hover:bg-transparent"
+              className="btn flex h-[60px] w-[220px] rounded-[30px] bg-transparent font-raleway text-sm hover:bg-transparent md:mt-6"
               type="button"
               onClick={() => router.push("/recipe")}
             >
@@ -443,7 +433,7 @@ export default function CreateEdit(props: {
             </button>
             <button
               type="submit"
-              className="btn mt-6 h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
+              className="btn mt-6 flex h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
             >
               {buttonText}
             </button>

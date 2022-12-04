@@ -10,7 +10,7 @@ export default function TimeSpanForm({
   label: string;
 }) {
   return (
-    <>
+    <div className="flex flex-col gap-3 md:flex-row">
       {/* Cooking time */}
       <div className="flex flex-row items-center gap-2">
         <Controller
@@ -28,6 +28,8 @@ export default function TimeSpanForm({
           )}
         ></Controller>
         <p className="pr-5">horas</p>
+      </div>
+      <div className="flex flex-row items-center gap-2">
         <Controller
           name={`${label}.minute`}
           control={control}
@@ -45,6 +47,6 @@ export default function TimeSpanForm({
         <p>minutos</p>
       </div>
       {/* Cooking time End*/}
-    </>
+    </div>
   );
 }

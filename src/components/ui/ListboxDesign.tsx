@@ -36,7 +36,11 @@ function ListboxDesign({
             <IoIosArrowDown className="h-5 w-5" />
           </span>
         </Listbox.Button>
-        <Listbox.Options className="dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2">
+        <Listbox.Options
+          className={`dropdown-content rounded-box menu-vertical max-h-52 bg-base-100 p-2 ${
+            order == "alphabetical" ? "overflow-y-scroll" : "w-40 overflow-auto"
+          }`}
+        >
           {options.map((item) => (
             <Listbox.Option
               key={item.id}

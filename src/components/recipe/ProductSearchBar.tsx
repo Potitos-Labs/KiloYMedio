@@ -18,7 +18,7 @@ const SearchBar = ({
   });
 
   return (
-    <div className="group relative h-4/5 w-4/5 sm:h-auto md:w-64">
+    <div className="group relative h-4/5 sm:h-auto md:w-64">
       <div className="input input-bordered flex h-[60px] rounded-[30px] border-neutral">
         <input
           className="input h-full w-full bg-transparent text-sm text-neutral focus:outline-0"

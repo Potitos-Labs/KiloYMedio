@@ -39,13 +39,13 @@ export const UploadImageRecipe = ({
   );
   return (
     <div className="">
-      <div className="flex h-[540px] w-[540px] flex-col items-center justify-center rounded-[30px] border-[1px] border-base-300">
+      <div className="flex h-[300px] w-[300px] flex-col items-center justify-center rounded-[30px] border-[1px] border-base-300 md:h-[420px] md:w-[420px]">
         <Image
           className="rounded-[30px]"
-          src={value ? value : "/img/placeholder.jpg"}
+          src={value ? value : ""}
           alt={value}
-          height={540}
-          width={540}
+          height={420}
+          width={420}
           layout="intrinsic"
           objectFit="cover"
           priority={true}
