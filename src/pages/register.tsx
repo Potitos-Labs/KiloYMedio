@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
@@ -48,13 +48,17 @@ const SignUp: NextPage = () => {
         if (!matchPassword) return;
         const result = await mutateAsync(data);
         if (result.status === 201) {
-          router.push("/");
+          await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            callbackUrl: "/",
+          });
         }
       } catch (error) {
         setEmailAlreadyExists(true);
       }
     },
-    [mutateAsync, router, matchPassword],
+    [mutateAsync, matchPassword],
   );
 
   const [showPassword, setShowPassword] = useState(false);
@@ -84,7 +88,6 @@ const SignUp: NextPage = () => {
   console.log({ errors });
   return (
     <main className="h-screen bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
-      {/* <div className="bg-[##FFA24B] flex w-screen flex-col items-center pt-[20px]"> */}
       <div className="flex w-full flex-col items-center py-[10px]">
         <Image
           src="/img/logoWhite.png"
