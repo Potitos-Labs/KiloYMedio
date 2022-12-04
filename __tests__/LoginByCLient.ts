@@ -12,7 +12,7 @@ test("test", async ({ page }) => {
 
   await page.getByPlaceholder("Contraseña").click();
 
-  await page.getByPlaceholder("Contraseña").fill("Juan_22agl");
+  await page.getByPlaceholder("Contraseña").fill("Caramelos_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");

@@ -18,7 +18,7 @@ test("test", async ({ page }) => {
     )
     .press("Tab");
 
-  await page.getByPlaceholder("Contraseña").fill("Juan_22agl");
+  await page.getByPlaceholder("Contraseña").fill("Caremelos_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");
