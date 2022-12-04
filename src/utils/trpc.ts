@@ -1,10 +1,12 @@
 // src/utils/trpc.ts
+import { Role } from "@prisma/client";
+import { createContextInner } from "@server/trpc/context";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import type { GetInferenceHelpers } from "@trpc/server";
 import superjson from "superjson";
 
-import type { AppRouter } from "../server/trpc/router/_app";
+import { appRouter, AppRouter } from "../server/trpc/router/_app";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
@@ -30,6 +32,14 @@ export const trpc = createTRPCNext<AppRouter>({
   },
   ssr: false,
 });
+
+export async function getClientTrpcMock(role: Role) {
+  const ctxAdminMock = await createContextInner({
+    session: { user: { id: "1", role }, expires: "" },
+  });
+
+  return appRouter.createCaller(ctxAdminMock);
+}
 
 /**
  * Inference helpers
