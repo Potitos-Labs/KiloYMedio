@@ -96,7 +96,7 @@ export default function Workshops() {
           {/*---DISPLAYER VIDEO/FOTO---*/}
           <div
             id="PICTURES"
-            className="relative mt-2 mr-2 hidden overflow-hidden rounded-lg border-[1px] border-base-content md:block"
+            className="relative mt-2 mr-2 hidden items-center justify-items-center overflow-hidden rounded-lg border-[1px] border-base-content align-middle md:block"
           >
             {showOnsite ? (
               <div>
@@ -117,7 +117,7 @@ export default function Workshops() {
                 />
               </div>
             ) : (
-              <div className="h-60 w-full">
+              <div className="h-full w-full items-center justify-items-center align-middle">
                 {video ? (
                   <YouTube
                     videoId={video}
@@ -125,7 +125,7 @@ export default function Workshops() {
                     className={"hidden md:block"}
                   />
                 ) : (
-                  <p className="absolute bottom-64 left-80  ">
+                  <p className="absolute top-1/2 left-[40%]   text-center align-middle">
                     ¡Selecciona un video! 😊
                   </p>
                 )}
