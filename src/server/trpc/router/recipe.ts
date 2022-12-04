@@ -59,7 +59,9 @@ export const recipeRouter = router({
                 {
                   Ingredient: {
                     Edible: {
-                      allergens: { some: { allergen: { notIn: allergens } } },
+                      allergens: {
+                        every: { allergen: { notIn: allergens ?? [] } },
+                      },
                     },
                   },
                 },
