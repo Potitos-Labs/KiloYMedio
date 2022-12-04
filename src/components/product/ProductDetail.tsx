@@ -300,13 +300,26 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
 };
 
 const RelatedRecipes = ({ product }: { product: IProduct }) => {
+  const recipeIngredient = product.Edible?.Ingredient?.RecipeIngredient ?? [];
   return (
-    <SliderRecipes
-      isBig={true}
-      recipes={product.Edible?.Ingredient?.RecipeIngredient.map(
-        (recipe) => recipe.Recipe,
+    <>
+      {recipeIngredient.length > 0 && (
+        <div className="ml-5 md:ml-28 lg:ml-36">
+          <p className="w-full text-center font-raleway text-[40px] font-black uppercase text-base-100 sm:text-left sm:text-xl">
+            RECETAS
+          </p>
+          <p className="w-full text-center text-xs text-base-100 sm:text-left sm:text-base ">
+            {recipeIngredient.length} recetas disponibles con este producto
+          </p>
+          <SliderRecipes
+            isBig={true}
+            recipes={product.Edible?.Ingredient?.RecipeIngredient.map(
+              (recipe) => recipe.Recipe,
+            )}
+          />
+        </div>
       )}
-    />
+    </>
   );
 };
 
