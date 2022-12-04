@@ -10,7 +10,6 @@ import {
 } from "@server/trpc/trpc";
 import { clientSchema } from "@utils/validations/client";
 import { signUpByAdminSchema, signUpSchema } from "@utils/validations/auth";
-import { hash } from "argon2";
 import { commentSchema } from "@utils/validations/recipe";
 
 export const clientRouter = router({
@@ -261,7 +260,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = await hash(password);
+      const hashedPassword = password;
 
       const result = await ctx.prisma.user.create({
         data: {
@@ -304,7 +303,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = await hash(password);
+      const hashedPassword = password;
 
       const result = await ctx.prisma.user.create({
         data: {

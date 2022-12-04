@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { IngredientUnit, Prisma, PrismaClient } from "@prisma/client";
-import { hash } from "argon2";
 
 const prisma = new PrismaClient();
 async function main() {
-  const hashedPassword = await hash("potitos2022");
+  const hashedPassword = "potitos2022";
 
   const allergenInSpanish = await prisma.allergenInSpanish.createMany({
     data: [

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getClientTrpcMock } from "../src/utils/trpc";
+import { getClientTrpcMock } from "../src/utils/trpcMock";
 
 test("test", async ({ page }) => {
   await page.goto("http://localhost:3000/");
