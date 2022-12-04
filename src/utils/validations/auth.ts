@@ -1,4 +1,3 @@
-import isAlphanumeric from "validator/lib/isAlphanumeric";
 import isAlpha from "validator/lib/isAlpha";
 import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
@@ -35,7 +34,7 @@ export const signUpSchema = loginSchema.extend({
       message: "El nombre tiene que tener como máximo 20 carácteres",
     })
     .refine(
-      (value) => isAlphanumeric(value, "es-ES", { ignore: " " }),
+      (value) => isAlpha(value, "es-ES", { ignore: " " }),
       "Este campo no puede contener números",
     ),
 });
