@@ -1,3 +1,4 @@
+import { ECategory } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 
 const SearchBar = ({
@@ -12,7 +13,7 @@ const SearchBar = ({
     maxPrice: 5000,
     minPrice: 0,
     allergens: [],
-    eCategories: [],
+    eCategories: Object.keys(ECategory) as ECategory[],
     neCategories: [],
   });
 
