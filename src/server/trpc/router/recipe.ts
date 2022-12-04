@@ -85,7 +85,7 @@ export const recipeRouter = router({
       const listAverageAndFav = await PromiseBB.map(
         recipes,
         async (recipe) => {
-          const avg = await prisma?.comment.aggregate({
+          const avg = await ctx.prisma.comment.aggregate({
             where: { recipeId: recipe.id },
             _avg: { rating: true },
           });
