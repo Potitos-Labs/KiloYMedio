@@ -10,13 +10,10 @@ import {
   createRecipeSchema,
 } from "../../utils/validations/recipe";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { IngredientUnit } from "@prisma/client";
+import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
 import Layout from "@components/Layout";
 import IncDecButtons from "@components/ui/IncDecButtons";
-import { Listbox } from "@headlessui/react";
-import { AiOutlineCheck } from "react-icons/ai";
-import { useState } from "react";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
 
@@ -86,15 +83,21 @@ export default function CreateEdit(props: {
 
   const buttonText = props.recipe ? "Guardar" : "Crear receta";
 
-  const difficultyOptions = [
-    { value: "easy", label: "Fácil" },
-    { value: "moderate", label: "Medio" },
-    { value: "hard", label: "Difícil" },
-  ];
+  // const difficultyOptions = [
+  //   { value: "easy", label: "Fácil" },
+  //   { value: "moderate", label: "Medio" },
+  //   { value: "hard", label: "Difícil" },
+  // ];
 
-  const [selectedDifficulty, setSelectedDifficulty] = useState(
-    difficultyOptions[0],
-  );
+  const difficultyOptions: Record<RecipeDifficulty, string> = {
+    easy: "Fácil",
+    moderate: "Medio",
+    hard: "Difícil",
+  };
+
+  // const [selectedDifficulty, setSelectedDifficulty] = useState(
+  //   difficultyOptions[0],
+  // );
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
@@ -190,96 +193,21 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-4 self-center text-lg">
                     Dificultad:
                   </div>
-                  <div className="col-start-2 row-start-4">
-                    <Listbox
-                      value={selectedDifficulty}
-                      onChange={setSelectedDifficulty}
-                    >
-                      <div className="relative mt-1">
-                        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                          <span className="block truncate">
-                            {selectedDifficulty?.label}
-                          </span>
-                        </Listbox.Button>
-                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {difficultyOptions.map((dif, difIdx) => (
-                            <Listbox.Option
-                              key={difIdx}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "bg-amber-100 text-amber-900"
-                                    : "text-gray-900"
-                                }`
-                              }
-                              value={dif}
-                            >
-                              {({ selected }) => (
-                                <>
-                                  <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
-                                  >
-                                    {dif.label}
-                                  </span>
-                                  {selected ? (
-                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                      <AiOutlineCheck
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                      />
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Listbox.Option>
-                          ))}
-                        </Listbox.Options>
-                      </div>
-                    </Listbox>
+                  <div className="col-start-2 row-start-4 text-sm">
+                    <Controller
+                      name={`difficulty`}
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <ListboxDesign
+                          onChange={onChange}
+                          value={value}
+                          list={difficultyOptions}
+                          order="normal"
+                        ></ListboxDesign>
+                      )}
+                    ></Controller>
                   </div>
 
-                  {/* <div className="col-start-2 row-start-4">
-                  <div className="form-control">
-                    <label className="label cursor-pointer">
-                      <input
-                        type="radio"
-                        value="easy"
-                        defaultChecked={true}
-                        className="radio radio-sm border-black checked:bg-blue-500"
-                        {...register("difficulty")}
-                      />
-                      <span className="label-text pl-2">Baja</span>
-                    </label>
-                  </div>
-                </div>
-                <div className="col-start-3 row-start-4">
-                  <div className="form-control">
-                    <label className="label cursor-pointer">
-                      <input
-                        type="radio"
-                        value="moderate"
-                        className="radio radio-sm border-black checked:bg-blue-500"
-                        {...register("difficulty")}
-                      />
-                      <span className="label-text pl-2">Media</span>
-                    </label>
-                  </div>
-                </div>
-                <div className="col-start-3 row-start-4">
-                  <div className="form-control">
-                    <label className="label cursor-pointer">
-                      <input
-                        type="radio"
-                        value="hard"
-                        className="radio radio-sm border-black checked:bg-blue-500"
-                        {...register("difficulty")}
-                      />
-                      <span className="label-text pl-2">Alta</span>
-                    </label>
-                  </div>
-                </div> */}
                   {/* End Grid Row 4: Difficulty */}
                 </div>
               </section>

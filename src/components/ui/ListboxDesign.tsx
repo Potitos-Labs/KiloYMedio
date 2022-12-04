@@ -6,19 +6,23 @@ function ListboxDesign({
   onChange,
   value,
   list,
+  order = "alphabetical",
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void;
   value: string;
-  list: Record<IngredientUnit, string>;
+  list: Record<string, string>;
+  order?: "alphabetical" | "normal";
 }) {
-  const options = Object.keys(list)
-    .map((key, i) => ({
-      id: i,
-      name: list[key as IngredientUnit],
-      value: key as IngredientUnit,
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  let options = Object.keys(list).map((key, i) => ({
+    id: i,
+    name: list[key] ?? "valor no encontrado",
+    value: key,
+  }));
+
+  if (order === "alphabetical") {
+    options = options.sort((a, b) => a.name.localeCompare(b.name));
+  }
 
   return (
     <div className="dropdown w-40">
