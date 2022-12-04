@@ -1,6 +1,7 @@
 import router from "next/router";
 import Image from "next/image";
 import { BsArrowRight } from "react-icons/bs";
+import { useSession } from "next-auth/react";
 
 function OnlineWorskhopCard({
   name,
@@ -19,6 +20,24 @@ function OnlineWorskhopCard({
 }) {
   const videoID = videoURL && videoURL.split("=").pop();
   console.log(videoID);
+  const { status } = useSession();
+
+  function putVideo() {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    } else {
+      videoURL && router.push(videoURL);
+    }
+  }
+
+  function displayVideo() {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    } else {
+      videoID && setVideoURL(videoID);
+    }
+  }
+
   return (
     <div
       className={` ${
@@ -26,10 +45,7 @@ function OnlineWorskhopCard({
           ? "grid-cols-[30%_70%]"
           : "grid-cols-[30%_70%] md:grid-cols-1 "
       } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
-      onClick={() => {
-        videoID && setVideoURL(videoID);
-        console.log(videoID);
-      }}
+      onClick={() => displayVideo()}
     >
       <div
         className={`${
@@ -54,9 +70,7 @@ function OnlineWorskhopCard({
 
         <button
           className=" absolute right-2 bottom-2 flex items-center gap-2 rounded-full border-[1px]  border-base-content bg-transparent px-2  active:border-primary active:bg-primary active:text-background md:px-4 md:py-1"
-          onClick={() => {
-            videoURL && router.push(videoURL);
-          }}
+          onClick={() => putVideo()}
         >
           Ir a YouTube
           <BsArrowRight />
