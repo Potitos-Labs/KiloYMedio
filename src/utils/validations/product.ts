@@ -6,7 +6,9 @@ import * as z from "zod";
 export const productCreateSchema = z.object({
   name: z.string().min(1, "El campo no puede estar vacío"),
   description: z.string().min(1, "El campo no puede estar vacío"),
-  stock: z.number({ invalid_type_error: "Introduce un número" }),
+  stock: z
+    .number({ invalid_type_error: "Introduce un número" })
+    .positive({ message: "Stock debe ser mayor a 0" }),
   imageURL: z
     .string()
     .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
@@ -14,6 +16,7 @@ export const productCreateSchema = z.object({
     .object({
       priceByWeight: z
         .number({ invalid_type_error: "Introduce un número" })
+        .positive({ message: "Precio debe ser mayor a 0" })
         .refine(
           (value) => isDecimal(value.toString(), { decimal_digits: "1" }),
           { message: "Introduce como máximo un dígito" },
@@ -54,7 +57,9 @@ export const productCreateSchema = z.object({
     .optional(),
   NonEdible: z
     .object({
-      price: z.number({ invalid_type_error: "Introduce un número" }),
+      price: z
+        .number({ invalid_type_error: "Introduce un número" })
+        .positive({ message: "Precio debe ser mayor a 0" }),
       category: z.nativeEnum(NECategory),
     })
     .nullable()
