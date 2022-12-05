@@ -112,7 +112,19 @@ export const workshopRouter = router({
           clientId: true,
         },
       });
+      const numberParticipants = participants.length;
+      return numberParticipants;
+    }),
 
-      return participants;
+  isEnroll: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .query(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      const clientId = ctx.session.user.id;
+      const isFav = (await ctx.prisma.onSiteWorkshopAttendance.findFirst({
+        where: { clientId: clientId, onSiteWorkshopId: onSiteWorkshopId },
+      }))
+        ? true
+        : false;
+      return isFav;
     }),
 });
