@@ -67,7 +67,7 @@ export default function Layout({
               </div>
             </div>
             <div className="grid-cols ml-10 grid sm:ml-20">
-              <div className="mt-8 mr-10 flex flex-col py-5 lg:flex-row lg:justify-between">
+              <div className="-mt-4 mr-10 flex flex-col py-5 sm:mt-8 lg:flex-row lg:justify-between">
                 <p className="py-2 sm:py-0">
                   TIENDA FÍSICA PRÓXIMAMENTE EN VALENCIA
                 </p>
