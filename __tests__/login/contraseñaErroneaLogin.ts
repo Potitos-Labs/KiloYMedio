@@ -8,20 +8,19 @@ test("test", async ({ page }) => {
 
   await page.getByPlaceholder("E-mail").click();
 
-  await page.getByPlaceholder("E-mail").fill("sandra@potitos.com");
+  await page.getByPlaceholder("E-mail").fill("Sandra@potitos.com");
 
   await page.getByPlaceholder("Contraseña").click();
 
-  await page.getByPlaceholder("Contraseña").fill("Caramelos_123");
+  await page.getByPlaceholder("Contraseña").fill("si");
+
+  await page.getByRole("button", { name: "Iniciar sesión" }).click();
+
+  await page.getByPlaceholder("Contraseña").fill("COntraseña_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");
 
-  await page
-    .locator(
-      'nav:has-text("Sandracesta22 productos en la cesta3.52 €Ver cestacepillo de dientes1 u3.50 €len") svg',
-    )
-    .click();
-
-  await page.goto("http://localhost:3000/profile");
+  await page.getByRole("button", { name: "cerrar sesión" }).click();
+  await expect(page).toHaveURL("http://localhost:3000/");
 });
