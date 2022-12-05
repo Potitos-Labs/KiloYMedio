@@ -55,10 +55,9 @@ test("test", async ({ page }) => {
     .getByLabel(
       "Imagen *Sube una imagen .png o .jpg (max 1MB).Tamaño de imagen: 0   MB",
     )
-    .setInputFiles("61WTYlVKstL._AC_SX425_.jpg");
+    .setInputFiles("unnamed.jpg");
 
   await page.getByRole("button", { name: "Crear producto" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
 
   await page.getByText("tienda").first().click();
 
