@@ -26,7 +26,7 @@ function SliderRecipes({
       <div className="flex h-auto w-full items-center justify-between py-24 px-4 sm:py-8">
         {/* Carousel for desktop and large size devices */}
         <CarouselProvider
-          className="hidden h-full w-full md:flex md:flex-col"
+          className="hidden h-full w-full flex-col lg:flex"
           naturalSlideWidth={100}
           naturalSlideHeight={150}
           isIntrinsicHeight={true}
@@ -83,7 +83,7 @@ function SliderRecipes({
 
         {/* Carousel for tablet and medium size devices */}
         <CarouselProvider
-          className="hidden h-full w-full md:flex md:flex-col lg:hidden"
+          className="hidden h-full w-full flex-col md:flex lg:hidden"
           naturalSlideWidth={100}
           naturalSlideHeight={150}
           isIntrinsicHeight={true}
@@ -138,7 +138,7 @@ function SliderRecipes({
           </div>
         </CarouselProvider>
         <CarouselProvider
-          className=" flex h-full w-full flex-col sm:hidden"
+          className=" flex h-full w-full flex-col md:hidden"
           naturalSlideWidth={100}
           naturalSlideHeight={200}
           isIntrinsicHeight={true}

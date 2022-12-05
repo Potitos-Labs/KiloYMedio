@@ -304,7 +304,7 @@ const RelatedRecipes = ({ product }: { product: IProduct }) => {
   return (
     <>
       {recipeIngredient.length > 0 && (
-        <div className="ml-5 md:ml-28 lg:ml-36">
+        <div className="ml-5 md:ml-10 lg:ml-10">
           <p className="w-full text-center font-raleway text-[40px] font-black uppercase text-base-100 sm:text-left sm:text-xl">
             RECETAS
           </p>
