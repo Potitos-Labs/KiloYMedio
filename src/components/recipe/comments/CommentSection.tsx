@@ -12,8 +12,11 @@ import { toast } from "react-toastify";
 function CommentSection({ recipeId }: { recipeId: string }) {
   const utils = trpc.useContext();
 
+  const [countLoadMore, setCountLoadMore] = useState(0);
+
   const { data } = trpc.recipe.getComments.useQuery({
     recipeId: recipeId,
+    countLoadMore: countLoadMore,
   });
 
   const mutation = trpc.recipe.newComment.useMutation({
@@ -81,7 +84,10 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             );
           })}
           <div className="text-center">
-            <button className="w-32 rounded-full bg-base-content py-1 text-base-100">
+            <button
+              onClick={() => setCountLoadMore(countLoadMore + 1)}
+              className="w-32 rounded-full bg-base-content py-1 text-base-100"
+            >
               cargar más
             </button>
           </div>

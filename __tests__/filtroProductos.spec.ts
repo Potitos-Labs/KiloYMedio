@@ -9,18 +9,18 @@ test("test", async ({ page }) => {
   await expect(page).toHaveURL("http://localhost:3000/product");
 
   await page.getByText("Pastas").click();
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(600);
   await expect(page.getByText("macarrones")).toHaveCount(1);
   await expect(page.getByText("espaguetis")).toHaveCount(1);
   await expect(page.getByText("harina de trigo")).toHaveCount(0);
 
   await page.getByText("Harinas").click();
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(600);
   await expect(page.getByText("harina de trigo")).toHaveCount(1);
   await expect(page.getByText("harina de maíz")).toHaveCount(1);
 
   await page.getByText("Gluten").click();
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(600);
   await expect(page.getByText("macarrones")).toHaveCount(0);
   await expect(page.getByText("harina de trigo")).toHaveCount(0);
   await expect(page.getByText("harina de maíz")).toHaveCount(1);

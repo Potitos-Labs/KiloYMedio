@@ -346,9 +346,12 @@ export const recipeRouter = router({
     }),
 
   getComments: publicProcedure
-    .input(z.object({ recipeId: z.string() }))
-    .query(async ({ ctx, input: { recipeId } }) => {
+    .input(
+      z.object({ recipeId: z.string(), countLoadMore: z.number().default(0) }),
+    )
+    .query(async ({ ctx, input: { recipeId, countLoadMore } }) => {
       const comments = await ctx.prisma.comment.findMany({
+        take: 2 * (countLoadMore + 1),
         where: {
           recipeId,
         },
