@@ -16,7 +16,7 @@ import Layout from "@components/Layout";
 import IncDecButtons from "@components/ui/IncDecButtons";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
-// import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
+import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
 
 const defaultRecipe: ICreateRecipe = {
   cookingTime: { hour: 0, minute: 1 },
@@ -90,7 +90,8 @@ export default function CreateEdit(props: {
     hard: "Difícil",
   };
 
-  // const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
+  const { data: allergens } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
@@ -418,11 +419,13 @@ export default function CreateEdit(props: {
               <div className="mt-8 mb-[20px] font-raleway text-lg">
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
-              {/* <div className="flex text-sm">
-                <DropdownCheckAllergen
-                  allergens={allergens}
-                ></DropdownCheckAllergen>
-              </div> */}
+              <div className="flex text-sm">
+                {allergens && (
+                  <DropdownCheckAllergen
+                    allergens={allergens}
+                  ></DropdownCheckAllergen>
+                )}
+              </div>
               {/* <div className="text-sm text-red-500">
                 Si alguien sabe hacer un dropdown con checks, please send help
               </div> */}
