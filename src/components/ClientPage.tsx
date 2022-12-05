@@ -118,12 +118,15 @@ function ClientePage() {
             alt="not found"
           />
         </div>
-        <div className="absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-3 px-6">
+        <div className="absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-2.5 px-6">
           <a onClick={decrementSlide} href={`#slide${slide}`}>
             <BsArrowLeft className="text-base-100" />
           </a>
           <p className="px-2 text-base-100">
-            <span className="font-raleway text-sm">0{slide}</span> / 04
+            <span className="hidden font-raleway text-sm sm:inline-flex">
+              0{slide}
+            </span>{" "}
+            / <span className="hidden sm:inline-flex">04</span>
           </p>
           <a onClick={incrementSlide} href={`#slide${slide}`}>
             <BsArrowRight className="text-base-100" />
@@ -163,13 +166,13 @@ function ClientePage() {
           </p>
         </div>
         {/* End Elipse */}
-        <div className="rounded-box bg-base-100 px-14 pt-6 pb-0.5 text-xs text-base-content">
+        <div className="rounded-box bg-base-100 px-8 pt-6 pb-0.5 text-xs text-base-content sm:px-14">
           <p className="text-lg md:text-xl lg:text-2xl">
             kilo y medio es una tienda sostenible, comprometida y cercana, que
             ofrece productos orgánicos a granel, libres de plástico y de
             contaminación cruzada.
           </p>
-          <div className="flex w-full justify-end">
+          <div className="mb-10 flex w-full justify-end">
             <Image
               src="/img/bolsa.png"
               width="1000"
@@ -178,7 +181,7 @@ function ClientePage() {
             />
           </div>
           {/* Productos destacados */}
-          <div className="mb-20 lg:mb-32">
+          <div className="mb-14 sm:mb-20 lg:mb-32">
             <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
               PRODUCTOS DESTACADOS
             </p>
@@ -201,7 +204,7 @@ function ClientePage() {
           {/* End Productos destacados */}
           {/* Objetivo */}
           <div>
-            <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
+            <p className="mb-6 font-raleway text-lg sm:mb-10 md:text-xl lg:text-2xl">
               NUESTRO OBJETIVO
             </p>
             <p className="mb-20 text-sm md:mr-10 lg:mr-60">
