@@ -12,7 +12,6 @@ import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplay
 import SliderRecipes from "@components/SliderRecipes";
 
 const Recipes = () => {
-  const { data: mostRecentRecipes } = trpc.recipe.getRecentRecipes.useQuery();
   const [filter, setFilter] = useState<IFilterRecipe>({
     adminRecipes: true,
   });
@@ -82,7 +81,7 @@ const Recipes = () => {
             <p className="mb-10 font-raleway text-lg md:w-[600px] lg:text-2xl">
               RECETAS DE LA COMUNIDAD
             </p>
-            {mostRecentRecipes?.length != 0 && (
+            {recipesCommunity?.length != 0 && (
               <SliderRecipes isBig={false} recipes={recipesCommunity} />
             )}
           </div>
