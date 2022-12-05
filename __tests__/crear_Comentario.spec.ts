@@ -21,7 +21,7 @@ test("test", async ({ page }) => {
 
   await page.getByRole("link", { name: "ver receta completa" }).nth(2).click();
   await expect(page).toHaveURL(
-    "http://localhost:3000/recipe/clb5ilzrn008attbg27dvr7fz",
+    "http://localhost:3000/recipe/clb9sp5o0008c3dwrocjb9siz",
   );
 
   await page.getByPlaceholder("tu opinión").click();
@@ -49,7 +49,7 @@ test("test", async ({ page }) => {
 
   await page.getByRole("link", { name: "ver receta completa" }).nth(2).click();
   await expect(page).toHaveURL(
-    "http://localhost:3000/recipe/clb5ilzrn008attbg27dvr7fz",
+    "http://localhost:3000/recipe/clb9sp5o0008c3dwrocjb9siz",
   );
 
   await page.getByPlaceholder("tu opinión").click();
