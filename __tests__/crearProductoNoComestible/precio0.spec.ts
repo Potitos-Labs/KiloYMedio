@@ -7,13 +7,20 @@ test("test", async ({ page }) => {
   await expect(page).toHaveURL("http://localhost:3000/login");
 
   await page.getByPlaceholder("E-mail").click();
-  await page.getByPlaceholder("E-mail").fill("Pilar@potitos.com");
+
+  await page.getByPlaceholder("E-mail").fill("daniel@potitos.com");
 
   await page.getByPlaceholder("Contraseña").click();
 
-  await page.getByPlaceholder("Contraseña").fill("Contrasena1234");
+  await page.getByPlaceholder("Contraseña").press("CapsLock");
 
-  await page.getByPlaceholder("Contraseña").press("Enter");
+  await page.getByPlaceholder("Contraseña").fill("C");
+
+  await page.getByPlaceholder("Contraseña").press("CapsLock");
+
+  await page.getByPlaceholder("Contraseña").fill("Contrasena12");
+
+  await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");
 
   await page.getByRole("button", { name: "crear producto" }).click();
@@ -23,27 +30,23 @@ test("test", async ({ page }) => {
 
   await page.getByPlaceholder("Nombre del producto").click();
 
-  await page.getByPlaceholder("Nombre del producto").fill("Cepillo");
+  await page.getByPlaceholder("Nombre del producto").fill("Precio 0");
 
   await page.getByPlaceholder("Descripción").click();
 
-  await page.getByPlaceholder("Descripción").fill("ESto es un cepillo");
+  await page.getByPlaceholder("Descripción").fill("precio 0 ");
 
   await page.getByPlaceholder("Precio/U").click();
 
-  await page.getByPlaceholder("Precio/U").fill("3.10");
-
-  await page.getByRole("button", { name: "unit" }).click();
-
-  await page.getByRole("option", { name: "unit" }).getByText("unit").click();
+  await page.getByPlaceholder("Precio/U").fill("0");
 
   await page.getByPlaceholder("Stock(U)").click();
 
-  await page.getByPlaceholder("Stock(U)").fill("20");
+  await page.getByPlaceholder("Stock(U)").fill("200");
 
   await page.getByRole("button", { name: "Ninguno" }).click();
 
-  await page.getByRole("option", { name: "Cuidado personal" }).click();
+  await page.getByText("Productos de limpieza").click();
 
   await page
     .getByLabel(
@@ -58,12 +61,5 @@ test("test", async ({ page }) => {
     .setInputFiles("unnamed.jpg");
 
   await page.getByRole("button", { name: "Crear producto" }).click();
-
-  await page.getByText("tienda").first().click();
-
-  await page.getByRole("button", { name: "VER TODO" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product");
-
-  await page.getByText("Cepillo").first().click();
-  //await expect(page).toHaveURL( "http://localhost:3000/product/clb820qa2000ittmwotmt7jqa",º);
+  await page.getByText("Precio debe ser mayor a 0").click();
 });

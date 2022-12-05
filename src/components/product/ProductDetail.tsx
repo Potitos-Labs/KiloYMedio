@@ -107,13 +107,22 @@ const ProductCard = ({
           className="absolute top-1 right-0 lg:top-5 lg:right-3"
         />
       )}
-      <p className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left">
+      <p
+        id="Tittle"
+        className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left"
+      >
         {product.name}
       </p>
-      <p className="text-center font-sans text-xs leading-[20px] sm:text-sm lg:pr-[10%] lg:text-justify">
+      <p
+        id="Description"
+        className="text-center font-sans text-xs leading-[20px] sm:text-sm lg:pr-[10%] lg:text-justify"
+      >
         {product.description}
       </p>
-      <p className="py-4 text-center font-sans text-sm sm:text-base lg:text-left">
+      <p
+        id="Price"
+        className="py-4 text-center font-sans text-sm sm:text-base lg:text-left"
+      >
         {product.Edible ? (
           <span>{product.Edible?.priceByWeight}</span>
         ) : (
