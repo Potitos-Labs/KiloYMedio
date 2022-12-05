@@ -40,21 +40,4 @@ test("test", async ({ page }) => {
     .fill("Que se fastidien los naveros");
 
   await page.getByRole("button", { name: "enviar" }).click();
-
-  await page.getByRole("button", { name: "cerrar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
-
-  await page.getByRole("link", { name: "recetas" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/recipe");
-
-  await page.getByRole("link", { name: "ver receta completa" }).nth(2).click();
-  await expect(page).toHaveURL(
-    "http://localhost:3000/recipe/clb9sp5o0008c3dwrocjb9siz",
-  );
-
-  await page.getByPlaceholder("tu opinión").click();
-
-  await page.getByPlaceholder("tu opinión").fill("Comentario sin registrarse");
-
-  await page.getByRole("button", { name: "enviar" }).click();
 });

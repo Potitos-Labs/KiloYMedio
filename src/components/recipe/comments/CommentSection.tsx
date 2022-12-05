@@ -90,7 +90,9 @@ function CommentSection({ recipeId }: { recipeId: string }) {
           {/* Comments stats */}
           <div className="mb-14 block justify-between sm:flex">
             <div className="w-[150px]">
-              <p className="font-satoshiBold text-lg">{stats?.average ?? 0}</p>
+              <p className="font-satoshiBold text-lg " id="average">
+                {stats?.average ?? 0}
+              </p>
               <p className="mb-6 flex sm:mb-0">
                 {stats?.count ?? 0} comentarios
               </p>
