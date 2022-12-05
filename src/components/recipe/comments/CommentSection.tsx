@@ -6,6 +6,8 @@ import { TiStarFullOutline } from "react-icons/ti";
 
 import Comment from "./CommentCard";
 import HalfRating from "../RateHalfStars";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 function CommentSection({ recipeId }: { recipeId: string }) {
   const utils = trpc.useContext();
@@ -25,15 +27,23 @@ function CommentSection({ recipeId }: { recipeId: string }) {
     recipeId: recipeId,
   });
 
+  const { status } = useSession();
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
+  const unauthenticatedMessage = () =>
+    toast.warning("¡Necesita iniciar sesión para poner un comentario!");
 
   function sendComment() {
-    mutation.mutateAsync({
-      recipeId: recipeId,
-      description: comment,
-      rating: rating,
-    });
+    if (status === "unauthenticated") {
+      unauthenticatedMessage();
+    } else {
+      mutation.mutateAsync({
+        recipeId: recipeId,
+        description: comment,
+        rating: rating,
+      });
+      setComment("");
+    }
   }
 
   return (
