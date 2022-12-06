@@ -24,5 +24,7 @@ test("errorExistentEmail", async ({ page }) => {
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText("El email ya está siendo usado");
+  await page.waitForTimeout(1000);
+
+  await expect(page.getByText("El email ya está siendo usado")).toHaveCount(1);
 });

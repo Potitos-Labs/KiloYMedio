@@ -54,7 +54,10 @@ const config: PlaywrightTestConfig = {
         ...devices["Desktop Chrome"],
         video: "on",
         launchOptions: {
-          slowMo: process.env.CI ? 0 : 1000,
+          slowMo:
+            process.env.CI || process.env.RUN_FAST_PLAYWRIGHT_TESTS === "true"
+              ? 0
+              : 1000,
         },
       },
     },

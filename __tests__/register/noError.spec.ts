@@ -29,5 +29,5 @@ test("noErrors", async ({ page }) => {
   await page.getByRole("button", { name: "Crear cuenta" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");
 
-  // await expect(page).toHaveURL("http://localhost:3000/profile");
+  await expect(page.getByText("Panchito Mandefua")).toHaveCount(1);
 });
