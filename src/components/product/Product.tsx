@@ -80,11 +80,7 @@ function Product({
           />
         </div>
       )}
-      <Link href={`/product/${product.id}`}>
-        <p className="mx-10 text-center font-raleway text-base">
-          {product.name}
-        </p>
-      </Link>
+      <p className="mx-10 text-center font-raleway text-base">{product.name}</p>
       {data?.user?.role != "admin" && showButtons && (
         <div className="flex flex-col gap-4 pt-6">
           <IncDecButtons

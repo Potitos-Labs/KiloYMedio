@@ -8,8 +8,8 @@ function DropDownCart() {
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
     <div className="absolute right-4 top-6 z-10 hidden group-hover:block ">
-      <div className="scrollbar-hide flex h-auto max-h-[226px]  w-[300px] flex-col overflow-y-scroll rounded-md bg-white   text-black shadow-sm shadow-kym4">
-        <div className="relative  bg-background pt-3 pl-3">
+      <div className="scrollbar-hide flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll rounded-md bg-white   text-black shadow-sm shadow-kym4">
+        <div className="relative bg-background pt-3 pl-3">
           {numberCartProducts > 0 ? (
             <div className="flex">
               <p className="text-md mb-5">

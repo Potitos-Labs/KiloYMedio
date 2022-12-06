@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import { trpc } from "../../utils/trpc";
-import DropDownCart from "../cart/DropDownCart";
+//import DropDownCart from "../cart/DropDownCart";
 
 export default function CartHeader() {
   const { data: allCartProduct } = trpc.cart.getAllCartProduct.useQuery();
@@ -14,9 +14,9 @@ export default function CartHeader() {
       <span className="absolute ml-10 h-6 w-6 rounded-full bg-gray-700 pl-2 text-xs text-base-100">
         {numberCartProducts}
       </span>
-      <div className="invisible sm:visible">
+      {/* <div className="invisible sm:visible">
         <DropDownCart />
-      </div>
+      </div> */}
     </div>
   );
 }
