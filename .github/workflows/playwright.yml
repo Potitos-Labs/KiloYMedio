@@ -30,6 +30,7 @@ jobs:
         run: yarn playwright test
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
+          NEXT_PUBLIC_SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyamtqcmtqcHljcGhwdGVrc3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxMDcxMDIsImV4cCI6MTk4MzY4MzEwMn0.R3e1xclNhoNymqIExZ-8KNSAK5LL6NmJ72pwjOmidHk
       - uses: actions/upload-artifact@v3
         if: always()
         with:
