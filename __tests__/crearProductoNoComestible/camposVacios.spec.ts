@@ -1,25 +1,23 @@
 import { test, expect } from "@playwright/test";
 
-test("test", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+test("Campos vacíos", async ({ page }) => {
+  await page.goto("/");
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("/login");
 
   await page.getByPlaceholder("E-mail").click();
 
   await page.getByPlaceholder("E-mail").fill("Daniel@potitos.com");
-
-  await page.getByPlaceholder("E-mail").press("Tab");
 
   await page.getByPlaceholder("Contraseña").click();
 
   await page.getByPlaceholder("Contraseña").fill("Constrasena123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 
   await page.getByRole("button", { name: "crear producto" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product/create");
+  await expect(page).toHaveURL("/product/create");
 
   await page.getByRole("tab", { name: "No comestible" }).click();
 

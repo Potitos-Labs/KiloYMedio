@@ -3,10 +3,10 @@ import { getClientTrpcMock } from "@utils/trpcMock";
 
 test("Crear producto no comestible", async ({ page }) => {
   test.slow();
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("/login");
 
   await page.getByPlaceholder("E-mail").click();
 
@@ -17,10 +17,10 @@ test("Crear producto no comestible", async ({ page }) => {
   await page.getByPlaceholder("Contraseña").fill("Contrasena12");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 
   await page.getByRole("button", { name: "crear producto" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product/create");
+  await expect(page).toHaveURL("/product/create");
 
   await page.getByRole("tab", { name: "No comestible" }).click();
 
@@ -64,7 +64,7 @@ test("Crear producto no comestible", async ({ page }) => {
 
   await page.waitForTimeout(2000);
 
-  await page.goto("http://localhost:3000/product");
+  await page.goto("/product");
 
   await page.getByText("Detergente solido").click();
 
