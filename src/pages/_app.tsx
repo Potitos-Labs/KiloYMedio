@@ -16,7 +16,7 @@ const MyApp: AppType = ({
       <Component {...pageProps} />
       <ToastContainer
         position="bottom-left"
-        autoClose={1000}
+        autoClose={5000}
         hideProgressBar
         newestOnTop
         closeOnClick
