@@ -17,23 +17,22 @@ test("test", async ({ page }) => {
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("http://localhost:3000/");
 
-  await page.getByRole("button", { name: "explorar tienda" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product");
-
-  await page.getByText("quicos").click();
-
-  await page
-    .locator("div:nth-child(17) > div:nth-child(3) > .undefined > .h-full")
-    .click();
-
-  await page.getByRole("button", { name: "1.66 € añadir" }).click();
-
   await page.getByRole("link", { name: "cesta" }).click();
   await expect(page).toHaveURL("http://localhost:3000/cart");
 
-  //await page.getByText("quicos").first().click();
+  await page.getByText("cepillo de dientes").first().click();
 
-  await page.getByText("quicos").nth(1).click();
+  await page.locator('p:has-text("1 u")').click();
 
-  await page.getByText("200 g").nth(3).click();
+  await page.getByText("3.50 €").first().click();
+
+  await page.getByText("lentejas").first().click();
+
+  await page.locator('p:has-text("2.5 g")').click();
+
+  await page.getByText("0.02 €").first().click();
+
+  await page.getByText("2.5 g1 u").click();
+
+  await page.getByText("3.52 €").first().click();
 });
