@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { slowLocator } from "../utils/slowMo";
 
 test("test", async ({ page }) => {
+  page.locator = slowLocator(page, 500);
+
   await page.goto("http://localhost:3000");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();

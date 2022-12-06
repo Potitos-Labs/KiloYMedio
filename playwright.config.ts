@@ -6,6 +6,7 @@ import { devices } from "@playwright/test";
  * https://github.com/motdotla/dotenv
  */
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import process from "process";
 dotenv.config();
 
 /**
@@ -51,6 +52,10 @@ const config: PlaywrightTestConfig = {
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
+        video: "on",
+        launchOptions: {
+          slowMo: process.env.CI ? 0 : 1000,
+        },
       },
     },
 
