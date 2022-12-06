@@ -127,4 +127,28 @@ export const workshopRouter = router({
         : false;
       return isFav;
     }),
+
+  delete: adminProcedure
+    .input(
+      z.object({
+        name: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { name } = input;
+
+      const workshop = await ctx.prisma.workshop.findFirst({
+        where: { name: name },
+      });
+
+      if (!workshop) {
+        return;
+      }
+
+      await ctx.prisma.workshop.delete({
+        where: {
+          id: workshop.id,
+        },
+      });
+    }),
 });

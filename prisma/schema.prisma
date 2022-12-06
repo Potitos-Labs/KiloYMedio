@@ -242,7 +242,7 @@ model OnlineWorkshop {
     OnlineWorkshopViews OnlineWorkshopViews[]
     videoURL            String
     workshopId          String                @id
-    workshop            Workshop              @relation(fields: [workshopId], references: [id])
+    workshop            Workshop              @relation(fields: [workshopId], references: [id], onDelete: Cascade)
 
     @@index([workshopId])
 }
@@ -252,7 +252,7 @@ model OnSiteWorkshop {
     places                   Int
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     workshopId               String                     @id
-    workshop                 Workshop                   @relation(fields: [workshopId], references: [id])
+    workshop                 Workshop                   @relation(fields: [workshopId], references: [id], onDelete: Cascade)
 
     @@index([workshopId])
 }
@@ -273,7 +273,7 @@ model OnSiteWorkshopAttendance {
     clientId         String
     client           Client         @relation(fields: [clientId], references: [userId])
     onSiteWorkshopId String
-    onSiteWorkshop   OnSiteWorkshop @relation(fields: [onSiteWorkshopId], references: [workshopId])
+    onSiteWorkshop   OnSiteWorkshop @relation(fields: [onSiteWorkshopId], references: [workshopId], onDelete: Cascade)
 
     @@id([onSiteWorkshopId, clientId])
     @@index([clientId])
