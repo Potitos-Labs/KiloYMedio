@@ -70,7 +70,7 @@ function Product({
         </Link>
       </div>
       {data?.user?.role == "admin" && (
-        <div className="absolute top-0 right-0">
+        <div className="relative  bottom-36 left-40">
           <DotMenu
             id={product.id}
             name={product.name}
