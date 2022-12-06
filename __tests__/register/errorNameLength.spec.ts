@@ -24,5 +24,7 @@ test("errorNameLength", async ({ page }) => {
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText("El nombre tiene que tener como mínimo 3 carácteres");
+  await expect(
+    page.getByText("El nombre tiene que tener como mínimo 3 carácteres"),
+  ).toHaveCount(1);
 });

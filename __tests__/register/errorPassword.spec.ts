@@ -24,7 +24,9 @@ test("errorPassword", async ({ page }) => {
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText(
-    "La contraseña debe tener como mínimo una longitud de 6, una minúscula y un número",
-  );
+  await expect(
+    page.getByText(
+      "La contraseña debe tener como mínimo una longitud de 6, una minúscula y un número",
+    ),
+  ).toHaveCount(1);
 });

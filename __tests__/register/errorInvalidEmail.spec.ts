@@ -24,5 +24,5 @@ test("errorInvalidEmail", async ({ page }) => {
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText("Introduce un correo válido");
+  await expect(page.getByText("Introduce un correo válido")).toHaveCount(1);
 });

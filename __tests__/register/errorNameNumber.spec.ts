@@ -24,5 +24,7 @@ test("errorNameNumber", async ({ page }) => {
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText("Este campo no puede contener números");
+  await expect(
+    page.getByText("Este campo no puede contener números"),
+  ).toHaveCount(1);
 });

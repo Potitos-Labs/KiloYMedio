@@ -18,11 +18,15 @@ test("errorPasswordMatch", async ({ page }) => {
 
   await page.getByRole("textbox", { name: "Contraseña" }).fill("abcd123");
 
+  await page.locator("svg").first().click();
+
   await page.getByPlaceholder("Repetir contraseña").click();
 
   await page.getByPlaceholder("Repetir contraseña").fill("abcd1234567");
 
+  await page.locator("svg").nth(2).click();
+
   await page.getByRole("button", { name: "Crear cuenta" }).click();
 
-  await page.getByText("Las contraseñas no coinciden");
+  await expect(page.getByText("Las contraseñas no coinciden")).toHaveCount(1);
 });
