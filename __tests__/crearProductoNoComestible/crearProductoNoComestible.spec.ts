@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { getClientTrpcMock } from "@utils/trpcMock";
 
-test("test", async ({ page }) => {
+test("Crear producto no comestible", async ({ page }) => {
+  test.slow();
   await page.goto("http://localhost:3000/");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
@@ -11,20 +13,6 @@ test("test", async ({ page }) => {
   await page.getByPlaceholder("E-mail").fill("daniel@potitos.com");
 
   await page.getByPlaceholder("Contraseña").click();
-
-  await page.getByPlaceholder("Contraseña").press("CapsLock");
-
-  await page.getByPlaceholder("Contraseña").fill("G");
-
-  await page.getByPlaceholder("Contraseña").press("CapsLock");
-
-  await page.getByPlaceholder("Contraseña").fill("");
-
-  await page.getByPlaceholder("Contraseña").press("CapsLock");
-
-  await page.getByPlaceholder("Contraseña").fill("C");
-
-  await page.getByPlaceholder("Contraseña").press("CapsLock");
 
   await page.getByPlaceholder("Contraseña").fill("Contrasena12");
 
@@ -38,13 +26,13 @@ test("test", async ({ page }) => {
 
   await page.getByPlaceholder("Nombre del producto").click();
 
-  await page.getByPlaceholder("Nombre del producto").fill("Mapachito adorable");
+  await page.getByPlaceholder("Nombre del producto").fill("Detergente solido");
 
   await page.getByPlaceholder("Descripción").click();
 
   await page
     .getByPlaceholder("Descripción")
-    .fill("Este es un adorable mapache");
+    .fill("Detergente solido ecológico para lavar ropa");
 
   await page.getByPlaceholder("Precio/U").click();
 
@@ -68,21 +56,32 @@ test("test", async ({ page }) => {
     .getByLabel(
       "Imagen *Sube una imagen .png o .jpg (max 1MB).Tamaño de imagen: 0   MB",
     )
-    .setInputFiles("unnamed.jpg");
+    .setInputFiles("__tests__/crearProductoNoComestible/upload/file.jpg");
 
-  await new Promise((r) => setTimeout(r, 3000));
+  await page.waitForTimeout(3000);
 
   await page.getByRole("button", { name: "Crear producto" }).click();
 
+  await page.waitForTimeout(2000);
+
   await page.goto("http://localhost:3000/product");
 
-  await page.getByText("Mapachito adorable").click();
+  await page.getByText("Detergente solido").click();
 
-  await expect(page.locator("id=Tittle")).toHaveText("Mapachito	adorable");
+  await expect(page.locator("id=Tittle")).toHaveText("Detergente solido");
 
   await expect(page.locator("id=Description")).toHaveText(
-    "Este es un adorable mapache",
+    "Detergente solido ecológico para lavar ropa",
   );
 
   await expect(page.locator("id=Price")).toHaveText("10€/Kg");
+
+  const trpcClient = await getClientTrpcMock("admin");
+  const p = await trpcClient.product.getFilteredProducts({
+    name: "Detergente solido",
+    allergens: [],
+    eCategories: [],
+    neCategories: [],
+  });
+  if (p[0]?.id) await trpcClient.product.delete({ productId: p[0].id });
 });

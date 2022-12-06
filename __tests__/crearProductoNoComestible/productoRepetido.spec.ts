@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("test", async ({ page }) => {
+test("Producto repetido", async ({ page }) => {
   await page.goto("http://localhost:3000/");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
@@ -50,7 +50,9 @@ test("test", async ({ page }) => {
     .getByLabel(
       "Imagen *Sube una imagen .png o .jpg (max 1MB).Tamaño de imagen: 0   MB",
     )
-    .setInputFiles("unnamed.jpg");
+    .setInputFiles("__tests__/crearProductoNoComestible/upload/file.jpg");
+
+  await page.waitForTimeout(3000);
 
   await page.getByRole("button", { name: "Crear producto" }).click();
 
