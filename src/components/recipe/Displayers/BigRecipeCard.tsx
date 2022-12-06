@@ -32,10 +32,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
   };
 
   return (
-    <div
-      tabIndex={0}
-      className="rounded-box flex grid-cols-[58%_42%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid"
-    >
+    <div className="rounded-box flex grid-cols-[58%_42%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid">
       <div className="grid content-between p-6">
         <div>
           <div className="absolute top-0 right-0 inline-flex">

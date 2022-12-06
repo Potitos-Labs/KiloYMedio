@@ -31,22 +31,17 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
   };
 
   return (
-    <div
-      tabIndex={0}
-      className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-300 bg-base-100"
-    >
+    <div className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-300 bg-base-100">
       <div className="absolute bottom-[280px] left-4 z-10">
         <SaveIcon recipe={recipe} isBig={false} />
       </div>
       <div className="rounded-t-box relative h-40 overflow-hidden object-contain">
-        <Link href={`/recipe/${recipe.id}`}>
-          <Image
-            src={recipe.imageURL}
-            objectFit="cover"
-            alt="notfound"
-            layout="fill"
-          />
-        </Link>
+        <Image
+          src={recipe.imageURL}
+          objectFit="cover"
+          alt="notfound"
+          layout="fill"
+        />
       </div>
       <div className="relative h-auto py-2">
         <div className="absolute top-0 right-0 inline-flex">
