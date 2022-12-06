@@ -31,7 +31,7 @@ jobs:
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
           NEXT_PUBLIC_SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyamtqcmtqcHljcGhwdGVrc3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxMDcxMDIsImV4cCI6MTk4MzY4MzEwMn0.R3e1xclNhoNymqIExZ-8KNSAK5LL6NmJ72pwjOmidHk
-          DATABASE_URL: " "
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NODE_ENV: development
           NEXTAUTH_SECRET: secret
           NEXTAUTH_URL: http://localhost:3000/
