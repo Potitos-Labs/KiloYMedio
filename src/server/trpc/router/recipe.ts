@@ -400,11 +400,11 @@ export const recipeRouter = router({
       });
 
       const rangesPercentage = {
-        1: ((ranges[1] ?? 0) * 100) / ratings.length || 0,
-        2: ((ranges[2] ?? 0) * 100) / ratings.length || 0,
-        3: ((ranges[3] ?? 0) * 100) / ratings.length || 0,
-        4: ((ranges[4] ?? 0) * 100) / ratings.length || 0,
-        5: ((ranges[5] ?? 0) * 100) / ratings.length || 0,
+        1: Math.round(((ranges[1] ?? 0) * 1000) / ratings.length || 0) / 10,
+        2: Math.round(((ranges[2] ?? 0) * 1000) / ratings.length || 0) / 10,
+        3: Math.round(((ranges[3] ?? 0) * 1000) / ratings.length || 0) / 10,
+        4: Math.round(((ranges[4] ?? 0) * 1000) / ratings.length || 0) / 10,
+        5: Math.round(((ranges[5] ?? 0) * 1000) / ratings.length || 0) / 10,
       };
 
       return { count: ratings.length, average, rangesPercentage };
