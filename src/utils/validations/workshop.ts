@@ -3,7 +3,9 @@ import * as z from "zod";
 
 export const workshopCreateSchema = z.object({
   name: z.string().min(1, "El campo no puede estar vacío"),
+
   description: z.string().min(1, "El campo no puede estar vacío"),
+
   imageURL: z
     .string()
     .refine((value) => isURL(value), { message: "Introduce un URL válido" }),

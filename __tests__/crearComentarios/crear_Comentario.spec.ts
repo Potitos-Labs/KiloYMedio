@@ -23,27 +23,21 @@ test("test", async ({ page }) => {
 
   await page.getByPlaceholder("tu opinión").click();
 
-  await page
-    .getByPlaceholder("tu opinión")
-    .fill("Como me gusta a mi el porte navero!!! Vivan las navas oleeee");
+  await page.getByPlaceholder("tu opinión").fill("Me ha encantado!");
 
-  await expect(
-    page.locator(
-      "text=Como me gusta a mi el porte navero!!! Vivan las navas oleeee",
-    ),
-  ).toHaveText("Como me gusta a mi el porte navero!!! Vivan las navas oleeee");
+  await expect(page.locator("text=Me ha encantado!")).toHaveText(
+    "Me ha encantado!",
+  );
 
   await page.getByRole("button", { name: "enviar" }).click();
 
   await page.locator('input[name="rating-10"]').first().check();
 
   await page.getByPlaceholder("tu opinión").click();
-  await page
-    .getByPlaceholder("tu opinión")
-    .fill("Que se fastidien los naveros");
+  await page.getByPlaceholder("tu opinión").fill("No me ha gustado nada!");
 
-  await expect(page.locator("text=Que se fastidien los naveros")).toHaveText(
-    "Que se fastidien los naveros",
+  await expect(page.locator("text=No me ha gustado nada!")).toHaveText(
+    "No me ha gustado nada!",
   );
 
   await page.getByRole("button", { name: "enviar" }).click();

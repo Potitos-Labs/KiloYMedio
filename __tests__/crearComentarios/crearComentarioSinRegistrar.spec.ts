@@ -7,7 +7,6 @@ test("test", async ({ page }) => {
   await expect(page).toHaveURL("/recipe");
 
   await page.getByRole("link", { name: "ver receta completa" }).first().click();
-  await expect(page).toHaveURL("/recipe/clb9sp4r000873dwrcjvu9vb9");
 
   await page.getByPlaceholder("tu opinión").click();
 
