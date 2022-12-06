@@ -5,10 +5,10 @@ test("noErrors", async ({ page }) => {
   const trpcClient = await getClientTrpcMock("admin");
   await trpcClient.user.delete({ clientEmail: "panchito@mandefua.com" });
 
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "registrarse" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/register");
+  await expect(page).toHaveURL("/register");
 
   await page.getByPlaceholder("Nombre").click();
 
@@ -27,7 +27,7 @@ test("noErrors", async ({ page }) => {
   await page.getByPlaceholder("Repetir contraseña").fill("abcd123");
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 
   await expect(page.getByText("Panchito Mandefua")).toHaveCount(1);
 });

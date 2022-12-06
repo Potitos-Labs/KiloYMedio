@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test("errorExistentEmail", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "registrarse" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/register");
+  await expect(page).toHaveURL("/register");
 
   await page.getByPlaceholder("Nombre").click();
 
@@ -23,8 +23,6 @@ test("errorExistentEmail", async ({ page }) => {
   await page.getByPlaceholder("Repetir contraseña").fill("abcd123");
 
   await page.getByRole("button", { name: "Crear cuenta" }).click();
-
-  await page.waitForTimeout(1000);
 
   await expect(page.getByText("El email ya está siendo usado")).toHaveCount(1);
 });

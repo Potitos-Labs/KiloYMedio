@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test("errorInvalidEmail", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "registrarse" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/register");
+  await expect(page).toHaveURL("/register");
 
   await page.getByPlaceholder("Nombre").click();
 
