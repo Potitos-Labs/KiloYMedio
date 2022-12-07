@@ -1041,9 +1041,59 @@ async function main() {
     },
   });*/
 
-  const panPueblo = await prisma.recipe.create({
+  /* NUESTRAS RECETAS */
+  const gachas = await prisma.recipe.create({
     data: {
-      name: "pan de pueblo",
+      name: "gachas dulces andaluzas al anís",
+      difficulty: "hard",
+      directions: {
+        createMany: {
+          data: {
+            direction: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://cocinatuimaginacion.com/wp-content/uploads/2017/10/pat%C3%A9-de-nueces-y-champi%C3%B1ones.jpg",
+      portions: 4,
+      cookingTime: 20,
+      preparationTime: 30,
+      description:
+        "Una receta tradicional como las gachas no puede faltar en tu colección. Adaptada para celíacos.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const gachasIngredients = [
+    {
+      amount: 50,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaAlmendra.Edible?.Ingredient,
+      Recipe: gachas,
+    },
+    {
+      amount: 10,
+      unit: IngredientUnit.grams,
+      Ingredient: levaduraNutricional.Edible?.Ingredient,
+      Recipe: gachas,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
+  const sandwich = await prisma.recipe.create({
+    data: {
+      name: "sándwich de salmón con aguacate y huevo",
       difficulty: "easy",
       directions: {
         createMany: {
@@ -1054,12 +1104,200 @@ async function main() {
         },
       },
       imageURL:
-        "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-pan-de-pueblo-receta-muy-facil.JPG",
-      portions: 6,
-      cookingTime: 30,
-      preparationTime: 30,
+        "https://www.tapasmagazine.es/wp-content/uploads/2019/04/fprincipal-3.jpg",
+      portions: 1,
+      cookingTime: 0,
+      preparationTime: 10,
       description:
-        "Reconozco que hacer pan casero me atrae más cada día, hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
+        "Si no sabes qué desayunar o almorzar, prueba a hacer este sencillo sándwich de salmón con aguacate y huevo que no te defraudará.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const sandwichIngredients = [
+    {
+      amount: 10,
+      unit: IngredientUnit.milliliters,
+      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Recipe: sandwich,
+    },
+  ]
+    .map(
+      async (i) =>
+        await prisma.recipeIngredient.create({
+          data: {
+            amount: i.amount,
+            Ingredient: { connect: { id: i.Ingredient?.id } },
+            Recipe: { connect: { id: i.Recipe.id } },
+            unit: i.unit,
+          },
+        }),
+    )
+    .join("salmón");
+
+  const tarta = await prisma.recipe.create({
+    data: {
+      name: "tarta de bizcocho de chocolate",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: {
+            direction: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://i.pinimg.com/564x/c5/56/fd/c556fd3f703b64952159f1720538f122.jpg",
+      portions: 4,
+      cookingTime: 30,
+      preparationTime: 10,
+      description:
+        "Este pastel de chocolate desbanca a la tarta de galletas y chocolate en los cumpleaños.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const tartaIngredients = [
+    {
+      amount: 100,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: tarta,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
+  const lentejasCremosas = await prisma.recipe.create({
+    data: {
+      name: "Lentejas Cremosas con Espinacas",
+      difficulty: "hard",
+      directions: {
+        createMany: {
+          data: {
+            direction: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://pinchofyum.com/wp-content/uploads/One-Pot-Creamy-Spinach-Lentils-6-960x1440.jpg",
+      portions: 3,
+      cookingTime: 20,
+      preparationTime: 15,
+      description:
+        "Los lácteos y las lentejas son excelentes fuentes de proteínas, y ambos toman protagonismo en este cremoso guiso.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const lentejasCremosasIngredients = [
+    {
+      amount: 250,
+      unit: IngredientUnit.grams,
+      Ingredient: lentejas.Edible?.Ingredient,
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 20,
+      unit: IngredientUnit.milliliters,
+      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 80,
+      unit: IngredientUnit.grams,
+      Ingredient: harinaMaiz.Edible?.Ingredient,
+      Recipe: lentejasCremosas,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+  /* END NUESTRAS RECETAS */
+
+  /* RECETAS DE LA COMUNIDAD */
+  const espaguetisBoloñesa = await prisma.recipe.create({
+    data: {
+      name: "Espaguetis con salsa boloñesa especial",
+      difficulty: "easy",
+      directions: {
+        createMany: {
+          data: {
+            direction: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/espaguetis-a-la-bolonesa-1080x671.jpg",
+      portions: 3,
+      cookingTime: 10,
+      preparationTime: 7,
+      description:
+        "Disfruta con estos deliciosos tallarines acompañados de nuestra salsa boloñesa especial.",
+      User: { connect: { id: sandra.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const espaguetisBoloñesaIngredients = [
+    {
+      amount: 2,
+      unit: IngredientUnit.grams,
+      Ingredient: espaguetis.Edible?.Ingredient,
+      Recipe: espaguetisBoloñesa,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
+  const panPueblo = await prisma.recipe.create({
+    data: {
+      name: "pan de pueblo tradicional",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: {
+            direction: "Paso para la receta",
+            number: 1,
+          },
+        },
+      },
+      imageURL:
+        "https://www.comedera.com/wp-content/uploads/2022/03/pan-de-pueblo.jpg",
+      portions: 2,
+      cookingTime: 40,
+      preparationTime: 25,
+      description:
+        "Reconozco que hacer pan casero me atrae más cada día. Hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       User: { connect: { id: juan.id } },
       createdAt: new Date(),
     },
@@ -1067,9 +1305,15 @@ async function main() {
 
   const panPuebloIngredients = [
     {
-      amount: 2,
+      amount: 200,
       unit: IngredientUnit.grams,
       Ingredient: harinaTrigo.Edible?.Ingredient,
+      Recipe: panPueblo,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: levaduraNutricional.Edible?.Ingredient,
       Recipe: panPueblo,
     },
   ].map(
@@ -1084,9 +1328,9 @@ async function main() {
       }),
   );
 
-  const arrozConCostra = await prisma.recipe.create({
+  const paella = await prisma.recipe.create({
     data: {
-      name: "arroz con costra",
+      name: "paella valenciana",
       difficulty: "hard",
       directions: {
         createMany: {
@@ -1097,23 +1341,23 @@ async function main() {
         },
       },
       imageURL:
-        "https://cdn1.cocina-familiar.com/recetas/thumb/arroz-con-costra-al-estilo-de-elche.JPG",
-      portions: 6,
-      cookingTime: 30,
+        "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2021%2F06%2F04%2Fpaella-valenciana.jpg&q=60",
+      portions: 5,
+      cookingTime: 20,
       preparationTime: 30,
       description:
-        "Hoy os traigo un arroz muy especial se trata del tradicional y conocido arroz con costra al estilo de Elche.",
-      User: { connect: { id: pilar.id } },
+        "El otro día hice esta deliciosa paella al estilo de Valencia, ¡mirad qué pintaza!",
+      User: { connect: { id: sandra.id } },
       createdAt: new Date(),
     },
   });
 
-  const arrozconcostraIngredients = [
+  const paellaIngredients = [
     {
-      amount: 2,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
-      Recipe: arrozConCostra,
+      amount: 100,
+      unit: IngredientUnit.milliliters,
+      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Recipe: paella,
     },
   ].map(
     async (i) =>
@@ -1127,61 +1371,9 @@ async function main() {
       }),
   );
 
-  const tartaQueso = await prisma.recipe.create({
+  const tartaZanahoria = await prisma.recipe.create({
     data: {
-      name: "tarta de queso",
-      difficulty: "easy",
-      directions: {
-        createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
-        },
-      },
-      imageURL:
-        "https://cdn1.cocina-familiar.com/recetas/thumb/como-hacer-cheesecake-de-mango.JPG",
-      portions: 8,
-      cookingTime: 30,
-      preparationTime: 30,
-      description:
-        "Esta frésquisima tarta de queso esta riquisima, ¿Podrás aguantar a que se enfrie antes de incarle el diente?",
-      User: { connect: { id: pilar.id } },
-      createdAt: new Date(),
-      /*RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },*/
-    },
-  });
-
-  const tartaquesoIngredients = [
-    {
-      amount: 2,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
-      Recipe: tartaQueso,
-    },
-  ].map(
-    async (i) =>
-      await prisma.recipeIngredient.create({
-        data: {
-          amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
-          Recipe: { connect: { id: i.Recipe.id } },
-          unit: i.unit,
-        },
-      }),
-  );
-
-  const poteNavero = await prisma.recipe.create({
-    data: {
-      name: "pote navero",
+      name: "tarta de zanahoria con nueces",
       difficulty: "moderate",
       directions: {
         createMany: {
@@ -1192,32 +1384,29 @@ async function main() {
         },
       },
       imageURL:
-        "https://cdn1.cocina-familiar.com/recetas/thumb/patatas-revolconas-o-patatas-meneas.JPG",
-      portions: 6,
-      cookingTime: 30,
-      preparationTime: 30,
+        "https://www.guatemala.com/fotos/2020/07/reto-culinario-municipalidad-768x436.jpg",
+      portions: 4,
+      cookingTime: 45,
+      preparationTime: 25,
       description:
-        "El pote navero, también conocido como patatas meneas, es un típico plato castellano, muy sencillo de hacer y muy rico (sobretodo cuando va acompañado de una picante piparra).",
-      User: { connect: { id: pilar.id } },
+        "Tenéis que probar esta receta de tarta de zanahoria, cremosa y exquisita, con un toque a almendra.",
+      User: { connect: { id: sandra.id } },
       createdAt: new Date(),
-      /*RecipeIngredient: {
-        createMany: {
-          data: {
-            amount: 2,
-            ingredientId: harinaTrigo.Edible?.Ingredient?.id ?? "",
-            unit: "grams",
-          },
-        },
-      },*/
     },
   });
 
-  const poteNaveroIngredients = [
+  const tartaZanahoriaIngredients = [
     {
-      amount: 2,
+      amount: 150,
       unit: IngredientUnit.grams,
       Ingredient: harinaTrigo.Edible?.Ingredient,
-      Recipe: poteNavero,
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 40,
+      unit: IngredientUnit.grams,
+      Ingredient: almendra.Edible?.Ingredient,
+      Recipe: tartaZanahoria,
     },
   ].map(
     async (i) =>
@@ -1231,91 +1420,7 @@ async function main() {
       }),
   );
 
-  const huevos = await prisma.recipe.create({
-    data: {
-      name: "huevos croquetones",
-      difficulty: "moderate",
-      directions: {
-        createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
-        },
-      },
-      imageURL:
-        "https://cdn1.cocina-familiar.com/recetas/thumb/croquetas-rellenas-con-huevo-cocido.JPG",
-      portions: 6,
-      cookingTime: 30,
-      preparationTime: 30,
-      description:
-        "Hoy os traigo una receta tradicional española, muy sencilla y riquisima. Croquetas rellenas de huevo duro, que están buenísimas",
-      User: { connect: { id: pilar.id } },
-      createdAt: new Date(),
-    },
-  });
-
-  const huevosIngredients = [
-    {
-      amount: 2,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
-      Recipe: huevos,
-    },
-  ].map(
-    async (i) =>
-      await prisma.recipeIngredient.create({
-        data: {
-          amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
-          Recipe: { connect: { id: i.Recipe.id } },
-          unit: i.unit,
-        },
-      }),
-  );
-
-  const macarronesConTomatico = await prisma.recipe.create({
-    data: {
-      name: "Macarrones con Tomatico",
-      difficulty: "easy",
-      directions: {
-        createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
-        },
-      },
-      imageURL:
-        "https://pbs.twimg.com/profile_images/1571904629209812996/KGxejjwy_400x400.jpg",
-      portions: 6,
-      cookingTime: 30,
-      preparationTime: 30,
-      description:
-        "Que ricos los macarroncitos, no veas como me gustan, estan to ricos asi que por eso os traigo esta recetita to guapisima",
-      User: { connect: { id: pilar.id } },
-      createdAt: new Date(),
-    },
-  });
-
-  const macarronesConTomaticoIngredients = [
-    {
-      amount: 2,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
-      Recipe: macarronesConTomatico,
-    },
-  ].map(
-    async (i) =>
-      await prisma.recipeIngredient.create({
-        data: {
-          amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
-          Recipe: { connect: { id: i.Recipe.id } },
-          unit: i.unit,
-        },
-      }),
-  );
+  /* END RECETAS DE LA COMUNIDAD */
 
   const unidadesDeMedida = await prisma.ingredientUnitInSpanish.createMany({
     data: [

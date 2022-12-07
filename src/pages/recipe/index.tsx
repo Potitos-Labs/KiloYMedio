@@ -2,7 +2,6 @@ import Layout from "../../components/Layout";
 import FilterRecipe from "components/recipe/FilterRecipe";
 import { trpc } from "../../utils/trpc";
 import { useState } from "react";
-//import { BsFilterSquare } from "react-icons/bs";
 import { IFilterRecipe } from "@utils/validations/recipe";
 
 import Link from "next/link";
@@ -12,9 +11,11 @@ import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplay
 import SliderRecipes from "@components/SliderRecipes";
 
 const Recipes = () => {
+  const [openFilter, setOpenFilter] = useState(false);
   const [filter, setFilter] = useState<IFilterRecipe>({
     adminRecipes: true,
   });
+
   const { data: recipesAdmin } = trpc.recipe.getFilteredRecipes.useQuery({
     adminRecipes: true,
   });
@@ -22,7 +23,8 @@ const Recipes = () => {
     adminRecipes: false,
   });
 
-  const [openFilter, setOpenFilter] = useState(false);
+  const buttonStyle =
+    "w-40 rounded-full btn bg-base-100 py-3 font-satoshiBold text-base-content sm:w-52 sm:text-sm";
 
   return (
     <Layout
@@ -39,14 +41,10 @@ const Recipes = () => {
           <div className="flex flex-col justify-between sm:flex-row sm:pr-14">
             <div className="ml-10 mb-20 flex w-48 flex-col gap-6 sm:mb-0">
               <Link href="/recipe/create">
-                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content sm:w-48 sm:text-sm">
-                  compartir recetas
-                </button>
+                <button className={buttonStyle}>compartir recetas</button>
               </Link>
               <Link href="/recipe">
-                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content sm:w-48 sm:text-sm">
-                  buscar recetas
-                </button>
+                <button className={buttonStyle}>buscar recetas</button>
               </Link>
             </div>
             <Image
@@ -81,7 +79,7 @@ const Recipes = () => {
           </div>
           {/* End Our recipes Section */}
           <div className="w-full">
-            <p className="mb-10 font-raleway text-lg md:w-[600px] lg:text-2xl">
+            <p className="font-raleway text-lg md:w-[600px] lg:text-2xl">
               RECETAS DE LA COMUNIDAD
             </p>
             {recipesCommunity?.length != 0 && (
