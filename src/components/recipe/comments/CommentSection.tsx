@@ -34,7 +34,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const unauthenticatedMessage = () =>
-    toast.warning("¡Necesita iniciar sesión para poner un comentario!");
+    toast.warning("¡Inicia sesión valorar la receta!");
 
   function sendComment() {
     if (status === "unauthenticated") {
@@ -86,7 +86,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
           <div className="text-center">
             <button
               onClick={() => setCountLoadMore(countLoadMore + 1)}
-              className="w-32 rounded-full bg-base-content py-1 text-base-100"
+              className="btn btn-sm w-32 rounded-full bg-base-content py-1 text-base-100"
             >
               cargar más
             </button>
@@ -96,7 +96,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
           {/* Comments stats */}
           <div className="mb-14 block justify-between sm:flex">
             <div className="w-[150px]">
-              <p className="font-satoshiBold text-lg " id="average">
+              <p className="font-satoshiBold text-lg" id="average">
                 {stats?.average ?? 0}
               </p>
               <p className="mb-6 flex sm:mb-0">
@@ -172,7 +172,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             <button
               onClick={sendComment}
               disabled={comment == ""}
-              className="my-4 mb-10 w-28 rounded-full bg-base-content py-1 text-base-100 lg:mb-0"
+              className="btn btn-sm my-4 mb-10 w-28 rounded-full bg-base-content py-1 text-base-100 lg:mb-0"
             >
               enviar
             </button>

@@ -43,7 +43,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
           layout="fill"
         />
       </div>
-      <div className="relative h-auto py-2">
+      <div className="relative pt-2">
         <div className="absolute top-0 -right-2">
           {(data?.user?.id == recipe.userId || data?.user?.role == "admin") && (
             <DotMenu
@@ -55,26 +55,26 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
             />
           )}
         </div>
-        <div className="mx-2 gap-4">
-          <div>
-            <Stars average={recipe?.rating ?? 0}></Stars>
-            <p className="mx-1 mt-2 font-raleway first-letter:uppercase">
-              {recipe.name}
-            </p>
-          </div>
-          <div className="mx-2 flex justify-between gap-4">
+
+        <div className="mx-2">
+          <Stars average={recipe?.rating ?? 0}></Stars>
+          <p className="m-1 font-raleway first-letter:uppercase">
+            {recipe.name}
+          </p>
+
+          {/* Features and Button */}
+          <div className="mx-2 flex justify-between">
             <p>
               {(recipe?.cookingTime ?? 0) + (recipe?.preparationTime ?? 0)} min
             </p>
             <p>{recipe?.portions} pers</p>
-            <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
-              <Link href={`/recipe/${recipe.id}`}>
-                <a className="w-full rounded-full bg-base-content px-4 py-1 text-base-100">
-                  ver receta
-                </a>
-              </Link>
-            </div>
+            <Link href={`/recipe/${recipe.id}`}>
+              <a className="btn btn-xs rounded-full bg-base-content px-4 pb-0.5 text-base-100">
+                ver receta
+              </a>
+            </Link>
           </div>
+          {/* End Features and Button */}
         </div>
       </div>
     </div>
