@@ -139,11 +139,11 @@ function SliderRecipes({
         </CarouselProvider>
         <CarouselProvider
           className=" flex h-full w-full flex-col md:hidden"
-          naturalSlideWidth={100}
+          naturalSlideWidth={200}
           naturalSlideHeight={200}
           isIntrinsicHeight={true}
           totalSlides={recipes?.length ?? 0}
-          visibleSlides={2}
+          visibleSlides={1.5}
           step={1}
           infinite={true}
         >
