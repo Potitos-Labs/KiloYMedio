@@ -45,41 +45,44 @@ function DropdownCheckAllergen({
             <IoIosArrowDown className="h-5 w-5" />
           </span>
         </Listbox.Button>
-        <Listbox.Options className="dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2 leading-6">
-          {isShown &&
-            options.map((allergen) => (
-              <Listbox.Option
-                key={allergen.id}
-                value={allergen.value}
-                className={({ active }) =>
-                  `relative cursor-pointer select-none py-2 pl-3 pr-4 ${
-                    active ? "bg-amber-100" : "text-gray-900"
-                  }`
-                }
-                onClick={() => onChange(handler(allergen.value))}
-              >
-                {({ selected }) => (
-                  <>
-                    <span
-                      className={`pl-7 ${
-                        selected ? "font-satoshiBold" : "font-normal"
-                      }`}
-                    >
-                      {allergen.name}
+        <Listbox.Options
+          className={`dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2 leading-6 ${
+            isShown ? "dropdown-open" : "dropdown-close"
+          }`}
+        >
+          {options.map((allergen) => (
+            <Listbox.Option
+              key={allergen.id}
+              value={allergen.value}
+              className={({ active }) =>
+                `relative cursor-pointer select-none py-2 pl-3 pr-4 ${
+                  active ? "bg-amber-100" : "text-gray-900"
+                }`
+              }
+              onClick={() => onChange(handler(allergen.value))}
+            >
+              {({ selected }) => (
+                <>
+                  <span
+                    className={`pl-7 ${
+                      selected ? "font-satoshiBold" : "font-normal"
+                    }`}
+                  >
+                    {allergen.name}
+                  </span>
+                  {selected ? (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <MdOutlineCheckBox className="h-5 w-5" />
                     </span>
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MdOutlineCheckBox className="h-5 w-5" />
-                      </span>
-                    ) : (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MdOutlineCheckBoxOutlineBlank className="h-5 w-5" />
-                      </span>
-                    )}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
+                  ) : (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <MdOutlineCheckBoxOutlineBlank className="h-5 w-5" />
+                    </span>
+                  )}
+                </>
+              )}
+            </Listbox.Option>
+          ))}
         </Listbox.Options>
       </Listbox>
     </div>

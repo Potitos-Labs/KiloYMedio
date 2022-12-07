@@ -49,7 +49,7 @@ function ListboxDesign({
         <Listbox.Options
           className={`dropdown-content rounded-box menu-vertical max-h-52 bg-base-100 p-2 ${
             order == "alphabetical" ? "overflow-y-scroll" : "w-40 overflow-auto"
-          }`}
+          } ${isShown ? "dropdown-open" : "dropdown-close"}`}
         >
           {isShown &&
             options.map((item) => (
