@@ -10,13 +10,15 @@ import {
   createRecipeSchema,
 } from "../../utils/validations/recipe";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
+import { Allergen, IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
 import Layout from "@components/Layout";
 import IncDecButtons from "@components/ui/IncDecButtons";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
 import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
+import { useState } from "react";
+import { z } from "zod";
 
 const defaultRecipe: ICreateRecipe = {
   cookingTime: { hour: 0, minute: 1 },
@@ -92,6 +94,19 @@ export default function CreateEdit(props: {
 
   const { data: allergens } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
+
+  const [allergensList, setAllergensList] = useState<{ allergen: Allergen }[]>(
+    [],
+  );
+
+  const allergensHandler = (value: string) => {
+    const allergen = z.nativeEnum(Allergen).parse(value);
+    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
+    if (index != -1) allergensList.splice(index, 1);
+    else allergensList.push({ allergen });
+    setAllergensList(allergensList);
+    return allergensList;
+  };
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
@@ -421,9 +436,17 @@ export default function CreateEdit(props: {
               </div>
               <div className="flex text-sm">
                 {allergens && (
-                  <DropdownCheckAllergen
-                    allergens={allergens}
-                  ></DropdownCheckAllergen>
+                  <Controller
+                    name={"allergens"}
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <DropdownCheckAllergen
+                        allergens={allergens}
+                        handler={allergensHandler}
+                        onChange={onChange}
+                      ></DropdownCheckAllergen>
+                    )}
+                  ></Controller>
                 )}
               </div>
               {/* <div className="text-sm text-red-500">

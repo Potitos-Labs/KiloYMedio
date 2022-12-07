@@ -73,6 +73,7 @@ export const createRecipeSchema = z.object({
       }),
     )
     .nonempty({ message: "Debes añadir al menos una instrucción" }),
+  allergens: z.array(z.nativeEnum(Allergen)).optional(),
 });
 
 export const recipeSchema = z.object({
@@ -105,6 +106,7 @@ export const recipeSchema = z.object({
     )
     .optional()
     .nullable(),
+  allergens: z.array(z.nativeEnum(Allergen)).optional(),
 });
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
