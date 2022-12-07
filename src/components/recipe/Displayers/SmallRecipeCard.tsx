@@ -44,7 +44,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
         />
       </div>
       <div className="relative h-auto py-2">
-        <div className="absolute top-0 right-0 inline-flex">
+        <div className="absolute top-0 -right-2">
           {(data?.user?.id == recipe.userId || data?.user?.role == "admin") && (
             <DotMenu
               id={recipe.id}

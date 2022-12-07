@@ -34,8 +34,8 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
   return (
     <div className="rounded-box flex grid-cols-[58%_42%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid">
       <div className="grid content-between p-6">
-        <div>
-          <div className="absolute top-0 right-0 inline-flex">
+        <div className="relative">
+          <div className="absolute -right-9 -top-0.5 sm:-top-1 sm:-right-4 lg:-right-8">
             {(data?.user?.id == recipe.userId ||
               data?.user?.role == "admin") && (
               <DotMenu
@@ -52,7 +52,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
         </div>
         {/* Features and Buttons */}
         <div className="mr-2">
-          <div className="mb-4 flex justify-between">
+          <div className="mb-6 flex justify-between">
             <p>
               {recipe?.cookingTime ?? 0 + (recipe?.preparationTime ?? 0)} min
             </p>
@@ -62,7 +62,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
           <div className="block items-center justify-between md:flex lg:block 2xl:flex">
             <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
               <Link href={`/recipe/${recipe.id}`}>
-                <a className="w-full rounded-full bg-base-content px-4 py-1 text-base-100">
+                <a className="w-full rounded-full bg-base-content px-4 pb-1.5 pt-1 text-base-100">
                   ver receta completa
                 </a>
               </Link>

@@ -26,7 +26,7 @@ function FilterRecipe({
     setFilter({ ...filter, allergens: list });
   };
   return (
-    <div className="mx-5 flex w-full  rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4 sm:w-auto">
+    <div className="mx-5 flex w-full rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4 sm:w-auto">
       <div className=" mr-3 flex w-[250px] flex-col py-3 sm:px-5">
         <p className="font-bold">Duración</p>
         <div className="flex flex-col">

@@ -2,7 +2,7 @@ import Layout from "../../components/Layout";
 import FilterRecipe from "components/recipe/FilterRecipe";
 import { trpc } from "../../utils/trpc";
 import { useState } from "react";
-import { BsFilterSquare } from "react-icons/bs";
+//import { BsFilterSquare } from "react-icons/bs";
 import { IFilterRecipe } from "@utils/validations/recipe";
 
 import Link from "next/link";
@@ -39,12 +39,12 @@ const Recipes = () => {
           <div className="flex flex-col justify-between sm:flex-row sm:pr-14">
             <div className="ml-10 mb-20 flex w-48 flex-col gap-6 sm:mb-0">
               <Link href="/recipe/create">
-                <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-base-content 2xl:text-sm">
+                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content sm:w-48 sm:text-sm">
                   compartir recetas
                 </button>
               </Link>
               <Link href="/recipe">
-                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content 2xl:text-sm">
+                <button className="w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content sm:w-48 sm:text-sm">
                   buscar recetas
                 </button>
               </Link>
@@ -61,13 +61,16 @@ const Recipes = () => {
         <div className="rounded-xl bg-base-100 p-6 sm:p-14 2xl:p-20">
           {/* Our recipes Section */}
           <div className="mb-32">
-            <div className="flex justify-between">
-              <p className="my-10 w-[400px] font-raleway text-lg lg:text-2xl">
+            <div className="my-10 flex justify-between">
+              <p className="w-[400px] font-raleway text-lg lg:text-2xl">
                 NUESTRAS RECETAS
               </p>
               {/* Filtros */}
-              <button onClick={() => setOpenFilter(!openFilter)}>
-                <BsFilterSquare size="2rem" className="peer" />
+              <button
+                className="peer h-10 self-end rounded-full bg-secondary px-6 pb-2 pt-2.5 font-raleway text-base-100"
+                onClick={() => setOpenFilter(!openFilter)}
+              >
+                FILTRAR POR:
               </button>
             </div>
             <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>
