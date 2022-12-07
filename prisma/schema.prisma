@@ -346,6 +346,7 @@ model ProductOrder {
 
 model Recipe {
     id               String             @id @default(cuid())
+    allergens        RecipeAllergen[]
     createdAt        DateTime           @default(now())
     description      String?
     difficulty       RecipeDifficulty
@@ -362,6 +363,15 @@ model Recipe {
     Comment          Comment[]
 
     @@index([userId])
+}
+
+model RecipeAllergen {
+    allergen Allergen
+    recipeId String
+    Recipe   Recipe   @relation(fields: [recipeId], references: [id])
+
+    @@id([recipeId, allergen])
+    @@index([recipeId])
 }
 
 model RecipeDifficultyInSpanish {

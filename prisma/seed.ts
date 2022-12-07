@@ -1063,6 +1063,7 @@ async function main() {
         "Una receta tradicional como las gachas no puede faltar en tu colección. Adaptada para celíacos.",
       User: { connect: { id: marta.id } },
       createdAt: new Date(),
+      allergens: { create: { allergen: "nuts" } },
     },
   });
 
@@ -1157,6 +1158,7 @@ async function main() {
         "Este pastel de chocolate desbanca a la tarta de galletas y chocolate en los cumpleaños.",
       User: { connect: { id: marta.id } },
       createdAt: new Date(),
+      allergens: { create: { allergen: "cereals" } },
     },
   });
 
@@ -1257,6 +1259,7 @@ async function main() {
         "Disfruta con estos deliciosos tallarines acompañados de nuestra salsa boloñesa especial.",
       User: { connect: { id: sandra.id } },
       createdAt: new Date(),
+      allergens: { create: { allergen: "cereals" } },
     },
   });
 
@@ -1300,6 +1303,7 @@ async function main() {
         "Reconozco que hacer pan casero me atrae más cada día. Hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       User: { connect: { id: juan.id } },
       createdAt: new Date(),
+      allergens: { create: { allergen: "cereals" } },
     },
   });
 
@@ -1392,6 +1396,12 @@ async function main() {
         "Tenéis que probar esta receta de tarta de zanahoria, cremosa y exquisita, con un toque a almendra.",
       User: { connect: { id: sandra.id } },
       createdAt: new Date(),
+
+      allergens: {
+        createMany: {
+          data: [{ allergen: "cereals" }, { allergen: "nuts" }],
+        },
+      },
     },
   });
 
