@@ -64,12 +64,12 @@ function OnsiteWorkshopForm() {
               placeholder="Plazas"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
               min={0}
-              {...register("Onsite.places", {
+              {...register("OnSiteWorkshop.places", {
                 valueAsNumber: true,
               })}
             />
             <p className="text-sm text-pink-600">
-              {errors.Onsite?.places?.message}
+              {errors.OnSiteWorkshop?.places?.message}
             </p>
           </label>
           <label className="relative flex w-full flex-col">
@@ -79,12 +79,12 @@ function OnsiteWorkshopForm() {
               step="any"
               placeholder="dia"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
-              {...register("Onsite.date", { valueAsDate: true })}
+              {...register("OnSiteWorkshop.date", { valueAsDate: true })}
             />
             <p className="text-sm text-pink-600">
-              {errors.Onsite?.date?.message == "Invalid date"
+              {errors.OnSiteWorkshop?.date?.message == "Invalid date"
                 ? "Fecha invalida"
-                : errors.Onsite?.date?.message}
+                : errors.OnSiteWorkshop?.date?.message}
             </p>
           </label>
           <label className=" relative col-span-2 flex w-full flex-col">

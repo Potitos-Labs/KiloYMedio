@@ -72,10 +72,10 @@ function OnlineWorkshopForm() {
               type="text"
               placeholder="Dirección del Video"
               className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
-              {...register("Online.videoURL")}
+              {...register("OnlineWorkshop.videoURL")}
             />
             <p className="text-sm text-pink-600">
-              {errors.Online?.videoURL?.message}
+              {errors.OnlineWorkshop?.videoURL?.message}
             </p>
           </label>
           <label className="col-span-2 flex w-full flex-col">

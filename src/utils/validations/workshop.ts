@@ -2,6 +2,7 @@ import isURL from "validator/lib/isURL";
 import * as z from "zod";
 
 export const workshopCreateSchema = z.object({
+  id: z.string().optional(),
   name: z.string().min(1, "El campo no puede estar vacío"),
 
   description: z.string().min(1, "El campo no puede estar vacío"),
@@ -9,7 +10,7 @@ export const workshopCreateSchema = z.object({
   imageURL: z
     .string()
     .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
-  Onsite: z
+  OnSiteWorkshop: z
     .object({
       date: z.date().refine((date) => {
         return date > new Date(Date.now());
@@ -21,7 +22,7 @@ export const workshopCreateSchema = z.object({
     })
     .nullable()
     .optional(),
-  Online: z
+  OnlineWorkshop: z
     .object({
       videoURL: z.string().refine((value) => isURL(value), {
         message: "Introduce un URL válido",

@@ -1,5 +1,7 @@
+import { trpc } from "@utils/trpc";
 import { IWorkshop } from "@utils/validations/workshop";
 import Image from "next/image";
+import EnrollButton from "./EnrollButon";
 
 function OnsiteWorskhopCard({
   workshop,
@@ -14,6 +16,11 @@ function OnsiteWorskhopCard({
   setImageURL: (name: string) => void;
   setIndex: (index: number) => void;
 }) {
+  const { data: enrollCliens } =
+    trpc.workshop.getWorkshopsParticipants.useQuery({
+      onSiteWorkshopId: workshop.id || "",
+    });
+
   return (
     <div
       className={` ${
@@ -42,11 +49,7 @@ function OnsiteWorskhopCard({
       <div className="w-fill h-fill relative p-2 md:p-4">
         {
           <div className="mb-1 flex  w-full justify-end align-middle text-[10px] md:text-xs">
-            <p>
-              {workshop.Onsite?.date?.getDay() +
-                "/" +
-                workshop.Onsite?.date?.getMonth()}
-            </p>
+            <p>{enrollCliens + "/" + workshop.OnSiteWorkshop?.places}</p>
           </div>
         }
         <h1 className=" font-raleway text-[16px] uppercase lg:text-[35px]">
@@ -55,13 +58,10 @@ function OnsiteWorskhopCard({
         <p className=" flex w-fit text-[15px] line-clamp-3  md:text-xs">
           {workshop.description}
         </p>
-        <button
-          className={` ${
-            !displayed && "block md:hidden"
-          } absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2  active:border-primary active:bg-primary active:text-background`}
-        >
-          Inscribirse
-        </button>
+        <EnrollButton
+          OnsiteworkshopID={workshop.id || ""}
+          places={workshop.OnSiteWorkshop?.places || 0}
+        />
       </div>
     </div>
   );

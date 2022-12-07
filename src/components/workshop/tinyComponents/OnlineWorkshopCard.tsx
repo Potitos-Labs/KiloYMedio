@@ -14,7 +14,8 @@ function OnlineWorskhopCard({
   setVideoURL: (name: string) => void;
 }) {
   const videoID =
-    workshop.Online?.videoURL && workshop.Online?.videoURL.split("=").pop();
+    workshop.OnlineWorkshop?.videoURL &&
+    workshop.OnlineWorkshop?.videoURL.split("=").pop();
   console.log(videoID);
   const { status } = useSession();
 
@@ -22,7 +23,8 @@ function OnlineWorskhopCard({
     if (status === "unauthenticated") {
       router.push("/login");
     } else {
-      workshop.Online?.videoURL && router.push(workshop.Online?.videoURL);
+      workshop.OnlineWorkshop?.videoURL &&
+        router.push(workshop.OnlineWorkshop?.videoURL);
     }
   }
 

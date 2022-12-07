@@ -95,9 +95,6 @@ export default function Workshops() {
             {showOnsite ? (
               <div>
                 <div className="absolute z-10 m-3  flex gap-3">
-                  <button className="h-full rounded-full border-[1px] border-base-content bg-background px-4  py-2 active:border-primary active:bg-primary active:text-background">
-                    Inscribirse
-                  </button>
                   <button className="h-full rounded-full border-[1px] border-base-content bg-background  px-4 py-2 active:border-primary active:bg-primary active:text-background">
                     Saber más
                   </button>

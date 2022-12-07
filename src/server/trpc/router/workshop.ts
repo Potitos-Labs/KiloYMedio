@@ -56,9 +56,10 @@ export const workshopRouter = router({
   createNewWorkshop: adminProcedure
     .input(workshopCreateSchema)
     .mutation(async ({ input, ctx }) => {
-      const { name, description, imageURL, Online, Onsite } = input;
+      const { name, description, imageURL, OnlineWorkshop, OnSiteWorkshop } =
+        input;
 
-      if (Onsite) {
+      if (OnSiteWorkshop) {
         await ctx.prisma.workshop.create({
           data: {
             name,
@@ -66,8 +67,8 @@ export const workshopRouter = router({
             imageURL,
             OnSiteWorkshop: {
               create: {
-                date: Onsite.date,
-                places: Onsite.places,
+                date: OnSiteWorkshop.date,
+                places: OnSiteWorkshop.places,
               },
             },
           },
@@ -77,7 +78,7 @@ export const workshopRouter = router({
         };
       }
 
-      if (Online) {
+      if (OnlineWorkshop) {
         await ctx.prisma.workshop.create({
           data: {
             name,
@@ -85,7 +86,7 @@ export const workshopRouter = router({
             imageURL,
             OnlineWorkshop: {
               create: {
-                videoURL: Online.videoURL,
+                videoURL: OnlineWorkshop.videoURL,
               },
             },
           },
