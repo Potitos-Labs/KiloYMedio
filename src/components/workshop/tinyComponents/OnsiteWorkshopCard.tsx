@@ -1,19 +1,14 @@
+import { IWorkshop } from "@utils/validations/workshop";
 import Image from "next/image";
 
 function OnsiteWorskhopCard({
-  name,
-  description,
-  date,
-  imageURL,
+  workshop,
   setImageURL,
   displayed,
   index,
   setIndex,
 }: {
-  name: string;
-  description: string;
-  date: Date | undefined | null;
-  imageURL: string;
+  workshop: IWorkshop;
   displayed: boolean;
   index: number;
   setImageURL: (name: string) => void;
@@ -27,7 +22,7 @@ function OnsiteWorskhopCard({
           : "grid-cols-[30%_70%] md:grid-cols-1 "
       } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
       onMouseEnter={() => {
-        setImageURL(imageURL);
+        setImageURL(workshop.imageURL);
         setIndex(index);
       }}
     >
@@ -37,7 +32,7 @@ function OnsiteWorskhopCard({
         } `}
       >
         <Image
-          src={imageURL}
+          src={workshop.imageURL}
           objectFit="cover"
           className="rounded-l-md"
           alt="notfound"
@@ -47,14 +42,18 @@ function OnsiteWorskhopCard({
       <div className="w-fill h-fill relative p-2 md:p-4">
         {
           <div className="mb-1 flex  w-full justify-end align-middle text-[10px] md:text-xs">
-            <p>{date?.getDay() + "/" + date?.getMonth()}</p>
+            <p>
+              {workshop.Onsite?.date?.getDay() +
+                "/" +
+                workshop.Onsite?.date?.getMonth()}
+            </p>
           </div>
         }
         <h1 className=" font-raleway text-[16px] uppercase lg:text-[35px]">
-          {name}
+          {workshop.name}
         </h1>
         <p className=" flex w-fit text-[15px] line-clamp-3  md:text-xs">
-          {description}
+          {workshop.description}
         </p>
         <button
           className={` ${

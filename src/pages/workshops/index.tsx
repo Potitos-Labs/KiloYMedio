@@ -66,15 +66,12 @@ export default function Workshops() {
               ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
                   return (
                     <OnsiteWorkshopCard
-                      key={index}
-                      name={workshop.name}
-                      description={workshop.description}
-                      date={workshop.OnSiteWorkshop?.date}
-                      imageURL={workshop.imageURL}
-                      setImageURL={setImage}
+                      key={""}
+                      workshop={workshop}
                       index={index}
                       displayed={false}
                       setIndex={setActiveIndex}
+                      setImageURL={setImage}
                     />
                   );
                 })
@@ -82,10 +79,7 @@ export default function Workshops() {
                   return (
                     <OnlineWorkshopCard
                       key={index}
-                      name={workshop.name}
-                      description={workshop.description}
-                      image={workshop.imageURL}
-                      videoURL={workshop.OnlineWorkshop?.videoURL}
+                      workshop={workshop}
                       setVideoURL={setVideo}
                       displayed={false}
                     />
@@ -158,10 +152,7 @@ export default function Workshops() {
                     return (
                       <OnsiteWorkshopCard
                         key={index}
-                        name={workshop.name}
-                        description={workshop.description}
-                        date={workshop.OnSiteWorkshop?.date}
-                        imageURL={workshop.imageURL}
+                        workshop={workshop}
                         setImageURL={setImage}
                         index={index}
                         displayed={true}
@@ -176,10 +167,7 @@ export default function Workshops() {
                     return (
                       <OnlineWorkshopCard
                         key={index}
-                        name={workshop.name}
-                        description={workshop.description}
-                        image={workshop.imageURL}
-                        videoURL={workshop.OnlineWorkshop?.videoURL}
+                        workshop={workshop}
                         setVideoURL={setVideo}
                         displayed={false}
                       />

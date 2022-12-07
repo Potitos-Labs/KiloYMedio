@@ -2,23 +2,19 @@ import router from "next/router";
 import Image from "next/image";
 import { BsArrowRight } from "react-icons/bs";
 import { useSession } from "next-auth/react";
+import { IWorkshop } from "@utils/validations/workshop";
 
 function OnlineWorskhopCard({
-  name,
-  description,
-  videoURL,
+  workshop,
   setVideoURL,
   displayed,
-  image,
 }: {
-  name: string;
-  description: string;
-  videoURL: string | undefined;
+  workshop: IWorkshop;
   displayed: boolean;
-  image: string;
   setVideoURL: (name: string) => void;
 }) {
-  const videoID = videoURL && videoURL.split("=").pop();
+  const videoID =
+    workshop.Online?.videoURL && workshop.Online?.videoURL.split("=").pop();
   console.log(videoID);
   const { status } = useSession();
 
@@ -26,7 +22,7 @@ function OnlineWorskhopCard({
     if (status === "unauthenticated") {
       router.push("/login");
     } else {
-      videoURL && router.push(videoURL);
+      workshop.Online?.videoURL && router.push(workshop.Online?.videoURL);
     }
   }
 
@@ -53,7 +49,7 @@ function OnlineWorskhopCard({
         } `}
       >
         <Image
-          src={image}
+          src={workshop.imageURL}
           objectFit="cover"
           className="rounded-l-md"
           alt="notfound"
@@ -62,10 +58,10 @@ function OnlineWorskhopCard({
       </div>
       <div className="w-fill h-fill relative p-2 md:p-4">
         <h1 className=" font-raleway text-[16px] uppercase md:text-[35px]">
-          {name}
+          {workshop.name}
         </h1>
         <p className=" flex w-fit text-[15px] line-clamp-4  md:text-xs">
-          {description}
+          {workshop.description}
         </p>
 
         <button

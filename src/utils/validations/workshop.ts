@@ -32,3 +32,4 @@ export const workshopCreateSchema = z.object({
 });
 
 export type IWorkshopCreate = z.infer<typeof workshopCreateSchema>;
+export type IWorkshop = z.infer<typeof workshopCreateSchema>;
