@@ -93,12 +93,8 @@ export const clientRouter = router({
     .input(z.object({ onSiteWorkshopId: z.string() }))
     .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
       const clientId = ctx.session.user.id;
-      await ctx.prisma.onSiteWorkshopAttendance.upsert({
-        where: {
-          onSiteWorkshopId_clientId: { onSiteWorkshopId, clientId },
-        },
-        create: { onSiteWorkshopId, clientId },
-        update: {},
+      await ctx.prisma.onSiteWorkshopAttendance.create({
+        data: { onSiteWorkshopId: onSiteWorkshopId, clientId: clientId },
       });
 
       return { status: 201 };

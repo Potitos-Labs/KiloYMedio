@@ -58,10 +58,7 @@ function OnsiteWorskhopCard({
         <p className=" flex w-fit text-[15px] line-clamp-3  md:text-xs">
           {workshop.description}
         </p>
-        <EnrollButton
-          OnsiteworkshopID={workshop.id || ""}
-          places={workshop.OnSiteWorkshop?.places || 0}
-        />
+        <EnrollButton OnsiteworkshopID={workshop.id || ""} />
       </div>
     </div>
   );

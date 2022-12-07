@@ -1500,11 +1500,6 @@ async function main() {
         create: {
           date: new Date(),
           places: 50,
-          OnSiteWorkshopAttendance: {
-            createMany: {
-              data: [{ clientId: juan.id }, { clientId: pilar.id }],
-            },
-          },
         },
       },
     },
@@ -1520,11 +1515,6 @@ async function main() {
         create: {
           date: new Date(),
           places: 50,
-          OnSiteWorkshopAttendance: {
-            createMany: {
-              data: [{ clientId: juan.id }, { clientId: pilar.id }],
-            },
-          },
         },
       },
     },
@@ -1541,11 +1531,6 @@ async function main() {
         create: {
           date: new Date(),
           places: 50,
-          OnSiteWorkshopAttendance: {
-            createMany: {
-              data: [{ clientId: juan.id }, { clientId: pilar.id }],
-            },
-          },
         },
       },
     },

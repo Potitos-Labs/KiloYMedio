@@ -117,7 +117,7 @@ export default function Workshops() {
                   />
                 ) : (
                   <p className="absolute top-1/2 left-[40%]   text-center align-middle">
-                    ¡Selecciona un video! 😊
+                    ¡Selecciona un vídeo! 😊
                   </p>
                 )}
               </div>

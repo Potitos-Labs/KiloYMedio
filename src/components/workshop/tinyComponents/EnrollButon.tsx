@@ -1,17 +1,11 @@
 import { trpc } from "@utils/trpc";
 
-function EnrollButton({
-  OnsiteworkshopID,
-  places,
-}: {
-  OnsiteworkshopID: string;
-  places: number;
-}) {
+function EnrollButton({ OnsiteworkshopID }: { OnsiteworkshopID: string }) {
   const utils = trpc.useContext();
-  const areEnroll = trpc.workshop.isEnroll.useQuery({
+  const { data: areEnroll } = trpc.workshop.isEnroll.useQuery({
     onSiteWorkshopId: OnsiteworkshopID,
   });
-  console.log(areEnroll.data);
+  console.log(areEnroll);
   const { mutateAsync: enroll } = trpc.user.client.enrollWorkshop.useMutation({
     onSuccess() {
       utils.workshop.getWorkshopsParticipants.invalidate();
@@ -28,16 +22,15 @@ function EnrollButton({
 
   function whorshopfunction() {
     if (areEnroll) {
-      enroll({ onSiteWorkshopId: OnsiteworkshopID });
-      console.log("culo");
-    }
-    if (!areEnroll.data && places < 50) {
       unenroll({ onSiteWorkshopId: OnsiteworkshopID });
+    }
+    if (!areEnroll) {
+      enroll({ onSiteWorkshopId: OnsiteworkshopID });
     }
   }
   return (
     <button onClick={() => whorshopfunction()}>
-      {!areEnroll ? "Desinscribirse" : "Inscribirse"}
+      {areEnroll ? "Desinscribirse" : "Inscribirse"}
     </button>
   );
 }
