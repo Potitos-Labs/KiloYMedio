@@ -80,8 +80,8 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
       <div className="mx-4 py-10 sm:px-24">
         {/* Botón atrás (Recetas) */}
         <Link href={`/recipe`}>
-          <div className="flex w-[150px] cursor-pointer items-center gap-4">
-            <div className="rounded-lg bg-accent p-0.5 sm:-ml-10">
+          <div className="btn ml-4 flex w-[150px] cursor-pointer items-center gap-4 sm:ml-0">
+            <div className="-ml-9 rounded-lg bg-accent p-0.5 sm:-ml-24">
               <BsArrowLeftShort className="text-base-100" size={25} />
             </div>
             <h3 className="flex font-raleway text-lg text-base-100">RECETAS</h3>
@@ -145,8 +145,8 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                   className="rounded-lg"
                   src={recipe?.imageURL ?? ""}
                   alt="not found"
-                  width="500"
-                  height="680"
+                  width="600"
+                  height="880"
                   layout="intrinsic"
                   objectFit="cover"
                 ></Image>

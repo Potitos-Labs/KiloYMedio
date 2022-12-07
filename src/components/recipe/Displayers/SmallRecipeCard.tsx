@@ -55,16 +55,18 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
             />
           )}
         </div>
-        <div className="mx-2 grid content-between gap-4">
+        <div className="mx-2 gap-4">
           <div>
             <Stars average={recipe?.rating ?? 0}></Stars>
-            <p className="mx-1 mt-2 mb-8 font-raleway first-letter:uppercase">
+            <p className="mx-1 mt-2 font-raleway first-letter:uppercase">
               {recipe.name}
             </p>
           </div>
           <div className="mx-2 flex justify-between gap-4">
-            <p>17 min</p>
-            <p>6 pers</p>
+            <p>
+              {(recipe?.cookingTime ?? 0) + (recipe?.preparationTime ?? 0)} min
+            </p>
+            <p>{recipe?.portions} pers</p>
             <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
               <Link href={`/recipe/${recipe.id}`}>
                 <a className="w-full rounded-full bg-base-content px-4 py-1 text-base-100">

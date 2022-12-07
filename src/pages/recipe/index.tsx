@@ -24,7 +24,7 @@ const Recipes = () => {
   });
 
   const buttonStyle =
-    "w-40 rounded-full btn bg-base-100 py-3 font-satoshiBold text-base-content sm:w-52 sm:text-sm";
+    "w-40 rounded-full bg-base-100 py-3 font-satoshiBold text-base-content sm:w-52 sm:text-sm";
 
   return (
     <Layout

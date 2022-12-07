@@ -51,7 +51,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
           <p className="mb-6">{recipe?.description}</p>
         </div>
         {/* Features and Buttons */}
-        <div className="mr-2">
+        <div>
           <div className="mb-4 flex justify-between">
             <p>
               {(recipe?.cookingTime ?? 0) + (recipe?.preparationTime ?? 0)} min
@@ -59,8 +59,8 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
             <p>{recipe?.portions} pers</p>
             <Stars average={recipe?.rating ?? 0}></Stars>
           </div>
-          <div className="block items-center justify-between md:flex lg:block 2xl:flex">
-            <div className="mb-2 md:mb-0 lg:mb-2 2xl:mb-0">
+          <div className="block items-center justify-between md:flex lg:block xl:flex">
+            <div className="mb-2 md:mb-0 lg:mb-2 xl:mb-0">
               <Link href={`/recipe/${recipe.id}`}>
                 <a className="btn btn-sm rounded-full bg-base-content px-4  text-base-100">
                   ver receta completa
