@@ -39,9 +39,9 @@ function OnlineWorkshopForm() {
       className="flex w-full items-center justify-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
+      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-primary p-5 shadow-xl">
         <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
-          Nuevo taller presencial
+          Nuevo taller Online
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <label className="relative flex w-full flex-col">

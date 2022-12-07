@@ -38,16 +38,16 @@ const CreateWorkshop: NextPage = () => {
         <main className="flex flex-col items-center justify-center">
           <div className="m-auto flex w-full flex-col items-center px-2 py-16 sm:px-0">
             <Tab.Group>
-              <Tab.List className="flex max-w-lg space-x-1 rounded-xl bg-kym2/[0.9] p-1">
+              <Tab.List className="flex max-w-lg space-x-1 rounded-xl bg-primary p-1">
                 {Object.values(typeWorkshop).map((type) => (
                   <Tab
                     key={type.name}
                     className={({ selected }) =>
                       clsx(
                         "text-bold text-md w-40 rounded-lg py-2.5 text-lg font-medium leading-5 md:w-44",
-                        "ring-white ring-opacity-60 ring-offset-2 ring-offset-kym2 focus:outline-none focus:ring-2",
+                        "ring-white ring-opacity-60 ring-offset-2 ring-offset-primary focus:outline-none focus:ring-2",
                         selected
-                          ? "bg-white text-kym2 shadow"
+                          ? "bg-white text-primary shadow"
                           : "text-white hover:bg-kym2/[0.12] hover:text-white",
                       )
                     }

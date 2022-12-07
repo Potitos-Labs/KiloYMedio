@@ -41,7 +41,7 @@ function OnsiteWorkshopForm() {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
+      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-primary p-5 shadow-xl">
         <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
           Nuevo taller presencial
         </h2>
@@ -55,18 +55,6 @@ function OnsiteWorkshopForm() {
               {...register("name")}
             />
             <p className="text-sm text-pink-600">{errors.name?.message}</p>
-          </label>
-          <label className="relative flex w-full flex-col">
-            <span className="mb-2">Descripción *</span>
-            <input
-              type="text"
-              placeholder="Descripción"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
-              {...register("description")}
-            />
-            <p className="text-sm text-pink-600">
-              {errors.description?.message}
-            </p>
           </label>
           <label className="relative flex w-full flex-col">
             <span className="mb-2">Plazas *</span>
@@ -99,7 +87,19 @@ function OnsiteWorkshopForm() {
                 : errors.Onsite?.date?.message}
             </p>
           </label>
-          <label className="col-span-2 flex w-full flex-col">
+          <label className=" relative col-span-2 flex w-full flex-col">
+            <span className="mb-2">Descripción *</span>
+            <input
+              type="text"
+              placeholder="Descripción"
+              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              {...register("description")}
+            />
+            <p className="text-sm text-pink-600">
+              {errors.description?.message}
+            </p>
+          </label>
+          <label className="col-span-3 flex w-full flex-col">
             <span className="mb-2">Imagen *</span>
             <Controller
               control={control}
