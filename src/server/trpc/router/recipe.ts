@@ -198,6 +198,7 @@ export const recipeRouter = router({
           name,
           ingredients,
           portions,
+          allergens,
           cookingTime,
           id,
         },
@@ -242,6 +243,11 @@ export const recipeRouter = router({
                 })),
               },
             },
+            allergens: allergens && {
+              createMany: {
+                data: allergens.map((allergen) => ({ allergen })),
+              },
+            },
           },
         });
       },
@@ -260,6 +266,7 @@ export const recipeRouter = router({
           ingredients,
           portions,
           cookingTime,
+          allergens,
         },
       }) => {
         const prismaIngredients = await findOrCreteRecipeIngredients(
@@ -292,6 +299,11 @@ export const recipeRouter = router({
                   unit: unit,
                   ingredientId: id,
                 })),
+              },
+            },
+            allergens: allergens && {
+              createMany: {
+                data: allergens.map((allergen) => ({ allergen })),
               },
             },
           },

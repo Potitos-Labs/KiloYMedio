@@ -12,7 +12,6 @@ import {
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
-import Layout from "@components/Layout";
 import IncDecButtons from "@components/ui/IncDecButtons";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
@@ -102,7 +101,7 @@ export default function CreateEdit(props: {
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
   return (
-    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
+    <>
       <div className="mt-[50px] ml-[20px] max-w-[769px] font-raleway text-[45px] md:ml-[80px] md:text-xl">
         COMPARTE TU RECETA EN UNOS SENCILLOS PASOS
       </div>
@@ -475,6 +474,6 @@ export default function CreateEdit(props: {
           {/* Button End */}
         </div>
       </form>
-    </Layout>
+    </>
   );
 }

@@ -1,3 +1,4 @@
+import Layout from "@components/Layout";
 import CreateEdit from "@components/recipe/CreateEdit";
 import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
@@ -34,5 +35,9 @@ export default function CreateRecipe(
     router.push("/login");
   }
 
-  return <CreateEdit units={props.units}></CreateEdit>;
+  return (
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
+      <CreateEdit units={props.units}></CreateEdit>
+    </Layout>
+  );
 }
