@@ -81,7 +81,7 @@ function ClientePage() {
         </div>
         <div
           id="slide3"
-          className="carousel-item relative w-full justify-between bg-[#8859FF] pb-20"
+          className="carousel-item relative w-full justify-between bg-[#855FFE] pb-20"
         >
           <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:mt-[270px] xl:-mr-[300px]">
             <p className="font-raleway md:text-xl lg:text-3xl">PROMOCIÓN</p>

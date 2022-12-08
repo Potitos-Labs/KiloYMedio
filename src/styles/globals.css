@@ -1,4 +1,7 @@
 @tailwind base;
+html {
+  scroll-behavior: smooth;
+}
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.cdnfonts.com/css/satoshi?styles=135009,135005,135007,135002,135000");
