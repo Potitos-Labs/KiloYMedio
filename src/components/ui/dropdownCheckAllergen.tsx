@@ -6,6 +6,7 @@ import {
 } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { Allergen } from "@prisma/client";
+import clsx from "clsx";
 
 function DropdownCheckAllergen({
   allergens,
@@ -43,7 +44,7 @@ function DropdownCheckAllergen({
   }, [selectedAllergen, onChange]);
 
   return (
-    <div className="dropdown w-[325px]">
+    <div className="dropdown w-[340px]">
       <Listbox value={selectedAllergen} onChange={setSelectedAllergen} multiple>
         <Listbox.Button className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent">
           <p className="ml-4 text-sm">Alérgenos</p>
@@ -54,40 +55,45 @@ function DropdownCheckAllergen({
         <Listbox.Options
           className={`dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2 leading-6`}
         >
-          {options
-            .filter((o) => !productAllergens.includes(o.value))
-            .map((allergen) => (
-              <Listbox.Option
-                key={allergen.id}
-                value={allergen.value}
-                className={({ active }) =>
-                  `relative cursor-pointer select-none py-2 pl-3 pr-4 ${
-                    active ? "bg-amber-100" : "text-gray-900"
-                  }`
-                }
-              >
-                {({ selected }) => (
-                  <>
+          {options.map((allergen) => (
+            <Listbox.Option
+              key={allergen.id}
+              value={allergen.value}
+              disabled={productAllergens.includes(allergen.value)}
+              className={({ active, disabled }) =>
+                clsx(
+                  "relative cursor-pointer select-none py-2 pl-3 pr-4",
+                  active ? "bg-amber-100" : "text-gray-900",
+                  disabled && "cursor-not-allowed rounded-lg bg-gray-300",
+                )
+              }
+            >
+              {({ selected }) => (
+                <>
+                  <span
+                    className={`pl-7 ${
+                      selected ? "font-satoshiBold" : "font-normal"
+                    }`}
+                  >
+                    {allergen.name}
+                  </span>
+                  {selected ? (
                     <span
-                      className={`pl-7 ${
-                        selected ? "font-satoshiBold" : "font-normal"
-                      }`}
+                      className={clsx(
+                        "absolute inset-y-0 left-0 flex items-center pl-3",
+                      )}
                     >
-                      {allergen.name}
+                      <MdOutlineCheckBox className="h-5 w-5" />
                     </span>
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MdOutlineCheckBox className="h-5 w-5" />
-                      </span>
-                    ) : (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MdOutlineCheckBoxOutlineBlank className="h-5 w-5" />
-                      </span>
-                    )}
-                  </>
-                )}
-              </Listbox.Option>
-            ))}
+                  ) : (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <MdOutlineCheckBoxOutlineBlank className="h-5 w-5" />
+                    </span>
+                  )}
+                </>
+              )}
+            </Listbox.Option>
+          ))}
         </Listbox.Options>
       </Listbox>
     </div>
