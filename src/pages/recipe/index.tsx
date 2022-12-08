@@ -58,7 +58,7 @@ const Recipes = () => {
         {/* End Intro Recipes */}
         <div className="rounded-xl bg-base-100 p-6 sm:p-14 2xl:p-20">
           {/* Our recipes Section */}
-          <div className="mb-32">
+          <div className="mb-24">
             <div className="my-10 flex justify-between">
               <p className="w-[400px] font-raleway text-lg lg:text-2xl">
                 NUESTRAS RECETAS

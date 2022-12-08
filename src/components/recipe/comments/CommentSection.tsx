@@ -52,8 +52,8 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   return (
     <div className="relative z-0 my-16 mx-4">
       {/* Elipse */}
-      <div className="absolute top-0 right-6 flex w-full px-[24px] sm:-top-12 md:-top-[52px] md:-left-6">
-        <p className="rounded-t-lg bg-base-100 px-8 pt-4 font-raleway text-lg sm:rounded-tl-lg md:text-xl">
+      <div className="absolute top-0 right-6 flex w-full px-[24px] sm:-top-9 md:-top-[52px] md:-left-6">
+        <p className="rounded-t-lg bg-base-100 px-8 pt-4 font-raleway text-lg md:text-xl">
           COMENTARIOS
         </p>
         <div className="absolute -top-[127.9px] left-28 -z-10 hidden sm:flex md:left-[342px] ">
@@ -69,7 +69,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
         </div>
       </div>
       {/* End Elipse */}
-      <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-tr-lg bg-base-100 px-8 pt-24 pb-16 lg:grid">
+      <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-t-lg bg-base-100 px-8 pt-24 pb-16 lg:grid">
         <div className="order-2 grid content-between justify-center gap-6 lg:order-1 lg:justify-start">
           {data?.map((c) => {
             return (

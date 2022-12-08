@@ -26,17 +26,17 @@ function FilterRecipe({
     setFilter({ ...filter, allergens: list });
   };
   return (
-    <div className="mx-5 flex w-full rounded-md bg-white p-5 text-kym4 shadow-sm shadow-kym4 sm:w-auto">
-      <div className=" mr-3 flex w-[250px] flex-col py-3 sm:px-5">
-        <p className="font-bold">Duración</p>
+    <div className="mx-5 flex w-full rounded-md sm:w-auto">
+      <div className="mr-3 flex flex-col py-3 sm:px-5">
+        <p className="font-raleway">Duración</p>
         <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1">
             <input
               id="default-radio-2"
               type="radio"
               value=""
               name="default-radio"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({
                   ...filter,
@@ -47,39 +47,39 @@ function FilterRecipe({
             />
             <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2  flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-3"
               type="radio"
               value=""
               name="default-radio"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, maxTime: 60, minTime: 30 });
               }}
             />
             <p className="flex pl-2">0-60 mins</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, maxTime: 120, minTime: 60 });
               }}
             />
             <p className="pl-2">1-2 horas</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-5"
               type="radio"
               value=""
               name="default-radio"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, minTime: 121 });
               }}
@@ -92,52 +92,52 @@ function FilterRecipe({
       <div className="mr-4 flex flex-col py-3 sm:px-5">
         <p className="font-bold">Dificultad</p>
         <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-1"
               type="radio"
               value=""
               name="default-radio-two"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, difficulty: undefined });
               }}
             />
             <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-2"
               type="radio"
               value=""
               name="default-radio-two"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, difficulty: "hard" });
               }}
             />
             <p className="pl-2">Difícil</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-3"
               type="radio"
               value=""
               name="default-radio-two"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, difficulty: "moderate" });
               }}
             />
             <p className="pl-2">Media</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-two"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, difficulty: "easy" });
               }}
@@ -149,13 +149,13 @@ function FilterRecipe({
       <div className="flex w-[250px] flex-col px-0 py-3 sm:px-5">
         <p className="font-bold">Raciones</p>
         <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-three"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({
                   ...filter,
@@ -166,39 +166,39 @@ function FilterRecipe({
             />
             <p className="pl-2">Todas</p>
           </label>
-          <label className="ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-three"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, minPortion: 1, maxPortion: 2 });
               }}
             />
             <p className="pl-2">1-2 raciones</p>
           </label>
-          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-three"
-              className="h-4 w-4 border-gray-300 bg-gray-100  text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, minPortion: 2, maxPortion: 4 });
               }}
             />
             <p className="pl-2">2-4 raciones</p>
           </label>
-          <label className=" ml-2 flex flex-row p-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className=" ml-2 flex flex-row p-1 text-sm">
             <input
               id="default-radio-4"
               type="radio"
               value=""
               name="default-radio-three"
-              className="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              className="h-4 w-4"
               onChange={() => {
                 return setFilter({ ...filter, minPortion: 5 });
               }}
@@ -208,7 +208,7 @@ function FilterRecipe({
         </div>
       </div>
       <div className="container ml-8 max-w-full font-sans text-base">
-        <div className="m-auto flex w-full flex-col overflow-hidden border border-gray-400 pb-4 shadow-lg">
+        <div className="m-auto flex w-full flex-col overflow-hidden border pb-4">
           <div className="flex flex-col">
             <h1 className="mt-3 ml-3 flex flex-col text-lg font-bold underline">
               Alérgenos
@@ -217,7 +217,7 @@ function FilterRecipe({
               {allergenList.map((allergen) => {
                 return (
                   <label key="" className="custom-label mt-2 ml-3 flex">
-                    <div className="mr-2 flex h-6 w-6 items-center justify-center bg-white p-1 shadow">
+                    <div className="mr-2 flex h-6 w-6 items-center justify-center p-1">
                       <input
                         type="checkbox"
                         value={allergen}
