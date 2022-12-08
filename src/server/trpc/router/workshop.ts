@@ -34,6 +34,7 @@ export const workshopRouter = router({
   getAllOnsiteWorkshops: publicProcedure.query(async ({ ctx }) => {
     const workshops = await ctx.prisma.workshop.findMany({
       select: {
+        id: true,
         name: true,
         description: true,
         imageURL: true,

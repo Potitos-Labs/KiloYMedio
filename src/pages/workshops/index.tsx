@@ -66,7 +66,7 @@ export default function Workshops() {
               ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
                   return (
                     <OnsiteWorkshopCard
-                      key={""}
+                      key={index}
                       workshop={workshop}
                       index={index}
                       displayed={false}
