@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Listbox } from "@headlessui/react";
 import {
   MdOutlineCheckBox,
@@ -27,7 +27,15 @@ function DropdownCheckAllergen({
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const [selectedAllergen, setSelectedAllergen] = useState([productAllergens]);
+  const [selectedAllergen, setSelectedAllergen] = useState<string[]>([]);
+
+  console.log({ selectedAllergen });
+
+  useEffect(() => {
+    productAllergens.map((allergen) => {
+      setSelectedAllergen((prev) => [...new Set([...prev, allergen])]);
+    });
+  }, [productAllergens]);
 
   return (
     <div className="dropdown w-[325px]">

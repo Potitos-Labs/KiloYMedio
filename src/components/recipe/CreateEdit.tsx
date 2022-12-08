@@ -17,7 +17,7 @@ import IncDecButtons from "@components/ui/IncDecButtons";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
 import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 import { AllergenComponent } from "../Allergens";
 
@@ -68,6 +68,24 @@ export default function CreateEdit(props: {
     trpc.product.getAlergensFromProduct.useQuery(
       getValues("ingredients").map((i) => ({ productName: i.name })),
     );
+
+  const [allergensList, setAllergensList] = useState<{ allergen: Allergen }[]>(
+    [],
+  );
+
+  const allergensHandler = (value: string) => {
+    const allergen = z.nativeEnum(Allergen).parse(value);
+    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
+    if (index != -1) allergensList.splice(index, 1);
+    else allergensList.push({ allergen });
+    setAllergensList(allergensList);
+    return allergensList;
+  };
+
+  useEffect(() => {
+    allergensFromProducts?.map((a) => allergensHandler(a));
+  });
+
   console.log(watch());
 
   const {
@@ -101,19 +119,6 @@ export default function CreateEdit(props: {
 
   const { data: allergens } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
-
-  const [allergensList, setAllergensList] = useState<{ allergen: Allergen }[]>(
-    [],
-  );
-
-  const allergensHandler = (value: string) => {
-    const allergen = z.nativeEnum(Allergen).parse(value);
-    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
-    if (index != -1) allergensList.splice(index, 1);
-    else allergensList.push({ allergen });
-    setAllergensList(allergensList);
-    return allergensList;
-  };
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
