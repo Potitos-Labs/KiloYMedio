@@ -19,6 +19,7 @@ import { FaTimes } from "react-icons/fa";
 import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
 import { useState } from "react";
 import { z } from "zod";
+import { AllergenComponent } from "../Allergens";
 
 const defaultRecipe: ICreateRecipe = {
   cookingTime: { hour: 0, minute: 1 },
@@ -55,12 +56,18 @@ export default function CreateEdit(props: {
     control,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
   } = useForm<ICreateRecipe>({
     resolver: zodResolver(createRecipeSchema),
     criteriaMode: "all",
     defaultValues: recipe,
   });
+
+  const { data: allergensFromProducts } =
+    trpc.product.getAlergensFromProduct.useQuery(
+      getValues("ingredients").map((i) => ({ productName: i.name })),
+    );
   console.log(watch());
 
   const {
@@ -435,7 +442,7 @@ export default function CreateEdit(props: {
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
               <div className="flex text-sm">
-                {allergens && (
+                {allergens && allergensFromProducts && (
                   <Controller
                     name={"allergens"}
                     control={control}
@@ -443,11 +450,22 @@ export default function CreateEdit(props: {
                       <DropdownCheckAllergen
                         allergens={allergens}
                         handler={allergensHandler}
+                        productAllergens={allergensFromProducts}
                         onChange={onChange}
                       ></DropdownCheckAllergen>
                     )}
                   ></Controller>
                 )}
+              </div>
+              <div>
+                {allergensList.map((allergen) => (
+                  <div
+                    className="mt-2 flex py-2 align-middle"
+                    key={allergen.allergen}
+                  >
+                    <AllergenComponent allergen={allergen.allergen} size={30} />
+                  </div>
+                ))}
               </div>
               {/* <div className="text-sm text-red-500">
                 Si alguien sabe hacer un dropdown con checks, please send help

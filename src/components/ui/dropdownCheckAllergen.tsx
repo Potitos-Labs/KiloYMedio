@@ -10,10 +10,12 @@ import { Allergen } from "@prisma/client";
 function DropdownCheckAllergen({
   allergens,
   handler,
+  productAllergens,
   onChange,
 }: {
   allergens: Map<Allergen, string>;
   handler: (allergen: string) => { allergen: Allergen }[];
+  productAllergens: Allergen[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void;
 }) {
@@ -25,30 +27,19 @@ function DropdownCheckAllergen({
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const [selectedAllergen, setSelectedAllergen] = useState([]);
-
-  const [isShown, setIsShown] = useState(false);
-
-  const handleClick = () => {
-    setIsShown((current) => !current);
-  };
+  const [selectedAllergen, setSelectedAllergen] = useState([productAllergens]);
 
   return (
     <div className="dropdown w-[325px]">
       <Listbox value={selectedAllergen} onChange={setSelectedAllergen} multiple>
-        <Listbox.Button
-          className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent"
-          onClick={handleClick}
-        >
+        <Listbox.Button className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent">
           <p className="ml-4 text-sm">Alérgenos</p>
           <span className="pointer-events-none inset-y-0 right-0 flex pr-2">
             <IoIosArrowDown className="h-5 w-5" />
           </span>
         </Listbox.Button>
         <Listbox.Options
-          className={`dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2 leading-6 ${
-            isShown ? "dropdown-open" : "dropdown-close"
-          }`}
+          className={`dropdown-content rounded-box menu-vertical max-h-52 overflow-y-scroll bg-base-100 p-2 leading-6`}
         >
           {options.map((allergen) => (
             <Listbox.Option

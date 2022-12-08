@@ -517,4 +517,25 @@ export const productRouter = router({
         },
       });
     }),
+
+  getAlergensFromProduct: publicProcedure
+    .input(z.array(z.object({ productName: z.string() })))
+    .query(async ({ input, ctx }) => {
+      const edibles = await ctx.prisma.edible.findMany({
+        where: { product: { name: { in: input.map((i) => i.productName) } } },
+        select: {
+          allergens: {
+            select: {
+              allergen: true,
+            },
+          },
+        },
+      });
+
+      const allergens = edibles.flatMap((e) =>
+        e.allergens.map((a) => a.allergen),
+      );
+      const uniqueAllergens = [...new Set([...allergens])];
+      return uniqueAllergens;
+    }),
 });
