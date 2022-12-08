@@ -10,15 +10,13 @@ import {
   createRecipeSchema,
 } from "../../utils/validations/recipe";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Allergen, IngredientUnit, RecipeDifficulty } from "@prisma/client";
+import { IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import TimeSpanForm from "@components/ui/TimeSpanForm";
 import Layout from "@components/Layout";
 import IncDecButtons from "@components/ui/IncDecButtons";
 import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 import { FaTimes } from "react-icons/fa";
 import DropdownCheckAllergen from "@components/ui/dropdownCheckAllergen";
-import { useState, useEffect } from "react";
-import { z } from "zod";
 import { AllergenComponent } from "../Allergens";
 
 const defaultRecipe: ICreateRecipe = {
@@ -68,24 +66,6 @@ export default function CreateEdit(props: {
     trpc.product.getAlergensFromProduct.useQuery(
       getValues("ingredients").map((i) => ({ productName: i.name })),
     );
-
-  const [allergensList, setAllergensList] = useState<{ allergen: Allergen }[]>(
-    [],
-  );
-
-  const allergensHandler = (value: string) => {
-    const allergen = z.nativeEnum(Allergen).parse(value);
-
-    const index = allergensList.findIndex((obj) => obj.allergen == allergen);
-    if (index != -1) allergensList.splice(index, 1);
-    else allergensList.push({ allergen });
-    setAllergensList(allergensList);
-    return allergensList;
-  };
-
-  useEffect(() => {
-    allergensFromProducts?.map((a) => allergensHandler(a));
-  });
 
   console.log(watch());
 
@@ -159,7 +139,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-1 self-start pt-3 text-lg md:self-center md:pt-0">
                     Tiempo de preparación:
                   </div>
-                  <div className="col-start-2 row-start-1 self-center text-lg md:col-span-2">
+                  <div className="col-start-2 row-start-1 mr-5 self-center text-lg md:col-span-2">
                     <TimeSpanForm control={control} label={"preparationTime"} />
                     {errors.preparationTime && (
                       <p className="flex text-sm text-red-500">
@@ -173,7 +153,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-2 self-start pt-3 text-lg md:self-center md:pt-0">
                     Tiempo de cocinado:
                   </div>
-                  <div className="col-span-2 col-start-2 row-start-2 self-center text-lg">
+                  <div className="col-span-2 col-start-2 row-start-2 mr-5 self-center text-lg">
                     <TimeSpanForm control={control} label={"cookingTime"} />
                     {errors.cookingTime && (
                       <p className="flex text-sm text-red-500">
@@ -455,7 +435,6 @@ export default function CreateEdit(props: {
                     render={({ field: { onChange } }) => (
                       <DropdownCheckAllergen
                         allergens={allergens}
-                        handler={allergensHandler}
                         productAllergens={allergensFromProducts ?? []}
                         onChange={onChange}
                       ></DropdownCheckAllergen>
@@ -463,10 +442,10 @@ export default function CreateEdit(props: {
                   ></Controller>
                 )}
               </div>
-              <div className="ml-5 mt-2 grid max-w-[300px] grid-cols-4 gap-0">
-                {allergensList.map((allergen) => (
-                  <div className="py-2 align-middle" key={allergen.allergen}>
-                    <AllergenComponent allergen={allergen.allergen} size={40} />
+              <div className="ml-5 mt-2 grid max-w-[300px] grid-cols-5">
+                {getValues("allergens")?.map((allergen) => (
+                  <div className="py-2 align-middle" key={allergen}>
+                    <AllergenComponent allergen={allergen} size={40} />
                   </div>
                 ))}
               </div>
