@@ -75,6 +75,7 @@ export default function CreateEdit(props: {
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
+
     const index = allergensList.findIndex((obj) => obj.allergen == allergen);
     if (index != -1) allergensList.splice(index, 1);
     else allergensList.push({ allergen });
@@ -447,7 +448,7 @@ export default function CreateEdit(props: {
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
               <div className="flex text-sm">
-                {allergens && allergensFromProducts && (
+                {allergens && (
                   <Controller
                     name={"allergens"}
                     control={control}
@@ -455,20 +456,17 @@ export default function CreateEdit(props: {
                       <DropdownCheckAllergen
                         allergens={allergens}
                         handler={allergensHandler}
-                        productAllergens={allergensFromProducts}
+                        productAllergens={allergensFromProducts ?? []}
                         onChange={onChange}
                       ></DropdownCheckAllergen>
                     )}
                   ></Controller>
                 )}
               </div>
-              <div>
+              <div className="ml-5 mt-2 grid max-w-[300px] grid-cols-4 gap-0">
                 {allergensList.map((allergen) => (
-                  <div
-                    className="mt-2 flex py-2 align-middle"
-                    key={allergen.allergen}
-                  >
-                    <AllergenComponent allergen={allergen.allergen} size={30} />
+                  <div className="py-2 align-middle" key={allergen.allergen}>
+                    <AllergenComponent allergen={allergen.allergen} size={40} />
                   </div>
                 ))}
               </div>

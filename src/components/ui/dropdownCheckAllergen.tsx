@@ -33,9 +33,15 @@ function DropdownCheckAllergen({
 
   useEffect(() => {
     productAllergens.map((allergen) => {
-      setSelectedAllergen((prev) => [...new Set([...prev, allergen])]);
+      setSelectedAllergen((prev) => {
+        const res = [...new Set([...prev, allergen])];
+        if (res.length !== prev.length) {
+          onChange(res.map((allergen) => ({ allergen })));
+        }
+        return res;
+      });
     });
-  }, [productAllergens]);
+  }, [productAllergens, handler, onChange]);
 
   return (
     <div className="dropdown w-[325px]">
