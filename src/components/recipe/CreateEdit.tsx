@@ -133,7 +133,7 @@ export default function CreateEdit(props: {
                 <div className="mt-8 font-raleway text-lg">
                   TIEMPO Y PORCIONES
                 </div>
-                <div className="grid w-screen auto-cols-auto grid-cols-[45%-55%] grid-rows-[35%-35%-15%-15%] gap-y-[20px] gap-x-[10px] text-start md:grid-cols-[30%_35%_35%] md:grid-rows-4">
+                <div className="grid w-1/2 auto-cols-auto grid-cols-[45%-55%] grid-rows-[35%-35%-15%-15%] gap-y-[20px] gap-x-[10px] text-start md:grid-cols-[30%_35%_35%] md:grid-rows-4">
                   {/* Grid Row 1: Preparation time */}
                   <div className="col-start-1 row-start-1 self-start pt-3 text-lg md:self-center md:pt-0">
                     Tiempo de preparación:
