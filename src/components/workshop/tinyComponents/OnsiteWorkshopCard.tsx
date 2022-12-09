@@ -55,7 +55,7 @@ function OnsiteWorskhopCard({
         <h1 className=" font-raleway text-[16px] uppercase lg:text-[35px]">
           {workshop.name}
         </h1>
-        <p className=" flex w-fit text-[15px] line-clamp-3  md:text-xs">
+        <p className=" flex w-fit text-[15px] line-clamp-2  md:text-xs">
           {workshop.description}
         </p>
         {workshop.id && <EnrollButton OnsiteworkshopID={workshop.id} />}

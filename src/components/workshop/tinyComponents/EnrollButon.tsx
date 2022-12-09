@@ -33,7 +33,11 @@ function EnrollButton({ OnsiteworkshopID }: { OnsiteworkshopID: string }) {
     }
   }
   return (
-    <button onClick={() => whorshopfunction()}>
+    <button
+      className={` 
+       absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2  active:border-primary active:bg-primary active:text-background`}
+      onClick={() => whorshopfunction()}
+    >
       {areEnroll ? "Desinscribirse" : "Inscribirse"}
     </button>
   );
