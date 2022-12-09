@@ -47,8 +47,8 @@ function Product({
 
   return (
     <div key={cartProduct.productId}>
-      <div className="flex flex-row border-2 border-solid border-black">
-        <div className="flex flex-col p-2 align-middle">
+      <div className="flex flex-row rounded-[15px] border-[1px] border-solid border-neutral">
+        <div className="flex flex-col py-2 align-middle sm:p-2">
           <Image
             className="rounded-md"
             src={cartProduct.product.imageURL}
@@ -59,8 +59,8 @@ function Product({
             objectFit="cover"
           />
         </div>
-        <div className="m-2 w-full p-2">
-          <div className="font-semibold text-kym4 first-letter:uppercase">
+        <div className="my-2 ml-1 flex w-full flex-col justify-between py-2 sm:m-2 sm:p-2">
+          <div className="text-sm text-neutral first-letter:uppercase">
             {cartProduct.product.name}
           </div>
           {/* Amount */}
@@ -69,15 +69,16 @@ function Product({
               setAmount={setAmount}
               amount={amount}
               max={stock}
+              className="h-[35px] w-[120px] rounded-[30px] border-[1px] border-base-300"
               unit={cartProduct.product.ProductUnit}
             />
           </div>
         </div>
-        <div className="flex w-[40%] flex-col md:w-[40%] lg:w-[30%] xl:w-[20%]">
+        <div className="flex w-[60%] flex-col justify-between sm:pr-3 md:w-[40%] lg:w-[30%] xl:w-[20%]">
           {/* trash can */}
           <div className="flex flex-row-reverse">
             <button
-              className="h-10 bg-transparent px-2 font-semibold text-red-600"
+              className="h-10 bg-transparent font-semibold text-red-600"
               onClick={() =>
                 deleteMutation({ productId: cartProduct.productId })
               }
@@ -87,8 +88,8 @@ function Product({
             </button>
           </div>
           {/* price */}
-          <div className="flex h-full flex-row-reverse">
-            <span className="self-end px-3 py-2">
+          <div className="flex flex-row-reverse">
+            <span className="self-end px-1 py-2 text-xs">
               {cartProduct.price.toFixed(2)} €
             </span>
           </div>
