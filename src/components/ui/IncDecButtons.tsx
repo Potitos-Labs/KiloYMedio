@@ -70,12 +70,11 @@ function IncDecButtons({
   return (
     <div className={` ${className} flex h-full w-full flex-row font-bold`}>
       <button
-        disabled={(!recipe && !stockLeft) || amount == incdecValues[unit] - 1}
+        disabled={amount == incdecValues[unit]}
         type="button"
         className={clsx(
           `w-6 flex-auto bg-transparent`,
-          ((!recipe && !stockLeft) || amount == incdecValues[unit] - 1) &&
-            "cursor-not-allowed opacity-60",
+          amount == incdecValues[unit] && "cursor-not-allowed opacity-60",
         )}
         onClick={decrementClick}
       >
