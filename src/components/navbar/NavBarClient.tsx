@@ -42,7 +42,7 @@ function NavBarClient() {
           </a>
         </div>
         <div className="flex flex-col gap-2 text-end lg:flex-row lg:gap-6">
-          <Link href={`/recipe`}>salud y bienestar</Link>
+          <Link href={`/health`}>salud y bienestar</Link>
           <Link href={`/recipe`}>recetas</Link>
           <Link href={`/workshops`}>talleres</Link>
         </div>
