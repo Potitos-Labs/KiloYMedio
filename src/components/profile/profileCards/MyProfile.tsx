@@ -25,8 +25,8 @@ function MyProfile({
           <div className="flex items-center justify-end px-2 align-middle">
             <p className="text-right text-[18px]">Mis puntos</p>
           </div>
-          <div className="flex items-center justify-center rounded-full bg-primary align-middle">
-            <p className="font-satoshiBold text-[30px] uppercase text-base-100">
+          <div className="flex items-center justify-center  align-middle">
+            <p className="rounded-full bg-primary py-5 px-6 font-satoshiBold text-[30px] uppercase text-base-100">
               36
             </p>
           </div>
