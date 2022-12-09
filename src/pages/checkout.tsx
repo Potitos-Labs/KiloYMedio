@@ -1,6 +1,6 @@
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
+// import { useSession } from "next-auth/react";
+// import Image from "next/image";
+// import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import Popup from "reactjs-popup";
@@ -59,8 +59,8 @@ const Checkout = () => {
       },
     });
 
-  const { data: session } = useSession();
-  let display = null;
+  // const { data: session } = useSession();
+  // const display = null;
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -121,79 +121,83 @@ const Checkout = () => {
     router.push(`/category`);
   }
 
-  if (session) {
-    display = (
-      <div className="">
-        <h1 className="mb-10 bg-background py-2 pl-3 text-xl">
-          Información de contacto
-        </h1>
-        <div className="flex flex-row items-center gap-5">
-          <Image
-            src="https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png"
-            alt="notfound"
-            width="50"
-            height="50"
-            layout="fixed"
-            objectFit="cover"
-          ></Image>
-          <p>
-            {session.user?.name} ({session.user?.email})
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // if (session) {
+  //   display = (
+  //     <div>
+  //       <h1 className="font-raleway text-lg lg:text-2xl">
+  //         Información de contacto
+  //       </h1>
+  //       <div className="flex flex-row items-center gap-5">
+  //         <Image
+  //           src="https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png"
+  //           alt="notfound"
+  //           width="50"
+  //           height="50"
+  //           layout="fixed"
+  //           objectFit="cover"
+  //         ></Image>
+  //         <p>
+  //           {session.user?.name} ({session.user?.email})
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!session) {
-    display = (
-      <div className="">
-        <div className="grid grid-cols-2 items-center bg-background pr-4">
-          <h1 className="col-end-1 py-2 pl-3 text-xl">
-            Información de contacto
-          </h1>
-          <p className="col-end-4">
-            ¿Ya tienes cuenta?{" "}
-            <span>
-              <Link href={`/login`}> Inicia sesión</Link>
-            </span>
-          </p>
-        </div>
-        <label className="relative mx-1 flex w-full flex-col pl-3 pt-8">
-          <span className="mb-3">Correo electrónico</span>
-          <input
-            className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
-            type="email"
-            name="email"
-            required
-            pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/" //comprobar
-            placeholder="Correo electrónico"
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute bottom-0 left-5 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-          </svg>
-        </label>
-      </div>
-    );
-  }
+  // if (!session) {
+  //   display = (
+  //     <div>
+  //       <div className="grid grid-cols-2 items-center bg-background pr-4">
+  //         <h1 className="col-end-1 py-2 pl-3 text-xl">
+  //           Información de contacto
+  //         </h1>
+  //         <p className="col-end-4">
+  //           ¿Ya tienes cuenta?{" "}
+  //           <span>
+  //             <Link href={`/login`}> Inicia sesión</Link>
+  //           </span>
+  //         </p>
+  //       </div>
+  //       <label className="relative mx-1 flex w-full flex-col pl-3 pt-8">
+  //         <span className="mb-3">Correo electrónico</span>
+  //         <input
+  //           className="peer rounded-md border-2 border-gray-300 py-2 pl-12 pr-2 placeholder-gray-300"
+  //           type="email"
+  //           name="email"
+  //           required
+  //           pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/" //comprobar
+  //           placeholder="Correo electrónico"
+  //         />
+  //         <svg
+  //           xmlns="http://www.w3.org/2000/svg"
+  //           className="absolute bottom-0 left-5 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+  //           fill="none"
+  //           viewBox="0 0 24 24"
+  //           stroke="currentColor"
+  //         >
+  //           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+  //           <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+  //         </svg>
+  //       </label>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
+    <Layout
+      bgColor={"bg-base-content"}
+      headerBgLight={true}
+      headerTextDark={true}
+    >
       <section>
         {/* Grid */}
-        <div className="mx-8 mt-12 grid grid-cols-1 px-5 lg:grid-cols-[60%_40%]">
-          <section>
+        <div className="mt-12 grid grid-cols-1 gap-4 px-5 xl:grid-cols-[60%_40%] xl:gap-0">
+          <section className="rounded-xl bg-base-100 py-10 px-6 sm:px-10 xl:mr-2 2xl:p-20">
             {/*Contact info*/}
-            <div className="h-full">
-              <div>{display}</div>
+            <div className="">
+              {/* <div>{display}</div> */}
               <form onSubmit={onSubmit}>
-                <div className="grid py-10">
+                <div className="m-0 mt-4 grid gap-4">
                   {step}
                   <div className="mt-4 grid grid-cols-2">
                     <div className="flex justify-start">
@@ -211,11 +215,9 @@ const Checkout = () => {
                       <button
                         type="submit"
                         name="Submit"
-                        className="btn-sm rounded-md px-4 py-2 text-white hover:bg-button_hover"
+                        className="btn rounded-full font-raleway text-sm text-base-100"
                       >
-                        {!isLastStep
-                          ? "Continuar con el pago"
-                          : "Finalizar compra"}
+                        {!isLastStep ? "Continuar" : "Finalizar compra"}
                       </button>
                     </div>
                   </div>
@@ -224,7 +226,9 @@ const Checkout = () => {
             </div>
           </section>
           {/*End Contact info*/}
-          <Bill showExtras={true} postcode={false}></Bill>
+          <section className="rounded-xl bg-base-100 p-6 sm:p-14 lg:ml-2 2xl:p-20">
+            <Bill showExtras={true} postcode={false}></Bill>
+          </section>
         </div>
       </section>
       {/* End Grid */}

@@ -13,6 +13,14 @@ const Bill = ({
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const shippingCosts = null;
 
+  const unitDisplay = {
+    grams: "g",
+    kilograms: "kg",
+    liters: "L",
+    milliliters: "ml",
+    unit: "u",
+  };
+
   return (
     <div className="grid h-full">
       <div className="flex flex-col">
@@ -26,25 +34,27 @@ const Bill = ({
               myCart.productList.map((cartProduct) => (
                 <div key={cartProduct.productId}>
                   <div className="mb-4 grid grid-cols-[50%_25%_25%] items-center">
-                    <div className="flex flex-row items-center">
+                    <div className="flex flex-row items-center gap-2">
                       {showExtras && (
-                        <Image
-                          className="rounded-md"
-                          src={cartProduct.product.imageURL}
-                          alt="notfound"
-                          width="70"
-                          height="70"
-                          layout="intrinsic"
-                          objectFit="cover"
-                        ></Image>
+                        <div>
+                          <Image
+                            className="mr-2 rounded-md"
+                            src={cartProduct.product.imageURL}
+                            alt="notfound"
+                            width={60}
+                            height={60}
+                            layout="fixed"
+                            objectFit="cover"
+                          />
+                        </div>
                       )}
-                      <div className="first-letter:uppercase">
+                      <div className="mr-1 first-letter:uppercase">
                         {cartProduct.product.name}
                       </div>
                     </div>
                     <div className="ml-2">
                       {cartProduct.amount}{" "}
-                      {cartProduct.product.Edible ? "g" : "u"}
+                      {unitDisplay[cartProduct.product.ProductUnit]}
                     </div>
                     <span className="ml-2 justify-self-end">
                       {cartProduct.price.toFixed(2)} €
@@ -64,6 +74,7 @@ const Bill = ({
               <div className="justify-center">Subtotal</div>
               <div className="ml-2 grid">
                 {/* PROVISIONAL */}
+
                 {myCart?.totalWeightEdible
                   ? myCart?.totalWeightEdible + " g"
                   : ""}
@@ -72,6 +83,7 @@ const Bill = ({
                 ) : (
                   ""
                 )}
+
                 {myCart?.totalAmountNEdible
                   ? myCart?.totalAmountNEdible + " u"
                   : ""}
@@ -81,8 +93,8 @@ const Bill = ({
             </div>
             {showExtras && (
               <div className="grid grid-cols-[70%_30%] items-end">
-                <h2 className="pt-4">Gastos de envío</h2>
-                <p className="grid justify-end text-red-500">
+                <h2 className="pt-4 text-sm">Gastos de envío</h2>
+                <p className="grid justify-end text-sm">
                   {postcode ? shippingCosts : "Gratis"}
                 </p>
               </div>

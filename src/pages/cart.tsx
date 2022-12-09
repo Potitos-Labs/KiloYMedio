@@ -17,7 +17,7 @@ const Cart: NextPage = () => {
       headerBgLight={true}
       headerTextDark={true}
     >
-      <section className="bg-neutral">
+      <section>
         {/* Grid */}
         <div className="mt-12 grid grid-cols-1 gap-4 px-5 xl:grid-cols-[60%_40%] xl:gap-0">
           <section className="rounded-xl bg-base-100 py-10 px-6 sm:px-10 xl:mr-2 2xl:p-20">
