@@ -26,212 +26,196 @@ function FilterRecipe({
     setFilter({ ...filter, allergens: list });
   };
   return (
-    <div className="mx-5 flex w-full rounded-md sm:w-auto">
-      <div className="mr-3 flex flex-col py-3 sm:px-5">
-        <p className="font-raleway">Duración</p>
-        <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1">
-            <input
-              id="default-radio-2"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({
-                  ...filter,
-                  maxTime: undefined,
-                  minTime: undefined,
-                });
-              }}
-            />
-            <p className="pl-2">Todas</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-3"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, maxTime: 60, minTime: 30 });
-              }}
-            />
-            <p className="flex pl-2">0-60 mins</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, maxTime: 120, minTime: 60 });
-              }}
-            />
-            <p className="pl-2">1-2 horas</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-5"
-              type="radio"
-              value=""
-              name="default-radio"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, minTime: 121 });
-              }}
-            />
-            <p className="pl-2">+2 horas</p>
-          </label>
-        </div>
-      </div>
-
-      <div className="mr-4 flex flex-col py-3 sm:px-5">
-        <p className="font-bold">Dificultad</p>
-        <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-1"
-              type="radio"
-              value=""
-              name="default-radio-two"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, difficulty: undefined });
-              }}
-            />
-            <p className="pl-2">Todas</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-2"
-              type="radio"
-              value=""
-              name="default-radio-two"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, difficulty: "hard" });
-              }}
-            />
-            <p className="pl-2">Difícil</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-3"
-              type="radio"
-              value=""
-              name="default-radio-two"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, difficulty: "moderate" });
-              }}
-            />
-            <p className="pl-2">Media</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio-two"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, difficulty: "easy" });
-              }}
-            />
-            <p className="pl-2">Fácil</p>
-          </label>
-        </div>
-      </div>
-      <div className="flex w-[250px] flex-col px-0 py-3 sm:px-5">
-        <p className="font-bold">Raciones</p>
-        <div className="flex flex-col">
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio-three"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({
-                  ...filter,
-                  minPortion: undefined,
-                  maxPortion: undefined,
-                });
-              }}
-            />
-            <p className="pl-2">Todas</p>
-          </label>
-          <label className="ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio-three"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, minPortion: 1, maxPortion: 2 });
-              }}
-            />
-            <p className="pl-2">1-2 raciones</p>
-          </label>
-          <label className=" ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio-three"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, minPortion: 2, maxPortion: 4 });
-              }}
-            />
-            <p className="pl-2">2-4 raciones</p>
-          </label>
-          <label className=" ml-2 flex flex-row p-1 text-sm">
-            <input
-              id="default-radio-4"
-              type="radio"
-              value=""
-              name="default-radio-three"
-              className="h-4 w-4"
-              onChange={() => {
-                return setFilter({ ...filter, minPortion: 5 });
-              }}
-            />
-            <p className="pl-2">+4 raciones</p>
-          </label>
-        </div>
-      </div>
-      <div className="container ml-8 max-w-full font-sans text-base">
-        <div className="m-auto flex w-full flex-col overflow-hidden border pb-4">
-          <div className="flex flex-col">
-            <h1 className="mt-3 ml-3 flex flex-col text-lg font-bold underline">
-              Alérgenos
-            </h1>
-            <div className="grid grid-cols-2">
-              {allergenList.map((allergen) => {
-                return (
-                  <label key="" className="custom-label mt-2 ml-3 flex">
-                    <div className="mr-2 flex h-6 w-6 items-center justify-center p-1">
-                      <input
-                        type="checkbox"
-                        value={allergen}
-                        onChange={(e) => allergensHandler(e.target.value)}
-                      />
-                    </div>
-                    <span className="select-none">
-                      {allergensinSpanish?.get(allergen)}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
+    <div className="mb-10 grid w-full grid-cols-1 gap-y-6 md:grid-cols-2">
+      <div className="flex">
+        <div className="w-[250px]">
+          <p className="mb-2 font-raleway">Duración</p>
+          <div className="flex flex-col gap-1">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="default-radio"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({
+                    ...filter,
+                    maxTime: undefined,
+                    minTime: undefined,
+                  });
+                }}
+              />
+              <p className="pl-2">Todas</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, maxTime: 60, minTime: 30 });
+                }}
+              />
+              <p className="pl-2">0-60 min</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, maxTime: 120, minTime: 60 });
+                }}
+              />
+              <p className="pl-2">1-2 horas</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, minTime: 121 });
+                }}
+              />
+              <p className="pl-2">+2 horas</p>
+            </label>
           </div>
+        </div>
+
+        <div className="w-[300px]">
+          <p className="mb-2 font-raleway">Dificultad</p>
+          <div className="flex flex-col gap-1">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-two"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, difficulty: undefined });
+                }}
+              />
+              <p className="pl-2">Todas</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-two"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, difficulty: "hard" });
+                }}
+              />
+              <p className="pl-2">Difícil</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-two"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, difficulty: "moderate" });
+                }}
+              />
+              <p className="pl-2">Media</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-two"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, difficulty: "easy" });
+                }}
+              />
+              <p className="pl-2">Fácil</p>
+            </label>
+          </div>
+        </div>
+        <div className="w-[300px]">
+          <p className="mb-2 font-raleway">Raciones</p>
+          <div className="flex flex-col gap-1">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-three"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({
+                    ...filter,
+                    minPortion: undefined,
+                    maxPortion: undefined,
+                  });
+                }}
+              />
+              <p className="pl-2">Todas</p>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-three"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, minPortion: 1, maxPortion: 2 });
+                }}
+              />
+              <p className="pl-2">1-2 raciones</p>
+            </label>
+            <label className=" flex">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-three"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, minPortion: 2, maxPortion: 4 });
+                }}
+              />
+              <p className="pl-2">2-4 raciones</p>
+            </label>
+            <label className=" flex">
+              <input
+                type="radio"
+                value=""
+                name="default-radio-three"
+                className="radio h-4 w-4 checked:bg-secondary"
+                onChange={() => {
+                  return setFilter({ ...filter, minPortion: 5 });
+                }}
+              />
+              <p className="pl-2">+4 raciones</p>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col md:ml-4">
+        <h1 className="mb-2 font-raleway">Alérgenos</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-3">
+          {allergenList.map((allergen) => {
+            return (
+              <div key="" className="form-control">
+                <label className="label cursor-pointer justify-start gap-x-2">
+                  <input
+                    type="checkbox"
+                    value={allergen}
+                    className="checkbox checkbox-sm"
+                    onChange={(e) => allergensHandler(e.target.value)}
+                  />
+                  <span className="label-text">
+                    {allergensinSpanish?.get(allergen)}
+                  </span>
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
