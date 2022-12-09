@@ -59,7 +59,7 @@ const Profile = (
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mt-24 mb-[8] grid grid-cols-[55%_45%]">
+      <div className="mt-24 mb-[82px] grid grid-cols-[55%_45%]">
         <div className="pl-28">
           <MyProfile image={client.image} name={client.name} />
 
