@@ -20,16 +20,16 @@ function Product({
   const [amount, setAmount] = useState(cartProduct.amount);
 
   const { mutateAsync: deleteMutation } = trpc.cart.deleteProduct.useMutation({
-    onMutate({ productId }) {
-      utils.cart.getAllCartProduct.setData((data) => ({
-        productList:
-          data?.productList?.filter(
-            (product) => product.productId !== productId,
-          ) ?? [],
-        totalAmountNEdible: data?.totalAmountNEdible ?? 0,
-        totalPrice: data?.totalPrice ?? "0",
-        totalWeightEdible: data?.totalWeightEdible ?? 0,
-      }));
+    onMutate({}) {
+      // utils.cart.getAllCartProduct.setData((data) => ({
+      //   productList:
+      //     data?.productList?.filter(
+      //       (product) => product.productId !== productId,
+      //     ) ?? [],
+      //   totalAmountNEdible: data?.totalAmountNEdible ?? 0,
+      //   totalPrice: data?.totalPrice ?? "0",
+      //   totalWeightEdible: data?.totalWeightEdible ?? 0,
+      // }));
     },
     onSuccess() {
       utils.cart.getAllCartProduct.refetch();

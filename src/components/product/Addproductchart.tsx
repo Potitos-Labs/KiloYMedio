@@ -13,6 +13,26 @@ const productPrice: Record<ProductUnit, number> = {
   unit: 1,
 };
 
+const incdecValues = {
+  grams: 100,
+  kilograms: 0.5,
+  liters: 0.5,
+  milliliters: 250,
+  unit: 1,
+  min: 1,
+  pers: 1,
+};
+
+const maxValues = {
+  grams: 1000,
+  kilograms: 1,
+  liters: 1,
+  milliliters: 1000,
+  unit: 1,
+  min: 1,
+  pers: 1,
+};
+
 function Addproductchart({
   amount,
   product,
@@ -28,25 +48,6 @@ function Addproductchart({
   index?: number;
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
-  const incdecValues = {
-    grams: 100,
-    kilograms: 0.5,
-    liters: 0.5,
-    milliliters: 250,
-    unit: 1,
-    min: 1,
-    pers: 1,
-  };
-  const maxValues = {
-    grams: 1000,
-    kilograms: 1,
-    liters: 1,
-    milliliters: 1000,
-    unit: 1,
-    min: 1,
-    pers: 1,
-  };
-
   const stockLeft =
     amount + incdecValues[product.ProductUnit] <=
     product.stock * maxValues[product.ProductUnit];

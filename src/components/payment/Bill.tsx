@@ -72,23 +72,19 @@ const Bill = ({
           <div>
             <div className="my-4 grid grid-cols-[50%_25%_25%] items-center text-xs lg:text-sm">
               <div className="justify-center">Subtotal</div>
-              <div className="ml-2 grid">
-                {/* PROVISIONAL */}
-
-                {myCart?.totalWeightEdible
-                  ? myCart?.totalWeightEdible + " g"
-                  : ""}
-                {myCart?.totalWeightEdible && myCart?.totalAmountNEdible ? (
-                  <br></br>
-                ) : (
-                  ""
-                )}
-
-                {myCart?.totalAmountNEdible
-                  ? myCart?.totalAmountNEdible + " u"
-                  : ""}
-                {/* ^^^ */}
-              </div>
+              {myCart && (
+                <div className="ml-2 grid">
+                  {/* PROVISIONAL */}
+                  {myCart?.totalKilograms +
+                    myCart?.totalGrams / 1000 +
+                    " Kg"}{" "}
+                  <br />
+                  {myCart?.totalLiters + myCart?.totalMilliliters / 1000 + " L"}
+                  <br />
+                  {myCart?.totalUnits + " u"}
+                  {/* ^^^ */}
+                </div>
+              )}
               <div className="grid justify-end">{myCart?.totalPrice} €</div>
             </div>
             {showExtras && (

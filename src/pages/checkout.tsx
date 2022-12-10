@@ -205,7 +205,7 @@ const Checkout = () => {
                         <button
                           type="button"
                           onClick={back}
-                          className="rounded border border-button bg-transparent py-2 px-4 text-button hover:border-transparent hover:bg-button_hover hover:text-white"
+                          className="btn rounded-full border-[1px] border-neutral bg-base-100 font-raleway text-sm text-neutral hover:bg-transparent"
                         >
                           Atrás
                         </button>
