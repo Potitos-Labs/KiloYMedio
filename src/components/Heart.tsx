@@ -1,41 +1,24 @@
-import { useState } from "react";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { IoBookmark } from "react-icons/io5";
 
 interface HeartProps {
   id: string;
-  favorite: boolean | undefined;
-  addFavorite: (id: string) => void;
   removeFavorite: (id: string) => void;
 }
 
-const Heart = ({ id, favorite, addFavorite, removeFavorite }: HeartProps) => {
+const Heart = ({ id, removeFavorite }: HeartProps) => {
   function changeFavorite() {
-    !favorite ? addFavorite(id) : removeFavorite(id);
+    removeFavorite(id);
   }
 
-  const [color, setColor] = useState(favorite);
-
   return (
-    <div>
-      <div className="dropdown relative flex h-8 w-6 cursor-pointer items-center">
-        {color ? (
-          <FaHeart
-            color="purple"
-            onClick={() => {
-              setColor(false);
-              changeFavorite();
-            }}
-          />
-        ) : (
-          <FaRegHeart
-            color="purple"
-            onClick={() => {
-              setColor(true);
-              changeFavorite();
-            }}
-          />
-        )}
-      </div>
+    <div className="m-[2px] mt-2 flex justify-end sm:m-2">
+      <button className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-base-content bg-opacity-80 text-base-100 hover:bg-opacity-100">
+        <IoBookmark
+          onClick={() => {
+            changeFavorite();
+          }}
+        />
+      </button>
     </div>
   );
 };

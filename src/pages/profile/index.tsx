@@ -1,4 +1,5 @@
 import Layout from "../../components/Layout";
+import Image from "next/image";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { unstable_getServerSession } from "next-auth/next";
@@ -11,7 +12,7 @@ import MyProfile from "@components/profile/profileCards/MyProfile";
 import TinyText from "@components/profile/profileCards/TinyText";
 import Footer from "@components/profile/profileCards/Footer";
 import CenterItem from "@components/profile/profileCards/CenterItem";
-import { AppRouterTypes } from "@utils/trpc";
+import { AppRouterTypes, trpc } from "@utils/trpc";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await unstable_getServerSession(
@@ -57,13 +58,16 @@ const Profile = (
   const { client: c } = props;
   const client = c as AppRouterTypes["user"]["client"]["getById"]["output"];
 
+  const { data: favoriteUserRecipes } =
+    trpc.user.client.getFavoriteRecipes.useQuery();
+
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mt-24 mb-[82px] grid grid-cols-[55%_45%]">
-        <div className="pl-28">
+      <div className="sm:first-letter  mt-16 mb-7 grid grid-cols-1  lg:grid-cols-[55%_45%]">
+        <div className="px-6 sm:px-14 lg:pl-28">
           <MyProfile image={client.image} name={client.name} />
 
-          <div className="mt-6 grid grid-cols-[40%_60%] gap-4 pr-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-[40%_60%] sm:pr-4 ">
             <TinyText
               text="Próximo descuento por compra superior a 35€"
               percentage="10%"
@@ -73,8 +77,16 @@ const Profile = (
               percentage="14"
             />
           </div>
-          <CenterItem />
+          <CenterItem favoriteUserRecipes={favoriteUserRecipes} />
           <Footer />
+        </div>
+        <div className="relative m-2 hidden lg:block">
+          <Image
+            src="/img/bolitas.png"
+            alt="Mi imagen"
+            objectFit="contain"
+            layout="fill"
+          />
         </div>
       </div>
     </Layout>

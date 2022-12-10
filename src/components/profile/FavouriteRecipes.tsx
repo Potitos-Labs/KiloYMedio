@@ -25,28 +25,29 @@ function FavouriteRecipes({
   };
 
   return (
-    <div className="flex flex-row rounded-md p-4 shadow-md shadow-kym4 hover:shadow-lg hover:shadow-kym4">
-      <Link href={`/recipe/${id}`}>
-        <div className="flex w-full cursor-pointer items-center gap-4">
-          <Image
-            src={image}
-            alt="notfound"
-            width="75"
-            height="75"
-            layout="fixed"
-            objectFit="cover"
-            className="rounded-md"
-          ></Image>
-          <p className="first-letter:uppercase">{name}</p>
-        </div>
-      </Link>
+    <div className=" relative grid min-h-[120px] grid-cols-[32%_56%_12%] overflow-hidden rounded-md border-[1px] border-neutral  bg-base-100">
+      <div className="relative h-full w-full">
+        <Image
+          src={image}
+          alt="notfound"
+          layout="fill"
+          objectFit="cover"
+        ></Image>
+      </div>
+      <div className="p-2">
+        <p className="mb-2 font-raleway text-[16px] uppercase">{name}</p>
 
-      <Heart
-        id={id}
-        favorite={true}
-        addFavorite={deleteRecipe}
-        removeFavorite={deleteRecipe}
-      />
+        <div className=" h- absolute bottom-2 flex items-end">
+          <div className="mb-2 md:mb-0 lg:mb-2 xl:mb-0">
+            <Link href={`/recipe/${id}`}>
+              <a className="btn btn-sm rounded-full bg-base-content px-4  text-base-100">
+                ver receta
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <Heart removeFavorite={deleteRecipe} id={id} />
     </div>
   );
 }

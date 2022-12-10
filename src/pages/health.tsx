@@ -31,7 +31,7 @@ function health() {
               saludables?
             </p>
           </div>
-          <div className="absolute -right-4 bottom-0   flex justify-end justify-items-end">
+          <div className="absolute -right-4 flex justify-end justify-items-end xl:-bottom-2">
             <Image
               className=""
               src="/img/invertidosGarbanzos.png"
