@@ -45,7 +45,7 @@ module.exports = {
           "secondary-content": "#00FF00", //cambiar
           accent: "#ffa755",
           "accent-focus": "#00FF00", //cambiar
-          "accent-content": "#00FF00", //cambiar
+          "accent-content": "#f8f3ed",
           neutral: "#212529", //button
           "neutral-focus": "#212529", //button hover
           "neutral-content": "#212529", //button content

@@ -155,7 +155,9 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
           amount={amount}
           max={product.stock}
           unit={product.ProductUnit}
-          className={"rounded-full ring-1 ring-base-content ring-offset-0"}
+          className={
+            "h-full w-full rounded-full ring-1 ring-base-content ring-offset-0"
+          }
         />
       </div>
       <Addproductchart amount={amount} product={product} className="h-full" />

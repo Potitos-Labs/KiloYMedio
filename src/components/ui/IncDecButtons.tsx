@@ -68,7 +68,7 @@ function IncDecButtons({
     unit == "hour" || unit == "min" || unit == "pers" || unit == "other";
 
   return (
-    <div className={` ${className} flex h-full w-full flex-row font-bold`}>
+    <div className={` ${className} flex flex-row font-bold`}>
       <button
         disabled={amount == incdecValues[unit]}
         type="button"
@@ -95,7 +95,7 @@ function IncDecButtons({
           onBlur={onBlur}
         />
       ) : (
-        <p className="place-content-center self-center whitespace-nowrap text-xs sm:text-sm">
+        <p className="place-content-center self-center whitespace-nowrap text-sm">
           {amount} {unitDisplay[unit]}
         </p>
       )}

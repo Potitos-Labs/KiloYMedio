@@ -1,13 +1,53 @@
 import { ECategory, NECategory } from "@prisma/client";
-import { IFilterProduct } from "@utils/validations/product";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-interface tittleProps {
-  filter: IFilterProduct;
+const Tittle = ({
+  inSpanish,
+}: {
   inSpanish: Record<ECategory | NECategory, string>;
-}
+}) => {
+  const router = useRouter();
+  const { supracategory, category } = router.query;
 
-const Tittle = ({ filter, inSpanish }: tittleProps) => {
-  {
+  console.log({ supracategory, category, router });
+
+  return (
+    <div className="breadcrumbs text-sm">
+      <ul>
+        <li>
+          <Link href={"/product?supracategory=all"}>
+            <a className="text-xs uppercase">tienda</a>
+          </Link>
+        </li>
+        {supracategory === "all" && (
+          <li>
+            <p className="text-xs uppercase">todos los productos</p>
+          </li>
+        )}
+        {supracategory !== "all" && (
+          <li>
+            {category?.indexOf(",") === -1 ? (
+              <Link href={`/product?supracategory=${supracategory}&category=`}>
+                <a className="text-xs uppercase">{supracategory}</a>
+              </Link>
+            ) : (
+              <p className="text-xs uppercase">{supracategory}</p>
+            )}
+          </li>
+        )}
+        {category?.indexOf(",") === -1 && (
+          <li>
+            <p className="text-xs uppercase">
+              {inSpanish[category as ECategory | NECategory]}
+            </p>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+
+  /*{
     if (filter.eCategories.length == 0 && filter.neCategories.length == 0) {
       return (
         <p className="ml-2 grow whitespace-nowrap font-bold normal-case sm:m-0 md:text-lg">
@@ -37,6 +77,6 @@ const Tittle = ({ filter, inSpanish }: tittleProps) => {
         categorías
       </p>
     );
-  }
+  }*/
 };
 export default Tittle;

@@ -20,6 +20,7 @@ function Product({
   product: IProduct;
   showButtons: boolean;
   index?: number;
+  cartMessage?: "añadir a la cesta" | "añadir";
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const { data } = useSession();
@@ -53,7 +54,7 @@ function Product({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-4">
+    <div className="relative flex flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-4">
       <div className="py-3">
         <Link href={`/product/${product.id}`}>
           <a>
@@ -65,12 +66,12 @@ function Product({
               layout="fixed"
               objectFit="contain"
               className="cursor-pointer rounded-md"
-            ></Image>
+            />
           </a>
         </Link>
       </div>
       {data?.user?.role == "admin" && (
-        <div className="relative  bottom-36 left-40">
+        <div className="absolute top-4 right-2">
           <DotMenu
             id={product.id}
             name={product.name}
@@ -80,22 +81,24 @@ function Product({
           />
         </div>
       )}
-      <p className="mx-10 text-center font-raleway text-base">{product.name}</p>
+      <p className="mx-10 text-center font-raleway text-base uppercase">
+        {product.name}
+      </p>
       {data?.user?.role != "admin" && showButtons && (
-        <div className="flex flex-col gap-4 pt-6">
+        <div className="flex h-full flex-col place-content-end gap-4 px-4 pt-6">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
             max={product.stock}
             unit={product.ProductUnit}
+            className="h-8"
           />
           <Addproductchart
             amount={amount}
             product={product}
             index={index}
-            message={"añadir"}
             setPrices={setPrices}
-            className={"w-30"}
+            className={"h-12"}
           />
         </div>
       )}
