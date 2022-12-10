@@ -220,7 +220,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                 </div>
               </button>
             </div>
-            <div className="grid w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="grid w-full grid-cols-1 justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
               {ingredients ? (
                 ingredients.map((i, index) => {
                   if (i.Ingredient.Edible) {
@@ -231,6 +231,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                         showButtons={true}
                         index={cont}
                         setPrices={setPrices}
+                        cartMessage={"añadir"}
                         key={index}
                       />
                     );

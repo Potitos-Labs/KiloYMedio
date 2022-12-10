@@ -14,7 +14,7 @@ function CategoryCards({
 }) {
   const [clicked, setClicked] = useState(Boolean);
   function buildURL() {
-    let URL = "/product?category=";
+    let URL = `/product?supracategory=${name}&category=`;
     for (let i = 0; i < relations.length; i++) {
       URL += relations[i]?.category;
       if (i != relations.length - 1) {
@@ -55,7 +55,11 @@ function CategoryCards({
               closePopUp();
             }}
           >
-            <Link href={`/product?category=${cat.category}`}>{cat.text}</Link>
+            <Link
+              href={`/product?supracategory=${name}&category=${cat.category}`}
+            >
+              {cat.text}
+            </Link>
           </div>
         ))}
       </div>

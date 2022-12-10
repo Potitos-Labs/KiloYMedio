@@ -46,13 +46,13 @@ function CategoriesHub({
                     text: categories.inSpanish[cat.category],
                   }))}
                   closePopUp={closePopUp}
-                ></CategoryCards>
+                />
               ))}
             <div className="flex items-end justify-end justify-items-end">
               <button
                 className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "
                 onClick={() => {
-                  router.push("/product/?category=all");
+                  router.push("/product?supracategory=all");
                   setOpen(false);
                 }}
               >

@@ -15,10 +15,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
-import { BsFilterSquare } from "react-icons/bs";
-import { IoIosCloseCircleOutline } from "react-icons/io";
 import Loading from "@components/ui/Loading";
-
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
     router: appRouter,
@@ -46,11 +43,23 @@ export default function CreateProdcut(
   const router = useRouter();
   const { replace } = router;
   const category = useMemo(
-    () => (router.query.category as string)?.split(","),
+    //Esta mierda no va bien
+    () => (router.query.category as string)?.split(",") ?? [],
     [router.query.category],
   );
 
   console.log(category);
+
+  const [filter, setFilter] = useState<IFilterProduct>({
+    name: "",
+    eCategories: [],
+    neCategories: [],
+    minPrice: undefined,
+    maxPrice: undefined,
+    allergens: [],
+    orderByName: "asc",
+    orderByPrice: undefined,
+  });
 
   useEffect(() => {
     const ecategoryParse = z.array(z.nativeEnum(ECategory)).safeParse(category);
@@ -82,21 +91,12 @@ export default function CreateProdcut(
       }));
     }
 
-    if (category) {
-      replace("/product", undefined, { shallow: true });
-    }
-  }, [category, replace]);
+    if (category == undefined) console.log("Algo va mal :(");
 
-  const [filter, setFilter] = useState<IFilterProduct>({
-    name: "",
-    eCategories: [],
-    neCategories: [],
-    minPrice: undefined,
-    maxPrice: undefined,
-    allergens: [],
-    orderByName: "asc",
-    orderByPrice: undefined,
-  });
+    /*if (category) {
+      replace("/product", undefined, { shallow: true });
+    }*/
+  }, [category, replace]);
 
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
@@ -104,79 +104,48 @@ export default function CreateProdcut(
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="flex flex-row">
-        <div className="flex flex-col">
-          <div
-            className={`${
-              openFilter ? "hidden" : "hidden sm:block"
-            } ml-12 mt-12 flex h-11 flex-row border-b-2 border-kym3`}
+      <div className="mx-6 mt-12 flex flex-col place-content-between sm:relative md:flex-row">
+        <Tittle inSpanish={inSpanish} />
+        <div className="flex flex-row items-end">
+          <button
+            onClick={() => setOpenFilter(!openFilter)}
+            className="h-10 whitespace-nowrap rounded-3xl bg-accent px-2 font-satoshiBold text-[12px] text-base-100 sm:px-5 sm:text-xs"
           >
-            <p className="font-bold">Filtros de búsqueda</p>
-          </div>
-          <div className={`${openFilter && "absolute mt-2"} z-10 sm:max-w-xs`}>
-            <IoIosCloseCircleOutline
-              size={"2rem"}
-              onClick={() => setOpenFilter(false)}
-              className={`${
-                openFilter ? "flex" : "hidden"
-              } absolute right-2 top-2 cursor-pointer`}
-            />
-            <FilterProduct
-              className={`${
-                openFilter
-                  ? "rounded-r-md bg-opacity-95 pt-5"
-                  : "my-12 ml-12 hidden rounded-md sm:block"
-              } bg-white`}
-              filter={filter}
-              setFilter={setFilter}
-            />
-          </div>
+            FILTRAR POR:
+          </button>
+          <SearchBar filter={filter} setFilter={setFilter} />
         </div>
-        <div
-          className={`${openFilter && "mr-0 blur-sm"} grow`}
-          onClick={() => openFilter && setOpenFilter(false)}
-        >
-          <div className="mx-6 mt-12 grid h-11 flex-row sm:mx-12 sm:grid-cols-2 sm:border-b-2 sm:border-kym3">
-            <Tittle filter={filter} inSpanish={inSpanish} />
-            <div className="mt-2 grid grid-cols-[80%_20%] border-b-2 border-kym3 sm:relative sm:mt-0 sm:border-0">
-              <div className="b-1 justify-end align-middle">
-                <SearchBar filter={filter} setFilter={setFilter} />
-              </div>
-              <div
-                className="flex justify-center"
-                onClick={() => setOpenFilter(true)}
-              >
-                <BsFilterSquare className="ml-3 mb-3 h-6 w-6 justify-self-center sm:hidden" />
-              </div>
+      </div>
+      <FilterProduct
+        filter={filter}
+        setFilter={setFilter}
+        className={`${openFilter ? "block" : "hidden"}`}
+      />
+      <div className="px-6 pb-12 pt-8">
+        {data ? (
+          data.length !== 0 ? (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {data.map((product) => {
+                const productParsed = productSchema.safeParse(product);
+                if (productParsed.success)
+                  return (
+                    <Product
+                      key={product.id}
+                      product={productParsed.data}
+                      showButtons={true}
+                    />
+                  );
+                console.log(productParsed.error);
+              })}
             </div>
-          </div>
-          <div className="py-12 px-6">
-            {data ? (
-              data.length !== 0 ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {data.map((product) => {
-                    const productParsed = productSchema.safeParse(product);
-                    if (productParsed.success)
-                      return (
-                        <Product
-                          key={product.id}
-                          product={productParsed.data}
-                          showButtons={true}
-                        ></Product>
-                      );
-                    console.log(productParsed.error);
-                  })}
-                </div>
-              ) : (
-                <p className="absolute self-center justify-self-center font-light text-kym4">
-                  Tú búsqueda no obtuvo ningún resultado...😢
-                </p>
-              )
-            ) : (
-              <Loading message="Cargando productos..." />
-            )}
-          </div>
-        </div>
+          ) : (
+            <p className="absolute self-center justify-self-center font-light text-kym4">
+              Tú búsqueda no obtuvo ningún resultado...😢
+            </p>
+          )
+        ) : (
+          <Loading message="Cargando productos..." />
+        )}
       </div>
     </Layout>
   );
