@@ -10,7 +10,7 @@ function HealthCard({
   image: string | undefined | null;
 }) {
   return (
-    <div className="mb-6 grid grid-cols-1 rounded-md border-[1px] border-neutral sm:grid-cols-[65%_35%] lg:min-h-[456px]">
+    <div className="rounded-box mb-6 grid grid-cols-1 border-[1px] border-neutral sm:grid-cols-[65%_35%] lg:min-h-[456px]">
       <div className="grid py-10 pl-10 pr-14">
         <h1 className="mb-10 font-raleway sm:text-lg md:text-xl">{name}</h1>
         <p className="text-[16px] md:text-base">{subText}</p>
@@ -23,10 +23,11 @@ function HealthCard({
           </button>
         </div> */}
       </div>
-      <div className="relative h-32 w-full overflow-hidden border-l-[1px] border-l-neutral sm:h-full sm:w-auto">
+      <div className="relative h-32 w-full overflow-hidden border-l-neutral sm:h-full sm:w-auto sm:border-l-[1px]">
         <Image
           src={image ? image : "notfound"}
-          alt="Mi imagen"
+          className="rounded-b-box sm:rounded-r-box sm:rounded-bl-none"
+          alt="notfound"
           objectFit="cover"
           layout="fill"
         />

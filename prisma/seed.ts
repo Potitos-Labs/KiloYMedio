@@ -1166,15 +1166,6 @@ async function main() {
     },
   });
 
-  const tartaIngredients = [
-    {
-      amount: 200,
-      unit: IngredientUnit.grams,
-      Ingredient: "chocolate",
-      Recipe: tarta,
-    },
-  ];
-
   const tartaIngredientsProducts = [
     {
       amount: 100,
@@ -1294,21 +1285,6 @@ async function main() {
     },
   });
 
-  const brochetasIngredients = [
-    {
-      amount: 4,
-      unit: IngredientUnit.unit,
-      Ingredient: "jamón serrano loncheado",
-      Recipe: brochetas,
-    },
-    {
-      amount: 0.5,
-      unit: IngredientUnit.unit,
-      Ingredient: "melón",
-      Recipe: brochetas,
-    },
-  ];
-
   const risotto = await prisma.recipe.create({
     data: {
       name: "Risotto de ajo negro con crujiente de Parmesano",
@@ -1370,51 +1346,6 @@ async function main() {
       createdAt: new Date(),
     },
   });
-
-  const risottoIngredients = [
-    {
-      amount: 100,
-      unit: IngredientUnit.grams,
-      Ingredient: "cebolla",
-      Recipe: risotto,
-    },
-    {
-      amount: 700,
-      unit: IngredientUnit.milliliters,
-      Ingredient: "caldo de verduras",
-      Recipe: risotto,
-    },
-    {
-      amount: 10,
-      unit: IngredientUnit.unit,
-      Ingredient: "diente de ajo negro",
-      Recipe: risotto,
-    },
-    {
-      amount: 40,
-      unit: IngredientUnit.grams,
-      Ingredient: "mantequilla",
-      Recipe: risotto,
-    },
-    {
-      amount: 60,
-      unit: IngredientUnit.grams,
-      Ingredient: "queso parmesano",
-      Recipe: risotto,
-    },
-    {
-      amount: 200,
-      unit: IngredientUnit.grams,
-      Ingredient: "arroz arborio",
-      Recipe: risotto,
-    },
-    {
-      amount: 1,
-      unit: IngredientUnit.unit,
-      Ingredient: "lima",
-      Recipe: risotto,
-    },
-  ];
   /* END NUESTRAS RECETAS */
 
   /* RECETAS DE LA COMUNIDAD */
@@ -1473,51 +1404,6 @@ async function main() {
       createdAt: new Date(),
     },
   });
-
-  const cebollasIngredients = [
-    {
-      amount: 3,
-      unit: IngredientUnit.unit,
-      Ingredient: "cebolla morada",
-      Recipe: cebollas,
-    },
-    {
-      amount: 3,
-      unit: IngredientUnit.unit,
-      Ingredient: "tomate seco en aceite",
-      Recipe: cebollas,
-    },
-    {
-      amount: 30,
-      unit: IngredientUnit.grams,
-      Ingredient: "pan rallado",
-      Recipe: cebollas,
-    },
-    {
-      amount: 40,
-      unit: IngredientUnit.grams,
-      Ingredient: "queso parmesano rallado",
-      Recipe: cebollas,
-    },
-    {
-      amount: 10,
-      unit: IngredientUnit.grams,
-      Ingredient: "sal",
-      Recipe: cebollas,
-    },
-    {
-      amount: 30,
-      unit: IngredientUnit.grams,
-      Ingredient: "pimienta negra molida",
-      Recipe: cebollas,
-    },
-    {
-      amount: 20,
-      unit: IngredientUnit.grams,
-      Ingredient: "tomillo fresco",
-      Recipe: cebollas,
-    },
-  ];
 
   const cebollasIngredientsProducts = [
     {
@@ -1772,12 +1658,12 @@ async function main() {
   const date = new Date();
   date.setDate(date.getDate() + 2);
 
-  const master_chef = await prisma.workshop.create({
+  const pastaItaliana = await prisma.workshop.create({
     data: {
-      name: "MasterChef",
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
-      description: "Competición fuertemente inspirada en MasterChef",
+      name: "Pasta italiana",
+      imageURL: "https://i.blogs.es/90b0cc/istock-527135691/840_560.jpg",
+      description:
+        "Vuelve al origen de una de las cocinas más aclamadas del mundo. ¡Mánchate las manos y descubre los secretos de las pastas!",
       OnSiteWorkshop: {
         create: {
           date: new Date(),
@@ -1786,39 +1672,11 @@ async function main() {
       },
     },
   });
-  const master_chef3 = await prisma.workshop.create({
-    data: {
-      name: "MasterChef3",
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
-      description: "Competición fuertemente inspirada en MasterChef",
-      OnSiteWorkshop: {
-        create: {
-          date: new Date(),
-          places: 50,
-        },
-      },
-    },
-  });
-  const master_chef2 = await prisma.workshop.create({
-    data: {
-      name: "MasterChef2",
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
-      description: "Competición fuertemente inspirada en MasterChef",
-      OnSiteWorkshop: {
-        create: {
-          date: new Date(),
-          places: 50,
-        },
-      },
-    },
-  });
-  const Taller2 = await prisma.workshop.create({
+  const cocinaJapo = await prisma.workshop.create({
     data: {
       name: "Cocina Japonesa",
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/hogar.jpg",
+        "https://imag.bonviveur.com/gyozas-o-empanadillas-japonesas.jpg",
       description:
         "Únete a este taller para aprender a cocinar riquísimos platos del país del sol naciente. ¡No te arrepentirás!",
       OnSiteWorkshop: {
@@ -1830,13 +1688,43 @@ async function main() {
     },
   });
 
-  const Taller3 = await prisma.workshop.create({
+  const galletas = await prisma.workshop.create({
     data: {
       name: "Galletitas navideñas",
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cuidado-personal.jpg",
+        "https://assets.recipes.prod.wpsandwatch.com/var/kaapi/storage/images/es/recipes/galletas-navidenas-de-jengibre/1767403-2-eng-GB/Galletas-navidenas-de-jengibre_vip_header_image.jpg",
       description:
-        "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con autenticas obras de arte comestibles.",
+        "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con auténticas obras de arte comestibles.",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
+          places: 50,
+        },
+      },
+    },
+  });
+
+  const master_chef = await prisma.workshop.create({
+    data: {
+      name: "MasterChef",
+      imageURL:
+        "https://www.barcelonaculinaryhub.com/sites/bch.com/files/inline-images/avant-garde-food-bch-min.jpg",
+      description: "Competición fuertemente inspirada en MasterChef",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
+          places: 50,
+        },
+      },
+    },
+  });
+  const reposteria = await prisma.workshop.create({
+    data: {
+      name: "Respostería",
+      imageURL:
+        "https://www.elespectador.com/resizer/T3sxqcbNHg725sxGLWwLq2h3-yI=/968x645/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/EXYQ4FEM3RBHTPTQ7JNQ5NKREU.jpg",
+      description:
+        "En nuestros talleres aprenderás a elaborar postres ecológicos, sin azúcares refinados ni colorantes, y a elaborar dulces veganos, sin lactosa o sin gluten.",
       OnSiteWorkshop: {
         create: {
           date: new Date(),
