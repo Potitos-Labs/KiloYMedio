@@ -19,10 +19,10 @@ test("Probando jest con mocking de Prisma", async () => {
 
   // Act
   const secreteMessage = await caller.auth.getSecretMessage();
-  const session = await caller.auth.getSession();
+  //const session = await caller.auth.getSession();
 
   // Assert
-  expect(session?.user?.id).toEqual("1");
+  //expect(session?.user?.id).toEqual("1");
   expect(secreteMessage).toEqual(
     "You are logged in and can see this secret message!",
   );
@@ -39,8 +39,8 @@ test("Probando jest con mocking de Prisma 2", async () => {
   // Act
   await expect(caller.auth.getSecretMessage()).rejects.toThrow(TRPCError);
 
-  const session = await caller.auth.getSession();
+  //const session = await caller.auth.getSession();
 
   // Assert
-  expect(session?.user?.id).toEqual(undefined);
+  //expect(session?.user?.id).toEqual(undefined);
 });

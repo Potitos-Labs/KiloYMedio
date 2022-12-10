@@ -3,68 +3,24 @@ import Layout from "../../components/Layout";
 import { PopUpAllergen } from "../../components/profile/PopUpAllergen";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { unstable_getServerSession } from "next-auth/next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import superjson from "superjson";
-import FavouriteRecipes from "../../components/profile/FavouriteRecipes";
 import MyRecipes from "@components/profile/MyRecipes";
-import { createContextInner } from "../../server/trpc/context";
-import { appRouter } from "../../server/trpc/router/_app";
-import { AppRouterTypes, trpc } from "../../utils/trpc";
+import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
-import { authOptions } from "../api/auth/[...nextauth]";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  );
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  const ssg = createProxySSGHelpers({
-    router: appRouter,
-    ctx: await createContextInner({ session }),
-    transformer: superjson,
-  });
-
-  const id = session.user?.id;
-  const client = id ? await ssg.user.client.getById.fetch({ id }) : null;
-
-  if (!client) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: { trpcState: ssg.dehydrate(), client },
-  };
-}
-
-const Profile = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
-) => {
-  const { client: c } = props;
-  const client = c as AppRouterTypes["user"]["client"]["getById"]["output"];
-
+const Profile = () => {
+  const client = trpc.user.client.getById.useQuery().data;
+  const utils = trpc.useContext();
   const { data } = trpc.user.getAllClientAllergen.useQuery();
-  const { mutateAsync } = trpc.user.client.update.useMutation();
+
+  const { mutateAsync } = trpc.user.client.update.useMutation({
+    onSuccess: () => {
+      utils.user.client.getById.invalidate();
+    },
+  });
 
   const [edit, setEdit] = useState(true);
   const [open, setOpen] = useState(false);
@@ -72,9 +28,6 @@ const Profile = (
 
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
-
-  const { data: favoriteUserRecipes } =
-    trpc.user.client.getFavoriteRecipes.useQuery();
 
   const { data: userRecipes } = trpc.user.client.getOwnRecipes.useQuery();
 
@@ -254,26 +207,7 @@ const Profile = (
                 </div>
               </FormWrapper>
             </div>
-            <div className="my-10 w-full">
-              <FormWrapper title="Mis recetas favoritas">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
-                  {favoriteUserRecipes ? (
-                    favoriteUserRecipes.map((e) => {
-                      return (
-                        <FavouriteRecipes
-                          key={e.Recipe.id}
-                          id={e.Recipe.id}
-                          name={e.Recipe.name}
-                          image={e.Recipe.imageURL}
-                        />
-                      );
-                    })
-                  ) : (
-                    <p>No tienes ninguna receta guardada todavía.</p>
-                  )}
-                </div>
-              </FormWrapper>
-            </div>
+
             <div className="my-10 w-full">
               <FormWrapper title="Área de socio">
                 <div className="flex flex-col">

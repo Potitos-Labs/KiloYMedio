@@ -36,9 +36,13 @@ export const clientRouter = router({
     }),
 
   getById: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string() }).nullish())
     .output(clientSchema)
-    .query(async ({ ctx, input: { id } }) => {
+    .query(async ({ ctx, input }) => {
+      const id = input?.id || ctx.session?.user?.id;
+
+      if (!id) throw new trpc.TRPCError({ code: "BAD_REQUEST" });
+
       const client = await ctx.prisma.user.findFirst({
         where: { id },
         select: {
