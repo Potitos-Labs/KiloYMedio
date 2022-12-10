@@ -9,7 +9,7 @@ function Footer() {
         </Link>
       </div>
       <div className=" flex items-center justify-center">
-        <Link href={"/profile/editProfile"}>
+        <Link href={"/profile/edit"}>
           <p className="text-center">editar perfil</p>
         </Link>
       </div>

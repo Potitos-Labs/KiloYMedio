@@ -10,10 +10,13 @@ import { useForm } from "react-hook-form";
 import MyRecipes from "@components/profile/MyRecipes";
 import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
+import { useSession } from "next-auth/react";
 
-const Profile = () => {
+const EditProfile = () => {
+  const sesion = useSession();
   const client = trpc.user.client.getById.useQuery().data;
   const utils = trpc.useContext();
+  const router = useRouter();
   const { data } = trpc.user.getAllClientAllergen.useQuery();
 
   const { mutateAsync } = trpc.user.client.update.useMutation({
@@ -24,7 +27,6 @@ const Profile = () => {
 
   const [edit, setEdit] = useState(true);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
@@ -33,7 +35,7 @@ const Profile = () => {
 
   const allergenList = data?.map((e) => e.allergen) ?? [];
 
-  if (!client) {
+  if (sesion.status === "unauthenticated") {
     router.push("/login");
   }
 
@@ -54,10 +56,6 @@ const Profile = () => {
       nif: client?.nif,
     },
   });
-
-  function changeEdit() {
-    router.push("/profile");
-  }
 
   const onSubmit = useCallback(
     async (data: IClient) => {
@@ -82,7 +80,7 @@ const Profile = () => {
               ? "invisible"
               : "absolute right-5 cursor-pointer text-right text-kym2 hover:text-kym4"
           }`}
-          onClick={changeEdit}
+          onClick={() => router.push("/profile")}
         >
           Editar perfil
         </u>
@@ -264,7 +262,7 @@ const Profile = () => {
             <div className="mb-8 text-right">
               <button
                 type="submit"
-                onClick={changeEdit}
+                onClick={() => router.push("/profile")}
                 className={`${
                   edit
                     ? "btn-sm rounded-md px-4 py-2 text-white hover:bg-button_hover"
@@ -282,4 +280,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default EditProfile;
