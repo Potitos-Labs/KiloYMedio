@@ -2,6 +2,7 @@ import { trpc } from "@utils/trpc";
 import { IFilterProduct } from "@utils/validations/product";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { FcInfo } from "react-icons/fc";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export function CheckboxLoad() {
   return (
@@ -15,10 +16,12 @@ export function CheckboxLoad() {
 export default function FilterProduct({
   filter,
   setFilter,
+  setOpen,
   className,
 }: {
   filter: IFilterProduct;
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }) {
   //const { data: categories } = trpc.product.getAllCategories.useQuery();
@@ -47,7 +50,7 @@ export default function FilterProduct({
 
   return (
     <div
-      className={`${className} mx-5 flex w-full flex-col place-content-end p-4 sm:flex-row`}
+      className={`${className} relative mx-5 flex flex-col place-content-end p-4 sm:flex-row`}
     >
       <div className="flex flex-auto flex-col">
         <span className="whitespace-nowrap font-satoshiBold">Ordenar por:</span>
@@ -168,6 +171,9 @@ export default function FilterProduct({
               })}
         </div>
       </div>
+      <button className="absolute top-3 right-1" onClick={() => setOpen(false)}>
+        <IoIosCloseCircleOutline size={35} />
+      </button>
 
       {/*<p className="grow whitespace-nowrap font-semibold sm:text-lg">
           Categorías

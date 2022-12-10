@@ -104,12 +104,12 @@ export default function CreateProdcut(
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mx-6 mt-12 flex flex-col place-content-between sm:relative md:flex-row">
+      <div className="mx-6 mt-12 flex flex-col place-content-between space-y-3 sm:relative md:flex-row">
         <Tittle inSpanish={inSpanish} />
         <div className="flex flex-row items-end">
           <button
             onClick={() => setOpenFilter(!openFilter)}
-            className="h-10 whitespace-nowrap rounded-3xl bg-accent px-2 font-satoshiBold text-[12px] text-base-100 sm:px-5 sm:text-xs"
+            className="h-10 whitespace-nowrap rounded-3xl bg-accent px-4 font-satoshiBold text-[12px] text-base-100 sm:px-5 sm:text-xs"
           >
             FILTRAR POR:
           </button>
@@ -119,6 +119,7 @@ export default function CreateProdcut(
       <FilterProduct
         filter={filter}
         setFilter={setFilter}
+        setOpen={setOpenFilter}
         className={`${openFilter ? "block" : "hidden"}`}
       />
       <div className="px-6 pb-12 pt-8">
