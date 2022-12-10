@@ -58,7 +58,6 @@ export default withBundleAnalyzer(
         "www.pngall.com",
         "img.freepik.com",
         "www.elhombredelsaco.eu",
-        "us.123rf.com",
         "images-na.ssl-images-amazon.com",
         "www.vilmupa.com",
         "i.etsystatic.com",

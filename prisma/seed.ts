@@ -1123,19 +1123,17 @@ async function main() {
       Ingredient: aceiteOliva.Edible?.Ingredient,
       Recipe: sandwich,
     },
-  ]
-    .map(
-      async (i) =>
-        await prisma.recipeIngredient.create({
-          data: {
-            amount: i.amount,
-            Ingredient: { connect: { id: i.Ingredient?.id } },
-            Recipe: { connect: { id: i.Recipe.id } },
-            unit: i.unit,
-          },
-        }),
-    )
-    .join("salmón");
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
 
   const tarta = await prisma.recipe.create({
     data: {
@@ -1143,10 +1141,16 @@ async function main() {
       difficulty: "moderate",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction: "Hacer la tartita",
+              number: 1,
+            },
+            {
+              direction: "Comerse la tartita",
+              number: 2,
+            },
+          ],
         },
       },
       imageURL:
@@ -1163,6 +1167,15 @@ async function main() {
   });
 
   const tartaIngredients = [
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: "chocolate",
+      Recipe: tarta,
+    },
+  ];
+
+  const tartaIngredientsProducts = [
     {
       amount: 100,
       unit: IngredientUnit.grams,
@@ -1218,11 +1231,306 @@ async function main() {
       Ingredient: aceiteOliva.Edible?.Ingredient,
       Recipe: lentejasCremosas,
     },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
+  const brochetas = await prisma.recipe.create({
+    data: {
+      name: "Brochetas de melón con crujiente de jamón",
+      difficulty: "easy",
+      directions: {
+        createMany: {
+          data: [
+            {
+              direction:
+                "Colocamos una hoja de papel absorbente en el plato de nuestro microondas y, sobre ella, dos lonchas de jamón.",
+              number: 1,
+            },
+            {
+              direction:
+                "Cubrimos con otra hoja de papel, colocamos dos lonchas más y terminamos tapando con una tercera hoja de papel.",
+              number: 2,
+            },
+            {
+              direction:
+                "Introducimos en el microondas y programamos dos minutos a máxima potencia.",
+              number: 3,
+            },
+            {
+              direction:
+                "Dejamos enfriar y trituramos con un mortero, picadora o pasando un rodillo por encima.",
+              number: 4,
+            },
+            {
+              direction:
+                "Sacamos bolas de melón, secamos ligeramente, ensartamos dos por brocheta y reservamos.",
+              number: 5,
+            },
+            {
+              direction:
+                "En el momento de consumir (no antes, para que el jamón se mantenga crujiente), espolvoreamos generosamente con el jamón triturado y listo para servir.",
+              number: 6,
+            },
+          ],
+        },
+      },
+      imageURL: "https://i.blogs.es/ee0ad8/1366_2000/1366_2000.jpg",
+      portions: 10,
+      cookingTime: 15,
+      preparationTime: 15,
+      description:
+        "Delicioso entrante para ir abirendo el apetito. Fresco y sabroso.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const brochetasIngredients = [
     {
-      amount: 80,
+      amount: 4,
+      unit: IngredientUnit.unit,
+      Ingredient: "jamón serrano loncheado",
+      Recipe: brochetas,
+    },
+    {
+      amount: 0.5,
+      unit: IngredientUnit.unit,
+      Ingredient: "melón",
+      Recipe: brochetas,
+    },
+  ];
+
+  const risotto = await prisma.recipe.create({
+    data: {
+      name: "Risotto de ajo negro con crujiente de Parmesano",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: [
+            {
+              direction:
+                "Rallamos el queso Parmesano y preparamos los crujientes colocando cuatro pequeños montoncitos sobre una baandeja de horno cubierta con papel sulfurizado.",
+              number: 1,
+            },
+            {
+              direction:
+                "Horneamos a 180ºC durante 5 minutos o hasta que comiencen a dorarse. Dejamos enfriar hasta el momento de servir.",
+              number: 2,
+            },
+            {
+              direction:
+                "Trituramos los dientes de ajo junto con el caldo de verduras, lo transferimos a una cacerola y lo mantenemos caliente a fuego muy suave mientras continuanos prepararando el resto.",
+              number: 3,
+            },
+            {
+              direction:
+                "Lo siguiente será pelar y cortar la cebolla brunoise fina y pocharla en una cacerola usando la mitad de la mantequilla como grasa.",
+              number: 4,
+            },
+            {
+              direction:
+                "Cuando la cebolla esté traslúcida añadimos el arroz, removemos y sofreímos un minuto.",
+              number: 5,
+            },
+            {
+              direction:
+                "Removemos durante todo el proceso para que el arroz suelte su almidón y ligue los granos, convirtiéndolo en un cremoso bocado.",
+              number: 6,
+            },
+            {
+              direction:
+                "A los 18 minutos, nuestro risotto estará casi listo y solo nos quedará incorporar el queso Parmesano rallado y el resto de la mantequilla.",
+              number: 6,
+            },
+            {
+              direction:
+                "Removemos, ajustamos el punto de sal y dejamos reposar unos minutos antes de servir con los crujientes de parmesano y ralladura de lima por toda la superficie.",
+              number: 6,
+            },
+          ],
+        },
+      },
+      imageURL:
+        "https://i.blogs.es/621992/risotto-de-ajo-negro-con-galletas-de-parmesano/1366_2000.jpg",
+      portions: 2,
+      cookingTime: 20,
+      preparationTime: 15,
+      description:
+        "Receta para enamorar, perfecta para una comida o cena romántica de San Valentín, si eres de los que celebra la ocasión, para una celebración o para darse un homenaje.",
+      User: { connect: { id: marta.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const risottoIngredients = [
+    {
+      amount: 100,
       unit: IngredientUnit.grams,
-      Ingredient: harinaMaiz.Edible?.Ingredient,
-      Recipe: lentejasCremosas,
+      Ingredient: "cebolla",
+      Recipe: risotto,
+    },
+    {
+      amount: 700,
+      unit: IngredientUnit.milliliters,
+      Ingredient: "caldo de verduras",
+      Recipe: risotto,
+    },
+    {
+      amount: 10,
+      unit: IngredientUnit.unit,
+      Ingredient: "diente de ajo negro",
+      Recipe: risotto,
+    },
+    {
+      amount: 40,
+      unit: IngredientUnit.grams,
+      Ingredient: "mantequilla",
+      Recipe: risotto,
+    },
+    {
+      amount: 60,
+      unit: IngredientUnit.grams,
+      Ingredient: "queso parmesano",
+      Recipe: risotto,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: "arroz arborio",
+      Recipe: risotto,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: "lima",
+      Recipe: risotto,
+    },
+  ];
+  /* END NUESTRAS RECETAS */
+
+  /* RECETAS DE LA COMUNIDAD */
+  const cebollas = await prisma.recipe.create({
+    data: {
+      name: "cebollas moradas rellenas",
+      difficulty: "moderate",
+      directions: {
+        createMany: {
+          data: [
+            {
+              direction:
+                "Pelamos las cebollas y cortamos un poco de los extremos superior e inferior para que sirvan de base y no se vuelquen.",
+              number: 1,
+            },
+            {
+              direction:
+                "Cortamos por la mitad y vaciamos con mucho cuidado, dejando las dos capas exteriores intactas.",
+              number: 2,
+            },
+            {
+              direction:
+                "Picamos los trozos de cebolla que hemos vaciado y los pochamos en una sartén con un poco de aceite de oliva virgen extra durante 10 minutos.",
+              number: 3,
+            },
+            {
+              direction:
+                "Añadimos el pan rallado, los tomates secos y las almendras, ambos bien picados, y el queso parmesano rallado. Salpimentamos al gusto.",
+              number: 4,
+            },
+            {
+              direction:
+                "Rellenamos las cebollas con la mezcla y cubrimos con un poco más de queso parmesano rallado.",
+              number: 5,
+            },
+            {
+              direction:
+                "Colocamos en una fuente de horno y rociamos con un chorrito de aceite. Cocemos en el horno, precalentado a 200 ºC con calor arriba y abajo, durante 20 minutos.",
+              number: 6,
+            },
+            {
+              direction:
+                "Retiramos del horno, decoramos con tomillo fresco y servimos inmediatamente.",
+              number: 6,
+            },
+          ],
+        },
+      },
+      imageURL: "https://i.blogs.es/d70dad/1024_682-1/1366_2000.jpg",
+      portions: 3,
+      cookingTime: 20,
+      preparationTime: 20,
+      description:
+        "Cebollas moradas rellenas, receta versátil que es perfecta como guarnición o entrante navideño",
+      User: { connect: { id: juan.id } },
+      createdAt: new Date(),
+    },
+  });
+
+  const cebollasIngredients = [
+    {
+      amount: 3,
+      unit: IngredientUnit.unit,
+      Ingredient: "cebolla morada",
+      Recipe: cebollas,
+    },
+    {
+      amount: 3,
+      unit: IngredientUnit.unit,
+      Ingredient: "tomate seco en aceite",
+      Recipe: cebollas,
+    },
+    {
+      amount: 30,
+      unit: IngredientUnit.grams,
+      Ingredient: "pan rallado",
+      Recipe: cebollas,
+    },
+    {
+      amount: 40,
+      unit: IngredientUnit.grams,
+      Ingredient: "queso parmesano rallado",
+      Recipe: cebollas,
+    },
+    {
+      amount: 10,
+      unit: IngredientUnit.grams,
+      Ingredient: "sal",
+      Recipe: cebollas,
+    },
+    {
+      amount: 30,
+      unit: IngredientUnit.grams,
+      Ingredient: "pimienta negra molida",
+      Recipe: cebollas,
+    },
+    {
+      amount: 20,
+      unit: IngredientUnit.grams,
+      Ingredient: "tomillo fresco",
+      Recipe: cebollas,
+    },
+  ];
+
+  const cebollasIngredientsProducts = [
+    {
+      amount: 12,
+      unit: IngredientUnit.unit,
+      Ingredient: almendra.Edible?.Ingredient,
+      Recipe: cebollas,
+    },
+    {
+      amount: 20,
+      unit: IngredientUnit.milliliters,
+      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Recipe: cebollas,
     },
   ].map(
     async (i) =>
@@ -1235,9 +1543,7 @@ async function main() {
         },
       }),
   );
-  /* END NUESTRAS RECETAS */
 
-  /* RECETAS DE LA COMUNIDAD */
   const espaguetisBoloñesa = await prisma.recipe.create({
     data: {
       name: "Espaguetis con salsa boloñesa especial",
@@ -1429,7 +1735,6 @@ async function main() {
         },
       }),
   );
-
   /* END RECETAS DE LA COMUNIDAD */
 
   const unidadesDeMedida = await prisma.ingredientUnitInSpanish.createMany({
@@ -1447,39 +1752,6 @@ async function main() {
       /* 10 **/ { ingredientUnit: "teaspoon", unitInSpanish: "cucharaditas" },
     ],
   });
-  //   const paellaValencia = await prisma.recipe.create({
-  //     data: {
-  //       name: "Paella Valenciana",
-  //       directions: `
-  // Tenía yo ganas de publicar la receta tradicional de paella valenciana a leña, tal y como se prepara los domingos, ya sea en el chalet o en algún paellero de los que aún quedan, porque la antigua receta paella de pollo y conejo que ya hay en Directo al Paladar, aunque fidedigna, no tiene fotos que le hagan justicia.
-  // Como todos sabéis, la receta de paella valenciana tradicional tiene unos ingredientes muy concretos, y sólo admite pequeñas variaciones en función de la temporada. Hasta está estipulado el tipo de leña que debe utilizarse para el fuego, la del naranjo.
-  // Si somos puristas —como vamos a ser hoy— la paella valenciana solo debe tener arroz, una pizca de pimentón, azafrán, conejo, pollo y, en la parte verde, bajoqueta —una judía verde plana—, tomate y garrofó. Amén de sal y una pizca de aceite, claro. El uso del romero y del caracol va en gustos, aunque siempre queda bastante bien.
-  // Plato estrella de nuestra cocina junto a la tortilla de patatas o el gazpacho, la realidad es que no somos exclusivistas en el uso del arroz, pues otras grandes recetas del mundo también hacen de él su bandera como es el jambalaya o el risotto, ni tampoco quedarnos en exclusiva con el azafrán.
-  // Toda paella que se precie comienza por un buen sofrito. En una paella cuanto más grande mejor, se sofríe en abundante aceite el pollo, el conejo, las judías, las alcachofas y los caracoles (la que veis en la foto no tiene garrofó porque no es temporada y el congelado no es igual), sazonando con un poco de sal y pimentón hacia el final. Cuando esté bien dorado se añade el tomate triturado y se rehoga.
-  // Con el sofrito listo se debe de añadir el agua. Las proporciones dependen mucho del fuego, del calor que haga, del grado de humedad y de lo grande que sea la paella, pero para comenzar, una buena proporción es la de añadir tres veces el volumen de agua que de arroz, aunque es la experiencia la que os hará ajustar y perfeccionar estas cantidades, que acabaréis haciendo a ojo, como hicieron la tía y la madre de mi novia, que eran las encargadas de esta paella (a pesar de que la tradición marca que sea el hombre de la casa el que la prepare).
-  // Echamos ahora algunos troncos más al fuego para que suba de potencia y se haga bien el caldo durante 25 o 30 minutos. Es un buen momento de echar el azafrán o, en su defecto, el sazonador de paella (el más popular es "el paellador), que lleva sal, ajo, colorante y un poco de azafrán.
-  // Luego añadimos el arroz "en caballete" (en diagonal) y lo distribuimos por la paella. Cocemos entre 17 y 20 minutos, aunque aquí el tiempo lo marca de nuevo el grano de arroz y la potencia del fuego, que debemos ir dejando consumirse. Tiene que quedar completamente seco y suelto. Mi recomendación para los primerizos es que tengáis un cazo con agua hirviendo al lado, por si hay que añadir agua. A mitad cocción también podemos poner unas ramitas de romero, que retiraremos antes de servir.
-  // Por último, conviene dejar la paella reposar unos minutos tapada con un gran paño o papel de periódico --no es bueno porque con la humedad se puede liberar algo de tinta, pero toda la vida lo he visto usar-- antes de servirla y recibir el aplauso de los presentes.
-  //     `,
-  //       user: { connect: { id: daniel.id } },
-  //       RecipeComment: {
-  //         createMany: { data: [{ commentId: comentarioPaella.id }] },
-  //       },
-  //     },
-  //   });
-
-  // const recipeIngredient = await prisma.recipeIngredient.create({
-  //   data: {
-  //     amount: 10,
-  //     ingredient: {
-  //       create: {
-  //         Edible: { connect: { productId: levaduraNutricional.id } }, //Se puede hacer desde levaduraNutricional.Edible.Ingredient¿?
-  //         name: "levadura",
-  //       },
-  //     },
-  //     recipe: { connect: { id: paellaValencia.id } },
-  //   },
-  // });
 
   const ordenDeClienteNoRegistrado = await prisma.order.create({
     data: {
