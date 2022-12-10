@@ -1,5 +1,6 @@
 import { trpc } from "@utils/trpc";
 import { IWorkshop } from "@utils/validations/workshop";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import EnrollButton from "./EnrollButon";
 
@@ -16,6 +17,7 @@ function OnsiteWorskhopCard({
     trpc.workshop.getWorkshopsParticipants.useQuery({
       onSiteWorkshopId: workshop.id || "",
     });
+  const { data: session } = useSession();
 
   return (
     <div
@@ -53,7 +55,9 @@ function OnsiteWorskhopCard({
         <p className=" flex w-fit text-[15px] line-clamp-2  md:text-xs">
           {workshop.description}
         </p>
-        {workshop.id && <EnrollButton OnsiteworkshopID={workshop.id} />}
+        {workshop.id && session && (
+          <EnrollButton OnsiteworkshopID={workshop.id} />
+        )}
       </div>
     </div>
   );

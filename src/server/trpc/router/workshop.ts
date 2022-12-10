@@ -133,7 +133,7 @@ export const workshopRouter = router({
       });
     }),
 
-  getWorkshopsParticipants: clientProcedure
+  getWorkshopsParticipants: publicProcedure
     .input(z.object({ onSiteWorkshopId: z.string() }))
     .query(async ({ ctx, input: { onSiteWorkshopId } }) => {
       const participants = await ctx.prisma.onSiteWorkshopAttendance.findMany({
