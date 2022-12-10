@@ -10,28 +10,58 @@ import {
 } from "../trpc";
 
 export const workshopRouter = router({
-  getAllOnlineWorkshops: publicProcedure.query(async ({ ctx }) => {
-    const workshops = await ctx.prisma.workshop.findMany({
-      select: {
-        name: true,
-        description: true,
-        imageURL: true,
-        OnlineWorkshop: {
-          select: {
-            videoURL: true,
+  getAllOnlineWorkshops: publicProcedure
+    .input(z.object({ skipworkshops: z.number() }))
+    .query(async ({ ctx, input: { skipworkshops } }) => {
+      const workshops = await ctx.prisma.workshop.findMany({
+        take: 3,
+        skip: skipworkshops,
+        select: {
+          name: true,
+          description: true,
+          imageURL: true,
+          OnlineWorkshop: {
+            select: {
+              videoURL: true,
+            },
           },
         },
-      },
-      where: {
-        NOT: {
-          OnlineWorkshop: null,
+        where: {
+          NOT: {
+            OnlineWorkshop: null,
+          },
         },
-      },
-    });
-    return workshops;
-  }),
+      });
+      return workshops;
+    }),
 
-  getAllOnsiteWorkshops: publicProcedure.query(async ({ ctx }) => {
+  getAllOnsiteWorkshops: publicProcedure
+    .input(z.object({ skipworkshops: z.number() }))
+    .query(async ({ ctx, input: { skipworkshops } }) => {
+      const workshops = await ctx.prisma.workshop.findMany({
+        skip: skipworkshops,
+        take: 3,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageURL: true,
+          OnSiteWorkshop: {
+            select: {
+              places: true,
+              date: true,
+            },
+          },
+        },
+        where: {
+          NOT: {
+            OnSiteWorkshop: null,
+          },
+        },
+      });
+      return workshops;
+    }),
+  getNumberOnsiteWorkshops: publicProcedure.query(async ({ ctx }) => {
     const workshops = await ctx.prisma.workshop.findMany({
       select: {
         id: true,
@@ -51,7 +81,7 @@ export const workshopRouter = router({
         },
       },
     });
-    return workshops;
+    return workshops.length;
   }),
 
   createNewWorkshop: adminProcedure

@@ -7,14 +7,10 @@ function OnsiteWorskhopCard({
   workshop,
   setImageURL,
   displayed,
-  index,
-  setIndex,
 }: {
   workshop: IWorkshop;
   displayed: boolean;
-  index: number;
   setImageURL: (name: string) => void;
-  setIndex: (index: number) => void;
 }) {
   const { data: enrollCliens } =
     trpc.workshop.getWorkshopsParticipants.useQuery({
@@ -30,12 +26,11 @@ function OnsiteWorskhopCard({
       } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
       onMouseEnter={() => {
         setImageURL(workshop.imageURL);
-        setIndex(index);
       }}
     >
       <div
         className={`${
-          displayed ? "relative h-full  " : " relative block h-full md:hidden"
+          displayed ? "relative h-full" : " relative block h-full md:hidden"
         } `}
       >
         <Image

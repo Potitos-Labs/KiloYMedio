@@ -1514,6 +1514,34 @@ async function main() {
       },
     },
   });
+  const master_chef3 = await prisma.workshop.create({
+    data: {
+      name: "MasterChef3",
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
+      description: "Competición fuertemente inspirada en MasterChef",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
+          places: 50,
+        },
+      },
+    },
+  });
+  const master_chef2 = await prisma.workshop.create({
+    data: {
+      name: "MasterChef2",
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
+      description: "Competición fuertemente inspirada en MasterChef",
+      OnSiteWorkshop: {
+        create: {
+          date: new Date(),
+          places: 50,
+        },
+      },
+    },
+  });
   const Taller2 = await prisma.workshop.create({
     data: {
       name: "Cocina Japonesa",

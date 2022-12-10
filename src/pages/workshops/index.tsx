@@ -5,7 +5,7 @@ import WorkshopSearchBar from "@components/workshop/tinyComponents/WorkshopSearc
 import { trpc } from "@utils/trpc";
 import Image from "next/image";
 import { useState } from "react";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import YouTube from "react-youtube";
 
 export default function Workshops() {
@@ -13,7 +13,7 @@ export default function Workshops() {
   const [image, setImage] = useState(String);
   const [video, setVideo] = useState(String);
   const [showMore, setShowMore] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [skip, setskip] = useState(0);
   const youtubeOpts = {
     height: "556",
     width: "102%",
@@ -22,15 +22,28 @@ export default function Workshops() {
       autoplay: 0,
     },
   };
+  {
+    /* Talleres presenciales */
+  }
   const { data: OnsiteWorkshops } =
-    trpc.workshop.getAllOnsiteWorkshops.useQuery();
-  const { data: OnlineWorkshops } =
-    trpc.workshop.getAllOnlineWorkshops.useQuery();
+    trpc.workshop.getAllOnsiteWorkshops.useQuery({ skipworkshops: skip });
+  const { data: maxSkipOnsiteWorkshops } =
+    trpc.workshop.getNumberOnsiteWorkshops.useQuery();
 
-  console.log(activeIndex);
+  function incrementSkip() {
+    skip + 3 < (maxSkipOnsiteWorkshops || 0) && setskip(skip + 3);
+  }
+  function decrementSkip() {
+    skip - 3 >= 0 && setskip(skip - 3);
+  }
+  {
+    /* Talleres Online */
+  }
+  const { data: OnlineWorkshops } =
+    trpc.workshop.getAllOnlineWorkshops.useQuery({ skipworkshops: 0 });
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className=" px-4 py-1">
+      <div className="px-4 ">
         {/*---CABECERA---*/}
         <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
           <div className="  mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
@@ -68,9 +81,7 @@ export default function Workshops() {
                     <OnsiteWorkshopCard
                       key={index}
                       workshop={workshop}
-                      index={index}
                       displayed={false}
-                      setIndex={setActiveIndex}
                       setImageURL={setImage}
                     />
                   );
@@ -151,9 +162,7 @@ export default function Workshops() {
                         key={index}
                         workshop={workshop}
                         setImageURL={setImage}
-                        index={index}
                         displayed={true}
-                        setIndex={setActiveIndex}
                       />
                     );
                   },
@@ -171,6 +180,28 @@ export default function Workshops() {
                     );
                   },
                 ))}
+        </div>
+        <div className="flex w-full gap-4">
+          <button
+            className={`flex items-center gap-2 rounded-md border-[1px] border-base-300 p-2 ${
+              skip == 0 && "disabled:opacity-50"
+            }`}
+            onClick={decrementSkip}
+            disabled={skip == 0 ? true : false}
+          >
+            <BsArrowLeft />
+            Anterior
+          </button>
+          <button
+            className={`flex items-center gap-2 rounded-md border-[1px] border-base-300 p-2 ${
+              skip + 3 >= (maxSkipOnsiteWorkshops || 0) && "disabled:opacity-50"
+            }`}
+            onClick={incrementSkip}
+            disabled={skip + 3 >= (maxSkipOnsiteWorkshops || 0) ? true : false}
+          >
+            <BsArrowRight />
+            Siguiente
+          </button>
         </div>
       </div>
     </Layout>
