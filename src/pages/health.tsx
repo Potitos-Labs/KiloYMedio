@@ -63,8 +63,8 @@ function health() {
             </div>
             {/* End Elipse */}
             <div className="rounded-box bg-base-100 px-8 pt-6 pb-0.5 text-xs text-base-content sm:px-14">
-              <div className=" flex w-full rounded-md border-[1px] border-base-300 bg-base-100 p-8 py-4">
-                <div>
+              <div className="grid w-full grid-cols-[75%_25%] rounded-md border-[1px] border-base-300 bg-base-100">
+                <div className="">
                   <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
                     LAS ALBÚMINAS..
                   </p>
@@ -86,12 +86,12 @@ function health() {
                   ></Image>
                 </div>
               </div>
-              <div className=" flex w-full rounded-md border-[1px] border-base-300 bg-base-100 p-8 py-4">
+              <div className="flex w-full rounded-md border-[1px] border-base-300 bg-base-100">
                 <div>
-                  <p className="mb-10 font-raleway text-lg md:text-xl lg:text-2xl">
+                  <p className="mb-4 font-raleway text-lg md:text-xl lg:text-2xl">
                     LAS ALMENDRAS, PISTACHOS Y NUECES...
                   </p>
-                  <p className="mb-20 text-sm md:mr-10 lg:mr-60">
+                  <p className="mb-5 text-sm md:mr-10 lg:mr-60">
                     No solo ayudan a mejorar la memoria, sino que su consumo
                     reduce los niveles de estrés de las personas.
                   </p>
