@@ -18,6 +18,7 @@ const Recipes = () => {
 
   const { data: recipesAdmin } = trpc.recipe.getFilteredRecipes.useQuery({
     adminRecipes: true,
+    ...filter,
   });
   const { data: recipesCommunity } = trpc.recipe.getFilteredRecipes.useQuery({
     adminRecipes: false,

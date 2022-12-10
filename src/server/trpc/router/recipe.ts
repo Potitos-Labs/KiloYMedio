@@ -53,22 +53,7 @@ export const recipeRouter = router({
           User: {
             role: adminRecipes == true ? "admin" : "client",
           },
-          RecipeIngredient: {
-            every: {
-              OR: [
-                {
-                  Ingredient: {
-                    Edible: {
-                      allergens: {
-                        every: { allergen: { notIn: allergens ?? [] } },
-                      },
-                    },
-                  },
-                },
-                { Ingredient: { Edible: { is: null } } },
-              ],
-            },
-          },
+          allergens: { every: { allergen: { notIn: allergens } } },
         },
         select: {
           id: true,
@@ -79,6 +64,7 @@ export const recipeRouter = router({
           cookingTime: true,
           preparationTime: true,
           portions: true,
+          allergens: true,
         },
       });
 

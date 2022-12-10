@@ -106,7 +106,9 @@ export const recipeSchema = z.object({
     )
     .optional()
     .nullable(),
-  allergens: z.array(z.nativeEnum(Allergen)).optional(),
+  allergens: z
+    .array(z.object({ allergen: z.nativeEnum(Allergen), recipeId: z.string() }))
+    .nullish(),
 });
 export const updateRecipeSchema = createRecipeSchema.extend({ id: z.string() });
 export const commentSchema = z.object({
