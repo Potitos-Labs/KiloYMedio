@@ -67,7 +67,7 @@ const Profile = (
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="sm:first-letter  mt-16 mb-7 grid grid-cols-1  lg:grid-cols-[55%_45%]">
+      <div className="sm:first-letter  mt-16 mb-7 grid grid-cols-1  lg:grid-cols-[58%_42%]">
         <div className="px-6 sm:px-14 lg:pl-28">
           <MyProfile image={client.image} name={client.name} />
 
@@ -87,7 +87,7 @@ const Profile = (
           />
           <Footer />
         </div>
-        <div className="relative m-2 hidden max-h-screen lg:block">
+        <div className="relative m-2 hidden max-h-[1200px] lg:block">
           <Image
             src="/img/bolitas.png"
             alt="Mi imagen"
