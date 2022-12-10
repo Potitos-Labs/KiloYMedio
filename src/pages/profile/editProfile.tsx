@@ -66,7 +66,7 @@ const Profile = (
   const { data } = trpc.user.getAllClientAllergen.useQuery();
   const { mutateAsync } = trpc.user.client.update.useMutation();
 
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(true);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -103,7 +103,7 @@ const Profile = (
   });
 
   function changeEdit() {
-    setEdit(!edit);
+    router.push("/profile");
   }
 
   const onSubmit = useCallback(
@@ -330,7 +330,7 @@ const Profile = (
             <div className="mb-8 text-right">
               <button
                 type="submit"
-                //onClick={changeEdit}
+                onClick={changeEdit}
                 className={`${
                   edit
                     ? "btn-sm rounded-md px-4 py-2 text-white hover:bg-button_hover"

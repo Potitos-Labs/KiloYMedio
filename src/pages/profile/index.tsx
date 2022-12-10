@@ -58,8 +58,12 @@ const Profile = (
   const { client: c } = props;
   const client = c as AppRouterTypes["user"]["client"]["getById"]["output"];
 
+  const { data } = trpc.user.getAllClientAllergen.useQuery();
+
   const { data: favoriteUserRecipes } =
     trpc.user.client.getFavoriteRecipes.useQuery();
+
+  const allergenList = data?.map((e) => e.allergen) ?? [];
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
@@ -77,10 +81,13 @@ const Profile = (
               percentage="14"
             />
           </div>
-          <CenterItem favoriteUserRecipes={favoriteUserRecipes} />
+          <CenterItem
+            favoriteUserRecipes={favoriteUserRecipes}
+            allergenList={allergenList}
+          />
           <Footer />
         </div>
-        <div className="relative m-2 hidden lg:block">
+        <div className="relative m-2 hidden max-h-screen lg:block">
           <Image
             src="/img/bolitas.png"
             alt="Mi imagen"

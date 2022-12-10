@@ -35,7 +35,9 @@ function FavouriteRecipes({
         ></Image>
       </div>
       <div className="p-2">
-        <p className="mb-2 font-raleway text-[16px] uppercase">{name}</p>
+        <p className="mb-2 font-raleway text-[14px] uppercase sm:text-[16px]">
+          {name}
+        </p>
 
         <div className=" h- absolute bottom-2 flex items-end">
           <div className="mb-2 md:mb-0 lg:mb-2 xl:mb-0">
