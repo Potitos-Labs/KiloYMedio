@@ -75,7 +75,10 @@ const Recipes = () => {
               <FilterRecipe filter={filter} setFilter={setFilter} />
             </div>
             {/* End Filtros */}
-            <OurRecipesDisplayer recipes={recipesAdmin}></OurRecipesDisplayer>
+            <OurRecipesDisplayer
+              recipes={recipesAdmin}
+              count={4}
+            ></OurRecipesDisplayer>
           </div>
           {/* End Our recipes Section */}
           <div className="w-full">

@@ -35,7 +35,7 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
     <div className="rounded-box flex grid-cols-[58%_42%] flex-col border-[1px] border-base-300 bg-base-100 sm:grid">
       <div className="grid content-between p-6">
         <div className="relative">
-          <div className="absolute -right-9 -top-0.5 sm:-top-1 sm:-right-4 lg:-right-8">
+          <div className="absolute -right-9 -top-0.5 sm:-right-4 lg:-right-8">
             {(data?.user?.id == recipe.userId ||
               data?.user?.role == "admin") && (
               <DotMenu

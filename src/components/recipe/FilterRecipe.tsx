@@ -26,7 +26,7 @@ function FilterRecipe({
     setFilter({ ...filter, allergens: list });
   };
   return (
-    <div className="mb-10 grid w-full grid-cols-1 gap-y-6 md:grid-cols-2">
+    <div className="mb-10 mt-6 grid w-full grid-cols-1 gap-y-6 md:grid-cols-2">
       <div className="flex">
         <div className="w-[250px]">
           <p className="mb-2 font-raleway">Duración</p>
