@@ -22,11 +22,11 @@ function health() {
       <div>
         {/* Color Section */}
         <div className=" relative h-screen w-full overflow-hidden bg-[#7B61FF]">
-          <div className="z-50  mt-[128px] text-base-100 md:block ">
-            <p className="z-10 pl-8 font-raleway text-[36px] sm:text-xl lg:text-3xl">
+          <div className="z-50 mt-[128px]  ml-6 text-base-100 sm:ml-16 md:block ">
+            <p className="z-10 pl-8 font-raleway text-[36px] sm:text-xl lg:mr-44 lg:text-3xl">
               ¿SABÍAS QUE...
             </p>
-            <p className="z-10 pl-8 sm:text-[36px]">
+            <p className="z-10 pl-8 text-[28px] lg:mr-72 lg:text-[50px] ">
               La gran mayoría de nuestros productos presentan beneficios
               saludables?
             </p>
@@ -36,7 +36,7 @@ function health() {
               className=""
               src="/img/invertidosGarbanzos.png"
               objectFit="cover"
-              width="600"
+              width="900"
               height="300"
               alt="not found"
             />
