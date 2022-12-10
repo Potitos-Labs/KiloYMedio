@@ -21,23 +21,21 @@ function health() {
 
       <div>
         {/* Color Section */}
-        <div className=" relative h-screen w-full overflow-hidden bg-[#7B61FF]">
-          <div className="z-50 mt-[128px]  ml-6 text-base-100 sm:ml-16 md:block ">
-            <p className="z-10 pl-8 font-raleway text-[36px] md:text-xl lg:text-3xl xl:mr-44">
+        <div className="relative w-full overflow-hidden bg-[#7B61FF]">
+          <div className="mt-[128px] mb-20 ml-6 text-base-100 sm:ml-16 md:block">
+            <p className="font-raleway text-[36px] sm:text-xl lg:mr-44 lg:text-3xl">
               ¿SABÍAS QUE...
             </p>
-            <p className="z-10 pl-8 text-[28px] md:text-[50px] xl:mr-72 ">
-              La gran mayoría de nuestros productos presentan beneficios
+            <p className="text-[28px] lg:mr-72 lg:text-[50px]">
+              la gran mayoría de nuestros productos presentan beneficios
               saludables?
             </p>
           </div>
-          <div className="absolute -right-4 flex justify-end justify-items-end xl:-bottom-2">
+          <div className="flex justify-end">
             <Image
-              className=""
               src="/img/invertidosGarbanzos.png"
-              objectFit="cover"
-              width="900"
-              height="300"
+              width="700"
+              height="400"
               alt="not found"
             />
           </div>
@@ -67,11 +65,11 @@ function health() {
               </p>
             </div>
             {/* End Elipse */}
-            <div className="rounded-box bg-base-100 px-3 pt-28 pb-0.5 text-xs text-base-content sm:px-6">
+            <div className="rounded-box bg-base-100 px-4 pb-0.5 pt-14 text-xs text-base-content md:pt-28">
               <HealthCard
                 name="LAS ALBÚMINAS..."
-                subText="Son unos componentes que contienen las avellanas, el cual
-                    ayuda en nuestro organismo en la regeneración de tejido. Las
+                subText="Son unos componentes que contienen las avellanas que
+                    ayudan a nuestro organismo en la regeneración de tejido. Las
                     avellanas proporcionan energía a nuestro cuerpo y son muy
                     recomendadas para personas con problemas de colesterol."
                 image="/img/avellanes.png"
@@ -85,9 +83,7 @@ function health() {
 
               <HealthCard
                 name="EL APIO..."
-                subText="Es un alimento carminativo, diurético, tranquilizante y depurativo. Es increíblemente saludable, pero ¡cuidado! Si se padecen problemas graves de riñón es mejor no consumirlo. 
-Un buen consejo para que todos podamos disfrutar de sus propiedades es reducir las sales cociendo el apio.
-"
+                subText="Es un alimento carminativo, diurético, tranquilizante y depurativo. Es increíblemente saludable, pero, ¡cuidado! Si se padecen problemas graves de riñón, es mejor no consumirlo. Un buen consejo para que todos podamos disfrutar de sus propiedades, es reducir las sales cociendo el apio."
                 image="/img/apio.png "
               />
               <div className="mb-5 flex justify-end">

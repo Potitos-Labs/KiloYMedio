@@ -22,9 +22,6 @@ export default function Workshops() {
       autoplay: 0,
     },
   };
-  {
-    /* Talleres presenciales */
-  }
   const { data: OnsiteWorkshops } =
     trpc.workshop.getAllOnsiteWorkshops.useQuery({ skipworkshops: skip });
   const { data: maxSkipOnsiteWorkshops } =
@@ -36,21 +33,18 @@ export default function Workshops() {
   function decrementSkip() {
     skip - 3 >= 0 && setskip(skip - 3);
   }
-  {
-    /* Talleres Online */
-  }
   const { data: OnlineWorkshops } =
     trpc.workshop.getAllOnlineWorkshops.useQuery({ skipworkshops: 0 });
   return (
-    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="px-4 ">
+    <Layout bgColor="bg-base-100" headerBgLight={true} headerTextDark={true}>
+      <div className="my-4 h-[680px] px-6">
         {/*---CABECERA---*/}
-        <div className="grid grid-cols-1 sm:grid-cols-[80%_20%] ">
-          <div className="  mb-2 grid grid-cols-2 gap-2 font-raleway sm:mb-0 sm:flex">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-[80%_20%] sm:gap-0">
+          <div className="grid grid-cols-2 gap-2 font-raleway sm:flex">
             <button
               className={`${
-                !showOnsite && "border-primary bg-primary text-background"
-              } h-full rounded-full border-[1px]  border-base-content  px-4 py-1 sm:py-2`}
+                !showOnsite && "border-primary bg-primary text-base-100"
+              } h-full rounded-full border-[1px] border-base-content px-4 py-1 sm:py-2`}
               onClick={() => {
                 setShowOnsite(false);
                 setShowMore(true);
@@ -60,8 +54,8 @@ export default function Workshops() {
             </button>
             <button
               className={`${
-                showOnsite && "border-primary bg-primary text-background"
-              } h-full rounded-full border-[1px] border-base-content px-4 `}
+                showOnsite && "border-primary bg-primary text-base-100"
+              } h-full rounded-full border-[1px] border-base-content px-4`}
               onClick={() => {
                 setShowOnsite(true);
                 setShowMore(true);
@@ -73,8 +67,8 @@ export default function Workshops() {
           <WorkshopSearchBar />
         </div>
         {/*---TALLERES DISPLAYER CHIQUITO---*/}
-        <div className="my-3 mb-2 grid h-full w-full grid-cols-1 flex-col gap-2 md:mb-3  md:grid-cols-[45%_55%]">
-          <div id="CARDS" className="">
+        <div className="my-3 mb-2 grid h-[520px] w-full grid-cols-1 flex-col gap-2 sm:h-[565px] md:grid-cols-[45%_55%]">
+          <div id="CARDS">
             {showOnsite
               ? OnsiteWorkshops?.slice(0, 3).map((workshop, index) => {
                   return (
@@ -105,15 +99,15 @@ export default function Workshops() {
           >
             {showOnsite ? (
               <div>
-                <div className="absolute z-10 m-3  flex gap-3">
-                  <button className="h-full rounded-full border-[1px] border-base-content bg-background  px-4 py-2 active:border-primary active:bg-primary active:text-background">
+                <div className="absolute z-10 m-3 flex gap-3">
+                  <button className="h-full rounded-full bg-base-100 px-4 py-2 active:bg-primary active:text-base-100">
                     Saber más
                   </button>
                 </div>
                 <Image
                   src={image}
                   objectFit="cover"
-                  className="rounded-lg "
+                  className="rounded-lg"
                   alt="notfound"
                   layout="fill"
                 />
@@ -127,7 +121,7 @@ export default function Workshops() {
                     className={"hidden md:block"}
                   />
                 ) : (
-                  <p className="absolute top-1/2 left-[40%]   text-center align-middle">
+                  <p className="absolute top-1/2 left-[40%] text-center align-middle">
                     ¡Selecciona un vídeo! 😊
                   </p>
                 )}
@@ -142,9 +136,9 @@ export default function Workshops() {
             (!showOnsite &&
               (OnlineWorkshops || []).length > 3 &&
               showMore)) && (
-            <div className=" flex justify-center md:justify-start">
+            <div className="flex justify-center md:justify-start">
               <button
-                className="mb-4 flex h-full items-center  gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway active:border-primary active:bg-primary active:text-background"
+                className="mb-4 flex h-full items-center gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway active:border-primary active:bg-primary active:text-base-100"
                 onClick={() => setShowMore(false)}
               >
                 VER MÁS
@@ -181,9 +175,9 @@ export default function Workshops() {
                   },
                 ))}
         </div>
-        <div className="flex w-full gap-4">
+        <div className="flex w-full gap-2">
           <button
-            className={`flex items-center gap-2 rounded-md border-[1px] border-base-300 p-2 ${
+            className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
               skip == 0 && "disabled:opacity-50"
             }`}
             onClick={decrementSkip}
@@ -193,14 +187,14 @@ export default function Workshops() {
             Anterior
           </button>
           <button
-            className={`flex items-center gap-2 rounded-md border-[1px] border-base-300 p-2 ${
+            className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
               skip + 3 >= (maxSkipOnsiteWorkshops || 0) && "disabled:opacity-50"
             }`}
             onClick={incrementSkip}
             disabled={skip + 3 >= (maxSkipOnsiteWorkshops || 0) ? true : false}
           >
-            <BsArrowRight />
             Siguiente
+            <BsArrowRight />
           </button>
         </div>
       </div>
