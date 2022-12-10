@@ -23,15 +23,15 @@ function health() {
         {/* Color Section */}
         <div className=" relative h-screen w-full overflow-hidden bg-[#7B61FF]">
           <div className="z-50 mt-[128px]  ml-6 text-base-100 sm:ml-16 md:block ">
-            <p className="z-10 pl-8 font-raleway text-[36px] sm:text-xl lg:mr-44 lg:text-3xl">
+            <p className="z-10 pl-8 font-raleway text-[36px] md:text-xl lg:text-3xl xl:mr-44">
               ¿SABÍAS QUE...
             </p>
-            <p className="z-10 pl-8 text-[28px] lg:mr-72 lg:text-[50px] ">
+            <p className="z-10 pl-8 text-[28px] md:text-[50px] xl:mr-72 ">
               La gran mayoría de nuestros productos presentan beneficios
               saludables?
             </p>
           </div>
-          <div className="absolute right-0 -bottom-6  flex justify-end justify-items-end">
+          <div className="absolute -right-4 bottom-0   flex justify-end justify-items-end">
             <Image
               className=""
               src="/img/invertidosGarbanzos.png"
