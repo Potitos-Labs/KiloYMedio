@@ -14,6 +14,7 @@ export default function Display() {
   });
   const { data: recipesAdmin } = trpc.recipe.getFilteredRecipes.useQuery({
     adminRecipes: true,
+    ...filter,
   });
   return (
     <Layout
