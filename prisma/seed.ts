@@ -1741,8 +1741,7 @@ async function main() {
       description: "Como hacer unas buenas croquetas vegetarianas",
       OnlineWorkshop: {
         create: {
-          videoURL:
-            "https://www.youtube.com/watch?v=Hcj3EYYVkNM&ab_channel=RecetasdeCocinaChefdemicasa",
+          videoURL: "https://www.youtube.com/watch?v=Hcj3EYYVkNM",
         },
       },
     },
@@ -1755,8 +1754,7 @@ async function main() {
       description: "Aprende sobre recetas saludables",
       OnlineWorkshop: {
         create: {
-          videoURL:
-            "https://www.youtube.com/watch?v=cei3JhG72bg&ab_channel=Yovana",
+          videoURL: "https://www.youtube.com/watch?v=cei3JhG72bg",
         },
       },
     },
@@ -1769,8 +1767,7 @@ async function main() {
       description: "Consejos sobre reciclaje para el día a día",
       OnlineWorkshop: {
         create: {
-          videoURL:
-            "https://www.youtube.com/watch?v=FdVfYfpxgF4&ab_channel=ElObservador",
+          videoURL: "https://www.youtube.com/watch?v=FdVfYfpxgF4",
         },
       },
     },
@@ -1783,8 +1780,7 @@ async function main() {
       description: "Todo lo que necesitas saber sobre los alérgenos ",
       OnlineWorkshop: {
         create: {
-          videoURL:
-            "https://www.youtube.com/watch?v=k3o3RDeuzyE&ab_channel=AlesandraMazzoni",
+          videoURL: "https://www.youtube.com/watch?v=k3o3RDeuzyE",
         },
       },
     },
@@ -1797,8 +1793,7 @@ async function main() {
       description: "Todo lo que necesitas saber sobre los alérgenos ",
       OnlineWorkshop: {
         create: {
-          videoURL:
-            "https://www.youtube.com/watch?v=lwjsi9zWRCI&ab_channel=RecetasdeCocinaCasera",
+          videoURL: "https://www.youtube.com/watch?v=lwjsi9zWRCI",
         },
       },
     },
@@ -1811,7 +1806,7 @@ async function main() {
       description: "Todo lo que necesitas saber sobre los alérgenos ",
       OnlineWorkshop: {
         create: {
-          videoURL: "https://youtu.be/VvAtjQv_eVA",
+          videoURL: "https://www.youtube.com/watch?v=VvAtjQv_eVA",
         },
       },
     },
