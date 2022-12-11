@@ -331,7 +331,7 @@ export const clientRouter = router({
     }),
 
   getEnrollWorkshops: clientProcedure.query(async ({ ctx }) => {
-    const recipes = await ctx.prisma.onSiteWorkshopAttendance.findMany({
+    const workshops = await ctx.prisma.onSiteWorkshopAttendance.findMany({
       where: {
         clientId: ctx.session.user.id,
       },
@@ -342,6 +342,6 @@ export const clientRouter = router({
       },
     });
 
-    return recipes;
+    return workshops;
   }),
 });
