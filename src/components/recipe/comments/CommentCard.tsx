@@ -16,7 +16,7 @@ function CommentCard({
 }) {
   return (
     <div>
-      <div className="-mx-20 rounded-lg bg-white p-6 sm:-mx-40 md:mx-0 md:w-[700px] lg:w-[480px] xl:w-[580px]">
+      <div className="-mx-20 w-[320px] rounded-lg bg-white p-6 sm:-mx-40 sm:w-[650px] md:mx-0 md:w-[700px] lg:w-[480px] xl:w-[580px]">
         <div className="mb-4 flex select-none items-center gap-4">
           <Image
             src={imageURL}
