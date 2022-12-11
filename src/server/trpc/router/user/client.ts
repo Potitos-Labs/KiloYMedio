@@ -338,10 +338,9 @@ export const clientRouter = router({
       select: {
         onSiteWorkshop: {
           select: {
-            date: true,
-            places: true,
+            workshopId: true,
             workshop: {
-              select: { name: true, description: true, imageURL: true },
+              select: { name: true, imageURL: true },
             },
           },
         },

@@ -13,7 +13,8 @@ export default function Workshops() {
   const [image, setImage] = useState(String);
   const [video, setVideo] = useState(String);
   const [showMore, setShowMore] = useState(true);
-  const [skip, setskip] = useState(0);
+  const [skipOnline, setskipOnline] = useState(0);
+  const [skipOnsite, setskipOnsite] = useState(0);
   const youtubeOpts = {
     height: "556",
     width: "102%",
@@ -23,18 +24,32 @@ export default function Workshops() {
     },
   };
   const { data: OnsiteWorkshops } =
-    trpc.workshop.getAllOnsiteWorkshops.useQuery({ skipworkshops: skip });
+    trpc.workshop.getAllOnsiteWorkshops.useQuery({ skipworkshops: skipOnsite });
   const { data: maxSkipOnsiteWorkshops } =
     trpc.workshop.getNumberOnsiteWorkshops.useQuery();
 
+  const { data: OnlineWorkshops } =
+    trpc.workshop.getAllOnlineWorkshops.useQuery({ skipworkshops: skipOnline });
+  const { data: maxSkipOnlineWorkshops } =
+    trpc.workshop.getNumberOnlineWorkshops.useQuery();
+
   function incrementSkip() {
-    skip + 3 < (maxSkipOnsiteWorkshops || 0) && setskip(skip + 3);
+    if (showOnsite) {
+      skipOnsite + 3 < (maxSkipOnsiteWorkshops || 0) &&
+        setskipOnsite(skipOnsite + 3);
+    } else {
+      skipOnline + 3 < (maxSkipOnlineWorkshops || 0) &&
+        setskipOnline(skipOnline + 3);
+    }
   }
   function decrementSkip() {
-    skip - 3 >= 0 && setskip(skip - 3);
+    if (showOnsite) {
+      skipOnsite - 3 >= 0 && setskipOnsite(skipOnsite - 3);
+    } else {
+      skipOnline - 3 >= 0 && setskipOnline(skipOnline - 3);
+    }
   }
-  const { data: OnlineWorkshops } =
-    trpc.workshop.getAllOnlineWorkshops.useQuery({ skipworkshops: 0 });
+
   return (
     <Layout bgColor="bg-base-100" headerBgLight={true} headerTextDark={true}>
       <div className="my-4 h-[680px] px-6">
@@ -175,23 +190,51 @@ export default function Workshops() {
                   },
                 ))}
         </div>
-        <div className="flex w-full gap-2">
+        <div className={`flex w-full gap-2 ${!showOnsite && "hidden"}`}>
           <button
             className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
-              skip == 0 && "disabled:opacity-50"
+              skipOnsite == 0 && "disabled:opacity-50"
             }`}
             onClick={decrementSkip}
-            disabled={skip == 0 ? true : false}
+            disabled={skipOnsite == 0 ? true : false}
           >
             <BsArrowLeft />
             Anterior
           </button>
           <button
             className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
-              skip + 3 >= (maxSkipOnsiteWorkshops || 0) && "disabled:opacity-50"
+              skipOnsite + 3 >= (maxSkipOnsiteWorkshops || 0) &&
+              "disabled:opacity-50"
             }`}
             onClick={incrementSkip}
-            disabled={skip + 3 >= (maxSkipOnsiteWorkshops || 0) ? true : false}
+            disabled={
+              skipOnsite + 3 >= (maxSkipOnsiteWorkshops || 0) ? true : false
+            }
+          >
+            Siguiente
+            <BsArrowRight />
+          </button>
+        </div>
+        <div className={`flex w-full gap-2 ${showOnsite && "hidden"}`}>
+          <button
+            className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
+              skipOnline == 0 && "disabled:opacity-50"
+            }`}
+            onClick={decrementSkip}
+            disabled={skipOnline == 0 ? true : false}
+          >
+            <BsArrowLeft />
+            Anterior
+          </button>
+          <button
+            className={`flex items-center gap-2 rounded-full border-[1px] border-base-300 p-2 ${
+              skipOnline + 3 >= (maxSkipOnlineWorkshops || 0) &&
+              "disabled:opacity-50"
+            }`}
+            onClick={incrementSkip}
+            disabled={
+              skipOnline + 3 >= (maxSkipOnlineWorkshops || 0) ? true : false
+            }
           >
             Siguiente
             <BsArrowRight />

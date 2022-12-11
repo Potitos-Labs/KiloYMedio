@@ -24,9 +24,11 @@ function CenterItem({
   workshopList:
     | {
         onSiteWorkshop: {
+          workshop: {
+            name: string;
+            imageURL: string;
+          };
           workshopId: string;
-          date: Date;
-          places: number;
         };
       }[]
     | undefined;
@@ -167,10 +169,10 @@ function CenterItem({
           workshopList.map((e) => {
             return (
               <EnrolledWorkshops
-                key={e.onSiteWorkshop.workshopId}
+                key={""}
+                name={e.onSiteWorkshop.workshop.name}
+                image={e.onSiteWorkshop.workshop.imageURL}
                 id={e.onSiteWorkshop.workshopId}
-                name="POR PONER"
-                image=""
               />
             );
           })}

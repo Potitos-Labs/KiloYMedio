@@ -34,30 +34,26 @@ export const workshopRouter = router({
       });
       return workshops;
     }),
-  getNumberOnlineWorkshops: publicProcedure
-    .input(z.object({ skipworkshops: z.number() }))
-    .query(async ({ ctx, input: { skipworkshops } }) => {
-      const workshops = await ctx.prisma.workshop.findMany({
-        take: 3,
-        skip: skipworkshops,
-        select: {
-          name: true,
-          description: true,
-          imageURL: true,
-          OnlineWorkshop: {
-            select: {
-              videoURL: true,
-            },
+  getNumberOnlineWorkshops: publicProcedure.query(async ({ ctx }) => {
+    const workshops = await ctx.prisma.workshop.findMany({
+      select: {
+        name: true,
+        description: true,
+        imageURL: true,
+        OnlineWorkshop: {
+          select: {
+            videoURL: true,
           },
         },
-        where: {
-          NOT: {
-            OnlineWorkshop: null,
-          },
+      },
+      where: {
+        NOT: {
+          OnlineWorkshop: null,
         },
-      });
-      return workshops.length;
-    }),
+      },
+    });
+    return workshops.length;
+  }),
 
   getAllOnsiteWorkshops: publicProcedure
     .input(z.object({ skipworkshops: z.number() }))
