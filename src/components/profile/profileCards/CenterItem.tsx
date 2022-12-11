@@ -3,6 +3,7 @@ import FavouriteRecipes from "../FavouriteRecipes";
 import Allergens from "../../Allergens";
 import { Allergen } from "@prisma/client";
 import { trpc } from "@utils/trpc";
+import { BsFillCaretRightFill } from "react-icons/bs";
 
 function CenterItem({
   favoriteUserRecipes,
@@ -31,12 +32,12 @@ function CenterItem({
     setWorkshopsVisible(false);
   }
   return (
-    <div className="mt-3 overflow-hidden rounded-md border-[1px] border-neutral">
+    <div className="relative mt-3 overflow-hidden rounded-md border-[1px] border-neutral">
       {/* RECIPES */}
       <div
         className={` ${
           recipesVisible && "bg-primary font-satoshiBold text-base-100"
-        } border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
+        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
         onClick={() => {
           hideAllDisplayers();
           if (!recipesVisible) {
@@ -45,13 +46,24 @@ function CenterItem({
         }}
       >
         recetas guardadas
+        <div className="absolute bottom-7 right-4">
+          <BsFillCaretRightFill
+            className={`${
+              recipesVisible && " rotate-90"
+            } origin-left  transition-transform  `}
+          />
+        </div>
       </div>
       <div
         className={`${
-          recipesVisible ? " flex flex-col space-y-1 bg-neutral p-1" : "hidden"
+          recipesVisible &&
+          favoriteUserRecipes &&
+          favoriteUserRecipes?.length > 0
+            ? " flex flex-col space-y-1 bg-neutral p-1"
+            : "hidden"
         } `}
       >
-        {favoriteUserRecipes ? (
+        {favoriteUserRecipes &&
           favoriteUserRecipes.map((e) => {
             return (
               <FavouriteRecipes
@@ -61,16 +73,13 @@ function CenterItem({
                 image={e.Recipe.imageURL}
               />
             );
-          })
-        ) : (
-          <p>No tienes ninguna receta guardada todavía.</p>
-        )}
+          })}
       </div>
       {/* ALERGENOS*/}
       <div
         className={`${
           allergensVisible && "bg-primary font-satoshiBold text-base-100"
-        } active:text-base-100" border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold`}
+        } active:text-base-100" relative border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold`}
         onClick={() => {
           hideAllDisplayers();
           if (!allergensVisible) {
@@ -79,11 +88,20 @@ function CenterItem({
         }}
       >
         mis alergenos
+        <div className="absolute bottom-7 right-4">
+          <BsFillCaretRightFill
+            className={`${
+              allergensVisible && "rotate-90"
+            } origin-left  transition-transform  `}
+          />
+        </div>
       </div>
 
       <div
         className={`${
-          allergensVisible ? " grid grid-cols-4 bg-neutral  p-1 " : "hidden"
+          allergensVisible && allergenList && allergenList?.length > 0
+            ? " grid grid-cols-4 bg-neutral  p-1 "
+            : "hidden"
         } `}
       >
         {allergenList.map((allergen) => (
@@ -105,11 +123,12 @@ function CenterItem({
       >
         pedidos
       </div>
+
       {/*TALLERES*/}
       <div
         className={`${
           workshopsVisible && "bg-primary font-satoshiBold text-base-100"
-        } py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
+        } relative py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
         onClick={() => {
           hideAllDisplayers();
           if (!workshopsVisible) {
@@ -118,6 +137,13 @@ function CenterItem({
         }}
       >
         mis talleres
+        <div className="absolute bottom-7 right-4">
+          <BsFillCaretRightFill
+            className={`${
+              workshopsVisible && "rotate-90"
+            } origin-left  transition-transform  `}
+          />
+        </div>
       </div>
     </div>
   );
