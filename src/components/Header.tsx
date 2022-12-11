@@ -32,8 +32,12 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
       <div className="mx-4 flex items-center justify-end sm:mx-10 lg:justify-between">
         <NavBarClient />
         <Link href={`/`}>
-          <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
-            kilo y medio
+          <h3 className="my-3 hidden h-6 w-[180px] cursor-pointer font-raleway text-lg lg:flex">
+            <Image
+              src="/logo sin subtitulo.svg"
+              alt="kilo y medio"
+              layout="fill"
+            />
           </h3>
         </Link>
         <NavBar></NavBar>

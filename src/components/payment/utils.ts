@@ -15,6 +15,16 @@ export function formatCreditCardNumber(value: string) {
   return nextValue.trim();
 }
 
+export function formatCVV(value: string) {
+  if (!value) {
+    return value;
+  }
+
+  const clearValue = clearNumber(value);
+  const nextValue = `${clearValue.slice(0, 3)}`;
+  return nextValue.trim();
+}
+
 export function formatExpirationDate(value: string) {
   const clearValue = clearNumber(value);
 

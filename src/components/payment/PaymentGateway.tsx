@@ -1,5 +1,9 @@
 import { FormWrapper } from "./FormWrapper";
-import { formatCreditCardNumber, formatExpirationDate } from "./utils";
+import {
+  formatCreditCardNumber,
+  formatExpirationDate,
+  formatCVV,
+} from "./utils";
 
 type AddressData = {
   fullNamePayment: string;
@@ -47,6 +51,10 @@ const PaymentGateway = ({
     if (target.name === "name") {
       updateFields({ errorName: "" });
       updateFields({ fullNamePayment: target.value });
+    }
+    if (target.name === "cvv") {
+      target.value = formatCVV(target.value);
+      updateFields({ CVV: target.value });
     }
   };
 
@@ -125,11 +133,12 @@ const PaymentGateway = ({
               <input
                 className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
                 required
+                name="cvv"
                 type="tel"
                 placeholder="Código de seguridad"
                 maxLength={3}
                 pattern="[0-9]{3}"
-                title="El CVV sólo tiene 3 dígitos"
+                title="El CVV debe tener 3 dígitos"
                 value={CVV}
                 onChange={(e) => updateFields({ CVV: e.target.value })}
               />
