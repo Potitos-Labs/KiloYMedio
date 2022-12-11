@@ -3,12 +3,14 @@ import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
 import { useSession } from "next-auth/react";
-import { PopUpAllergen } from "@components/profile/PopUpAllergen";
+import { Allergen } from "@prisma/client";
+import AllergensComponent from "@components/Allergens";
+import { z } from "zod";
 
 const EditProfile = () => {
   const sesion = useSession();
@@ -20,7 +22,30 @@ const EditProfile = () => {
       utils.user.client.getById.invalidate();
     },
   });
-  const [edit, setEdit] = useState(true);
+  const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
+  const clientAllergenList = clientAllergen?.map((e) => e.allergen) ?? [];
+
+  const allergensList: Allergen[] =
+    clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
+
+  const allergensHandler = (value: string) => {
+    const allergen = z.nativeEnum(Allergen).parse(value);
+    const index = allergensList.indexOf(allergen);
+    if (index != -1) allergensList.splice(index, 1);
+    else allergensList.push(allergen);
+  };
+
+  const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
+  const AllallergenList = data?.map((e) => e.allergen) ?? [];
+
+  const { data: allergenTranslator } =
+    trpc.product.getAllergenInSpanishDictionary.useQuery();
+
+  const { mutateAsync: update } = trpc.user.client.updateAllergen.useMutation({
+    onSuccess() {
+      utils.user.getAllClientAllergen.invalidate();
+    },
+  });
 
   if (sesion.status === "unauthenticated") {
     router.push("/login");
@@ -48,10 +73,10 @@ const EditProfile = () => {
     async (data: IClient) => {
       const result = await mutateAsync(data);
       if (result.status === 201) {
-        setEdit(!edit);
+        router.push(`/profile`);
       }
     },
-    [mutateAsync, setEdit, edit],
+    [mutateAsync, router],
   );
   return (
     <Layout
@@ -163,13 +188,40 @@ const EditProfile = () => {
             </div>
             <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
               <FormWrapper title="Alérgenos">
-                <PopUpAllergen />
+                <div>
+                  <div className=" items-left grid grid-cols-3 p-5">
+                    {AllallergenList.map((allergen) => (
+                      <div
+                        className=" grid grid-cols-[10%_85%_5%] py-2"
+                        key={allergen}
+                      >
+                        <AllergensComponent
+                          allergens={[allergen]}
+                          size={25}
+                        ></AllergensComponent>
+                        <label key={allergen}>
+                          {allergenTranslator?.get(allergen)}
+                          <input
+                            className="form-check-input float-right mt-1 mr-2 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
+                            type="checkbox"
+                            value={allergen}
+                            id="flexCheckChecked"
+                            defaultChecked={clientAllergenList.includes(
+                              allergen,
+                            )}
+                            onChange={(e) => allergensHandler(e.target.value)}
+                          ></input>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </FormWrapper>
             </div>
             <div className="mb-10 text-right">
               <button
                 type="submit"
-                onClick={() => router.push("/profile")}
+                onClick={() => update({ allergen: allergensList })}
                 className="btn rounded-full border-primary bg-primary px-4 py-2 text-base-100"
               >
                 Guardar cambios
