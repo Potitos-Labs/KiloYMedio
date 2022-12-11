@@ -1733,6 +1733,89 @@ async function main() {
       },
     },
   });
+  const corquetasVegetarianas = await prisma.workshop.create({
+    data: {
+      name: "Croquetas Vegetarianes",
+      imageURL:
+        "https://images.hola.com/imagenes/cocina/recetas/20200113157946/croquetas-veganas-de-champinones/0-767-626/croquetas-veganas-de--champinones-m.jpg",
+      description: "Como hacer unas buenas croquetas vegetarianas",
+      OnlineWorkshop: {
+        create: {
+          videoURL:
+            "https://www.youtube.com/watch?v=Hcj3EYYVkNM&ab_channel=RecetasdeCocinaChefdemicasa",
+        },
+      },
+    },
+  });
+  const ComidaSaludable = await prisma.workshop.create({
+    data: {
+      name: "Comida Saludable",
+      imageURL:
+        "https://canalcocina.es/medias/_cache/zoom-7633d99ea9677004a4988e94e5d30aa0-920-518.jpg",
+      description: "Aprende sobre recetas saludables",
+      OnlineWorkshop: {
+        create: {
+          videoURL:
+            "https://www.youtube.com/watch?v=cei3JhG72bg&ab_channel=Yovana",
+        },
+      },
+    },
+  });
+  const Reciclaje = await prisma.workshop.create({
+    data: {
+      name: "Reciclaje",
+      imageURL:
+        "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      description: "Consejos sobre reciclaje para el día a día",
+      OnlineWorkshop: {
+        create: {
+          videoURL:
+            "https://www.youtube.com/watch?v=FdVfYfpxgF4&ab_channel=ElObservador",
+        },
+      },
+    },
+  });
+  const Alergenos = await prisma.workshop.create({
+    data: {
+      name: "Alérgenos",
+      imageURL:
+        "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      OnlineWorkshop: {
+        create: {
+          videoURL:
+            "https://www.youtube.com/watch?v=k3o3RDeuzyE&ab_channel=AlesandraMazzoni",
+        },
+      },
+    },
+  });
+  const Compras_A_Granel = await prisma.workshop.create({
+    data: {
+      name: "Ventajas de las compras a granel",
+      imageURL:
+        "https://www.iberdrola.com/documents/20125/40588/granel_746x419.jpg/f98ca9f9-0f1d-ee80-31e7-c2bd3c20eec0?t=1627467160432",
+      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      OnlineWorkshop: {
+        create: {
+          videoURL:
+            "https://www.youtube.com/watch?v=lwjsi9zWRCI&ab_channel=RecetasdeCocinaCasera",
+        },
+      },
+    },
+  });
+  const Te_macha = await prisma.workshop.create({
+    data: {
+      name: "Como hacer Te macha",
+      imageURL:
+        "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
+      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      OnlineWorkshop: {
+        create: {
+          videoURL: "https://youtu.be/VvAtjQv_eVA",
+        },
+      },
+    },
+  });
 }
 
 main()

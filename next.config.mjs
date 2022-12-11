@@ -28,11 +28,6 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
-        "cocinista-vsf.netdna-ssl.com",
-        "www.barcelonaculinaryhub.com", //masterchef
-        "dietamediterranea.com",
-        "www.sanpellegrinofruitbeverages.com",
-        "sp-ao.shortpixel.ai",
         "www.elgraneldecorredera.com",
         "www.gastronomiavasca.net",
         "fruitsec.cat",
@@ -77,6 +72,12 @@ export default withBundleAnalyzer(
         "www.elespectador.com", //repostería
         "imag.bonviveur.com", //cocina japo
         "assets.recipes.prod.wpsandwatch.com", //galletas
+        "canalcocina.es", //taller online
+        "filesedc.com", //taller online
+        "images.hola.com", //talleres online
+        "www.cocinista.es", //talleres online
+        "www.iberdrola.com", //talleres online
+        "www.barcelonaculinaryhub.com",
       ],
     },
   }),
