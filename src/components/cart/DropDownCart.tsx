@@ -1,87 +1,57 @@
-import Image from "next/image";
 import Link from "next/link";
-
+import Product from "./Product";
 import { trpc } from "../../utils/trpc";
+import { FaArrowRight } from "react-icons/fa";
 
 function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className="rounded-box absolute right-4 top-12 z-10 hidden border-[1px] border-base-300 px-4 group-hover:block ">
-      <div className="scrollbar-hide rounded-box flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll bg-base-100">
-        <div className="relative pt-3">
-          {numberCartProducts > 0 ? (
-            <div className="flex flex-col">
-              <p className="mb-3 ml-3 font-raleway text-lg">CESTA</p>
-              {/* <p className="absolute right-2 top-2 text-lg font-semibold">
-                {myCart?.totalPrice} €
-              </p> */}
-              <hr className="border-1 w-full border-black opacity-60"></hr>
-            </div>
-          ) : (
-            <div className="flex">
-              <p className="text-md mb-5">
-                ¡Aún no hay ningún producto en tu carrito!
-              </p>
-            </div>
-          )}
-
-          <div className="flex flex-col px-3 pb-3 font-medium ">
+    <div className="absolute top-[42px] right-4 flex cursor-default flex-col rounded-[20px] shadow-2xl shadow-black">
+      <div className="z-10 hidden group-hover:block">
+        <div className="scrollbar-hide flex h-auto max-h-[650px] w-[580px] flex-col overflow-y-scroll rounded-[20px] bg-base-100 text-black">
+          <div className="relative pt-3">
             {numberCartProducts > 0 ? (
-              <Link
-                className="flex flex-col px-3 pb-3 font-medium "
-                href={"/cart"}
-              >
-                <a className="m-2 rounded-md border border-kym3 bg-white text-center text-kym4 hover:bg-kym3 hover:text-white">
-                  Ver cesta
-                </a>
-              </Link>
+              <div className="flex flex-col">
+                <p className="mb-3 ml-5 font-raleway text-lg">CESTA</p>
+                <hr className="border-1 w-full border-black opacity-60"></hr>
+              </div>
             ) : (
-              <Link
-                className="flex flex-col px-3 pb-3 font-medium "
-                href={"/product"}
-              >
-                <a className="m-2 rounded-md border border-kym3 bg-white text-center text-kym4 hover:bg-kym3 hover:text-white">
-                  Buscar productos
-                </a>
-              </Link>
+              <div className="flex">
+                <p className="text-md mb-5">
+                  ¡Aún no hay ningún producto en tu carrito!
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="m-5 grid gap-3 text-xs lg:text-sm">
+            {myCart ? (
+              myCart.productList.map((cartProduct) => (
+                <div key={cartProduct.productId}>
+                  <Product cartProduct={cartProduct}></Product>
+                </div>
+              ))
+            ) : (
+              <p className="text-right text-sm">Cargando...</p>
             )}
           </div>
         </div>
-        <div className="grid ">
-          {myCart ? (
-            myCart.productList.map((cartProduct) => (
-              <div key={cartProduct.productId}>
-                <div className="my-4 mb-4 grid grid-cols-[40%_30%_30%] items-center px-2 text-sm font-light">
-                  <div className="flex flex-row items-center gap-2">
-                    <Image
-                      className="rounded-md"
-                      src={cartProduct.product.imageURL}
-                      alt="notfound"
-                      width="70"
-                      height="70"
-                      layout="intrinsic"
-                      objectFit="cover"
-                    ></Image>
-
-                    <div className="first-letter:uppercase">
-                      {cartProduct.product.name}
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    {cartProduct.amount}{" "}
-                    {cartProduct.product.Edible ? "g" : "u"}
-                  </div>
-                  <span className="justify-self-end font-normal">
-                    {cartProduct.price.toFixed(2)} €
-                  </span>
-                </div>
-                <hr className=" border-1 mt-5 border-gray-400 "></hr>
-              </div>
-            ))
-          ) : (
-            <p className="text-right">Cargando...</p>
-          )}
+      </div>
+      <div className="hidden group-hover:block">
+        <div className="scrollbar-hide modal-middle -mt-[30px] flex h-[110px] w-[580px] justify-between overflow-y-scroll rounded-[20px] bg-base-300 px-[40px] pt-[40px] text-base-100">
+          <div className="flex flex-col">
+            <div className="font-raleway text-xs">total</div>
+            <div className="font-raleway text-lg">{myCart?.totalPrice} €</div>
+          </div>
+          <Link href={"/cart"}>
+            <div className="inline-flex cursor-pointer">
+              <a className="font-raleway text-sm text-base-100">
+                Tramitar pedido
+              </a>
+              <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
+            </div>
+          </Link>
         </div>
       </div>
     </div>
