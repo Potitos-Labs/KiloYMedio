@@ -123,7 +123,7 @@ export default function CreateEdit(props: {
                     {...register("name")}
                   />
                   {errors.name && (
-                    <p className="flex text-sm text-red-500">
+                    <p className="-mt-6 flex text-sm text-red-500">
                       {errors.name.message}
                     </p>
                   )}
@@ -252,7 +252,7 @@ export default function CreateEdit(props: {
                 {...register("description", {})}
               />
               {errors.name && (
-                <p className="flex text-sm text-red-500">
+                <p className="-mt-6 flex text-sm text-red-500">
                   {errors.name.message}
                 </p>
               )}
@@ -271,7 +271,7 @@ export default function CreateEdit(props: {
                     return (
                       <div key={field.id}>
                         <section className="section flex flex-col gap-3 sm:flex-row">
-                          <div className="mr-5 flex sm:mr-0">
+                          <div className="mr-5 flex flex-col sm:mr-0">
                             <Controller
                               name={`ingredients.${index}.name`}
                               control={control}

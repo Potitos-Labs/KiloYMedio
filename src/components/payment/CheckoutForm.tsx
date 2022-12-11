@@ -43,7 +43,7 @@ const CheckoutForm = ({
           required
           value={firstName}
           pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,50}"
-          // title="No se permiten dígitos ni caracteres especiales."
+          title="No se permiten dígitos ni caracteres especiales."
           onChange={(e) => updateFields({ firstName: e.target.value })}
           placeholder="Nombre"
         />

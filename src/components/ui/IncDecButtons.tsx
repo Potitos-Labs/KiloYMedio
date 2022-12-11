@@ -30,6 +30,17 @@ function IncDecButtons({
     pers: 1,
     other: 1,
   };
+  const minValues = {
+    grams: 100,
+    kilograms: 0.5,
+    liters: 0.5,
+    milliliters: 250,
+    unit: 1,
+    hour: 0,
+    min: 0,
+    pers: 1,
+    other: 1,
+  };
   const calcMaxValues = {
     grams: 1000,
     kilograms: 1,
@@ -70,11 +81,11 @@ function IncDecButtons({
   return (
     <div className={` ${className} flex flex-row font-bold`}>
       <button
-        disabled={amount == incdecValues[unit]}
+        disabled={amount == minValues[unit] || amount == 0}
         type="button"
         className={clsx(
           `w-6 flex-auto bg-transparent`,
-          amount == incdecValues[unit] && "cursor-not-allowed opacity-60",
+          amount == minValues[unit] && "cursor-not-allowed opacity-60",
         )}
         onClick={decrementClick}
       >

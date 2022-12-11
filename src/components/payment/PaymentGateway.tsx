@@ -118,7 +118,7 @@ const PaymentGateway = ({
               />
             </svg>
           </label>
-          <label className="m-0 text-sm text-red-700">{errorName}</label>
+          <label className="m-0 text-xs text-red-700">{errorName}</label>
           <div className="mt-4 grid grid-cols-1 gap-4 pb-2 lg:grid-cols-2">
             <label className="relative flex w-full flex-col">
               <span className="mb-1 text-xs">CVV</span>
@@ -177,7 +177,7 @@ const PaymentGateway = ({
                   />
                 </svg>
               </label>
-              <label className="m-0 text-sm text-red-700">{errorMessage}</label>
+              <label className="m-0 text-xs text-red-700">{errorMessage}</label>
             </div>
           </div>
         </div>

@@ -25,14 +25,14 @@ function ListboxDesign({
   }
 
   return (
-    <div className="dropdown w-40">
+    <div className="dropdown w-44">
       <Listbox
         value={options.find((o) => o.value == value)}
         onChange={(o) => onChange(o.value)}
       >
-        <Listbox.Button className="btn h-[60px] w-full justify-start rounded-[30px] bg-transparent text-sm hover:bg-transparent">
+        <Listbox.Button className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent">
           {list[value as IngredientUnit]}
-          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+          <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
             <IoIosArrowDown className="h-5 w-5" />
           </span>
         </Listbox.Button>
