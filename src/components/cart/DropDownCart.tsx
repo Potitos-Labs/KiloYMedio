@@ -7,8 +7,8 @@ function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className="absolute right-4 top-10 z-10 hidden group-hover:block ">
-      <div className="scrollbar-hide flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll rounded-md bg-base-100 text-black">
+    <div className="rounded-box absolute right-4 top-12 z-10 hidden border-[1px] border-base-300 px-4 group-hover:block ">
+      <div className="scrollbar-hide rounded-box flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll bg-base-100">
         <div className="relative pt-3">
           {numberCartProducts > 0 ? (
             <div className="flex flex-col">
