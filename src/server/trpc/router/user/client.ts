@@ -329,4 +329,19 @@ export const clientRouter = router({
         result: result.email,
       };
     }),
+
+  getEnrollWorkshops: clientProcedure.query(async ({ ctx }) => {
+    const recipes = await ctx.prisma.onSiteWorkshopAttendance.findMany({
+      where: {
+        clientId: ctx.session.user.id,
+      },
+      select: {
+        onSiteWorkshop: {
+          select: { date: true, places: true, workshopId: true },
+        },
+      },
+    });
+
+    return recipes;
+  }),
 });
