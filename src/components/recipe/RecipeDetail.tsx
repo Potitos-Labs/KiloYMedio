@@ -217,8 +217,9 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                 onClick={addToCart}
               >
                 <div className="h-full rounded-full bg-secondary px-8 pt-2">
-                  {prices.reduce((totalPrice, price) => totalPrice + price, 0) +
-                    "€"}
+                  {prices
+                    .reduce((totalPrice, price) => totalPrice + price, 0)
+                    .toFixed(2) + "€"}
                 </div>
                 <div className="flex items-center gap-1">
                   añadir todo

@@ -53,7 +53,7 @@ const DotMenu = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg focus:outline-none">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -88,7 +88,7 @@ const DotMenu = ({
       <Popup open={open} modal closeOnDocumentClick onClose={cancelHandler}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-11/12 rounded-md bg-white sm:w-2/5">
-            <h1 className="rounded-t-md bg-red-500 py-2 text-center text-lg font-bold text-white">
+            <h1 className="rounded-t-md bg-primary py-2 text-center text-lg font-bold text-white">
               Eliminar {type}
             </h1>
             <p className="m-3">
@@ -102,18 +102,18 @@ const DotMenu = ({
             <p className="m-3 mt-4 text-center">
               ¿Estás seguro de que quieres continuar?
             </p>
-            <div className="mb-3 mr-3 flex justify-end ">
+            <div className="mb-3 mr-3 flex justify-end gap-2 ">
               <button
-                className="btn-sm mt-3 rounded-md p-1 text-white hover:bg-button_hover sm:mt-5  sm:py-1 sm:px-2"
-                onClick={AcceptHandler}
-              >
-                Confirmar
-              </button>
-              <button
-                className=" ml-3 mt-3 rounded-md border  border-button bg-transparent px-1 hover:border-transparent hover:bg-button_hover hover:text-white  sm:mt-5 sm:px-3"
+                className=" ml-3 mt-3 rounded-full border border-base-content bg-transparent px-1 hover:border-primary sm:mt-5 sm:px-3"
                 onClick={cancelHandler}
               >
                 Cancelar
+              </button>
+              <button
+                className="btn-sm mt-3 rounded-md bg-base-content  text-base-100 hover:bg-primary sm:mt-5 sm:py-1 sm:px-4"
+                onClick={AcceptHandler}
+              >
+                Confirmar
               </button>
             </div>
           </div>
