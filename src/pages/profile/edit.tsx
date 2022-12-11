@@ -1,5 +1,4 @@
 import Layout from "../../components/Layout";
-import { PopUpAllergen } from "../../components/profile/PopUpAllergen";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -9,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
 import { useSession } from "next-auth/react";
+import { PopUpAllergen } from "@components/profile/PopUpAllergen";
 
 const EditProfile = () => {
   const sesion = useSession();
@@ -20,9 +20,7 @@ const EditProfile = () => {
       utils.user.client.getById.invalidate();
     },
   });
-
   const [edit, setEdit] = useState(true);
-  const [open, setOpen] = useState(false);
 
   if (sesion.status === "unauthenticated") {
     router.push("/login");
@@ -55,20 +53,13 @@ const EditProfile = () => {
     },
     [mutateAsync, setEdit, edit],
   );
-
-  function openPopup() {
-    setOpen(true);
-  }
-  console.log({ errors });
   return (
     <Layout
       bgColor={"bg-base-content"}
       headerBgLight={true}
       headerTextDark={true}
     >
-      <div
-        className={`${open ? "blur-sm" : ""} m-20 rounded-lg bg-base-100 py-6`}
-      >
+      <div className="m-20 rounded-lg bg-base-100 py-6">
         <div className="px-14 md:px-32 lg:px-40">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-10  w-full">
@@ -172,12 +163,7 @@ const EditProfile = () => {
             </div>
             <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
               <FormWrapper title="Alérgenos">
-                <p
-                  className="mt-8 mr-3 cursor-pointer text-right text-kym2 hover:text-kym4"
-                  onClick={openPopup}
-                >
-                  <u>Modificar alérgenos</u>
-                </p>
+                <PopUpAllergen />
               </FormWrapper>
             </div>
             <div className="mb-10 text-right">
@@ -191,7 +177,6 @@ const EditProfile = () => {
             </div>
           </form>
         </div>
-        <PopUpAllergen open={open} setOpen={setOpen} />
       </div>
     </Layout>
   );
