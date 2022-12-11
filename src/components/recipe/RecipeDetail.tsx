@@ -113,7 +113,9 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                 <div className="text-sm lg:mr-20">
                   <h2 className="flex justify-between">
                     <span>Tiempo de preparación</span>
-                    {recipe?.preparationTime ?? "-"} min
+                    <div className="text-end">
+                      {recipe?.preparationTime ?? "-"} min
+                    </div>
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">

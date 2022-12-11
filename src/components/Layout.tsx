@@ -39,7 +39,7 @@ export default function Layout({
                   src="/img/powered.svg"
                   alt=""
                   className="rounded-full"
-                  width={300}
+                  width={280}
                   height={41}
                   layout="fixed"
                   objectFit="contain"
@@ -118,12 +118,14 @@ export default function Layout({
             </div>
           </div>
           <div className="z-10 w-full bg-base-content px-4">
-            <div className="collapse w-full rounded-t-3xl bg-[#31363B]">
+            <div className="collapse rounded-t-3xl bg-[#31363B]">
               <input type="checkbox" />
               <div className="collapse-title flex gap-10 text-xs text-base-100">
-                <p className="ml-4">Política de privacidad</p>
-                <p>Política de cookies</p>
-                <p>Aviso legal</p>
+                <p className="ml-4 text-[10px] sm:text-xs">
+                  Política de privacidad
+                </p>
+                <p className="text-[10px] sm:text-xs">Política de cookies</p>
+                <p className="text-[10px] sm:text-xs">Aviso legal</p>
               </div>
               <div className="collapse-content text-xs text-base-100">
                 <p>Aquí irían las políticas</p>

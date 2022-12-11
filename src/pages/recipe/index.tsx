@@ -49,7 +49,7 @@ const Recipes = () => {
               </Link>
             </div>
             <Image
-              src="/img/fondoCucharasSinFondo.png"
+              src="/img/cucharasSinFondo.png"
               alt=""
               width="700"
               height="400"
