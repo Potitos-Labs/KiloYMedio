@@ -2,6 +2,7 @@ import { trpc } from "@utils/trpc";
 import { IWorkshop } from "@utils/validations/workshop";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
 import EnrollButton from "./EnrollButon";
 
 function OnsiteWorskhopCard({
@@ -19,17 +20,19 @@ function OnsiteWorskhopCard({
     });
   const { data: session } = useSession();
   const isAdmin = session?.user?.role == "admin";
-
+  const [enteredMouse, setEnteredMouse] = useState(false);
   return (
     <div
-      className={` ${
+      className={` ${enteredMouse && "bg-base-content text-background"} ${
         displayed
           ? "grid-cols-[30%_70%]"
           : "grid-cols-[30%_70%] md:grid-cols-1 "
-      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
+      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content    sm:h-[180px]`}
       onMouseEnter={() => {
         setImageURL(workshop.imageURL);
+        setEnteredMouse(true);
       }}
+      onMouseLeave={() => setEnteredMouse(false)}
     >
       <div
         className={`${
