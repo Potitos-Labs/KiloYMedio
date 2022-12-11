@@ -4,10 +4,12 @@ import Allergens from "../../Allergens";
 import { Allergen } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { BsFillCaretRightFill } from "react-icons/bs";
+import EnrolledWorkshops from "./EnrolledWorkshops";
 
 function CenterItem({
   favoriteUserRecipes,
   allergenList,
+  workshopList,
 }: {
   favoriteUserRecipes:
     | {
@@ -19,6 +21,15 @@ function CenterItem({
       }[]
     | undefined;
   allergenList: Allergen[];
+  workshopList:
+    | {
+        onSiteWorkshop: {
+          workshopId: string;
+          date: Date;
+          places: number;
+        };
+      }[]
+    | undefined;
 }) {
   const [recipesVisible, setRecipesVisible] = useState(false);
   const [allergensVisible, setAllergensVisible] = useState(false);
@@ -79,7 +90,7 @@ function CenterItem({
       <div
         className={`${
           allergensVisible && "bg-primary font-satoshiBold text-base-100"
-        } active:text-base-100" relative border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold`}
+        } active:text-base-100" relative cursor-pointer border-b-[1px] border-neutral py-6 px-4 text-lg active:bg-primary active:font-satoshiBold`}
         onClick={() => {
           hideAllDisplayers();
           if (!allergensVisible) {
@@ -128,7 +139,7 @@ function CenterItem({
       <div
         className={`${
           workshopsVisible && "bg-primary font-satoshiBold text-base-100"
-        } relative py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
+        } relative cursor-pointer py-6 px-4 text-lg active:bg-primary active:font-satoshiBold active:text-base-100`}
         onClick={() => {
           hideAllDisplayers();
           if (!workshopsVisible) {
@@ -144,6 +155,25 @@ function CenterItem({
             } origin-left  transition-transform  `}
           />
         </div>
+      </div>
+      <div
+        className={`${
+          workshopsVisible && workshopList && workshopList?.length > 0
+            ? " flex flex-col space-y-1 bg-neutral p-1 "
+            : "hidden"
+        } `}
+      >
+        {workshopList &&
+          workshopList.map((e) => {
+            return (
+              <EnrolledWorkshops
+                key={e.onSiteWorkshop.workshopId}
+                id={e.onSiteWorkshop.workshopId}
+                name="POR PONER"
+                image=""
+              />
+            );
+          })}
       </div>
     </div>
   );

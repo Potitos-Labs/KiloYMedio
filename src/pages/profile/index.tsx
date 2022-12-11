@@ -65,6 +65,8 @@ const Profile = (
 
   const allergenList = data?.map((e) => e.allergen) ?? [];
 
+  const { data: workshopList } = trpc.user.client.getEnrollWorkshops.useQuery();
+
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <div className="sm:first-letter  mt-16 mb-7 grid grid-cols-1  lg:grid-cols-[58%_42%]">
@@ -84,15 +86,17 @@ const Profile = (
           <CenterItem
             favoriteUserRecipes={favoriteUserRecipes}
             allergenList={allergenList}
+            workshopList={workshopList}
           />
           <Footer />
         </div>
-        <div className="relative m-2 hidden max-h-[1200px] lg:block">
+        <div className="relative -mt-2  max-h-[650px] items-start justify-start align-top lg:block">
           <Image
             src="/img/bolitas.png"
             alt="Mi imagen"
             objectFit="contain"
             layout="fill"
+            className=" max-h-[1200px]"
           />
         </div>
       </div>
