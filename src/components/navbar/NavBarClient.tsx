@@ -21,7 +21,6 @@ function NavBarClient() {
 
   return (
     <nav>
-      <div className="flex flex-col"> </div>
       <div className="flex justify-end lg:hidden">
         <button onClick={() => setOpen(!open)} className="py-2">
           <RiMenuLine className="h-7 w-7" />

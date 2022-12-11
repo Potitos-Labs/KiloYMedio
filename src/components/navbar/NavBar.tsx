@@ -1,7 +1,6 @@
 //import Loading from "@components/ui/Loading";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { BsFillPersonFill } from "react-icons/bs";
 
 import AdminHeader from "./AdminHeader";
 import CartHeader from "./CartHeader";
@@ -39,10 +38,9 @@ export default function NavBar() {
   if (session && !isAdmin) {
     return (
       <>
-        <nav className="top-4 right-8 hidden flex-row gap-2 lg:flex">
-          <p className="hidden gap-1 md:flex">{session.user?.name}</p>
+        <nav className="hidden flex-row gap-8 lg:flex">
           <Link href={`/profile`}>
-            <BsFillPersonFill className="mr-4 h-6 w-6 fill-base-content" />
+            <p className="hidden cursor-pointer gap-1 md:flex">perfil</p>
           </Link>
           <CartHeader />
         </nav>

@@ -31,7 +31,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
   };
 
   return (
-    <div className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-300 bg-base-100">
+    <div className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-content bg-base-100">
       <div className="absolute bottom-[280px] left-4 z-10">
         <SaveIcon recipe={recipe} isBig={false} />
       </div>
