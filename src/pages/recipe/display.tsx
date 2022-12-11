@@ -42,7 +42,7 @@ export default function Display() {
             </p>
             {/* Filtros */}
             <button
-              className="peer self-end rounded-full px-1 pb-2 font-raleway text-secondary sm:bg-secondary sm:px-6 sm:pt-2.5 sm:text-base-100"
+              className="peer self-end px-1 pb-2 font-raleway text-secondary sm:rounded-full sm:bg-secondary sm:px-6 sm:pt-2.5 sm:text-base-100"
               onClick={() => setOpenFilter(!openFilter)}
             >
               <p className="hidden sm:flex">FILTRAR POR:</p>

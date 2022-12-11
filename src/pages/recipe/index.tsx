@@ -9,6 +9,7 @@ import Image from "next/image";
 
 import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplayer";
 import SliderRecipes from "@components/SliderRecipes";
+import { BsFilterSquareFill } from "react-icons/bs";
 
 const Recipes = () => {
   const [openFilter, setOpenFilter] = useState(false);
@@ -66,10 +67,11 @@ const Recipes = () => {
               </p>
               {/* Filtros */}
               <button
-                className="peer h-10 self-end rounded-full bg-secondary px-6 pb-2 pt-2.5 font-raleway text-base-100"
+                className="peer self-end px-1 pb-2 font-raleway text-secondary sm:rounded-full sm:bg-secondary sm:px-6 sm:pt-2.5 sm:text-base-100"
                 onClick={() => setOpenFilter(!openFilter)}
               >
-                FILTRAR POR:
+                <p className="hidden sm:flex">FILTRAR POR:</p>
+                <BsFilterSquareFill className="sm:hidden" size={30} />
               </button>
             </div>
             <div className={`mt-2 w-full ${!openFilter ? "hidden" : "flex"}`}>

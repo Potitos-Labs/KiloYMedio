@@ -128,7 +128,6 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                     {(recipe?.preparationTime ?? 0) +
                       (recipe?.cookingTime ?? 0)}{" "}
                     min
-                    {/* PROBAR LA SUMA */}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
@@ -136,7 +135,12 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex justify-between">
-                    <span>Dificultad</span> {recipe?.difficulty}
+                    <span>Dificultad</span>{" "}
+                    {recipe?.difficulty == "easy"
+                      ? "fácil"
+                      : recipe?.difficulty == "moderate"
+                      ? "media"
+                      : "difícil"}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                 </div>
