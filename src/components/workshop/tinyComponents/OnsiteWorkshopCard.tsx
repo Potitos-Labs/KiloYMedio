@@ -18,6 +18,7 @@ function OnsiteWorskhopCard({
       onSiteWorkshopId: workshop.id || "",
     });
   const { data: session } = useSession();
+  const isAdmin = session?.user?.role == "admin";
 
   return (
     <div
@@ -55,7 +56,7 @@ function OnsiteWorskhopCard({
         <p className=" flex w-fit text-[15px] line-clamp-2  md:text-xs">
           {workshop.description}
         </p>
-        {workshop.id && session && (
+        {workshop.id && session && !isAdmin && (
           <EnrollButton OnsiteworkshopID={workshop.id} />
         )}
       </div>
