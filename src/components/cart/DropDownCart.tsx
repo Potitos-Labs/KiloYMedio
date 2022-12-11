@@ -7,18 +7,16 @@ function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className="absolute right-4 top-6 z-10 hidden group-hover:block ">
-      <div className="scrollbar-hide flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll rounded-md bg-white   text-black shadow-sm shadow-kym4">
-        <div className="relative bg-background pt-3 pl-3">
+    <div className="absolute right-4 top-10 z-10 hidden group-hover:block ">
+      <div className="scrollbar-hide flex h-auto max-h-[226px] w-[300px] flex-col overflow-y-scroll rounded-md bg-base-100 text-black">
+        <div className="relative pt-3">
           {numberCartProducts > 0 ? (
-            <div className="flex">
-              <p className="text-md mb-5">
-                {numberCartProducts}{" "}
-                {numberCartProducts > 1 ? "productos" : "producto"} en la cesta
-              </p>
-              <p className="absolute right-2 top-2 text-lg font-semibold">
+            <div className="flex flex-col">
+              <p className="mb-3 ml-3 font-raleway text-lg">CESTA</p>
+              {/* <p className="absolute right-2 top-2 text-lg font-semibold">
                 {myCart?.totalPrice} €
-              </p>
+              </p> */}
+              <hr className="border-1 w-full border-black opacity-60"></hr>
             </div>
           ) : (
             <div className="flex">
