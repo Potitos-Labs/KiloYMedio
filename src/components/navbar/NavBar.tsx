@@ -8,16 +8,6 @@ import CartHeader from "./CartHeader";
 
 export default function NavBar() {
   const { data: session } = useSession();
-
-  // if (status == "loading") {
-  //   return (
-  //     <>
-  //       <Loading message="" />
-  //     </>
-  //   );
-  // }
-
-  // Not authenticated
   if (!session) {
     return (
       <>
