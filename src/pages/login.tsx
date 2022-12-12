@@ -70,8 +70,8 @@ const SignIn: NextPage = () => {
         </div>
       </div>
 
-      <main className="h-screen bg-accent bg-cover bg-no-repeat md:bg-[url('/img/fondoLogin.png')]">
-        <div className="flex w-screen flex-col items-center bg-[#FFAA5A] pt-[20px]">
+      <main className="bg-accent bg-contain bg-no-repeat md:bg-[url('/img/fondoLogin.png')]">
+        <div className="flex flex-col pt-4">
           <Link href="/">
             <Image
               src="/logo sin subtitulo-blanco.svg"
@@ -82,8 +82,8 @@ const SignIn: NextPage = () => {
             ></Image>
           </Link>
         </div>
-        <div className="flex h-full flex-col justify-center md:-mt-[71px] md:items-end">
-          <div className="mt-[20px] h-full w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:h-[760px] md:w-[540px]">
+        <div className="flex flex-col md:items-end">
+          <div className="rounded-box mx-2 mb-10 mt-[20px] h-full border-[1px] bg-base-100 md:mr-[70px] md:h-[760px] md:w-[540px]">
             {/* Text */}
             <div className="text-center">
               <p className="ml-[15px] mr-[175px] mt-[30px] w-[335px] font-raleway text-[43px] md:mt-[80px] md:ml-[30px]">
@@ -166,10 +166,10 @@ const SignIn: NextPage = () => {
                 >
                   Iniciar sesión
                 </button>
-                <hr className="mx-[16px] mt-[30px] flex h-0 w-[346px] border-spacing-0 border-black border-opacity-30 md:mx-[32px] md:w-[476px]"></hr>
+                <hr className="mx-[16px] mt-[30px] flex h-0 w-[346px] border-spacing-0 border-base-content border-opacity-30 md:mx-[32px] md:w-[476px]"></hr>
                 <div className="mx-[15px] mt-[30px] mb-[15px] flex items-center align-middle md:mx-[30px] md:mb-0">
                   <button
-                    className="btn h-[60px] w-[350px] rounded-[30px] border-[1px] border-[#212529] bg-base-100 font-raleway text-sm hover:bg-base-100 md:w-[480px]"
+                    className="btn h-[60px] w-[350px] rounded-[30px] border-[1px] border-base-content bg-base-100 font-raleway text-sm hover:bg-base-100 md:w-[480px]"
                     type="button"
                     style={{ transition: "all .15s ease" }}
                     onClick={() =>

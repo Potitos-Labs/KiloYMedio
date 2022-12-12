@@ -23,22 +23,16 @@ function OnsiteWorskhopCard({
   const [enteredMouse, setEnteredMouse] = useState(false);
   return (
     <div
-      className={` ${enteredMouse && "bg-base-content text-background"} ${
-        displayed
-          ? "grid-cols-[30%_70%]"
-          : "grid-cols-[30%_70%] md:grid-cols-1 "
-      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content    sm:h-[180px]`}
+      className={`${enteredMouse && "bg-base-content text-base-100"} ${
+        displayed ? "grid-cols-[30%_70%]" : "grid-cols-[30%_70%] md:grid-cols-1"
+      } mt-2 grid h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content sm:h-[180px]`}
       onMouseEnter={() => {
         setImageURL(workshop.imageURL);
         setEnteredMouse(true);
       }}
       onMouseLeave={() => setEnteredMouse(false)}
     >
-      <div
-        className={`${
-          displayed ? "relative h-full" : " relative block h-full md:hidden"
-        } `}
-      >
+      <div className={`relative h-full ${!displayed && "block md:hidden"} `}>
         <Image
           src={workshop.imageURL}
           objectFit="cover"
@@ -47,16 +41,16 @@ function OnsiteWorskhopCard({
           layout="fill"
         />
       </div>
-      <div className="w-fill h-fill relative p-2 md:p-4">
+      <div className="relative p-2 md:p-4">
         {
-          <div className="mb-1 flex  w-full justify-end align-middle text-[10px] md:text-xs">
+          <div className="mb-1 flex w-full justify-end align-middle text-[10px] md:text-xs">
             <p>{enrollCliens + "/" + workshop.OnSiteWorkshop?.places}</p>
           </div>
         }
-        <h1 className=" font-raleway text-[16px] uppercase lg:text-[35px]">
+        <h1 className="font-raleway text-[16px] uppercase lg:text-[35px]">
           {workshop.name}
         </h1>
-        <p className=" flex w-fit text-[15px] line-clamp-2  md:text-xs">
+        <p className="flex w-fit text-[15px] line-clamp-2 md:text-xs">
           {workshop.description}
         </p>
         {workshop.id && session && !isAdmin && (

@@ -47,7 +47,7 @@ function EnrollButton({
   return (
     <button
       className={` 
-       absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent  px-2  active:border-primary active:bg-primary active:text-background`}
+       absolute right-2 bottom-2 rounded-full border-[1px] border-base-content bg-transparent px-2 hover:border-base-100 active:border-primary active:bg-primary active:text-base-100`}
       onClick={() => whorshopfunction()}
     >
       {areEnroll ? "Desinscribirse" : "Inscribirse"}
