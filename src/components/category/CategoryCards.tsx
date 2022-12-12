@@ -13,22 +13,7 @@ function CategoryCards({
   closePopUp: () => void;
 }) {
   const [clicked, setClicked] = useState(Boolean);
-  function buildURL() {
-    let URL = `/product?supracategory=${name}&category=`;
-    for (let i = 0; i < relations.length; i++) {
-      URL += relations[i]?.category;
-      if (i != relations.length - 1) {
-        URL += ",";
-      }
-    }
-    return URL;
-  }
-  function push() {
-    setClicked(true);
-    const URL = buildURL();
-    router.push(URL);
-    closePopUp();
-  }
+
   return (
     <div
       className={`${
@@ -39,7 +24,11 @@ function CategoryCards({
         className="h-full w-full px-3 pt-1 lg:px-5 lg:pt-3"
         onMouseDown={() => setClicked(true)}
         onMouseLeave={() => setClicked(false)}
-        onMouseUp={() => push()}
+        onMouseUp={() => {
+          setClicked(true);
+          router.push(`/product?supracategory=${name}&category=`);
+          closePopUp();
+        }}
       >
         <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway  text-xs uppercase lg:text-lg">
           {name}

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Dispatch, useEffect } from "react";
 import { ProductUnit } from "@prisma/client";
 import { BsArrowRightShort } from "react-icons/bs";
+import { useSession } from "next-auth/react";
+import router from "next/router";
 
 const productPrice: Record<ProductUnit, number> = {
   grams: 1000,
@@ -46,6 +48,8 @@ function Addproductchart({
   index?: number;
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
+  const session = useSession();
+
   const stockLeft =
     amount + incdecValues[product.ProductUnit] <=
     product.stock * maxValues[product.ProductUnit];
@@ -57,6 +61,10 @@ function Addproductchart({
   });
 
   function addToCart() {
+    if (session.status === "unauthenticated") {
+      router.push(`/login?prev=${router.asPath}`);
+      return;
+    }
     if (stockLeft) {
       toast.success("Producto añadido");
       mutation.mutateAsync({ productId: product.id, amount: amount });

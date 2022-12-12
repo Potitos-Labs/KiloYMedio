@@ -20,7 +20,6 @@ function Product({
   product: IProduct;
   showButtons: boolean;
   index?: number;
-  cartMessage?: "añadir a la cesta" | "añadir";
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const { data } = useSession();

@@ -238,7 +238,6 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                         showButtons={true}
                         index={cont}
                         setPrices={setPrices}
-                        cartMessage={"añadir"}
                         key={index}
                       />
                     );

@@ -52,7 +52,7 @@ function CategoriesHub({
               <button
                 className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "
                 onClick={() => {
-                  router.push("/product?supracategory=all");
+                  router.push("/product?category=all");
                   setOpen(false);
                 }}
               >

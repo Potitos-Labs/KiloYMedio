@@ -3,6 +3,7 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { IRecipe } from "@utils/validations/recipe";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import router from "next/router";
 
 function SaveIcon({
   recipe,
@@ -12,9 +13,11 @@ function SaveIcon({
   isBig: boolean;
 }) {
   const utils = trpc.useContext();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const isAdmin = session?.user?.role == "admin";
-  const [isFav, setFav] = useState(recipe?.isFav);
+  const [isFav, setFav] = useState(
+    status == "unauthenticated" ? false : recipe?.isFav,
+  );
 
   const saveMutation = trpc.user.client.addFavoriteRecipe.useMutation({
     onSuccess() {
@@ -28,18 +31,25 @@ function SaveIcon({
       utils.recipe.getById.invalidate();
     },
   });
-  function saveRecipe() {
-    saveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
-    setFav(true);
-  }
-  function unsaveRecipe() {
-    unsaveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
-    setFav(false);
+
+  function handleSave() {
+    if (status === "unauthenticated") {
+      router.push(`/login?prev=${router.asPath}`);
+      return;
+    }
+
+    if (isFav) {
+      saveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
+      setFav(true);
+    } else {
+      unsaveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
+      setFav(false);
+    }
   }
 
   return (
     <button
-      onClick={isFav ? unsaveRecipe : saveRecipe}
+      onClick={handleSave}
       disabled={saveMutation.isLoading || unsaveMutation.isLoading}
       className={`${
         isBig

@@ -32,7 +32,7 @@ const SignUp: NextPage = () => {
 
   const { status } = useSession();
   if (status == "authenticated") {
-    router.push("/");
+    router.push(router.query.prev?.toString() ?? "/");
   }
 
   const { mutateAsync } = trpc.user.client.createNew.useMutation();
@@ -51,7 +51,7 @@ const SignUp: NextPage = () => {
           await signIn("credentials", {
             email: data.email,
             password: data.password,
-            callbackUrl: "/",
+            callbackUrl: router.query.prev?.toString(),
           });
         }
       } catch (error) {
@@ -109,7 +109,7 @@ const SignUp: NextPage = () => {
             </p>
             <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
               ¿Ya tienes una cuenta? {""}
-              <Link href="/login">
+              <Link href={`/login?prev=${router.query.prev?.toString()}`}>
                 <b className="cursor-pointer font-satoshiBold">
                   Iniciar sesión
                 </b>

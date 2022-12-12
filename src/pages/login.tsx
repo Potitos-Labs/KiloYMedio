@@ -25,7 +25,7 @@ const SignIn: NextPage = () => {
 
   const { status } = useSession();
   if (status == "authenticated") {
-    router.push("/");
+    router.push(router.query.prev?.toString() ?? "/");
   }
 
   if (
@@ -34,14 +34,14 @@ const SignIn: NextPage = () => {
     emailNotExists == ""
   ) {
     setEmailNotExists("Email y/o contraseña inválido");
-    router.replace("/login", undefined, { shallow: true });
+    //router.replace("/login", undefined, { shallow: true });
   }
-
+  console.log(router.basePath);
   const onSubmit = useCallback(async (data: ILogin) => {
     await signIn("credentials", {
       email: data.email,
       password: data.password,
-      callbackUrl: "/",
+      callbackUrl: router.query.prev?.toString(),
     });
   }, []);
 
@@ -91,7 +91,7 @@ const SignIn: NextPage = () => {
               </p>
               <p className="ml-[16px] mr-[17px] mt-[30px] text-left text-sm md:ml-[33px]">
                 ¿Aún no tienes una cuenta? Únete a kilo y medio {""}
-                <Link href="/register">
+                <Link href={`/register?prev=${router.query.prev?.toString()}`}>
                   <b className="cursor-pointer font-satoshiBold">
                     registrándote
                   </b>
@@ -174,7 +174,7 @@ const SignIn: NextPage = () => {
                     style={{ transition: "all .15s ease" }}
                     onClick={() =>
                       signIn("google", {
-                        callbackUrl: "/",
+                        callbackUrl: router.query.prev?.toString(),
                       })
                     }
                   >

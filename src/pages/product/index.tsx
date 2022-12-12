@@ -41,14 +41,10 @@ export default function CreateProdcut(
   } = props;
 
   const router = useRouter();
-  const { replace } = router;
-  const category = useMemo(
-    //Esta mierda no va bien
-    () => (router.query.category as string)?.split(",") ?? [],
-    [router.query.category],
+  let category = useMemo(
+    () => (router.query.category as string)?.split(","),
+    [router.query],
   );
-
-  console.log(category);
 
   const [filter, setFilter] = useState<IFilterProduct>({
     name: "",
@@ -62,6 +58,13 @@ export default function CreateProdcut(
   });
 
   useEffect(() => {
+    if (category == undefined || category[0] == "") {
+      category =
+        supracategories
+          ?.find((e) => e.supraCategoryName == router.query.supracategory)
+          ?.SupraCategoryRelation.map((cat) => cat.category) ?? [];
+    }
+
     const ecategoryParse = z.array(z.nativeEnum(ECategory)).safeParse(category);
     const necategoryParse = z
       .array(z.nativeEnum(NECategory))
@@ -90,14 +93,10 @@ export default function CreateProdcut(
         eCategories: [],
       }));
     }
+  }, [category]);
 
-    if (category == undefined) console.log("Algo va mal :(");
-
-    /*if (category) {
-      replace("/product", undefined, { shallow: true });
-    }*/
-  }, [category, replace]);
-
+  const { data: supracategories } =
+    trpc.product.getAllSupraCategories.useQuery();
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
   const [openFilter, setOpenFilter] = useState(false);
@@ -136,7 +135,6 @@ export default function CreateProdcut(
                       showButtons={true}
                     />
                   );
-                console.log(productParsed.error);
               })}
             </div>
           ) : (

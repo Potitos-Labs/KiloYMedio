@@ -10,22 +10,20 @@ const Tittle = ({
   const router = useRouter();
   const { supracategory, category } = router.query;
 
-  console.log({ supracategory, category, router });
-
   return (
     <div className="breadcrumbs text-sm">
       <ul>
         <li>
-          <Link href={"/product?supracategory=all"}>
+          <Link href={"/product?category=all"}>
             <a className="text-xs uppercase">tienda</a>
           </Link>
         </li>
-        {supracategory === "all" && (
+        {category === "all" && (
           <li>
             <p className="text-xs uppercase">todos los productos</p>
           </li>
         )}
-        {supracategory !== "all" && (
+        {category != "all" && (
           <li>
             {category?.indexOf(",") === -1 ? (
               <Link href={`/product?supracategory=${supracategory}&category=`}>
