@@ -85,7 +85,7 @@ const EditProfile = () => {
       headerTextDark={true}
     >
       <div className="m-5 rounded-lg bg-base-100 py-6 md:m-20">
-        <div className="px-8 md:px-32 lg:px-40">
+        <div className="px-8 md:px-28 lg:px-40">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-10  w-full">
               <div className="mr-8 flex flex-col items-center pt-20">
@@ -116,7 +116,7 @@ const EditProfile = () => {
                     </p>
                   )}
                   {/*Correo y Nombre*/}
-                  <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%]  md:grid-cols-[15%_75%] lg:grid-cols-[17%_43%_12%_28%]">
+                  <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%]  md:grid-cols-[25%_75%] lg:grid-cols-[17%_43%_14%_26%]">
                     <p className="py-2 text-sm">Correo</p>
                     <input
                       type="text"
@@ -151,7 +151,7 @@ const EditProfile = () => {
 
             <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
               <FormWrapper title="Dirección de envío">
-                <div className=" relative grid w-full grid-cols-1 py-8 md:grid-cols-[15%_85%] lg:grid-cols-[10%_90%]">
+                <div className=" relative grid w-full grid-cols-1 py-8  lg:grid-cols-[20%_80%]">
                   <p className="py-2 text-sm">Dirección</p>
                   <input
                     type="text"
@@ -163,7 +163,7 @@ const EditProfile = () => {
                   <p className="text-red-500">{errors.address?.message}</p>
                 )}
                 {/*Correo y Nombre*/}
-                <div className=":grid-cols-1 grid w-full sm:grid-cols-[20%_80%] md:grid-cols-[15%_35%_15%_35%] lg:grid-cols-[10%_40%_10%_40%]">
+                <div className=":grid-cols-1 grid w-full sm:grid-cols-[20%_80%] lg:grid-cols-[18%_33%_10%_40%]">
                   <p className="py-2 text-sm">Localidad</p>
                   <input
                     type="text"
@@ -189,7 +189,7 @@ const EditProfile = () => {
             <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
               <FormWrapper title="Alérgenos">
                 <div>
-                  <div className=" items-left grid grid-cols-3 p-5">
+                  <div className=" items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
                     {AllallergenList.map((allergen) => (
                       <div
                         className=" grid grid-cols-[10%_85%_5%] py-2"
