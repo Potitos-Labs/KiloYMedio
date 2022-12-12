@@ -177,10 +177,7 @@ const SignIn: NextPage = () => {
                     >
                       Iniciar sesión con Google
                     </button>
-                    <IoLogoGoogle
-                      className="absolute ml-6"
-                      size="25"
-                    ></IoLogoGoogle>
+                    <IoLogoGoogle className="absolute ml-4 h-5 w-5 sm:ml-6 sm:h-6 sm:w-6"></IoLogoGoogle>
                   </div>
                 </div>
                 {/* End Buttons */}
