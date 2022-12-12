@@ -442,7 +442,7 @@ model SupraCategoryRelation {
     id              String        @id @default(cuid())
     supraCategoryId String
     SupraCategory   SupraCategory @relation(fields: [supraCategoryId], references: [id])
-    category        ECategory     @unique
+    category        ECategory
 
     @@index([supraCategoryId])
 }

@@ -43,7 +43,7 @@ async function main() {
       supraCategoryName: "Harinas y pastas",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "pastas" }],
+          data: [{ category: "flours" }, { category: "pastas" }],
         },
       },
     },
