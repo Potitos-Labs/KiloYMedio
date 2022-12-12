@@ -103,7 +103,7 @@ export default function CreateProdcut(
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mx-6 mt-12 flex flex-col place-content-between space-y-3 sm:relative md:flex-row">
+      <div className="mx-6 mt-2 flex flex-col place-content-between space-y-3 sm:relative sm:mt-6 md:flex-row">
         <Tittle inSpanish={inSpanish} />
         <div className="flex flex-row items-end">
           <button
