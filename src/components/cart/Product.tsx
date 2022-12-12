@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
@@ -49,20 +50,24 @@ function Product({
     <div key={cartProduct.productId}>
       <div className="flex flex-row rounded-[15px] border-[1px] border-solid border-neutral">
         <div className="flex flex-col py-2 align-middle sm:p-2">
-          <Image
-            className="rounded-md"
-            src={cartProduct.product.imageURL}
-            alt={cartProduct.product.name + " imagen"}
-            width={100}
-            height={100}
-            layout="fixed"
-            objectFit="cover"
-          />
+          <Link href={`/product/${cartProduct.productId}`}>
+            <Image
+              className="cursor-pointer rounded-md"
+              src={cartProduct.product.imageURL}
+              alt={cartProduct.product.name + " imagen"}
+              width={100}
+              height={100}
+              layout="fixed"
+              objectFit="cover"
+            />
+          </Link>
         </div>
         <div className="my-2 ml-1 flex w-full flex-col justify-between py-2 sm:m-2 sm:p-2">
-          <div className="text-sm text-neutral first-letter:uppercase">
-            {cartProduct.product.name}
-          </div>
+          <Link href={`/product/${cartProduct.productId}`}>
+            <div className="text-sm text-neutral first-letter:uppercase hover:cursor-pointer">
+              {cartProduct.product.name}
+            </div>
+          </Link>
           {/* Amount */}
           <div className="max-w-fit">
             <IncDecButtons
@@ -74,7 +79,7 @@ function Product({
             />
           </div>
         </div>
-        <div className="flex w-[60%] flex-col justify-between sm:pr-3 md:w-[40%] lg:w-[30%] xl:w-[20%]">
+        <div className="flex w-[60%] flex-col justify-between sm:pr-3 md:w-[40%] lg:w-[30%]">
           {/* trash can */}
           <div className="flex flex-row-reverse">
             <button
