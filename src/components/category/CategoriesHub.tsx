@@ -48,7 +48,7 @@ function CategoriesHub({
                   closePopUp={closePopUp}
                 />
               ))}
-            <div className="flex items-end justify-end justify-items-end">
+            <div className="flex items-end justify-end justify-items-end lg:col-span-2">
               <button
                 className=" rounded-md border-[1px] border-base-content px-5 py-1 font-raleway text-base-content "
                 onClick={() => {
