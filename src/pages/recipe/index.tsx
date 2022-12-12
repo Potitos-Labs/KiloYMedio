@@ -10,8 +10,11 @@ import Image from "next/image";
 import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplayer";
 import SliderRecipes from "@components/SliderRecipes";
 import { BsFilterSquareFill } from "react-icons/bs";
+import { useSession } from "next-auth/react";
 
 const Recipes = () => {
+  const session = useSession();
+  const authed = session.status === "authenticated";
   const [openFilter, setOpenFilter] = useState(false);
   const [filter, setFilter] = useState<IFilterRecipe>({
     adminRecipes: true,
@@ -42,7 +45,7 @@ const Recipes = () => {
           </h1>
           <div className="flex flex-col justify-between sm:flex-row sm:pr-14">
             <div className="ml-10 mb-20 flex w-48 flex-col gap-6 sm:mb-0">
-              <Link href="/recipe/create">
+              <Link href={authed ? "/recipe/create" : "/login"}>
                 <button className={buttonStyle}>compartir recetas</button>
               </Link>
               <Link href="/recipe">

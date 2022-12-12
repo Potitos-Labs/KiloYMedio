@@ -72,14 +72,15 @@ const SignIn: NextPage = () => {
 
       <main className="h-screen bg-accent bg-cover bg-no-repeat md:bg-[url('/img/fondoLogin.png')]">
         <div className="flex w-screen flex-col items-center bg-[#FFAA5A] pt-[20px]">
-          <Image
-            src="/img/logoWhite.png"
-            alt="not found"
-            width={214.5}
-            height={45}
-            className="cursor-pointer"
-            onClick={() => router.push("/")}
-          ></Image>
+          <Link href="/">
+            <Image
+              src="/logo sin subtitulo-blanco.svg"
+              alt="not found"
+              width={214.5}
+              height={45}
+              className="cursor-pointer"
+            ></Image>
+          </Link>
         </div>
         <div className="flex h-full flex-col justify-center md:-mt-[71px] md:items-end">
           <div className="mt-[20px] h-full w-screen rounded-[20px] border-[1px] bg-base-100 md:mr-[70px] md:h-[760px] md:w-[540px]">

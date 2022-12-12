@@ -32,6 +32,7 @@ export default function CreateRecipe(
   const router = useRouter();
 
   if (status === "unauthenticated") {
+    router.push("/recipe");
     router.push("/login");
   }
 

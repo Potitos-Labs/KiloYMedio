@@ -89,14 +89,15 @@ const SignUp: NextPage = () => {
   return (
     <main className="h-screen bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
       <div className="flex w-full flex-col items-center py-[10px]">
-        <Image
-          src="/img/logoWhite.png"
-          alt="not found"
-          width={214.5}
-          height={45}
-          className="cursor-pointer"
-          onClick={() => router.push("/")}
-        ></Image>
+        <Link href="/">
+          <Image
+            src="/logo sin subtitulo-blanco.svg"
+            alt="not found"
+            width={214.5}
+            height={45}
+            className="cursor-pointer"
+          ></Image>
+        </Link>
       </div>
 
       <div className=" flex h-full flex-col justify-center px-2 md:items-end">
