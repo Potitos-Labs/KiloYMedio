@@ -1,3 +1,4 @@
+import Loading from "@components/ui/Loading";
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
@@ -27,7 +28,7 @@ const RecipeDetails: NextPage = () => {
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div>Cargando...</div>
+      <Loading message="Cargando receta..."></Loading>
     </Layout>
   );
 };
