@@ -72,7 +72,7 @@ export default function Layout({
                     type="text"
                     value={email}
                     placeholder="tucorreo@gmail.com"
-                    className="bg-base-100 text-base-content"
+                    className="w-full bg-base-100 text-base-content focus:outline-none"
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
