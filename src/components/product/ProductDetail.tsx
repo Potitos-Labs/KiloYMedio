@@ -2,7 +2,7 @@ import { Allergen, ProductUnit } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { HiArrowLeft } from "react-icons/hi";
 
@@ -143,9 +143,15 @@ const PurchaseOptions = ({ product }: { product: IProduct }) => {
     milliliters: 250,
     unit: 1,
   };
-  const [amount, setAmount] = React.useState(
-    productAmount[product.ProductUnit],
-  );
+
+  const [id, setId] = useState(product.id);
+  const [amount, setAmount] = useState(productAmount[product.ProductUnit]);
+
+  // Reset amount when product changes (to avoid wrong amounts)
+  if (product.id != id) {
+    setAmount(productAmount[product.ProductUnit]);
+    setId(product.id);
+  }
 
   return (
     <div className="flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">
