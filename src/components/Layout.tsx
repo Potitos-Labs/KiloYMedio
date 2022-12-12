@@ -4,7 +4,6 @@ import Link from "next/link";
 import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -47,17 +46,6 @@ export default function Layout({
           </h1>
           <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
             <div className="grid-cols mr-40 grid  pl-10">
-              <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
-                <Image
-                  src="/img/powered.svg"
-                  alt=""
-                  className="cursor-pointer rounded-full"
-                  width={280}
-                  height={41}
-                  layout="fixed"
-                  objectFit="contain"
-                />
-              </Link>
               <div className="py-16">
                 <p className="text-xs">lunes-viernes, 9:30-18:30</p>
                 <p className="text-xs">sábados, 9:30-14:30</p>
@@ -140,15 +128,12 @@ export default function Layout({
           <div className="z-10 w-full bg-base-content px-4">
             <div className="collapse rounded-t-3xl bg-[#31363B]">
               <input type="checkbox" />
-              <div className="collapse-title flex gap-10 text-xs text-base-100">
+              <div className="collapse-title flex justify-between gap-10 text-xs text-base-100">
                 <p className="ml-4 text-[10px] sm:text-xs">
                   Política de privacidad
                 </p>
                 <p className="text-[10px] sm:text-xs">Política de cookies</p>
                 <p className="text-[10px] sm:text-xs">Aviso legal</p>
-              </div>
-              <div className="collapse-content text-xs text-base-100">
-                <p>Aquí irían las políticas</p>
               </div>
             </div>
           </div>

@@ -87,8 +87,8 @@ const SignUp: NextPage = () => {
 
   console.log({ errors });
   return (
-    <main className="h-screen bg-accent bg-cover bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
-      <div className="flex w-full flex-col items-center py-[10px]">
+    <main className=" h-screen bg-[#ffa24a] bg-cover bg-center bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
+      <div className="flex w-full justify-center bg-[#ffa24a] ">
         <Link href="/">
           <Image
             src="/logo sin subtitulo-blanco.svg"
@@ -100,14 +100,14 @@ const SignUp: NextPage = () => {
         </Link>
       </div>
 
-      <div className=" flex h-full flex-col justify-center px-2 md:items-end">
-        <div className="mt-[20px] mb-12 rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
+      <div className="flex flex-col justify-center px-2 md:items-end">
+        <div className="mt-[15px] mb-12 rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
           {/* Text */}
           <div className="text-center">
-            <p className="mt-[30px] mr-[51px] flex font-raleway text-[43px] leading-10 md:mt-[80px] md:ml-[30px] md:whitespace-nowrap">
+            <p className="mt-[20px] mr-[51px] flex h-full font-raleway text-[43px] leading-10 md:mt-[55px] md:ml-[30px] md:whitespace-nowrap">
               ¡Únete a kilo y medio!
             </p>
-            <p className="ml-[33px] mr-[17px] mt-[30px] text-left text-sm">
+            <p className="ml-[33px] mr-[17px] mt-[25px] text-left text-sm">
               ¿Ya tienes una cuenta? {""}
               <Link href={`/login?prev=${router.query.prev?.toString()}`}>
                 <b className="cursor-pointer font-satoshiBold">
@@ -119,7 +119,7 @@ const SignUp: NextPage = () => {
           </div>
           <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
             {/* Info */}
-            <div className="mt-[30px] flex w-full flex-col items-center gap-[19px] px-6 md:mt-[74px]">
+            <div className="mt-[20px] flex w-full flex-col items-center gap-[19px] px-6 md:mt-[50px]">
               <div className="mx-[30px] flex w-full flex-col">
                 <div className="flex w-full flex-col gap-[20px]">
                   <input
@@ -219,7 +219,7 @@ const SignUp: NextPage = () => {
             <div className="flex w-full flex-col items-center px-6 pb-[25px]">
               <button
                 type="submit"
-                className="responsive btn btn-lg mx-[15px] mb-[20px] mt-[60px] h-[60px] w-full cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:mb-0 md:mt-[69px]"
+                className="responsive btn btn-lg mx-[15px] mb-[10px] mt-[40px] h-[60px] w-full cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:mb-0 md:mt-[60px]"
               >
                 Crear cuenta
               </button>

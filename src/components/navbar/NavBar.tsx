@@ -1,6 +1,5 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 
 import AdminHeader from "./AdminHeader";
 import CartHeader from "./CartHeader";
@@ -32,14 +31,6 @@ export default function NavBar() {
           <Link href={`/profile`}>
             <div className="flex cursor-pointer select-none gap-2">
               <p className="hidden md:flex">perfil</p>
-              <Image
-                src={session.user?.image ?? ""}
-                alt=""
-                className="rounded-full"
-                width={25}
-                height={25}
-                objectFit="contain"
-              />
             </div>
           </Link>
           <CartHeader />
