@@ -9,11 +9,15 @@ export default function CartHeader() {
   const numberCartProducts = allCartProduct?.productList.length ?? 0;
 
   return (
-    <div className="group mr-5 flex cursor-pointer items-center">
-      <Link href={"/cart"}>cesta</Link>
-      <div className="absolute ml-10 h-6 w-6 rounded-full bg-gray-700 pl-2 text-xs text-base-100">
-        {numberCartProducts}
-      </div>
+    <div className="group flex cursor-pointer items-center">
+      <Link href={"/cart"}>
+        <div className="flex gap-1">
+          <div>cesta</div>
+          <div className="h-6 w-6 rounded-full bg-gray-700 text-center text-xs text-base-100">
+            {numberCartProducts}
+          </div>
+        </div>
+      </Link>
       <div className="invisible sm:visible">
         <DropDownCart />
       </div>
