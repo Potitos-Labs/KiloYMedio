@@ -15,6 +15,7 @@ export const clientSchema = z.object({
     .string()
     .min(1, "Este campo no puede estar vacío")
     .email({ message: "Introduce un correo válido" }),
+
   image: z.string().nullish(),
   location: z
     .string()
@@ -22,26 +23,31 @@ export const clientSchema = z.object({
       (value) => isAlpha(value, "es-ES"),
       "Este campo no puede contener números",
     )
-    .nullable(),
+    .nullable()
+    .or(z.string().min(0).max(0)),
   CP: z
     .number({ invalid_type_error: "CP solo acepta números" })
     .refine((value) => isPostalCode(value.toString(), "ES"), {
       message: "El CP introducido no es correcto",
     })
-    .nullable(),
+    .nullable()
+    .or(z.number().min(0).max(0)),
+
   address: z.string().nullable(),
   phoneNumber: z
     .string()
     .refine((value) => isMobilePhone(value, "es-ES", { strictMode: false }), {
       message: "El formato introducido no es correcto",
     })
-    .nullable(),
+    .nullable()
+    .or(z.string().min(0).max(0)),
   nif: z
     .string()
     .refine((value) => isIdentityCard(value, "ES"), {
       message: "El formato introducido no es correcto",
     })
-    .nullable(),
+    .nullable()
+    .or(z.string().min(0).max(0)),
 });
 
 export type IClient = z.infer<typeof clientSchema>;
