@@ -11,7 +11,7 @@ function Footer() {
             signOut({ callbackUrl: "/" });
           }}
         >
-          cerrar sesion
+          cerrar sesión
         </p>
       </div>
       <div className=" flex items-center justify-center">
@@ -21,7 +21,7 @@ function Footer() {
       </div>
       <div className=" flex items-center ">
         <Link href={""}>
-          <p className="text-left">envios y devoluciones</p>
+          <p className="text-left">envíos y devoluciones</p>
         </Link>
       </div>
     </div>

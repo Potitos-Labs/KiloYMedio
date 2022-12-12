@@ -101,7 +101,7 @@ function CenterItem({
           }
         }}
       >
-        mis alergenos
+        mis alérgenos
         <div className="absolute bottom-7 right-4">
           <BsFillCaretRightFill
             className={`${
