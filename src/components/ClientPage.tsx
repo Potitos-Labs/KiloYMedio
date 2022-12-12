@@ -143,7 +143,7 @@ function ClientePage() {
           onClick={() => {
             return router.push(`/product`);
           }}
-          className="absolute bottom-20 left-10 flex items-center gap-2 rounded-full bg-base-100 px-6 py-3 font-satoshiBold"
+          className="absolute bottom-20 left-10 z-10 flex items-center gap-2 rounded-full bg-base-100 px-6 py-3 font-satoshiBold"
         >
           explorar tienda
           <HiArrowNarrowRight className="mt-0.5" />
