@@ -98,7 +98,7 @@ function Addproductchart({
           <span className="px-2 text-sm">{price + " €"}</span>
         </div>
         <div className="flex w-full flex-initial flex-row justify-center px-2">
-          <p className="self-center text-center text-sm">
+          <p className="self-center text-center text-sm leading-5">
             {stockLeft ? "añadir a la cesta" : "agotado"}
           </p>
           <BsArrowRightShort size={25} className="my-auto ml-2" />
