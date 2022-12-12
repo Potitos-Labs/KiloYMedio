@@ -14,13 +14,11 @@ function DropDownCart() {
             {numberCartProducts > 0 ? (
               <div className="flex flex-col">
                 <p className="mb-3 ml-5 font-raleway text-lg">CESTA</p>
-                <hr className="border-1 w-full border-black opacity-60"></hr>
+                <hr className="border-1 w-full border-black opacity-60" />
               </div>
             ) : (
-              <div className="flex">
-                <p className="text-md mb-5">
-                  ¡Aún no hay ningún producto en tu carrito!
-                </p>
+              <div className="-mb-3 pt-3 text-center">
+                <p className="text-sm">¡No hay productos en tu carrito!</p>
               </div>
             )}
           </div>
@@ -39,19 +37,36 @@ function DropDownCart() {
         </div>
       </div>
       <div className="hidden group-hover:block">
-        <div className="scrollbar-hide modal-middle -mt-[30px] flex h-[110px] w-[580px] justify-between overflow-y-scroll rounded-[20px] bg-base-300 px-[40px] pt-[40px] text-base-100">
-          <div className="flex flex-col">
-            <div className="font-raleway text-xs">total</div>
-            <div className="font-raleway text-lg">{myCart?.totalPrice} €</div>
-          </div>
-          <Link href={"/cart"}>
-            <div className="inline-flex cursor-pointer">
-              <a className="font-raleway text-sm text-base-100">
-                Tramitar pedido
-              </a>
-              <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
+        <div className="scrollbar-hide modal-middle -mt-[30px] flex h-[110px] w-[580px] overflow-y-scroll rounded-[20px] bg-base-300 px-[40px] pt-[40px] text-base-100">
+          {numberCartProducts > 0 ? (
+            <div className="flex w-full justify-between">
+              <div className="flex flex-col">
+                <div className="font-raleway text-xs">total</div>
+                <div className="font-raleway text-lg">
+                  {myCart?.totalPrice} €
+                </div>
+              </div>
+              <Link href={"/cart"}>
+                <div className="inline-flex cursor-pointer pt-3">
+                  <a className="font-raleway text-sm text-base-100">
+                    Tramitar pedido
+                  </a>
+                  <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
+                </div>
+              </Link>
             </div>
-          </Link>
+          ) : (
+            <div className="w-full text-end">
+              <Link href={"/product"}>
+                <div className="inline-flex cursor-pointer">
+                  <a className="font-raleway text-sm text-base-100">
+                    Ver productos
+                  </a>
+                  <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
+                </div>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
