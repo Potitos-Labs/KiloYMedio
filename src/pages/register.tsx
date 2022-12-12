@@ -20,7 +20,7 @@ const SignUp: NextPage = () => {
     formState: { errors },
   } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
-    shouldUseNativeValidation: true, // need for :invalid tag tailwind
+    shouldUseNativeValidation: false, // need for :invalid tag tailwind
     defaultValues: {
       email: "",
       password: "",
@@ -117,11 +117,11 @@ const SignUp: NextPage = () => {
               .
             </p>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
             {/* Info */}
             <div className="mt-[30px] flex w-full flex-col items-center gap-[19px] px-6 md:mt-[74px]">
-              <div className="mx-[30px] flex w-full">
-                <div className="flex w-full flex-row gap-[20px]">
+              <div className="mx-[30px] flex w-full flex-col">
+                <div className="flex w-full flex-col gap-[20px]">
                   <input
                     type="text"
                     placeholder="Nombre"

@@ -18,7 +18,7 @@ const SignIn: NextPage = () => {
     formState: { errors },
   } = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: false,
   });
 
   const [emailNotExists, setEmailNotExists] = useState("");
