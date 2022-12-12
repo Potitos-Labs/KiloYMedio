@@ -340,7 +340,7 @@ export const clientRouter = router({
           select: {
             workshopId: true,
             workshop: {
-              select: { name: true, imageURL: true },
+              select: { name: true, description: true, imageURL: true },
             },
           },
         },

@@ -26,6 +26,7 @@ function CenterItem({
         onSiteWorkshop: {
           workshop: {
             name: string;
+            description: string;
             imageURL: string;
           };
           workshopId: string;
@@ -171,6 +172,7 @@ function CenterItem({
               <EnrolledWorkshops
                 key={""}
                 name={e.onSiteWorkshop.workshop.name}
+                description={e.onSiteWorkshop.workshop.description}
                 image={e.onSiteWorkshop.workshop.imageURL}
                 id={e.onSiteWorkshop.workshopId}
               />

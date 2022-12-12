@@ -90,7 +90,7 @@ const Profile = (
           />
           <Footer />
         </div>
-        <div className="relative -mt-2  max-h-[650px] items-start justify-start align-top lg:block">
+        <div className="relative -mt-2 hidden  max-h-[650px] items-start justify-start align-top lg:block">
           <Image
             src="/img/bolitas.png"
             alt="Mi imagen"

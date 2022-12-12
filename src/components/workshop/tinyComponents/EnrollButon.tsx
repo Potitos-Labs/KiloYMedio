@@ -20,6 +20,7 @@ function EnrollButton({ OnsiteworkshopID }: { OnsiteworkshopID: string }) {
     trpc.user.client.unenrollWorkshop.useMutation({
       onSuccess() {
         utils.workshop.getWorkshopsParticipants.invalidate();
+        utils.user.client.getEnrollWorkshops.invalidate();
         utils.workshop.isEnroll.invalidate();
       },
     });
