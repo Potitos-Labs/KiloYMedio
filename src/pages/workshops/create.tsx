@@ -48,7 +48,7 @@ const CreateWorkshop: NextPage = () => {
                         "ring-white ring-opacity-60 ring-offset-2 ring-offset-primary focus:outline-none focus:ring-2",
                         selected
                           ? "bg-white text-primary shadow"
-                          : "text-white hover:bg-kym2/[0.12] hover:text-white",
+                          : "hover:bg-accenthover:text-white text-white",
                       )
                     }
                   >

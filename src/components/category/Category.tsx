@@ -12,7 +12,7 @@ function Category({
 }) {
   return (
     <Link href={`/product?category=${englishName}`}>
-      <div className="flex cursor-pointer flex-col items-center justify-center rounded-md bg-white pb-6 pt-10 text-center shadow-lg hover:shadow-kym4">
+      <div className="flex cursor-pointer flex-col items-center justify-center rounded-md bg-white pb-6 pt-10 text-center shadow-lg hover:shadow-base-200">
         <div className="mb-5">
           <Image
             src={imgURL}
@@ -24,7 +24,7 @@ function Category({
             className="rounded-md"
           ></Image>
         </div>
-        <h1 className="pb-2 font-semibold text-kym4 first-letter:uppercase">
+        <h1 className="pb-2 font-semibold text-base-200 first-letter:uppercase">
           {name}
         </h1>
       </div>

@@ -24,7 +24,7 @@ function AdminHeader() {
                 <BsFillPersonFill className="h-6 w-6 fill-base-content" />
               </Menu.Button>
             </div>
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y  rounded-md bg-white shadow-lg">
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y rounded-md bg-base-100 text-base-content shadow-lg">
               <Link href={`/`}>
                 <Menu.Item>
                   <button
@@ -33,7 +33,7 @@ function AdminHeader() {
                       signOut({ callbackUrl: "/" });
                     }}
                   >
-                    <TbLogout className="mr-2 h-6 w-6" />
+                    <TbLogout className="mr-2 h-6 w-6 text-base-content" />
                     Cerrar sesión
                   </button>
                 </Menu.Item>

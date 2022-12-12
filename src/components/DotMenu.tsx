@@ -75,7 +75,7 @@ const DotMenu = ({
                       active && "btn-sm"
                     } group flex w-full items-center rounded-b-md px-2 py-2 text-sm`}
                   >
-                    <AiOutlineDelete className="mr-2 fill-kym2" />
+                    <AiOutlineDelete className="mr-2 fill-base-content" />
                     Eliminar
                   </button>
                 )}
