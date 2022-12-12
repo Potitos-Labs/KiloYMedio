@@ -29,13 +29,13 @@ function CategoriesHub({
       >
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 ">
           <button
-            className="bold absolute top-[18px] left-14 flex rounded-full  bg-base-content px-3 text-base-100  "
+            className="bold absolute top-[24px] left-14  flex rounded-full  bg-base-content px-3 text-base-100  "
             onClick={closePopUp}
           >
             <BsX className="bold mt-[3px] mr-2 h-5 w-5 fill-base-100" />
             cerrar
           </button>
-          <div className=" h-fill mx-4  grid h-5/6 w-full grid-cols-2 gap-3 rounded-md bg-base-100 py-6 px-2 sm:px-4 sm:py-12 md:gap-8 lg:grid-cols-3">
+          <div className=" h-fill mx-4  grid h-[83%] w-full grid-cols-2 gap-3 rounded-md bg-base-100 py-6 px-2 sm:px-4 sm:py-12 md:gap-8 lg:h-[81.50%] lg:grid-cols-3">
             {categories &&
               supraCategories?.map((sc, index) => (
                 <CategoryCards
