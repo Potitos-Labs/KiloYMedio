@@ -30,7 +30,7 @@ function OnlineWorskhopCard({
 
   function displayVideo() {
     if (status === "unauthenticated") {
-      router.push("/login");
+      router.push("/login?prev=/workshops");
     } else {
       videoID && setVideoURL(videoID);
     }
