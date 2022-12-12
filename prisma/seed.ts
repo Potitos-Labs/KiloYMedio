@@ -1800,7 +1800,7 @@ async function main() {
   });
   const Te_macha = await prisma.workshop.create({
     data: {
-      name: "Como hacer Te macha",
+      name: "Cómo hacer Té matcha",
       imageURL:
         "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
       description: "Todo lo que necesitas saber sobre los alérgenos ",
