@@ -1,6 +1,6 @@
 function LoadingCard() {
   return (
-    <div className="w-30 mx-20 my-4 h-64 w-48 rounded-md shadow-md hover:shadow-kym4">
+    <div className="my-4 mx-12 h-64 w-48 rounded-md shadow-md sm:mx-20">
       <div className="relative h-32 overflow-hidden rounded-t-md bg-slate-200 object-contain"></div>
       <div className="mt-4 w-full flex-1 space-y-6 px-4 py-1">
         <div className="h-2 w-full rounded bg-slate-200"></div>
