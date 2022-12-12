@@ -7,7 +7,7 @@ function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className="absolute top-[42px] right-4 flex cursor-default flex-col rounded-[20px] shadow-2xl shadow-black">
+    <div className="absolute top-[42px] right-4 z-10 flex cursor-default flex-col rounded-[20px] shadow-2xl shadow-black">
       <div className="z-10 hidden group-hover:block">
         <div className="scrollbar-hide flex h-auto max-h-[650px] w-[580px] flex-col overflow-y-scroll rounded-[20px] bg-base-100 text-black">
           <div className="relative pt-3">
