@@ -52,7 +52,7 @@ export default function NavBar() {
     return (
       <>
         <nav className="top-4 right-8 hidden flex-row gap-2 lg:flex">
-          <p className=" hidden gap-1 pt-4 md:flex">
+          <p className="hidden gap-1 pt-4 md:flex">
             {session.user?.name}
             <span>(Admin)</span>
           </p>

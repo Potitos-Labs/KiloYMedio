@@ -29,14 +29,13 @@ export default function Layout({
     );
   function clearData() {
     if (email.length > 0) {
-      console.log("clear");
       notify();
       setEmail("");
     }
   }
   return (
     <div className={`${bgColor} w-full cursor-default`}>
-      <div className="px-4">
+      <div className="z-10 px-4">
         <Header bgLight={headerBgLight} textDark={headerTextDark}></Header>
       </div>
       <main>

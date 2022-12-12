@@ -22,7 +22,7 @@ function health() {
       <div>
         {/* Color Section */}
         <div className="relative w-full overflow-hidden bg-[#7B61FF]">
-          <div className="mt-[128px] mb-20 ml-6 text-base-100 sm:ml-16 md:block">
+          <div className="mt-14 mb-20 ml-6 text-base-100 sm:mt-20 sm:ml-16 md:block lg:mt-32">
             <p className="font-raleway text-[36px] sm:text-xl lg:mr-44 lg:text-3xl">
               ¿SABÍAS QUE...
             </p>
