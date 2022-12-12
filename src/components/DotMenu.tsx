@@ -39,11 +39,9 @@ const DotMenu = ({
     <div className={`${className}`}>
       <div className="dropdown relative flex h-10 w-10 items-center">
         <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <Menu.Button className=" flex items-center">
-              <AiOutlineMore className="h-7 w-7" />
-            </Menu.Button>
-          </div>
+          <Menu.Button className="flex items-center focus:outline-none">
+            <AiOutlineMore className="h-7 w-7" />
+          </Menu.Button>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-100"

@@ -45,9 +45,11 @@ function SliderRecipes({
                   {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
-                        <Slide index={index} key={""}>
-                          <SmallRecipeCard recipe={recipe} />
-                        </Slide>
+                        <div key={index} className="w-[0%]">
+                          <Slide index={index}>
+                            <SmallRecipeCard recipe={recipe} />
+                          </Slide>
+                        </div>
                       );
                     } else {
                       return (
