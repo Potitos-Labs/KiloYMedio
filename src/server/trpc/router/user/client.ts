@@ -250,7 +250,7 @@ export const clientRouter = router({
       const { username, email, password } = input;
 
       const exists = await ctx.prisma.user.findFirst({
-        where: { email },
+        where: { email: email },
       });
 
       if (exists) {
