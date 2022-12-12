@@ -47,12 +47,12 @@ export default function Layout({
             info@kiloymedio.com
           </h1>
           <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
-            <div className="grid-cols mr-40 grid pl-10">
+            <div className="grid-cols mr-40 grid  pl-10">
               <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
                 <Image
                   src="/img/powered.svg"
                   alt=""
-                  className="rounded-full"
+                  className="cursor-pointer rounded-full"
                   width={280}
                   height={41}
                   layout="fixed"
