@@ -84,8 +84,8 @@ const EditProfile = () => {
       headerBgLight={true}
       headerTextDark={true}
     >
-      <div className="m-20 rounded-lg bg-base-100 py-6">
-        <div className="px-14 md:px-32 lg:px-40">
+      <div className="m-5 rounded-lg bg-base-100 py-6 md:m-20">
+        <div className="px-8 md:px-32 lg:px-40">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-10  w-full">
               <div className="mr-8 flex flex-col items-center pt-20">
