@@ -39,11 +39,11 @@ function SaveIcon({
     }
 
     if (isFav) {
-      saveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
-      setFav(true);
-    } else {
       unsaveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
       setFav(false);
+    } else {
+      saveMutation.mutateAsync({ recipeId: recipe?.id ?? "" });
+      setFav(true);
     }
   }
 
