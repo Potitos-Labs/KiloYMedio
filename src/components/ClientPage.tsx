@@ -176,7 +176,7 @@ function ClientePage() {
             </p>
           </div>
           {/* End Elipse */}
-          <div className="rounded-box bg-base-100 px-8 pt-6 pb-0.5 text-xs text-base-content sm:px-14">
+          <div className="rounded-box flex flex-col bg-base-100 px-8 pt-6 pb-0.5 text-xs text-base-content sm:px-14">
             <p className="text-lg md:text-xl lg:text-2xl">
               kilo y medio es una tienda sostenible, comprometida y cercana, que
               ofrece productos orgánicos a granel, libres de plástico y de
@@ -228,13 +228,25 @@ function ClientePage() {
               </p>
             </div>
             {/* End Objetivo */}
-            <div className="ml-2 flex w-full justify-end">
-              <Image
-                src="/img/bolas.png"
-                width="500"
-                height="300"
-                alt="notfound"
-              />
+            <div className="ml-2 flex h-40 w-full justify-between gap-4">
+              <div className="relative flex w-full items-start justify-start align-top md:w-1/3">
+                <Image
+                  className=""
+                  src="/img/bolas con hashtags1.svg"
+                  objectPosition={"left"}
+                  layout="fill"
+                  objectFit="contain"
+                  alt="notfound"
+                />
+              </div>
+              <div className="relative hidden w-1/3 md:flex">
+                <Image
+                  src="/img/bolas con hashtags2.svg"
+                  layout="fill"
+                  objectFit="contain"
+                  alt="notfound"
+                />
+              </div>
             </div>
           </div>
         </div>
