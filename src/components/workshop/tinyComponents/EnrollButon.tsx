@@ -1,6 +1,14 @@
 import { trpc } from "@utils/trpc";
 
-function EnrollButton({ OnsiteworkshopID }: { OnsiteworkshopID: string }) {
+import { toast } from "react-toastify";
+
+function EnrollButton({
+  OnsiteworkshopID,
+  OnsiteWorkshopName,
+}: {
+  OnsiteworkshopID: string;
+  OnsiteWorkshopName: string;
+}) {
   const utils = trpc.useContext();
 
   const { data: areEnroll } = trpc.workshop.isEnroll.useQuery({
@@ -11,6 +19,9 @@ function EnrollButton({ OnsiteworkshopID }: { OnsiteworkshopID: string }) {
 
   const { mutateAsync: enroll } = trpc.user.client.enrollWorkshop.useMutation({
     onSuccess() {
+      toast.success(
+        "¡Esperamos verle en el taller " + OnsiteWorkshopName + "!",
+      );
       utils.workshop.getWorkshopsParticipants.invalidate();
       utils.workshop.isEnroll.invalidate();
     },

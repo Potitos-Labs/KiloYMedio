@@ -60,7 +60,10 @@ function OnsiteWorskhopCard({
           {workshop.description}
         </p>
         {workshop.id && session && !isAdmin && (
-          <EnrollButton OnsiteworkshopID={workshop.id} />
+          <EnrollButton
+            OnsiteworkshopID={workshop.id}
+            OnsiteWorkshopName={workshop.name}
+          />
         )}
       </div>
     </div>

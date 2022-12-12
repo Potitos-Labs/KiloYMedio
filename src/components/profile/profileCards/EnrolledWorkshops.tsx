@@ -29,7 +29,11 @@ function EnrolledWorkshops({
         <p className="mb-8 text-[12px] line-clamp-3 sm:text-xs">
           {description}
         </p>
-        <EnrollButton OnsiteworkshopID={id} key={id} />
+        <EnrollButton
+          OnsiteworkshopID={id}
+          OnsiteWorkshopName={name}
+          key={id}
+        />
       </div>
     </div>
   );
