@@ -5,6 +5,8 @@ import { AiFillInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -20,6 +22,18 @@ export default function Layout({
   headerTextDark,
 }: Props) {
   const { data: session } = useSession();
+  const [email, setEmail] = useState("");
+  const notify = () =>
+    toast.success(
+      "¡Muchas gracias por subscribirte! Nos mantendremos en contacto",
+    );
+  function clearData() {
+    if (email.length > 0) {
+      console.log("clear");
+      notify();
+      setEmail("");
+    }
+  }
   return (
     <div className={`${bgColor} w-full cursor-default`}>
       <div className="px-4">
@@ -57,10 +71,17 @@ export default function Layout({
                 <div className="mt-4 flex w-auto items-center justify-between gap-4 rounded-md bg-base-100 py-2 px-4">
                   <input
                     type="text"
+                    value={email}
                     placeholder="tucorreo@gmail.com"
                     className="bg-base-100 text-base-content"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                   />
-                  <button className="h-14 w-14 rounded-lg bg-base-content pl-3.5">
+                  <button
+                    className="z-10 w-14 rounded-lg bg-base-content pl-3.5 first-letter:h-14"
+                    onClick={() => clearData()}
+                  >
                     <IoMdSend color="base-100" size="30" />
                   </button>
                 </div>
