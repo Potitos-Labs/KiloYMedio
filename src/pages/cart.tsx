@@ -32,7 +32,7 @@ const Cart: NextPage = () => {
                       </div>
                     ))
                   ) : (
-                    <p className="mx-2 font-light text-kym4">
+                    <p className="mx-2 text-sm">
                       Todavía no tienes ningún producto en el carrito 😢
                     </p>
                   )
@@ -43,7 +43,7 @@ const Cart: NextPage = () => {
             </FormWrapper>
           </section>
           {/*End Shopping cart*/}
-          <section className="rounded-xl bg-base-100 p-6 sm:p-14 lg:ml-2 2xl:p-20">
+          <section className="rounded-xl bg-base-100 p-6 sm:p-14 xl:ml-2 2xl:p-20">
             <Bill showExtras={false} postcode={false}></Bill>
           </section>
         </div>
