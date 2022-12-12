@@ -42,7 +42,7 @@ function OnlineWorskhopCard({
         displayed
           ? "grid-cols-[30%_70%]"
           : "grid-cols-[30%_70%] md:grid-cols-1 "
-      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-background sm:h-[180px]`}
+      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-base-100 sm:h-[180px]`}
       onClick={() => displayVideo()}
     >
       <div
@@ -67,7 +67,7 @@ function OnlineWorskhopCard({
         </p>
 
         <button
-          className=" absolute right-2 bottom-2 flex items-center gap-2 rounded-full border-[1px]  border-base-content bg-transparent px-2  active:border-primary active:bg-primary active:text-background md:px-4 md:py-1"
+          className=" absolute right-2 bottom-2 flex items-center gap-2 rounded-full border-[1px]  border-base-content bg-transparent px-2  active:border-primary active:bg-primary active:text-base-100 md:px-4 md:py-1"
           onClick={() => putVideo()}
         >
           Ir a YouTube

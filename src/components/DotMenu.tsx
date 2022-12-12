@@ -62,7 +62,7 @@ const DotMenu = ({
                     } group flex w-full items-center  px-2 py-2 text-sm`}
                     onClick={() => updateFunction(id)}
                   >
-                    <AiOutlineEdit className="mr-2 fill-kym2" />
+                    <AiOutlineEdit className="mr-2 fill-base-content" />
                     Editar
                   </button>
                 )}

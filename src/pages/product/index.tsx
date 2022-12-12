@@ -138,7 +138,7 @@ export default function CreateProdcut(
               })}
             </div>
           ) : (
-            <p className="absolute self-center justify-self-center font-light text-kym4">
+            <p className="font-ligh absolute self-center justify-self-center">
               Tú búsqueda no obtuvo ningún resultado...😢
             </p>
           )

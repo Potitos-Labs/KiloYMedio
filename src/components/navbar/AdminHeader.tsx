@@ -28,7 +28,7 @@ function AdminHeader() {
               <Link href={`/`}>
                 <Menu.Item>
                   <button
-                    className="flex w-full flex-row px-5 py-3 text-kym4 "
+                    className="flex w-full flex-row px-5 py-3"
                     onClick={() => {
                       signOut({ callbackUrl: "/" });
                     }}

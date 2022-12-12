@@ -8,7 +8,7 @@ const WorkshopSearchBar = () => {
           <FaSearch className="fill-base-100" />
         </div>
         <input
-          className="font-background ml-3 grow truncate bg-primary py-1 placeholder-background focus:outline-0 sm:w-full"
+          className="ml-3 grow truncate bg-primary py-1 text-base-100 placeholder-base-100 focus:outline-0 sm:w-full"
           autoComplete="off"
           id="searchBar"
           type="text"
