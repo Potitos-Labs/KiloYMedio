@@ -81,7 +81,7 @@ const SignIn: NextPage = () => {
             <div className="rounded-box mx-2 mb-10 mt-5 h-full border-[1px] bg-base-100 sm:mx-6 md:mr-16 md:h-[760px] md:w-[540px]">
               {/* Text */}
               <div className="text-center">
-                <p className="ml-4 mr-44 mt-8 w-[335px] font-raleway text-[43px] md:mt-20 md:ml-8">
+                <p className="mr-44 mt-8 w-[335px] font-raleway text-[40px] sm:ml-4 md:mt-20 md:ml-8">
                   ¡Hola de nuevo!
                 </p>
                 <p className="mx-4 mt-8 text-left text-sm md:ml-8">
@@ -103,7 +103,7 @@ const SignIn: NextPage = () => {
                   <div className="mx-8">
                     <div className="flex max-w-[480px]">
                       <input
-                        className="input input-bordered h-16 w-[350px] rounded-full border-base-300 text-sm text-base-300 md:w-[480px]"
+                        className="input input-bordered h-16 w-[330px] rounded-full border-base-300 text-sm text-base-300 sm:w-[480px] md:w-[480px]"
                         type="email"
                         id="emailInput"
                         placeholder="E-mail"
@@ -118,7 +118,7 @@ const SignIn: NextPage = () => {
                       </p>
                     )}
                   </div>
-                  <div className="mx-8 md:w-[480px]">
+                  <div className="mx-8 w-[330px] sm:w-[480px]">
                     <div className="flex items-center justify-end">
                       <label className="swap absolute mr-8 md:ml-[430px]">
                         <input
@@ -130,7 +130,7 @@ const SignIn: NextPage = () => {
                       </label>
                       <input
                         type={showPassword ? "text" : "password"}
-                        className="input input-bordered h-16 w-[350px] rounded-[30px] border-base-300 text-sm text-base-300 md:w-[480px]"
+                        className="input input-bordered h-16 w-[350px] rounded-full border-base-300 text-sm text-base-300 sm:w-[480px]"
                         id="passwordInput"
                         placeholder="Contraseña"
                         {...register("password", {
@@ -146,7 +146,7 @@ const SignIn: NextPage = () => {
                     <div className="mt-[1px] w-full text-end">
                       <label
                         htmlFor="my-modal"
-                        className="cursor-pointer text-xs md:mr-[31px]"
+                        className="mr-2 cursor-pointer text-xs md:mr-5"
                       >
                         ¿Olvidaste tu contraseña?
                       </label>
@@ -159,14 +159,14 @@ const SignIn: NextPage = () => {
                 <div className="flex flex-col items-center">
                   <button
                     type="submit"
-                    className="responsive btn btn-lg mx-4 mt-16 h-14 w-[350px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-8 md:w-[480px]"
+                    className="responsive btn btn-lg mx-4 mt-16 h-14 w-[330px] cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out sm:w-[480px] md:mx-8"
                   >
                     Iniciar sesión
                   </button>
-                  <hr className="mx-4 mt-7 flex h-0 w-[346px] border-spacing-0 border-base-300 border-opacity-30 md:mx-8 md:w-[476px]"></hr>
+                  <hr className="mx-4 mt-7 flex h-0 w-[325px] border-spacing-0 border-base-300 border-opacity-30 md:mx-8 md:w-[476px]"></hr>
                   <div className="mx-8 mt-7 mb-4 flex items-center align-middle md:mb-0">
                     <button
-                      className="btn h-14 w-[350px] rounded-full border-[1px] border-base-content bg-base-100 font-raleway text-sm hover:bg-base-100 md:w-[480px]"
+                      className="btn h-14 w-[330px] rounded-full border-[1px] border-base-content bg-base-100 font-raleway text-sm hover:bg-base-100 sm:w-[480px]"
                       type="button"
                       style={{ transition: "all .15s ease" }}
                       onClick={() =>
