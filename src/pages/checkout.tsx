@@ -1,7 +1,7 @@
 // import { useSession } from "next-auth/react";
 // import Image from "next/image";
 // import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 import Popup from "reactjs-popup";
 
@@ -47,8 +47,6 @@ const INITIAL_DATA: FormData = {
 };
 
 const Checkout = () => {
-  const router = useRouter();
-
   const [data, setData] = useState(INITIAL_DATA);
   const [open, setOpen] = useState(false);
 
@@ -118,7 +116,6 @@ const Checkout = () => {
 
   function endTransaction() {
     setOpen(false);
-    router.push(`/category`);
   }
 
   // if (session) {
@@ -234,28 +231,28 @@ const Checkout = () => {
       {/* End Grid */}
       <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
-          <div className="w-1/3 rounded-md bg-white">
-            <h1 className="rounded-t-md bg-kym3 py-2 text-center text-lg font-bold text-white">
+          <div className="w-1/3 rounded-xl bg-white">
+            <h1 className="rounded-t-xl bg-neutral py-2 text-center font-raleway text-lg text-base-100">
               ¡Compra completada!
             </h1>
+            <p className="m-3">Estimado cliente, </p>
             <p className="m-3">
-              Estimado <span className="font-bold">Cliente</span>,{" "}
-            </p>
-            <p className="m-3">
-              Su pedido ha sido efectuado con éxito y procuraremos que le llegue
-              lo más pronto posible.
+              Su pedido ha sido efectuado con éxito y procuraremos que llegue lo
+              más pronto posible.
             </p>
             <p className="m-3 mt-4 text-center">
               ¡Muchísimas gracias por confiar en nosotros! 😊
             </p>
             <div className="flex justify-end">
-              <button
-                className="btn-sm m-3 mt-5 rounded-md py-1 px-2 text-white hover:bg-button_hover"
-                onClick={endTransaction}
-              >
-                {" "}
-                Aceptar
-              </button>
+              <Link href="/">
+                <button
+                  className="btn m-3 mt-5 rounded-full border-none px-5 font-raleway text-xs text-base-100"
+                  onClick={endTransaction}
+                >
+                  {" "}
+                  Aceptar
+                </button>
+              </Link>
             </div>
           </div>
         </div>

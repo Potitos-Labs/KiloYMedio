@@ -89,9 +89,9 @@ const CheckoutForm = ({
         </div>
         {/*Localidad, Dirección y CP*/}
         <div className={`${homeDelivery ? "visible p-5" : "hidden"}`}>
-          <label className="relative flex flex-col">
+          <label className="relative flex">
             <input
-              className="input rounded-[30px] border-[1px] border-neutral py-2 pl-10 pr-2 text-sm"
+              className="input w-full rounded-[30px] border-[1px] border-neutral py-2 pl-10 pr-2 text-sm"
               type="text"
               name="address"
               value={address}
@@ -118,7 +118,7 @@ const CheckoutForm = ({
             <div className="relative w-1/2 flex-initial">
               <label>
                 <input
-                  className="input  w-full rounded-[30px] border-[1px] border-neutral py-2 pl-10 pr-2 text-sm"
+                  className="input w-full rounded-[30px] border-[1px] border-neutral py-2 pl-10 pr-2 text-sm"
                   type="text"
                   required={homeDelivery}
                   name="address"
