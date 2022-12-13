@@ -1048,17 +1048,76 @@ async function main() {
       difficulty: "hard",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction: "Cortar el pan sin gluten en cuadritos.",
+              number: 1,
+            },
+            {
+              direction:
+                "Freír el pan en una sartén con aceite y cascara de limón. Es importante colocar el pan con la sartén en frío para que se fría por dentro y por fuera.",
+              number: 2,
+            },
+            {
+              direction:
+                "Retirar el pan cuando esté dorado y dejarlo en papel de cocina para que escurra.",
+              number: 3,
+            },
+            {
+              direction:
+                "Con la cocina apagada, colocar el anís en grano en la sartén en la que se frió el pan para que se dore con el calor restante del aceite.",
+              number: 4,
+            },
+            {
+              direction:
+                "Cuando esté frío, colar el contenido de la sartén y reservar el anís.",
+              number: 5,
+            },
+            {
+              direction: "Mezclar la leche y el agua en un bol.",
+              number: 6,
+            },
+            {
+              direction:
+                "Colocar mitad de la mezcla de leche y agua en un cazo. Agregar la canela y hervir.",
+              number: 7,
+            },
+            {
+              direction:
+                "Disolver la maicena en una de las mitades de leche y agua.",
+              number: 8,
+            },
+            {
+              direction:
+                "Colocar la otra mitad en un cazo. Agregar la canela y el azúcar y hervir.",
+              number: 9,
+            },
+            {
+              direction: "Retirar la rama de canela una vez que haga infusión.",
+              number: 10,
+            },
+            {
+              direction:
+                "Moviendo para que espese, añadimos al cazo el anís tostado y la mezcla de la maicena diluida.",
+              number: 11,
+            },
+            {
+              direction:
+                "Dejar de mover una vez que espese y salgan burbujas con pompas grandes.",
+              number: 12,
+            },
+            {
+              direction: "Servir añadiendo la canela en polvo y el pan.",
+              number: 13,
+            },
+          ],
         },
       },
       imageURL:
         "https://cocinatuimaginacion.com/wp-content/uploads/2017/10/pat%C3%A9-de-nueces-y-champi%C3%B1ones.jpg",
-      portions: 4,
+      portions: 2,
       cookingTime: 20,
-      preparationTime: 30,
+      preparationTime: 10,
       description:
         "Una receta tradicional como las gachas no puede faltar en tu colección. Adaptada para celíacos.",
       User: { connect: { id: marta.id } },
@@ -1069,15 +1128,63 @@ async function main() {
 
   const gachasIngredients = [
     {
-      amount: 50,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaAlmendra.Edible?.Ingredient,
+      amount: 1,
+      unit: IngredientUnit.milliliters,
+      Ingredient: { create: { name: "leche" } },
       Recipe: gachas,
     },
     {
-      amount: 10,
-      unit: IngredientUnit.grams,
-      Ingredient: levaduraNutricional.Edible?.Ingredient,
+      amount: 500,
+      unit: IngredientUnit.milliliters,
+      Ingredient: { create: { name: "agua" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "rama de canela" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 3,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "maicena" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 3,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "azúcar" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
+      Recipe: gachas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "limón" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "anís en grano" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "rebanada de pan sin gluten" } },
+      Recipe: gachas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "canela en polvo" } },
       Recipe: gachas,
     },
   ].map(
@@ -1085,7 +1192,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -1098,17 +1205,56 @@ async function main() {
       difficulty: "easy",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction: "Untar las rebanadas de pan con mantequilla.",
+              number: 1,
+            },
+            {
+              direction: "Tostar el pan unos minutos.",
+              number: 2,
+            },
+            {
+              direction:
+                "Colocar el aguacate en una de las rebanadas de pan y aplastar con un tenedor hasta que quede uniforme.",
+              number: 3,
+            },
+            {
+              direction:
+                "Añadir parte de la sal, sésamo, pimentón y tomillo al pan con el aguacate.",
+              number: 4,
+            },
+            {
+              direction: "Colocar el salmón ahumado sobre el aguacate.",
+              number: 5,
+            },
+            {
+              direction:
+                "Hervir el huevo en una olla hasta que la clara cuaje y la yema se mantenga líquida.",
+              number: 6,
+            },
+            {
+              direction: "Pelar el huevo y colocarlo sobre el salmón.",
+              number: 7,
+            },
+            {
+              direction:
+                "Añadir el resto de las especias y el queso rallado sobre el huevo.",
+              number: 8,
+            },
+            {
+              direction:
+                "Colocar la otra rebanada de pan sobre el huevo y disfrutar de la receta.",
+              number: 9,
+            },
+          ],
         },
       },
       imageURL:
         "https://www.tapasmagazine.es/wp-content/uploads/2019/04/fprincipal-3.jpg",
       portions: 1,
-      cookingTime: 0,
-      preparationTime: 10,
+      cookingTime: 10,
+      preparationTime: 5,
       description:
         "Si no sabes qué desayunar o almorzar, prueba a hacer este sencillo sándwich de salmón con aguacate y huevo que no te defraudará.",
       User: { connect: { id: marta.id } },
@@ -1118,9 +1264,63 @@ async function main() {
 
   const sandwichIngredients = [
     {
+      amount: 2,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "rebanadas de pan de molde" } },
+      Recipe: sandwich,
+    },
+    {
       amount: 10,
-      unit: IngredientUnit.milliliters,
-      Ingredient: aceiteOliva.Edible?.Ingredient,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "mantequilla" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "medio aguacate" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "sal" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "semillas de sésamo" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "pimentón de la Vera dulce" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "tomillo seco picado" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 50,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "salmón ahumado" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "huevo campero" } },
+      Recipe: sandwich,
+    },
+    {
+      amount: 10,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "queso parmesano rallado" } },
       Recipe: sandwich,
     },
   ].map(
@@ -1128,7 +1328,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -1143,21 +1343,52 @@ async function main() {
         createMany: {
           data: [
             {
-              direction: "Hacer la tartita",
+              direction: "Derretiremos el chocolate en el microondas.",
               number: 1,
             },
             {
-              direction: "Comerse la tartita",
+              direction:
+                "Le añadiremos al chocolate la mantequilla hasta conseguir una salsa ligera repleta de dulzor.",
               number: 2,
+            },
+            {
+              direction:
+                "Llega el turno de endulzar esta base, le ponemos el azúcar, se deberá fundir perfectamente con el resto de los ingredientes.",
+              number: 3,
+            },
+            {
+              direction:
+                "Batiremos los huevos hasta que doble su tamaño y les incorporamos la cucharada de mantequilla.",
+              number: 4,
+            },
+            {
+              direction:
+                "Mezclamos con la otra base y tendremos lista la base ideal. Colocamos esta masa en un molde engrasado.",
+              number: 5,
+            },
+            {
+              direction:
+                "Lo ponemos al horno al baño maría a 190º durante unos 35 minutos. Este bizcocho ligero queda impresionante.",
+              number: 6,
+            },
+            {
+              direction:
+                "Ponemos la nata en un cazo y cuando esté caliente lo ponemos el chocolate. Cubriremos la base con esta mezcla.",
+              number: 7,
+            },
+            {
+              direction:
+                "Por encima vamos a colocar el chocolate en polvo y rallado. La explosión de sabor y de alegría de esta tarta es increíble.",
+              number: 8,
             },
           ],
         },
       },
       imageURL:
         "https://i.pinimg.com/564x/c5/56/fd/c556fd3f703b64952159f1720538f122.jpg",
-      portions: 4,
-      cookingTime: 30,
-      preparationTime: 10,
+      portions: 6,
+      cookingTime: 50,
+      preparationTime: 20,
       description:
         "Este pastel de chocolate desbanca a la tarta de galletas y chocolate en los cumpleaños.",
       User: { connect: { id: marta.id } },
@@ -1168,9 +1399,67 @@ async function main() {
 
   const tartaIngredientsProducts = [
     {
-      amount: 100,
+      amount: 250,
       unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Ingredient: { create: { name: "chocolate" } },
+      Recipe: tarta,
+    },
+    {
+      amount: 250,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "mantequilla" },
+          create: { name: "mantequilla" },
+        },
+      },
+      Recipe: tarta,
+    },
+    {
+      amount: 250,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "azúcar" },
+          create: { name: "azúcar" },
+        },
+      },
+      Recipe: tarta,
+    },
+    {
+      amount: 4,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "huevo" } },
+      Recipe: tarta,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { connect: { id: harinaTrigo.Edible?.Ingredient.id } },
+      Recipe: tarta,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "chocolate para fundir" } },
+      Recipe: tarta,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "nata para montar" } },
+      Recipe: tarta,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "cacao en polvo" } },
+      Recipe: tarta,
+    },
+    {
+      amount: 50,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "chocolate rallado" } },
       Recipe: tarta,
     },
   ].map(
@@ -1178,7 +1467,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -1191,17 +1480,35 @@ async function main() {
       difficulty: "hard",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction:
+                "Calentar el aceite de oliva en una sartén para saltear. Agregue la cebolla, las zanahorias y el apio. Hornear 10 minutos. Añadir el vino y dejar evaporar.",
+              number: 1,
+            },
+            {
+              direction:
+                "Añadir las lentejas, las patatas y el caldo. Añadir la hoja de laurel, el perejil y el tomillo. Cocine a fuego lento, tapado, unos 30 minutos, revolviendo ocasionalmente, agregando más caldo si es necesario para que las lentejas apenas se cubran con líquido.",
+              number: 2,
+            },
+            {
+              direction:
+                "Cuando las lentejas y las patatas estén tiernas, tritúralas ligeramente para obtener una mezcla cremosa.",
+              number: 3,
+            },
+            {
+              direction:
+                "Retire las hierbas, agregue la nata líquida y las espinacas. Mezclar, sazonar y servir.",
+              number: 4,
+            },
+          ],
         },
       },
       imageURL:
         "https://pinchofyum.com/wp-content/uploads/One-Pot-Creamy-Spinach-Lentils-6-960x1440.jpg",
-      portions: 3,
-      cookingTime: 20,
-      preparationTime: 15,
+      portions: 6,
+      cookingTime: 40,
+      preparationTime: 10,
       description:
         "Los lácteos y las lentejas son excelentes fuentes de proteínas, y ambos toman protagonismo en este cremoso guiso.",
       User: { connect: { id: marta.id } },
@@ -1211,15 +1518,81 @@ async function main() {
 
   const lentejasCremosasIngredients = [
     {
-      amount: 250,
-      unit: IngredientUnit.grams,
-      Ingredient: lentejas.Edible?.Ingredient,
+      amount: 30,
+      unit: IngredientUnit.milliliters,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
       Recipe: lentejasCremosas,
     },
     {
-      amount: 20,
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "media cebolla" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 300,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "zanahoria" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "tallo de apio" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 200,
       unit: IngredientUnit.milliliters,
-      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Ingredient: { create: { name: "vino blanco" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 250,
+      unit: IngredientUnit.grams,
+      Ingredient: { connect: { id: lentejas.Edible?.Ingredient.id } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 300,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "patata" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.liters,
+      Ingredient: { create: { name: "caldo de verduras" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "hoja de laurel" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "rama de tomillo" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { create: { name: "perejil" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.milliliters,
+      Ingredient: { create: { name: "nata líquida" } },
+      Recipe: lentejasCremosas,
+    },
+    {
+      amount: 300,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "espinacas" } },
       Recipe: lentejasCremosas,
     },
   ].map(
@@ -1227,7 +1600,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
