@@ -7,9 +7,15 @@ import { IWorkshop } from "@utils/validations/workshop";
 function OnlineWorskhopCard({
   workshop,
   setVideoURL,
+  myIndex,
+  indexGlobal,
+  setIndexGlobal,
   displayed,
 }: {
   workshop: IWorkshop;
+  myIndex: number;
+  indexGlobal: number;
+  setIndexGlobal;
   displayed: boolean;
   setVideoURL: (name: string) => void;
 }) {
@@ -42,8 +48,14 @@ function OnlineWorskhopCard({
         displayed
           ? "grid-cols-[30%_70%]"
           : "grid-cols-[30%_70%] md:grid-cols-1 "
-      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content active:bg-base-content active:text-base-100 sm:h-[180px]`}
-      onClick={() => displayVideo()}
+      } 
+      ${
+        myIndex == indexGlobal && "bg-base-content text-base-100"
+      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content  sm:h-[180px]`}
+      onClick={() => {
+        displayVideo();
+        setIndexGlobal(myIndex);
+      }}
     >
       <div
         className={`${

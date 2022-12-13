@@ -12,7 +12,7 @@ export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
   const [image, setImage] = useState(String);
   const [video, setVideo] = useState(String);
-  const [indexGlobal, setIndexGlobal] = useState(4);
+  const [indexGlobal, setIndexGlobal] = useState(-1);
   const [showMore, setShowMore] = useState(true);
   const [skipOnline, setskipOnline] = useState(0);
   const [skipOnsite, setskipOnsite] = useState(0);
@@ -35,7 +35,7 @@ export default function Workshops() {
     trpc.workshop.getNumberOnlineWorkshops.useQuery();
 
   function incrementSkip() {
-    setIndexGlobal(4);
+    setIndexGlobal(-1);
     if (showOnsite) {
       skipOnsite + 3 < (maxSkipOnsiteWorkshops || 0) &&
         setskipOnsite(skipOnsite + 3);
@@ -45,7 +45,7 @@ export default function Workshops() {
     }
   }
   function decrementSkip() {
-    setIndexGlobal(4);
+    setIndexGlobal(-1);
     if (showOnsite) {
       skipOnsite - 3 >= 0 && setskipOnsite(skipOnsite - 3);
     } else {
@@ -66,6 +66,7 @@ export default function Workshops() {
               onClick={() => {
                 setShowOnsite(false);
                 setShowMore(true);
+                setIndexGlobal(-1);
               }}
             >
               ONLINE
@@ -77,6 +78,7 @@ export default function Workshops() {
               onClick={() => {
                 setShowOnsite(true);
                 setShowMore(true);
+                setIndexGlobal(-1);
               }}
             >
               PRESENCIAL
@@ -105,6 +107,9 @@ export default function Workshops() {
                   return (
                     <OnlineWorkshopCard
                       key={index}
+                      myIndex={index}
+                      indexGlobal={indexGlobal}
+                      setIndexGlobal={setIndexGlobal}
                       workshop={workshop}
                       setVideoURL={setVideo}
                       displayed={false}
@@ -191,6 +196,9 @@ export default function Workshops() {
                     return (
                       <OnlineWorkshopCard
                         key={index}
+                        myIndex={index}
+                        indexGlobal={indexGlobal}
+                        setIndexGlobal={setIndexGlobal}
                         workshop={workshop}
                         setVideoURL={setVideo}
                         displayed={false}
