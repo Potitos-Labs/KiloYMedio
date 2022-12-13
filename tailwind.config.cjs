@@ -12,6 +12,9 @@ module.exports = {
         satoshiBold: ["SatoshiBold", ...defaultTheme.fontFamily.sans],
       },
     },
+    minHeight: {
+      "90%": "92vh",
+    },
     fontSize: {
       xs: "16px", //small
       sm: "20px", //secondary
