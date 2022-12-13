@@ -42,7 +42,7 @@ const SearchBar = ({
 
   return (
     <div className="group relative h-auto w-full flex-initial sm:right-0 sm:top-0 ">
-      <div className="mx-2 flex h-10 rounded-3xl bg-accent px-4 shadow-md">
+      <div className="ml-2 flex h-10 rounded-3xl bg-accent px-4 shadow-md">
         <div
           className="mt-3 mr-2"
           onClick={() => searchHandler({ searchInput: value })}

@@ -10,6 +10,7 @@ function IncDecButtons({
   max, //stock
   unit,
   className,
+  textSize,
   onBlur,
 }: {
   setAmount: Dispatch<SetStateAction<number>>;
@@ -17,6 +18,7 @@ function IncDecButtons({
   max: number;
   unit: ProductUnit | "hour" | "min" | "pers" | "other";
   className?: string;
+  textSize?: string;
   onBlur?: Noop;
 }) {
   const incdecValues = {
@@ -106,7 +108,11 @@ function IncDecButtons({
           onBlur={onBlur}
         />
       ) : (
-        <p className="place-content-center self-center whitespace-nowrap text-sm">
+        <p
+          className={`place-content-center self-center whitespace-nowrap sm:text-sm ${
+            textSize ? textSize : "text-sm"
+          }`}
+        >
           {amount} {unitDisplay[unit]}
         </p>
       )}

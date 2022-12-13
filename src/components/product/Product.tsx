@@ -54,7 +54,7 @@ function Product({
 
   return (
     <div className="relative flex flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-4">
-      <div className="py-3">
+      <div className="sm:py-3">
         <Link href={`/product/${product.id}`}>
           <a>
             <Image
@@ -80,16 +80,17 @@ function Product({
           />
         </div>
       )}
-      <p className="mx-10 text-center font-raleway text-base uppercase">
+      <p className="sm: mx-10 text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
         {product.name}
       </p>
       {data?.user?.role != "admin" && showButtons && (
-        <div className="flex h-full flex-col place-content-end gap-4 px-4 pt-6">
+        <div className="flex h-full w-full flex-col place-content-end gap-1 px-4 pt-2 sm:gap-4 sm:pt-6">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
             max={product.stock}
             unit={product.ProductUnit}
+            textSize="text-xs"
             className="h-8"
           />
           <Addproductchart
@@ -97,7 +98,8 @@ function Product({
             product={product}
             index={index}
             setPrices={setPrices}
-            className={"h-12"}
+            smTextSize={"text-xs"}
+            className={"h-10 sm:h-12"}
           />
         </div>
       )}

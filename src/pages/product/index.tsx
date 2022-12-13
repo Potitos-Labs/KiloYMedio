@@ -103,7 +103,7 @@ export default function CreateProdcut(
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mx-6 mt-2 flex flex-col place-content-between space-y-3 sm:relative sm:mt-6 md:flex-row">
+      <div className="mx-3 mt-2 flex flex-col place-content-between space-y-3 sm:relative sm:mx-6 sm:mt-6 md:flex-row">
         <Tittle inSpanish={inSpanish} />
         <div className="flex flex-row items-end">
           <button
@@ -121,10 +121,10 @@ export default function CreateProdcut(
         setOpen={setOpenFilter}
         className={`${openFilter ? "block" : "hidden"}`}
       />
-      <div className="px-6 pb-12 pt-8">
+      <div className="px-3 pb-12 pt-8 sm:px-6">
         {data ? (
           data.length !== 0 ? (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
               {data.map((product) => {
                 const productParsed = productSchema.safeParse(product);
                 if (productParsed.success)

@@ -6,6 +6,7 @@ import { ProductUnit } from "@prisma/client";
 import { BsArrowRightShort } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import router from "next/router";
+import { TiShoppingCart } from "react-icons/ti";
 
 const productPrice: Record<ProductUnit, number> = {
   grams: 1000,
@@ -40,12 +41,14 @@ function Addproductchart({
   product,
   className,
   index,
+  smTextSize,
   setPrices,
 }: {
   amount: number;
   product: IProduct;
   className?: string;
   index?: number;
+  smTextSize?: string;
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
   const session = useSession();
@@ -89,19 +92,40 @@ function Addproductchart({
     <button
       onClick={addToCart}
       disabled={mutation.isLoading}
-      className={`rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
+      className={`w-full max-w-[256px] self-center rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
       } ${className}`}
     >
       <div className="flex h-full flex-row">
-        <div className="flex h-full w-32 flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-40">
-          <span className="px-2 text-sm">{price + " €"}</span>
+        <div className="flex h-full w-24 min-w-[40px] flex-initial flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32">
+          <span
+            className={`hidden px-1 sm:block sm:px-2 sm:text-sm ${
+              smTextSize ? smTextSize : "text-sm"
+            }`}
+          >
+            {price + " €"}
+          </span>
+          <TiShoppingCart className="block sm:hidden" />
         </div>
-        <div className="flex w-full flex-initial flex-row justify-center px-2">
-          <p className="self-center text-center text-sm leading-5">
-            {stockLeft ? "añadir a la cesta" : "agotado"}
+        <div className="flex w-32 flex-initial flex-row justify-center px-1 sm:px-2">
+          <p
+            className={`hidden self-center text-center leading-5 sm:block sm:text-sm ${
+              smTextSize ? smTextSize : "text-sm"
+            }`}
+          >
+            {stockLeft ? "añadir" : "agotado"}
           </p>
-          <BsArrowRightShort size={25} className="my-auto ml-2" />
+          <span
+            className={`block self-center whitespace-nowrap px-1 sm:hidden sm:px-2 sm:text-sm ${
+              smTextSize ? smTextSize : "text-sm"
+            }`}
+          >
+            {price + " €"}
+          </span>
+          <BsArrowRightShort
+            size={25}
+            className={`my-auto sm:ml-2 sm:h-8 ${smTextSize ? "h-5" : "h-8"}`}
+          />
         </div>
       </div>
     </button>
