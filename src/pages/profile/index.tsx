@@ -25,7 +25,7 @@ const Profile = () => {
         <div className="px-6 sm:px-14 lg:pl-28">
           {client && <MyProfile image={client.image} name={client.name} />}
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-[40%_60%] sm:pr-4 ">
+          <div className="mt-[20px] grid grid-cols-1 gap-4 sm:grid-cols-[40%_60%] sm:pr-4 ">
             <TinyText
               text="Próximo descuento por compra superior a 35€"
               percentage="10%"
