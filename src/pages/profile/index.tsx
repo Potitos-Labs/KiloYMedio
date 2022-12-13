@@ -21,7 +21,7 @@ const Profile = () => {
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="sm:first-letter mt-16 mb-7 grid grid-cols-1 lg:grid-cols-[58%_42%]">
+      <div className="sm:first-letter mt-[48px] mb-7 grid  grid-cols-1 lg:grid-cols-[58%_42%]">
         <div className="px-6 sm:px-14 lg:pl-28">
           {client && <MyProfile image={client.image} name={client.name} />}
 
@@ -42,7 +42,7 @@ const Profile = () => {
           />
           <Footer />
         </div>
-        <div className="relative  -mt-2  hidden max-h-[650px] items-start justify-start align-top lg:block">
+        <div className="-mt-[-1  px]   relative  hidden max-h-[650px] items-start justify-start align-top lg:block">
           <Image
             src="/img/bolitas.svg"
             alt="Mi imagen"
