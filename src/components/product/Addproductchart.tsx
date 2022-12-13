@@ -140,7 +140,7 @@ function Addproductchart({
           animate={controls}
           onPan={handlePan}
           onPanEnd={handlePanEnd}
-          className="absolute top-0	left-0 flex h-full w-[50px] cursor-grabbing select-none flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32"
+          className="absolute top-0 left-0	flex h-full w-[50px] cursor-grabbing touch-none select-none flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32"
         >
           <span
             className={`hidden px-1 sm:block sm:px-2 sm:text-sm ${
