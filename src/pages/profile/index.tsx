@@ -21,7 +21,7 @@ const Profile = () => {
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="sm:first-letter mt-[26px] mb-7 grid h-screen  grid-cols-1 lg:grid-cols-[58%_42%]">
+      <div className="sm:first-letter h-min-[calc(120vh)]   md:h-min-[calc(100vh-80px)] mt-[26px] mb-7 grid grid-cols-1 place-content-center lg:grid-cols-[58%_42%]  lg:place-content-start ">
         <div className="px-6 sm:px-14 lg:pl-28">
           {client && <MyProfile image={client.image} name={client.name} />}
 
