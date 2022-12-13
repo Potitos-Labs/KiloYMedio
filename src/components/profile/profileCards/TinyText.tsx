@@ -1,6 +1,6 @@
 function TinyText({ text, percentage }: { text: string; percentage: string }) {
   return (
-    <div className="grid grid-cols-[75%_25%] gap-2 overflow-hidden rounded-md border-[1px] border-neutral p-3 align-middle sm:gap-3 sm:p-6 ">
+    <div className="grid grid-cols-[75%_25%] gap-2 overflow-hidden rounded-md border-[1px] border-neutral p-3 align-middle sm:gap-3 sm:p-[18px] ">
       <div className=" mb-2 text-[18px] ">
         <p className="text-justify">{text}</p>
       </div>

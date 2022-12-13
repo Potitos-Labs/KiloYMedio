@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AiOutlineUser } from "react-icons/ai";
 
 function MyProfile({
   name,
@@ -9,13 +10,19 @@ function MyProfile({
 }) {
   return (
     <div className="grid grid-cols-[20%_80%] overflow-hidden rounded-md border-[1px] border-neutral align-middle ">
-      <div className="relative h-full overflow-hidden">
-        <Image
-          src={image ? image : "notfound"}
-          alt="Mi imagen"
-          objectFit="cover"
-          layout="fill"
-        />
+      <div className="relative grid h-full place-items-center overflow-hidden border-r-[1px] border-base-content">
+        {image &&
+        image !=
+          "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" ? (
+          <Image
+            src={image ? image : "notfound"}
+            alt="Mi imagen"
+            objectFit="cover"
+            layout="fill"
+          />
+        ) : (
+          <AiOutlineUser size={56} />
+        )}
       </div>
       <div className="grid grid-cols-[58%_42%] px-4 ">
         <h1 className="md:text-[26x] py-8 font-raleway text-[16px] uppercase  xl:text-[31px]">
