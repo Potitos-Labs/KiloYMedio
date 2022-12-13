@@ -18,7 +18,7 @@ function CategoryCards({
     <div
       className={`${
         clicked && "border-primary bg-primary text-white"
-      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content  `}
+      } relative flex h-full w-full cursor-pointer flex-col rounded-md border-[1px] border-base-content lg:min-h-[120px]  `}
     >
       <button
         className="h-full w-full px-3 pt-1 lg:px-5 lg:pt-3"
