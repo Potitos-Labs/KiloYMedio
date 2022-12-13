@@ -120,7 +120,6 @@ function Addproductchart({
       },
       {},
     );
-    console.log(window.innerWidth);
     setCartWidth(
       Number(
         cartRef.current &&
