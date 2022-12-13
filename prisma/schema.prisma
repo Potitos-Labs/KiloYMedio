@@ -509,6 +509,8 @@ enum ECategory {
     syrups
     teas
     yeast
+    grano
+    rice
 }
 
 enum IngredientUnit {

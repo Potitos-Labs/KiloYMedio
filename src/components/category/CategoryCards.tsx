@@ -35,7 +35,7 @@ function CategoryCards({
         </h1>
       </button>
 
-      <div className="absolute bottom-1 left-1 flex gap-1 md:gap-2 xl:bottom-5 xl:left-5 ">
+      <div className="absolute  bottom-1 left-1 flex flex-col gap-1 sm:flex-row md:gap-2 xl:bottom-5 xl:left-5 ">
         {relations.map((cat, index) => (
           <div
             key={index}
