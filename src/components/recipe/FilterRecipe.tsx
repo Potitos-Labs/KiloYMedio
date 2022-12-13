@@ -169,7 +169,7 @@ function FilterRecipe({
               />
               <p className="pl-2">1-2 raciones</p>
             </label>
-            <label className=" flex">
+            <label className="flex items-center">
               <input
                 type="radio"
                 value=""
@@ -181,7 +181,7 @@ function FilterRecipe({
               />
               <p className="pl-2">2-4 raciones</p>
             </label>
-            <label className=" flex">
+            <label className="flex items-center">
               <input
                 type="radio"
                 value=""
