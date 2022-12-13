@@ -119,7 +119,7 @@ function ClientePage() {
             alt="not found"
           />
         </div>
-        <div className="absolute right-10 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-2.5 px-6">
+        <div className="absolute right-8 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-2.5 px-6">
           <a
             onClick={decrementSlide}
             href={`#slide${slideColors[slide]?.slide}`}
@@ -143,7 +143,7 @@ function ClientePage() {
           onClick={() => {
             return router.push(`/product`);
           }}
-          className="absolute bottom-20 left-10 z-10 flex items-center gap-2 rounded-full bg-base-100 px-6 py-3 font-satoshiBold"
+          className="absolute bottom-20 left-8 z-10 flex items-center gap-2 rounded-full bg-base-100 px-6 py-3 font-satoshiBold"
         >
           explorar tienda
           <HiArrowNarrowRight className="mt-0.5" />
