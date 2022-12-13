@@ -21,11 +21,11 @@ const Profile = () => {
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="sm:first-letter mt-[48px] mb-7 grid  grid-cols-1 lg:grid-cols-[58%_42%]">
+      <div className="sm:first-letter mt-[26px] mb-7 grid h-screen  grid-cols-1 lg:grid-cols-[58%_42%]">
         <div className="px-6 sm:px-14 lg:pl-28">
           {client && <MyProfile image={client.image} name={client.name} />}
 
-          <div className="mt-[20px] grid grid-cols-1 gap-4 sm:grid-cols-[40%_60%] sm:pr-4 ">
+          <div className="mt-[20px] grid grid-cols-1 gap-2 sm:grid-cols-[40%_60%] sm:gap-4 sm:pr-4 ">
             <TinyText
               text="Próximo descuento por compra superior a 35€"
               percentage="10%"
@@ -42,7 +42,7 @@ const Profile = () => {
           />
           <Footer />
         </div>
-        <div className="-mt-[-1  px]   relative  hidden max-h-[650px] items-start justify-start align-top lg:block">
+        <div className="-mt-[-1  px]   relative  hidden max-h-[630px] items-start justify-start align-top lg:block">
           <Image
             src="/img/bolitas.svg"
             alt="Mi imagen"

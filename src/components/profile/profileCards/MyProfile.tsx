@@ -25,7 +25,7 @@ function MyProfile({
         )}
       </div>
       <div className="grid grid-cols-[58%_42%] px-4 ">
-        <h1 className="md:text-[26x] py-8 font-raleway text-[16px] uppercase  xl:text-[31px]">
+        <h1 className="md:text-[26x] py-6 font-raleway text-[16px] uppercase  xl:text-[31px]">
           {name}
         </h1>
         <div className="grid grid-cols-2 py-2 lg:grid-cols-[65%_35%] ">
