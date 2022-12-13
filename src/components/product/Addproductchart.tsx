@@ -1,12 +1,13 @@
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "@utils/validations/product";
 import { toast } from "react-toastify";
-import { Dispatch, useEffect } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
 import { ProductUnit } from "@prisma/client";
 import { BsArrowRightShort } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import { TiShoppingCart } from "react-icons/ti";
+import { motion, useAnimation, PanInfo } from "framer-motion";
 
 const productPrice: Record<ProductUnit, number> = {
   grams: 1000,
@@ -51,17 +52,28 @@ function Addproductchart({
   smTextSize?: string;
   setPrices?: Dispatch<React.SetStateAction<number[]>>;
 }) {
+  const controls = useAnimation();
+  const cartRef = useRef(null);
+  const [cartWidth, setCartWidth] = useState(0);
   const session = useSession();
-
-  const stockLeft =
-    amount + incdecValues[product.ProductUnit] <=
-    product.stock * maxValues[product.ProductUnit];
   const utils = trpc.useContext();
+
   const mutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
+
+  const stockLeft =
+    amount + incdecValues[product.ProductUnit] <=
+    product.stock * maxValues[product.ProductUnit];
+
+  let price = product.Edible
+    ? (amount / productPrice[product.ProductUnit]) *
+      product.Edible.priceByWeight
+    : amount *
+      (product.NonEdible?.price ?? 0 / productPrice[product.ProductUnit]);
+  price = Math.round(price * 100) / 100;
 
   function addToCart() {
     if (session.status === "unauthenticated") {
@@ -74,30 +86,63 @@ function Addproductchart({
     }
   }
 
-  let price = product.Edible
-    ? (amount / productPrice[product.ProductUnit]) *
-      product.Edible.priceByWeight
-    : amount *
-      (product.NonEdible?.price ?? 0 / productPrice[product.ProductUnit]);
-  price = Math.round(price * 100) / 100;
-
   useEffect(() => {
     if (setPrices && typeof index === "number") {
       setPrices((prices) => prices.map((p, i) => (i === index ? price : p)));
-      console.log({ index, price, setPrices });
     }
   }, [index, price, setPrices]);
 
+  const handlePan = (event: any, info: PanInfo) => {
+    const x = info.offset.x;
+    if (x > 0) {
+      controls.set({ x: x < cartWidth ? x : cartWidth });
+    }
+  };
+
+  const handlePanEnd = (event: any, info: PanInfo) => {
+    if (info.offset.x >= cartWidth) {
+      addToCart();
+    } else {
+    }
+    controls.start({ x: 0 });
+  };
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => {
+        setCartWidth(
+          Number(
+            cartRef.current &&
+              window.getComputedStyle(cartRef.current).width.slice(0, -2),
+          ) - (window.innerWidth <= 640 ? 50 : 128), //Tamaños del div negro que se arrastra (defaultWidth: 50, sm:w-32 -> 128)
+        );
+      },
+      {},
+    );
+    console.log(window.innerWidth);
+    setCartWidth(
+      Number(
+        cartRef.current &&
+          window.getComputedStyle(cartRef.current).width.slice(0, -2),
+      ) - (window.innerWidth <= 640 ? 50 : 128), //Tamaños del div negro que se arrastra (defaultWidth: 50, sm:w-32 -> 128)
+    );
+  }, [cartRef]);
+
   return (
-    <button
-      onClick={addToCart}
-      disabled={mutation.isLoading}
-      className={`w-full max-w-[256px] self-center rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 text-base-100${
+    <div
+      ref={cartRef}
+      className={`relative w-36 max-w-[256px] self-center rounded-full bg-transparent ring-1 ring-base-content ring-offset-0 sm:w-56 lg:w-64 text-base-100${
         !stockLeft && "cursor-not-allowed opacity-50"
       } ${className}`}
     >
-      <div className="flex h-full flex-row">
-        <div className="flex h-full w-24 min-w-[50px] flex-initial flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32">
+      <>
+        <motion.div
+          animate={controls}
+          onPan={handlePan}
+          onPanEnd={handlePanEnd}
+          className="absolute top-0	left-0 flex h-full w-[50px] cursor-grabbing select-none flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32"
+        >
           <span
             className={`hidden px-1 sm:block sm:px-2 sm:text-sm ${
               smTextSize ? smTextSize : "text-sm"
@@ -106,8 +151,8 @@ function Addproductchart({
             {price + " €"}
           </span>
           <TiShoppingCart className="block sm:hidden" />
-        </div>
-        <div className="flex w-full flex-initial flex-row justify-center  px-1 sm:px-2">
+        </motion.div>
+        <div className="ml-[50px] flex h-full flex-initial flex-row justify-center self-center px-1 sm:ml-32 sm:px-2">
           <p
             className={`hidden self-center text-center leading-5 sm:block sm:text-sm ${
               smTextSize ? smTextSize : "text-sm"
@@ -127,8 +172,8 @@ function Addproductchart({
             className={`my-auto sm:ml-2 sm:h-8 ${smTextSize ? "h-5" : "h-8"}`}
           />
         </div>
-      </div>
-    </button>
+      </>
+    </div>
   );
 }
 export default Addproductchart;
