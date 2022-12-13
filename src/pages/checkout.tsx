@@ -231,7 +231,7 @@ const Checkout = () => {
       {/* End Grid */}
       <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
-          <div className="w-1/3 rounded-xl bg-white">
+          <div className="w-4/5  rounded-xl bg-white sm:w-2/5">
             <h1 className="rounded-t-xl bg-neutral py-2 text-center font-raleway text-lg text-base-100">
               ¡Compra completada!
             </h1>
