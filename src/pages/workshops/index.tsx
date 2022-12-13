@@ -10,7 +10,7 @@ import YouTube from "react-youtube";
 
 export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
-  const [image, setImage] = useState(String);
+  const [image, setImage] = useState("/talleresGang.png");
   const [video, setVideo] = useState(String);
   const [indexGlobal, setIndexGlobal] = useState(-1);
   const [showMore, setShowMore] = useState(true);

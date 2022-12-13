@@ -15,7 +15,7 @@ function OnlineWorskhopCard({
   workshop: IWorkshop;
   myIndex: number;
   indexGlobal: number;
-  setIndexGlobal;
+  setIndexGlobal: (index: number) => void;
   displayed: boolean;
   setVideoURL: (name: string) => void;
 }) {
