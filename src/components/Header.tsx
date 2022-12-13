@@ -37,22 +37,28 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
         ></Image>
       </div>
       <div className="mx-4 flex items-center justify-end sm:mx-10 lg:justify-between">
-        <NavBarClient />
-        <Link href={`/`}>
-          <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
-            <Image
-              src={
-                textDark
-                  ? "/logo sin subtitulo.svg"
-                  : "/logo sin subtitulo-blanco.svg"
-              }
-              width={180}
-              height={50}
-              alt="kilo y medio"
-            ></Image>
-          </h3>
-        </Link>
-        <NavBar></NavBar>
+        <div className="basis-1/2 lg:basis-1/3">
+          <NavBarClient />
+        </div>
+        <div className="grid place-items-center items-center lg:basis-1/3">
+          <Link href={`/`}>
+            <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
+              <Image
+                src={
+                  textDark
+                    ? "/logo sin subtitulo.svg"
+                    : "/logo sin subtitulo-blanco.svg"
+                }
+                width={180}
+                height={50}
+                alt="kilo y medio"
+              ></Image>
+            </h3>
+          </Link>
+        </div>
+        <div className="grid place-items-end lg:basis-1/3">
+          <NavBar></NavBar>
+        </div>
       </div>
     </div>
   );
