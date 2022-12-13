@@ -23,7 +23,7 @@ function SliderRecipes({
 }) {
   return (
     <div className="container">
-      <div className="flex h-auto w-full items-center justify-between py-24 px-4 sm:py-8">
+      <div className="flex h-auto w-full items-center justify-between px-4 py-8">
         {/* Carousel for desktop and large size devices */}
         <CarouselProvider
           className="hidden h-full w-full flex-col lg:flex"
