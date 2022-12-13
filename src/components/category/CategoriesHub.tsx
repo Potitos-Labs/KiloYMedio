@@ -29,7 +29,7 @@ function CategoriesHub({
       >
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 ">
           <button
-            className="bold absolute top-[24px] left-14  flex rounded-full  bg-base-content px-3 text-base-100  "
+            className="bold absolute top-[25px] left-[56px]  flex rounded-full  bg-base-content px-[11px] text-base-100  "
             onClick={closePopUp}
           >
             <BsX className="bold mt-[3px] mr-2 h-5 w-5 fill-base-100" />
