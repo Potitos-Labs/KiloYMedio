@@ -1,6 +1,7 @@
 // import { useSession } from "next-auth/react";
 // import Image from "next/image";
 // import Link from "next/link";
+import LoadingBallsFullScreen from "@components/ui/LoadingBallsFullScreen";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import Popup from "reactjs-popup";
@@ -52,8 +53,14 @@ const Checkout = () => {
 
   const { mutateAsync: createNewOrder } =
     trpc.checkout.createNewOrder.useMutation({
+      onMutate: () => {
+        setPopUpOpen(true);
+      },
       onSuccess: () => {
-        setOpen(true);
+        setTimeout(() => {
+          setPopUpOpen(false);
+          setOpen(true);
+        }, 3000);
       },
     });
 
@@ -180,6 +187,8 @@ const Checkout = () => {
   //   );
   // }
 
+  const [popUpOpen, setPopUpOpen] = useState(false);
+
   return (
     <Layout
       bgColor={"bg-base-content"}
@@ -188,6 +197,7 @@ const Checkout = () => {
     >
       <section>
         {/* Grid */}
+        <LoadingBallsFullScreen open={popUpOpen} setOpen={setPopUpOpen} />
         <div className="mt-12 grid grid-cols-1 gap-4 px-5 xl:grid-cols-[60%_40%] xl:gap-0">
           <section className="rounded-xl bg-base-100 py-10 px-6 sm:px-10 xl:mr-2 2xl:p-20">
             {/*Contact info*/}
