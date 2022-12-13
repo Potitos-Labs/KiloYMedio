@@ -97,7 +97,7 @@ function Addproductchart({
       } ${className}`}
     >
       <div className="flex h-full flex-row">
-        <div className="flex h-full w-24 min-w-[40px] flex-initial flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32">
+        <div className="flex h-full w-24 min-w-[50px] flex-initial flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32">
           <span
             className={`hidden px-1 sm:block sm:px-2 sm:text-sm ${
               smTextSize ? smTextSize : "text-sm"
@@ -107,7 +107,7 @@ function Addproductchart({
           </span>
           <TiShoppingCart className="block sm:hidden" />
         </div>
-        <div className="flex w-32 flex-initial flex-row justify-center px-1 sm:px-2">
+        <div className="flex w-full flex-initial flex-row justify-center  px-1 sm:px-2">
           <p
             className={`hidden self-center text-center leading-5 sm:block sm:text-sm ${
               smTextSize ? smTextSize : "text-sm"
