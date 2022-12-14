@@ -22,7 +22,7 @@ function SliderRecipes({
   recipes?: IRecipe[];
 }) {
   return (
-    <div className="container">
+    <div className="focus:outline:none container">
       <div className="flex h-auto w-full items-center justify-between px-4 py-8">
         {/* Carousel for desktop and large size devices */}
         <CarouselProvider
@@ -40,16 +40,14 @@ function SliderRecipes({
               <Slider>
                 <div
                   id="slider"
-                  className="flex h-full items-center justify-between gap-8 transition duration-700 ease-out"
+                  className=" flex h-full items-center justify-between gap-8 transition duration-700 ease-out focus:outline-none"
                 >
                   {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
-                        <div key={index} className="w-[0%]">
-                          <Slide index={index}>
-                            <SmallRecipeCard recipe={recipe} />
-                          </Slide>
-                        </div>
+                        <Slide index={index} key={""}>
+                          <SmallRecipeCard recipe={recipe} />
+                        </Slide>
                       );
                     } else {
                       return (
