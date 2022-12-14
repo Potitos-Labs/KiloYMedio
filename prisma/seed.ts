@@ -51,10 +51,10 @@ async function main() {
 
   const HarinasYLevaduras = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "Harinas, Levaduras y grano",
+      supraCategoryName: "Levaduras y grano",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "flours" }, { category: "yeast" }],
+          data: [{ category: "yeast" }, { category: "grano" }],
         },
       },
     },
@@ -76,7 +76,7 @@ async function main() {
       supraCategoryName: "legumbre y arroces",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "legumes" }],
+          data: [{ category: "legumes" }, { category: "rice" }],
         },
       },
     },
@@ -176,6 +176,18 @@ async function main() {
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
         categoryInSpanish: "Levaduras",
+      },
+      /* 11 */ {
+        category: "grano",
+        imageURL:
+          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        categoryInSpanish: "Grano",
+      },
+      /* 12 */ {
+        category: "rice",
+        imageURL:
+          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        categoryInSpanish: "Arroces",
       },
     ],
   });
