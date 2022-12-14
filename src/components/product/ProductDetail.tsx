@@ -109,13 +109,13 @@ const ProductCard = ({
       )}
       <p
         id="Tittle"
-        className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase text-base-content sm:text-2xl lg:text-left"
+        className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase leading-[80px] text-base-content sm:text-2xl lg:text-left"
       >
         {product.name}
       </p>
       <p
         id="Description"
-        className="text-center font-sans text-xs leading-[20px] sm:text-sm lg:pr-[10%] lg:text-justify"
+        className="text-center font-sans text-xs leading-6 sm:text-sm lg:pr-[10%] lg:text-justify"
       >
         {product.description}
       </p>
