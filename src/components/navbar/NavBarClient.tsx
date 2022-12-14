@@ -35,7 +35,7 @@ function NavBarClient() {
         <div onClick={openPopup}>
           <a
             className={`${buttonShopStyle} mb-1 flex cursor-pointer flex-row justify-end gap-2 ${
-              categories && "hidden"
+              categories && "invisible"
             }`}
           >
             <TbGridDots className="hidden h-3 w-3 lg:flex" />

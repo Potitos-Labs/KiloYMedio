@@ -6,6 +6,7 @@ import { BsFacebook } from "react-icons/bs";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -41,11 +42,24 @@ export default function Layout({
         {children}
         {/* Footer */}
         <div className="bg-base-content pt-8 text-base-100">
-          <h1 className="mx-10 mb-4 text-lg lg:mb-0 lg:text-right lg:text-2xl">
-            info@kiloymedio.com
-          </h1>
+          <div className="mx-10 place-items-center justify-between sm:flex">
+            <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
+              <Image
+                src="/img/powered.svg"
+                alt=""
+                className="cursor-pointer rounded-full"
+                width={280}
+                height={41}
+                layout="fixed"
+                objectFit="contain"
+              />
+            </Link>
+            <h1 className="mb-4 pt-3 text-lg lg:mb-0 lg:pt-0 lg:pb-2 lg:text-2xl">
+              info@kiloymedio.com
+            </h1>
+          </div>
           <div className="grid w-full grid-cols-1 pb-1 sm:grid-cols-2">
-            <div className="grid-cols mr-40 grid  pl-10">
+            <div className="grid-cols mr-40 grid pl-10">
               <div className="py-16">
                 <p className="text-xs">lunes-viernes, 9:30-18:30</p>
                 <p className="text-xs">sábados, 9:30-14:30</p>
