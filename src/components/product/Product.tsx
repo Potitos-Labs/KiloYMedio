@@ -4,7 +4,6 @@ import Link from "next/link";
 import router from "next/router";
 import { Dispatch, useState } from "react";
 import { toast } from "react-toastify";
-
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import DotMenu from "../DotMenu";
@@ -53,10 +52,10 @@ function Product({
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-4">
-      <div className="sm:py-3">
-        <Link href={`/product/${product.id}`}>
-          <a>
+    <div className="relative">
+      <Link href={`/product/${product.id}`}>
+        <div className="flex h-full flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-1 pb-[90px] sm:py-4 sm:pb-[118px]">
+          <div className="sm:py-3">
             <Image
               src={product.imageURL}
               alt="notfound"
@@ -64,27 +63,28 @@ function Product({
               height="100"
               layout="fixed"
               objectFit="contain"
-              className="cursor-pointer rounded-md"
+              className="rounded-md"
             />
-          </a>
-        </Link>
-      </div>
-      {data?.user?.role == "admin" && (
-        <div className="absolute top-4 right-2">
-          <DotMenu
-            id={product.id}
-            name={product.name}
-            type="producto"
-            updateFunction={updateProduct}
-            deleteFunction={deleteProduct}
-          />
+          </div>
+          {data?.user?.role == "admin" && (
+            <div className="absolute top-4 right-2">
+              <DotMenu
+                id={product.id}
+                name={product.name}
+                type="producto"
+                updateFunction={updateProduct}
+                deleteFunction={deleteProduct}
+              />
+            </div>
+          )}
+          <p className="sm: mx-10 text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
+            {product.name}
+          </p>
         </div>
-      )}
-      <p className="sm: mx-10 text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
-        {product.name}
-      </p>
+      </Link>
+
       {data?.user?.role != "admin" && showButtons && (
-        <div className="flex h-full w-full flex-col place-content-end gap-1 px-4 pt-2 sm:gap-4 sm:pt-6">
+        <div className="absolute bottom-3 left-0 right-0 z-10 mx-auto flex max-w-[256px] flex-col place-content-center gap-1 sm:gap-4">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
