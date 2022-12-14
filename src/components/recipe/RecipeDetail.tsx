@@ -155,7 +155,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                       : "difícil"}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
-                  <h2>
+                  <h2 className="flex items-center justify-between">
                     Alérgenos
                     <div className="flex">
                       <AllergensComponent
