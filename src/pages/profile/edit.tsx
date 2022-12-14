@@ -99,7 +99,7 @@ const EditProfile = () => {
                         <UploadImageRecipe
                           setImageURL={onChange}
                           value={value ?? "/img/placeholder.jpg"}
-                          style="rounded-full h-40 w-40"
+                          style="rounded-full items-center h-40 w-40"
                         />
                       </div>
                     </>
@@ -225,11 +225,11 @@ const EditProfile = () => {
                 </div>
               </FormWrapper>
             </div>
-            <div className="mb-10 text-right">
+            <div className="mb-10 text-center sm:text-right">
               <button
                 type="submit"
                 onClick={() => update({ allergen: allergensList })}
-                className="btn rounded-full border-primary bg-primary px-4 py-2 text-base-100"
+                className="btn rounded-full border-none bg-primary px-4 py-2 font-raleway text-sm text-base-100"
               >
                 Guardar cambios
               </button>

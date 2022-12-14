@@ -34,7 +34,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const unauthenticatedMessage = () =>
-    toast.warning("¡Inicia sesión valorar la receta!");
+    toast.warning("¡Inicia sesión para valorar la receta!");
 
   function sendComment() {
     if (status === "unauthenticated") {

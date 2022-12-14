@@ -108,7 +108,7 @@ export default function CreateEdit(props: {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-12 ml-[20px] md:ml-[80px]">
           {/*Details*/}
-          <section className="grid grid-cols-1 gap-8 xl:grid-cols-[50%_50%]">
+          <section className="grid grid-cols-1 xl:grid-cols-[50%_50%]">
             <div className="grid grid-cols-1">
               <section className="flex flex-col gap-6">
                 {/* Title */}
@@ -135,7 +135,7 @@ export default function CreateEdit(props: {
                 </div>
                 <div className="grid w-1/2 auto-cols-auto grid-cols-[45%-55%] grid-rows-[35%-35%-15%-15%] gap-y-[20px] gap-x-[10px] text-start md:grid-cols-[30%_35%_35%] md:grid-rows-4">
                   {/* Grid Row 1: Preparation time */}
-                  <div className="col-start-1 row-start-1 self-start pt-3 text-lg md:self-center md:pt-0">
+                  <div className="col-start-1 row-start-1 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de preparación:
                   </div>
                   <div className="col-start-2 row-start-1 mr-5 self-center text-sm md:col-span-2 md:text-lg">
@@ -149,7 +149,7 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 1: Preparation time */}
 
                   {/* Grid Row 2: Cooking time */}
-                  <div className="col-start-1 row-start-2 self-start pt-3 text-lg md:self-center md:pt-0">
+                  <div className="col-start-1 row-start-2 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de cocinado:
                   </div>
                   <div className="col-start-2 row-start-2 mr-5 self-center text-sm md:col-span-2 md:text-lg">
@@ -163,7 +163,7 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 2: Cooking time */}
 
                   {/* Grid Row 3: Portions */}
-                  <div className="col-start-1 row-start-3 self-center text-lg">
+                  <div className="col-start-1 row-start-3 self-center text-sm md:text-lg">
                     Porciones:
                   </div>
                   <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-sm md:text-lg">
@@ -191,7 +191,7 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 3: Portions */}
 
                   {/* Grid Row 4: Difficulty */}
-                  <div className="col-start-1 row-start-4 self-center text-lg">
+                  <div className="col-start-1 row-start-4 self-center text-sm md:text-lg">
                     Dificultad:
                   </div>
                   <div className="col-start-2 row-start-4 mr-5 text-sm">
@@ -214,7 +214,7 @@ export default function CreateEdit(props: {
               </section>
             </div>
             {/* Image */}
-            <div className="grid-cols col-start-1 grid xl:col-start-2">
+            <div className="grid-cols col-start-1 grid xl:col-start-2 xl:ml-8">
               <div className="font-raleway text-lg">AÑADE UNA FOTO</div>
               <div className="mt-[35px] text-center">
                 <Controller
