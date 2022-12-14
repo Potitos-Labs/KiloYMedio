@@ -120,6 +120,7 @@ export const recipeRouter = router({
           },
           cookingTime: true,
           preparationTime: true,
+          allergens: { select: { allergen: true, recipeId: true } },
           User: true,
           userId: true,
         },

@@ -176,6 +176,7 @@ export const productRouter = router({
       home: "",
       grano: "",
       rice: "",
+      coffee: "",
     };
 
     eCategories.forEach((eCategory) => {

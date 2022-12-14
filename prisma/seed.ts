@@ -98,7 +98,7 @@ async function main() {
       supraCategoryName: "cafés, tés e infusiones",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "teas" }],
+          data: [{ category: "teas" }, { category: "coffee" }],
         },
       },
     },
@@ -169,7 +169,7 @@ async function main() {
         category: "teas",
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/tes.png",
-        categoryInSpanish: "Tés",
+        categoryInSpanish: "Infusiones",
       },
       /* 10 */ {
         category: "yeast",
@@ -181,13 +181,19 @@ async function main() {
         category: "grano",
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
-        categoryInSpanish: "Grano",
+        categoryInSpanish: "Granos",
       },
       /* 12 */ {
         category: "rice",
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
         categoryInSpanish: "Arroces",
+      },
+      /* 13 */ {
+        category: "coffee",
+        imageURL:
+          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        categoryInSpanish: "Cafés",
       },
     ],
   });
