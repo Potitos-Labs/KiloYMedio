@@ -21,8 +21,7 @@ export function formatCVV(value: string) {
   }
 
   const clearValue = clearNumber(value);
-  const nextValue = `${clearValue.slice(0, 3)}`;
-  return nextValue.trim();
+  return `${clearValue.slice(0, 3)}`;
 }
 
 export function formatExpirationDate(value: string) {

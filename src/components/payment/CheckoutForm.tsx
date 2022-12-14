@@ -125,7 +125,7 @@ const CheckoutForm = ({
                   value={city}
                   pattern={
                     homeDelivery
-                      ? "^[a-zA-ZÀ-ÿ\u00f1\u00d1s]{2,50}"
+                      ? "^[a-zA-ZÀ-ÿ\u00f1\u00d1 s]{2,50}"
                       : "^[^]{0,500}"
                   }
                   onChange={(e) => updateFields({ city: e.target.value })}
