@@ -511,6 +511,7 @@ enum ECategory {
     yeast
     grano
     rice
+    coffee
 }
 
 enum IngredientUnit {
