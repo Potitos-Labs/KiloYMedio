@@ -71,10 +71,10 @@ function CommentSection({ recipeId }: { recipeId: string }) {
       {/* End Elipse */}
       <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-t-lg bg-base-100 px-8 pt-24 pb-16 lg:grid">
         <div className="order-2 grid content-between justify-center gap-6 lg:order-1 lg:justify-start">
-          {data?.map((c) => {
+          {data?.map((c, index) => {
             return (
               <Comment
-                key=""
+                key={index}
                 imageURL={c.User?.image ?? ""}
                 user={c.User?.name ?? ""}
                 description={c.description ?? ""}

@@ -199,9 +199,9 @@ function FilterRecipe({
       <div className="flex flex-col md:ml-4">
         <h1 className="mb-2 font-raleway">Alérgenos</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3">
-          {allergenList.map((allergen) => {
+          {allergenList.map((allergen, index) => {
             return (
-              <div key="" className="form-control">
+              <div key={index} className="form-control">
                 <label className="label cursor-pointer justify-start gap-x-2">
                   <input
                     type="checkbox"

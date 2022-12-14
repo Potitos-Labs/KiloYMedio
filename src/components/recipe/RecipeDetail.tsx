@@ -152,7 +152,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                     Alérgenos
                     <div className="flex">
                       <AllergensComponent
-                        key={""}
+                        key={recipe.id}
                         allergens={allergens}
                         size={25}
                       ></AllergensComponent>
@@ -187,9 +187,9 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                   <div className="mb-4 md:pr-14">
                     <ul className="ml-5 list-disc space-y-2">
                       {units &&
-                        ingredients?.map((i) => {
+                        ingredients?.map((i, index) => {
                           return (
-                            <li key={""}>
+                            <li key={index}>
                               <div className="lowercase">
                                 {i.amount} {units[i.unit]} de{" "}
                                 {i.Ingredient.name}

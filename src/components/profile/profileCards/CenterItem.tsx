@@ -170,7 +170,7 @@ function CenterItem({
           workshopList.map((e) => {
             return (
               <EnrolledWorkshops
-                key={""}
+                key={e.onSiteWorkshop.workshopId}
                 name={e.onSiteWorkshop.workshop.name}
                 description={e.onSiteWorkshop.workshop.description}
                 image={e.onSiteWorkshop.workshop.imageURL}

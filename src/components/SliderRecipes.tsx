@@ -45,13 +45,13 @@ function SliderRecipes({
                   {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
-                        <Slide index={index} key={""}>
+                        <Slide index={index} key={"index"}>
                           <SmallRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     } else {
                       return (
-                        <Slide index={index} key={""}>
+                        <Slide index={index} key={"index"}>
                           <BigRecipeCard recipe={recipe} />
                         </Slide>
                       );
@@ -102,13 +102,13 @@ function SliderRecipes({
                   {recipes?.map((recipe, index) => {
                     if (!isBig) {
                       return (
-                        <Slide index={index} key={""}>
+                        <Slide index={index} key={"index"}>
                           <SmallRecipeCard recipe={recipe} />
                         </Slide>
                       );
                     } else {
                       return (
-                        <Slide index={index} key={""}>
+                        <Slide index={index} key={"index"}>
                           <BigRecipeCard recipe={recipe} />
                         </Slide>
                       );
@@ -156,7 +156,7 @@ function SliderRecipes({
                 >
                   {recipes?.map((recipe, index) => {
                     return (
-                      <Slide index={index} key={""}>
+                      <Slide key={index} index={index}>
                         <SmallRecipeCard recipe={recipe} />
                       </Slide>
                     );
