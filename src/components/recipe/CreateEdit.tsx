@@ -138,7 +138,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-1 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de preparación:
                   </div>
-                  <div className="col-start-2 row-start-1 mr-5 self-center text-sm md:col-span-2 md:text-lg">
+                  <div className="col-start-2 row-start-1 mr-5 self-center text-xs sm:text-sm md:col-span-2 md:text-lg">
                     <TimeSpanForm control={control} label={"preparationTime"} />
                     {errors.preparationTime && (
                       <p className="flex text-sm text-red-500">
@@ -152,7 +152,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-2 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de cocinado:
                   </div>
-                  <div className="col-start-2 row-start-2 mr-5 self-center text-sm md:col-span-2 md:text-lg">
+                  <div className="col-start-2 row-start-2 mr-5 self-center text-xs sm:text-sm md:col-span-2 md:text-lg">
                     <TimeSpanForm control={control} label={"cookingTime"} />
                     {errors.cookingTime && (
                       <p className="flex text-sm text-red-500">
@@ -166,7 +166,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-3 self-center text-sm md:text-lg">
                     Porciones:
                   </div>
-                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-sm md:text-lg">
+                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-xs sm:text-sm md:text-lg">
                     <Controller
                       name="portions"
                       control={control}
@@ -181,7 +181,7 @@ export default function CreateEdit(props: {
                         ></IncDecButtons>
                       )}
                     ></Controller>
-                    <p className="text-sm md:text-lg"> pers</p>
+                    <p className="text-xs sm:text-sm md:text-lg"> pers</p>
                     {errors.portions && (
                       <p className="flex text-sm text-red-500">
                         {errors.portions.message}
@@ -194,7 +194,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-4 self-center text-sm md:text-lg">
                     Dificultad:
                   </div>
-                  <div className="col-start-2 row-start-4 mr-5 text-sm">
+                  <div className="col-start-2 row-start-4 mr-5 text-xs sm:text-sm md:text-lg">
                     <Controller
                       name={`difficulty`}
                       control={control}
@@ -426,7 +426,7 @@ export default function CreateEdit(props: {
               <div className="mt-8 mb-[20px] font-raleway text-lg">
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
-              <div className="flex text-sm">
+              <div className="flex max-w-[300px] text-xs sm:max-w-full sm:text-sm">
                 {allergens && (
                   <Controller
                     name={"allergens"}

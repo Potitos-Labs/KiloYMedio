@@ -212,7 +212,7 @@ const Checkout = () => {
                         <button
                           type="button"
                           onClick={back}
-                          className="btn rounded-full border-[1px] border-neutral bg-base-100 font-raleway text-sm text-neutral hover:bg-transparent"
+                          className="btn rounded-full border-[1px] border-neutral bg-base-100 font-raleway text-xs text-neutral hover:bg-transparent sm:text-sm"
                         >
                           Atrás
                         </button>
@@ -222,7 +222,7 @@ const Checkout = () => {
                       <button
                         type="submit"
                         name="Submit"
-                        className="btn rounded-full font-raleway text-sm text-base-100"
+                        className="btn rounded-full font-raleway text-xs text-base-100 sm:text-sm"
                       >
                         {!isLastStep ? "Continuar" : "Finalizar compra"}
                       </button>

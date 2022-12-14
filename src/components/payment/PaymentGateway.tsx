@@ -71,7 +71,7 @@ const PaymentGateway = ({
           <label className="relative flex flex-col">
             <span className="mb-1 text-xs">Número de tarjeta</span>
             <input
-              className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
+              className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
               required
               name="number"
               pattern="([0-9]+( [0-9]+)+)"
@@ -97,11 +97,10 @@ const PaymentGateway = ({
               />
             </svg>
           </label>
-          <div></div>
           <label className="relative mt-4 flex w-full flex-col   ">
             <span className="mb-1 text-xs">Nombre del titular</span>
             <input
-              className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
+              className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
               required
               type="text"
               name="name"
@@ -131,7 +130,7 @@ const PaymentGateway = ({
             <label className="relative flex w-full flex-col">
               <span className="mb-1 text-xs">CVV</span>
               <input
-                className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
+                className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
                 required
                 name="cvv"
                 type="tel"
@@ -162,7 +161,7 @@ const PaymentGateway = ({
               <label className="relative flex w-full flex-col">
                 <span className="mb-1 text-xs">Fecha de vencimiento</span>
                 <input
-                  className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
+                  className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
                   required
                   name="date"
                   type="tel"
@@ -196,7 +195,7 @@ const PaymentGateway = ({
           <div className="mt-5 xl:mt-3">
             <label className="relative flex w-full flex-col">
               <input
-                className="peer input input-bordered h-[60px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300"
+                className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
                 required
                 id="iAddress"
                 type="text"
