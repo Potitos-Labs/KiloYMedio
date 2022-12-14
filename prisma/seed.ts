@@ -2387,8 +2387,18 @@ async function main() {
     },
   });
 
-  const date = new Date();
-  date.setDate(date.getDate() + 2);
+  const date1 = new Date();
+  date1.setDate(date1.getDate() + 10);
+  const date2 = new Date();
+  date1.setDate(date1.getDate() + 20);
+  const date3 = new Date();
+  date1.setDate(date1.getDate() + 30);
+  const date4 = new Date();
+  date3.setDate(date4.getDate() + 40);
+  const date5 = new Date();
+  date3.setDate(date4.getDate() + 8);
+  const date6 = new Date();
+  date3.setDate(date6.getDate() + 15);
 
   const pastaItaliana = await prisma.workshop.create({
     data: {
@@ -2398,7 +2408,7 @@ async function main() {
         "Vuelve al origen de una de las cocinas más aclamadas del mundo. ¡Mánchate las manos y descubre los secretos de las pastas!",
       OnSiteWorkshop: {
         create: {
-          date: new Date(),
+          date: date1,
           places: 50,
         },
       },
@@ -2413,7 +2423,7 @@ async function main() {
         "Únete a este taller para aprender a cocinar riquísimos platos del país del sol naciente. ¡No te arrepentirás!",
       OnSiteWorkshop: {
         create: {
-          date: new Date(),
+          date: date2,
           places: 50,
         },
       },
@@ -2429,7 +2439,7 @@ async function main() {
         "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con auténticas obras de arte comestibles.",
       OnSiteWorkshop: {
         create: {
-          date: new Date(),
+          date: date3,
           places: 50,
         },
       },
@@ -2444,7 +2454,7 @@ async function main() {
       description: "Competición fuertemente inspirada en MasterChef",
       OnSiteWorkshop: {
         create: {
-          date: new Date(),
+          date: date4,
           places: 50,
         },
       },
@@ -2459,7 +2469,7 @@ async function main() {
         "En nuestros talleres aprenderás a elaborar postres ecológicos, sin azúcares refinados ni colorantes, y a elaborar dulces veganos, sin lactosa o sin gluten.",
       OnSiteWorkshop: {
         create: {
-          date: new Date(),
+          date: date5,
           places: 50,
         },
       },

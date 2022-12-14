@@ -78,6 +78,11 @@ export const workshopRouter = router({
             OnSiteWorkshop: null,
           },
         },
+        orderBy: {
+          OnSiteWorkshop: {
+            date: "asc",
+          },
+        },
       });
       return workshops;
     }),

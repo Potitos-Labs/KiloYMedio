@@ -15,7 +15,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
-import Loading from "@components/ui/Loading";
+import LoadingBalls from "@components/ui/LoadingBalls";
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
     router: appRouter,
@@ -103,48 +103,50 @@ export default function CreateProdcut(
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <div className="mx-3 mt-2 flex flex-col place-content-between space-y-3 sm:relative sm:mx-6 sm:mt-6 md:flex-row">
-        <Tittle inSpanish={inSpanish} />
-        <div className="flex flex-row items-end">
-          <button
-            onClick={() => setOpenFilter(!openFilter)}
-            className="h-10 whitespace-nowrap rounded-3xl bg-accent px-4 font-satoshiBold text-[12px] text-base-100 sm:px-5 sm:text-xs"
-          >
-            FILTRAR POR:
-          </button>
-          <SearchBar filter={filter} setFilter={setFilter} />
+      <div className="flex min-h-90% flex-col">
+        <div className="mx-3 mt-2 flex flex-col place-content-between space-y-3 sm:relative sm:mx-6 sm:mt-6 md:flex-row">
+          <Tittle inSpanish={inSpanish} />
+          <div className="flex flex-row items-end">
+            <button
+              onClick={() => setOpenFilter(!openFilter)}
+              className="h-10 whitespace-nowrap rounded-3xl bg-accent px-4 font-satoshiBold text-[12px] text-base-100 sm:px-5 sm:text-xs"
+            >
+              FILTRAR POR:
+            </button>
+            <SearchBar filter={filter} setFilter={setFilter} />
+          </div>
         </div>
-      </div>
-      <FilterProduct
-        filter={filter}
-        setFilter={setFilter}
-        setOpen={setOpenFilter}
-        className={`${openFilter ? "block" : "hidden"}`}
-      />
-      <div className="px-3 pb-12 pt-8 sm:px-6">
-        {data ? (
-          data.length !== 0 ? (
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
-              {data.map((product) => {
-                const productParsed = productSchema.safeParse(product);
-                if (productParsed.success)
-                  return (
-                    <Product
-                      key={product.id}
-                      product={productParsed.data}
-                      showButtons={true}
-                    />
-                  );
-              })}
-            </div>
+        <FilterProduct
+          filter={filter}
+          setFilter={setFilter}
+          setOpen={setOpenFilter}
+          className={`${openFilter ? "block" : "hidden"}`}
+        />
+        <div className="h-full px-3 pb-12 pt-8 sm:px-6">
+          {data ? (
+            data.length !== 0 ? (
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
+                {data.map((product) => {
+                  const productParsed = productSchema.safeParse(product);
+                  if (productParsed.success)
+                    return (
+                      <Product
+                        key={product.id}
+                        product={productParsed.data}
+                        showButtons={true}
+                      />
+                    );
+                })}
+              </div>
+            ) : (
+              <p className="font-ligh absolute self-center justify-self-center">
+                Tú búsqueda no obtuvo ningún resultado...😢
+              </p>
+            )
           ) : (
-            <p className="font-ligh absolute self-center justify-self-center">
-              Tú búsqueda no obtuvo ningún resultado...😢
-            </p>
-          )
-        ) : (
-          <Loading message="Cargando productos..." />
-        )}
+            <LoadingBalls />
+          )}
+        </div>
       </div>
     </Layout>
   );

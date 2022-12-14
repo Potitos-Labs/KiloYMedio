@@ -1,7 +1,6 @@
 import Layout from "@components/Layout";
 import OnlineWorkshopCard from "@components/workshop/tinyComponents/OnlineWorkshopCard";
 import OnsiteWorkshopCard from "@components/workshop/tinyComponents/OnsiteWorkshopCard";
-import WorkshopSearchBar from "@components/workshop/tinyComponents/WorkshopSearchBar";
 import { trpc } from "@utils/trpc";
 import Image from "next/image";
 import { useState } from "react";
@@ -84,7 +83,6 @@ export default function Workshops() {
               PRESENCIAL
             </button>
           </div>
-          <WorkshopSearchBar />
         </div>
         {/*---TALLERES DISPLAYER CHIQUITO---*/}
         <div className="my-3 mb-2 grid h-[520px] w-full grid-cols-1 flex-col gap-2 sm:h-[565px] md:grid-cols-[45%_55%]">
