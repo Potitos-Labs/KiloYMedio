@@ -50,7 +50,8 @@ function CenterItem({
       {/* RECIPES */}
       <div
         className={` ${
-          recipesVisible && "bg-primary font-satoshiBold text-base-100"
+          recipesVisible &&
+          "border-b-0 bg-primary font-satoshiBold text-base-100"
         } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
           hideAllDisplayers();
@@ -73,7 +74,7 @@ function CenterItem({
           recipesVisible &&
           favoriteUserRecipes &&
           favoriteUserRecipes?.length > 0
-            ? " flex flex-col space-y-1 bg-neutral p-1"
+            ? " flex flex-col space-y-1 border-b border-neutral bg-base-100 p-1"
             : "hidden"
         } `}
       >
@@ -92,8 +93,9 @@ function CenterItem({
       {/* ALERGENOS*/}
       <div
         className={`${
-          allergensVisible && "bg-primary font-satoshiBold text-base-100"
-        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
+          allergensVisible &&
+          "border-b-0 bg-primary font-satoshiBold text-base-100"
+        } relative flex cursor-pointer items-center border-b border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
           hideAllDisplayers();
           if (!allergensVisible) {
@@ -114,7 +116,7 @@ function CenterItem({
       <div
         className={`${
           allergensVisible && allergenList && allergenList?.length > 0
-            ? " grid grid-cols-4 bg-neutral  p-1 "
+            ? " grid grid-cols-4 border-b border-neutral bg-base-100 p-1 "
             : "hidden"
         } `}
       >
@@ -162,7 +164,7 @@ function CenterItem({
       <div
         className={`${
           workshopsVisible && workshopList && workshopList?.length > 0
-            ? " flex flex-col space-y-1 bg-neutral p-1 "
+            ? " flex flex-col space-y-1 bg-base-100 p-1 "
             : "hidden"
         } `}
       >
