@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FavouriteRecipes from "../FavouriteRecipes";
 import Allergens from "../../Allergens";
-import { Allergen } from "@prisma/client";
+import { Allergen, Recipe } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { BsFillCaretRightFill } from "react-icons/bs";
 import EnrolledWorkshops from "./EnrolledWorkshops";
@@ -10,6 +10,7 @@ function CenterItem({
   favoriteUserRecipes,
   allergenList,
   workshopList,
+  myRecipesList,
 }: {
   favoriteUserRecipes:
     | {
@@ -24,6 +25,7 @@ function CenterItem({
   workshopList:
     | {
         onSiteWorkshop: {
+          date: Date;
           workshop: {
             name: string;
             description: string;
@@ -33,10 +35,13 @@ function CenterItem({
         };
       }[]
     | undefined;
+  myRecipesList: Recipe[] | undefined;
 }) {
   const [recipesVisible, setRecipesVisible] = useState(false);
   const [allergensVisible, setAllergensVisible] = useState(false);
   const [workshopsVisible, setWorkshopsVisible] = useState(false);
+  const [myRecipesVisible, setMyRecipesVisible] = useState(false);
+
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
 
@@ -44,6 +49,7 @@ function CenterItem({
     setRecipesVisible(false);
     setAllergensVisible(false);
     setWorkshopsVisible(false);
+    setMyRecipesVisible(false);
   }
   return (
     <div className="relative mt-3 overflow-hidden rounded-md border-[1px] border-neutral">
@@ -54,19 +60,23 @@ function CenterItem({
           "border-b-0 bg-primary font-satoshiBold text-base-100"
         } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
-          hideAllDisplayers();
-          if (!recipesVisible) {
-            setRecipesVisible(true);
+          if (favoriteUserRecipes && favoriteUserRecipes?.length > 0) {
+            hideAllDisplayers();
+            if (!recipesVisible) {
+              setRecipesVisible(true);
+            }
           }
         }}
       >
         recetas guardadas
         <div className="absolute bottom-7 right-4">
-          <BsFillCaretRightFill
-            className={`${
-              recipesVisible && " rotate-90"
-            } origin-left  transition-transform  `}
-          />
+          {favoriteUserRecipes && favoriteUserRecipes?.length > 0 && (
+            <BsFillCaretRightFill
+              className={`${
+                recipesVisible && " rotate-90"
+              } origin-left  transition-transform  `}
+            />
+          )}
         </div>
       </div>
       <div
@@ -86,6 +96,7 @@ function CenterItem({
                 id={e.Recipe.id}
                 name={e.Recipe.name}
                 image={e.Recipe.imageURL}
+                isMine={false}
               />
             );
           })}
@@ -97,19 +108,23 @@ function CenterItem({
           "border-b-0 bg-primary font-satoshiBold text-base-100"
         } relative flex cursor-pointer items-center border-b border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
-          hideAllDisplayers();
-          if (!allergensVisible) {
-            setAllergensVisible(true);
+          if (allergenList && allergenList?.length > 0) {
+            hideAllDisplayers();
+            if (!allergensVisible) {
+              setAllergensVisible(true);
+            }
           }
         }}
       >
         mis alérgenos
         <div className="absolute bottom-7 right-4">
-          <BsFillCaretRightFill
-            className={`${
-              allergensVisible && "rotate-90"
-            } origin-left  transition-transform  `}
-          />
+          {allergenList && allergenList?.length > 0 && (
+            <BsFillCaretRightFill
+              className={`${
+                allergensVisible && "rotate-90"
+              } origin-left  transition-transform  `}
+            />
+          )}
         </div>
       </div>
 
@@ -132,33 +147,76 @@ function CenterItem({
           </div>
         ))}
       </div>
-      {/* PEDIDOS*/}
+      {/* MIS RECETAS*/}
       <div
-        className="border-b-[1px] border-neutral py-[20px]  px-4 text-[20px]  active:border-primary active:bg-primary active:font-satoshiBold active:text-base-100 xl:py-8"
-        onClick={hideAllDisplayers}
+        className={`${
+          myRecipesVisible &&
+          "border-b-0 bg-primary font-satoshiBold text-base-100"
+        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
+        onClick={() => {
+          if (myRecipesList && myRecipesList?.length > 0) {
+            hideAllDisplayers();
+            if (!myRecipesVisible) {
+              setMyRecipesVisible(true);
+            }
+          }
+        }}
       >
-        pedidos
+        mis recetas
+        <div className="absolute bottom-7 right-4">
+          {myRecipesList && myRecipesList?.length > 0 && (
+            <BsFillCaretRightFill
+              className={`${
+                myRecipesVisible && "rotate-90"
+              } origin-left  transition-transform  `}
+            />
+          )}
+        </div>
+      </div>
+      <div
+        className={`${
+          myRecipesVisible && myRecipesList && myRecipesList?.length > 0
+            ? " flex flex-col space-y-1 border-b border-neutral bg-base-100 p-1"
+            : "hidden"
+        } `}
+      >
+        {myRecipesList &&
+          myRecipesList.map((e) => {
+            return (
+              <FavouriteRecipes
+                key={e.id}
+                image={e.imageURL}
+                name={e.name}
+                id={e.id}
+                isMine={true}
+              />
+            );
+          })}
       </div>
 
       {/*TALLERES*/}
       <div
         className={`${
-          workshopsVisible && "bg-primary font-satoshiBold text-base-100"
+          workshopsVisible && " bg-primary font-satoshiBold text-base-100"
         } relative cursor-pointer py-[20px]  px-4 text-[20px] active:bg-primary active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
-          hideAllDisplayers();
-          if (!workshopsVisible) {
-            setWorkshopsVisible(true);
+          if (workshopList && workshopList?.length > 0) {
+            hideAllDisplayers();
+            if (!workshopsVisible) {
+              setWorkshopsVisible(true);
+            }
           }
         }}
       >
         mis talleres
         <div className="absolute bottom-7 right-4">
-          <BsFillCaretRightFill
-            className={`${
-              workshopsVisible && "rotate-90"
-            } origin-left  transition-transform  `}
-          />
+          {workshopList && workshopList?.length > 0 && (
+            <BsFillCaretRightFill
+              className={`${
+                workshopsVisible && "rotate-90"
+              } origin-left  transition-transform  `}
+            />
+          )}
         </div>
       </div>
       <div
@@ -173,6 +231,7 @@ function CenterItem({
             return (
               <EnrolledWorkshops
                 key={e.onSiteWorkshop.workshopId}
+                date={e.onSiteWorkshop.date}
                 name={e.onSiteWorkshop.workshop.name}
                 description={e.onSiteWorkshop.workshop.description}
                 image={e.onSiteWorkshop.workshop.imageURL}

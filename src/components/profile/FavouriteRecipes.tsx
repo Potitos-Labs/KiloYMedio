@@ -2,15 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import Heart from "../../components/Heart";
 import { trpc } from "@utils/trpc";
+import DotMenu from "@components/DotMenu";
+import { toast } from "react-toastify";
+import router from "next/router";
 
 function FavouriteRecipes({
   name,
   image,
   id,
+  isMine,
 }: {
   name: string;
   image: string;
   id: string;
+  isMine: boolean;
 }) {
   const utils = trpc.useContext();
 
@@ -24,8 +29,24 @@ function FavouriteRecipes({
     mutateAsync({ recipeId: id });
   };
 
+  const editRecipe = (id: string) => {
+    router.push(`/recipe/edit/${id}`);
+  };
+
+  const notifyDeleted = () => toast.success("Receta eliminada");
+  const { mutateAsync: anotherOne } = trpc.recipe.delete.useMutation({
+    onSuccess() {
+      utils.user.client.getOwnRecipes.invalidate();
+    },
+  });
+
+  const removeRecipe = (id: string) => {
+    anotherOne({ recipeId: id });
+    notifyDeleted();
+  };
+
   return (
-    <div className=" relative grid min-h-[120px] grid-cols-[32%_56%_12%] overflow-hidden rounded-md border-[1px] border-neutral  bg-base-100">
+    <div className=" relative grid min-h-[120px] grid-cols-[26%_62%_12%] overflow-hidden rounded-md border-[1px] border-neutral bg-base-100  sm:grid-cols-[32%_56%_12%]">
       <div className="relative h-full w-full">
         <Image
           src={image}
@@ -49,7 +70,20 @@ function FavouriteRecipes({
           </div>
         </div>
       </div>
-      <Heart removeFavorite={deleteRecipe} id={id} />
+      {isMine ? (
+        <div className="absolute top-0 -right-2 ">
+          <DotMenu
+            id={id}
+            name={name}
+            key={id}
+            deleteFunction={removeRecipe}
+            updateFunction={editRecipe}
+            type="receta"
+          />
+        </div>
+      ) : (
+        <Heart removeFavorite={deleteRecipe} id={id} />
+      )}
     </div>
   );
 }

@@ -18,6 +18,7 @@ const Profile = () => {
   const allergenList = data?.map((e) => e.allergen) ?? [];
 
   const { data: workshopList } = trpc.user.client.getEnrollWorkshops.useQuery();
+  const { data: myRecipesList } = trpc.user.client.getOwnRecipes.useQuery();
 
   return (
     <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
@@ -39,6 +40,7 @@ const Profile = () => {
             favoriteUserRecipes={favoriteUserRecipes}
             allergenList={allergenList}
             workshopList={workshopList}
+            myRecipesList={myRecipesList}
           />
           <FooterProfile />
         </div>
