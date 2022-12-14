@@ -9,7 +9,7 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 function ClientePage() {
   const slideColors = [
     { slide: 0, color: "" },
-    { slide: 1, color: "from-[#f1889f]" },
+    { slide: 1, color: "from-[#E87B94]" },
     { slide: 2, color: "from-[#21cf84]" },
     { slide: 3, color: "from-[#7b61ff]" },
     { slide: 4, color: "from-[#a6806D]" },
@@ -51,7 +51,7 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/mermeladaKM.png"
+            src="/img/fondo1.png"
             objectFit="cover"
             width="900"
             height="300"
