@@ -9,7 +9,6 @@ import Image from "next/image";
 import { ILogin, loginSchema } from "../utils/validations/auth";
 import { IoEyeOffSharp, IoEyeSharp, IoLogoGoogle } from "react-icons/io5";
 import Link from "next/link";
-import LoadingBallsFullScreen from "@components/ui/LoadingBallsFullScreen";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
@@ -23,7 +22,6 @@ const SignIn: NextPage = () => {
   });
 
   const [emailNotExists, setEmailNotExists] = useState("");
-  const [popUpOpen, setPopUpOpen] = useState(false);
 
   const { status } = useSession();
   if (status == "authenticated") {
@@ -39,13 +37,11 @@ const SignIn: NextPage = () => {
   }
   console.log(router.basePath);
   const onSubmit = useCallback(async (data: ILogin) => {
-    setPopUpOpen(true);
     await signIn("credentials", {
       email: data.email,
       password: data.password,
       callbackUrl: router.query.prev?.toString(),
     });
-    setPopUpOpen(false);
   }, []);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +64,6 @@ const SignIn: NextPage = () => {
         </div>
       </div>
 
-      <LoadingBallsFullScreen open={popUpOpen} setOpen={setPopUpOpen} />
       <div className="h-screen bg-accent">
         <main className="bg-accent bg-contain bg-no-repeat md:bg-[url('/img/fondoLogin.png')]">
           <div className="flex flex-col pt-4">

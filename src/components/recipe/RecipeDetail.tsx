@@ -16,8 +16,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { IRecipe } from "@utils/validations/recipe";
+import { motion, PanInfo, useAnimation } from "framer-motion";
 
 const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
+  const controls = useAnimation();
+
   const ingredients = recipe?.RecipeIngredient;
   const directions = recipe?.directions;
   const { data: units } = trpc.recipe.getIngredientUnitInSpanish.useQuery();
@@ -67,6 +70,20 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
     },
   });
 
+  const handlePan = (event: any, info: PanInfo) => {
+    const x = info.offset.x;
+    if (x > 0) {
+      controls.set({ x: x < 160 ? x : 160 });
+    }
+  };
+
+  const handlePanEnd = (event: any, info: PanInfo) => {
+    if (info.offset.x >= 160) {
+      addToCart();
+    }
+    controls.start({ x: 0 });
+  };
+
   function addToCart() {
     ingredients?.map((i) => {
       cont2++;
@@ -83,6 +100,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
         });
       }
     });
+
     toast.success("Productos añadidos");
   }
 
@@ -235,25 +253,32 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
             } mt-24 rounded-lg bg-base-content`}
           >
             <div className="mb-14 flex flex-col justify-between lg:flex-row lg:items-center">
-              <h2 className="font-raleway text-xl text-base-100">
+              <h2 className="select-none font-raleway text-xl text-base-100">
                 DIRECTO A TU CESTA
               </h2>
-              <button
-                className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 pr-10 font-satoshiBold"
-                onClick={addToCart}
-              >
-                <div className="h-full rounded-full bg-secondary px-8 pt-2">
-                  {prices
-                    .reduce((totalPrice, price) => totalPrice + price, 0)
-                    .toFixed(2) + "€"}
-                </div>
-                <div className="flex items-center gap-1">
+              <div className="flex h-10 w-72 items-center justify-between rounded-full bg-base-100 font-satoshiBold">
+                <motion.div
+                  animate={controls}
+                  onPan={handlePan}
+                  onPanEnd={handlePanEnd}
+                  className="absolute flex h-10 w-32 cursor-grabbing items-center justify-center rounded-full bg-secondary"
+                >
+                  <p className="select-none">
+                    {prices
+                      .reduce((totalPrice, price) => totalPrice + price, 0)
+                      .toFixed(2) + "€"}
+                  </p>
+                </motion.div>
+                <div
+                  className="ml-32 flex w-full cursor-pointer select-none place-content-center items-center gap-1"
+                  onClick={addToCart}
+                >
                   añadir todo
                   <BsArrowRightShort size={18} />
                 </div>
-              </button>
+              </div>
             </div>
-            <div className="grid w-full grid-cols-1 justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <div className="grid w-full select-none grid-cols-1 justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
               {ingredients ? (
                 ingredients.map((i, index) => {
                   if (i.Ingredient.Edible) {

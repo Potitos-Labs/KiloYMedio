@@ -152,7 +152,7 @@ function Addproductchart({
         </motion.div>
         <div
           onClick={addToCart}
-          className="ml-[50px] flex h-full flex-initial cursor-pointer flex-row justify-center self-center px-1 sm:ml-32 sm:px-2"
+          className="ml-[50px] flex h-full flex-initial cursor-pointer select-none flex-row justify-center self-center px-1 sm:ml-32 sm:px-2"
         >
           <p
             className={`hidden self-center text-center leading-5 sm:block sm:text-sm ${
