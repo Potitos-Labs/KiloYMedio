@@ -19,10 +19,14 @@ function CommentSection({ recipeId }: { recipeId: string }) {
     countLoadMore: countLoadMore,
   });
 
+  const { data: numberComents } = trpc.recipe.getNumberComments.useQuery({
+    recipeId: recipeId,
+  });
   const mutation = trpc.recipe.newComment.useMutation({
     onSuccess() {
       utils.recipe.getComments.invalidate();
       utils.recipe.getCommentsStatistics.invalidate();
+      utils.recipe.getNumberComments.invalidate();
     },
   });
 
@@ -83,7 +87,11 @@ function CommentSection({ recipeId }: { recipeId: string }) {
               />
             );
           })}
-          <div className="text-center">
+          <div
+            className={`text-center ${
+              !numberComents ? "hidden" : numberComents < 3 ? "hidden" : "block"
+            }`}
+          >
             <button
               onClick={() => setCountLoadMore(countLoadMore + 1)}
               className="btn btn-sm w-32 rounded-full bg-base-content py-1 text-base-100"
@@ -96,9 +104,13 @@ function CommentSection({ recipeId }: { recipeId: string }) {
           {/* Comments stats */}
           <div className="mb-14 block justify-between sm:flex">
             <div className="w-[150px]">
-              <p className="font-satoshiBold text-lg" id="average">
-                {stats?.average ?? 0}
-              </p>
+              <div className="flex items-center gap-1">
+                <p className="font-satoshiBold text-lg" id="average">
+                  {stats?.average ?? 0}
+                </p>
+                <TiStarFullOutline size={25} className="fill-accent" />
+              </div>
+
               <p className="mb-6 flex sm:mb-0">
                 {stats?.count ?? 0} comentarios
               </p>

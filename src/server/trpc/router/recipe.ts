@@ -369,6 +369,18 @@ export const recipeRouter = router({
       });
       return comments;
     }),
+
+  getNumberComments: publicProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+      });
+      return comments.length;
+    }),
+
   getCommentsStatistics: publicProcedure
     .input(z.object({ recipeId: z.string() }))
     .query(async ({ ctx, input: { recipeId } }) => {
