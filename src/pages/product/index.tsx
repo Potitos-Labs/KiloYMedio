@@ -144,7 +144,7 @@ export default function CreateProdcut(
               </p>
             )
           ) : (
-            <LoadingBalls />
+            <LoadingBalls black={true} />
           )}
         </div>
       </div>
