@@ -146,7 +146,7 @@ function Addproductchart({
               smTextSize ? smTextSize : "text-sm"
             }`}
           >
-            {price + " €"}
+            {Number.isInteger(price) ? price + ".00 €" : price + " €"}
           </span>
           <TiShoppingCart className="block sm:hidden" />
         </motion.div>
@@ -166,7 +166,7 @@ function Addproductchart({
               smTextSize ? smTextSize : "text-sm"
             }`}
           >
-            {price + " €"}
+            {Number.isInteger(price) ? price + ".00 €" : price + " €"}
           </span>
           <BsArrowRightShort
             size={25}
