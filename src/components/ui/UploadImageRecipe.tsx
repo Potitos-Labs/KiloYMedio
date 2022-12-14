@@ -6,11 +6,11 @@ import Image from "next/image";
 export const UploadImageRecipe = ({
   setImageURL,
   value,
-  style,
+  profileStyle,
 }: {
   setImageURL: (value: string) => void;
   value: string;
-  style?: string;
+  profileStyle?: string;
 }) => {
   const [fileSize, setFileSize] = useState("0   ");
   const uploadPhoto = useCallback(
@@ -43,12 +43,12 @@ export const UploadImageRecipe = ({
     <div>
       <div
         className={`${
-          style ??
+          profileStyle ??
           "h-[300px] w-[300px] rounded-[30px] md:h-[420px] md:w-[420px]"
         } flex flex-col items-center justify-center border-[1px] border-base-300`}
       >
         <Image
-          className={`${style ?? "rounded-[30px]"}`}
+          className={`${profileStyle ?? "rounded-[30px]"}`}
           src={value ? value : ""}
           alt={value}
           height={420}
@@ -66,15 +66,19 @@ export const UploadImageRecipe = ({
             accept="image/png, image/jpeg"
           />
           <label
-            className="h-[60px] w-[60px] rounded-full border-none bg-[#AEAAA6] text-xl leading-none text-base-100 hover:cursor-pointer"
+            className={`${
+              profileStyle && "opacity-60 hover:opacity-100"
+            } h-[60px] w-[60px] rounded-full bg-[#AEAAA6] text-xl leading-none text-base-100 hover:cursor-pointer`}
             htmlFor="files"
           >
             +
           </label>
-          <div className="text-sm text-base-300">Máx 1MB</div>
+          <div className={`${profileStyle && "hidden"} text-sm`}>Máx 1MB</div>
         </div>
       </div>
-      <p className="mt-2 text-start text-sm">Tamaño de imagen: {fileSize}MB</p>
+      <p className={`${profileStyle && "hidden"} mt-2 text-start text-sm`}>
+        Tamaño de imagen: {fileSize}MB
+      </p>
     </div>
   );
 };

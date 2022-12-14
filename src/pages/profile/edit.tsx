@@ -89,7 +89,7 @@ const EditProfile = () => {
         <div className="px-8 md:px-20">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-10 w-full">
-              <div className="mr-8 flex justify-center">
+              <div className="flex justify-center">
                 <Controller
                   name="image"
                   control={control}
@@ -99,17 +99,17 @@ const EditProfile = () => {
                         <UploadImageRecipe
                           setImageURL={onChange}
                           value={value ?? "/img/placeholder.jpg"}
-                          style="rounded-full items-center h-40 w-40"
+                          profileStyle="rounded-full h-40 w-40"
                         />
                       </div>
                     </>
                   )}
                 ></Controller>
               </div>
-              <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
+              <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-6">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
-                  <div className=" gird-cols-1 grid items-center lg:grid-cols-[17%_83%]">
+                  <div className="gird-cols-1 mt-8 grid items-center lg:grid-cols-[17%_83%]">
                     <p className="py-2 text-sm">Nombre completo</p>
                     <input
                       type="text"
@@ -156,9 +156,9 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
+            <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-6">
               <FormWrapper title="Dirección de envío">
-                <div className="relative grid w-full grid-cols-1 py-8 lg:grid-cols-[20%_80%]">
+                <div className="relative grid w-full grid-cols-1 py-4 lg:grid-cols-[18%_82%]">
                   <p className="py-2 text-sm">Dirección</p>
                   <input
                     type="text"
@@ -170,7 +170,7 @@ const EditProfile = () => {
                   <p className="text-red-500">{errors.address?.message}</p>
                 )}
                 {/*Correo y Nombre*/}
-                <div className=":grid-cols-1 grid w-full sm:grid-cols-[20%_80%] lg:grid-cols-[18%_33%_10%_40%]">
+                <div className="grid sm:grid-cols-[20%_78%] sm:gap-4 lg:grid-cols-[18%_36%_10%_36%] lg:gap-0">
                   <p className="py-2 text-sm">Localidad</p>
                   <input
                     type="text"
@@ -193,7 +193,7 @@ const EditProfile = () => {
                 )}
               </FormWrapper>
             </div>
-            <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
+            <div className="rounded-box my-6 w-full border-[1px] border-base-300 p-6">
               <FormWrapper title="Alérgenos">
                 <div>
                   <div className="items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
