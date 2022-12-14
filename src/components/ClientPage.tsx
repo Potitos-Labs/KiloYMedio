@@ -72,7 +72,7 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/paqueteKM.png"
+            src="/img/fondo2.png"
             objectFit="cover"
             width="1000"
             height="400"
