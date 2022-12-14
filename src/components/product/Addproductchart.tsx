@@ -102,7 +102,6 @@ function Addproductchart({
   const handlePanEnd = (event: any, info: PanInfo) => {
     if (info.offset.x >= cartWidth) {
       addToCart();
-    } else {
     }
     controls.start({ x: 0 });
   };
@@ -151,7 +150,10 @@ function Addproductchart({
           </span>
           <TiShoppingCart className="block sm:hidden" />
         </motion.div>
-        <div className="ml-[50px] flex h-full flex-initial flex-row justify-center self-center px-1 sm:ml-32 sm:px-2">
+        <div
+          onClick={addToCart}
+          className="ml-[50px] flex h-full flex-initial cursor-pointer flex-row justify-center self-center px-1 sm:ml-32 sm:px-2"
+        >
           <p
             className={`hidden self-center text-center leading-5 sm:block sm:text-sm ${
               smTextSize ? smTextSize : "text-sm"
