@@ -53,7 +53,7 @@ function ClientePage() {
           <Image
             src="/img/fondo1.png"
             objectFit="cover"
-            width="900"
+            width="1200"
             height="300"
             alt="not found"
           />
@@ -74,7 +74,7 @@ function ClientePage() {
           <Image
             src="/img/fondo2.png"
             objectFit="cover"
-            width="1000"
+            width="1200"
             height="400"
             alt="not found"
           />
@@ -93,7 +93,7 @@ function ClientePage() {
           <Image
             src="/img/fondo3.png"
             objectFit="cover"
-            width="900"
+            width="1200"
             height="300"
             alt="not found"
           />
