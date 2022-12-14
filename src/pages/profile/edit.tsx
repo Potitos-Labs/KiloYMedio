@@ -196,15 +196,12 @@ const EditProfile = () => {
             <div className="rounded-box my-6 w-full border-[1px] border-base-300 p-6">
               <FormWrapper title="Alérgenos">
                 <div>
-                  <div className="items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
+                  <div className="items-left sm:p- grid  md:grid-cols-2 lg:grid-cols-3">
                     {AllallergenList.map((allergen) => (
-                      <div
-                        className="grid grid-cols-[10%_15%_75%] py-2"
-                        key={allergen}
-                      >
+                      <div className="flex gap-1 py-2" key={allergen}>
                         <label key={allergen}>
                           <input
-                            className="form-check-input mt-1 mr-2 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
+                            className="form-check-input mt-1 mr-1 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
                             type="checkbox"
                             value={allergen}
                             id="flexCheckChecked"
