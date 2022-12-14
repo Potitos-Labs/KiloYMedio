@@ -51,7 +51,7 @@ function OnlineWorskhopCard({
       } 
       ${
         myIndex == indexGlobal && "bg-base-content text-base-100"
-      } mt-2 grid   h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content  sm:h-[180px]`}
+      } mt-2 grid h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content  sm:h-[180px]`}
       onClick={() => {
         displayVideo();
         setIndexGlobal(myIndex);

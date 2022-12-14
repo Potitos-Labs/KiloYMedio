@@ -25,6 +25,7 @@ function OnsiteWorskhopCard({
     });
   const { data: session } = useSession();
   const isAdmin = session?.user?.role == "admin";
+
   return (
     <div
       className={`${
@@ -46,24 +47,27 @@ function OnsiteWorskhopCard({
           layout="fill"
         />
       </div>
-      <div className="relative p-2 md:p-4">
-        {
-          <div className="mb-1 flex w-full justify-end align-middle text-[10px] md:text-xs">
+      <div className="relative grid content-between p-2 md:p-4">
+        <div className="flex justify-between">
+          <h1 className="font-raleway text-[16px] uppercase lg:text-[35px]">
+            {workshop.name}
+          </h1>
+          <div className="flex text-[10px] md:text-xs">
             <p>{enrollCliens + "/" + workshop.OnSiteWorkshop?.places}</p>
           </div>
-        }
-        <h1 className="font-raleway text-[16px] uppercase lg:text-[35px]">
-          {workshop.name}
-        </h1>
+        </div>
         <p className="flex w-fit text-[15px] line-clamp-2 md:text-xs">
           {workshop.description}
         </p>
-        {workshop.id && session && !isAdmin && (
-          <EnrollButton
-            OnsiteworkshopID={workshop.id}
-            OnsiteWorkshopName={workshop.name}
-          />
-        )}
+        <div className="flex items-end justify-between">
+          {workshop.OnSiteWorkshop?.date.toLocaleDateString()}
+          {workshop.id && session && !isAdmin && (
+            <EnrollButton
+              OnsiteworkshopID={workshop.id}
+              OnsiteWorkshopName={workshop.name}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
