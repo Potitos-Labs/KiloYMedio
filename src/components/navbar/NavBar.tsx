@@ -4,7 +4,7 @@ import Link from "next/link";
 import AdminHeader from "./AdminHeader";
 import CartHeader from "./CartHeader";
 
-export default function NavBar() {
+export default function NavBar({ textDark }: { textDark: boolean }) {
   const { data: session } = useSession();
   if (!session) {
     return (
@@ -33,7 +33,7 @@ export default function NavBar() {
               <p className="hidden md:flex">perfil</p>
             </div>
           </Link>
-          <CartHeader />
+          <CartHeader textDark={textDark} />
         </nav>
       </>
     );

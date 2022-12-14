@@ -57,7 +57,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
           </Link>
         </div>
         <div className="grid place-items-end lg:basis-1/3">
-          <NavBar></NavBar>
+          <NavBar textDark={textDark}></NavBar>
         </div>
       </div>
     </div>
