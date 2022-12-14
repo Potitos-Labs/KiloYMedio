@@ -51,7 +51,7 @@ function CenterItem({
       <div
         className={` ${
           recipesVisible && "bg-primary font-satoshiBold text-base-100"
-        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px]  px-4 text-[20px]  active:bg-primary active:font-satoshiBold active:text-base-100`}
+        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
           hideAllDisplayers();
           if (!recipesVisible) {
@@ -93,7 +93,7 @@ function CenterItem({
       <div
         className={`${
           allergensVisible && "bg-primary font-satoshiBold text-base-100"
-        } active:text-base-100" relative cursor-pointer border-b-[1px] border-neutral py-[20px]  px-4 text-[20px]  active:bg-primary active:font-satoshiBold`}
+        } relative flex cursor-pointer items-center border-b-[1px] border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
           hideAllDisplayers();
           if (!allergensVisible) {
@@ -132,7 +132,7 @@ function CenterItem({
       </div>
       {/* PEDIDOS*/}
       <div
-        className="border-b-[1px] border-neutral py-[20px]  px-4 text-[20px]  active:border-primary active:bg-primary active:font-satoshiBold active:text-base-100"
+        className="border-b-[1px] border-neutral py-[20px]  px-4 text-[20px]  active:border-primary active:bg-primary active:font-satoshiBold active:text-base-100 xl:py-8"
         onClick={hideAllDisplayers}
       >
         pedidos
@@ -142,7 +142,7 @@ function CenterItem({
       <div
         className={`${
           workshopsVisible && "bg-primary font-satoshiBold text-base-100"
-        } relative cursor-pointer py-[20px]  px-4 text-[20px] active:bg-primary active:font-satoshiBold active:text-base-100`}
+        } relative cursor-pointer py-[20px]  px-4 text-[20px] active:bg-primary active:font-satoshiBold active:text-base-100 xl:py-8`}
         onClick={() => {
           hideAllDisplayers();
           if (!workshopsVisible) {
