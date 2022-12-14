@@ -61,7 +61,7 @@ export default withBundleAnalyzer(
         "grjkjrkjpycphptekssf.supabase.co",
         "shields.io",
         "i.blogs.es", //pasta italiana y más
-        "cocinatuimaginacion.com", //gachas
+        "t2.uc.ltmcdn.com", //gachas
         "www.tapasmagazine.es", //sándwich
         "cecotec.es",
         "pinchofyum.com", //lentejas cremosas

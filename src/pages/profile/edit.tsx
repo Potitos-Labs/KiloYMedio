@@ -199,7 +199,7 @@ const EditProfile = () => {
                   <div className="items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
                     {AllallergenList.map((allergen) => (
                       <div
-                        className="grid grid-cols-[75%_25%] py-2"
+                        className="grid grid-cols-[10%_15%_75%] py-2"
                         key={allergen}
                       >
                         <label key={allergen}>
@@ -213,12 +213,12 @@ const EditProfile = () => {
                             )}
                             onChange={(e) => allergensHandler(e.target.value)}
                           ></input>
-                          {allergenTranslator?.get(allergen)}
                         </label>
                         <AllergensComponent
                           allergens={[allergen]}
                           size={25}
                         ></AllergensComponent>
+                        {allergenTranslator?.get(allergen)}
                       </div>
                     ))}
                   </div>

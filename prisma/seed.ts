@@ -1361,7 +1361,7 @@ async function main() {
         },
       },
       imageURL:
-        "https://cocinatuimaginacion.com/wp-content/uploads/2017/10/pat%C3%A9-de-nueces-y-champi%C3%B1ones.jpg",
+        "https://t2.uc.ltmcdn.com/es/posts/4/0/8/como_hacer_unas_gachas_dulces_o_polea_52804_orig.jpg",
       portions: 2,
       cookingTime: 20,
       preparationTime: 10,

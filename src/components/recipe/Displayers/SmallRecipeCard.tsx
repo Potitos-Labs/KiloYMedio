@@ -31,7 +31,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
   };
 
   return (
-    <div className="rounded-box my-4 h-80 w-[270px] border-[1px] border-base-content bg-base-100">
+    <div className="rounded-box my-4 grid h-80 w-[270px] border-[1px] border-base-content bg-base-100">
       <div className="absolute bottom-[280px] left-4 z-10">
         <SaveIcon recipe={recipe} isBig={false} />
       </div>
@@ -62,21 +62,21 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
             {recipe.name}
           </p>
 
-          {/* Features and Button */}
-          <div className="mx-2 flex justify-between">
+          {/* Features */}
+          <div className="mx-2 flex gap-8">
             <p>
               {(recipe?.cookingTime ?? 0) + (recipe?.preparationTime ?? 0)} min
             </p>
             <p>{recipe?.portions} pers</p>
-            <Link href={`/recipe/${recipe.id}`}>
-              <a className="btn btn-xs rounded-full bg-base-content px-4 pb-0.5 text-base-100">
-                ver receta
-              </a>
-            </Link>
           </div>
-          {/* End Features and Button */}
+          {/* End Features */}
         </div>
       </div>
+      <Link href={`/recipe/${recipe.id}`}>
+        <a className="btn btn-sm mr-2 mb-2 self-end justify-self-end rounded-full bg-base-content px-4 pb-0.5 text-base-100">
+          ver receta
+        </a>
+      </Link>
     </div>
   );
 }
