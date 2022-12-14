@@ -46,8 +46,8 @@ function FavouriteRecipes({
   };
 
   return (
-    <div className=" relative grid min-h-[120px] grid-cols-[26%_62%_12%] overflow-hidden rounded-md border-[1px] border-neutral bg-base-100  sm:grid-cols-[32%_56%_12%]">
-      <div className="relative h-full w-full">
+    <div className=" relative grid min-h-[120px] grid-cols-[26%_62%_12%]  rounded-md border-[1px] border-neutral bg-base-100  sm:grid-cols-[32%_56%_12%]">
+      <div className="relative h-full w-full overflow-hidden">
         <Image
           src={image}
           alt="notfound"

@@ -84,7 +84,7 @@ const DotMenu = ({
       </div>
 
       <Popup open={open} modal closeOnDocumentClick onClose={cancelHandler}>
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
           <div className="w-11/12 rounded-md bg-white sm:w-2/5">
             <h1 className="rounded-t-md bg-primary py-2 text-center text-lg font-bold text-white">
               Eliminar {type}
