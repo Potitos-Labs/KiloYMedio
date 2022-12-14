@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { trpc } from "../../utils/trpc";
+import AllergensComponent from "@components/Allergens";
 
 import DotMenu from "../DotMenu";
 import SaveIcon from "./SaveIcon";
@@ -49,7 +50,11 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
     router.push(`/recipe`);
     notifyDeleted();
   };
-
+  const allergens = recipe?.allergens?.map((a) => a.allergen) ?? [];
+  console.log("culo");
+  console.log({ allergens });
+  console.log({ recipe });
+  console.log("culo");
   const cartMutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
       utils.cart.getAllCartProduct.invalidate();
@@ -143,6 +148,16 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                       : "difícil"}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
+                  <h2>
+                    Alérgenos
+                    <div className="flex">
+                      <AllergensComponent
+                        key={""}
+                        allergens={allergens}
+                        size={25}
+                      ></AllergensComponent>
+                    </div>
+                  </h2>
                 </div>
                 {/* End Features */}
               </div>
