@@ -10,6 +10,7 @@ import Image from "next/image";
 
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
+import LoadingBallsFullScreen from "@components/ui/LoadingBallsFullScreen";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -30,12 +31,21 @@ const SignUp: NextPage = () => {
     reValidateMode: "onChange",
   });
 
+  const [popUpOpen, setPopUpOpen] = useState(false);
+
   const { status } = useSession();
   if (status == "authenticated") {
     router.push(router.query.prev?.toString() ?? "/");
   }
 
-  const { mutateAsync } = trpc.user.client.createNew.useMutation();
+  const { mutateAsync } = trpc.user.client.createNew.useMutation({
+    onMutate: () => {
+      setPopUpOpen(true);
+    },
+    onSuccess: () => {
+      setPopUpOpen(false);
+    },
+  });
 
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false);
   const [matchPassword, setMatchPassword] = useState(false);
@@ -101,6 +111,7 @@ const SignUp: NextPage = () => {
           </Link>
         </div>
 
+        <LoadingBallsFullScreen open={popUpOpen} setOpen={setPopUpOpen} />
         <div className="flex flex-col justify-center px-2 md:items-end">
           <div className="mt-[15px] mb-12 rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
             {/* Text */}

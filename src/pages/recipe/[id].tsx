@@ -1,4 +1,4 @@
-import Loading from "@components/ui/Loading";
+import LoadingBalls from "@components/ui/LoadingBalls";
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
@@ -27,8 +27,14 @@ const RecipeDetails: NextPage = () => {
   }
 
   return (
-    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
-      <Loading message="Cargando receta..."></Loading>
+    <Layout
+      bgColor={"bg-base-content"}
+      headerBgLight={true}
+      headerTextDark={true}
+    >
+      <div className="flex min-h-90% flex-col place-content-center bg-base-content pb-[8%]">
+        <LoadingBalls />
+      </div>
     </Layout>
   );
 };
