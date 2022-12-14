@@ -30,7 +30,7 @@ function CategoryCards({
           closePopUp();
         }}
       >
-        <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway  text-xs uppercase lg:text-lg">
+        <h1 className="flex  h-full w-full justify-items-start pb-6 text-start align-top font-raleway  text-[12px]  uppercase sm:text-[16px] md:text-[20px] lg:text-lg">
           {name}
         </h1>
       </button>
@@ -39,7 +39,7 @@ function CategoryCards({
         {relations.map((cat, index) => (
           <div
             key={index}
-            className="z-10 mr-1 flex rounded-full border-[1px] border-base-100 border-transparent px-1 text-center text-[14px] hover:border-base-content active:border-primary active:bg-primary active:text-white md:px-2 md:text-xs lg:mr-2 lg:text-sm"
+            className="z-10 mr-1 flex rounded-full border-[1px] border-base-100 border-transparent px-1 text-center text-[12px] hover:border-base-content active:border-primary active:bg-primary active:text-white md:px-2 md:text-xs lg:mr-2 lg:text-sm"
             onClick={() => {
               closePopUp();
             }}
