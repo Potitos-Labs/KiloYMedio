@@ -42,7 +42,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
         </div>
         <div className="grid place-items-center items-center lg:basis-1/3">
           <Link href={`/`}>
-            <h3 className="my-3 hidden w-[180px] cursor-pointer font-raleway text-lg lg:flex">
+            <h3 className="my-3 hidden w-[180px] cursor-pointer py-2 font-raleway text-lg lg:flex">
               <Image
                 src={
                   textDark
@@ -50,7 +50,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
                     : "/logo sin subtitulo-blanco.svg"
                 }
                 width={180}
-                height={50}
+                height={24}
                 alt="kilo y medio"
               ></Image>
             </h3>
