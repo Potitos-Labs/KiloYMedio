@@ -32,7 +32,7 @@ function NavBarClient({ textDark }: { textDark: boolean }) {
         <div onClick={openPopup}>
           <a
             className={clsx(
-              "lg:mb-0 lg:items-center lg:rounded-full lg:bg-base-content lg:px-3 lg:font-satoshiBold",
+              "lg:mb-0 lg:items-center lg:rounded-full lg:px-3 lg:font-satoshiBold",
               // textDark means that the background is dark
               textDark ? "lg:text-base-100" : "lg:text-neutral",
               textDark ? "lg:bg-neutral" : "lg:bg-base-100",
