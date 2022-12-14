@@ -1,16 +1,16 @@
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
 import { useSession } from "next-auth/react";
 import { Allergen } from "@prisma/client";
 import AllergensComponent from "@components/Allergens";
 import { z } from "zod";
+import { UploadImageRecipe } from "@components/ui/UploadImageRecipe";
 
 const EditProfile = () => {
   const sesion = useSession();
@@ -55,6 +55,7 @@ const EditProfile = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<IClient>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
@@ -84,22 +85,28 @@ const EditProfile = () => {
       headerBgLight={true}
       headerTextDark={true}
     >
-      <div className="m-5 rounded-lg bg-base-100 py-6 md:m-20">
-        <div className="px-8 md:px-28 lg:px-40">
+      <div className="m-5 rounded-lg bg-base-100 py-6 md:m-12">
+        <div className="px-8 md:px-20">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-10  w-full">
-              <div className="mr-8 flex flex-col items-center pt-20">
-                <Image
-                  src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
-                  alt="notfound"
-                  width="100"
-                  height="100"
-                  layout="fixed"
-                  objectFit="cover"
-                  className="rounded-full"
-                ></Image>
+            <div className="mt-10 w-full">
+              <div className="mr-8 flex justify-center">
+                <Controller
+                  name="image"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <>
+                      <div className="flex text-center">
+                        <UploadImageRecipe
+                          setImageURL={onChange}
+                          value={value ?? "/img/placeholder.jpg"}
+                          style="rounded-full h-40 w-40"
+                        />
+                      </div>
+                    </>
+                  )}
+                ></Controller>
               </div>
-              <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
+              <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
                 <FormWrapper title="Datos personales">
                   {/*Nombre y apellidos*/}
                   <div className=" gird-cols-1 grid items-center lg:grid-cols-[17%_83%]">
@@ -116,7 +123,7 @@ const EditProfile = () => {
                     </p>
                   )}
                   {/*Correo y Nombre*/}
-                  <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%]  md:grid-cols-[25%_75%] lg:grid-cols-[17%_43%_14%_26%]">
+                  <div className="my-5 grid grid-cols-1 sm:grid-cols-[20%_80%] md:grid-cols-[25%_75%] lg:grid-cols-[17%_43%_14%_26%]">
                     <p className="py-2 text-sm">Correo</p>
                     <input
                       type="text"
@@ -149,9 +156,9 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
+            <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
               <FormWrapper title="Dirección de envío">
-                <div className=" relative grid w-full grid-cols-1 py-8  lg:grid-cols-[20%_80%]">
+                <div className="relative grid w-full grid-cols-1 py-8 lg:grid-cols-[20%_80%]">
                   <p className="py-2 text-sm">Dirección</p>
                   <input
                     type="text"
@@ -186,23 +193,18 @@ const EditProfile = () => {
                 )}
               </FormWrapper>
             </div>
-            <div className="rounded-box my-10 w-full border-[1px] border-base-300 px-4">
+            <div className="rounded-box my-10 w-full border-[1px] border-base-300 p-4">
               <FormWrapper title="Alérgenos">
                 <div>
-                  <div className=" items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
+                  <div className="items-left grid p-5 md:grid-cols-2 lg:grid-cols-3">
                     {AllallergenList.map((allergen) => (
                       <div
-                        className=" grid grid-cols-[10%_85%_5%] py-2"
+                        className="grid grid-cols-[75%_25%] py-2"
                         key={allergen}
                       >
-                        <AllergensComponent
-                          allergens={[allergen]}
-                          size={25}
-                        ></AllergensComponent>
                         <label key={allergen}>
-                          {allergenTranslator?.get(allergen)}
                           <input
-                            className="form-check-input float-right mt-1 mr-2 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
+                            className="form-check-input mt-1 mr-2 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
                             type="checkbox"
                             value={allergen}
                             id="flexCheckChecked"
@@ -211,7 +213,12 @@ const EditProfile = () => {
                             )}
                             onChange={(e) => allergensHandler(e.target.value)}
                           ></input>
+                          {allergenTranslator?.get(allergen)}
                         </label>
+                        <AllergensComponent
+                          allergens={[allergen]}
+                          size={25}
+                        ></AllergensComponent>
                       </div>
                     ))}
                   </div>

@@ -6,9 +6,11 @@ import Image from "next/image";
 export const UploadImageRecipe = ({
   setImageURL,
   value,
+  style,
 }: {
   setImageURL: (value: string) => void;
   value: string;
+  style?: string;
 }) => {
   const [fileSize, setFileSize] = useState("0   ");
   const uploadPhoto = useCallback(
@@ -38,10 +40,15 @@ export const UploadImageRecipe = ({
     [setImageURL],
   );
   return (
-    <div className="">
-      <div className="flex h-[300px] w-[300px] flex-col items-center justify-center rounded-[30px] border-[1px] border-base-300 md:h-[420px] md:w-[420px]">
+    <div>
+      <div
+        className={`${
+          style ??
+          "h-[300px] w-[300px] rounded-[30px] md:h-[420px] md:w-[420px]"
+        } flex flex-col items-center justify-center border-[1px] border-base-300`}
+      >
         <Image
-          className="rounded-[30px]"
+          className={`${style ?? "rounded-[30px]"}`}
           src={value ? value : ""}
           alt={value}
           height={420}

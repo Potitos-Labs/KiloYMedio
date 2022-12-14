@@ -28,10 +28,8 @@ function OnsiteWorkshopForm() {
 
   const onSubmit = useCallback(
     async (data: IWorkshopCreate) => {
-      console.log("si");
       await createWorshop(data);
       router.push(`/`);
-      console.log("si");
     },
     [createWorshop, router],
   );
@@ -83,11 +81,11 @@ function OnsiteWorkshopForm() {
             />
             <p className="text-sm text-pink-600">
               {errors.OnSiteWorkshop?.date?.message == "Invalid date"
-                ? "Fecha invalida"
+                ? "Fecha inválida"
                 : errors.OnSiteWorkshop?.date?.message}
             </p>
           </label>
-          <label className=" relative col-span-2 flex w-full flex-col">
+          <label className="relative col-span-2 flex w-full flex-col">
             <span className="mb-2">Descripción *</span>
             <input
               type="text"
