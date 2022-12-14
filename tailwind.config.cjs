@@ -13,7 +13,7 @@ module.exports = {
       },
     },
     minHeight: {
-      "90%": "92vh",
+      "90%": "94vh",
     },
     fontSize: {
       xs: "16px", //small
