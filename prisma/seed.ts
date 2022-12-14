@@ -2194,30 +2194,152 @@ async function main() {
       difficulty: "easy",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction:
+                "Ponemos una cazuela con agua y calentamos, cuando rompa a hervir introducimos la zanahoria pelada unos 15 minutos para que se cueza.",
+              number: 1,
+            },
+            {
+              direction:
+                "Picamos la cebolla y la echamos en una sartén con el aceite de oliva. Cuando se poche la cebolla (cuando esté translúcida) añadimos la cerne picada y procuramos separarla bien con ayuda de una cuchara de madera. Echamos una pizca de sal y dejamos que la carne y la cebolla lleguen a dorarse.",
+              number: 2,
+            },
+            {
+              direction:
+                "Si la carne y la cebolla se han dorado, es el momento de verter el vino (tinto o blanco) hasta que se evapore por completo. Una vez evaporado el vino añadimos la leche, un poco de nuez moscada y pimienta y dejamos a fuego muy suave para que la carne coja el gusto, aproximadamente 20 minutos.",
+              number: 3,
+            },
+            {
+              direction:
+                "Mientras que la leche se rebaja, pelamos los tomates y los troceamos, juntamos junto a la zanahoria cocida troceada. Una vez se haya reducido casi del todo la leche, añadimos la zanahoria y el tomate troceados y dejamos a fuego lento para que la salsa se haga durante otros 20 minutos aproximadamente.",
+              number: 4,
+            },
+            {
+              direction:
+                "Cocemos los espagueti al dente, recuerda, justo antes de que nos queden muy blandos, con algo de firmeza pero no duros. Dejamos escurrir.",
+              number: 5,
+            },
+            {
+              direction:
+                "Servimos en un plato y añadimos salsa muy generosamente y mezclamos. ¡Plato listo para saciar nuestro apetito!",
+              number: 6,
+            },
+          ],
         },
       },
       imageURL:
         "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/espaguetis-a-la-bolonesa-1080x671.jpg",
-      portions: 3,
-      cookingTime: 10,
-      preparationTime: 7,
+      portions: 2,
+      cookingTime: 40,
+      preparationTime: 10,
       description:
         "Disfruta con estos deliciosos tallarines acompañados de nuestra salsa boloñesa especial.",
       User: { connect: { id: sandra.id } },
       createdAt: new Date(),
-      allergens: { create: { allergen: "cereals" } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "nuts" },
+            { allergen: "cereals" },
+            { allergen: "milk" },
+            { allergen: "sulphurDioxideAndSulphites" },
+          ],
+        },
+      },
     },
   });
 
   const espaguetisBoloñesaIngredients = [
     {
-      amount: 2,
+      amount: 400,
       unit: IngredientUnit.grams,
-      Ingredient: espaguetis.Edible?.Ingredient,
+      Ingredient: { connect: { id: espaguetis.Edible?.Ingredient.id } },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 400,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "carne picada" } },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 800,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "tomates" } },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "cebolla" },
+          create: { name: "cebolla" },
+        },
+      },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.unit,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "zanahoria" },
+          create: { name: "zanahoria" },
+        },
+      },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 120,
+      unit: IngredientUnit.milliliters,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "vino blanco" },
+          create: { name: "vino blanco" },
+        },
+      },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 120,
+      unit: IngredientUnit.milliliters,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "leche" },
+          create: { name: "leche" },
+        },
+      },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 15,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: { create: { name: "pimienta" } },
+      Recipe: espaguetisBoloñesa,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: { create: { name: "nuez moscada" } },
       Recipe: espaguetisBoloñesa,
     },
   ].map(
@@ -2225,7 +2347,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
