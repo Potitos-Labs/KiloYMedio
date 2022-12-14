@@ -28,8 +28,6 @@ function DropdownCheckAllergen({
 
   const [selectedAllergen, setSelectedAllergen] = useState<string[]>([]);
 
-  console.log({ selectedAllergen });
-
   useEffect(() => {
     productAllergens.map((allergen) => {
       setSelectedAllergen((prev) => {

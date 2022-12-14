@@ -27,6 +27,15 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
   ]);
   let cont = -1;
   let cont2 = -1;
+  let productsCont = 0;
+
+  ingredients
+    ? ingredients.map((i) => {
+        if (i.Ingredient.Edible) {
+          productsCont++;
+        }
+      })
+    : "";
 
   const utils = trpc.useContext();
   const router = useRouter();
@@ -50,16 +59,14 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
     router.push(`/recipe`);
     notifyDeleted();
   };
+
   const allergens = recipe?.allergens?.map((a) => a.allergen) ?? [];
-  console.log("culo");
-  console.log({ allergens });
-  console.log({ recipe });
-  console.log("culo");
   const cartMutation = trpc.cart.addProduct.useMutation({
     onSuccess() {
       utils.cart.getAllCartProduct.invalidate();
     },
   });
+
   function addToCart() {
     ingredients?.map((i) => {
       cont2++;
@@ -222,7 +229,11 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
           {/* End Allergens, Ingredients and Directions */}
 
           {/* Products */}
-          <div className="mt-24 rounded-lg bg-base-content">
+          <div
+            className={`${
+              productsCont <= 0 && "hidden"
+            } mt-24 rounded-lg bg-base-content`}
+          >
             <div className="mb-14 flex flex-col justify-between lg:flex-row lg:items-center">
               <h2 className="font-raleway text-xl text-base-100">
                 DIRECTO A TU CESTA
