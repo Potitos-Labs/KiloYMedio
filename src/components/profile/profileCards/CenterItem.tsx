@@ -101,52 +101,7 @@ function CenterItem({
             );
           })}
       </div>
-      {/* ALERGENOS*/}
-      <div
-        className={`${
-          allergensVisible &&
-          "border-b-0 bg-primary font-satoshiBold text-base-100"
-        } relative flex cursor-pointer items-center border-b border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
-        onClick={() => {
-          if (allergenList && allergenList?.length > 0) {
-            hideAllDisplayers();
-            if (!allergensVisible) {
-              setAllergensVisible(true);
-            }
-          }
-        }}
-      >
-        mis alérgenos
-        <div className="absolute bottom-7 right-4">
-          {allergenList && allergenList?.length > 0 && (
-            <BsFillCaretRightFill
-              className={`${
-                allergensVisible && "rotate-90"
-              } origin-left  transition-transform  `}
-            />
-          )}
-        </div>
-      </div>
 
-      <div
-        className={`${
-          allergensVisible && allergenList && allergenList?.length > 0
-            ? " grid grid-cols-4 border-b border-neutral bg-base-100 p-1 "
-            : "hidden"
-        } `}
-      >
-        {allergenList.map((allergen) => (
-          <div
-            className="align-left mx-1 mt-2 mb-1 flex flex-col items-center rounded-md bg-base-100 py-2"
-            key={allergen}
-          >
-            <Allergens allergens={[allergen]} size={40}></Allergens>
-            <p className=" inline-block text-center text-[12px] normal-case sm:text-xs">
-              {allergenTransalator?.get(allergen)}
-            </p>
-          </div>
-        ))}
-      </div>
       {/* MIS RECETAS*/}
       <div
         className={`${
@@ -192,6 +147,53 @@ function CenterItem({
               />
             );
           })}
+      </div>
+
+      {/* ALERGENOS*/}
+      <div
+        className={`${
+          allergensVisible &&
+          "border-b-0 bg-primary font-satoshiBold text-base-100"
+        } relative flex cursor-pointer items-center border-b border-neutral py-[20px] px-4  text-[20px] active:bg-primary  active:font-satoshiBold active:text-base-100 xl:py-8`}
+        onClick={() => {
+          if (allergenList && allergenList?.length > 0) {
+            hideAllDisplayers();
+            if (!allergensVisible) {
+              setAllergensVisible(true);
+            }
+          }
+        }}
+      >
+        mis alérgenos
+        <div className="absolute bottom-7 right-4">
+          {allergenList && allergenList?.length > 0 && (
+            <BsFillCaretRightFill
+              className={`${
+                allergensVisible && "rotate-90"
+              } origin-left  transition-transform  `}
+            />
+          )}
+        </div>
+      </div>
+
+      <div
+        className={`${
+          allergensVisible && allergenList && allergenList?.length > 0
+            ? " grid grid-cols-4 border-b border-neutral bg-base-100 p-1 "
+            : "hidden"
+        } `}
+      >
+        {allergenList.map((allergen) => (
+          <div
+            className="align-left mx-1 mt-2 mb-1 flex flex-col items-center rounded-md bg-base-100 py-2"
+            key={allergen}
+          >
+            <Allergens allergens={[allergen]} size={40}></Allergens>
+            <p className=" inline-block text-center text-[12px] normal-case sm:text-xs">
+              {allergenTransalator?.get(allergen)}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/*TALLERES*/}
