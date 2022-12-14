@@ -327,6 +327,177 @@ async function main() {
 
   //#region Products
   //#region Edible
+
+  const coposDeAvena = await prisma.product.create({
+    data: {
+      name: "copos de avena",
+      plainName: "copos de avena",
+      description: "Copos de avena 100% naturales",
+      stock: 375,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Oatmeal.png",
+      Edible: {
+        create: {
+          category: "grano",
+          priceByWeight: 16.25,
+          allergens: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "grano",
+              energy: 108,
+              fat: 25,
+              carbohydrates: 12,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "copos de avena" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
+  const germenTrigo = await prisma.product.create({
+    data: {
+      name: "germen de trigo",
+      plainName: "germen de trigo",
+      description: "Germen de trigo 100% natural",
+      stock: 375,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/trigo.png",
+      Edible: {
+        create: {
+          category: "grano",
+          priceByWeight: 11.64,
+          allergens: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "grano",
+              energy: 108,
+              fat: 25,
+              carbohydrates: 12,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "germen de trigo" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
+  const arrozBomba = await prisma.product.create({
+    data: {
+      name: "arroz bomba",
+      plainName: "arroz bomba",
+      description: "Saludable arroz bomba",
+      stock: 375,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
+      Edible: {
+        create: {
+          category: "rice",
+          priceByWeight: 4.99,
+          allergens: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "rice",
+              energy: 120,
+              fat: 85,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "arroz bomba" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
+  const arrozIntegral = await prisma.product.create({
+    data: {
+      name: "arroz integral",
+      plainName: "arroz integral",
+      description: "Saludable arroz integral",
+      stock: 375,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
+      Edible: {
+        create: {
+          category: "rice",
+          priceByWeight: 3.74,
+          allergens: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "rice",
+              energy: 120,
+              fat: 85,
+              carbohydrates: 3,
+              protein: 2,
+            },
+          },
+          Ingredient: { create: { name: "arroz integral" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
+  const cafe = await prisma.product.create({
+    data: {
+      name: "café",
+      plainName: "cafe",
+      description: "Cafe columbiano 100% ecológico",
+      stock: 250.5,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cofe.png",
+      Edible: {
+        create: {
+          category: "coffee",
+          priceByWeight: 14.68,
+          allergens: {},
+          nutritionFacts: {
+            create: {
+              ingredients: "coffee",
+              energy: 320,
+              fat: 140,
+              carbohydrates: 2,
+              protein: 1,
+            },
+          },
+          Ingredient: { create: { name: "café" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
   const pistachos = await prisma.product.create({
     data: {
       name: "pistachos",
@@ -1078,12 +1249,12 @@ async function main() {
         productId: cepilloDeDientes.id,
       },
       {
-        amount: 2.5,
+        amount: 250,
         cartId: carrito_de_sandra.id,
         productId: lentejas.id,
       },
       {
-        amount: 0.5,
+        amount: 500,
         cartId: carrito_de_marta.id,
         productId: harinaTrigo.id,
       },
