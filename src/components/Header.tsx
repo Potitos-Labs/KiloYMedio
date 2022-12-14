@@ -38,7 +38,7 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
       </div>
       <div className="mx-4 flex items-center justify-end sm:mx-10 lg:justify-between">
         <div className="basis-1/2 lg:basis-1/3">
-          <NavBarClient />
+          <NavBarClient textDark={textDark} />
         </div>
         <div className="grid place-items-center items-center lg:basis-1/3">
           <Link href={`/`}>

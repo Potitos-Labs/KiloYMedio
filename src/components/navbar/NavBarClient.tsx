@@ -6,7 +6,7 @@ import { useState } from "react";
 import { RiMenuLine } from "react-icons/ri";
 import { TbGridDots } from "react-icons/tb";
 
-function NavBarClient() {
+function NavBarClient({ textDark }: { textDark: boolean }) {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(false);
 
@@ -15,9 +15,6 @@ function NavBarClient() {
   }
   const { data: session } = useSession();
   const isAdmin = session?.user?.role == "admin";
-
-  const buttonShopStyle =
-    "lg:items-center lg:rounded-full lg:bg-base-content lg:mb-0 lg:px-3 lg:font-satoshiBold lg:text-base-100";
 
   return (
     <nav>
@@ -34,9 +31,15 @@ function NavBarClient() {
       >
         <div onClick={openPopup}>
           <a
-            className={`${buttonShopStyle} mb-1 flex cursor-pointer flex-row justify-end gap-2 ${
-              categories && "invisible"
-            }`}
+            className={clsx(
+              "lg:mb-0 lg:items-center lg:rounded-full lg:bg-base-content lg:px-3 lg:font-satoshiBold",
+              // textDark means that the background is dark
+              textDark ? "lg:text-base-100" : "lg:text-neutral",
+              textDark ? "lg:bg-neutral" : "lg:bg-base-100",
+              `mb-1 flex cursor-pointer flex-row justify-end gap-2 ${
+                categories && "invisible"
+              }`,
+            )}
           >
             <TbGridDots className="hidden h-3 w-3 lg:flex" />
             tienda
