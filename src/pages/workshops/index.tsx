@@ -125,11 +125,6 @@ export default function Workshops() {
           >
             {showOnsite ? (
               <div>
-                <div className="absolute z-10 m-3 flex gap-3">
-                  <button className="h-full rounded-full bg-base-100 px-4 py-2 active:bg-primary active:text-base-100">
-                    Saber más
-                  </button>
-                </div>
                 <Image
                   src={image}
                   objectFit="cover"

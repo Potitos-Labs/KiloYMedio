@@ -2,7 +2,6 @@ import HealthCard from "@components/healthComponents/HealthCards";
 import Layout from "@components/Layout";
 import Head from "next/head";
 import Image from "next/image";
-import { BsArrowRight } from "react-icons/bs";
 
 function health() {
   function scroll() {
@@ -86,12 +85,6 @@ function health() {
                 subText="Es un alimento carminativo, diurético, tranquilizante y depurativo. Es increíblemente saludable, pero, ¡cuidado! Si se padecen problemas graves de riñón, es mejor no consumirlo. Un buen consejo para que todos podamos disfrutar de sus propiedades, es reducir las sales cociendo el apio."
                 image="/img/apio.png"
               />
-              <div className="mb-5 flex justify-end">
-                <button className="flex items-center rounded-full border-[1px] border-neutral px-[10px] py-1 font-raleway sm:px-4 md:py-2 md:px-6 md:text-sm ">
-                  VER TODO
-                  <BsArrowRight fill="neutral" className="ml-1" />
-                </button>
-              </div>
             </div>
           </div>
         </div>
