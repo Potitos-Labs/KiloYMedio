@@ -40,10 +40,10 @@ async function main() {
 
   const Pastas = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "Harinas y pastas",
+      supraCategoryName: "Arroces y pastas",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "flours" }, { category: "pastas" }],
+          data: [{ category: "rice" }, { category: "pastas" }],
         },
       },
     },
@@ -51,10 +51,10 @@ async function main() {
 
   const HarinasYLevaduras = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "Levaduras y granos",
+      supraCategoryName: "Harinas y Levaduras",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "yeast" }, { category: "grano" }],
+          data: [{ category: "flours" }, { category: "yeast" }],
         },
       },
     },
@@ -73,10 +73,10 @@ async function main() {
 
   const legumbresYArroces = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "legumbres y arroces",
+      supraCategoryName: "Cereales y legumbres",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "legumes" }, { category: "rice" }],
+          data: [{ category: "grano" }, { category: "legumes" }],
         },
       },
     },
@@ -181,7 +181,7 @@ async function main() {
         category: "grano",
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
-        categoryInSpanish: "Granos",
+        categoryInSpanish: "Cereales",
       },
       /* 12 */ {
         category: "rice",
@@ -194,6 +194,12 @@ async function main() {
         imageURL:
           "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
         categoryInSpanish: "Cafés",
+      },
+      /* 13 */ {
+        category: "vinegar",
+        imageURL:
+          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        categoryInSpanish: "Vinagres",
       },
     ],
   });
