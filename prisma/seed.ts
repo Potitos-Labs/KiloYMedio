@@ -51,7 +51,7 @@ async function main() {
 
   const HarinasYLevaduras = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "Levaduras y grano",
+      supraCategoryName: "Levaduras y granos",
       SupraCategoryRelation: {
         createMany: {
           data: [{ category: "yeast" }, { category: "grano" }],
@@ -73,7 +73,7 @@ async function main() {
 
   const legumbresYArroces = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "legumbre y arroces",
+      supraCategoryName: "legumbres y arroces",
       SupraCategoryRelation: {
         createMany: {
           data: [{ category: "legumes" }, { category: "rice" }],
@@ -95,7 +95,7 @@ async function main() {
 
   const cafesYInfusiones = await prisma.supraCategory.create({
     data: {
-      supraCategoryName: "cafés, tés e infusiones",
+      supraCategoryName: "cafés e infusiones",
       SupraCategoryRelation: {
         createMany: {
           data: [{ category: "teas" }, { category: "coffee" }],
@@ -390,6 +390,39 @@ async function main() {
     },
   });
 
+  const arrozArborio = await prisma.product.create({
+    data: {
+      name: "arroz arborio",
+      plainName: "arroz arborio",
+      description: "arroz arborio",
+      stock: 21,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/ARROZ-ARBORIO-WEB.png",
+      Edible: {
+        create: {
+          category: "rice",
+          priceByWeight: 3.7,
+          nutritionFacts: {
+            create: {
+              ingredients: "arroz arborio",
+              energy: 130,
+              fat: 0.2,
+              carbohydrates: 29,
+              protein: 2.4,
+            },
+          },
+          Ingredient: { create: { name: "arroz arborio" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+
   const quicos = await prisma.product.create({
     data: {
       name: "quicos",
@@ -398,7 +431,7 @@ async function main() {
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.png?t=2022-11-28T17%3A26%3A58.679Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.png",
       Edible: {
         create: {
           category: "nuts",
@@ -433,7 +466,7 @@ async function main() {
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.png?t=2022-11-28T17%3A27%3A31.769Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.png",
       Edible: {
         create: {
           category: "nuts",
@@ -600,7 +633,7 @@ async function main() {
       description: "harina de trigo",
       stock: 18,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20trigo.png?t=2022-11-28T17%3A30%3A39.365Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20trigo.png",
       Edible: {
         create: {
           category: "flours",
@@ -634,7 +667,7 @@ async function main() {
         "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
       stock: 18,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20maiz.png?t=2022-11-28T17%3A31%3A03.807Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20maiz.png",
       Edible: {
         create: {
           category: "flours",
@@ -801,7 +834,7 @@ async function main() {
         "El té verde (en chino tradicional, 綠茶; en chino simplificado, 绿茶; pinyin, Lǜ chá) proviene de la planta Camellia sinensis; «es el tipo de té no fermentado.",
       stock: 10,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/te%20verde.png?t=2022-11-28T17%3A32%3A53.906Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/te%20verde.png",
       Edible: {
         create: {
           category: "teas",
@@ -834,7 +867,7 @@ async function main() {
         "El rooibos (nombre científico Aspalathus linearis) es una planta de origen sudafricano cuyo nombre en afrikáans significa arbusto rojo y se pronuncia «roibos».",
       stock: 10,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/rooibos.png?t=2022-11-28T17%3A33%3A10.365Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/rooibos.png",
       Edible: {
         create: {
           category: "teas",
@@ -868,7 +901,7 @@ async function main() {
         "Los jarabes  llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
       stock: 23,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/sirope%20de%20arce.png?t=2022-11-28T17%3A33%3A30.371Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/sirope%20de%20arce.png",
       Edible: {
         create: {
           category: "syrups",
@@ -935,7 +968,7 @@ async function main() {
         "El aceite de oliva es típico de la cuenca mediterránea, siendo España el primer productor mundial. Se usa a diario en la cocina mediterránea.",
       stock: 23,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceite%20de%20oliva%20virgen%20extra.png?t=2022-11-28T17%3A34%3A12.965Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceite%20de%20oliva%20virgen%20extra.png",
       Edible: {
         create: {
           category: "oils",
@@ -970,7 +1003,7 @@ async function main() {
       description: "cepillo de dientes",
       stock: 7,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cepillo%20dientes.png?t=2022-11-28T17%3A34%3A26.608Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cepillo%20dientes.png",
       NonEdible: {
         create: {
           category: "personalCare",
@@ -988,7 +1021,7 @@ async function main() {
       description: "jabón artesanal",
       stock: 12,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/jabon%20artesanal.png?t=2022-11-28T17%3A34%3A41.195Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/jabon%20artesanal.png",
       NonEdible: {
         create: {
           category: "personalCare",
@@ -1667,7 +1700,7 @@ async function main() {
       },
       imageURL: "https://i.blogs.es/ee0ad8/1366_2000/1366_2000.jpg",
       portions: 10,
-      cookingTime: 15,
+      cookingTime: 0,
       preparationTime: 15,
       description:
         "Delicioso entrante para ir abirendo el apetito. Fresco y sabroso.",
@@ -1675,6 +1708,31 @@ async function main() {
       createdAt: new Date(),
     },
   });
+
+  const brochetasIngredientsProducts = [
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "medio melón" } },
+      Recipe: brochetas,
+    },
+    {
+      amount: 4,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "lonchas de jamón serrano" } },
+      Recipe: brochetas,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: i.Ingredient,
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
 
   const risotto = await prisma.recipe.create({
     data: {
@@ -1685,7 +1743,7 @@ async function main() {
           data: [
             {
               direction:
-                "Rallamos el queso Parmesano y preparamos los crujientes colocando cuatro pequeños montoncitos sobre una baandeja de horno cubierta con papel sulfurizado.",
+                "Rallamos el queso Parmesano y preparamos los crujientes colocando cuatro pequeños montoncitos sobre una bandeja de horno cubierta con papel sulfurizado.",
               number: 1,
             },
             {
@@ -1737,6 +1795,93 @@ async function main() {
       createdAt: new Date(),
     },
   });
+
+  const risottoIngredientsProducts = [
+    {
+      amount: 100,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "cebolla" } },
+      Recipe: risotto,
+    },
+    {
+      amount: 700,
+      unit: IngredientUnit.milliliters,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "caldo de verduras" },
+          create: { name: "caldo de verduras" },
+        },
+      },
+      Recipe: risotto,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "ajo negro" } },
+      Recipe: risotto,
+    },
+    {
+      amount: 40,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "mantequilla" },
+          create: { name: "mantequilla" },
+        },
+      },
+      Recipe: risotto,
+    },
+    {
+      amount: 60,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "queso parmesano" } },
+      Recipe: risotto,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: { connect: { id: arrozArborio.Edible?.Ingredient.id } },
+      Recipe: risotto,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "lima" } },
+      Recipe: risotto,
+    },
+    {
+      amount: 50,
+      unit: IngredientUnit.milliliters,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "vino blanco" },
+          create: { name: "vino blanco" },
+        },
+      },
+      Recipe: risotto,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: risotto,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: i.Ingredient,
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
   /* END NUESTRAS RECETAS */
 
   /* RECETAS DE LA COMUNIDAD */
@@ -2126,10 +2271,10 @@ async function main() {
   });
   const corquetasVegetarianas = await prisma.workshop.create({
     data: {
-      name: "Croquetas Vegetarianes",
+      name: "Croquetas Vegetarianas",
       imageURL:
         "https://images.hola.com/imagenes/cocina/recetas/20200113157946/croquetas-veganas-de-champinones/0-767-626/croquetas-veganas-de--champinones-m.jpg",
-      description: "Como hacer unas buenas croquetas vegetarianas",
+      description: "Cómo hacer unas buenas croquetas vegetarianas",
       OnlineWorkshop: {
         create: {
           videoURL: "https://www.youtube.com/watch?v=Hcj3EYYVkNM",
@@ -2165,10 +2310,11 @@ async function main() {
   });
   const Alergenos = await prisma.workshop.create({
     data: {
-      name: "Alérgenos",
+      name: "Cómo afectan los alérgenos en tu vida",
       imageURL:
         "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
-      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      description:
+        "Todo lo que necesitas saber sobre las personas con condiciones alimenticias y cómo afectan los alimentos en su día a día.",
       OnlineWorkshop: {
         create: {
           videoURL: "https://www.youtube.com/watch?v=k3o3RDeuzyE",
@@ -2181,7 +2327,8 @@ async function main() {
       name: "Ventajas de las compras a granel",
       imageURL:
         "https://www.iberdrola.com/documents/20125/40588/granel_746x419.jpg/f98ca9f9-0f1d-ee80-31e7-c2bd3c20eec0?t=1627467160432",
-      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      description:
+        "Te enseñamos los beneficios ecológicos y psicólogicos de la compra a granel.",
       OnlineWorkshop: {
         create: {
           videoURL: "https://www.youtube.com/watch?v=lwjsi9zWRCI",
@@ -2194,7 +2341,8 @@ async function main() {
       name: "Cómo hacer Té matcha",
       imageURL:
         "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
-      description: "Todo lo que necesitas saber sobre los alérgenos ",
+      description:
+        "Desde Japón hasta tu casa, aprende a preparar el té matcha.",
       OnlineWorkshop: {
         create: {
           videoURL: "https://www.youtube.com/watch?v=VvAtjQv_eVA",
