@@ -87,7 +87,7 @@ async function main() {
       supraCategoryName: "aceites y vinagres",
       SupraCategoryRelation: {
         createMany: {
-          data: [{ category: "oils" }],
+          data: [{ category: "oils" }, { category: "vinegar" }],
         },
       },
     },
@@ -358,7 +358,7 @@ async function main() {
       Edible: {
         create: {
           category: "grano",
-          priceByWeight: 16.25,
+          priceByWeight: 16.2,
           allergens: {},
           nutritionFacts: {
             create: {
@@ -380,7 +380,6 @@ async function main() {
       Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
-
   const germenTrigo = await prisma.product.create({
     data: {
       name: "germen de trigo",
@@ -392,52 +391,17 @@ async function main() {
       Edible: {
         create: {
           category: "grano",
-          priceByWeight: 11.64,
-          allergens: {},
+          priceByWeight: 3.8,
           nutritionFacts: {
             create: {
-              ingredients: "grano",
-              energy: 108,
-              fat: 25,
-              carbohydrates: 12,
-              protein: 2,
+              ingredients: "germen de trigo",
+              energy: 220,
+              fat: 0.3,
+              carbohydrates: 17,
+              protein: 2.4,
             },
           },
           Ingredient: { create: { name: "germen de trigo" } },
-        },
-      },
-      ProductUnit: "grams",
-    },
-    select: {
-      id: true,
-      name: true,
-      Edible: { select: { Ingredient: { select: { id: true } } } },
-    },
-  });
-
-  const arrozBomba = await prisma.product.create({
-    data: {
-      name: "arroz bomba",
-      plainName: "arroz bomba",
-      description: "Saludable arroz bomba",
-      stock: 375,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
-      Edible: {
-        create: {
-          category: "rice",
-          priceByWeight: 4.99,
-          allergens: {},
-          nutritionFacts: {
-            create: {
-              ingredients: "rice",
-              energy: 120,
-              fat: 85,
-              carbohydrates: 3,
-              protein: 2,
-            },
-          },
-          Ingredient: { create: { name: "arroz bomba" } },
         },
       },
       ProductUnit: "grams",
@@ -453,22 +417,21 @@ async function main() {
     data: {
       name: "arroz integral",
       plainName: "arroz integral",
-      description: "Saludable arroz integral",
+      description: "arroz 100% integral",
       stock: 375,
       imageURL:
         "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
       Edible: {
         create: {
           category: "rice",
-          priceByWeight: 3.74,
-          allergens: {},
+          priceByWeight: 3.8,
           nutritionFacts: {
             create: {
-              ingredients: "rice",
+              ingredients: "arroz integral",
               energy: 120,
-              fat: 85,
-              carbohydrates: 3,
-              protein: 2,
+              fat: 0.1,
+              carbohydrates: 27,
+              protein: 1.2,
             },
           },
           Ingredient: { create: { name: "arroz integral" } },
@@ -482,23 +445,54 @@ async function main() {
       Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
-
-  const cafe = await prisma.product.create({
+  const vinegar = await prisma.product.create({
+    data: {
+      name: "vinagre de manzana",
+      plainName: "vinagre de manzana",
+      description:
+        "vinagre de manzana realizado en una comarca gallega desde hace más de un siglo, el envase es 100% reciclado con productos del mar cantábrico.",
+      stock: 150,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/vinegar.png",
+      Edible: {
+        create: {
+          category: "vinegar",
+          priceByWeight: 25,
+          nutritionFacts: {
+            create: {
+              ingredients: "vinagre de manzana",
+              energy: 300,
+              fat: 5,
+              carbohydrates: 0,
+              protein: 0,
+            },
+          },
+          Ingredient: { create: { name: "vinagre de manzana" } },
+        },
+      },
+      ProductUnit: "liters",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+  const coffee = await prisma.product.create({
     data: {
       name: "café",
       plainName: "cafe",
-      description: "Cafe columbiano 100% ecológico",
-      stock: 250.5,
+      description: "café 100% colombiano",
+      stock: 375,
       imageURL:
         "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cofe.png",
       Edible: {
         create: {
           category: "coffee",
-          priceByWeight: 14.68,
-          allergens: {},
+          priceByWeight: 3.8,
           nutritionFacts: {
             create: {
-              ingredients: "coffee",
+              ingredients: "café",
               energy: 320,
               fat: 140,
               carbohydrates: 2,
@@ -608,6 +602,38 @@ async function main() {
             },
           },
           Ingredient: { create: { name: "arroz arborio" } },
+        },
+      },
+      ProductUnit: "grams",
+    },
+    select: {
+      id: true,
+      name: true,
+      Edible: { select: { Ingredient: { select: { id: true } } } },
+    },
+  });
+  const arrozbomita = await prisma.product.create({
+    data: {
+      name: "arroz bomba",
+      plainName: "arroz bomba",
+      description: "arroz redondo 100% valenciano ",
+      stock: 50,
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
+      Edible: {
+        create: {
+          category: "rice",
+          priceByWeight: 3.1,
+          nutritionFacts: {
+            create: {
+              ingredients: "arroz bomba",
+              energy: 130,
+              fat: 0.2,
+              carbohydrates: 29,
+              protein: 2.4,
+            },
+          },
+          Ingredient: { create: { name: "arroz bomba" } },
         },
       },
       ProductUnit: "grams",
@@ -2390,15 +2416,15 @@ async function main() {
   const date1 = new Date();
   date1.setDate(date1.getDate() + 10);
   const date2 = new Date();
-  date1.setDate(date1.getDate() + 20);
+  date2.setDate(date2.getDate() + 20);
   const date3 = new Date();
-  date1.setDate(date1.getDate() + 30);
+  date3.setDate(date3.getDate() + 30);
   const date4 = new Date();
-  date3.setDate(date4.getDate() + 40);
+  date4.setDate(date4.getDate() + 40);
   const date5 = new Date();
-  date3.setDate(date4.getDate() + 8);
+  date5.setDate(date5.getDate() + 8);
   const date6 = new Date();
-  date3.setDate(date6.getDate() + 15);
+  date6.setDate(date6.getDate() + 15);
 
   const pastaItaliana = await prisma.workshop.create({
     data: {

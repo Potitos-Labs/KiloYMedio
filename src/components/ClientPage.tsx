@@ -32,6 +32,10 @@ function ClientePage() {
   }
 
   const { data } = trpc.product.getAllProducts.useQuery();
+  console.log("culo");
+  console.log(data);
+  console.log("culo");
+
   const listProduct = data?.slice(0, 4);
 
   return (
