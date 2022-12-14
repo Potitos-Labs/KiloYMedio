@@ -239,6 +239,8 @@ async function main() {
       email: "Daniel@Potitos.com",
       passwordHash: hashedPassword,
       role: "admin",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Daniel.jpg",
       Admin: { create: {} },
     },
   });
@@ -249,16 +251,31 @@ async function main() {
       email: "Alicia@Potitos.com",
       passwordHash: hashedPassword,
       role: "admin",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alicia.png",
       Admin: { create: {} },
     },
   });
 
+  const patricio = await prisma.user.create({
+    data: {
+      name: "Patricio",
+      email: "Patricio@worki.com",
+      passwordHash: hashedPassword,
+      role: "admin",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Patricio.jpg",
+      Client: { create: { cart: { create: {} } } },
+    },
+  });
   const sandra = await prisma.user.create({
     data: {
       name: "Sandra",
       email: "Sandra@Potitos.com",
       passwordHash: hashedPassword,
       role: "client",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpeg",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -269,6 +286,8 @@ async function main() {
       email: "Pilar@Potitos.com",
       passwordHash: hashedPassword,
       role: "admin",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpg",
       Client: { create: { cart: { create: {} } } },
     },
   });
