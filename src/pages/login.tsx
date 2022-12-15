@@ -64,8 +64,8 @@ const SignIn: NextPage = () => {
         </div>
       </div>
 
-      <div className="h-screen bg-accent">
-        <main className="bg-accent bg-contain bg-no-repeat md:bg-[url('/img/fondoLogin.png')]">
+      <div className="h-screen bg-gradient-to-b from-[#FFAA5A] to-[#FCA859]">
+        <main className="h-full bg-contain bg-left-bottom bg-no-repeat md:bg-[url('/img/login.svg')]">
           <div className="flex flex-col pt-4">
             <Link href="/">
               <Image
