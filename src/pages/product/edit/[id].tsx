@@ -34,7 +34,11 @@ const EditProduct: NextPage = () => {
     form = <NonEdibleForm product={data} />;
   }
 
-  return <Layout>{form}</Layout>;
+  return (
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
+      {form}
+    </Layout>
+  );
 };
 
 export default EditProduct;

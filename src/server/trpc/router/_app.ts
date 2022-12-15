@@ -3,9 +3,10 @@ import { router } from "../trpc";
 import { cartRouter } from "./cart";
 import { checkoutRouter } from "./checkout";
 import { productRouter } from "./product";
-import { authRouter } from "./protected-example-router";
+import { authRouter } from "./auth";
 import { recipeRouter } from "./recipe";
 import { userRouter } from "./user";
+import { workshopRouter } from "./workshop";
 
 export const appRouter = router({
   auth: authRouter,
@@ -14,6 +15,7 @@ export const appRouter = router({
   checkout: checkoutRouter,
   product: productRouter,
   recipe: recipeRouter,
+  workshop: workshopRouter,
 });
 
 // export type definition of API

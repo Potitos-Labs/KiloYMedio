@@ -70,8 +70,8 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
       className="flex w-full items-center justify-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mx-10 mt-3 flex w-full flex-col items-center rounded-lg border-2 border-kym2/[0.6] p-5 shadow-xl">
-        <h2 className="mb-6 cursor-default text-center text-2xl font-bold text-black md:text-3xl">
+      <div className="m-3 mx-10 flex w-full flex-col items-center rounded-lg border-2 border-accent p-5 shadow-xl">
+        <h2 className="mb-6 text-center font-raleway text-xl font-bold md:text-2xl">
           {product ? "Editar" : "Nuevo"} producto no comestible
         </h2>
         <div className="xs:grid-cols-1 m-6 grid place-content-between gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -195,8 +195,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
         <div className="flex flex-row">
           {product && (
             <button
-              className="md:px-26 m-2 mt-3 block rounded border border-button_hover
-            py-1 px-20 font-semibold text-button_hover hover:bg-button_hover hover:text-white"
+              className="btn mr-2 flex h-[60px] w-[220px] rounded-[30px] bg-transparent font-raleway text-sm hover:bg-transparent md:mt-6"
               type="button"
               onClick={() => router.back()}
             >
@@ -204,7 +203,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             </button>
           )}
           <button
-            className="md:px-26 m-2 mt-3 block rounded bg-button py-1 px-20 font-semibold text-white hover:bg-button_hover"
+            className="btn mt-6 ml-2 flex h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
             type="submit"
           >
             {product ? "Editar producto" : "Crear producto"}

@@ -34,7 +34,7 @@ export const signUpSchema = loginSchema.extend({
       message: "El nombre tiene que tener como máximo 20 carácteres",
     })
     .refine(
-      (value) => isAlpha(value, "es-ES"),
+      (value) => isAlpha(value, "es-ES", { ignore: " " }),
       "Este campo no puede contener números",
     ),
 });

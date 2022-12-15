@@ -1,6 +1,10 @@
 @tailwind base;
+html {
+  scroll-behavior: smooth;
+}
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.cdnfonts.com/css/satoshi?styles=135009,135005,135007,135002,135000");
 
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
@@ -8,7 +12,58 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  @font-face {
+    font-family: "Raleway";
+    font-weight: 900;
+    src: url("../../public/fonts/raleway-v28-latin-900.woff2") format("woff2"),
+      /* Super Modern Browsers */
+        url("../../public/fonts/raleway-v28-latin-900.woff") format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Raleway";
+    font-weight: 900;
+    font-style: italic;
+    src: url("../../public/fonts/raleway-v28-latin-900italic.woff2")
+        format("woff2"),
+      /* Super Modern Browsers */
+        url("../../public/fonts/raleway-v28-latin-900italic.woff")
+        format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Satoshi";
+    font-weight: 700;
+    src: url("../../public/fonts/Satoshi-Regular.woff2") format("woff2"),
+      /* Super Modern Browsers */ url("../../public/fonts/Satoshi-Regular.woff")
+        format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Satoshi";
+    font-weight: 700;
+    font-style: italic;
+    src: url("../../public/fonts/Satoshi-Italic.woff2") format("woff2"),
+      /* Super Modern Browsers */ url("../../public/fonts/Satoshi-Italic.woff")
+        format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "SatoshiBold";
+    font-weight: 700;
+    font-style: bold;
+    src: url("../../public/fonts/Satoshi-Bold.woff2") format("woff2"),
+      /* Super Modern Browsers */ url("../../public/fonts/Satoshi-Bold.woff")
+        format("woff"); /* Modern Browsers */
+    font-display: swap;
+  }
 }
+
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -31,4 +86,30 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow-x: hidden;
+}
+
+.btn {
+  @apply normal-case;
+}
+
+.btn-sm {
+  @apply rounded-[30px] border-0;
+  font-family: "Satoshi";
+}
+
+.btn-lg {
+  @apply rounded-[64px] border-0;
+  font-family: "Raleway";
+}
+
+@layer components {
+  .btn-cgray {
+    @apply order-0 bg-[#4b4949] text-[#f8f3ed] hover:bg-[#4b4949];
+  }
+}
+
+@layer components {
+  .btn-cwhite {
+    @apply divide-black border-0 bg-[#f8f3ed] text-black hover:bg-[#f8f3ed];
+  }
 }

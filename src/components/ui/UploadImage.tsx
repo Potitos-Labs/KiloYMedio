@@ -35,12 +35,12 @@ export const UploadImage = ({
     [setImageURL],
   );
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center rounded-lg border-2 border-base-300 p-2">
       <p>
         Sube una imagen .png o .jpg <b>(max 1MB).</b>
       </p>
       <input
-        className="file-input w-full max-w-xs"
+        className="block w-full cursor-pointer rounded-md border border-gray-300 bg-base-100 text-sm text-base-300"
         onChange={uploadPhoto}
         type="file"
         accept="image/png, image/jpeg"

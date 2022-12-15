@@ -12,14 +12,18 @@ const Cart: NextPage = () => {
 
   const [listRef] = useAutoAnimate<HTMLDivElement>();
   return (
-    <Layout>
+    <Layout
+      bgColor={"bg-base-content"}
+      headerBgLight={true}
+      headerTextDark={true}
+    >
       <section>
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-1 px-8 lg:grid-cols-[65%_35%]">
-          <section>
+        <div className="mt-12 grid grid-cols-1 gap-4 px-5 xl:grid-cols-[60%_40%] xl:gap-0">
+          <section className="rounded-xl bg-base-100 py-10 px-6 sm:px-10 xl:mr-2 2xl:p-20">
             {/*Shopping cart*/}
             <FormWrapper title="Carrito de compra">
-              <div className="m-0 grid gap-4" ref={listRef}>
+              <div className="m-0 mt-4 grid gap-4" ref={listRef}>
                 {cartProducts ? (
                   cartProducts.productList.length > 0 ? (
                     cartProducts.productList.map((cartProduct) => (
@@ -28,7 +32,7 @@ const Cart: NextPage = () => {
                       </div>
                     ))
                   ) : (
-                    <p className="mx-2 font-light text-kym4">
+                    <p className="mx-2 text-sm">
                       Todavía no tienes ningún producto en el carrito 😢
                     </p>
                   )
@@ -39,7 +43,9 @@ const Cart: NextPage = () => {
             </FormWrapper>
           </section>
           {/*End Shopping cart*/}
-          <Bill showExtras={false} postcode={false}></Bill>
+          <section className="rounded-xl bg-base-100 p-6 sm:p-14 xl:ml-2 2xl:p-20">
+            <Bill showExtras={false} postcode={false}></Bill>
+          </section>
         </div>
       </section>
       {/* End Grid */}

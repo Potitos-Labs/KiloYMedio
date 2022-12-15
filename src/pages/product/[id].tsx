@@ -1,3 +1,4 @@
+import LoadingBalls from "@components/ui/LoadingBalls";
 import { NextPage } from "next";
 import Error from "next/error";
 import { useRouter } from "next/router";
@@ -12,7 +13,11 @@ const ProductDetails: NextPage = () => {
   const { data, isFetched } = trpc.product.getById.useQuery({ id });
   if (data)
     return (
-      <Layout>
+      <Layout
+        bgColor={"lg:bg-base-200 bg-base-100"}
+        headerBgLight={true}
+        headerTextDark={true}
+      >
         <ProductDetail product={data} />
       </Layout>
     );
@@ -22,8 +27,10 @@ const ProductDetails: NextPage = () => {
   }
 
   return (
-    <Layout>
-      <div>Cargando...</div>
+    <Layout bgColor={"bg-base-200"} headerBgLight={true} headerTextDark={true}>
+      <div className="flex min-h-90% flex-col place-content-center bg-base-200 pb-[8%]">
+        <LoadingBalls />
+      </div>
     </Layout>
   );
 };

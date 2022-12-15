@@ -2,32 +2,34 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { toast } from "react-toastify";
-
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import DotMenu from "../DotMenu";
-import IncDecButtons from "./IncDecButtons";
+import Addproductchart from "./Addproductchart";
+import IncDecButtons from "../ui/IncDecButtons";
 
-function Product({ product }: { product: IProduct }) {
+function Product({
+  product,
+  showButtons,
+  index,
+  setPrices,
+}: {
+  product: IProduct;
+  showButtons: boolean;
+  index?: number;
+  setPrices?: Dispatch<React.SetStateAction<number[]>>;
+}) {
   const { data } = useSession();
-  const isEdible = product.Edible != null;
-  const notify = () => toast.success("Producto añadido");
   const notifyDeleted = () => toast.success("Producto eliminado");
-  const stockLeft = product.stock * 1000 >= 100;
   const utils = trpc.useContext();
-  const mutation = trpc.cart.addProduct.useMutation({
-    onSuccess() {
-      utils.cart.getAllCartProduct.invalidate();
-    },
-  });
 
   const defaultValue = {
     grams: 100,
     kilograms: 0.5,
     liters: 0.5,
-    milliliters: 100,
+    milliliters: 250,
     unit: 1,
   };
   const [amount, setAmount] = useState(defaultValue[product.ProductUnit]);
@@ -49,67 +51,56 @@ function Product({ product }: { product: IProduct }) {
     notifyDeleted();
   };
 
-  function addToCart() {
-    if (stockLeft) {
-      notify();
-      mutation.mutateAsync({ productId: product.id, amount: amount });
-    }
-  }
-
   return (
-    <div className="relative flex flex-col items-center justify-center rounded-md bg-white py-4 text-center shadow-lg hover:shadow-kym4">
-      <div className="py-3">
-        <Link href={`/product/${product.id}`}>
-          <a>
+    <div className="relative">
+      <Link href={`/product/${product.id}`}>
+        <div className="flex h-full flex-col items-center justify-center rounded-md border-[1px] border-base-300 bg-base-100 py-1 pb-[90px] sm:py-4 sm:pb-[118px]">
+          <div className="sm:py-3">
             <Image
               src={product.imageURL}
               alt="notfound"
               width="100"
               height="100"
               layout="fixed"
-              objectFit="cover"
-              className="cursor-pointer rounded-md"
-            ></Image>
-          </a>
-        </Link>
-      </div>
-      {data?.user?.role == "admin" && (
-        <div className="absolute top-0 right-0">
-          <DotMenu
-            id={product.id}
-            name={product.name}
-            type="producto"
-            updateFunction={updateProduct}
-            deleteFunction={deleteProduct}
-          />
+              objectFit="contain"
+              className="rounded-md"
+            />
+          </div>
+          {data?.user?.role == "admin" && (
+            <div className="absolute top-4 right-2">
+              <DotMenu
+                id={product.id}
+                name={product.name}
+                type="producto"
+                updateFunction={updateProduct}
+                deleteFunction={deleteProduct}
+              />
+            </div>
+          )}
+          <p className="sm: mx-10 text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
+            {product.name}
+          </p>
         </div>
-      )}
-      <Link href={`/product/${product.id}`}>
-        <p className="mx-2 mb-2 h-10 cursor-pointer self-center pb-2 font-semibold text-kym4 first-letter:uppercase">
-          {product.name}
-        </p>
       </Link>
-      {data?.user?.role != "admin" && (
-        <div className="">
+
+      {data?.user?.role != "admin" && showButtons && (
+        <div className="absolute bottom-3 left-0 right-0 z-10 mx-auto flex max-w-[256px] flex-col place-content-center gap-1 sm:gap-4">
           <IncDecButtons
             setAmount={setAmount}
             amount={amount}
-            stock={product.stock}
-            stockLeft={stockLeft}
-            isEdible={isEdible}
-            productUnit={product.ProductUnit}
+            max={product.stock}
+            unit={product.ProductUnit}
+            textSize="text-xs"
+            className="h-8"
           />
-          <button
-            disabled={!stockLeft}
-            onClick={addToCart}
-            className={`w-full rounded-xl border border-button bg-transparent px-12 text-kym4 ${
-              !stockLeft
-                ? "cursor-not-allowed px-10 opacity-50"
-                : "hover:border-transparent hover:bg-button_hover hover:text-white"
-            }`}
-          >
-            {stockLeft ? "Añadir" : "Agotado"}
-          </button>
+          <Addproductchart
+            amount={amount}
+            product={product}
+            index={index}
+            setPrices={setPrices}
+            smTextSize={"text-xs"}
+            className={"h-10 sm:h-12"}
+          />
         </div>
       )}
     </div>

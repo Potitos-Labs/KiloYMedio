@@ -6,6 +6,7 @@ import { devices } from "@playwright/test";
  * https://github.com/motdotla/dotenv
  */
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import process from "process";
 dotenv.config();
 
 /**
@@ -41,6 +42,8 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    video: "on-first-retry",
   },
 
   /* Configure projects for major browsers */
@@ -49,20 +52,13 @@ const config: PlaywrightTestConfig = {
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-      },
-    },
-
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-      },
-    },
-
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
+        video: "on",
+        launchOptions: {
+          slowMo:
+            process.env.CI || process.env.RUN_FAST_PLAYWRIGHT_TESTS === "true"
+              ? 0
+              : 1000,
+        },
       },
     },
 
@@ -96,7 +92,7 @@ const config: PlaywrightTestConfig = {
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
+  outputDir: "test-results/",
 
   /* Run your local dev server before starting the tests */
   // webServer: {

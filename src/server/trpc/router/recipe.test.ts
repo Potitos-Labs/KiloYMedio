@@ -13,6 +13,7 @@ test("Probando jest con mocking de Prisma", async () => {
   // Act
   const trpc = appRouter.createCaller(ctxMock);
   const recipe = await trpc.recipe.getFilteredRecipes({
+    adminRecipes: true,
     allergens: ["cereals"],
   });
 

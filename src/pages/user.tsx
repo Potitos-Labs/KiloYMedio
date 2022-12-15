@@ -41,7 +41,7 @@ const Login: NextPage = () => {
         ) : (
           <div className="mt-3 grid gap-3 pt-3 text-center">
             <button
-              className="rounded-md bg-button p-3 text-red-100"
+              className="btn-sm rounded-md p-3 text-red-100"
               onClick={() => nextRouter.push("/login")}
             >
               Sign in

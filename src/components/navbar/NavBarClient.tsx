@@ -1,85 +1,69 @@
+import CategoriesHub from "@components/category/CategoriesHub";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import {
-  RiArrowDropDownLine,
-  RiListUnordered,
-  RiMenuAddLine,
-} from "react-icons/ri";
+import { RiMenuLine } from "react-icons/ri";
+import { TbGridDots } from "react-icons/tb";
 
-import DropdownCategories from "../category/DropdownCategories";
-
-function NavBarClient() {
+function NavBarClient({ textDark }: { textDark: boolean }) {
   const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState(false);
+
+  function openPopup() {
+    setCategories(true);
+  }
   const { data: session } = useSession();
+  const isAdmin = session?.user?.role == "admin";
 
   return (
-    <nav className="w-full text-lg">
-      <div className="lg:hidden">
-        <button
-          onClick={() => setOpen(!open)}
-          className="items-center py-2 text-white hover:text-kym4"
-        >
-          <GiHamburgerMenu className="h-7 w-7" />
+    <nav>
+      <div className="flex justify-end lg:hidden">
+        <button onClick={() => setOpen(!open)} className="py-2">
+          <RiMenuLine className="h-7 w-7" />
         </button>
       </div>
       <div
         className={clsx(
           { hidden: !open },
-          "block w-full flex-grow lg:flex lg:w-auto",
+          "block flex-grow items-center gap-6 lg:flex lg:w-auto",
         )}
       >
-        <div className="group">
-          <Link href={`/product`}>
-            <a className="peer mr-4 flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
-              Productos
-              <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
-            </a>
-          </Link>
-          <DropdownCategories />
+        <div onClick={openPopup}>
+          <a
+            className={clsx(
+              "lg:mb-0 lg:items-center lg:rounded-full lg:px-3 lg:font-satoshiBold",
+              // textDark means that the background is dark
+              textDark ? "lg:text-base-100" : "lg:text-neutral",
+              textDark ? "lg:bg-neutral" : "lg:bg-base-100",
+              `mb-1 flex cursor-pointer flex-row justify-end gap-2 ${
+                categories && "invisible"
+              }`,
+            )}
+          >
+            <TbGridDots className="hidden h-3 w-3 lg:flex" />
+            tienda
+          </a>
         </div>
-
-        <div className="group">
-          <Link href={`/recipe`}>
-            <a className="peer flex flex-row items-center py-2 font-semibold text-white hover:text-kym4">
-              Recetas
-              <RiArrowDropDownLine className="-ml-1 mt-1 h-9 w-9" />
-            </a>
-          </Link>
-          <div className="absolute z-10 hidden group-hover:block">
-            <div className="flex w-[220px] flex-col rounded-md bg-white text-kym4 shadow-sm shadow-kym4">
-              <Link href={`/recipe/create`}>
-                <a
-                  className={`flex flex-row px-5 py-3 hover:rounded-md hover:bg-background ${
-                    !session && "hidden"
-                  }`}
-                >
-                  <RiMenuAddLine className="mr-1 h-6 w-6 fill-kym2" />
-                  Añadir recetas
-                </a>
-              </Link>
-              <Link href={`/recipe`}>
-                <a className="flex flex-row px-5 py-3 hover:rounded-md hover:bg-background">
-                  <RiListUnordered className="mr-1 h-6 w-6 fill-kym2" />
-                  Ver recetas
-                </a>
-              </Link>
-            </div>
+        <div className="flex flex-col gap-2 truncate text-end lg:flex-row lg:gap-6">
+          <Link href={`/health`}>salud y bienestar</Link>
+          <Link href={`/recipe`}>recetas</Link>
+          <Link href={`/workshops`}>talleres</Link>
+        </div>
+        {!session && open && (
+          <div className="flex flex-col pt-6 text-end">
+            <Link href="/login">iniciar sesión</Link>
+            <Link href="/register">registrarse</Link>
           </div>
-        </div>
-
-        <div className="flex flex-col items-start lg:flex-row lg:items-center">
-          <button className="py-2 font-semibold text-white hover:text-kym4 lg:px-5">
-            Talleres
-          </button>
-
-          <button className="py-2 font-semibold text-white hover:text-kym4 lg:px-5">
-            Contacto
-          </button>
-        </div>
+        )}
+        {!isAdmin && session && (
+          <div className="flex flex-col pt-6 text-end lg:hidden">
+            <Link href="/cart">cesta</Link>
+            <Link href={`/profile`}>perfil</Link>
+          </div>
+        )}
       </div>
+      <CategoriesHub open={categories} setOpen={setCategories} />
     </nav>
   );
 }

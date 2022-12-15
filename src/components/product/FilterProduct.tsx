@@ -2,6 +2,7 @@ import { trpc } from "@utils/trpc";
 import { IFilterProduct } from "@utils/validations/product";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { FcInfo } from "react-icons/fc";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export function CheckboxLoad() {
   return (
@@ -15,13 +16,15 @@ export function CheckboxLoad() {
 export default function FilterProduct({
   filter,
   setFilter,
+  setOpen,
   className,
 }: {
   filter: IFilterProduct;
   setFilter: Dispatch<SetStateAction<IFilterProduct>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }) {
-  const { data: categories } = trpc.product.getAllCategories.useQuery();
+  //const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { data: allergens } = trpc.product.getAllAllergensInSpanish.useQuery();
   const [errorPrice, setErrorPrice] = useState(false);
 
@@ -46,11 +49,11 @@ export default function FilterProduct({
   };
 
   return (
-    <div className={`${className} p-4`}>
-      <div className="flex flex-col">
-        <span className="whitespace-nowrap font-semibold sm:text-lg">
-          Ordenar por:
-        </span>
+    <div
+      className={`${className} relative mx-5 flex flex-col place-content-end p-4 sm:flex-row`}
+    >
+      <div className="flex flex-auto flex-col">
+        <span className="whitespace-nowrap font-satoshiBold">Ordenar por:</span>
         <select
           onChange={handleOrderByChange}
           value={
@@ -70,18 +73,14 @@ export default function FilterProduct({
           <option value={"nameasc"}>Nombre: de A-Z</option>
           <option value={"namedesc"}>Nombre: de Z-A</option>
         </select>
-      </div>
-      <div className="mt-2">
-        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
-          Precio
-        </p>
-        <label className="ml-4 flex">
+        <p className="mt-2 whitespace-nowrap font-satoshiBold">Precio</p>
+        <label className="ml-4 mt-1 flex">
           <span>Mín:</span>
           <input
             type="number"
             placeholder="0€"
             step="any"
-            className={`input ml-2 h-6 w-20 ${
+            className={`input ml-3 h-6 w-24 ${
               errorPrice && "border-pink-600"
             } `}
             onChange={(e) => {
@@ -112,7 +111,7 @@ export default function FilterProduct({
             type="number"
             placeholder="5000€"
             step="any"
-            className={`input ml-2 h-6 w-20 ${
+            className={`input ml-2 h-6 w-24 ${
               errorPrice && "border-pink-600"
             } `}
             onChange={(e) => {
@@ -132,8 +131,51 @@ export default function FilterProduct({
           />
         </label>
       </div>
-      <div className="mt-2">
-        <p className="grow whitespace-nowrap font-semibold sm:text-lg">
+      <div className="flex flex-auto flex-col">
+        <div className="flex flex-row">
+          <p className="whitespace-nowrap font-satoshiBold">Alérgenos</p>
+          <div
+            className="tooltip tooltip-bottom tooltip-accent mt-2 mr-24 w-full text-white sm:tooltip-right sm:w-fit"
+            data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
+          >
+            <FcInfo className="-mt-1 ml-1.5 fill-accent" />
+          </div>
+        </div>
+        <div className="mt-1 grid grid-cols-2 space-y-1 pl-4 lg:grid-cols-3 xl:grid-cols-4">
+          {allergens
+            ? allergens
+                .sort((a, b) =>
+                  a.allergenInSpanish.localeCompare(b.allergenInSpanish),
+                )
+                .map((a) => {
+                  return (
+                    <label key={a.id}>
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-sm"
+                        checked={filter.allergens.includes(a.allergen)}
+                        onChange={() => {
+                          const index = filter.allergens.indexOf(a.allergen);
+                          index == -1
+                            ? filter.allergens.splice(0, 0, a.allergen)
+                            : filter.allergens.splice(index, 1);
+                          return setFilter({ ...filter });
+                        }}
+                      />
+                      <span className="mr-4 pl-1">{a.allergenInSpanish}</span>
+                    </label>
+                  );
+                })
+            : [...Array(12)].map((e, i) => {
+                return <CheckboxLoad key={i} />;
+              })}
+        </div>
+      </div>
+      <button className="absolute top-3 right-1" onClick={() => setOpen(false)}>
+        <IoIosCloseCircleOutline size={35} />
+      </button>
+
+      {/*<p className="grow whitespace-nowrap font-semibold sm:text-lg">
           Categorías
         </p>
         <div className="pl-4">
@@ -188,53 +230,7 @@ export default function FilterProduct({
               return <CheckboxLoad key={i} />;
             })
           )}
-        </div>
-      </div>
-      <div className="mt-2">
-        <div
-          className="flex flex-row"
-          data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
-        >
-          <p className="mr-1 whitespace-nowrap font-semibold sm:text-lg">
-            Alérgenos
-          </p>
-          <div
-            className="tooltip tooltip-right tooltip-info z-10 mt-2"
-            data-tip="Los productos mostrados no contendrán los alérgenos seleccionados"
-          >
-            <FcInfo className="-mt-0.5" />
-          </div>
-        </div>
-        <div className="flex flex-col pl-4">
-          {allergens
-            ? allergens
-                .sort((a, b) =>
-                  a.allergenInSpanish.localeCompare(b.allergenInSpanish),
-                )
-                .map((a) => {
-                  return (
-                    <label key={a.id}>
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-xs"
-                        checked={filter.allergens.includes(a.allergen)}
-                        onChange={() => {
-                          const index = filter.allergens.indexOf(a.allergen);
-                          index == -1
-                            ? filter.allergens.splice(0, 0, a.allergen)
-                            : filter.allergens.splice(index, 1);
-                          return setFilter({ ...filter });
-                        }}
-                      />
-                      <span className="pl-1">{a.allergenInSpanish}</span>
-                    </label>
-                  );
-                })
-            : [...Array(12)].map((e, i) => {
-                return <CheckboxLoad key={i} />;
-              })}
-        </div>
-      </div>
+        </div>*/}
     </div>
   );
 }

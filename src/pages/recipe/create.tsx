@@ -1,3 +1,4 @@
+import Layout from "@components/Layout";
 import CreateEdit from "@components/recipe/CreateEdit";
 import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
@@ -6,7 +7,6 @@ import { InferGetStaticPropsType } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import superjson from "superjson";
-import Layout from "../../components/Layout";
 
 export async function getStaticProps() {
   const ssg = createProxySSGHelpers({
@@ -32,11 +32,12 @@ export default function CreateRecipe(
   const router = useRouter();
 
   if (status === "unauthenticated") {
+    router.push("/recipe");
     router.push("/login");
   }
 
   return (
-    <Layout>
+    <Layout bgColor={"bg-base-100"} headerBgLight={true} headerTextDark={true}>
       <CreateEdit units={props.units}></CreateEdit>
     </Layout>
   );

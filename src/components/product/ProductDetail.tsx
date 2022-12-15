@@ -1,34 +1,73 @@
-import { Allergen } from "@prisma/client";
+import { Allergen, ProductUnit } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { HiArrowLeft } from "react-icons/hi";
 
 import { trpc } from "../../utils/trpc";
 import { IProduct } from "../../utils/validations/product";
 import AllergensComponent from "../Allergens";
 import DotMenu from "../DotMenu";
-import Stars from "../Stars";
-import IncDecButtons from "./IncDecButtons";
+import IncDecButtons from "../ui/IncDecButtons";
+import Addproductchart from "./Addproductchart";
+import SliderRecipes from "@components/SliderRecipes";
 
 const ProductDetail = ({ product }: { product: IProduct }) => {
-  const { data } = useSession();
-  const isEdible = product.Edible != null;
-  const allergensList = product.Edible?.allergens.map((e) => e.allergen) ?? [];
+  return (
+    <div className="relative z-0 flex flex-col bg-base-200">
+      <div className="lg:mx-16">
+        <div className="flex w-full flex-auto flex-col items-center gap-2 lg:mt-[5%] lg:flex-row">
+          <ProductCard
+            product={product}
+            className="flex-auto place-self-stretch rounded-b-[20px] bg-base-100 px-5 lg:w-[60%] lg:rounded-[20px] lg:px-16"
+          />
+          <div className="flex w-full place-content-center">
+            <Image
+              height="600"
+              width="600"
+              layout="intrinsic"
+              objectFit="contain"
+              className="rounded-[20px]"
+              alt={product.name}
+              src={product.imageURL}
+            />
+          </div>
+        </div>
+        <button
+          onClick={() => router.back()}
+          className="ml-6 mb-20 w-fit lg:mt-12 lg:ml-0"
+        >
+          <div className="flex flex-nowrap items-center">
+            <HiArrowLeft
+              color={"a6806d"}
+              size="31"
+              className="rounded-lg bg-base-100 px-1.5 py-1.5"
+            />
+            <span className="pl-3 font-raleway text-base text-base-100">
+              VOLVER
+            </span>
+          </div>
+        </button>
+      </div>
+      {product.Edible != null && (
+        <NutritionFacts product={product} className="mx-4 mb-14 " />
+      )}
+      <RelatedRecipes product={product} />
+    </div>
+  );
+};
 
-  const stockLeft = product.stock * 1000 >= 100;
-  const notify = () => toast.success("Producto añadido");
-  const notifyDeleted = () => toast.success("Producto eliminado");
-  const [amount, setAmount] = React.useState(isEdible ? 100 : 1);
+const ProductCard = ({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) => {
   const utils = trpc.useContext();
-  const mutation = trpc.cart.addProduct.useMutation({
-    onSuccess() {
-      utils.cart.getAllCartProduct.invalidate();
-    },
-  });
-
+  const { data } = useSession();
   const { mutateAsync } = trpc.product.delete.useMutation({
     onSuccess() {
       utils.product.getAllProducts.invalidate();
@@ -36,22 +75,15 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
     },
   });
 
-  const updateProduct = (id: string) => {
-    router.push(`/product/edit/${id}`);
-  };
-
   const deleteProduct = (id: string) => {
     mutateAsync({ productId: id });
     router.push(`/product`);
-    notifyDeleted();
+    toast.success("Producto eliminado");
   };
 
-  function addToCart() {
-    if (product.stock * 1000 >= 100) {
-      notify();
-      mutation.mutateAsync({ productId: product.id, amount: amount });
-    }
-  }
+  const updateProduct = (id: string) => {
+    router.push(`/product/edit/${id}`);
+  };
 
   const unitPrice = {
     grams: "Kg",
@@ -62,129 +94,206 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <div className="">
-      <div className="flex flex-col items-center">
-        <div className="w-full">
-          {isEdible ? (
-            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
-              <Link href={`/category`}>
-                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
-                  Comestible
-                </p>
-              </Link>
-            </div>
-          ) : (
-            <div className="m-12 grid grid-cols-2 border-b-2 border-kym3">
-              <Link href={`/category`}>
-                <p className="mb-3 cursor-pointer font-bold sm:text-lg">
-                  No comestible
-                </p>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        <div className="item-center mx-10 mt-4 grid min-w-fit grid-cols-1 content-center gap-14 sm:grid-cols-2">
-          <div className="mb-10 flex max-h-64 flex-col items-center">
-            <Image
-              height="500"
-              width={300}
-              layout="intrinsic"
-              objectFit="cover"
-              className="rounded-md"
-              alt={product.name}
-              src={product.imageURL}
-            />
-          </div>
-
-          <div className="columns-1 lg:mt-3">
-            <h1 className="mb-4 mr-6 inline-block text-left text-2xl font-bold first-letter:uppercase">
-              {product.name}
-            </h1>
-            <div className="inline-block">
-              <Stars average={4}></Stars>
-              <div className="mx-2 inline-block">
-                {data?.user?.role == "admin" && (
-                  <DotMenu
-                    id={product.id}
-                    name={product.name}
-                    type="producto"
-                    deleteFunction={deleteProduct}
-                    updateFunction={updateProduct}
-                  ></DotMenu>
-                )}
-              </div>
-            </div>
-
-            {allergensList.length > 0 ? (
-              <div>
-                <p>Alérgenos:</p>
-                <AllergensComponent
-                  allergens={allergensList}
-                  size={29}
-                ></AllergensComponent>
-              </div>
-            ) : null}
-
-            <p className="mt-4">Precio:</p>
-            <p className="mb-3 inline-block text-left text-xl">
-              {" "}
-              {isEdible ? (
-                <span>{product.Edible?.priceByWeight}</span>
-              ) : (
-                <span>{product.NonEdible?.price}</span>
-              )}
-              €/{unitPrice[product.ProductUnit]}
-            </p>
-
-            {data?.user?.role != "admin" && (
-              <div className="flex flex-col md:flex-row md:items-center">
-                <div className="mr-4">
-                  <IncDecButtons
-                    setAmount={setAmount}
-                    amount={amount}
-                    stock={product.stock}
-                    isEdible={isEdible}
-                    stockLeft={stockLeft} //cambiar
-                    productUnit={product.ProductUnit}
-                  />
-                </div>
-
-                <button
-                  onClick={addToCart}
-                  className={`w-[200px] rounded-xl border border-button bg-transparent px-0 text-kym4 sm:w-auto md:px-12 ${
-                    !stockLeft
-                      ? "cursor-not-allowed px-10 opacity-50"
-                      : "hover:border-transparent hover:bg-button_hover hover:text-white"
-                  }`}
-                >
-                  Añadir al carrito
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col">
-        <DescriptionComponent description={product.description} />
-        {allergensList.length > 0 && (
-          <AllergenDescription allergens={allergensList} />
+    <div
+      className={`relative flex flex-col place-content-between space-y-4 pb-10 lg:place-content-center lg:py-10 ${className}`}
+    >
+      {data?.user?.role == "admin" && (
+        <DotMenu
+          id={product.id}
+          name={product.name}
+          type="producto"
+          deleteFunction={deleteProduct}
+          updateFunction={updateProduct}
+          className="absolute top-1 right-0 lg:top-5 lg:right-3"
+        />
+      )}
+      <p
+        id="Tittle"
+        className="inline-block w-full text-center font-raleway text-[40px] font-black uppercase leading-[80px] text-base-content sm:text-2xl lg:text-left"
+      >
+        {product.name}
+      </p>
+      <p
+        id="Description"
+        className="text-center font-sans text-xs leading-6 sm:text-sm lg:pr-[10%] lg:text-justify"
+      >
+        {product.description}
+      </p>
+      <p
+        id="Price"
+        className="py-4 text-center font-sans text-sm sm:text-base lg:text-left"
+      >
+        {product.Edible ? (
+          <span>{product.Edible?.priceByWeight}</span>
+        ) : (
+          <span>{product.NonEdible?.price}</span>
         )}
-      </div>
+        €/{unitPrice[product.ProductUnit]}
+      </p>
+      {data?.user?.role != "admin" && <PurchaseOptions product={product} />}
     </div>
   );
 };
 
-const DescriptionComponent = ({ description }: { description: string }) => {
+const PurchaseOptions = ({ product }: { product: IProduct }) => {
+  const productAmount: Record<ProductUnit, number> = {
+    grams: 100,
+    kilograms: 0.5,
+    liters: 0.5,
+    milliliters: 250,
+    unit: 1,
+  };
+
+  const [id, setId] = useState(product.id);
+  const [amount, setAmount] = useState(productAmount[product.ProductUnit]);
+
+  // Reset amount when product changes (to avoid wrong amounts)
+  if (product.id != id) {
+    setAmount(productAmount[product.ProductUnit]);
+    setId(product.id);
+  }
+
   return (
-    <div className="my-6 p-6 sm:mx-2 md:mx-6 lg:mx-20">
-      <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 text-xl font-bold normal-case">
-          Descripción del producto
-        </h2>
+    <div className="flex h-10 flex-row place-content-between space-x-6 sm:mx-20 sm:h-12 md:h-14 lg:mx-0 lg:items-center">
+      <div className="h-full w-36 flex-initial">
+        <IncDecButtons
+          setAmount={setAmount}
+          amount={amount}
+          max={product.stock}
+          unit={product.ProductUnit}
+          className={
+            "h-full w-full rounded-full ring-1 ring-base-content ring-offset-0"
+          }
+        />
       </div>
-      <p className="mt-2 ml-2 first-letter:uppercase">{description}</p>
+      <Addproductchart amount={amount} product={product} className="h-full" />
+    </div>
+  );
+};
+
+const NutritionFacts = ({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) => {
+  const allergensList = product.Edible?.allergens.map((e) => e.allergen) ?? [];
+  const unitPrice = {
+    grams: "g",
+    kilograms: "g",
+    liters: "ml",
+    milliliters: "ml",
+    unit: "u",
+  };
+
+  const unit = unitPrice[product.ProductUnit];
+
+  function scroll() {
+    window.scrollTo({
+      top: 220 + (document.getElementById("nutritionFacts")?.offsetLeft ?? 800),
+      behavior: "smooth",
+    });
+  }
+
+  return !product.Edible ? (
+    <></>
+  ) : (
+    <div
+      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 sm:px-8 lg:px-24 ${className}`}
+    >
+      <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
+        <Image
+          src="/img/ellipse.svg"
+          alt=""
+          className="-z-10 select-none"
+          width={"300%"}
+          height={"200%"}
+          layout="fixed"
+          objectFit="contain"
+        />
+        <p
+          id="nutritionFacts"
+          onClick={scroll}
+          className="absolute top-12 h-12 cursor-pointer select-none font-satoshiBold text-xs"
+        >
+          saber más
+        </p>
+      </div>
+      <h1 className="whitespace-nowrap text-center font-raleway text-[21px] sm:text-[38px] md:text-[45px] lg:text-left lg:text-xl">
+        INFORMACIÓN NUTRICIONAL
+      </h1>
+
+      <div className="mt-3 flex flex-col place-content-between lg:flex-row lg:gap-14">
+        {allergensList.length > 0 && (
+          <AllergenDescription allergens={allergensList} />
+        )}
+        <table className="mt-3 max-w-7xl grow table-auto text-xs sm:text-base">
+          <thead>
+            <tr>
+              <th className="pb-4 text-left"></th>
+              <th className="whitespace-nowrap pb-4 text-left">100 {unit}</th>
+              <th className="whitespace-nowrap pb-4 text-left">30 {unit}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Valor energético</td>
+              <td className="py-3 pr-14">
+                {product.Edible?.nutritionFacts.energy} kcal
+              </td>
+              <td className="py-3">
+                {Math.round(product.Edible?.nutritionFacts.energy * 0.3)} kcal
+              </td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Grasas</td>
+              <td className="whitespace-nowrap py-3 pr-14">
+                {product.Edible?.nutritionFacts.fat + " g"}
+              </td>
+              <td className="whitespace-nowrap py-3">
+                {Math.round(product.Edible?.nutritionFacts.fat * 0.3) + " g"}
+              </td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Ácidos grasos saturados</td>
+              <td className="whitespace-nowrap py-3 pr-14"> {"-"} </td>
+              <td className="whitespace-nowrap py-3"> {"-"} </td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Hidratos</td>
+              <td className="whitespace-nowrap py-3 pr-14">
+                {product.Edible?.nutritionFacts.carbohydrates + " g"}
+              </td>
+              <td className="whitespace-nowrap py-3">
+                {Math.round(
+                  product.Edible?.nutritionFacts.carbohydrates * 0.3,
+                ) + " g"}
+              </td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Proteínas</td>
+              <td className="whitespace-nowrap py-3 pr-14">
+                {product.Edible?.nutritionFacts.protein + " g"}
+              </td>
+              <td className="py-3">
+                {Math.round(product.Edible?.nutritionFacts.protein * 0.3) +
+                  " g"}
+              </td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Fibra</td>
+              <td className="whitespace-nowrap py-3 pr-14">{"-"}</td>
+              <td className="py-3">{"-"}</td>
+            </tr>
+            <tr className="border-b border-base-content border-opacity-30">
+              <td className="py-3 pr-14">Sal</td>
+              <td className="whitespace-nowrap py-3 pr-14">{"-"}</td>
+              <td className="whitespace-nowrap py-3">{"-"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -193,22 +302,41 @@ const AllergenDescription = ({ allergens }: { allergens: Allergen[] }) => {
   const { data: allergenTransalator } =
     trpc.product.getAllergenInSpanishDictionary.useQuery();
   return (
-    <div className="mx-20 p-6">
-      <div className="border-b-2 border-orange-400">
-        <h2 className="mb-1 text-xl font-bold">Descripción de los alérgenos</h2>
-      </div>
+    <div className="flex flex-col">
+      <p className="text-sm sm:text-base">Alérgenos</p>
       {allergens.map((allergen) => (
-        <div className="mt-2 ml-2 flex py-2 align-middle" key={allergen}>
-          <AllergensComponent
-            allergens={[allergen]}
-            size={30}
-          ></AllergensComponent>
+        <div className="mt-2 flex py-2 align-middle" key={allergen}>
+          <AllergensComponent allergens={[allergen]} size={30} />
           <p className="ml-2 mt-1 inline-block first-letter:uppercase">
             {allergenTransalator?.get(allergen)}
           </p>
         </div>
       ))}
     </div>
+  );
+};
+
+const RelatedRecipes = ({ product }: { product: IProduct }) => {
+  const recipeIngredient = product.Edible?.Ingredient?.RecipeIngredient ?? [];
+  return (
+    <>
+      {recipeIngredient.length > 0 && (
+        <div className="ml-5 md:ml-10 lg:ml-10">
+          <p className="w-full text-center font-raleway text-[40px] font-black uppercase text-base-100 sm:text-left sm:text-xl">
+            RECETAS
+          </p>
+          <p className="w-full text-center text-xs text-base-100 sm:text-left sm:text-base ">
+            {recipeIngredient.length} recetas disponibles con este producto
+          </p>
+          <SliderRecipes
+            isBig={true}
+            recipes={product.Edible?.Ingredient?.RecipeIngredient.map(
+              (recipe) => recipe.Recipe,
+            )}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

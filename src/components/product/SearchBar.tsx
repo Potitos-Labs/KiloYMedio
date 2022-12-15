@@ -41,15 +41,21 @@ const SearchBar = ({
   };
 
   return (
-    <div className="group relative h-auto w-auto grow self-end sm:absolute sm:right-0 sm:top-0 ">
-      <div className="mx-2 mb-2 flex grow rounded-lg bg-white px-2 shadow-md  sm:px-4">
+    <div className="group relative h-auto w-full flex-initial sm:right-0 sm:top-0 ">
+      <div className="ml-2 flex h-10 rounded-3xl bg-accent px-4">
+        <div
+          className="mt-3 mr-2"
+          onClick={() => searchHandler({ searchInput: value })}
+        >
+          <FaSearch className="fill-base-100" />
+        </div>
         <input
-          className=" grow truncate py-1 focus:outline-0  sm:w-full"
+          className="w-full truncate bg-accent py-1 text-xs text-base-100 placeholder-base-100 focus:outline-0"
           autoComplete="off"
           id="searchBar"
           value={value}
           type="text"
-          placeholder="Buscar... "
+          placeholder="Buscar productos"
           onChange={(e) => onChange({ searchInput: e.target.value })}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
@@ -57,16 +63,10 @@ const SearchBar = ({
             }
           }}
         ></input>
-        <div
-          className="ml-2 mt-2"
-          onClick={() => searchHandler({ searchInput: value })}
-        >
-          <FaSearch />
-        </div>
       </div>
 
-      <div className="scrollbar-hide absolute top-8  z-10 hidden w-full group-hover:block">
-        <div className="scrollbar-hide  mt-2 w-full overflow-auto rounded-md bg-slate-50 shadow-xl">
+      <div className="scrollbar-hide absolute top-10 z-10 hidden w-full group-hover:block">
+        <div className="scrollbar-hide mt-2 w-full overflow-auto rounded-md bg-base-100 shadow-xl">
           {data
             ?.filter((product) => {
               return (
@@ -81,7 +81,7 @@ const SearchBar = ({
             .slice(0, 10)
             .map((product) => (
               <div
-                className="cursor-pointer hover:bg-background md:pl-4"
+                className="cursor-pointer pl-4 hover:bg-accent hover:text-base-100"
                 key={product.id}
                 onClick={() =>
                   searchHandler({

@@ -13,5 +13,20 @@
   },
   "git.autofetch": true,
   "git.autoStash": true,
-  "jest.autoRun": {}
+  "jest.autoRun": {},
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx"]
+  }
 }

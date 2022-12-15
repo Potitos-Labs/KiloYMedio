@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
 import { AppRouterTypes, trpc } from "../../utils/trpc";
-import IncDecButtons from "../product/IncDecButtons";
+import IncDecButtons from "../ui/IncDecButtons";
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
@@ -15,23 +16,21 @@ function Product({
   >;
 }) {
   const stock = cartProduct.product.stock;
-  const stockLeft = stock * 1000 >= 100;
-  const isEdible = Boolean(cartProduct.product.Edible);
 
   const utils = trpc.useContext();
   const [amount, setAmount] = useState(cartProduct.amount);
 
   const { mutateAsync: deleteMutation } = trpc.cart.deleteProduct.useMutation({
-    onMutate({ productId }) {
-      utils.cart.getAllCartProduct.setData((data) => ({
-        productList:
-          data?.productList?.filter(
-            (product) => product.productId !== productId,
-          ) ?? [],
-        totalAmountNEdible: data?.totalAmountNEdible ?? 0,
-        totalPrice: data?.totalPrice ?? "0",
-        totalWeightEdible: data?.totalWeightEdible ?? 0,
-      }));
+    onMutate({}) {
+      // utils.cart.getAllCartProduct.setData((data) => ({
+      //   productList:
+      //     data?.productList?.filter(
+      //       (product) => product.productId !== productId,
+      //     ) ?? [],
+      //   totalAmountNEdible: data?.totalAmountNEdible ?? 0,
+      //   totalPrice: data?.totalPrice ?? "0",
+      //   totalWeightEdible: data?.totalWeightEdible ?? 0,
+      // }));
     },
     onSuccess() {
       utils.cart.getAllCartProduct.refetch();
@@ -49,39 +48,42 @@ function Product({
 
   return (
     <div key={cartProduct.productId}>
-      <div className="flex flex-row border-2 border-solid border-black">
-        <div className="flex flex-col p-2 align-middle">
-          <Image
-            className="rounded-md"
-            src={cartProduct.product.imageURL}
-            alt={cartProduct.product.name + " imagen"}
-            width={100}
-            height={100}
-            layout="fixed"
-            objectFit="cover"
-          />
+      <div className="flex flex-row rounded-[15px] border-[1px] border-solid border-neutral">
+        <div className="flex flex-col py-2 align-middle sm:p-2">
+          <Link href={`/product/${cartProduct.productId}`}>
+            <Image
+              className="cursor-pointer rounded-md"
+              src={cartProduct.product.imageURL}
+              alt={cartProduct.product.name + " imagen"}
+              width={100}
+              height={100}
+              layout="fixed"
+              objectFit="contain"
+            />
+          </Link>
         </div>
-        <div className="m-2 w-full p-2">
-          <div className="font-semibold text-kym4 first-letter:uppercase">
-            {cartProduct.product.name}
-          </div>
+        <div className="my-2 ml-1 flex w-full flex-col justify-between py-2 sm:m-2 sm:p-2">
+          <Link href={`/product/${cartProduct.productId}`}>
+            <div className="text-sm text-neutral first-letter:uppercase hover:cursor-pointer">
+              {cartProduct.product.name}
+            </div>
+          </Link>
           {/* Amount */}
           <div className="max-w-fit">
             <IncDecButtons
               setAmount={setAmount}
               amount={amount}
-              stock={stock}
-              stockLeft={stockLeft}
-              isEdible={isEdible}
-              productUnit={cartProduct.product.ProductUnit}
+              max={stock}
+              className="h-[35px] w-[120px] rounded-[30px] border-[1px] border-base-300"
+              unit={cartProduct.product.ProductUnit}
             />
           </div>
         </div>
-        <div className="flex w-[40%] flex-col md:w-[40%] lg:w-[30%] xl:w-[20%]">
+        <div className="flex w-[60%] flex-col justify-between sm:pr-3 md:w-[40%] lg:w-[30%]">
           {/* trash can */}
           <div className="flex flex-row-reverse">
             <button
-              className="h-10 bg-transparent px-2 font-semibold text-red-600"
+              className="h-10 bg-transparent font-semibold text-red-600"
               onClick={() =>
                 deleteMutation({ productId: cartProduct.productId })
               }
@@ -91,8 +93,8 @@ function Product({
             </button>
           </div>
           {/* price */}
-          <div className="flex h-full flex-row-reverse">
-            <span className="self-end px-3 py-2">
+          <div className="flex flex-row-reverse">
+            <span className="self-end px-1 py-2 text-xs">
               {cartProduct.price.toFixed(2)} €
             </span>
           </div>

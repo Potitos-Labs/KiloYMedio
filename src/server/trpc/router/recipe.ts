@@ -1,13 +1,17 @@
 import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
+import { Promise as PromiseBB } from "bluebird";
 
 import {
+  commentSchema,
   createRecipeSchema,
   filterRecipeSchema,
   updateRecipeSchema,
 } from "../../../utils/validations/recipe";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 import { findOrCreteRecipeIngredients } from "./common/recipe-ingredients";
+import { getProductById } from "./common/product";
+import { TRPCError } from "@trpc/server";
 
 export const recipeRouter = router({
   getAllRecipes: publicProcedure.query(async ({ ctx }) => {
@@ -22,10 +26,9 @@ export const recipeRouter = router({
         imageURL: true,
         name: true,
         portions: false,
-        RecipeComment: false,
         RecipeIngredient: false,
-        timeSpan: false,
-        User: false,
+        cookingTime: false,
+        User: true,
         userId: true,
       },
     });
@@ -34,6 +37,7 @@ export const recipeRouter = router({
     .input(filterRecipeSchema)
     .query(async ({ ctx, input }) => {
       const {
+        adminRecipes,
         minTime,
         maxTime,
         minPortion,
@@ -41,28 +45,50 @@ export const recipeRouter = router({
         difficulty,
         allergens,
       } = input;
-      return await ctx.prisma.recipe.findMany({
+      const recipes = await ctx.prisma.recipe.findMany({
         where: {
           portions: { gte: minPortion, lte: maxPortion },
-          timeSpan: { gte: minTime, lte: maxTime },
+          preparationTime: { gte: minTime, lte: maxTime },
           difficulty,
-
-          RecipeIngredient: {
-            every: {
-              OR: [
-                {
-                  Ingredient: {
-                    Edible: {
-                      allergens: { some: { allergen: { notIn: allergens } } },
-                    },
-                  },
-                },
-                { Ingredient: { Edible: { is: null } } },
-              ],
-            },
+          User: {
+            role: adminRecipes == true ? "admin" : "client",
           },
+          allergens: { every: { allergen: { notIn: allergens } } },
+        },
+        select: {
+          id: true,
+          name: true,
+          imageURL: true,
+          userId: true,
+          description: true,
+          cookingTime: true,
+          preparationTime: true,
+          portions: true,
+          allergens: true,
         },
       });
+
+      const listAverageAndFav = await PromiseBB.map(
+        recipes,
+        async (recipe) => {
+          const avg = await ctx.prisma.comment.aggregate({
+            where: { recipeId: recipe.id },
+            _avg: { rating: true },
+          });
+          const isFav = (await ctx.prisma.recipeUser.findFirst({
+            where: { recipeId: recipe.id, userId: ctx.session?.user?.id },
+          }))
+            ? true
+            : false;
+          return { rating: avg?._avg.rating, isFav };
+        },
+        { concurrency: 8 },
+      );
+
+      return recipes.map((r, i) => ({
+        ...r,
+        ...listAverageAndFav[i],
+      }));
     }),
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -79,31 +105,66 @@ export const recipeRouter = router({
           imageURL: true,
           name: true,
           portions: true,
-          RecipeComment: true,
           RecipeIngredient: {
             select: {
               Ingredient: {
                 select: {
                   id: true,
                   name: true,
-                  Edible: { select: { product: true } },
+                  Edible: { select: { productId: true } },
                 },
               },
               amount: true,
               unit: true,
             },
           },
-          timeSpan: true,
+          cookingTime: true,
+          preparationTime: true,
+          allergens: { select: { allergen: true, recipeId: true } },
           User: true,
           userId: true,
         },
       });
+
+      if (!recipe) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Recipe not found" });
+      }
+
+      const recipeIngredient = recipe.RecipeIngredient.map(async (e) => {
+        const Ingredient: {
+          id: string;
+          name: string;
+          Edible: Awaited<ReturnType<typeof getProductById>> | null;
+        } = {
+          id: e.Ingredient.id,
+          name: e.Ingredient.name,
+          Edible: null,
+        };
+        const amount = e.amount;
+        const unit = e.unit;
+
+        if (e.Ingredient.Edible) {
+          Ingredient.Edible = await getProductById(
+            e.Ingredient.Edible.productId,
+            ctx.prisma,
+          );
+        }
+
+        return { Ingredient, amount, unit };
+      });
+
+      const newRecipe = {
+        ...recipe,
+        RecipeIngredient: await Promise.all(recipeIngredient),
+      };
+
       const isFav = (await ctx.prisma.recipeUser.findFirst({
         where: { recipeId: id, userId: ctx.session?.user?.id },
       }))
         ? true
         : false;
-      return recipe != null ? { ...recipe, isFav } : null;
+
+      return { ...newRecipe, isFav };
     }),
   getRecentRecipes: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.recipe.findMany({
@@ -124,7 +185,8 @@ export const recipeRouter = router({
           name,
           ingredients,
           portions,
-          timeSpan,
+          allergens,
+          cookingTime,
           id,
         },
       }) => {
@@ -148,7 +210,7 @@ export const recipeRouter = router({
             imageURL,
             name,
             portions,
-            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            cookingTime: cookingTime.hour * 60 + cookingTime.minute,
             description,
             directions: {
               createMany: {
@@ -166,6 +228,11 @@ export const recipeRouter = router({
                   unit: unit,
                   ingredientId: id,
                 })),
+              },
+            },
+            allergens: allergens && {
+              createMany: {
+                data: allergens.map((allergen) => ({ allergen })),
               },
             },
           },
@@ -185,7 +252,8 @@ export const recipeRouter = router({
           name,
           ingredients,
           portions,
-          timeSpan,
+          cookingTime,
+          allergens,
         },
       }) => {
         const prismaIngredients = await findOrCreteRecipeIngredients(
@@ -199,7 +267,8 @@ export const recipeRouter = router({
             imageURL,
             name,
             portions,
-            timeSpan: timeSpan.hour * 60 + timeSpan.minute,
+            cookingTime: cookingTime.hour * 60 + cookingTime.minute,
+            preparationTime: 30,
             description,
             directions: {
               createMany: {
@@ -217,6 +286,11 @@ export const recipeRouter = router({
                   unit: unit,
                   ingredientId: id,
                 })),
+              },
+            },
+            allergens: allergens && {
+              createMany: {
+                data: allergens.map((allergen) => ({ allergen })),
               },
             },
           },
@@ -252,4 +326,98 @@ export const recipeRouter = router({
     });
     return res;
   }),
+  newComment: protectedProcedure
+    .input(commentSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { recipeId, description, rating } = input;
+      await ctx.prisma.comment.create({
+        data: {
+          Recipe: { connect: { id: recipeId } },
+          description,
+          rating,
+          User: { connect: { id: ctx.session.user.id } },
+        },
+      });
+      return {
+        status: 201,
+        message: "Account updated successfully",
+      };
+    }),
+
+  getComments: publicProcedure
+    .input(
+      z.object({ recipeId: z.string(), countLoadMore: z.number().default(0) }),
+    )
+    .query(async ({ ctx, input: { recipeId, countLoadMore } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        take: 2 * (countLoadMore + 1),
+        where: {
+          recipeId,
+        },
+        select: {
+          description: true,
+          rating: true,
+          createdAt: true,
+          User: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      });
+      return comments;
+    }),
+
+  getNumberComments: publicProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+      });
+      return comments.length;
+    }),
+
+  getCommentsStatistics: publicProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const ratings = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          rating: true,
+        },
+      });
+
+      const average =
+        Math.round(
+          (ratings.reduce(
+            (acumulator, current) => acumulator + current.rating,
+            0,
+          ) /
+            ratings.length) *
+            10,
+        ) / 10 || 0;
+
+      //Obtener repetidos
+      const ranges: Record<number, number> = {};
+      ratings.forEach((e: { rating: number }) => {
+        const rangeStar = Math.ceil(e.rating);
+        ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
+      });
+
+      const rangesPercentage = {
+        1: Math.round(((ranges[1] ?? 0) * 1000) / ratings.length || 0) / 10,
+        2: Math.round(((ranges[2] ?? 0) * 1000) / ratings.length || 0) / 10,
+        3: Math.round(((ranges[3] ?? 0) * 1000) / ratings.length || 0) / 10,
+        4: Math.round(((ranges[4] ?? 0) * 1000) / ratings.length || 0) / 10,
+        5: Math.round(((ranges[5] ?? 0) * 1000) / ratings.length || 0) / 10,
+      };
+
+      return { count: ratings.length, average, rangesPercentage };
+    }),
 });

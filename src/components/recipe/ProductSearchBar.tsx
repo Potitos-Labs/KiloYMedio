@@ -1,3 +1,4 @@
+import { ECategory } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 
 const SearchBar = ({
@@ -12,15 +13,15 @@ const SearchBar = ({
     maxPrice: 5000,
     minPrice: 0,
     allergens: [],
-    eCategories: [],
+    eCategories: Object.keys(ECategory) as ECategory[],
     neCategories: [],
   });
 
   return (
-    <div className="group relative h-4/5 w-4/5 sm:h-auto md:w-64">
-      <div className="input input-bordered mb-2 flex max-h-8 rounded-lg border-black shadow-md  sm:px-4">
+    <div className="group relative h-4/5 sm:h-auto md:w-64">
+      <div className="input input-bordered flex h-[40px] rounded-[30px] border-neutral sm:h-[60px]">
         <input
-          className="input h-full w-full truncate focus:outline-0 sm:py-1"
+          className="input h-[40px] w-full bg-transparent text-sm text-neutral focus:outline-0 sm:h-full"
           autoComplete="off"
           id="searchBar"
           value={value}
@@ -30,8 +31,8 @@ const SearchBar = ({
         ></input>
       </div>
 
-      <div className="scrollbar-hide absolute top-8  z-10 hidden w-full group-hover:block">
-        <div className="scrollbar-hide  mt-2 w-full overflow-auto rounded-md bg-slate-50 shadow-xl">
+      <div className="scrollbar-hide absolute top-[52px] z-10 hidden w-full group-hover:block">
+        <div className="scrollbar-hide mt-2 w-full overflow-auto rounded-md bg-white shadow-xl">
           {data
             ?.filter((product) => {
               return (
@@ -46,7 +47,7 @@ const SearchBar = ({
             .slice(0, 10)
             .map((product) => (
               <div
-                className="cursor-pointer pl-4 hover:bg-background"
+                className="cursor-pointer pl-4 text-sm hover:bg-amber-100"
                 key={product.id}
                 onClick={() =>
                   setValue(

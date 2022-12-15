@@ -28,13 +28,6 @@ export default withBundleAnalyzer(
     },
     images: {
       domains: [
-        "cdn1.cocina-familiar.com",
-        "cocinista-vsf.netdna-ssl.com",
-        "www.objetivobienestar.com",
-        "upload.wikimedia.org",
-        "dietamediterranea.com",
-        "www.sanpellegrinofruitbeverages.com",
-        "sp-ao.shortpixel.ai",
         "www.elgraneldecorredera.com",
         "www.gastronomiavasca.net",
         "fruitsec.cat",
@@ -47,7 +40,7 @@ export default withBundleAnalyzer(
         "http2.mlstatic.com",
         "cdn.shopify.com",
         "images.pexels.com",
-        "i.pinimg.com",
+        "i.pinimg.com", //tarta
         "cdn2.iconfinder.com",
         "kilo-y-medio.s3.eu-west-3.amazonaws.com",
         "www.pngall.com",
@@ -56,20 +49,35 @@ export default withBundleAnalyzer(
         "assets.jumpseller.com",
         "images.vexels.com",
         "us.123rf.com",
-        "www.pngall.com",
         "img.freepik.com",
         "www.elhombredelsaco.eu",
-        "us.123rf.com",
         "images-na.ssl-images-amazon.com",
         "www.vilmupa.com",
         "i.etsystatic.com",
-        "los40.com",
-        "ecologiautil.com",
+        "ecologiautil.com", //index de category antiguo
         "www.frutasluisi.eu",
-        "uxwing.com",
-        "pbs.twimg.com",
-        "www.kindpng.com",
+        "uxwing.com", //avaar en ver perfil
+        "www.kindpng.com", //default img user
         "grjkjrkjpycphptekssf.supabase.co",
+        "shields.io",
+        "i.blogs.es", //pasta italiana y más
+        "t2.uc.ltmcdn.com", //gachas
+        "www.tapasmagazine.es", //sándwich
+        "cecotec.es",
+        "pinchofyum.com", //lentejas cremosas
+        "www.laespanolaaceites.com", //espaguetis boloñesa
+        "www.comedera.com", //pan pueblo
+        "imagesvc.meredithcorp.io", //paella
+        "www.guatemala.com", //tarta zanahoria
+        "www.elespectador.com", //repostería
+        "imag.bonviveur.com", //cocina japo
+        "assets.recipes.prod.wpsandwatch.com", //galletas
+        "canalcocina.es", //taller online
+        "filesedc.com", //taller online
+        "images.hola.com", //talleres online
+        "www.cocinista.es", //talleres online
+        "www.iberdrola.com", //talleres online
+        "www.barcelonaculinaryhub.com",
       ],
     },
   }),

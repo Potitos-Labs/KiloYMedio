@@ -1,6 +1,15 @@
 import { z } from "zod";
 
 import { clientProcedure, router } from "../trpc";
+import { ProductUnit } from "@prisma/client";
+
+const productPrice: Record<ProductUnit, number> = {
+  grams: 1000,
+  kilograms: 1,
+  liters: 1,
+  milliliters: 1000,
+  unit: 1,
+};
 
 export const cartRouter = router({
   getAllCartProduct: clientProcedure.query(async ({ ctx }) => {
@@ -31,9 +40,13 @@ export const cartRouter = router({
       let price = 0;
 
       if (cp.product.Edible != null)
-        price = (cp.product.Edible.priceByWeight * cp.amount) / 1000;
+        price =
+          (cp.product.Edible.priceByWeight * cp.amount) /
+          productPrice[cp.product.ProductUnit];
       else if (cp.product.NonEdible != null)
-        price = cp.product.NonEdible.price * cp.amount;
+        price =
+          (cp.product.NonEdible.price * cp.amount) /
+          productPrice[cp.product.ProductUnit];
 
       return { ...cp, price };
     });
@@ -43,12 +56,25 @@ export const cartRouter = router({
       totalPrice: cartProductWithPrice
         .reduce((sum, i) => sum + i.price, 0)
         .toFixed(2),
-      totalWeightEdible: cartProductWithPrice.reduce(
-        (sum, i) => sum + (i.product.Edible ? i.amount : 0),
+      totalKilograms: cartProductWithPrice.reduce(
+        (sum, i) => sum + (i.product.ProductUnit == "kilograms" ? i.amount : 0),
         0,
       ),
-      totalAmountNEdible: cartProductWithPrice.reduce(
-        (sum, i) => sum + (i.product.NonEdible ? i.amount : 0),
+      totalGrams: cartProductWithPrice.reduce(
+        (sum, i) => sum + (i.product.ProductUnit == "grams" ? i.amount : 0),
+        0,
+      ),
+      totalLiters: cartProductWithPrice.reduce(
+        (sum, i) => sum + (i.product.ProductUnit == "liters" ? i.amount : 0),
+        0,
+      ),
+      totalMilliliters: cartProductWithPrice.reduce(
+        (sum, i) =>
+          sum + (i.product.ProductUnit == "milliliters" ? i.amount : 0),
+        0,
+      ),
+      totalUnits: cartProductWithPrice.reduce(
+        (sum, i) => sum + (i.product.ProductUnit == "unit" ? i.amount : 0),
         0,
       ),
     };

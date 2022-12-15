@@ -140,6 +140,7 @@ export const productRouter = router({
 
       return products;
     }),
+
   getAllCategories: publicProcedure.query(async ({ ctx }) => {
     const eCategories = await ctx.prisma.eCategoryInSpanish.findMany({
       select: {
@@ -158,12 +159,52 @@ export const productRouter = router({
       },
     });
 
+    const inSpanish: Record<ECategory | NECategory, string> = {
+      driedFruits: "",
+      flours: "",
+      jams: "",
+      legumes: "",
+      nuts: "",
+      oils: "",
+      pastas: "",
+      syrups: "",
+      teas: "",
+      yeast: "",
+      accessories: "",
+      cleaningProducts: "",
+      personalCare: "",
+      home: "",
+      grano: "",
+      rice: "",
+      coffee: "",
+      vinegar: "",
+    };
+
+    eCategories.forEach((eCategory) => {
+      inSpanish[eCategory.category] = eCategory.categoryInSpanish;
+    });
+
+    neCategories.forEach((neCategory) => {
+      inSpanish[neCategory.category] = neCategory.categoryInSpanish;
+    });
+
     const res = {
       eCategories,
       neCategories,
+      inSpanish,
     };
 
     return res;
+  }),
+  getAllSupraCategories: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.supraCategory.findMany({
+      select: {
+        id: true,
+        supraCategoryName: true,
+        SupraCategoryRelation: true,
+        _count: false,
+      },
+    });
   }),
   getAllNonEdibleCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.nECategoryInSpanish.findMany({
@@ -217,6 +258,25 @@ export const productRouter = router({
               },
               origin: true,
               conservation: true,
+              Ingredient: {
+                select: {
+                  RecipeIngredient: {
+                    select: {
+                      Recipe: {
+                        select: {
+                          id: true,
+                          name: true,
+                          description: true,
+                          imageURL: true,
+                          cookingTime: true,
+                          portions: true,
+                          userId: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
           NonEdible: {
@@ -269,6 +329,7 @@ export const productRouter = router({
         });
       } catch {}
     }),
+
   createNewProduct: publicProcedure
     .input(productCreateSchema)
     .mutation(async ({ input, ctx }) => {
@@ -459,5 +520,26 @@ export const productRouter = router({
           id: productId,
         },
       });
+    }),
+
+  getAlergensFromProduct: publicProcedure
+    .input(z.array(z.object({ productName: z.string() })))
+    .query(async ({ input, ctx }) => {
+      const edibles = await ctx.prisma.edible.findMany({
+        where: { product: { name: { in: input.map((i) => i.productName) } } },
+        select: {
+          allergens: {
+            select: {
+              allergen: true,
+            },
+          },
+        },
+      });
+
+      const allergens = edibles.flatMap((e) =>
+        e.allergens.map((a) => a.allergen),
+      );
+      const uniqueAllergens = [...new Set([...allergens])];
+      return uniqueAllergens;
     }),
 });

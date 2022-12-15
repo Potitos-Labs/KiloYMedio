@@ -13,79 +13,85 @@ const Bill = ({
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const shippingCosts = null;
 
+  const unitDisplay = {
+    grams: "g",
+    kilograms: "kg",
+    liters: "L",
+    milliliters: "ml",
+    unit: "u",
+  };
+
   return (
-    <div className="mt-8 grid h-full md:mx-6 lg:mt-0">
+    <div className="grid h-full">
       <div className="flex flex-col">
         <div>
-          <h1 className="mb-10 bg-background py-2 pl-3 text-xl">Factura</h1>
+          <h1 className="font-raleway text-lg lg:text-2xl">Factura</h1>
         </div>
         <section>
           {/* Bill -> Products */}
-          <div className="grid pl-1">
+          <div className="grid pl-1 text-xs lg:text-sm">
             {myCart ? (
               myCart.productList.map((cartProduct) => (
                 <div key={cartProduct.productId}>
-                  <div className="mb-4 grid grid-cols-[40%_30%_30%] items-center font-medium">
+                  <div className="mb-4 grid grid-cols-[50%_25%_25%] items-center">
                     <div className="flex flex-row items-center gap-2">
                       {showExtras && (
-                        <Image
-                          className="rounded-md"
-                          src={cartProduct.product.imageURL}
-                          alt="notfound"
-                          width="70"
-                          height="70"
-                          layout="intrinsic"
-                          objectFit="cover"
-                        ></Image>
+                        <div>
+                          <Image
+                            className="mr-2 rounded-md"
+                            src={cartProduct.product.imageURL}
+                            alt="notfound"
+                            width={60}
+                            height={60}
+                            layout="fixed"
+                            objectFit="cover"
+                          />
+                        </div>
                       )}
-                      <div className="first-letter:uppercase">
+                      <div className="mr-1 first-letter:uppercase">
                         {cartProduct.product.name}
                       </div>
                     </div>
-                    <div className="ml-4">
+                    <div className="ml-2">
                       {cartProduct.amount}{" "}
-                      {cartProduct.product.Edible ? "g" : "u"}
+                      {unitDisplay[cartProduct.product.ProductUnit]}
                     </div>
-                    <span className="justify-self-end">
+                    <span className="ml-2 justify-self-end">
                       {cartProduct.price.toFixed(2)} €
                     </span>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-right">Cargando...</p>
+              <p className="text-right text-sm">Cargando...</p>
             )}
           </div>
           {/* End Bill Products */}
           {/* Bill details */}
           <hr className="border-1 mt-5 border-gray-400"></hr>
           <div>
-            <div className="my-4 grid grid-cols-[40%_30%_30%] items-center">
+            <div className="my-4 grid grid-cols-[50%_25%_25%] items-center text-xs lg:text-sm">
               <div className="justify-center">Subtotal</div>
-              <div className="ml-4 grid font-medium">
-                {/* PROVISIONAL */}
-                {myCart?.totalWeightEdible
-                  ? myCart?.totalWeightEdible + " g"
-                  : ""}
-                {myCart?.totalWeightEdible && myCart?.totalAmountNEdible ? (
-                  <br></br>
-                ) : (
-                  ""
-                )}
-                {myCart?.totalAmountNEdible
-                  ? myCart?.totalAmountNEdible + " u"
-                  : ""}
-                {/* ^^^ */}
-              </div>
-              <div className="grid justify-end font-medium">
-                {myCart?.totalPrice} €
-              </div>
+              {myCart && (
+                <div className="ml-2 grid">
+                  {/* PROVISIONAL */}
+                  {myCart?.totalKilograms +
+                    myCart?.totalGrams / 1000 +
+                    " Kg"}{" "}
+                  <br />
+                  {myCart?.totalLiters + myCart?.totalMilliliters / 1000 + " L"}
+                  <br />
+                  {myCart?.totalUnits + " u"}
+                  {/* ^^^ */}
+                </div>
+              )}
+              <div className="grid justify-end">{myCart?.totalPrice} €</div>
             </div>
             {showExtras && (
               <div className="grid grid-cols-[70%_30%] items-end">
-                <h2 className="pt-4">Gastos de envío</h2>
-                <p className="grid justify-end text-red-500">
-                  {postcode ? shippingCosts : "Calculando..."}
+                <h2 className="pt-4 text-sm">Gastos de envío</h2>
+                <p className="grid justify-end text-sm">
+                  {postcode ? shippingCosts : "Gratis"}
                 </p>
               </div>
             )}
@@ -95,7 +101,7 @@ const Bill = ({
           <hr className="border-1 mt-5 border-gray-400"></hr>
           <div className="grid grid-cols-[20%_80%] items-end">
             <h2 className="pt-4 text-lg">Total</h2>
-            <div className="grid justify-end text-2xl font-semibold">
+            <div className="grid justify-end font-satoshiBold text-lg">
               {/* Hay que sumar los gastos de envío y el IVA* */}
               {myCart?.totalPrice} €
             </div>
@@ -108,7 +114,7 @@ const Bill = ({
           <section>
             <div className="mt-10 flex flex-col justify-end">
               <Link href={"/checkout"}>
-                <button className="rounded-md border-2 border-button py-2 font-semibold text-kym4 hover:bg-button hover:text-white">
+                <button className="btn rounded-[30px] py-2 font-raleway text-sm text-base-100">
                   Comprar
                 </button>
               </Link>

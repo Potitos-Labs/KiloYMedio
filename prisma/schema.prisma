@@ -1,14 +1,13 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
+    provider = "prisma-client-js"
 }
 
 datasource db {
-    provider             = "mysql"
-    url                  = env("DATABASE_URL")
-    referentialIntegrity = "prisma"
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 // generator client {
@@ -41,6 +40,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@index([userId])
 }
 
 model AllergenInSpanish {
@@ -55,6 +55,7 @@ model AllergenClient {
     allergen Allergen
 
     @@id([clientId, allergen])
+    @@index([clientId])
 }
 
 model Session {
@@ -63,6 +64,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
 
 model User {
@@ -94,10 +97,12 @@ model VerificationToken {
 //DataBase
 model Admin {
     userId  String    @id
-    user    User      @relation(fields: [userId], references: [id])
+    user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     Ticket  Ticket[]
     Post    Post[]
     Comment Comment[]
+
+    @@index([userId])
 }
 
 model Cart {
@@ -114,6 +119,8 @@ model CartProduct {
     product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
     @@id([cartId, productId])
+    @@index([cartId])
+    @@index([productId])
 }
 
 model ECategoryInSpanish {
@@ -125,7 +132,7 @@ model ECategoryInSpanish {
 
 model Client {
     userId                   String                     @id
-    user                     User                       @relation(fields: [userId], references: [id])
+    user                     User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
     address                  String?
     numberOfReports          Int                        @default(0)
     phoneNumber              String?
@@ -133,7 +140,7 @@ model Client {
     location                 String?
     CP                       Int?
     // socio  Bool
-    cart                     Cart                       @relation(fields: [cartId], references: [id])
+    cart                     Cart                       @relation(fields: [cartId], references: [id], onDelete: Cascade)
     cartId                   String                     @unique
     order                    Order[]
     Ticket                   Ticket[]
@@ -141,22 +148,30 @@ model Client {
     OnlineWorkshopViews      OnlineWorkshopViews[]
     ReportedComment          ReportedComment[]
     allergenClient           AllergenClient[]
+
+    @@index([userId])
 }
 
 model Comment {
     id              String            @id @default(cuid())
     adminId         String?
-    admin           Admin?            @relation(fields: [adminId], references: [userId])
+    Admin           Admin?            @relation(fields: [adminId], references: [userId])
+    createdAt       DateTime          @default(now())
     description     String?           @db.TinyText
     imageURL        String?
     rating          Float
     reported        Boolean           @default(false)
     title           String?
-    userId          String
-    user            User              @relation(fields: [userId], references: [id])
     ProductComment  ProductComment[]
-    RecipeComment   RecipeComment[]
     ReportedComment ReportedComment[]
+    User            User?             @relation(fields: [userId], references: [id])
+    userId          String?
+    Recipe          Recipe?           @relation(fields: [recipeId], references: [id])
+    recipeId        String?
+
+    @@index([adminId])
+    @@index([userId])
+    @@index([recipeId])
 }
 
 model Edible {
@@ -171,6 +186,8 @@ model Edible {
     allergens        EdibleAllergen[]
     ingredientId     String           @unique
     nutritionFactsId String           @unique
+
+    @@index([productId])
 }
 
 model EdibleAllergen {
@@ -179,6 +196,7 @@ model EdibleAllergen {
     allergen Allergen
 
     @@id([edibleId, allergen])
+    @@index([edibleId])
 }
 
 model Ingredient {
@@ -206,6 +224,8 @@ model NonEdible {
     product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
     category  NECategory
     price     Float
+
+    @@index([productId])
 }
 
 model NutritionFacts {
@@ -222,14 +242,19 @@ model OnlineWorkshop {
     OnlineWorkshopViews OnlineWorkshopViews[]
     videoURL            String
     workshopId          String                @id
-    workshop            Workshop              @relation(fields: [workshopId], references: [id])
+    workshop            Workshop              @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+
+    @@index([workshopId])
 }
 
 model OnSiteWorkshop {
     date                     DateTime
+    places                   Int
     OnSiteWorkshopAttendance OnSiteWorkshopAttendance[]
     workshopId               String                     @id
-    workshop                 Workshop                   @relation(fields: [workshopId], references: [id])
+    workshop                 Workshop                   @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+
+    @@index([workshopId])
 }
 
 model OnlineWorkshopViews {
@@ -240,15 +265,19 @@ model OnlineWorkshopViews {
     state            Boolean
 
     @@id([onlineWorkshopId, clientId])
+    @@index([clientId])
+    @@index([onlineWorkshopId])
 }
 
 model OnSiteWorkshopAttendance {
     clientId         String
     client           Client         @relation(fields: [clientId], references: [userId])
     onSiteWorkshopId String
-    onSiteWorkshop   OnSiteWorkshop @relation(fields: [onSiteWorkshopId], references: [workshopId])
+    onSiteWorkshop   OnSiteWorkshop @relation(fields: [onSiteWorkshopId], references: [workshopId], onDelete: Cascade)
 
     @@id([onSiteWorkshopId, clientId])
+    @@index([clientId])
+    @@index([onSiteWorkshopId])
 }
 
 model Order {
@@ -261,6 +290,8 @@ model Order {
     shipmentAddress      String
     UnregisteredClient   UnregisteredClient? @relation(fields: [unregisteredClientId], references: [id])
     unregisteredClientId String?             @unique
+
+    @@index([clientId])
 }
 
 model Post {
@@ -272,6 +303,8 @@ model Post {
     publicationDate DateTime
     finalDate       DateTime
     type            PostType
+
+    @@index([adminUserId])
 }
 
 model Product {
@@ -294,6 +327,9 @@ model ProductComment {
     comment   Comment @relation(fields: [commentId], references: [id])
     productId String
     product   Product @relation(fields: [productId], references: [id])
+
+    @@index([commentId])
+    @@index([productId])
 }
 
 model ProductOrder {
@@ -304,10 +340,13 @@ model ProductOrder {
     productId String
 
     @@id([orderId, productId])
+    @@index([orderId])
+    @@index([productId])
 }
 
 model Recipe {
     id               String             @id @default(cuid())
+    allergens        RecipeAllergen[]
     createdAt        DateTime           @default(now())
     description      String?
     difficulty       RecipeDifficulty
@@ -315,19 +354,24 @@ model Recipe {
     imageURL         String
     name             String
     portions         Int
-    RecipeComment    RecipeComment[]
     RecipeIngredient RecipeIngredient[]
-    timeSpan         Int
+    preparationTime  Int
+    cookingTime      Int
     userId           String
     User             User               @relation(fields: [userId], references: [id])
     RecipeUser       RecipeUser[]
+    Comment          Comment[]
+
+    @@index([userId])
 }
 
-model RecipeComment {
-    commentId String  @id
-    comment   Comment @relation(fields: [commentId], references: [id])
-    recipeId  String
-    recipe    Recipe  @relation(fields: [recipeId], references: [id])
+model RecipeAllergen {
+    allergen Allergen
+    recipeId String
+    Recipe   Recipe   @relation(fields: [recipeId], references: [id])
+
+    @@id([recipeId, allergen])
+    @@index([recipeId])
 }
 
 model RecipeDifficultyInSpanish {
@@ -342,6 +386,8 @@ model RecipeDirections {
     direction String @db.Text
     recipeId  String
     Recipe    Recipe @relation(fields: [recipeId], references: [id])
+
+    @@index([recipeId])
 }
 
 model RecipeIngredient {
@@ -353,6 +399,8 @@ model RecipeIngredient {
     unit         IngredientUnit
 
     @@id([recipeId, ingredientId])
+    @@index([ingredientId])
+    @@index([recipeId])
 }
 
 model RecipeUser {
@@ -362,6 +410,8 @@ model RecipeUser {
     User     User   @relation(fields: [userId], references: [id])
 
     @@id([recipeId, userId])
+    @@index([recipeId])
+    @@index([userId])
 }
 
 model ReportedComment {
@@ -371,6 +421,8 @@ model ReportedComment {
     comment      Comment @relation(fields: [commentId], references: [id])
 
     @@id([clientUserId, commentId])
+    @@index([clientUserId])
+    @@index([commentId])
 }
 
 model SuggestionForm {
@@ -378,6 +430,21 @@ model SuggestionForm {
     description String
     title       String
     type        SuggestionType
+}
+
+model SupraCategory {
+    id                    String                  @id @default(cuid())
+    SupraCategoryRelation SupraCategoryRelation[]
+    supraCategoryName     String                  @unique
+}
+
+model SupraCategoryRelation {
+    id              String        @id @default(cuid())
+    supraCategoryId String
+    SupraCategory   SupraCategory @relation(fields: [supraCategoryId], references: [id])
+    category        ECategory
+
+    @@index([supraCategoryId])
 }
 
 model Ticket {
@@ -389,6 +456,9 @@ model Ticket {
     description String
     state       Boolean
     ticketType  TicketType
+
+    @@index([clientId])
+    @@index([adminId])
 }
 
 model UnregisteredClient {
@@ -439,6 +509,10 @@ enum ECategory {
     syrups
     teas
     yeast
+    grano
+    rice
+    coffee
+    vinegar
 }
 
 enum IngredientUnit {

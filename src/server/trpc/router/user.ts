@@ -1,4 +1,10 @@
-import { clientProcedure, publicProcedure, router } from "../trpc";
+import { z } from "zod";
+import {
+  adminProcedure,
+  clientProcedure,
+  publicProcedure,
+  router,
+} from "../trpc";
 import { clientRouter } from "./user/client";
 
 export const userRouter = router({
@@ -18,4 +24,28 @@ export const userRouter = router({
   }),
 
   client: clientRouter,
+
+  delete: adminProcedure
+    .input(
+      z.object({
+        clientEmail: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { clientEmail } = input;
+
+      const client = await ctx.prisma.user.findFirst({
+        where: { email: clientEmail },
+      });
+
+      if (!client) {
+        return;
+      }
+
+      await ctx.prisma.user.delete({
+        where: {
+          id: client.id,
+        },
+      });
+    }),
 });

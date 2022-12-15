@@ -29,7 +29,7 @@ const Allergens = ({
   );
 };
 
-function AllergenComponent({
+export function AllergenComponent({
   allergen,
   size,
 }: {

@@ -10,7 +10,7 @@ import {
 } from "@server/trpc/trpc";
 import { clientSchema } from "@utils/validations/client";
 import { signUpByAdminSchema, signUpSchema } from "@utils/validations/auth";
-import { hash } from "argon2";
+import { commentSchema } from "@utils/validations/recipe";
 
 export const clientRouter = router({
   update: clientProcedure
@@ -36,9 +36,13 @@ export const clientRouter = router({
     }),
 
   getById: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string() }).nullish())
     .output(clientSchema)
-    .query(async ({ ctx, input: { id } }) => {
+    .query(async ({ ctx, input }) => {
+      const id = input?.id || ctx.session?.user?.id;
+
+      if (!id) throw new trpc.TRPCError({ code: "BAD_REQUEST" });
+
       const client = await ctx.prisma.user.findFirst({
         where: { id },
         select: {
@@ -89,6 +93,31 @@ export const clientRouter = router({
       return { status: 201 };
     }),
 
+  enrollWorkshop: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      const clientId = ctx.session.user.id;
+      await ctx.prisma.onSiteWorkshopAttendance.create({
+        data: { onSiteWorkshopId: onSiteWorkshopId, clientId: clientId },
+      });
+
+      return { status: 201 };
+    }),
+  unenrollWorkshop: clientProcedure
+    .input(z.object({ onSiteWorkshopId: z.string() }))
+    .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
+      await ctx.prisma.onSiteWorkshopAttendance.delete({
+        where: {
+          onSiteWorkshopId_clientId: {
+            onSiteWorkshopId,
+            clientId: ctx.session.user.id,
+          },
+        },
+      });
+
+      return { status: 201 };
+    }),
+
   getFavoriteRecipes: clientProcedure.query(async ({ ctx }) => {
     const recipes = await ctx.prisma.recipeUser.findMany({
       where: {
@@ -109,7 +138,75 @@ export const clientRouter = router({
 
     return recipes;
   }),
+  newRecipeComment: clientProcedure
+    .input(commentSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { recipeId, description, rating } = input;
+      await ctx.prisma.comment.create({
+        data: {
+          Recipe: { connect: { id: recipeId } },
+          description,
+          rating,
+          User: { connect: { id: ctx.session.user.id } },
+        },
+      });
+      return {
+        status: 201,
+        message: "Account updated successfully",
+      };
+    }),
 
+  getRecipeComments: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          description: true,
+          rating: true,
+          createdAt: true,
+          User: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+      return comments;
+    }),
+  getRecipeStatistics: clientProcedure
+    .input(z.object({ recipeId: z.string() }))
+    .query(async ({ ctx, input: { recipeId } }) => {
+      const ratings = await ctx.prisma.comment.findMany({
+        where: {
+          recipeId,
+        },
+        select: {
+          rating: true,
+        },
+      });
+
+      const average =
+        Math.round(
+          (ratings.reduce(
+            (acumulator, current) => acumulator + current.rating,
+            0,
+          ) /
+            ratings.length) *
+            100,
+        ) / 100;
+
+      //Obtener repetidos
+      const ranges: any = {};
+      ratings.forEach((e: { rating: number }) => {
+        const rangeStar = Math.ceil(e.rating);
+        ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
+      });
+
+      return { count: ratings.length, average, ranges };
+    }),
   updateAllergen: clientProcedure
     .input(
       z.object({
@@ -153,7 +250,7 @@ export const clientRouter = router({
       const { username, email, password } = input;
 
       const exists = await ctx.prisma.user.findFirst({
-        where: { email },
+        where: { email: email },
       });
 
       if (exists) {
@@ -163,7 +260,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = await hash(password);
+      const hashedPassword = password;
 
       const result = await ctx.prisma.user.create({
         data: {
@@ -206,7 +303,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = await hash(password);
+      const hashedPassword = password;
 
       const result = await ctx.prisma.user.create({
         data: {
@@ -232,4 +329,25 @@ export const clientRouter = router({
         result: result.email,
       };
     }),
+
+  getEnrollWorkshops: clientProcedure.query(async ({ ctx }) => {
+    const workshops = await ctx.prisma.onSiteWorkshopAttendance.findMany({
+      where: {
+        clientId: ctx.session.user.id,
+      },
+      select: {
+        onSiteWorkshop: {
+          select: {
+            workshopId: true,
+            date: true,
+            workshop: {
+              select: { name: true, description: true, imageURL: true },
+            },
+          },
+        },
+      },
+    });
+
+    return workshops;
+  }),
 });
