@@ -9,7 +9,7 @@ import YouTube from "react-youtube";
 
 export default function Workshops() {
   const [showOnsite, setShowOnsite] = useState(true);
-  const [image, setImage] = useState("/talleresGang.png");
+  const [image, setImage] = useState(String);
   const [video, setVideo] = useState(String);
   const [indexGlobal, setIndexGlobal] = useState(-1);
   const [showMore, setShowMore] = useState(true);
@@ -119,17 +119,27 @@ export default function Workshops() {
           {/*---DISPLAYER VIDEO/FOTO---*/}
           <div
             id="PICTURES"
-            className="relative mt-2 mr-2 hidden items-center justify-items-center overflow-hidden rounded-lg border-[1px] border-base-content align-middle md:block"
+            className={` relative mt-2 mr-2 hidden items-center justify-items-center overflow-hidden rounded-lg border-[1px] border-base-content align-middle md:block `}
           >
             {showOnsite ? (
               <div>
-                <Image
-                  src={image}
-                  objectFit="cover"
-                  className="rounded-lg"
-                  alt="notfound"
-                  layout="fill"
-                />
+                {image ? (
+                  <Image
+                    src={image}
+                    objectFit="cover"
+                    className="rounded-lg"
+                    alt="notfound"
+                    layout="fill"
+                  />
+                ) : (
+                  <Image
+                    src="/logo.svg"
+                    objectFit="contain"
+                    className="-mr-1 rounded"
+                    alt="notfound"
+                    layout="fill"
+                  />
+                )}
               </div>
             ) : (
               <div className="h-full w-full items-center justify-items-center align-middle">
