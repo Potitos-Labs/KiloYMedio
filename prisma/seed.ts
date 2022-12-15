@@ -275,7 +275,7 @@ async function main() {
       passwordHash: hashedPassword,
       role: "client",
       image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpeg",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Sandra.jpg",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -298,6 +298,8 @@ async function main() {
       email: "Alberto@Potitos.com",
       passwordHash: hashedPassword,
       role: "client",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alberto.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -308,6 +310,8 @@ async function main() {
       email: "Marta@Potitos.com",
       passwordHash: hashedPassword,
       role: "admin",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Marta.jpeg",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -318,6 +322,8 @@ async function main() {
       email: "Juan@Potitos.com",
       passwordHash: hashedPassword,
       role: "client",
+      image:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Juan.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -612,7 +618,7 @@ async function main() {
       Edible: { select: { Ingredient: { select: { id: true } } } },
     },
   });
-  const arrozbomita = await prisma.product.create({
+  const arrozbomba = await prisma.product.create({
     data: {
       name: "arroz bomba",
       plainName: "arroz bomba",
@@ -1120,10 +1126,10 @@ async function main() {
       name: "sirope de arce",
       plainName: "sirope de arce",
       description:
-        "Los jarabes  llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
+        "Los jarabes, llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
       stock: 23,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/sirope%20de%20arce.png",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Maple-Syrup-PNG-HD-Image.png",
       Edible: {
         create: {
           category: "syrups",
@@ -1151,27 +1157,27 @@ async function main() {
 
   const mermeladaMelon = await prisma.product.create({
     data: {
-      name: "mermelada de melón",
-      plainName: "mermelada de melon",
+      name: "mermelada de melocotón",
+      plainName: "mermelada de melocoton",
       description:
-        "Las mermeladas industriales estan dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
+        "Las mermeladas industriales están dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
       stock: 23,
       imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermelada%20de%20melon.jpeg?t=2022-11-28T17%3A33%3A56.871Z",
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermeladaKM.png",
       Edible: {
         create: {
           category: "jams",
           priceByWeight: 2.3,
           nutritionFacts: {
             create: {
-              ingredients: "mermelada de melon",
+              ingredients: "mermelada de melocotón",
               energy: 300,
               fat: 0,
               carbohydrates: 70,
               protein: 2,
             },
           },
-          Ingredient: { create: { name: "mermelada de melon" } },
+          Ingredient: { create: { name: "mermelada de melocotón" } },
         },
       },
       ProductUnit: "grams",
@@ -1395,7 +1401,19 @@ async function main() {
         "Una receta tradicional como las gachas no puede faltar en tu colección. Adaptada para celíacos.",
       User: { connect: { id: marta.id } },
       createdAt: new Date(),
-      allergens: { create: { allergen: "nuts" } },
+      allergens: { create: { allergen: "milk" } },
+      Comment: {
+        createMany: {
+          data: [
+            {
+              rating: 5,
+              description: "¡Qué rico 🤤!",
+              userId: alberto.id,
+              imageURL: alberto.image,
+            },
+          ],
+        },
+      },
     },
   });
 
@@ -1531,7 +1549,56 @@ async function main() {
       description:
         "Si no sabes qué desayunar o almorzar, prueba a hacer este sencillo sándwich de salmón con aguacate y huevo que no te defraudará.",
       User: { connect: { id: marta.id } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "cereals" },
+            { allergen: "eggs" },
+            { allergen: "milk" },
+            { allergen: "fish" },
+            { allergen: "sesameSeeds" },
+          ],
+        },
+      },
       createdAt: new Date(),
+      Comment: {
+        createMany: {
+          data: [
+            {
+              rating: 4,
+              description: "Tiene muy buena pinta, lo probaré.",
+              userId: juan.id,
+              imageURL: juan.image,
+            },
+            {
+              rating: 5,
+              description: "Está muy bueno, pero más bueno estoy yo 🥵🔥",
+              userId: alberto.id,
+              imageURL: alberto.image,
+            },
+            {
+              rating: 1,
+              description: "No es vegano ni sin gluten ☹",
+              userId: alicia.id,
+              imageURL: alicia.image,
+            },
+            {
+              rating: 5,
+              description:
+                "Cambiaron mi vida estas tostadas, 100% recomendadas 👍🏻.",
+              userId: pilar.id,
+              imageURL: pilar.image,
+            },
+            {
+              rating: 3,
+              description:
+                "Ni fu ni fa, no me ha gustado mucho, pero no está mal.",
+              userId: daniel.id,
+              imageURL: daniel.image,
+            },
+          ],
+        },
+      },
     },
   });
 
@@ -1666,7 +1733,15 @@ async function main() {
         "Este pastel de chocolate desbanca a la tarta de galletas y chocolate en los cumpleaños.",
       User: { connect: { id: marta.id } },
       createdAt: new Date(),
-      allergens: { create: { allergen: "cereals" } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "cereals" },
+            { allergen: "eggs" },
+            { allergen: "milk" },
+          ],
+        },
+      },
     },
   });
 
@@ -1785,6 +1860,14 @@ async function main() {
       description:
         "Los lácteos y las lentejas son excelentes fuentes de proteínas, y ambos toman protagonismo en este cremoso guiso.",
       User: { connect: { id: marta.id } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "milk" },
+            { allergen: "sulphurDioxideAndSulphites" },
+          ],
+        },
+      },
       createdAt: new Date(),
     },
   });
@@ -2014,6 +2097,14 @@ async function main() {
       description:
         "Receta para enamorar, perfecta para una comida o cena romántica de San Valentín, si eres de los que celebra la ocasión, para una celebración o para darse un homenaje.",
       User: { connect: { id: marta.id } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "milk" },
+            { allergen: "sulphurDioxideAndSulphites" },
+          ],
+        },
+      },
       createdAt: new Date(),
     },
   });
@@ -2110,7 +2201,7 @@ async function main() {
   const cebollas = await prisma.recipe.create({
     data: {
       name: "cebollas moradas rellenas",
-      difficulty: "moderate",
+      difficulty: "easy",
       directions: {
         createMany: {
           data: [
@@ -2159,21 +2250,87 @@ async function main() {
       description:
         "Cebollas moradas rellenas, receta versátil que es perfecta como guarnición o entrante navideño",
       User: { connect: { id: juan.id } },
+      allergens: {
+        createMany: {
+          data: [
+            { allergen: "nuts" },
+            { allergen: "cereals" },
+            { allergen: "milk" },
+          ],
+        },
+      },
       createdAt: new Date(),
     },
   });
 
   const cebollasIngredientsProducts = [
     {
-      amount: 12,
+      amount: 3,
       unit: IngredientUnit.unit,
-      Ingredient: almendra.Edible?.Ingredient,
+      Ingredient: { create: { name: "cebolla morada" } },
       Recipe: cebollas,
     },
     {
-      amount: 20,
-      unit: IngredientUnit.milliliters,
-      Ingredient: aceiteOliva.Edible?.Ingredient,
+      amount: 3,
+      unit: IngredientUnit.unit,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "tomates" },
+          create: { name: "tomates" },
+        },
+      },
+      Recipe: cebollas,
+    },
+    {
+      amount: 30,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "pan rallado" } },
+      Recipe: cebollas,
+    },
+    {
+      amount: 40,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "queso parmesano rallado" },
+          create: { name: "queso parmesano rallado" },
+        },
+      },
+      Recipe: cebollas,
+    },
+    {
+      amount: 12,
+      unit: IngredientUnit.unit,
+      Ingredient: { connect: { id: almendra.Edible?.Ingredient.id } },
+      Recipe: cebollas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: cebollas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "pimienta negra molida" } },
+      Recipe: cebollas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { create: { name: "tomillo fresco" } },
+      Recipe: cebollas,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
       Recipe: cebollas,
     },
   ].map(
@@ -2181,7 +2338,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -2266,7 +2423,12 @@ async function main() {
     {
       amount: 800,
       unit: IngredientUnit.grams,
-      Ingredient: { create: { name: "tomates" } },
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "tomates" },
+          create: { name: "tomates" },
+        },
+      },
       Recipe: espaguetisBoloñesa,
     },
     {
@@ -2333,7 +2495,12 @@ async function main() {
     {
       amount: 1,
       unit: IngredientUnit.teaspoon,
-      Ingredient: { create: { name: "pimienta" } },
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "pimienta" },
+          create: { name: "pimienta" },
+        },
+      },
       Recipe: espaguetisBoloñesa,
     },
     {
@@ -2357,20 +2524,38 @@ async function main() {
   const panPueblo = await prisma.recipe.create({
     data: {
       name: "pan de pueblo tradicional",
-      difficulty: "moderate",
+      difficulty: "easy",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction:
+                "La noche anterior preparamos la masa madre. Para ello, ponemos el agua en un bol y desleímos en ella la levadura, añadimos la harina y mezclamos. Tapamos con papel film y la dejamos reposar dentro de la nevera hasta el día siguiente.",
+              number: 1,
+            },
+            {
+              direction:
+                "Para hacer el pan, ponemos el agua y la levadura en un bol grande y los mezclamos bien. Añadimos el resto de ingredientes, incluida la masa madre, y amasamos hasta conseguir una masa blanda y algo pegajosa. La colocamos en un bol untado con aceite, la cubrimos con un paño limpio y dejamos que doble su volumen (unos 30 minutos).",
+              number: 2,
+            },
+            {
+              direction:
+                "Volcamos la masa sobre una superficie de trabajo espolvoreada de harina y la amasamos ligeramente para sacarle el aire. Le damos la forma deseada y la colocamos en una fuente de horno forrada con papel de hornear. Hacemos un corte sobre la superficie, la espolvoreamos de harina y dejamos reposar de nuevo hasta que doble su volumen (otros 30 minutos).",
+              number: 3,
+            },
+            {
+              direction:
+                "Precalentamos el horno a 250ºC. Colocamos una bandeja en la solera del horno con agua y la rejilla a media altura. Colocamos el pan sobre la rejilla y horneamos unos diez minutos. Después, bajamos la temperatura a 200º C y dejamos cocer unos 40 minutos más. Retiramos del horno y dejamos enfriar.",
+              number: 4,
+            },
+          ],
         },
       },
       imageURL:
         "https://www.comedera.com/wp-content/uploads/2022/03/pan-de-pueblo.jpg",
       portions: 2,
-      cookingTime: 40,
-      preparationTime: 25,
+      cookingTime: 30,
+      preparationTime: 80,
       description:
         "Reconozco que hacer pan casero me atrae más cada día. Hoy utilizamos ingredientes normales para hacer un pan de escándalo y con pocos condicionantes.",
       User: { connect: { id: juan.id } },
@@ -2381,15 +2566,64 @@ async function main() {
 
   const panPuebloIngredients = [
     {
-      amount: 200,
+      amount: 380,
       unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "agua" },
+          create: { name: "agua" },
+        },
+      },
       Recipe: panPueblo,
     },
     {
-      amount: 2,
-      unit: IngredientUnit.teaspoon,
-      Ingredient: levaduraNutricional.Edible?.Ingredient,
+      amount: 20,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "levadura prensada" },
+          create: { name: "levadura prensada" },
+        },
+      },
+      Recipe: panPueblo,
+    },
+    {
+      amount: 100,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "harina de reposteria" },
+          create: { name: "harina de reposteria" },
+        },
+      },
+      Recipe: panPueblo,
+    },
+    {
+      amount: 500,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "harina de fuerza" },
+          create: { name: "harina de fuerza" },
+        },
+      },
+      Recipe: panPueblo,
+    },
+    {
+      amount: 10,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: panPueblo,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
       Recipe: panPueblo,
     },
   ].map(
@@ -2397,7 +2631,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -2410,17 +2644,70 @@ async function main() {
       difficulty: "hard",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction:
+                "Preparar los ingredientes. Retirar huesecillos sueltos de las carnes. Lavar las verduras y rallar el tomate.",
+              number: 1,
+            },
+            {
+              direction:
+                "Depositar todo el aceite en la paella y nivelarla observando cómo este se queda en el centro.",
+              number: 2,
+            },
+            {
+              direction:
+                "Añadir sal a la paella alrededor del aceite, y comenzar a dorar la carne a fuego medio solo en el centro de la paella. Añadir los higadillos al final.",
+              number: 3,
+            },
+            {
+              direction:
+                "Cuando la carne esté completamente dorada en toda su superficie, apartar al borde de la paella y sofreír en el centro primero las judías planas y luego el garrofó.",
+              number: 4,
+            },
+            {
+              direction:
+                "Una vez cocinadas las verduras apartar al borde de la paella y sofreír en el centro de la paella el tomate rallado. Integrar bien con los jugos que ha soltado la carne. Cuando el tomate comience a caramelizarse, integrar con todos los demás ingredientes de la paella.",
+              number: 5,
+            },
+            {
+              direction:
+                "Añadir el pimentón y el azafrán a la paella. Integrar.",
+              number: 6,
+            },
+            {
+              direction:
+                "Inmediatamente, para evitar que el pimentón se queme, añadir a la paella el volumen de agua correspondiente a la proporción adecuada agua-arroz para la variedad de arroz que hayamos escogido. Tomar referencia de ese volumen.",
+              number: 7,
+            },
+            {
+              direction:
+                "A continuación, llenar la paella con agua hasta el borde. Repartir el fuego por toda la base de la paella y dejar cocinar el caldo en la propia paella a fuego medio-bajo, sin que deje de borbotear.",
+              number: 8,
+            },
+            {
+              direction:
+                "Cuando el caldo haya llegado al nivel de referencia tomado, añadir el arroz y repartirlo por toda la paella.",
+              number: 9,
+            },
+            {
+              direction:
+                "Dejar cocer el arroz sin tocarlo: durante los primeros 4-5 minutos a fuego alto, a continuación, a fuego medio y a partir del minuto 10, a fuego bajo. Cuando el arroz comience a asomarse, colocar unas ramitas de romero.",
+              number: 10,
+            },
+            {
+              direction:
+                "Cuando el arroz esté seco, a final de cocción, dejar formar el socarrat y a continuación apagar el fuego. Dejar reposar la paella unos 5 minutos y… ¡a disfrutar!",
+              number: 11,
+            },
+          ],
         },
       },
       imageURL:
         "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2021%2F06%2F04%2Fpaella-valenciana.jpg&q=60",
-      portions: 5,
-      cookingTime: 20,
-      preparationTime: 30,
+      portions: 4,
+      cookingTime: 105,
+      preparationTime: 15,
       description:
         "El otro día hice esta deliciosa paella al estilo de Valencia, ¡mirad qué pintaza!",
       User: { connect: { id: sandra.id } },
@@ -2430,9 +2717,85 @@ async function main() {
 
   const paellaIngredients = [
     {
+      amount: 400,
+      unit: IngredientUnit.grams,
+      Ingredient: { connect: { id: arrozbomba.Edible?.Ingredient.id } },
+      Recipe: paella,
+    },
+    {
+      amount: 900,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "pollo" } },
+      Recipe: paella,
+    },
+    {
+      amount: 500,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "conejo" } },
+      Recipe: paella,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "hígado de conejo" } },
+      Recipe: paella,
+    },
+    {
+      amount: 200,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "judías verdes planas" } },
+      Recipe: paella,
+    },
+    {
+      amount: 100,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "garrofó" } },
+      Recipe: paella,
+    },
+    {
       amount: 100,
       unit: IngredientUnit.milliliters,
-      Ingredient: aceiteOliva.Edible?.Ingredient,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
+      Recipe: paella,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.unit,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "tomates" },
+          create: { name: "tomates" },
+        },
+      },
+      Recipe: paella,
+    },
+    {
+      amount: 15,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: paella,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.grams,
+      Ingredient: { create: { name: "azafrán" } },
+      Recipe: paella,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: { create: { name: "pimentón dulce" } },
+      Recipe: paella,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.unit,
+      Ingredient: { create: { name: "ramita de romero" } },
       Recipe: paella,
     },
   ].map(
@@ -2440,7 +2803,7 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
@@ -2453,16 +2816,39 @@ async function main() {
       difficulty: "moderate",
       directions: {
         createMany: {
-          data: {
-            direction: "Paso para la receta",
-            number: 1,
-          },
+          data: [
+            {
+              direction:
+                "Colocar los 7 primeros ingredientes de la lista en un bol amplio y mezclar, es decir, el aceite, los huevos, el azúcar, la vainilla, el bicarbonato, la sal y la canela.",
+              number: 1,
+            },
+            {
+              direction:
+                "Incorpora la harina de trigo tamizada y continúa batiendo a máxima velocidad hasta conseguir una masa homogénea y cremosa.",
+              number: 2,
+            },
+            {
+              direction:
+                "Añade la zanahoria y, después de batir bien, agrega las nueces y remueve este último ingrediente con una cuchara de madera para terminar con la masa de la torta de zanahoria y nueces.",
+              number: 3,
+            },
+            {
+              direction:
+                "Vacía la masa en un molde previamente engrasado y cocina el pastel de zanahoria y nueces en el horno a 350 ºF o 180 ºC por 1 hora aproximadamente o hasta que al introducir un palillo este salga limpio y seco.",
+              number: 4,
+            },
+            {
+              direction:
+                "Deja que la torta de zanahoria y nueces con canela se enfríe una vez la saques del horno para después desmoldarla y decorarla con un frosting de vainilla fácil de hacer y que combinará perfectamente como relleno y como cobertura de este delicioso bizcocho de zanahoria y nueces.",
+              number: 5,
+            },
+          ],
         },
       },
       imageURL:
         "https://www.guatemala.com/fotos/2020/07/reto-culinario-municipalidad-768x436.jpg",
-      portions: 4,
-      cookingTime: 45,
+      portions: 16,
+      cookingTime: 90,
       preparationTime: 25,
       description:
         "Tenéis que probar esta receta de tarta de zanahoria, cremosa y exquisita, con un toque a almendra.",
@@ -2471,7 +2857,11 @@ async function main() {
 
       allergens: {
         createMany: {
-          data: [{ allergen: "cereals" }, { allergen: "nuts" }],
+          data: [
+            { allergen: "eggs" },
+            { allergen: "cereals" },
+            { allergen: "nuts" },
+          ],
         },
       },
     },
@@ -2479,15 +2869,103 @@ async function main() {
 
   const tartaZanahoriaIngredients = [
     {
-      amount: 150,
-      unit: IngredientUnit.grams,
-      Ingredient: harinaTrigo.Edible?.Ingredient,
+      amount: 4,
+      unit: IngredientUnit.unit,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "huevo campero" },
+          create: { name: "huevo campero" },
+        },
+      },
       Recipe: tartaZanahoria,
     },
     {
-      amount: 40,
-      unit: IngredientUnit.grams,
-      Ingredient: almendra.Edible?.Ingredient,
+      amount: 2,
+      unit: IngredientUnit.cup,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "azúcar" },
+          create: { name: "azúcar" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.cup,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "esencia de vainilla" },
+          create: { name: "esencia de vainilla" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "bicarbonato" },
+          create: { name: "bicarbonato" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.pinch,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "canela en polvo" },
+          create: { name: "canela en polvo" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.cup,
+      Ingredient: { connect: { id: harinaTrigo.Edible?.Ingredient.id } },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.cup,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "zanahoria rallada" },
+          create: { name: "zanahoria rallada" },
+        },
+      },
+      Recipe: tartaZanahoria,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.cup,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "nueces picadas" },
+          create: { name: "nueces picadas" },
+        },
+      },
       Recipe: tartaZanahoria,
     },
   ].map(
@@ -2495,12 +2973,139 @@ async function main() {
       await prisma.recipeIngredient.create({
         data: {
           amount: i.amount,
-          Ingredient: { connect: { id: i.Ingredient?.id } },
+          Ingredient: i.Ingredient,
           Recipe: { connect: { id: i.Recipe.id } },
           unit: i.unit,
         },
       }),
   );
+
+  const quesoVegano = await prisma.recipe.create({
+    data: {
+      name: "Queso vegano de anacardos",
+      difficulty: "easy",
+      directions: {
+        createMany: {
+          data: [
+            {
+              direction: "Activamos los anacardos durante 6-8 horas.",
+              number: 1,
+            },
+            {
+              direction:
+                "Una vez tengamos los anacardos activados, los procesamos con el resto de ingredientes de la masa, en un procesador de alimentos. Tiene que quedar una textura sin grumos, similar a una crema de cacahuete pero más seca.",
+              number: 2,
+            },
+            {
+              direction:
+                "Damos forma al queso y lo horneamos a 90 grados durante 45 minutos.",
+              number: 3,
+            },
+            {
+              direction:
+                "Una vez horneado, el queso ya estaría listo para su maduración, lo dejaremos en una recipiente con rejilla en la nevera, sin tapa. Lo ideal es dejarlo entre dos semanas y un mes. Cuanto más tiempo lo dejemos, má s firme será su textura y más intenso su sabor.",
+              number: 4,
+            },
+          ],
+        },
+      },
+      imageURL:
+        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/queso-vegano.png",
+      portions: 8,
+      cookingTime: 45,
+      preparationTime: 20,
+      description:
+        "Queso vegano de anacardos cremoso, untable y muy fácil de hacer.",
+      User: { connect: { id: sandra.id } },
+      createdAt: new Date(),
+      allergens: {
+        create: { allergen: "nuts" },
+      },
+    },
+  });
+
+  const quesoVeganoIngredients = [
+    {
+      amount: 250,
+      unit: IngredientUnit.grams,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "anacardos" },
+          create: { name: "anacardos" },
+        },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 0.5,
+      unit: IngredientUnit.cup,
+      Ingredient: {
+        connect: { id: levaduraNutricional.Edible?.Ingredient.id },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "romero fresco" },
+          create: { name: "romero fresco" },
+        },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "ajo en polvo" },
+          create: { name: "ajo en polvo" },
+        },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "cebolla en polvo" },
+          create: { name: "cebolla en polvo" },
+        },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 1,
+      unit: IngredientUnit.teaspoon,
+      Ingredient: {
+        connectOrCreate: {
+          where: { name: "sal" },
+          create: { name: "sal" },
+        },
+      },
+      Recipe: quesoVegano,
+    },
+    {
+      amount: 2,
+      unit: IngredientUnit.tablespoon,
+      Ingredient: { connect: { id: aceiteOliva.Edible?.Ingredient.id } },
+      Recipe: quesoVegano,
+    },
+  ].map(
+    async (i) =>
+      await prisma.recipeIngredient.create({
+        data: {
+          amount: i.amount,
+          Ingredient: i.Ingredient,
+          Recipe: { connect: { id: i.Recipe.id } },
+          unit: i.unit,
+        },
+      }),
+  );
+
   /* END RECETAS DE LA COMUNIDAD */
 
   const unidadesDeMedida = await prisma.ingredientUnitInSpanish.createMany({
