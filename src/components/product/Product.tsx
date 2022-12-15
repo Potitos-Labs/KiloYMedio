@@ -63,7 +63,7 @@ function Product({
               height="100"
               layout="fixed"
               objectFit="contain"
-              className="rounded-md"
+              className="cursor-pointer rounded-md"
             />
           </div>
           {data?.user?.role == "admin" && (
@@ -77,7 +77,7 @@ function Product({
               />
             </div>
           )}
-          <p className="sm: mx-10 text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
+          <p className="sm: mx-10 cursor-pointer text-center font-raleway text-xs uppercase leading-[18px] sm:text-base sm:leading-normal">
             {product.name}
           </p>
         </div>
