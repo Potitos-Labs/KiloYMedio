@@ -261,7 +261,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                   animate={controls}
                   onPan={handlePan}
                   onPanEnd={handlePanEnd}
-                  className="absolute flex h-10 w-32 cursor-grabbing items-center justify-center rounded-full bg-secondary"
+                  className="absolute flex h-10 w-32 cursor-grabbing touch-none items-center justify-center rounded-full bg-secondary"
                 >
                   <p className="select-none">
                     {prices
