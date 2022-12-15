@@ -102,7 +102,7 @@ export default function CreateEdit(props: {
 
   return (
     <>
-      <div className="mt-[50px] ml-[20px] max-w-[769px] font-raleway text-[45px] md:ml-[80px] md:text-xl">
+      <div className="sm:mr-none mr-[5px] mt-[50px] ml-[20px] max-w-[769px] font-raleway text-[28px] sm:mr-0 sm:text-[38px] md:ml-[80px]  md:text-xl">
         COMPARTE TU RECETA EN UNOS SENCILLOS PASOS
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,36 +112,41 @@ export default function CreateEdit(props: {
             <div className="grid grid-cols-1">
               <section className="flex flex-col gap-6">
                 {/* Title */}
-                <div className="flex flex-col gap-[30px]">
-                  <div className="font-raleway text-lg">
+                <div className="flex flex-col gap-[20px] sm:gap-[30px]">
+                  <div className="font-raleway text-[20px] sm:text-lg ">
                     PONLE NOMBRE A TU RECETA
                   </div>
                   <input
-                    className="input input-bordered mr-[50px] h-[60px] rounded-[30px] border-base-300 text-sm text-base-300"
+                    className="input input-bordered mr-[20px] rounded-[30px] border-base-300 text-sm text-base-300 sm:mr-[50px] sm:h-[60px]"
                     type="text"
                     placeholder="Título"
                     {...register("name")}
                   />
                   {errors.name && (
-                    <p className="-mt-6 flex text-sm text-red-500">
+                    <p className="-mt-4 flex text-xs text-red-500 sm:-mt-6 sm:text-sm">
                       {errors.name.message}
                     </p>
                   )}
                 </div>
                 {/* Title End*/}
                 {/* Info */}
-                <div className="mt-8 font-raleway text-lg">
+                <div className="mt-4 font-raleway text-[20px] sm:mt-8 sm:text-lg">
                   TIEMPO Y PORCIONES
                 </div>
-                <div className="grid w-1/2 auto-cols-auto grid-cols-[45%-55%] grid-rows-[35%-35%-15%-15%] gap-y-[20px] gap-x-[10px] text-start md:grid-cols-[30%_35%_35%] md:grid-rows-4">
+                <div
+                  className="gap-y-[20px] gap-x-[10px]  text-start 
+                  sm:grid sm:auto-cols-auto 
+                  
+                sm:grid-cols-[45%-55%] sm:grid-rows-[35%-35%-15%-15%] md:grid-cols-[30%_35%_35%] md:grid-rows-4 xl:w-1/2"
+                >
                   {/* Grid Row 1: Preparation time */}
-                  <div className="col-start-1 row-start-1 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
+                  <div className=" col-start-1 row-start-1 mb-1 self-start pt-0  text-[18px] sm:mb-0 sm:pt-3 sm:text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de preparación:
                   </div>
                   <div className="col-start-2 row-start-1 mr-5 self-center text-xs sm:text-sm md:col-span-2 md:text-lg">
                     <TimeSpanForm control={control} label={"preparationTime"} />
                     {errors.preparationTime && (
-                      <p className="flex text-sm text-red-500">
+                      <p className="flex text-xs text-red-500 sm:text-sm">
                         {errors.preparationTime?.minute?.message}
                       </p>
                     )}
@@ -149,13 +154,13 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 1: Preparation time */}
 
                   {/* Grid Row 2: Cooking time */}
-                  <div className="col-start-1 row-start-2 self-start pt-3 text-sm md:self-center md:pt-0 md:text-lg">
+                  <div className="col-start-1 row-start-2 mb-1 self-start pt-4 text-[18px] sm:mb-0 sm:text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de cocinado:
                   </div>
                   <div className="col-start-2 row-start-2 mr-5 self-center text-xs sm:text-sm md:col-span-2 md:text-lg">
                     <TimeSpanForm control={control} label={"cookingTime"} />
                     {errors.cookingTime && (
-                      <p className="flex text-sm text-red-500">
+                      <p className="flex text-xs text-red-500 sm:text-sm">
                         {errors.cookingTime?.minute?.message}
                       </p>
                     )}
@@ -163,10 +168,10 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 2: Cooking time */}
 
                   {/* Grid Row 3: Portions */}
-                  <div className="col-start-1 row-start-3 self-center text-sm md:text-lg">
+                  <div className="col-start-1 row-start-3 mb-1 self-center pt-4 text-[18px] sm:mb-0  sm:pt-0 sm:text-sm md:text-lg">
                     Porciones:
                   </div>
-                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-xs sm:text-sm md:text-lg">
+                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-xs sm:text-sm md:text-lg ">
                     <Controller
                       name="portions"
                       control={control}
@@ -176,14 +181,15 @@ export default function CreateEdit(props: {
                           amount={value}
                           max={15}
                           unit="pers"
-                          className="h-[60px] w-[150px] rounded-[30px] border-[1px] border-base-300"
+                          className="h-[40px] w-[110px]  rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
                           onBlur={onBlur}
                         ></IncDecButtons>
                       )}
                     ></Controller>
+
                     <p className="text-xs sm:text-sm md:text-lg"> pers</p>
                     {errors.portions && (
-                      <p className="flex text-sm text-red-500">
+                      <p className="flex text-xs text-red-500 sm:text-sm">
                         {errors.portions.message}
                       </p>
                     )}
@@ -191,10 +197,10 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 3: Portions */}
 
                   {/* Grid Row 4: Difficulty */}
-                  <div className="col-start-1 row-start-4 self-center text-sm md:text-lg">
+                  <div className="col-start-1 row-start-4 mb-1 self-center pt-4 text-[18px] sm:mb-0 sm:pt-0 sm:text-sm md:text-lg">
                     Dificultad:
                   </div>
-                  <div className="col-start-2 row-start-4 mr-5 text-xs sm:text-sm md:text-lg">
+                  <div className=" col-start-2 row-start-4 mr-5 text-xs sm:text-sm md:text-lg">
                     <Controller
                       name={`difficulty`}
                       control={control}
@@ -214,15 +220,17 @@ export default function CreateEdit(props: {
               </section>
             </div>
             {/* Image */}
-            <div className="grid-cols col-start-1 grid xl:col-start-2 xl:ml-8">
-              <div className="font-raleway text-lg">AÑADE UNA FOTO</div>
-              <div className="mt-[35px] text-center">
+            <div className="grid-cols col-start-1 mt-12 grid sm:mt-0 xl:col-start-2 xl:ml-8">
+              <div className="font-raleway text-[20px] sm:text-lg">
+                AÑADE UNA FOTO
+              </div>
+              <div className="mt-6 grid place-content-center text-center sm:mt-[35px] sm:block">
                 <Controller
                   name="imageURL"
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <>
-                      <div>
+                      <div className="">
                         <UploadImageRecipe
                           setImageURL={onChange}
                           value={value}
@@ -232,7 +240,7 @@ export default function CreateEdit(props: {
                   )}
                 ></Controller>
                 {errors.imageURL && (
-                  <p className="flex text-sm text-red-500">
+                  <p className="flex text-xs text-red-500 sm:text-sm">
                     {errors.imageURL?.message}
                   </p>
                 )}
@@ -245,8 +253,10 @@ export default function CreateEdit(props: {
           {/*Recipe*/}
           <section className="mt-8 flex flex-col gap-6">
             {/* Description */}
-            <div className="flex max-w-[700px] flex-col gap-[30px]">
-              <div className="font-raleway text-lg">DESCRIPCIÓN</div>
+            <div className="flex max-w-[700px] flex-col gap-[15px] sm:gap-[30px]">
+              <div className="font-raleway text-[20px] sm:text-lg">
+                DESCRIPCIÓN
+              </div>
               <textarea
                 className="textarea textarea-bordered mr-5 h-[120px] rounded-[30px] border-base-300 text-sm leading-[30px] text-base-300"
                 {...register("description", {})}
@@ -262,7 +272,7 @@ export default function CreateEdit(props: {
             {/* Ingredients */}
             <div className="w-full gap-2">
               <div>
-                <div className="mb-[20px] mt-8 font-raleway text-lg">
+                <div className="mb-[20px] mt-8 font-raleway text-[20px] sm:text-lg">
                   AÑADE INGREDIENTES
                 </div>
 
@@ -283,7 +293,7 @@ export default function CreateEdit(props: {
                               )}
                             ></Controller>
                             {errors.ingredients?.[index] && (
-                              <p className="flex text-sm text-red-500">
+                              <p className="flex text-xs text-red-500 sm:text-sm">
                                 {errors.ingredients?.[index]?.name?.message}
                               </p>
                             )}
@@ -300,18 +310,18 @@ export default function CreateEdit(props: {
                                   amount={value}
                                   max={999}
                                   unit="other"
-                                  className="h-[60px] w-[150px] rounded-[30px] border-[1px] border-base-300"
+                                  className="h-[40px] w-[110px] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
                                   onBlur={onBlur}
                                 ></IncDecButtons>
                               )}
                             ></Controller>
                             {errors.ingredients?.[index] && (
-                              <p className="flex text-sm text-red-500">
+                              <p className="flex text-xs text-red-500 sm:text-sm">
                                 {errors.ingredients?.[index]?.amount?.message}
                               </p>
                             )}
                           </div>
-                          <div className="flex text-sm">
+                          <div className="pr-5 text-sm sm:flex sm:pr-0">
                             <Controller
                               name={`ingredients.${index}.unit`}
                               control={control}
@@ -335,7 +345,7 @@ export default function CreateEdit(props: {
                     );
                   })}
                 </div>
-                <p className="flex text-sm text-red-500">
+                <p className="flex text-xs text-red-500 sm:text-sm">
                   {errors.ingredients?.message}
                 </p>
                 <button
@@ -352,7 +362,7 @@ export default function CreateEdit(props: {
                   <label className="h-[40px] w-[40px] rounded-full border-none bg-[#AEAAA6] pt-0.5 text-[35px] leading-none text-base-100 hover:cursor-pointer">
                     +
                   </label>
-                  <label className="text-lg hover:cursor-pointer">
+                  <label className="text-[18px] hover:cursor-pointer sm:text-lg">
                     Añadir ingrediente
                   </label>
                 </button>
@@ -381,7 +391,7 @@ export default function CreateEdit(props: {
                             {...register(`directions.${index}.direction`)}
                           />
                           {errors.directions?.[index] && (
-                            <p className="flex text-sm text-red-500">
+                            <p className="flex text-xs text-red-500 sm:text-sm">
                               {errors.directions?.[index]?.direction?.message}
                             </p>
                           )}
@@ -397,7 +407,7 @@ export default function CreateEdit(props: {
                   );
                 })}
               </div>
-              <p className="flex text-sm text-red-500">
+              <p className="flex text-xs text-red-500 sm:text-sm">
                 {errors.directions?.message}
               </p>
               <button
@@ -413,7 +423,7 @@ export default function CreateEdit(props: {
                 <label className="h-[40px] w-[40px] rounded-full border-none bg-[#AEAAA6] pt-0.5 text-[35px] leading-none text-base-100 hover:cursor-pointer">
                   +
                 </label>
-                <label className="text-lg hover:cursor-pointer">
+                <label className="text-[18px] hover:cursor-pointer sm:text-lg ">
                   Añadir paso
                 </label>
               </button>
@@ -426,7 +436,7 @@ export default function CreateEdit(props: {
               <div className="mt-8 mb-[20px] font-raleway text-lg">
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
-              <div className="flex max-w-[300px] text-xs sm:max-w-full sm:text-sm">
+              <div className="flex pr-5 text-xs sm:max-w-full sm:pr-0 sm:text-sm">
                 {allergens && (
                   <Controller
                     name={"allergens"}
@@ -456,9 +466,9 @@ export default function CreateEdit(props: {
           </section>
           {/*End Recipe*/}
           {/* Button */}
-          <div className="flex flex-col-reverse gap-5 pb-6 md:flex-row">
+          <div className="mt-3 flex flex-row-reverse justify-end gap-2 pb-6 sm:mt-0 sm:justify-start sm:gap-5 md:flex-row">
             <button
-              className="btn flex h-[60px] w-[220px] rounded-[30px] bg-transparent font-raleway text-sm hover:bg-transparent md:mt-6"
+              className="btn flex h-[40px] w-[170px] rounded-[30px] bg-transparent font-raleway text-sm hover:bg-transparent sm:h-[60px] sm:w-[220px] md:mt-6"
               type="button"
               onClick={() => router.push("/recipe")}
             >
@@ -466,7 +476,7 @@ export default function CreateEdit(props: {
             </button>
             <button
               type="submit"
-              className="btn mt-6 flex h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
+              className="btn flex h-[40px] w-[170px] rounded-[30px] font-raleway text-sm text-base-100 sm:mt-6 sm:h-[60px] sm:w-[220px]"
             >
               {buttonText}
             </button>

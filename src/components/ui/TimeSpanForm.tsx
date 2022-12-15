@@ -10,9 +10,9 @@ export default function TimeSpanForm({
   label: string;
 }) {
   return (
-    <div className="flex flex-col gap-3 md:flex-row">
+    <div className="flex flex-row gap-2 sm:flex-col sm:gap-3 md:flex-row">
       {/* Cooking time */}
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-1 sm:gap-2">
         <Controller
           name={`${label}.hour`}
           control={control}
@@ -22,14 +22,14 @@ export default function TimeSpanForm({
               amount={value}
               max={23}
               unit="hour"
-              className="h-[60px] w-[150px] rounded-[30px] border-[1px] border-base-300"
+              className=" h-[40px] w-[110px] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
               onBlur={onBlur}
             ></IncDecButtons>
           )}
         ></Controller>
-        <p className="pr-5">horas</p>
+        <p className="text-[15px] sm:pr-5 sm:text-base">horas</p>
       </div>
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-1 sm:gap-2">
         <Controller
           name={`${label}.minute`}
           control={control}
@@ -39,12 +39,12 @@ export default function TimeSpanForm({
               amount={value}
               max={59}
               unit="min"
-              className="h-[60px] w-[150px] rounded-[30px] border-[1px] border-base-300"
+              className="h-[40px] w-[110] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
               onBlur={onBlur}
             ></IncDecButtons>
           )}
         ></Controller>
-        <p>minutos</p>
+        <p className="text-[15px] sm:text-base">minutos</p>
       </div>
       {/* Cooking time End*/}
     </div>

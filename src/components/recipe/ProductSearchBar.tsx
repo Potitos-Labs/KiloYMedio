@@ -19,9 +19,9 @@ const SearchBar = ({
 
   return (
     <div className="group relative h-4/5 sm:h-auto md:w-64">
-      <div className="input input-bordered flex h-[60px] rounded-[30px] border-neutral">
+      <div className="input input-bordered flex h-[40px] rounded-[30px] border-neutral sm:h-[60px]">
         <input
-          className="input h-full w-full bg-transparent text-sm text-neutral focus:outline-0"
+          className="input h-[40px] w-full bg-transparent text-sm text-neutral focus:outline-0 sm:h-full"
           autoComplete="off"
           id="searchBar"
           value={value}

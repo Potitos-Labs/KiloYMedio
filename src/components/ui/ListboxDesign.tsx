@@ -25,12 +25,12 @@ function ListboxDesign({
   }
 
   return (
-    <div className="dropdown w-44">
+    <div className="dropdown w-[100%] sm:w-44">
       <Listbox
         value={options.find((o) => o.value == value)}
         onChange={(o) => onChange(o.value)}
       >
-        <Listbox.Button className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent">
+        <Listbox.Button className="btn h-[40px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent sm:h-[60px]">
           {list[value as IngredientUnit]}
           <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
             <IoIosArrowDown className="h-5 w-5" />
@@ -38,7 +38,9 @@ function ListboxDesign({
         </Listbox.Button>
         <Listbox.Options
           className={`dropdown-content rounded-box menu-vertical max-h-52 bg-base-100 p-2 ${
-            order == "alphabetical" ? "overflow-y-scroll" : "w-40 overflow-auto"
+            order == "alphabetical"
+              ? "overflow-y-scroll"
+              : "w-[100%] overflow-auto sm:w-40"
           }`}
         >
           {options.map((item) => (

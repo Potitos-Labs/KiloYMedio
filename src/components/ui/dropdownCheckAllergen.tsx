@@ -42,9 +42,9 @@ function DropdownCheckAllergen({
   }, [selectedAllergen, onChange]);
 
   return (
-    <div className="dropdown w-[340px]">
+    <div className="dropdown w-[100%] sm:w-[340px]">
       <Listbox value={selectedAllergen} onChange={setSelectedAllergen} multiple>
-        <Listbox.Button className="btn h-[60px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent">
+        <Listbox.Button className="btn h-[40px] w-full justify-between rounded-[30px] bg-transparent text-sm hover:bg-transparent sm:h-[60px]">
           <p className="ml-4 text-sm">Alérgenos</p>
           <span className="pointer-events-none inset-y-0 right-0 flex pr-2">
             <IoIosArrowDown className="h-5 w-5" />
