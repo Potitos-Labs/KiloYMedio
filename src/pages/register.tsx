@@ -86,8 +86,8 @@ const SignUp: NextPage = () => {
 
   console.log({ errors });
   return (
-    <div className="h-screen bg-accent">
-      <main className="bg-accent bg-cover bg-center bg-no-repeat md:items-end md:bg-[url('/img/fondoRegistrarse.png')]">
+    <div className="h-screen bg-[#FFA24A]">
+      <main className="h-full bg-contain bg-left-bottom bg-no-repeat md:bg-[url('/img/register.svg')]">
         <div className="flex w-full justify-center">
           <Link href="/">
             <Image
@@ -104,9 +104,11 @@ const SignUp: NextPage = () => {
           <div className="mt-[15px] mb-12 rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
             {/* Text */}
             <div className="text-center">
-              <p className="mt-[20px] flex font-raleway text-[43px] leading-10 md:mr-[51px] md:mt-[55px] md:ml-[30px] md:whitespace-nowrap">
-                ¡Únete a kilo y medio!
-              </p>
+              <div className="flex w-full justify-center">
+                <p className="mt-[20px] flex font-raleway text-[43px] leading-10 md:mr-[51px] md:mt-[55px] md:ml-[30px] md:whitespace-nowrap">
+                  ¡Únete a kilo y medio!
+                </p>
+              </div>
               <p className="ml-[33px] mr-[17px] mt-[25px] text-left text-sm">
                 ¿Ya tienes una cuenta? {""}
                 <Link href={`/login?prev=${router.query.prev?.toString()}`}>
