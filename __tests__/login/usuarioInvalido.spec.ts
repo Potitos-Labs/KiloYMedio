@@ -3,10 +3,10 @@ import { slowLocator } from "../utils/slowMo";
 
 test("test", async ({ page }) => {
   page.locator = slowLocator(page, 500);
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("/login");
 
   await page.getByPlaceholder("E-mail").click();
 
@@ -17,7 +17,7 @@ test("test", async ({ page }) => {
   await page.getByPlaceholder("Contraseña").fill("Contraseña_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("/login");
 
   await page.getByText("Email y/o contraseña inválido").click();
 
@@ -30,8 +30,8 @@ test("test", async ({ page }) => {
   await page.getByPlaceholder("Contraseña").fill("Contraseña_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 
   await page.getByRole("button", { name: "cerrar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 });

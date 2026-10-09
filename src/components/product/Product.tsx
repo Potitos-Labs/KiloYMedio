@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import Link from "next/link";
 import router from "next/router";
 import { Dispatch, useState } from "react";
@@ -67,7 +67,7 @@ function Product({
             />
           </div>
           {data?.user?.role == "admin" && (
-            <div className="absolute top-4 right-2">
+            <div className="absolute right-2 top-4">
               <DotMenu
                 id={product.id}
                 name={product.name}

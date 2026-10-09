@@ -1,5 +1,6 @@
+// @vitest-environment jsdom
 import Home from "@pages/index";
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/vitest";
 import { render } from "@testing-library/react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";

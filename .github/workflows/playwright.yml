@@ -1,48 +1,29 @@
-name: Playwright Tests
-on: [workflow_dispatch]
+name: Playwright
+on:
+  workflow_dispatch:
 jobs:
-  test_setup:
-    name: Test setup
-    runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
-    steps:
-      - name: Wait for Vercel preview deployment to be ready
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
-        id: waitForVercelPreviewDeployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 600
   test:
-    needs: test_setup
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXTAUTH_SECRET: ci-only-secret-not-used-for-deployment
+      NEXTAUTH_URL: http://localhost:3000
+      SEED_ADMIN_PASSWORD: LocalTestPassword2026
+      RUN_FAST_PLAYWRIGHT_TESTS: "true"
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+      - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 16
-      - name: Install dependencies
-        run: yarn
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: yarn playwright test
-        env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
-          NEXT_PUBLIC_SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyamtqcmtqcHljcGhwdGVrc3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxMDcxMDIsImV4cCI6MTk4MzY4MzEwMn0.R3e1xclNhoNymqIExZ-8KNSAK5LL6NmJ72pwjOmidHk
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NODE_ENV: development
-          NEXTAUTH_SECRET: secret
-          NEXTAUTH_URL: http://localhost:3000/
-          GOOGLE_CLIENT_ID: client-id
-          GOOGLE_CLIENT_SECRET: name
-          ACCESS_KEY: key
-          SECRET_KEY: key
-          BUCKET_NAME: name
-      - uses: actions/upload-artifact@v3
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:migrate
+      - run: pnpm db:seed
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30

@@ -1,6 +1,6 @@
 import { Allergen, ProductUnit } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import router from "next/router";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -37,7 +37,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </div>
         <button
           onClick={() => router.back()}
-          className="ml-6 mb-20 w-fit lg:mt-12 lg:ml-0"
+          className="mb-20 ml-6 w-fit lg:ml-0 lg:mt-12"
         >
           <div className="flex flex-nowrap items-center">
             <HiArrowLeft
@@ -52,7 +52,7 @@ const ProductDetail = ({ product }: { product: IProduct }) => {
         </button>
       </div>
       {product.Edible != null && (
-        <NutritionFacts product={product} className="mx-4 mb-14 " />
+        <NutritionFacts product={product} className="mx-4 mb-14" />
       )}
       <RelatedRecipes product={product} />
     </div>
@@ -104,7 +104,7 @@ const ProductCard = ({
           type="producto"
           deleteFunction={deleteProduct}
           updateFunction={updateProduct}
-          className="absolute top-1 right-0 lg:top-5 lg:right-3"
+          className="absolute right-0 top-1 lg:right-3 lg:top-5"
         />
       )}
       <p
@@ -200,15 +200,15 @@ const NutritionFacts = ({
     <></>
   ) : (
     <div
-      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:py-16 sm:px-8 lg:px-24 ${className}`}
+      className={`relative rounded-3xl bg-base-100 px-5 py-10 sm:mx-6 sm:px-8 sm:py-16 lg:px-24 ${className}`}
     >
       <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
         <Image
-          src="/img/ellipse.svg"
+          src="/api/images/site/224c5a6b-f55e-e12d-03fa-e431df234b70.svg"
           alt=""
           className="-z-10 select-none"
-          width={"300%"}
-          height={"200%"}
+          width={300}
+          height={200}
           layout="fixed"
           objectFit="contain"
         />
@@ -325,7 +325,7 @@ const RelatedRecipes = ({ product }: { product: IProduct }) => {
           <p className="w-full text-center font-raleway text-[40px] font-black uppercase text-base-100 sm:text-left sm:text-xl">
             RECETAS
           </p>
-          <p className="w-full text-center text-xs text-base-100 sm:text-left sm:text-base ">
+          <p className="w-full text-center text-xs text-base-100 sm:text-left sm:text-base">
             {recipeIngredient.length} recetas disponibles con este producto
           </p>
           <SliderRecipes

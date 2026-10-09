@@ -52,7 +52,6 @@ export default function CreateEdit(props: {
     register,
     control,
     handleSubmit,
-    watch,
     getValues,
     formState: { errors },
   } = useForm<ICreateRecipe>({
@@ -65,8 +64,6 @@ export default function CreateEdit(props: {
     trpc.product.getAlergensFromProduct.useQuery(
       getValues("ingredients").map((i) => ({ productName: i.name })),
     );
-
-  console.log(watch());
 
   const {
     fields: fieldsIngredients,
@@ -102,18 +99,18 @@ export default function CreateEdit(props: {
 
   return (
     <>
-      <div className="sm:mr-none mr-[5px] mt-[50px] ml-[20px] max-w-[769px] font-raleway text-[28px] sm:mr-0 sm:text-[38px] md:ml-[80px]  md:text-xl">
+      <div className="sm:mr-none ml-[20px] mr-[5px] mt-[50px] max-w-[769px] font-raleway text-[28px] sm:mr-0 sm:text-[38px] md:ml-[80px] md:text-xl">
         COMPARTE TU RECETA EN UNOS SENCILLOS PASOS
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-12 ml-[20px] md:ml-[80px]">
+        <div className="ml-[20px] mt-12 md:ml-[80px]">
           {/*Details*/}
           <section className="grid grid-cols-1 xl:grid-cols-[50%_50%]">
             <div className="grid grid-cols-1">
               <section className="flex flex-col gap-6">
                 {/* Title */}
                 <div className="flex flex-col gap-[20px] sm:gap-[30px]">
-                  <div className="font-raleway text-[20px] sm:text-lg ">
+                  <div className="font-raleway text-[20px] sm:text-lg">
                     PONLE NOMBRE A TU RECETA
                   </div>
                   <input
@@ -133,14 +130,9 @@ export default function CreateEdit(props: {
                 <div className="mt-4 font-raleway text-[20px] sm:mt-8 sm:text-lg">
                   TIEMPO Y PORCIONES
                 </div>
-                <div
-                  className="gap-y-[20px] gap-x-[10px]  text-start 
-                  sm:grid sm:auto-cols-auto 
-                  
-                sm:grid-cols-[45%-55%] sm:grid-rows-[35%-35%-15%-15%] md:grid-cols-[30%_35%_35%] md:grid-rows-4 xl:w-1/2"
-                >
+                <div className="gap-x-[10px] gap-y-[20px] text-start sm:grid sm:auto-cols-auto sm:grid-cols-[45%-55%] sm:grid-rows-[35%-35%-15%-15%] md:grid-cols-[30%_35%_35%] md:grid-rows-4 xl:w-1/2">
                   {/* Grid Row 1: Preparation time */}
-                  <div className=" col-start-1 row-start-1 mb-1 self-start pt-0  text-[18px] sm:mb-0 sm:pt-3 sm:text-sm md:self-center md:pt-0 md:text-lg">
+                  <div className="col-start-1 row-start-1 mb-1 self-start pt-0 text-[18px] sm:mb-0 sm:pt-3 sm:text-sm md:self-center md:pt-0 md:text-lg">
                     Tiempo de preparación:
                   </div>
                   <div className="col-start-2 row-start-1 mr-5 self-center text-xs sm:text-sm md:col-span-2 md:text-lg">
@@ -168,10 +160,10 @@ export default function CreateEdit(props: {
                   {/* End Grid Row 2: Cooking time */}
 
                   {/* Grid Row 3: Portions */}
-                  <div className="col-start-1 row-start-3 mb-1 self-center pt-4 text-[18px] sm:mb-0  sm:pt-0 sm:text-sm md:text-lg">
+                  <div className="col-start-1 row-start-3 mb-1 self-center pt-4 text-[18px] sm:mb-0 sm:pt-0 sm:text-sm md:text-lg">
                     Porciones:
                   </div>
-                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-xs sm:text-sm md:text-lg ">
+                  <div className="col-start-2 row-start-3 mr-5 flex flex-row items-center gap-2 self-center text-xs sm:text-sm md:text-lg">
                     <Controller
                       name="portions"
                       control={control}
@@ -181,7 +173,7 @@ export default function CreateEdit(props: {
                           amount={value}
                           max={15}
                           unit="pers"
-                          className="h-[40px] w-[110px]  rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
+                          className="h-[40px] w-[110px] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
                           onBlur={onBlur}
                         ></IncDecButtons>
                       )}
@@ -200,7 +192,7 @@ export default function CreateEdit(props: {
                   <div className="col-start-1 row-start-4 mb-1 self-center pt-4 text-[18px] sm:mb-0 sm:pt-0 sm:text-sm md:text-lg">
                     Dificultad:
                   </div>
-                  <div className=" col-start-2 row-start-4 mr-5 text-xs sm:text-sm md:text-lg">
+                  <div className="col-start-2 row-start-4 mr-5 text-xs sm:text-sm md:text-lg">
                     <Controller
                       name={`difficulty`}
                       control={control}
@@ -423,7 +415,7 @@ export default function CreateEdit(props: {
                 <label className="h-[40px] w-[40px] rounded-full border-none bg-[#AEAAA6] pt-0.5 text-[35px] leading-none text-base-100 hover:cursor-pointer">
                   +
                 </label>
-                <label className="text-[18px] hover:cursor-pointer sm:text-lg ">
+                <label className="text-[18px] hover:cursor-pointer sm:text-lg">
                   Añadir paso
                 </label>
               </button>
@@ -433,7 +425,7 @@ export default function CreateEdit(props: {
           <section className="flex flex-col gap-3">
             {/* Allergens */}
             <div>
-              <div className="mt-8 mb-[20px] font-raleway text-lg">
+              <div className="mb-[20px] mt-8 font-raleway text-lg">
                 ¿TU RECETA CONTIENE ALÉRGENOS?
               </div>
               <div className="flex pr-5 text-xs sm:max-w-full sm:pr-0 sm:text-sm">

@@ -1,0 +1,563 @@
+{
+  "version": 1,
+  "preparedOn": "2026-10-09",
+  "images": [
+    {
+      "originalImageURL": "https://assets.recipes.prod.wpsandwatch.com/var/kaapi/storage/images/es/recipes/galletas-navidenas-de-jengibre/1767403-2-eng-GB/Galletas-navidenas-de-jengibre_vip_header_image.jpg",
+      "name": "Galletitas navideñas",
+      "file": "8aa048dc-f3a6-610c-a598-feee2aafb439.jpg",
+      "key": "media/8aa048dc-f3a6-610c-a598-feee2aafb439.jpg",
+      "imageURL": "/api/images/media/8aa048dc-f3a6-610c-a598-feee2aafb439.jpg",
+      "sha256": "8aa048dcf3a6610ca598feee2aafb4397107604c25b6beb875a02581906bb72d",
+      "bytes": 246584,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://assets.recipes.prod.wpsandwatch.com/var/kaapi/storage/images/es/recipes/galletas-navidenas-de-jengibre/1767403-2-eng-GB/Galletas-navidenas-de-jengibre_vip_header_image.jpg",
+      "width": 1600,
+      "height": 640
+    },
+    {
+      "originalImageURL": "https://canalcocina.es/medias/_cache/zoom-7633d99ea9677004a4988e94e5d30aa0-920-518.jpg",
+      "name": "Comida Saludable",
+      "file": "7e1560a2-0d52-36ad-7f49-682bac72339f.jpg",
+      "key": "media/7e1560a2-0d52-36ad-7f49-682bac72339f.jpg",
+      "imageURL": "/api/images/media/7e1560a2-0d52-36ad-7f49-682bac72339f.jpg",
+      "sha256": "7e1560a20d5236ad7f49682bac72339f3fec0cf9448b23a7985789356044dae8",
+      "bytes": 99422,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://canalcocina.es/medias/_cache/zoom-7633d99ea9677004a4988e94e5d30aa0-920-518.jpg",
+      "width": 920,
+      "height": 518
+    },
+    {
+      "originalImageURL": "https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png",
+      "name": "china-09-512.png",
+      "file": "ef61d434-60ba-c495-27b1-bf09520e3580.png",
+      "key": "media/ef61d434-60ba-c495-27b1-bf09520e3580.png",
+      "imageURL": "/api/images/media/ef61d434-60ba-c495-27b1-bf09520e3580.png",
+      "sha256": "ef61d43460bac49527b1bf09520e35805d0f82b2aeac7b881d8428d429adc7f4",
+      "bytes": 22331,
+      "contentType": "image/png",
+      "source": "downloaded",
+      "resolvedURL": "https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "originalImageURL": "https://i.blogs.es/90b0cc/istock-527135691/840_560.jpg",
+      "name": "Pasta italiana",
+      "file": "30112726-4b43-baa2-ad45-7a3092a3254f.jpg",
+      "key": "media/30112726-4b43-baa2-ad45-7a3092a3254f.jpg",
+      "imageURL": "/api/images/media/30112726-4b43-baa2-ad45-7a3092a3254f.jpg",
+      "sha256": "301127264b43baa2ad457a3092a3254ffca3c1fc36f839c87e2af91184c12717",
+      "bytes": 156686,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://i.blogs.es/90b0cc/istock-527135691/840_560.jpg",
+      "width": 840,
+      "height": 560
+    },
+    {
+      "originalImageURL": "https://imag.bonviveur.com/gyozas-o-empanadillas-japonesas.jpg",
+      "name": "Cocina Japonesa",
+      "file": "30e42526-32d9-5be9-0161-8b6a3bf00d3d.jpg",
+      "key": "media/30e42526-32d9-5be9-0161-8b6a3bf00d3d.jpg",
+      "imageURL": "/api/images/media/30e42526-32d9-5be9-0161-8b6a3bf00d3d.jpg",
+      "sha256": "30e4252632d95be901618b6a3bf00d3d265a26cf5d462915375e97cf28f8a5fa",
+      "bytes": 106571,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://imag.bonviveur.com/gyozas-o-empanadillas-japonesas.jpg",
+      "width": 1200,
+      "height": 794
+    },
+    {
+      "originalImageURL": "https://www.barcelonaculinaryhub.com/sites/bch.com/files/inline-images/avant-garde-food-bch-min.jpg",
+      "name": "MasterChef",
+      "file": "14de0d2a-203d-74b2-5cd3-bfbe6db9cca8.jpg",
+      "key": "media/14de0d2a-203d-74b2-5cd3-bfbe6db9cca8.jpg",
+      "imageURL": "/api/images/media/14de0d2a-203d-74b2-5cd3-bfbe6db9cca8.jpg",
+      "sha256": "14de0d2a203d74b25cd3bfbe6db9cca85cc3bffd7c43839b8fb43e4092d1103f",
+      "bytes": 86761,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://www.barcelonaculinaryhub.com/sites/barcelonaculinaryhub.com/files/inline-images/avant-garde-food-bch-min.jpg",
+      "width": 3872,
+      "height": 2576
+    },
+    {
+      "originalImageURL": "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
+      "name": "Cómo hacer Té matcha",
+      "file": "ab5a4317-c1d7-489d-9227-8cfcd454d2f2.jpg",
+      "key": "media/ab5a4317-c1d7-489d-9227-8cfcd454d2f2.jpg",
+      "imageURL": "/api/images/media/ab5a4317-c1d7-489d-9227-8cfcd454d2f2.jpg",
+      "sha256": "ab5a4317c1d7489d92278cfcd454d2f2d6474940d5639bc6f21c5107cdecf214",
+      "bytes": 78852,
+      "contentType": "image/jpeg",
+      "source": "downloaded",
+      "resolvedURL": "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
+      "width": 800,
+      "height": 800
+    },
+    {
+      "originalImageURL": "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png",
+      "name": "24-248253_user-profile-default-image-png-clipart-png-download.png",
+      "file": "3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "key": "media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "sha256": "3cf2ada159d8337701013161f401e096e2a4eb595e47a5bd9409296aff9c4900",
+      "bytes": 19258,
+      "contentType": "image/png",
+      "source": "downloaded",
+      "resolvedURL": "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png",
+      "width": 860,
+      "height": 752
+    },
+    {
+      "originalImageURL": "https://images.hola.com/imagenes/cocina/recetas/20200113157946/croquetas-veganas-de-champinones/0-767-626/croquetas-veganas-de--champinones-m.jpg",
+      "name": "Croquetas Vegetarianas",
+      "unavailableReason": "HTTP Error 404: Not Found",
+      "file": "8aee1b2f-fac1-7ea9-8f50-a11ad74d9d88.jpg",
+      "key": "media/8aee1b2f-fac1-7ea9-8f50-a11ad74d9d88.jpg",
+      "imageURL": "/api/images/media/8aee1b2f-fac1-7ea9-8f50-a11ad74d9d88.jpg",
+      "sha256": "8aee1b2ffac17ea98f50a11ad74d9d883243efd5355b382dc9eaeb431d095d16",
+      "bytes": 369478,
+      "contentType": "image/jpeg",
+      "source": "generated",
+      "generationTool": "built-in image_gen",
+      "prompt": "Use case: photorealistic stock photograph for the Spanish university portfolio shop Kilo y Medio, workshop \"Croquetas Vegetarianas\". Subject: A ceramic plate of golden crisp vegetarian mushroom croquettes, one cut open revealing creamy mushroom filling, small bowl of sauce, neutral rustic table. Landscape 3:2 composition, main subject fits a central square crop, natural window light, authentic textures, warm neutral tones, realistic professional editorial food/lifestyle photography. No text, watermark, logo or collage. One standalone image.",
+      "encoding": "JPEG quality 90; native dimensions",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "originalImageURL": "https://www.elespectador.com/resizer/T3sxqcbNHg725sxGLWwLq2h3-yI=/968x645/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/EXYQ4FEM3RBHTPTQ7JNQ5NKREU.jpg",
+      "name": "Respostería",
+      "unavailableReason": "HTTP Error 404: Not Found",
+      "file": "9a1f3cc8-39fa-5e7b-6462-0a5555a3dca5.jpg",
+      "key": "media/9a1f3cc8-39fa-5e7b-6462-0a5555a3dca5.jpg",
+      "imageURL": "/api/images/media/9a1f3cc8-39fa-5e7b-6462-0a5555a3dca5.jpg",
+      "sha256": "9a1f3cc839fa5e7b64620a5555a3dca5131ff48f4eee85fb91ce799ecf79d6c7",
+      "bytes": 428784,
+      "contentType": "image/jpeg",
+      "source": "generated",
+      "generationTool": "built-in image_gen",
+      "prompt": "Use case: photorealistic stock photograph for the Spanish university portfolio shop Kilo y Medio, workshop \"Respostería\". Subject: A rustic home baking workshop counter with elegant small pastries, chocolate cake slices, a whisk, baking ingredients in bowls, flour dusting, no people. Landscape 3:2 composition, main subject fits a central square crop, natural window light, authentic textures, warm neutral tones, realistic professional editorial food/lifestyle photography. No text, watermark, logo or collage. One standalone image.",
+      "encoding": "JPEG quality 90; native dimensions",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "originalImageURL": "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      "name": "Reciclaje",
+      "unavailableReason": "<urlopen error [Errno -5] No address associated with hostname>",
+      "file": "62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
+      "key": "media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
+      "imageURL": "/api/images/media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
+      "sha256": "62b02d7d0a82f42ed7d62aa7f1f4c5571a456fddc77c55513c75b8fc838aa5e7",
+      "bytes": 394203,
+      "contentType": "image/jpeg",
+      "source": "generated",
+      "generationTool": "built-in image_gen",
+      "prompt": "Use case: photorealistic stock photograph for the Spanish university portfolio shop Kilo y Medio, workshop \"Reciclaje\". Subject: A sustainable craft workshop table with reused cardboard tubes, clean glass jars, paper scraps, scissors and plants in repurposed containers. Friendly practical recycling crafts, no people. Landscape 3:2 composition, main subject fits a central square crop, natural window light, authentic textures, warm neutral tones, realistic professional editorial food/lifestyle photography. No text, watermark, logo or collage. One standalone image.",
+      "encoding": "JPEG quality 90; native dimensions",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "originalImageURL": "https://www.iberdrola.com/documents/20125/40588/granel_746x419.jpg/f98ca9f9-0f1d-ee80-31e7-c2bd3c20eec0?t=1627467160432",
+      "name": "Ventajas de las compras a granel",
+      "unavailableReason": "HTTP Error 403: Forbidden",
+      "file": "8e69d54a-d7a2-a74f-4faf-46f29e194f15.jpg",
+      "key": "media/8e69d54a-d7a2-a74f-4faf-46f29e194f15.jpg",
+      "imageURL": "/api/images/media/8e69d54a-d7a2-a74f-4faf-46f29e194f15.jpg",
+      "sha256": "8e69d54ad7a2a74f4faf46f29e194f153aaa0a4451fead02766ea85c26ddd207",
+      "bytes": 409873,
+      "contentType": "image/jpeg",
+      "source": "generated",
+      "generationTool": "built-in image_gen",
+      "prompt": "Use case: photorealistic stock photograph for the Spanish university portfolio shop Kilo y Medio, workshop \"Ventajas de las compras a granel\". Subject: A beautiful bulk food zero waste shop display, rows of transparent glass jars containing rice, legumes, nuts and grains, a kraft paper bag and wooden scoop in foreground, no labels or people. Landscape 3:2 composition, main subject fits a central square crop, natural window light, authentic textures, warm neutral tones, realistic professional editorial food/lifestyle photography. No text, watermark, logo or collage. One standalone image.",
+      "encoding": "JPEG quality 90; native dimensions",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "references": [
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Daniel",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Daniel.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Alicia",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alicia.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Patricio",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Patricio.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Sandra",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Sandra.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Pilar",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Alberto",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alberto.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Marta",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Marta.jpeg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "User",
+      "column": "image",
+      "label": "Juan",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Juan.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Pasta italiana",
+      "originalImageURL": "https://i.blogs.es/90b0cc/istock-527135691/840_560.jpg",
+      "imageURL": "/api/images/media/30112726-4b43-baa2-ad45-7a3092a3254f.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Cocina Japonesa",
+      "originalImageURL": "https://imag.bonviveur.com/gyozas-o-empanadillas-japonesas.jpg",
+      "imageURL": "/api/images/media/30e42526-32d9-5be9-0161-8b6a3bf00d3d.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Galletitas navideñas",
+      "originalImageURL": "https://assets.recipes.prod.wpsandwatch.com/var/kaapi/storage/images/es/recipes/galletas-navidenas-de-jengibre/1767403-2-eng-GB/Galletas-navidenas-de-jengibre_vip_header_image.jpg",
+      "imageURL": "/api/images/media/8aa048dc-f3a6-610c-a598-feee2aafb439.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "MasterChef",
+      "originalImageURL": "https://www.barcelonaculinaryhub.com/sites/bch.com/files/inline-images/avant-garde-food-bch-min.jpg",
+      "imageURL": "/api/images/media/14de0d2a-203d-74b2-5cd3-bfbe6db9cca8.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Respostería",
+      "originalImageURL": "https://www.elespectador.com/resizer/T3sxqcbNHg725sxGLWwLq2h3-yI=/968x645/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/EXYQ4FEM3RBHTPTQ7JNQ5NKREU.jpg",
+      "imageURL": "/api/images/media/9a1f3cc8-39fa-5e7b-6462-0a5555a3dca5.jpg",
+      "source": "generated",
+      "unavailableReason": "HTTP Error 404: Not Found"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Croquetas Vegetarianas",
+      "originalImageURL": "https://images.hola.com/imagenes/cocina/recetas/20200113157946/croquetas-veganas-de-champinones/0-767-626/croquetas-veganas-de--champinones-m.jpg",
+      "imageURL": "/api/images/media/8aee1b2f-fac1-7ea9-8f50-a11ad74d9d88.jpg",
+      "source": "generated",
+      "unavailableReason": "HTTP Error 404: Not Found"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Comida Saludable",
+      "originalImageURL": "https://canalcocina.es/medias/_cache/zoom-7633d99ea9677004a4988e94e5d30aa0-920-518.jpg",
+      "imageURL": "/api/images/media/7e1560a2-0d52-36ad-7f49-682bac72339f.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Reciclaje",
+      "originalImageURL": "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      "imageURL": "/api/images/media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
+      "source": "generated",
+      "unavailableReason": "<urlopen error [Errno -5] No address associated with hostname>"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Cómo afectan los alérgenos en tu vida",
+      "originalImageURL": "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      "imageURL": "/api/images/media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
+      "source": "generated",
+      "unavailableReason": "<urlopen error [Errno -5] No address associated with hostname>"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Ventajas de las compras a granel",
+      "originalImageURL": "https://www.iberdrola.com/documents/20125/40588/granel_746x419.jpg/f98ca9f9-0f1d-ee80-31e7-c2bd3c20eec0?t=1627467160432",
+      "imageURL": "/api/images/media/8e69d54a-d7a2-a74f-4faf-46f29e194f15.jpg",
+      "source": "generated",
+      "unavailableReason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "table": "Workshop",
+      "column": "imageURL",
+      "label": "Cómo hacer Té matcha",
+      "originalImageURL": "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
+      "imageURL": "/api/images/media/ab5a4317-c1d7-489d-9227-8cfcd454d2f2.jpg",
+      "source": "downloaded"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alberto.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Juan.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alberto.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alicia.png",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "Comment",
+      "column": "imageURL",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Daniel.jpg",
+      "imageURL": "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
+      "source": "default-avatar",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Fruta deshidratada",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/frutas-desidratas.jpg",
+      "imageURL": "/api/images/seed/36b55d94-f827-412f-a441-69df6bbeb348.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Harinas",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harias.png",
+      "imageURL": "/api/images/seed/1334f066-7236-473d-a52c-9a4a7b983257.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Mermeladas",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermeladas.png",
+      "imageURL": "/api/images/seed/6ae2146c-454b-493e-a9ef-f2edbc86366d.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Legumbres",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/legumbres.jpg",
+      "imageURL": "/api/images/seed/38fc57b7-2cc9-4278-a2cc-fcec62da5018.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Frutos secos",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/frutos-secos.png",
+      "imageURL": "/api/images/seed/9de6cbbe-8860-419a-a280-8fb441a8ead9.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Aceites",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceites.png",
+      "imageURL": "/api/images/seed/9b6f6e26-b565-4c1a-a3b2-ced32dd98d5c.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Pastas",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pastas.jpg",
+      "imageURL": "/api/images/seed/ca0e4e3e-504d-4697-a142-2a7bf19f2d76.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Siropes",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/siropes.png",
+      "imageURL": "/api/images/seed/71e8ce85-4791-4fe7-a565-35bb76361012.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Infusiones",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/tes.png",
+      "imageURL": "/api/images/seed/bfb85c2e-393f-4740-ab1c-f2d6bfeb2a6e.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Levaduras",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+      "imageURL": "/api/images/seed/6697db92-ee59-43a5-a9d7-3e7a56ab3a59.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Cereales",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+      "imageURL": "/api/images/seed/5323934d-5fe8-424d-ae88-7eb454a32b6e.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Arroces",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+      "imageURL": "/api/images/seed/10cb55e6-7f1b-491f-ad25-59706afc1741.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Cafés",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+      "imageURL": "/api/images/seed/efba5830-b9ed-49b6-a833-d4ecc8280c9e.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "ECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Vinagres",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+      "imageURL": "/api/images/seed/85b901dd-bd78-4685-a494-e1543ead6b28.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "NECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Productos de limpieza",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/producto-de-limpieza.jpg",
+      "imageURL": "/api/images/seed/05964ecc-7f74-4411-ac52-88f7de2e2a71.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "NECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Accesorios",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
+      "imageURL": "/api/images/seed/804e2d6e-f777-4679-a4ab-73b407d69301.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "NECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Hogar",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/hogar.jpg",
+      "imageURL": "/api/images/seed/05964ecc-7f74-4411-ac52-88f7de2e2a71.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "table": "NECategoryInSpanish",
+      "column": "imageURL",
+      "label": "Cuidado personal",
+      "originalImageURL": "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cuidado-personal.jpg",
+      "imageURL": "/api/images/seed/804e2d6e-f777-4679-a4ab-73b407d69301.jpg",
+      "source": "catalog-photo",
+      "unavailableReason": "<urlopen error [Errno -2] Name or service not known>"
+    }
+  ]
+}

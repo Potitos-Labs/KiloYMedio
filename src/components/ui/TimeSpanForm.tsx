@@ -1,4 +1,5 @@
 import { Controller } from "react-hook-form";
+import type { ICreateRecipe } from "@utils/validations/recipe";
 import type { Control } from "react-hook-form";
 import IncDecButtons from "@components/ui/IncDecButtons";
 
@@ -6,8 +7,8 @@ export default function TimeSpanForm({
   control,
   label,
 }: {
-  control: Control<any, any>;
-  label: string;
+  control: Control<ICreateRecipe>;
+  label: "cookingTime" | "preparationTime";
 }) {
   return (
     <div className="flex flex-row gap-2 sm:flex-col sm:gap-3 md:flex-row">
@@ -22,7 +23,7 @@ export default function TimeSpanForm({
               amount={value}
               max={23}
               unit="hour"
-              className=" h-[40px] w-[110px] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
+              className="h-[40px] w-[110px] rounded-[30px] border-[1px] border-base-300 sm:h-[60px] sm:w-[150px]"
               onBlur={onBlur}
             ></IncDecButtons>
           )}

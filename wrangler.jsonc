@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kilo-y-medio",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-09",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "kilo-y-medio"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kilo-y-medio",
+      "database_id": "e1472ece-3dd0-43a2-802a-0ac1ae6c8f52",
+      "migrations_dir": "prisma/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "IMAGES_BUCKET",
+      "bucket_name": "kilo-y-medio-images"
+    }
+  ],
+  "vars": {
+    "NEXTAUTH_URL": "https://kilo-y-medio.danields.dev",
+    "NEXTJS_ENV": "production"
+  },
+  "account_id": "cc4ea246c7f3f2fe94d59e1f3836202d",
+  "routes": [
+    {
+      "pattern": "kilo-y-medio.danields.dev",
+      "custom_domain": true
+    }
+  ],
+  "workers_dev": false,
+  "observability": {
+    "enabled": true
+  }
+}

@@ -11,7 +11,9 @@ test("Precio negativo", async ({ page }) => {
   await page.getByPlaceholder("E-mail").fill("daniel@potitos.com");
 
   await page.getByPlaceholder("Contraseña").click();
-  await page.getByPlaceholder("Contraseña").fill("Contrasena12");
+  await page
+    .getByPlaceholder("Contraseña")
+    .fill(process.env.SEED_ADMIN_PASSWORD ?? "LocalTestPassword2026");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("/");

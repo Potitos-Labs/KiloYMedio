@@ -1,5 +1,5 @@
 import router from "next/router";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { BsArrowRight } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { IWorkshop } from "@utils/validations/workshop";
@@ -22,7 +22,7 @@ function OnlineWorskhopCard({
   const videoID =
     workshop.OnlineWorkshop?.videoURL &&
     workshop.OnlineWorkshop?.videoURL.split("=").pop();
-  console.log(videoID);
+
   const { status } = useSession();
 
   function putVideo() {
@@ -45,13 +45,10 @@ function OnlineWorskhopCard({
   return (
     <div
       className={` ${
-        displayed
-          ? "grid-cols-[30%_70%]"
-          : "grid-cols-[30%_70%] md:grid-cols-1 "
-      } 
-      ${
+        displayed ? "grid-cols-[30%_70%]" : "grid-cols-[30%_70%] md:grid-cols-1"
+      } ${
         myIndex == indexGlobal && "bg-base-content text-base-100"
-      } mt-2 grid h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content  sm:h-[180px]`}
+      } mt-2 grid h-[160px] w-full cursor-pointer overflow-hidden rounded-md border-[1px] border-base-content sm:h-[180px]`}
       onClick={() => {
         displayVideo();
         setIndexGlobal(myIndex);
@@ -59,7 +56,7 @@ function OnlineWorskhopCard({
     >
       <div
         className={`${
-          displayed ? "relative h-full  " : " relative block h-full md:hidden"
+          displayed ? "relative h-full" : "relative block h-full md:hidden"
         } `}
       >
         <Image
@@ -71,15 +68,15 @@ function OnlineWorskhopCard({
         />
       </div>
       <div className="w-fill h-fill relative p-2 md:p-4">
-        <h1 className=" font-raleway text-[16px] uppercase md:text-[35px]">
+        <h1 className="font-raleway text-[16px] uppercase md:text-[35px]">
           {workshop.name}
         </h1>
-        <p className=" flex w-fit text-[15px] line-clamp-4  md:text-xs">
+        <p className="line-clamp-4 flex w-fit text-[15px] md:text-xs">
           {workshop.description}
         </p>
 
         <button
-          className=" absolute right-2 bottom-2 flex items-center gap-2 rounded-full border-[1px]  border-base-content bg-transparent px-2  active:border-primary active:bg-primary active:text-base-100 md:px-4 md:py-1"
+          className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full border-[1px] border-base-content bg-transparent px-2 active:border-primary active:bg-primary active:text-base-100 md:px-4 md:py-1"
           onClick={() => putVideo()}
         >
           Ir a YouTube

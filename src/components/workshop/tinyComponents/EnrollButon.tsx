@@ -15,8 +15,6 @@ function EnrollButton({
     onSiteWorkshopId: OnsiteworkshopID,
   });
 
-  console.log(areEnroll);
-
   const { mutateAsync: enroll } = trpc.user.client.enrollWorkshop.useMutation({
     onSuccess() {
       toast.success(
@@ -46,8 +44,7 @@ function EnrollButton({
   }
   return (
     <button
-      className={` 
-       rounded-full border-[1px] border-base-content bg-transparent px-2 hover:border-base-100 active:border-primary active:bg-primary active:text-base-100`}
+      className={`rounded-full border-[1px] border-base-content bg-transparent px-2 hover:border-base-100 active:border-primary active:bg-primary active:text-base-100`}
       onClick={() => whorshopfunction()}
     >
       {areEnroll ? "Desinscribirse" : "Inscribirse"}

@@ -1,15 +1,12 @@
 import { z } from "zod";
-import {
-  adminProcedure,
-  clientProcedure,
-  publicProcedure,
-  router,
-} from "../trpc";
+import { adminProcedure, clientProcedure, router } from "../trpc";
 import { clientRouter } from "./user/client";
 
 export const userRouter = router({
-  getAllUsers: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.user.findMany();
+  getAllUsers: adminProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.user.findMany({
+      select: { id: true, name: true, email: true, role: true, image: true },
+    });
   }),
 
   getAllClientAllergen: clientProcedure.query(async ({ ctx }) => {

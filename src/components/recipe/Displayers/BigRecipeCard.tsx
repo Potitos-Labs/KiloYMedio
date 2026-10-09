@@ -3,7 +3,7 @@ import Stars from "@components/Stars";
 import { trpc } from "@utils/trpc";
 import { IRecipe } from "@utils/validations/recipe";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
@@ -61,10 +61,11 @@ export default function BigRecipeCard({ recipe }: { recipe: IRecipe }) {
           </div>
           <div className="block items-center justify-between md:flex lg:block xl:flex">
             <div className="mb-2 md:mb-0 lg:mb-2 xl:mb-0">
-              <Link href={`/recipe/${recipe.id}`}>
-                <a className="btn btn-sm rounded-full bg-base-content px-4  text-base-100">
-                  ver receta completa
-                </a>
+              <Link
+                href={`/recipe/${recipe.id}`}
+                className="btn btn-sm rounded-full bg-base-content px-4 text-base-100"
+              >
+                ver receta completa
               </Link>
             </div>
             <SaveIcon recipe={recipe} isBig={true} />

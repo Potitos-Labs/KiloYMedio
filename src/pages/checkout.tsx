@@ -1,9 +1,9 @@
 // import { useSession } from "next-auth/react";
-// import Image from "next/image";
+// import Image from "@components/ui/Image";
 // import Link from "next/link";
 import LoadingBallsFullScreen from "@components/ui/LoadingBallsFullScreen";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Popup from "reactjs-popup";
 
 import Layout from "../components/Layout";
@@ -50,11 +50,16 @@ const INITIAL_DATA: FormData = {
 const Checkout = () => {
   const [data, setData] = useState(INITIAL_DATA);
   const [open, setOpen] = useState(false);
+  const requestId = useRef<string>();
 
   const { mutateAsync: createNewOrder } =
     trpc.checkout.createNewOrder.useMutation({
       onMutate: () => {
         setPopUpOpen(true);
+      },
+      onError: (error) => {
+        setPopUpOpen(false);
+        updateFields({ errorMessage: error.message });
       },
       onSuccess: () => {
         setTimeout(() => {
@@ -88,7 +93,6 @@ const Checkout = () => {
     const month = Number(date.substr(0, 2));
 
     if (actualYear > year || (actualYear == year && month < actuaMonth)) {
-      console.log(data.errorMessage);
       updateFields({ errorMessage: "¡La tarjeta está caducada!" });
       return false;
     }
@@ -113,11 +117,13 @@ const Checkout = () => {
       isDateExpired(data.expirationDate) &&
       isNameValid(data.fullNamePayment)
     ) {
-      createNewOrder({
+      requestId.current ??= crypto.randomUUID();
+      void createNewOrder({
+        requestId: requestId.current,
         shipmentAddress: data.homeDelivery
           ? `${data.address}, ${data.city}, ${data.postalCode}`
           : "Recogida en Tienda",
-      });
+      }).catch(() => {});
     }
   }
 
@@ -133,7 +139,7 @@ const Checkout = () => {
   //       </h1>
   //       <div className="flex flex-row items-center gap-5">
   //         <Image
-  //           src="https://cdn2.iconfinder.com/data/icons/chinese-new-year-and-china-culture-flat/64/china-09-512.png"
+  //           src="/api/images/media/ef61d434-60ba-c495-27b1-bf09520e3580.png"
   //           alt="notfound"
   //           width="50"
   //           height="50"
@@ -158,7 +164,7 @@ const Checkout = () => {
   //         <p className="col-end-4">
   //           ¿Ya tienes cuenta?{" "}
   //           <span>
-  //             <Link href={`/login`}> Inicia sesión</Link>
+  //             <Link legacyBehavior href={`/login`}> Inicia sesión</Link>
   //           </span>
   //         </p>
   //       </div>
@@ -199,7 +205,7 @@ const Checkout = () => {
         {/* Grid */}
         <LoadingBallsFullScreen open={popUpOpen} setOpen={setPopUpOpen} />
         <div className="mt-12 grid grid-cols-1 gap-4 px-5 xl:grid-cols-[60%_40%] xl:gap-0">
-          <section className="rounded-xl bg-base-100 py-10 px-6 sm:px-10 xl:mr-2 2xl:p-20">
+          <section className="rounded-xl bg-base-100 px-6 py-10 sm:px-10 xl:mr-2 2xl:p-20">
             {/*Contact info*/}
             <div className="">
               {/* <div>{display}</div> */}
@@ -241,7 +247,7 @@ const Checkout = () => {
       {/* End Grid */}
       <Popup open={open} modal closeOnDocumentClick onClose={endTransaction}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
-          <div className="w-4/5  rounded-xl bg-white sm:w-2/5">
+          <div className="w-4/5 rounded-xl bg-white sm:w-2/5">
             <h1 className="rounded-t-xl bg-neutral py-2 text-center font-raleway text-lg text-base-100">
               ¡Compra completada!
             </h1>

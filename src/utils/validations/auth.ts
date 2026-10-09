@@ -10,20 +10,23 @@ export const loginSchema = z.object({
     .string()
     .min(1, "Este campo no puede estar vacío")
     .email({ message: "Introduce un correo válido" }),
-  password: z.string().refine(
-    (value) =>
-      isStrongPassword(value, {
-        minLength: 6,
-        minLowercase: 1,
-        minNumbers: 1,
-        minSymbols: 0,
-        minUppercase: 0,
-      }),
-    {
-      message:
-        "La contraseña debe tener como mínimo una longitud de 6, una minúscula y un número",
-    },
-  ),
+  password: z
+    .string()
+    .max(128)
+    .refine(
+      (value) =>
+        isStrongPassword(value, {
+          minLength: 6,
+          minLowercase: 1,
+          minNumbers: 1,
+          minSymbols: 0,
+          minUppercase: 0,
+        }),
+      {
+        message:
+          "La contraseña debe tener como mínimo una longitud de 6, una minúscula y un número",
+      },
+    ),
 });
 
 export const signUpSchema = loginSchema.extend({

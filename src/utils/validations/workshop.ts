@@ -1,3 +1,4 @@
+import { imageURLSchema } from "./image";
 import isURL from "validator/lib/isURL";
 import * as z from "zod";
 
@@ -7,9 +8,7 @@ export const workshopCreateSchema = z.object({
 
   description: z.string().min(1, "El campo no puede estar vacío"),
 
-  imageURL: z
-    .string()
-    .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
+  imageURL: imageURLSchema,
   OnSiteWorkshop: z
     .object({
       date: z.date().refine((date) => {

@@ -1,14 +1,14 @@
 // src/utils/trpc.ts
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
-import type { GetInferenceHelpers } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
 import { AppRouter } from "../server/trpc/router/_app";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
+  if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
@@ -35,4 +35,15 @@ export const trpc = createTRPCNext<AppRouter>({
  * Inference helpers
  * @example type HelloOutput = AppRouterTypes['example']['hello']['output']
  **/
-export type AppRouterTypes = GetInferenceHelpers<AppRouter>;
+export type AppRouterTypes = {
+  [K in keyof inferRouterOutputs<AppRouter>]: {
+    [P in keyof inferRouterOutputs<AppRouter>[K]]: {
+      input: K extends keyof inferRouterInputs<AppRouter>
+        ? P extends keyof inferRouterInputs<AppRouter>[K]
+          ? inferRouterInputs<AppRouter>[K][P]
+          : never
+        : never;
+      output: inferRouterOutputs<AppRouter>[K][P];
+    };
+  };
+};

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { IFilterRecipe } from "@utils/validations/recipe";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 
 import OurRecipesDisplayer from "@components/recipe/Displayers/OurRecipesDisplayer";
 import SliderRecipes from "@components/SliderRecipes";
@@ -44,7 +44,7 @@ const Recipes = () => {
             ¿QUÉ TE APETECE COCINAR HOY?
           </h1>
           <div className="flex flex-col justify-between sm:flex-row sm:pr-14">
-            <div className="ml-10 mb-20 flex w-48 flex-col gap-6 sm:mb-0">
+            <div className="mb-20 ml-10 flex w-48 flex-col gap-6 sm:mb-0">
               <Link href={authed ? "/recipe/create" : "/login"}>
                 <button className={buttonStyle}>compartir recetas</button>
               </Link>
@@ -53,7 +53,7 @@ const Recipes = () => {
               </Link>
             </div>
             <Image
-              src="/img/cucharasSinFondo.png"
+              src="/api/images/site/d9b5fd1b-a292-4bbb-8b7b-60196333ebf0.webp"
               alt=""
               width="700"
               height="400"

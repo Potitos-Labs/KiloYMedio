@@ -1,28 +1,28 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 function AdminPage() {
   return (
     <div className="bg-accent">
       <div className="flex justify-between pr-14">
-        <div className="z-10 mx-10 mt-20  flex w-48 flex-col gap-6 sm:mt-28">
+        <div className="z-10 mx-10 mt-20 flex w-48 flex-col gap-6 sm:mt-28">
           <Link href="/admin/register">
-            <button className="rounded-full bg-base-100  py-3 font-satoshiBold text-xs text-base-content">
+            <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
               registrar usuario
             </button>
           </Link>
           <Link href="/product/create">
-            <button className="rounded-full bg-base-100  py-3 font-satoshiBold text-xs text-base-content">
+            <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
               crear producto
             </button>
           </Link>
           <Link href="/workshops/create">
-            <button className="rounded-full bg-base-100  py-3 font-satoshiBold text-xs text-base-content">
+            <button className="rounded-full bg-base-100 py-3 font-satoshiBold text-xs text-base-content">
               crear taller
             </button>
           </Link>
         </div>
         <Image
-          src="/img/fondoCucharasSinFondo.png"
+          src="/api/images/site/d9b5fd1b-a292-4bbb-8b7b-60196333ebf0.webp"
           width="700"
           height="400"
           alt="notfound"

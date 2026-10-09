@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { hashPassword } from "../src/server/auth/password";
 import { IngredientUnit, Prisma, PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-async function main() {
-  const hashedPassword = "potitos2022";
-
+export async function seed(prisma: PrismaClient, adminPassword: string) {
   const allergenInSpanish = await prisma.allergenInSpanish.createMany({
     data: [
       /* 1 */ { allergen: "celery", allergenInSpanish: "Apio" },
@@ -119,86 +117,72 @@ async function main() {
     data: [
       /* 1 */ {
         category: "driedFruits",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/frutas-desidratas.jpg",
+        imageURL: "/api/images/seed/36b55d94-f827-412f-a441-69df6bbeb348.jpg",
         categoryInSpanish: "Fruta deshidratada",
       },
       /* 2 */ {
         category: "flours",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harias.png",
+        imageURL: "/api/images/seed/1334f066-7236-473d-a52c-9a4a7b983257.jpg",
         categoryInSpanish: "Harinas",
       },
       /* 3 */ {
         category: "jams",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermeladas.png",
+        imageURL: "/api/images/seed/6ae2146c-454b-493e-a9ef-f2edbc86366d.jpg",
         categoryInSpanish: "Mermeladas",
       },
       /* 4 */ {
         category: "legumes",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/legumbres.jpg",
+        imageURL: "/api/images/seed/38fc57b7-2cc9-4278-a2cc-fcec62da5018.jpg",
         categoryInSpanish: "Legumbres",
       },
       /* 5 */ {
         category: "nuts",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/frutos-secos.png",
+        imageURL: "/api/images/seed/9de6cbbe-8860-419a-a280-8fb441a8ead9.jpg",
         categoryInSpanish: "Frutos secos",
       },
       /* 6 */ {
         category: "oils",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceites.png",
+        imageURL: "/api/images/seed/9b6f6e26-b565-4c1a-a3b2-ced32dd98d5c.jpg",
         categoryInSpanish: "Aceites",
       },
       /* 7 */ {
         category: "pastas",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pastas.jpg",
+        imageURL: "/api/images/seed/ca0e4e3e-504d-4697-a142-2a7bf19f2d76.jpg",
         categoryInSpanish: "Pastas",
       },
       /* 8 */ {
         category: "syrups",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/siropes.png",
+        imageURL: "/api/images/seed/71e8ce85-4791-4fe7-a565-35bb76361012.jpg",
         categoryInSpanish: "Siropes",
       },
       /* 9 */ {
         category: "teas",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/tes.png",
+        imageURL: "/api/images/seed/bfb85c2e-393f-4740-ab1c-f2d6bfeb2a6e.jpg",
         categoryInSpanish: "Infusiones",
       },
       /* 10 */ {
         category: "yeast",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        imageURL: "/api/images/seed/6697db92-ee59-43a5-a9d7-3e7a56ab3a59.jpg",
         categoryInSpanish: "Levaduras",
       },
       /* 11 */ {
         category: "grano",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        imageURL: "/api/images/seed/5323934d-5fe8-424d-ae88-7eb454a32b6e.jpg",
         categoryInSpanish: "Cereales",
       },
       /* 12 */ {
         category: "rice",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        imageURL: "/api/images/seed/10cb55e6-7f1b-491f-ad25-59706afc1741.jpg",
         categoryInSpanish: "Arroces",
       },
       /* 13 */ {
         category: "coffee",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        imageURL: "/api/images/seed/efba5830-b9ed-49b6-a833-d4ecc8280c9e.jpg",
         categoryInSpanish: "Cafés",
       },
       /* 13 */ {
         category: "vinegar",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levaduras.jpg",
+        imageURL: "/api/images/seed/85b901dd-bd78-4685-a494-e1543ead6b28.jpg",
         categoryInSpanish: "Vinagres",
       },
     ],
@@ -207,26 +191,22 @@ async function main() {
     data: [
       /* 1 */ {
         category: "cleaningProducts",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/producto-de-limpieza.jpg",
+        imageURL: "/api/images/seed/05964ecc-7f74-4411-ac52-88f7de2e2a71.jpg",
         categoryInSpanish: "Productos de limpieza",
       },
       /* 2 */ {
         category: "accessories",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/accesorios.jpg",
+        imageURL: "/api/images/seed/804e2d6e-f777-4679-a4ab-73b407d69301.jpg",
         categoryInSpanish: "Accesorios",
       },
       /* 3 */ {
         category: "home",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/hogar.jpg",
+        imageURL: "/api/images/seed/05964ecc-7f74-4411-ac52-88f7de2e2a71.jpg",
         categoryInSpanish: "Hogar",
       },
       /* 4 */ {
         category: "personalCare",
-        imageURL:
-          "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cuidado-personal.jpg",
+        imageURL: "/api/images/seed/804e2d6e-f777-4679-a4ab-73b407d69301.jpg",
         categoryInSpanish: "Cuidado personal",
       },
     ],
@@ -237,10 +217,9 @@ async function main() {
     data: {
       name: "Daniel",
       email: "Daniel@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword(adminPassword),
       role: "admin",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Daniel.jpg",
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Admin: { create: {} },
     },
   });
@@ -249,10 +228,9 @@ async function main() {
     data: {
       name: "Alicia",
       email: "Alicia@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword(adminPassword),
       role: "admin",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alicia.png",
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Admin: { create: {} },
     },
   });
@@ -261,10 +239,10 @@ async function main() {
     data: {
       name: "Patricio",
       email: "Patricio@worki.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword(adminPassword),
       role: "admin",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Patricio.jpg",
+      Admin: { create: {} },
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -272,10 +250,9 @@ async function main() {
     data: {
       name: "Sandra",
       email: "Sandra@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword("potitos2022"),
       role: "client",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Sandra.jpg",
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -284,10 +261,10 @@ async function main() {
     data: {
       name: "Pilar",
       email: "Pilar@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword(adminPassword),
       role: "admin",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Pilar.jpg",
+      Admin: { create: {} },
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -296,10 +273,9 @@ async function main() {
     data: {
       name: "Alberto",
       email: "Alberto@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword("potitos2022"),
       role: "client",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Alberto.png",
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -308,10 +284,10 @@ async function main() {
     data: {
       name: "Marta",
       email: "Marta@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword(adminPassword),
       role: "admin",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Marta.jpeg",
+      Admin: { create: {} },
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -320,10 +296,9 @@ async function main() {
     data: {
       name: "Juan",
       email: "Juan@Potitos.com",
-      passwordHash: hashedPassword,
+      passwordHash: await hashPassword("potitos2022"),
       role: "client",
-      image:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Juan.png",
+      image: "/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png",
       Client: { create: { cart: { create: {} } } },
     },
   });
@@ -359,8 +334,7 @@ async function main() {
       plainName: "copos de avena",
       description: "Copos de avena 100% naturales",
       stock: 375,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Oatmeal.png",
+      imageURL: "/api/images/seed/5323934d-5fe8-424d-ae88-7eb454a32b6e.jpg",
       Edible: {
         create: {
           category: "grano",
@@ -392,8 +366,7 @@ async function main() {
       plainName: "germen de trigo",
       description: "Germen de trigo 100% natural",
       stock: 375,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/trigo.png",
+      imageURL: "/api/images/seed/f74b6fd8-c033-4528-a25b-83a8c4e5c465.jpg",
       Edible: {
         create: {
           category: "grano",
@@ -425,8 +398,7 @@ async function main() {
       plainName: "arroz integral",
       description: "arroz 100% integral",
       stock: 375,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
+      imageURL: "/api/images/seed/b89f7370-2772-4f9b-af5c-083b4140504c.jpg",
       Edible: {
         create: {
           category: "rice",
@@ -458,8 +430,7 @@ async function main() {
       description:
         "vinagre de manzana realizado en una comarca gallega desde hace más de un siglo, el envase es 100% reciclado con productos del mar cantábrico.",
       stock: 150,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/vinegar.png",
+      imageURL: "/api/images/seed/85b901dd-bd78-4685-a494-e1543ead6b28.jpg",
       Edible: {
         create: {
           category: "vinegar",
@@ -490,8 +461,7 @@ async function main() {
       plainName: "cafe",
       description: "café 100% colombiano",
       stock: 375,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cofe.png",
+      imageURL: "/api/images/seed/efba5830-b9ed-49b6-a833-d4ecc8280c9e.jpg",
       Edible: {
         create: {
           category: "coffee",
@@ -523,8 +493,7 @@ async function main() {
       plainName: "pistachos",
       description: "pistachos ecológicos",
       stock: 10.5,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pistachos.png",
+      imageURL: "/api/images/seed/9a83101b-9556-41f7-ab23-dd5ac20b1fbd.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -558,8 +527,7 @@ async function main() {
       description:
         "Las almendras son indicadas para su alto contenido de calcio y de grasas saludables, así como para disminuir el índice de azúcar en sangre.",
       stock: 16.5,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/almendras.png",
+      imageURL: "/api/images/seed/9de6cbbe-8860-419a-a280-8fb441a8ead9.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -592,8 +560,7 @@ async function main() {
       plainName: "arroz arborio",
       description: "arroz arborio",
       stock: 21,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/ARROZ-ARBORIO-WEB.png",
+      imageURL: "/api/images/seed/b6d1bbf7-f7d5-41d9-a7ac-50b4d0bbeefa.jpg",
       Edible: {
         create: {
           category: "rice",
@@ -624,8 +591,7 @@ async function main() {
       plainName: "arroz bomba",
       description: "arroz redondo 100% valenciano ",
       stock: 50,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/5bbc96ec0bc67a02c98d9591.png",
+      imageURL: "/api/images/seed/10cb55e6-7f1b-491f-ad25-59706afc1741.jpg",
       Edible: {
         create: {
           category: "rice",
@@ -658,8 +624,7 @@ async function main() {
       description:
         "El maíz tostado, por ejemplo, conocido habitualmente como quicos, es toda una delícia. Es un aperitivo muy común en la cocina peruana, aunque su consumo está extendido por todo el mundo.",
       stock: 16.5,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/quicos.png",
+      imageURL: "/api/images/seed/4204821b-482e-4413-a89d-db7bc6e15805.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -693,8 +658,7 @@ async function main() {
       description:
         "El cacahuete es, en realidad, una legumbre: una familia de semillas comestibles que crecen en vainas de plantas (como los guisantes, judías y lentejas).",
       stock: 10.5,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cacahuetes.png",
+      imageURL: "/api/images/seed/15f7beec-89a1-4d23-a9b9-b45a206c48b6.jpg",
       Edible: {
         create: {
           category: "nuts",
@@ -727,8 +691,7 @@ async function main() {
       plainName: "levadura nutricional",
       description: "levadura nutricional ecológica",
       stock: 22.8,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/levadura%20nutricional.png",
+      imageURL: "/api/images/seed/6697db92-ee59-43a5-a9d7-3e7a56ab3a59.jpg",
       Edible: {
         create: {
           category: "yeast",
@@ -760,8 +723,7 @@ async function main() {
       plainName: "lentejas",
       description: "lentejas ecológicas",
       stock: 48.1,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/lentejas.png",
+      imageURL: "/api/images/seed/402f5c18-983a-416f-ac28-33deff4c9530.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -793,8 +755,7 @@ async function main() {
       plainName: "garbanzos",
       description: "Que ricos los garbanzos ñam",
       stock: 48.1,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/garbanzos.png",
+      imageURL: "/api/images/seed/38fc57b7-2cc9-4278-a2cc-fcec62da5018.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -827,8 +788,7 @@ async function main() {
       description:
         "Judía o alubia, esta legumbre originaria de Perú y México se conoce desde la Antigüedad y se cultiva en todo el mundo.",
       stock: 48.1,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/judia%20blanca.png",
+      imageURL: "/api/images/seed/84d0710a-263f-48a4-a230-759b3aa6f6ff.jpg",
       Edible: {
         create: {
           category: "legumes",
@@ -860,8 +820,7 @@ async function main() {
       plainName: "harina de trigo",
       description: "harina de trigo",
       stock: 18,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20trigo.png",
+      imageURL: "/api/images/seed/1334f066-7236-473d-a52c-9a4a7b983257.jpg",
       Edible: {
         create: {
           category: "flours",
@@ -894,8 +853,7 @@ async function main() {
       description:
         "Se denomina harina de maíz al polvo fino que se obtiene moliendo el cereal. Se destaca el alto contenido en fibras que posee este cereal molido.",
       stock: 18,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20maiz.png",
+      imageURL: "/api/images/seed/35504e48-a3b0-4ac4-a337-a0115c15247a.jpg",
       Edible: {
         create: {
           category: "flours",
@@ -927,8 +885,7 @@ async function main() {
       description:
         "La harina de almendra se hace moliendo almendras dulces. Suele hacerse con almendra pelada (sin piel) o con la almendra entera.",
       stock: 18,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/harina%20de%20almendra.png",
+      imageURL: "/api/images/seed/33dad0b8-e04a-4ad0-a167-50bebca1316c.jpg",
       Edible: {
         create: {
           category: "flours",
@@ -960,8 +917,7 @@ async function main() {
       description:
         "El espagueti es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/espaguetis.png",
+      imageURL: "/api/images/seed/ca0e4e3e-504d-4697-a142-2a7bf19f2d76.jpg",
       Edible: {
         create: {
           category: "pastas",
@@ -994,8 +950,7 @@ async function main() {
       description:
         "Los macarrones es un tipo de pasta italiana elaborada con harina de grano duro y agua.",
       stock: 18,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/macarrones.png",
+      imageURL: "/api/images/seed/dbf5d93b-cec6-4a99-a1bc-b6cb81dd9721.jpg",
       Edible: {
         create: {
           category: "pastas",
@@ -1028,8 +983,7 @@ async function main() {
       description:
         "Una pasa es una fruta seca obtenida del proceso de secado de una uva, con el objetivo de disminuir su humedad para lograr así su conservación por un periodo prolongado.",
       stock: 10,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/pasas.png",
+      imageURL: "/api/images/seed/36b55d94-f827-412f-a441-69df6bbeb348.jpg",
       Edible: {
         create: {
           category: "driedFruits",
@@ -1061,8 +1015,7 @@ async function main() {
       description:
         "El té verde (en chino tradicional, 綠茶; en chino simplificado, 绿茶; pinyin, Lǜ chá) proviene de la planta Camellia sinensis; «es el tipo de té no fermentado.",
       stock: 10,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/te%20verde.png",
+      imageURL: "/api/images/seed/bfb85c2e-393f-4740-ab1c-f2d6bfeb2a6e.jpg",
       Edible: {
         create: {
           category: "teas",
@@ -1094,8 +1047,7 @@ async function main() {
       description:
         "El rooibos (nombre científico Aspalathus linearis) es una planta de origen sudafricano cuyo nombre en afrikáans significa arbusto rojo y se pronuncia «roibos».",
       stock: 10,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/rooibos.png",
+      imageURL: "/api/images/seed/7d8f634e-3b19-4f60-ace4-d790af5d5c2a.jpg",
       Edible: {
         create: {
           category: "teas",
@@ -1128,8 +1080,7 @@ async function main() {
       description:
         "Los jarabes, llamados también siropes en el ámbito culinario, son líquidos de consistencia viscosa que por lo general contienen soluciones concentradas de azúcares.",
       stock: 23,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/Maple-Syrup-PNG-HD-Image.png",
+      imageURL: "/api/images/seed/71e8ce85-4791-4fe7-a565-35bb76361012.jpg",
       Edible: {
         create: {
           category: "syrups",
@@ -1162,8 +1113,7 @@ async function main() {
       description:
         "Las mermeladas industriales están dulces y ricas, pero nunca se pueden comparar a las mermeladas caseras, hechas por nosotros mismos con ingredientes de calidad y de temporada.",
       stock: 23,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/mermeladaKM.png",
+      imageURL: "/api/images/seed/6ae2146c-454b-493e-a9ef-f2edbc86366d.jpg",
       Edible: {
         create: {
           category: "jams",
@@ -1195,8 +1145,7 @@ async function main() {
       description:
         "El aceite de oliva es típico de la cuenca mediterránea, siendo España el primer productor mundial. Se usa a diario en la cocina mediterránea.",
       stock: 23,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/aceite%20de%20oliva%20virgen%20extra.png",
+      imageURL: "/api/images/seed/9b6f6e26-b565-4c1a-a3b2-ced32dd98d5c.jpg",
       Edible: {
         create: {
           category: "oils",
@@ -1230,8 +1179,7 @@ async function main() {
       plainName: "cepillo de dientes",
       description: "cepillo de dientes",
       stock: 7,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/cepillo%20dientes.png",
+      imageURL: "/api/images/seed/804e2d6e-f777-4679-a4ab-73b407d69301.jpg",
       NonEdible: {
         create: {
           category: "personalCare",
@@ -1248,8 +1196,7 @@ async function main() {
       plainName: "jabon",
       description: "jabón artesanal",
       stock: 12,
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/jabon%20artesanal.png",
+      imageURL: "/api/images/seed/05964ecc-7f74-4411-ac52-88f7de2e2a71.jpg",
       NonEdible: {
         create: {
           category: "personalCare",
@@ -1392,8 +1339,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://t2.uc.ltmcdn.com/es/posts/4/0/8/como_hacer_unas_gachas_dulces_o_polea_52804_orig.jpg",
+      imageURL: "/api/images/recipes/bd975a67-f3c2-45e4-a325-06463f9921f6.jpg",
       portions: 2,
       cookingTime: 20,
       preparationTime: 10,
@@ -1541,8 +1487,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://www.tapasmagazine.es/wp-content/uploads/2019/04/fprincipal-3.jpg",
+      imageURL: "/api/images/recipes/9b46cd23-95b8-4cee-a4ac-f77e18246c72.jpg",
       portions: 1,
       cookingTime: 10,
       preparationTime: 5,
@@ -1724,8 +1669,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://i.pinimg.com/564x/c5/56/fd/c556fd3f703b64952159f1720538f122.jpg",
+      imageURL: "/api/images/recipes/92c89dda-0049-4a58-ac71-cbf1daf18372.jpg",
       portions: 6,
       cookingTime: 50,
       preparationTime: 20,
@@ -1852,8 +1796,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://pinchofyum.com/wp-content/uploads/One-Pot-Creamy-Spinach-Lentils-6-960x1440.jpg",
+      imageURL: "/api/images/recipes/19227bbb-eb44-42b3-a0bd-781af0c1a705.jpg",
       portions: 6,
       cookingTime: 40,
       preparationTime: 10,
@@ -2003,7 +1946,7 @@ async function main() {
           ],
         },
       },
-      imageURL: "https://i.blogs.es/ee0ad8/1366_2000/1366_2000.jpg",
+      imageURL: "/api/images/recipes/5949e69b-0e45-409b-a6bf-e5e0fad28920.jpg",
       portions: 10,
       cookingTime: 0,
       preparationTime: 15,
@@ -2089,8 +2032,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://i.blogs.es/621992/risotto-de-ajo-negro-con-galletas-de-parmesano/1366_2000.jpg",
+      imageURL: "/api/images/recipes/2df97f76-2b8f-40b4-a028-e5f82879849d.jpg",
       portions: 2,
       cookingTime: 20,
       preparationTime: 15,
@@ -2243,7 +2185,7 @@ async function main() {
           ],
         },
       },
-      imageURL: "https://i.blogs.es/d70dad/1024_682-1/1366_2000.jpg",
+      imageURL: "/api/images/recipes/7ced13fe-02d2-4410-abb4-c4555ec49d13.jpg",
       portions: 3,
       cookingTime: 20,
       preparationTime: 20,
@@ -2385,8 +2327,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/espaguetis-a-la-bolonesa-1080x671.jpg",
+      imageURL: "/api/images/recipes/50c642c6-3c0d-451d-abd6-52bc5e8b1030.jpg",
       portions: 2,
       cookingTime: 40,
       preparationTime: 10,
@@ -2551,8 +2492,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://www.comedera.com/wp-content/uploads/2022/03/pan-de-pueblo.jpg",
+      imageURL: "/api/images/recipes/050486b5-bff6-4783-ac86-00943a7646db.jpg",
       portions: 2,
       cookingTime: 30,
       preparationTime: 80,
@@ -2703,8 +2643,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F44%2F2021%2F06%2F04%2Fpaella-valenciana.jpg&q=60",
+      imageURL: "/api/images/recipes/d2948a10-956f-4cbd-a79c-d59086ea81e6.jpg",
       portions: 4,
       cookingTime: 105,
       preparationTime: 15,
@@ -2845,8 +2784,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://www.guatemala.com/fotos/2020/07/reto-culinario-municipalidad-768x436.jpg",
+      imageURL: "/api/images/recipes/70df52a9-284b-474f-ace6-35a402f1333e.jpg",
       portions: 16,
       cookingTime: 90,
       preparationTime: 25,
@@ -3009,8 +2947,7 @@ async function main() {
           ],
         },
       },
-      imageURL:
-        "https://grjkjrkjpycphptekssf.supabase.co/storage/v1/object/public/images/seed/queso-vegano.png",
+      imageURL: "/api/images/recipes/d6cbc5b9-fd8d-4daa-a36c-013418852521.jpg",
       portions: 8,
       cookingTime: 45,
       preparationTime: 20,
@@ -3156,7 +3093,7 @@ async function main() {
   const pastaItaliana = await prisma.workshop.create({
     data: {
       name: "Pasta italiana",
-      imageURL: "https://i.blogs.es/90b0cc/istock-527135691/840_560.jpg",
+      imageURL: "/api/images/media/30112726-4b43-baa2-ad45-7a3092a3254f.jpg",
       description:
         "Vuelve al origen de una de las cocinas más aclamadas del mundo. ¡Mánchate las manos y descubre los secretos de las pastas!",
       OnSiteWorkshop: {
@@ -3170,8 +3107,7 @@ async function main() {
   const cocinaJapo = await prisma.workshop.create({
     data: {
       name: "Cocina Japonesa",
-      imageURL:
-        "https://imag.bonviveur.com/gyozas-o-empanadillas-japonesas.jpg",
+      imageURL: "/api/images/media/30e42526-32d9-5be9-0161-8b6a3bf00d3d.jpg",
       description:
         "Únete a este taller para aprender a cocinar riquísimos platos del país del sol naciente. ¡No te arrepentirás!",
       OnSiteWorkshop: {
@@ -3186,8 +3122,7 @@ async function main() {
   const galletas = await prisma.workshop.create({
     data: {
       name: "Galletitas navideñas",
-      imageURL:
-        "https://assets.recipes.prod.wpsandwatch.com/var/kaapi/storage/images/es/recipes/galletas-navidenas-de-jengibre/1767403-2-eng-GB/Galletas-navidenas-de-jengibre_vip_header_image.jpg",
+      imageURL: "/api/images/media/8aa048dc-f3a6-610c-a598-feee2aafb439.jpg",
       description:
         "Aprende junto a un equipo profesional a cocinar alucinantes casitas de hombrecillos de jengibre. Sorprende a tus comensales estas navidades con auténticas obras de arte comestibles.",
       OnSiteWorkshop: {
@@ -3202,8 +3137,7 @@ async function main() {
   const master_chef = await prisma.workshop.create({
     data: {
       name: "MasterChef",
-      imageURL:
-        "https://www.barcelonaculinaryhub.com/sites/bch.com/files/inline-images/avant-garde-food-bch-min.jpg",
+      imageURL: "/api/images/media/14de0d2a-203d-74b2-5cd3-bfbe6db9cca8.jpg",
       description: "Competición fuertemente inspirada en MasterChef",
       OnSiteWorkshop: {
         create: {
@@ -3216,8 +3150,7 @@ async function main() {
   const reposteria = await prisma.workshop.create({
     data: {
       name: "Respostería",
-      imageURL:
-        "https://www.elespectador.com/resizer/T3sxqcbNHg725sxGLWwLq2h3-yI=/968x645/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/EXYQ4FEM3RBHTPTQ7JNQ5NKREU.jpg",
+      imageURL: "/api/images/media/9a1f3cc8-39fa-5e7b-6462-0a5555a3dca5.jpg",
       description:
         "En nuestros talleres aprenderás a elaborar postres ecológicos, sin azúcares refinados ni colorantes, y a elaborar dulces veganos, sin lactosa o sin gluten.",
       OnSiteWorkshop: {
@@ -3231,8 +3164,7 @@ async function main() {
   const corquetasVegetarianas = await prisma.workshop.create({
     data: {
       name: "Croquetas Vegetarianas",
-      imageURL:
-        "https://images.hola.com/imagenes/cocina/recetas/20200113157946/croquetas-veganas-de-champinones/0-767-626/croquetas-veganas-de--champinones-m.jpg",
+      imageURL: "/api/images/media/8aee1b2f-fac1-7ea9-8f50-a11ad74d9d88.jpg",
       description: "Cómo hacer unas buenas croquetas vegetarianas",
       OnlineWorkshop: {
         create: {
@@ -3244,8 +3176,7 @@ async function main() {
   const ComidaSaludable = await prisma.workshop.create({
     data: {
       name: "Comida Saludable",
-      imageURL:
-        "https://canalcocina.es/medias/_cache/zoom-7633d99ea9677004a4988e94e5d30aa0-920-518.jpg",
+      imageURL: "/api/images/media/7e1560a2-0d52-36ad-7f49-682bac72339f.jpg",
       description: "Aprende sobre recetas saludables",
       OnlineWorkshop: {
         create: {
@@ -3257,8 +3188,7 @@ async function main() {
   const Reciclaje = await prisma.workshop.create({
     data: {
       name: "Reciclaje",
-      imageURL:
-        "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      imageURL: "/api/images/media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
       description: "Consejos sobre reciclaje para el día a día",
       OnlineWorkshop: {
         create: {
@@ -3270,8 +3200,7 @@ async function main() {
   const Alergenos = await prisma.workshop.create({
     data: {
       name: "Cómo afectan los alérgenos en tu vida",
-      imageURL:
-        "https://filesedc.com/uploads/195/img/2019/04/1200/manualidades-de-reciclaje-para-ninos-9-ideas-para-ensenar-a-reciclar-en-casa-5cb391d2eeb80.webp",
+      imageURL: "/api/images/media/62b02d7d-0a82-f42e-d7d6-2aa7f1f4c557.jpg",
       description:
         "Todo lo que necesitas saber sobre las personas con condiciones alimenticias y cómo afectan los alimentos en su día a día.",
       OnlineWorkshop: {
@@ -3284,8 +3213,7 @@ async function main() {
   const Compras_A_Granel = await prisma.workshop.create({
     data: {
       name: "Ventajas de las compras a granel",
-      imageURL:
-        "https://www.iberdrola.com/documents/20125/40588/granel_746x419.jpg/f98ca9f9-0f1d-ee80-31e7-c2bd3c20eec0?t=1627467160432",
+      imageURL: "/api/images/media/8e69d54a-d7a2-a74f-4faf-46f29e194f15.jpg",
       description:
         "Te enseñamos los beneficios ecológicos y psicólogicos de la compra a granel.",
       OnlineWorkshop: {
@@ -3298,8 +3226,7 @@ async function main() {
   const Te_macha = await prisma.workshop.create({
     data: {
       name: "Cómo hacer Té matcha",
-      imageURL:
-        "https://www.cocinista.es/download/bancorecursos/ingredientes/ingrediente-te-matcha.jpg",
+      imageURL: "/api/images/media/ab5a4317-c1d7-489d-9227-8cfcd454d2f2.jpg",
       description:
         "Desde Japón hasta tu casa, aprende a preparar el té matcha.",
       OnlineWorkshop: {
@@ -3310,14 +3237,3 @@ async function main() {
     },
   });
 }
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-    process.exit(0);
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });

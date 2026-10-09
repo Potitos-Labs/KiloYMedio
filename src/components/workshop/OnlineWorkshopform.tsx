@@ -6,7 +6,7 @@ import {
 } from "@utils/validations/workshop";
 import { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 
@@ -49,7 +49,7 @@ function OnlineWorkshopForm() {
             <input
               type="text"
               placeholder="Nombre del producto"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               {...register("name")}
             />
             <p className="text-sm text-pink-600">{errors.name?.message}</p>
@@ -59,7 +59,7 @@ function OnlineWorkshopForm() {
             <input
               type="text"
               placeholder="Descripción"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               {...register("description")}
             />
             <p className="text-sm text-pink-600">
@@ -71,7 +71,7 @@ function OnlineWorkshopForm() {
             <input
               type="text"
               placeholder="Dirección del Video"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               {...register("OnlineWorkshop.videoURL")}
             />
             <p className="text-sm text-pink-600">
@@ -87,7 +87,10 @@ function OnlineWorkshopForm() {
                 <div className="m-2 flex flex-col gap-4 md:flex-row">
                   <UploadImage setImageURL={onChange}></UploadImage>
                   <Image
-                    src={value ?? "/img/placeholder.jpg"}
+                    src={
+                      value ??
+                      "/api/images/site/7f512f27-78ed-ae43-c9dd-a916a415f30e.webp"
+                    }
                     width={100}
                     height={100}
                     layout="intrinsic"
@@ -102,7 +105,7 @@ function OnlineWorkshopForm() {
         </div>
         <div className="flex flex-row">
           <button
-            className="md:px-26 btn-sm m-2 mt-3 block rounded bg-base-content py-1 px-20 text-base-100"
+            className="md:px-26 btn-sm m-2 mt-3 block rounded bg-base-content px-20 py-1 text-base-100"
             type="submit"
           >
             Crear taller

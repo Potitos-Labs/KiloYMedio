@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
 
 test("test", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("navigation").getByText("tienda").click();
 
   await page.getByRole("button", { name: "VER TODO" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product");
+  await expect(page).toHaveURL("/product");
 
   await page.getByText("Pastas").click();
   await page.waitForTimeout(600);

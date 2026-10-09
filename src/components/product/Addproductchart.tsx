@@ -17,16 +17,6 @@ const productPrice: Record<ProductUnit, number> = {
   unit: 1,
 };
 
-const incdecValues = {
-  grams: 100,
-  kilograms: 0.5,
-  liters: 0.5,
-  milliliters: 250,
-  unit: 1,
-  min: 1,
-  pers: 1,
-};
-
 const maxValues = {
   grams: 1000,
   kilograms: 1,
@@ -65,8 +55,7 @@ function Addproductchart({
   });
 
   const stockLeft =
-    amount + incdecValues[product.ProductUnit] <=
-    product.stock * maxValues[product.ProductUnit];
+    amount > 0 && amount <= product.stock * maxValues[product.ProductUnit];
 
   let price = product.Edible
     ? (amount / productPrice[product.ProductUnit]) *
@@ -81,8 +70,10 @@ function Addproductchart({
       return;
     }
     if (stockLeft) {
-      toast.success("Producto añadido");
-      mutation.mutateAsync({ productId: product.id, amount: amount });
+      void mutation
+        .mutateAsync({ productId: product.id, amount })
+        .then(() => toast.success("Producto añadido"))
+        .catch((error: Error) => toast.error(error.message));
     }
   }
 
@@ -92,14 +83,20 @@ function Addproductchart({
     }
   }, [index, price, setPrices]);
 
-  const handlePan = (event: any, info: PanInfo) => {
+  const handlePan = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const x = info.offset.x;
     if (x > 0) {
       controls.set({ x: x < cartWidth ? x : cartWidth });
     }
   };
 
-  const handlePanEnd = (event: any, info: PanInfo) => {
+  const handlePanEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     if (info.offset.x >= cartWidth) {
       addToCart();
     }
@@ -139,7 +136,7 @@ function Addproductchart({
           animate={controls}
           onPan={handlePan}
           onPanEnd={handlePanEnd}
-          className="absolute top-0 left-0	flex h-full w-[50px] cursor-grabbing touch-none select-none flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32"
+          className="absolute left-0 top-0 flex h-full w-[50px] cursor-grabbing touch-none select-none flex-col items-center justify-center self-center whitespace-nowrap rounded-full bg-base-content text-center text-sm text-base-100 sm:w-32"
         >
           <span
             className={`hidden px-1 sm:block sm:px-2 sm:text-sm ${

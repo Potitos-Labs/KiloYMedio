@@ -8,6 +8,7 @@ import { prisma } from "../db/client";
 
 type CreateContextOptions = {
   session: Session | null;
+  requestIP?: string;
 };
 
 /** Use this helper for:
@@ -17,6 +18,7 @@ type CreateContextOptions = {
 export const createContextInner = async (opts: CreateContextOptions) => {
   return {
     session: opts.session,
+    requestIP: opts.requestIP,
     prisma,
   };
 };
@@ -33,6 +35,9 @@ export const createContext = async (opts: CreateNextContextOptions) => {
 
   return await createContextInner({
     session,
+    requestIP: String(
+      req.headers["cf-connecting-ip"] ?? req.socket?.remoteAddress ?? "unknown",
+    ),
   });
 };
 

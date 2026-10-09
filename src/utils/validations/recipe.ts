@@ -1,3 +1,4 @@
+import { imageURLSchema } from "./image";
 import { Allergen, IngredientUnit, RecipeDifficulty } from "@prisma/client";
 import * as z from "zod";
 import { productSchema } from "./product";
@@ -43,9 +44,7 @@ export const createRecipeSchema = z.object({
       ),
     ),
   portions: z.number().min(1, { message: "Las raciones no pueden ser 0" }),
-  imageURL: z
-    .string({ required_error: "Campo obligatorio" })
-    .url({ message: "Campo obligatorio" }),
+  imageURL: imageURLSchema,
   description: z
     .string()
     .max(600, {
@@ -121,7 +120,7 @@ export const commentSchema = z.object({
     .max(200, {
       message: "La descripción debe contener máximo 200 caractéres",
     }),
-  rating: z.number(),
+  rating: z.number().min(0).max(5),
 });
 
 export const filterRecipeSchema = z.object({

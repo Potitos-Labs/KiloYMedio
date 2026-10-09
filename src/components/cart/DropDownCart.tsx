@@ -7,7 +7,7 @@ function DropDownCart() {
   const { data: myCart } = trpc.cart.getAllCartProduct.useQuery();
   const numberCartProducts = myCart?.productList.length ?? 0;
   return (
-    <div className="absolute top-11 right-4 z-20 flex cursor-default flex-col rounded-[20px] shadow-2xl shadow-black">
+    <div className="absolute right-4 top-11 z-20 flex cursor-default flex-col rounded-[20px] shadow-2xl shadow-black">
       <div className="z-10 hidden group-hover:block">
         <div className="scrollbar-hide flex h-auto max-h-[650px] w-[580px] flex-col overflow-y-scroll rounded-[20px] bg-base-100 text-black">
           <div className="relative pt-3">
@@ -48,9 +48,9 @@ function DropDownCart() {
               </div>
               <Link href={"/cart"}>
                 <div className="inline-flex cursor-pointer pt-3">
-                  <a className="font-raleway text-sm text-base-100">
+                  <span className="font-raleway text-sm text-base-100">
                     Tramitar pedido
-                  </a>
+                  </span>
                   <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
                 </div>
               </Link>
@@ -59,9 +59,9 @@ function DropDownCart() {
             <div className="w-full text-end">
               <Link href={"/product"}>
                 <div className="inline-flex cursor-pointer">
-                  <a className="font-raleway text-sm text-base-100">
+                  <span className="font-raleway text-sm text-base-100">
                     Ver productos
-                  </a>
+                  </span>
                   <FaArrowRight className="h-8 w-8 pl-3 font-bold" />
                 </div>
               </Link>

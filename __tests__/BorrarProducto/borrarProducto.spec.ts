@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test("test", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   await page.getByRole("link", { name: "iniciar sesión" }).first().click();
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("/login");
 
   await page.getByPlaceholder("E-mail").click();
 
@@ -15,12 +15,12 @@ test("test", async ({ page }) => {
   await page.getByPlaceholder("Contraseña").fill("Contraeña_123");
 
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/");
+  await expect(page).toHaveURL("/");
 
   await page.getByText("tienda").first().click();
 
   await page.getByRole("button", { name: "VER TODO" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product");
+  await expect(page).toHaveURL("/product");
 
   await page.locator('[id="headlessui-menu-button-\\:r9\\:"]').click();
 
@@ -33,5 +33,5 @@ test("test", async ({ page }) => {
   await page.getByRole("menuitem", { name: "Eliminar" }).click();
 
   await page.getByRole("button", { name: "Confirmar" }).click();
-  await expect(page).toHaveURL("http://localhost:3000/product");
+  await expect(page).toHaveURL("/product");
 });

@@ -1,5 +1,5 @@
 import Stars from "../../Stars";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 
 function CommentCard({
   imageURL,

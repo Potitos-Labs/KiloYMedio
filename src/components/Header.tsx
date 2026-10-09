@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import NavBar from "./navbar/NavBar";
 import NavBarClient from "./navbar/NavBarClient";
 import router from "next/router";
@@ -28,7 +28,11 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
         )}
       >
         <Image
-          src={textDark ? "/logo pequeño.svg" : "/logo pequeño-blanco.svg"}
+          src={
+            textDark
+              ? "/api/images/site/5fbae0fb-e32a-13de-04e8-d34d7ddcbfe1.svg"
+              : "/api/images/site/05554c31-941e-1ec9-d06f-5d249aa7e534.svg"
+          }
           alt="not found"
           className=""
           width="40"
@@ -46,8 +50,8 @@ const Header = ({ bgLight, textDark }: HeaderProps) => {
               <Image
                 src={
                   textDark
-                    ? "/logo sin subtitulo.svg"
-                    : "/logo sin subtitulo-blanco.svg"
+                    ? "/api/images/site/55879e0a-bc75-fb5b-828a-95dcb13cd2e8.svg"
+                    : "/api/images/site/0887ec3f-5dbf-0b89-9a4c-1beead0bf0d1.svg"
                 }
                 width={180}
                 height={24}

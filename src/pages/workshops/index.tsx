@@ -2,7 +2,7 @@ import Layout from "@components/Layout";
 import OnlineWorkshopCard from "@components/workshop/tinyComponents/OnlineWorkshopCard";
 import OnsiteWorkshopCard from "@components/workshop/tinyComponents/OnsiteWorkshopCard";
 import { trpc } from "@utils/trpc";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import YouTube from "react-youtube";
@@ -119,7 +119,7 @@ export default function Workshops() {
           {/*---DISPLAYER VIDEO/FOTO---*/}
           <div
             id="PICTURES"
-            className={` relative mt-2 mr-2 hidden items-center justify-items-center overflow-hidden rounded-lg border-[1px] border-base-content align-middle md:block `}
+            className={`relative mr-2 mt-2 hidden items-center justify-items-center overflow-hidden rounded-lg border-[1px] border-base-content align-middle md:block`}
           >
             {showOnsite ? (
               <div>
@@ -133,7 +133,7 @@ export default function Workshops() {
                   />
                 ) : (
                   <Image
-                    src="/logo.svg"
+                    src="/api/images/site/52fbc7d4-0866-833b-9daa-9c43af14612b.svg"
                     objectFit="contain"
                     className="-mr-1 rounded"
                     alt="notfound"
@@ -150,7 +150,7 @@ export default function Workshops() {
                     className={"hidden md:block"}
                   />
                 ) : (
-                  <p className="absolute top-1/2 left-[40%] text-center align-middle">
+                  <p className="absolute left-[40%] top-1/2 text-center align-middle">
                     ¡Selecciona un vídeo! 😊
                   </p>
                 )}
@@ -167,7 +167,7 @@ export default function Workshops() {
               showMore)) && (
             <div className="flex justify-center md:justify-start">
               <button
-                className="mb-4 flex h-full items-center gap-2 rounded-full border-[1px] border-base-content px-4  py-2  font-raleway active:border-primary active:bg-primary active:text-base-100"
+                className="mb-4 flex h-full items-center gap-2 rounded-full border-[1px] border-base-content px-4 py-2 font-raleway active:border-primary active:bg-primary active:text-base-100"
                 onClick={() => setShowMore(false)}
               >
                 VER MÁS
@@ -179,7 +179,6 @@ export default function Workshops() {
             (showOnsite
               ? OnsiteWorkshops?.slice(3, OnsiteWorkshops?.length).map(
                   (workshop, index) => {
-                    console.log(workshop.OnSiteWorkshop?.date);
                     return (
                       <OnsiteWorkshopCard
                         key={index}
@@ -195,7 +194,6 @@ export default function Workshops() {
                 )
               : OnlineWorkshops?.slice(3, OnsiteWorkshops?.length).map(
                   (workshop, index) => {
-                    console.log(workshop);
                     return (
                       <OnlineWorkshopCard
                         key={index}

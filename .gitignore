@@ -41,3 +41,9 @@ yarn-error.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+.open-next/
+.wrangler/
+.seed/
+.dev.vars
+*.tsbuildinfo
