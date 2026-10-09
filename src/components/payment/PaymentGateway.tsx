@@ -67,6 +67,10 @@ const PaymentGateway = ({
   return (
     <div className="flex flex-col gap-8">
       <FormWrapper title="Detalles del pago">
+        <p className="mt-3 text-sm">
+          Pago de demostración: usa 4242 4242 4242 4242, cualquier CVV y una
+          fecha futura. No se realiza ningún cobro.
+        </p>
         <div className="pt-5 xl:pt-3">
           <label className="relative flex flex-col">
             <span className="mb-1 text-xs">Número de tarjeta</span>
@@ -84,7 +88,7 @@ const PaymentGateway = ({
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute bottom-1 left-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+              className="absolute bottom-1 left-1 h-6 w-6 -translate-y-1/2 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -97,7 +101,7 @@ const PaymentGateway = ({
               />
             </svg>
           </label>
-          <label className="relative mt-4 flex w-full flex-col   ">
+          <label className="relative mt-4 flex w-full flex-col">
             <span className="mb-1 text-xs">Nombre del titular</span>
             <input
               className="peer input input-bordered h-[60px] max-w-[280px] rounded-[30px] border-base-300 pl-12 text-sm text-base-300 placeholder-gray-300 sm:max-w-full"
@@ -112,7 +116,7 @@ const PaymentGateway = ({
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute bottom-1 left-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+              className="absolute bottom-1 left-1 h-6 w-6 -translate-y-1/2 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -143,7 +147,7 @@ const PaymentGateway = ({
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute bottom-1 left-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                className="absolute bottom-1 left-1 h-6 w-6 -translate-y-1/2 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -172,7 +176,7 @@ const PaymentGateway = ({
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="absolute bottom-1 left-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                  className="absolute bottom-1 left-1 h-6 w-6 -translate-y-1/2 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -207,7 +211,7 @@ const PaymentGateway = ({
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute bottom-1 left-1 h-6 w-6 translate-x-1/2 -translate-y-1/2 transform text-black peer-placeholder-shown:text-gray-300"
+                className="absolute bottom-1 left-1 h-6 w-6 -translate-y-1/2 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

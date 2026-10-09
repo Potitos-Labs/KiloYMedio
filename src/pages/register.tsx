@@ -6,16 +6,24 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { trpc } from "../utils/trpc";
 import { ISignUp, signUpSchema } from "../utils/validations/auth";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
+  const returnTo =
+    typeof router.query.prev === "string" &&
+    router.query.prev.startsWith("/") &&
+    !router.query.prev.startsWith("//") &&
+    !router.query.prev.includes("\\")
+      ? router.query.prev
+      : "/";
   const {
     register,
     handleSubmit,
     getValues,
+    watch,
     formState: { errors },
   } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
@@ -30,9 +38,9 @@ const SignUp: NextPage = () => {
   });
 
   const { status } = useSession();
-  if (status == "authenticated") {
-    router.push(router.query.prev?.toString() ?? "/");
-  }
+  useEffect(() => {
+    if (status === "authenticated") void router.replace(returnTo);
+  }, [status, router, returnTo]);
 
   const { mutateAsync } = trpc.user.client.createNew.useMutation();
 
@@ -40,7 +48,6 @@ const SignUp: NextPage = () => {
   const [matchPassword, setMatchPassword] = useState(false);
   const [confirmPassword, setConfirmValue] = useState("");
 
-  console.log({ matchPassword });
   const onSubmit = useCallback(
     async (data: ISignUp) => {
       try {
@@ -50,14 +57,14 @@ const SignUp: NextPage = () => {
           await signIn("credentials", {
             email: data.email,
             password: data.password,
-            callbackUrl: router.query.prev?.toString(),
+            callbackUrl: returnTo,
           });
         }
-      } catch (error) {
+      } catch {
         setEmailAlreadyExists(true);
       }
     },
-    [mutateAsync, matchPassword],
+    [mutateAsync, matchPassword, returnTo],
   );
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,26 +79,27 @@ const SignUp: NextPage = () => {
     setShowConfirmPassword((showConfirmPassword) => !showConfirmPassword);
   }
 
+  const password = watch("password");
+
   useEffect(() => {
     if (confirmPassword == "") {
       setMatchPassword(false);
       return;
     }
-    if (getValues("password") != confirmPassword) {
+    if (password != confirmPassword) {
       setMatchPassword(false);
     } else {
       setMatchPassword(true);
     }
-  }, [confirmPassword, getValues]);
+  }, [confirmPassword, password]);
 
-  console.log({ errors });
   return (
     <div className="h-screen bg-[#FFA24A]">
-      <main className="h-full bg-contain bg-left-bottom bg-no-repeat md:bg-[url('/img/register.svg')]">
+      <main className="h-full bg-contain bg-left-bottom bg-no-repeat md:bg-[url('/api/images/site/94cab4b7-410a-88ca-67db-cba89f4cb3a2.webp')]">
         <div className="flex w-full justify-center">
           <Link href="/">
             <Image
-              src="/logo sin subtitulo-blanco.svg"
+              src="/api/images/site/0887ec3f-5dbf-0b89-9a4c-1beead0bf0d1.svg"
               alt="not found"
               width={214.5}
               height={45}
@@ -101,17 +109,17 @@ const SignUp: NextPage = () => {
         </div>
 
         <div className="flex flex-col justify-center px-2 md:items-end">
-          <div className="mt-[15px] mb-12 rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
+          <div className="mb-12 mt-[15px] rounded-[20px] border-[1px] bg-base-100 md:mr-[70px]">
             {/* Text */}
             <div className="text-center">
               <div className="flex w-full justify-center">
-                <p className="mt-[20px] flex font-raleway text-[43px] leading-10 md:mr-[51px] md:mt-[55px] md:ml-[30px] md:whitespace-nowrap">
+                <p className="mt-[20px] flex font-raleway text-[43px] leading-10 md:ml-[30px] md:mr-[51px] md:mt-[55px] md:whitespace-nowrap">
                   ¡Únete a kilo y medio!
                 </p>
               </div>
               <p className="ml-[33px] mr-[17px] mt-[25px] text-left text-sm">
                 ¿Ya tienes una cuenta? {""}
-                <Link href={`/login?prev=${router.query.prev?.toString()}`}>
+                <Link href={{ pathname: "/login", query: { prev: returnTo } }}>
                   <b className="cursor-pointer font-satoshiBold">
                     Iniciar sesión
                   </b>
@@ -133,7 +141,7 @@ const SignUp: NextPage = () => {
                     />
                   </div>
                   {errors.username && (
-                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                    <p className="-mb-[18px] ml-7 text-[14px] text-red-500">
                       {errors.username.message}
                     </p>
                   )}
@@ -149,12 +157,12 @@ const SignUp: NextPage = () => {
                     />
                   </div>
                   {errors.email && (
-                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                    <p className="-mb-[18px] ml-7 text-[14px] text-red-500">
                       {errors.email.message}
                     </p>
                   )}
                   {emailAlreadyExists && (
-                    <p className="ml-7 -mb-[18px] text-[14px] text-red-500">
+                    <p className="-mb-[18px] ml-7 text-[14px] text-red-500">
                       El email ya está siendo usado
                     </p>
                   )}
@@ -174,7 +182,7 @@ const SignUp: NextPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
                       id="password"
-                      className="input input-bordered h-[60px] w-full rounded-[30px] border-base-300 text-sm text-base-300 "
+                      className="input input-bordered h-[60px] w-full rounded-[30px] border-base-300 text-sm text-base-300"
                       tabIndex={3}
                       {...register("password")}
                     />
@@ -203,14 +211,14 @@ const SignUp: NextPage = () => {
                     />
                   </div>
                   {errors.password && (
-                    <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
+                    <p className="-mb-[48px] ml-7 text-[14px] text-red-500">
                       {errors.password.message}
                     </p>
                   )}
                   {!matchPassword &&
                     !errors.password &&
                     getValues("password") != "" && (
-                      <p className="ml-7 -mb-[48px] text-[14px] text-red-500">
+                      <p className="-mb-[48px] ml-7 text-[14px] text-red-500">
                         Las contraseñas no coinciden
                       </p>
                     )}
@@ -221,7 +229,7 @@ const SignUp: NextPage = () => {
               <div className="flex w-full flex-col items-center px-6 pb-[25px]">
                 <button
                   type="submit"
-                  className="responsive btn btn-lg mx-[15px] mb-[10px] mt-16  h-[60px] w-full cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:mb-0 md:mt-[60px]"
+                  className="responsive btn btn-lg mx-[15px] mb-[10px] mt-16 h-[60px] w-full cursor-pointer text-sm text-base-100 transition duration-150 ease-in-out md:mx-[30px] md:mb-0 md:mt-[60px]"
                 >
                   Crear cuenta
                 </button>

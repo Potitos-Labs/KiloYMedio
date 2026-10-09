@@ -13,7 +13,7 @@ import CommentSection from "./comments/CommentSection";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { useState } from "react";
 import { IRecipe } from "@utils/validations/recipe";
 import { motion, PanInfo, useAnimation } from "framer-motion";
@@ -30,15 +30,8 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
   ]);
   let cont = -1;
   let cont2 = -1;
-  let productsCont = 0;
-
-  ingredients
-    ? ingredients.map((i) => {
-        if (i.Ingredient.Edible) {
-          productsCont++;
-        }
-      })
-    : "";
+  const productsCont =
+    ingredients?.filter((i) => i.Ingredient.Edible).length ?? 0;
 
   const utils = trpc.useContext();
   const router = useRouter();
@@ -70,14 +63,20 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
     },
   });
 
-  const handlePan = (event: any, info: PanInfo) => {
+  const handlePan = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const x = info.offset.x;
     if (x > 0) {
       controls.set({ x: x < 160 ? x : 160 });
     }
   };
 
-  const handlePanEnd = (event: any, info: PanInfo) => {
+  const handlePanEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     if (info.offset.x >= 160) {
       addToCart();
     }
@@ -93,7 +92,6 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
             (i.Ingredient.Edible.Edible?.priceByWeight ?? 1)) *
             1000,
         );
-        i.Ingredient.Edible.Edible?.priceByWeight;
         cartMutation.mutateAsync({
           productId: i.Ingredient.Edible.id,
           amount: amount,
@@ -169,8 +167,8 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
                     {recipe?.difficulty == "easy"
                       ? "fácil"
                       : recipe?.difficulty == "moderate"
-                      ? "media"
-                      : "difícil"}
+                        ? "media"
+                        : "difícil"}
                   </h2>
                   <hr className="my-4 border-base-content"></hr>
                   <h2 className="flex items-center justify-between">
@@ -202,7 +200,7 @@ const RecipeDetail = ({ recipe }: { recipe: IRecipe }) => {
             {/* End Upper section */}
 
             {/* Allergens, Ingredients and Directions */}
-            <div className="mt-20 mb-10">
+            <div className="mb-10 mt-20">
               {/* Ingredients and Directions */}
               <div className="mx-0 grid grid-cols-1 sm:mx-10 md:grid-cols-2 md:gap-32">
                 <div>

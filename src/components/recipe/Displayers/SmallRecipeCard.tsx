@@ -3,7 +3,7 @@ import Stars from "@components/Stars";
 import { trpc } from "@utils/trpc";
 import { IRecipe } from "@utils/validations/recipe";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import Link from "next/link";
 import router from "next/router";
 import { toast } from "react-toastify";
@@ -44,7 +44,7 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
         />
       </div>
       <div className="relative pt-2">
-        <div className="absolute top-0 -right-2">
+        <div className="absolute -right-2 top-0">
           {(data?.user?.id == recipe.userId || data?.user?.role == "admin") && (
             <DotMenu
               id={recipe.id}
@@ -72,10 +72,11 @@ export default function SmallRecipeCard({ recipe }: { recipe: IRecipe }) {
           {/* End Features */}
         </div>
       </div>
-      <Link href={`/recipe/${recipe.id}`}>
-        <a className="btn btn-sm mr-2 mb-2 self-end justify-self-end rounded-full bg-base-content px-4 pb-0.5 text-base-100">
-          ver receta
-        </a>
+      <Link
+        href={`/recipe/${recipe.id}`}
+        className="btn btn-sm mb-2 mr-2 self-end justify-self-end rounded-full bg-base-content px-4 pb-0.5 text-base-100"
+      >
+        ver receta
       </Link>
     </div>
   );

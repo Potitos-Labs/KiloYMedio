@@ -1,15 +1,9 @@
 import { z } from "zod";
 
 import { clientProcedure, router } from "../trpc";
-import { ProductUnit } from "@prisma/client";
 
-const productPrice: Record<ProductUnit, number> = {
-  grams: 1000,
-  kilograms: 1,
-  liters: 1,
-  milliliters: 1000,
-  unit: 1,
-};
+import { linePrice, unitDivisor } from "../../common/pricing";
+import { TRPCError } from "@trpc/server";
 
 export const cartRouter = router({
   getAllCartProduct: clientProcedure.query(async ({ ctx }) => {
@@ -37,16 +31,7 @@ export const cartRouter = router({
     });
 
     const cartProductWithPrice = cartProduct.map((cp) => {
-      let price = 0;
-
-      if (cp.product.Edible != null)
-        price =
-          (cp.product.Edible.priceByWeight * cp.amount) /
-          productPrice[cp.product.ProductUnit];
-      else if (cp.product.NonEdible != null)
-        price =
-          (cp.product.NonEdible.price * cp.amount) /
-          productPrice[cp.product.ProductUnit];
+      const price = linePrice(cp.product, cp.amount);
 
       return { ...cp, price };
     });
@@ -85,7 +70,7 @@ export const cartRouter = router({
     .input(
       z.object({
         productId: z.string(),
-        amount: z.number(),
+        amount: z.number().finite().positive().max(1_000_000),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -95,6 +80,22 @@ export const cartRouter = router({
         select: { cartId: true },
         where: { userId: ctx.session.user.id },
       });
+
+      const product = await ctx.prisma.product.findUniqueOrThrow({
+        where: { id: productId },
+      });
+      const previous = await ctx.prisma.cartProduct.findUnique({
+        where: { cartId_productId: { cartId, productId } },
+      });
+      if (
+        amount + (previous?.amount ?? 0) >
+          product.stock * unitDivisor[product.ProductUnit] ||
+        (product.ProductUnit === "unit" && !Number.isInteger(amount))
+      )
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cantidad no disponible.",
+        });
 
       await ctx.prisma.cartProduct.upsert({
         create: { cartId, productId, amount },
@@ -143,7 +144,7 @@ export const cartRouter = router({
     .input(
       z.object({
         productId: z.string(),
-        amount: z.number(),
+        amount: z.number().finite().positive().max(1_000_000),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -153,6 +154,18 @@ export const cartRouter = router({
         select: { cartId: true },
         where: { userId: ctx.session.user.id },
       });
+
+      const product = await ctx.prisma.product.findUniqueOrThrow({
+        where: { id: productId },
+      });
+      if (
+        amount > product.stock * unitDivisor[product.ProductUnit] ||
+        (product.ProductUnit === "unit" && !Number.isInteger(amount))
+      )
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cantidad no disponible.",
+        });
 
       await ctx.prisma.cartProduct.update({
         data: { amount: amount },

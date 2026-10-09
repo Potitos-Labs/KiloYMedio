@@ -1,6 +1,6 @@
 import { trpc } from "@utils/trpc";
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 
 import { TiStarFullOutline } from "react-icons/ti";
 
@@ -54,26 +54,26 @@ function CommentSection({ recipeId }: { recipeId: string }) {
   }
 
   return (
-    <div className="relative z-0 my-16 mx-4">
+    <div className="relative z-0 mx-4 my-16">
       {/* Elipse */}
-      <div className="absolute top-0 right-6 flex w-full px-[24px] sm:-top-9 md:-top-[52px] md:-left-6">
+      <div className="absolute right-6 top-0 flex w-full px-[24px] sm:-top-9 md:-left-6 md:-top-[52px]">
         <p className="rounded-t-lg bg-base-100 px-8 pt-4 font-raleway text-lg md:text-xl">
           COMENTARIOS
         </p>
-        <div className="absolute -top-[127.9px] left-28 -z-10 hidden sm:flex md:left-[342px] ">
+        <div className="absolute -top-[127.9px] left-28 -z-10 hidden sm:flex md:left-[342px]">
           <Image
-            src="/img/ellipse.svg"
+            src="/api/images/site/224c5a6b-f55e-e12d-03fa-e431df234b70.svg"
             alt=""
             className="select-none"
-            width={"300%"}
-            height={"405%"}
+            width={300}
+            height={405}
             layout="fixed"
             objectFit="contain"
           />
         </div>
       </div>
       {/* End Elipse */}
-      <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-t-lg bg-base-100 px-8 pt-24 pb-16 lg:grid">
+      <div className="flex grid-cols-[52%_48%] flex-col rounded-b-lg rounded-t-lg bg-base-100 px-8 pb-16 pt-24 lg:grid">
         <div className="order-2 grid content-between justify-center gap-6 lg:order-1 lg:justify-start">
           {data?.map((c, index) => {
             return (
@@ -174,7 +174,7 @@ function CommentSection({ recipeId }: { recipeId: string }) {
             <HalfRating setRating={setRating} />
             <textarea
               id="comment"
-              className="rounded-box mt-6 mr-2 block h-40 border border-none p-3"
+              className="rounded-box mr-2 mt-6 block h-40 border border-none p-3"
               placeholder="tu opinión"
               value={comment}
               onChange={(e) => {

@@ -17,7 +17,7 @@ export default function MyListbox(
 
   function handleChange(input: string) {
     setSelected(input);
-    console.log(input, list.find((i) => i.text == input)?.value);
+
     setValue(list.find((i) => i.text == input)?.value ?? "");
   }
   return (

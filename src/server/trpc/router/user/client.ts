@@ -1,3 +1,6 @@
+import { findUserByEmail } from "../../../auth/user";
+import { enforceRateLimit } from "../../../common/rate-limit";
+import { hashPassword } from "../../../auth/password";
 import { Allergen } from "@prisma/client";
 import * as trpc from "@trpc/server";
 import { z } from "zod";
@@ -6,6 +9,7 @@ import {
   adminProcedure,
   clientProcedure,
   publicProcedure,
+  protectedProcedure,
   router,
 } from "@server/trpc/trpc";
 import { clientSchema } from "@utils/validations/client";
@@ -35,13 +39,16 @@ export const clientRouter = router({
       };
     }),
 
-  getById: publicProcedure
+  getById: protectedProcedure
     .input(z.object({ id: z.string() }).nullish())
     .output(clientSchema)
     .query(async ({ ctx, input }) => {
       const id = input?.id || ctx.session?.user?.id;
 
       if (!id) throw new trpc.TRPCError({ code: "BAD_REQUEST" });
+
+      if (id !== ctx.session.user.id && ctx.session.user.role !== "admin")
+        throw new trpc.TRPCError({ code: "FORBIDDEN" });
 
       const client = await ctx.prisma.user.findFirst({
         where: { id },
@@ -97,6 +104,19 @@ export const clientRouter = router({
     .input(z.object({ onSiteWorkshopId: z.string() }))
     .mutation(async ({ ctx, input: { onSiteWorkshopId } }) => {
       const clientId = ctx.session.user.id;
+      const workshop = await ctx.prisma.onSiteWorkshop.findUnique({
+        where: { workshopId: onSiteWorkshopId },
+        include: { _count: { select: { OnSiteWorkshopAttendance: true } } },
+      });
+      if (
+        !workshop ||
+        workshop.date <= new Date() ||
+        workshop._count.OnSiteWorkshopAttendance >= workshop.places
+      )
+        throw new trpc.TRPCError({
+          code: "BAD_REQUEST",
+          message: "El taller ha terminado o no quedan plazas.",
+        });
       await ctx.prisma.onSiteWorkshopAttendance.create({
         data: { onSiteWorkshopId: onSiteWorkshopId, clientId: clientId },
       });
@@ -199,7 +219,7 @@ export const clientRouter = router({
         ) / 100;
 
       //Obtener repetidos
-      const ranges: any = {};
+      const ranges: Record<number, number> = {};
       ratings.forEach((e: { rating: number }) => {
         const rangeStar = Math.ceil(e.rating);
         ranges[rangeStar] = (ranges[rangeStar] || 0) + 1;
@@ -232,11 +252,14 @@ export const clientRouter = router({
       );
 
       await ctx.prisma.allergenClient.deleteMany({
-        where: { allergen: { in: allergensToDelete } },
+        where: {
+          allergen: { in: allergensToDelete },
+          clientId: ctx.session.user.id,
+        },
       });
 
       await ctx.prisma.allergenClient.createMany({
-        data: allergensToCreate.map((a) => {
+        data: [...new Set(allergensToCreate)].map((a) => {
           return { allergen: a, clientId: ctx.session.user.id };
         }),
       });
@@ -247,11 +270,11 @@ export const clientRouter = router({
   createNew: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ input, ctx }) => {
+      if (ctx.requestIP)
+        await enforceRateLimit("register", ctx.requestIP, 5, 3600);
       const { username, email, password } = input;
 
-      const exists = await ctx.prisma.user.findFirst({
-        where: { email: email },
-      });
+      const exists = await findUserByEmail(ctx.prisma, email);
 
       if (exists) {
         throw new trpc.TRPCError({
@@ -260,7 +283,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = password;
+      const hashedPassword = await hashPassword(password);
 
       const result = await ctx.prisma.user.create({
         data: {
@@ -292,9 +315,7 @@ export const clientRouter = router({
       } = input;
 
       const nifExists = await ctx.prisma.user.findUnique({ where: { nif } });
-      const emailExists = await ctx.prisma.user.findUnique({
-        where: { email },
-      });
+      const emailExists = await findUserByEmail(ctx.prisma, email);
 
       if (nifExists || emailExists) {
         throw new trpc.TRPCError({
@@ -303,7 +324,7 @@ export const clientRouter = router({
         });
       }
 
-      const hashedPassword = password;
+      const hashedPassword = await hashPassword(password);
 
       const result = await ctx.prisma.user.create({
         data: {

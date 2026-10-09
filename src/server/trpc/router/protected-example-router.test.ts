@@ -1,46 +1,22 @@
-/**
- * Integration test example for the `post` router
- */
-import { TRPCError } from "@trpc/server";
-
-import { prismaMock } from "../../db/singleton";
-import { createContextInner } from "../context";
 import { appRouter } from "./_app";
+import { createContextInner } from "../context";
 
-test("Probando jest con mocking de Prisma", async () => {
-  // Arrange
-  const ctxMock = await createContextInner({
-    session: { user: { id: "1" }, expires: "" },
-  });
-
-  ctxMock.prisma = prismaMock;
-
-  const caller = appRouter.createCaller(ctxMock);
-
-  // Act
-  const secreteMessage = await caller.auth.getSecretMessage();
-  //const session = await caller.auth.getSession();
-
-  // Assert
-  //expect(session?.user?.id).toEqual("1");
-  expect(secreteMessage).toEqual(
-    "You are logged in and can see this secret message!",
+test("unauthenticated visitors cannot read the protected endpoint", async () => {
+  const caller = appRouter.createCaller(
+    await createContextInner({ session: null }),
   );
+  await expect(caller.auth.getSecretMessage()).rejects.toMatchObject({
+    code: "UNAUTHORIZED",
+  });
 });
 
-test("Probando jest con mocking de Prisma 2", async () => {
-  // Arrange
-  const ctxMock = await createContextInner({ session: null });
-
-  ctxMock.prisma = prismaMock;
-
-  const caller = appRouter.createCaller(ctxMock);
-
-  // Act
-  await expect(caller.auth.getSecretMessage()).rejects.toThrow(TRPCError);
-
-  //const session = await caller.auth.getSession();
-
-  // Assert
-  //expect(session?.user?.id).toEqual(undefined);
+test("a signed in client can read the protected endpoint", async () => {
+  const caller = appRouter.createCaller(
+    await createContextInner({
+      session: { user: { id: "1", role: "client" }, expires: "" },
+    }),
+  );
+  expect(await caller.auth.getSecretMessage()).toBe(
+    "you can now see this secret message!",
+  );
 });

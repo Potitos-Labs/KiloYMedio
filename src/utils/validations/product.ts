@@ -1,5 +1,5 @@
+import { imageURLSchema } from "./image";
 import { Allergen, ECategory, NECategory, ProductUnit } from "@prisma/client";
-import isURL from "validator/lib/isURL";
 import isDecimal from "validator/lib/isDecimal";
 import * as z from "zod";
 
@@ -9,9 +9,7 @@ export const productCreateSchema = z.object({
   stock: z
     .number({ invalid_type_error: "Introduce un número" })
     .positive({ message: "Stock debe ser mayor a 0" }),
-  imageURL: z
-    .string()
-    .refine((value) => isURL(value), { message: "Introduce un URL válido" }),
+  imageURL: imageURLSchema,
   Edible: z
     .object({
       priceByWeight: z
@@ -69,6 +67,7 @@ export const productCreateSchema = z.object({
 
 export const productSchema = productCreateSchema.extend({
   id: z.string(),
+  stock: z.number().nonnegative(),
 });
 
 export const filterProduct = z.object({

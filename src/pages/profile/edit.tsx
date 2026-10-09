@@ -1,8 +1,9 @@
+import { defaultUserImage } from "@utils/image";
 import Layout from "../../components/Layout";
 import { FormWrapper } from "../../components/payment/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import { IClient, clientSchema } from "../../utils/validations/client";
@@ -23,16 +24,20 @@ const EditProfile = () => {
     },
   });
   const { data: clientAllergen } = trpc.user.getAllClientAllergen.useQuery();
-  const clientAllergenList = clientAllergen?.map((e) => e.allergen) ?? [];
 
-  const allergensList: Allergen[] =
-    clientAllergen?.map((clientAllergen) => clientAllergen.allergen) ?? [];
+  const [allergensList, setAllergensList] = useState<Allergen[]>([]);
+  useEffect(() => {
+    if (clientAllergen)
+      setAllergensList(clientAllergen.map((item) => item.allergen));
+  }, [clientAllergen]);
 
   const allergensHandler = (value: string) => {
     const allergen = z.nativeEnum(Allergen).parse(value);
-    const index = allergensList.indexOf(allergen);
-    if (index != -1) allergensList.splice(index, 1);
-    else allergensList.push(allergen);
+    setAllergensList((current) =>
+      current.includes(allergen)
+        ? current.filter((item) => item !== allergen)
+        : [...current, allergen],
+    );
   };
 
   const { data } = trpc.product.getAllAllergensInSpanish.useQuery();
@@ -47,13 +52,14 @@ const EditProfile = () => {
     },
   });
 
-  if (sesion.status === "unauthenticated") {
-    router.push("/login");
-  }
+  useEffect(() => {
+    if (sesion.status === "unauthenticated") void router.replace("/login");
+  }, [sesion.status, router]);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
     control,
   } = useForm<IClient>({
@@ -70,14 +76,19 @@ const EditProfile = () => {
     },
   });
 
+  useEffect(() => {
+    if (client) reset(client);
+  }, [client, reset]);
+
   const onSubmit = useCallback(
     async (data: IClient) => {
       const result = await mutateAsync(data);
       if (result.status === 201) {
+        await update({ allergen: allergensList });
         router.push(`/profile`);
       }
     },
-    [mutateAsync, router],
+    [mutateAsync, router, update, allergensList],
   );
   return (
     <Layout
@@ -98,7 +109,7 @@ const EditProfile = () => {
                       <div className="flex text-center">
                         <UploadImageRecipe
                           setImageURL={onChange}
-                          value={value ?? "/img/placeholder.jpg"}
+                          value={value ?? defaultUserImage}
                           profileStyle="rounded-full h-40 w-40"
                         />
                       </div>
@@ -196,18 +207,16 @@ const EditProfile = () => {
             <div className="rounded-box my-6 w-full border-[1px] border-base-300 p-6">
               <FormWrapper title="Alérgenos">
                 <div>
-                  <div className="items-left sm:p- grid  md:grid-cols-2 lg:grid-cols-3">
+                  <div className="items-left sm:p- grid md:grid-cols-2 lg:grid-cols-3">
                     {AllallergenList.map((allergen) => (
                       <div className="flex gap-1 py-2" key={allergen}>
                         <label key={allergen}>
                           <input
-                            className="form-check-input mt-1 mr-1 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
+                            className="form-check-input mr-1 mt-1 h-4 w-4 cursor-pointer rounded-sm border border-gray-500 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2"
                             type="checkbox"
                             value={allergen}
                             id="flexCheckChecked"
-                            defaultChecked={clientAllergenList.includes(
-                              allergen,
-                            )}
+                            checked={allergensList.includes(allergen)}
                             onChange={(e) => allergensHandler(e.target.value)}
                           ></input>
                         </label>
@@ -225,7 +234,6 @@ const EditProfile = () => {
             <div className="mb-10 text-center sm:text-right">
               <button
                 type="submit"
-                onClick={() => update({ allergen: allergensList })}
                 className="btn rounded-full border-none bg-primary px-4 py-2 font-raleway text-sm text-base-100"
               >
                 Guardar cambios

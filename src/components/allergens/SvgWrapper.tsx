@@ -9,7 +9,7 @@ const SvgWrapper = ({
 }: {
   width: number | undefined;
   height: number | undefined;
-  wrapperStyle: any | undefined;
+  wrapperStyle: React.CSSProperties | undefined;
   children: JSX.Element | JSX.Element[] | undefined;
 }) => {
   return (

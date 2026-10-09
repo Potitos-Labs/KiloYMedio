@@ -14,8 +14,8 @@ const Tittle = ({
     <div className="breadcrumbs text-sm">
       <ul>
         <li>
-          <Link href={"/product?category=all"}>
-            <a className="text-xs uppercase">tienda</a>
+          <Link href={"/product?category=all"} className="text-xs uppercase">
+            tienda
           </Link>
         </li>
         {category === "all" && (
@@ -26,8 +26,11 @@ const Tittle = ({
         {category != "all" && (
           <li>
             {category?.indexOf(",") === -1 ? (
-              <Link href={`/product?supracategory=${supracategory}&category=`}>
-                <a className="text-xs uppercase">{supracategory}</a>
+              <Link
+                href={`/product?supracategory=${supracategory}&category=`}
+                className="text-xs uppercase"
+              >
+                {supracategory}
               </Link>
             ) : (
               <p className="text-xs uppercase">{supracategory}</p>

@@ -124,16 +124,20 @@ export const productRouter = router({
                 return (
                   (a.Edible
                     ? a.Edible.priceByWeight
-                    : a.NonEdible?.price ?? 0) -
-                  (b.Edible ? b.Edible.priceByWeight : b.NonEdible?.price ?? 0)
+                    : (a.NonEdible?.price ?? 0)) -
+                  (b.Edible
+                    ? b.Edible.priceByWeight
+                    : (b.NonEdible?.price ?? 0))
                 );
               })
             : products.sort((a, b) => {
                 return (
                   (b.Edible
                     ? b.Edible.priceByWeight
-                    : b.NonEdible?.price ?? 0) -
-                  (a.Edible ? a.Edible.priceByWeight : a.NonEdible?.price ?? 0)
+                    : (b.NonEdible?.price ?? 0)) -
+                  (a.Edible
+                    ? a.Edible.priceByWeight
+                    : (a.NonEdible?.price ?? 0))
                 );
               });
       }
@@ -330,7 +334,7 @@ export const productRouter = router({
       } catch {}
     }),
 
-  createNewProduct: publicProcedure
+  createNewProduct: adminProcedure
     .input(productCreateSchema)
     .mutation(async ({ input, ctx }) => {
       const {
@@ -373,10 +377,10 @@ export const productRouter = router({
           },
         });
 
-        Edible.allergens.map(async ({ allergen }) => {
-          await ctx.prisma.edibleAllergen.create({
-            data: { allergen, edibleId: productEdible.id },
-          });
+        await ctx.prisma.edibleAllergen.createMany({
+          data: [...new Set(Edible.allergens.map((a) => a.allergen))].map(
+            (allergen) => ({ allergen, edibleId: productEdible.id }),
+          ),
         });
 
         return {
@@ -460,16 +464,16 @@ export const productRouter = router({
 
         await ctx.prisma.edibleAllergen.deleteMany({
           where: {
-            allergen: { notIn: Edible.allergens.map((a) => a.allergen) },
             edibleId: id,
           },
         });
 
         await ctx.prisma.edibleAllergen.createMany({
-          data: Edible.allergens.map((a) => {
-            return { allergen: a.allergen, edibleId: id };
-          }),
-          skipDuplicates: true,
+          data: [...new Set(Edible.allergens.map((a) => a.allergen))].map(
+            (allergen) => {
+              return { allergen, edibleId: id };
+            },
+          ),
         });
 
         return {

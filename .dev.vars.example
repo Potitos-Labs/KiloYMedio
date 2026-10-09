@@ -1,0 +1,3 @@
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+NEXTJS_ENV=development

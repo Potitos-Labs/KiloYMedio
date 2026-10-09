@@ -1,7 +1,6 @@
-import { supabaseStorage, supabaseUrl } from "@utils/supabase";
+import { uploadImage } from "@utils/upload-image";
 import { useCallback, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 
 export const UploadImageRecipe = ({
   setImageURL,
@@ -13,6 +12,7 @@ export const UploadImageRecipe = ({
   profileStyle?: string;
 }) => {
   const [fileSize, setFileSize] = useState("0   ");
+  const [error, setError] = useState("");
   const uploadPhoto = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.currentTarget.files?.item(0);
@@ -23,19 +23,20 @@ export const UploadImageRecipe = ({
       setFileSize(fileSize.toFixed(2));
 
       if (fileSize > 1) {
+        setError("La imagen no puede superar 1 MB.");
         return;
       }
 
-      const pathFile = `images/${uuidv4()}`;
-      const { data, error } = await supabaseStorage.upload(pathFile, file);
-
-      if (!error) {
-        setImageURL(
-          `${supabaseUrl}/storage/v1/object/public/images/${pathFile}`,
+      setError("");
+      try {
+        setImageURL(await uploadImage(file));
+      } catch (error) {
+        setError(
+          error instanceof Error
+            ? error.message
+            : "No se pudo subir la imagen.",
         );
       }
-
-      console.log({ data, error });
     },
     [setImageURL],
   );
@@ -76,6 +77,11 @@ export const UploadImageRecipe = ({
           <div className={`${profileStyle && "hidden"} text-sm`}>Máx 1MB</div>
         </div>
       </div>
+      {error && (
+        <p role="alert" className="text-red-500">
+          {error}
+        </p>
+      )}
       <p className={`${profileStyle && "hidden"} mt-2 text-start text-sm`}>
         Tamaño de imagen: {fileSize}MB
       </p>

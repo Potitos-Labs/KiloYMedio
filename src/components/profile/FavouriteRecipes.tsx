@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import Heart from "../../components/Heart";
 import { trpc } from "@utils/trpc";
 import DotMenu from "@components/DotMenu";
@@ -46,7 +46,7 @@ function FavouriteRecipes({
   };
 
   return (
-    <div className=" relative grid min-h-[120px] grid-cols-[26%_62%_12%]  rounded-md border-[1px] border-neutral bg-base-100  sm:grid-cols-[32%_56%_12%]">
+    <div className="relative grid min-h-[120px] grid-cols-[26%_62%_12%] rounded-md border-[1px] border-neutral bg-base-100 sm:grid-cols-[32%_56%_12%]">
       <div className="relative h-full w-full overflow-hidden">
         <Image
           src={image}
@@ -60,18 +60,19 @@ function FavouriteRecipes({
           {name}
         </p>
 
-        <div className=" h- absolute bottom-2 flex items-end">
+        <div className="h- absolute bottom-2 flex items-end">
           <div className="mb-2 md:mb-0 lg:mb-2 xl:mb-0">
-            <Link href={`/recipe/${id}`}>
-              <a className="btn btn-sm rounded-full bg-base-content px-4  text-base-100">
-                ver receta
-              </a>
+            <Link
+              href={`/recipe/${id}`}
+              className="btn btn-sm rounded-full bg-base-content px-4 text-base-100"
+            >
+              ver receta
             </Link>
           </div>
         </div>
       </div>
       {isMine ? (
-        <div className="absolute top-0 -right-2 ">
+        <div className="absolute -right-2 top-0">
           <DotMenu
             id={id}
             name={name}

@@ -15,7 +15,10 @@ const Home: NextPage = () => {
       <Head>
         <title>Kilo y medio</title>
         <meta name="description" content="Tienda de productos a granel" />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="/api/images/site/a28b33eb-a7b1-d7d9-0184-8ebb27a8f71c.ico"
+        />
       </Head>
       <div>{isAdmin ? <AdminPage /> : <ClientePage />}</div>
     </Layout>

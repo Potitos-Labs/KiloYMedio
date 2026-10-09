@@ -1,7 +1,7 @@
 import FilterProduct from "components/product/FilterProduct";
 import SearchBar from "@components/product/SearchBar";
 import { ECategory, NECategory } from "@prisma/client";
-import { InferGetStaticPropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
@@ -11,13 +11,13 @@ import Layout from "../../components/Layout";
 import Product from "../../components/product/Product";
 import { trpc } from "../../utils/trpc";
 import { IFilterProduct, productSchema } from "../../utils/validations/product";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { createServerSideHelpers } from "@trpc/react-query/server";
 import { appRouter } from "@server/trpc/router/_app";
 import { createContextInner } from "@server/trpc/context";
 import Tittle from "@components/product/Tittle";
 import LoadingBalls from "@components/ui/LoadingBalls";
-export async function getStaticProps() {
-  const ssg = createProxySSGHelpers({
+export async function getServerSideProps() {
+  const ssg = createServerSideHelpers({
     router: appRouter,
     ctx: await createContextInner({ session: null }),
     transformer: superjson,
@@ -30,18 +30,17 @@ export async function getStaticProps() {
       trpcState: ssg.dehydrate(),
       categories: { eCategories, neCategories, inSpanish },
     },
-    revalidate: 1,
   };
 }
 export default function CreateProdcut(
-  props: InferGetStaticPropsType<typeof getStaticProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) {
   const {
     categories: { inSpanish },
   } = props;
 
   const router = useRouter();
-  let category = useMemo(
+  const selectedCategories = useMemo(
     () => (router.query.category as string)?.split(","),
     [router.query],
   );
@@ -57,7 +56,11 @@ export default function CreateProdcut(
     orderByPrice: undefined,
   });
 
+  const { data: supracategories } =
+    trpc.product.getAllSupraCategories.useQuery();
+
   useEffect(() => {
+    let category = selectedCategories;
     if (category == undefined || category[0] == "") {
       category =
         supracategories
@@ -93,10 +96,8 @@ export default function CreateProdcut(
         eCategories: [],
       }));
     }
-  }, [category]);
+  }, [selectedCategories, supracategories, router.query.supracategory]);
 
-  const { data: supracategories } =
-    trpc.product.getAllSupraCategories.useQuery();
   const { data } = trpc.product.getFilteredProducts.useQuery(filter);
 
   const [openFilter, setOpenFilter] = useState(false);

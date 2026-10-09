@@ -2,26 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
     provider = "prisma-client-js"
+    engineType = "client"
 }
 
 datasource db {
-    provider     = "mysql"
+    provider     = "sqlite"
     url          = env("DATABASE_URL")
-    relationMode = "prisma"
 }
-
-// generator client {
-//     provider = "prisma-client-js"
-// }
-
-// datasource db {
-// provider = "mysql"
-// NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
-// Further reading: 
-// https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-// url      = env("DATABASE_URL")
-//}
 
 // Necessary for Next auth
 model Account {
@@ -30,12 +17,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
+    refresh_token     String?
+    access_token      String?
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? @db.Text
+    id_token          String?
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -77,7 +64,7 @@ model User {
     email         String       @unique
     emailVerified DateTime?
     passwordHash  String?
-    image         String?      @default("https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
+    image         String?      @default("/api/images/media/3cf2ada1-59d8-3377-0101-3161f401e096.png")
     name          String
     nif           String?      @unique
     role          Role         @default(client)
@@ -157,7 +144,7 @@ model Comment {
     adminId         String?
     Admin           Admin?            @relation(fields: [adminId], references: [userId])
     createdAt       DateTime          @default(now())
-    description     String?           @db.TinyText
+    description     String?
     imageURL        String?
     rating          Float
     reported        Boolean           @default(false)
@@ -166,7 +153,7 @@ model Comment {
     ReportedComment ReportedComment[]
     User            User?             @relation(fields: [userId], references: [id])
     userId          String?
-    Recipe          Recipe?           @relation(fields: [recipeId], references: [id])
+    Recipe          Recipe?           @relation(fields: [recipeId], references: [id], onDelete: Cascade)
     recipeId        String?
 
     @@index([adminId])
@@ -261,7 +248,7 @@ model OnlineWorkshopViews {
     clientId         String
     client           Client         @relation(fields: [clientId], references: [userId])
     onlineWorkshopId String
-    onlineWorkshop   OnlineWorkshop @relation(fields: [onlineWorkshopId], references: [workshopId])
+    onlineWorkshop   OnlineWorkshop @relation(fields: [onlineWorkshopId], references: [workshopId], onDelete: Cascade)
     state            Boolean
 
     @@id([onlineWorkshopId, clientId])
@@ -368,7 +355,7 @@ model Recipe {
 model RecipeAllergen {
     allergen Allergen
     recipeId String
-    Recipe   Recipe   @relation(fields: [recipeId], references: [id])
+    Recipe   Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
     @@id([recipeId, allergen])
     @@index([recipeId])
@@ -383,9 +370,9 @@ model RecipeDifficultyInSpanish {
 model RecipeDirections {
     id        String @id @default(cuid())
     number    Int
-    direction String @db.Text
+    direction String
     recipeId  String
-    Recipe    Recipe @relation(fields: [recipeId], references: [id])
+    Recipe    Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
     @@index([recipeId])
 }
@@ -393,9 +380,9 @@ model RecipeDirections {
 model RecipeIngredient {
     amount       Float
     ingredientId String
-    Ingredient   Ingredient     @relation(fields: [ingredientId], references: [id])
+    Ingredient   Ingredient     @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
     recipeId     String
-    Recipe       Recipe         @relation(fields: [recipeId], references: [id])
+    Recipe       Recipe         @relation(fields: [recipeId], references: [id], onDelete: Cascade)
     unit         IngredientUnit
 
     @@id([recipeId, ingredientId])
@@ -405,9 +392,9 @@ model RecipeIngredient {
 
 model RecipeUser {
     recipeId String
-    Recipe   Recipe @relation(fields: [recipeId], references: [id])
+    Recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
     userId   String
-    User     User   @relation(fields: [userId], references: [id])
+    User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@id([recipeId, userId])
     @@index([recipeId])
@@ -571,4 +558,9 @@ enum TicketType {
     payment
     shipping
     website
+}
+
+model DemoSeed {
+  id String @id
+  createdAt DateTime @default(now())
 }

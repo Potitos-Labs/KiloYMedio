@@ -1,3 +1,18 @@
+import type { Context } from "../context";
+
+async function assertRecipeOwner(ctx: Context, id: string) {
+  const recipe = await ctx.prisma.recipe.findUnique({
+    where: { id },
+    select: { userId: true },
+  });
+  if (!recipe) throw new TRPCError({ code: "NOT_FOUND" });
+  if (
+    !ctx.session?.user ||
+    (recipe.userId !== ctx.session.user.id && ctx.session.user.role !== "admin")
+  )
+    throw new TRPCError({ code: "FORBIDDEN" });
+}
+
 import { IngredientUnit } from "@prisma/client";
 import * as z from "zod";
 import { Promise as PromiseBB } from "bluebird";
@@ -28,7 +43,7 @@ export const recipeRouter = router({
         portions: false,
         RecipeIngredient: false,
         cookingTime: false,
-        User: true,
+        User: { select: { id: true, name: true, image: true, role: true } },
         userId: true,
       },
     });
@@ -75,10 +90,10 @@ export const recipeRouter = router({
             where: { recipeId: recipe.id },
             _avg: { rating: true },
           });
-          const isFav = (await ctx.prisma.recipeUser.findFirst({
-            where: { recipeId: recipe.id, userId: ctx.session?.user?.id },
-          }))
-            ? true
+          const isFav = ctx.session?.user
+            ? (await ctx.prisma.recipeUser.findFirst({
+                where: { recipeId: recipe.id, userId: ctx.session?.user?.id },
+              })) !== null
             : false;
           return { rating: avg?._avg.rating, isFav };
         },
@@ -121,7 +136,7 @@ export const recipeRouter = router({
           cookingTime: true,
           preparationTime: true,
           allergens: { select: { allergen: true, recipeId: true } },
-          User: true,
+          User: { select: { id: true, name: true, image: true, role: true } },
           userId: true,
         },
       });
@@ -158,10 +173,10 @@ export const recipeRouter = router({
         RecipeIngredient: await Promise.all(recipeIngredient),
       };
 
-      const isFav = (await ctx.prisma.recipeUser.findFirst({
-        where: { recipeId: id, userId: ctx.session?.user?.id },
-      }))
-        ? true
+      const isFav = ctx.session?.user
+        ? (await ctx.prisma.recipeUser.findFirst({
+            where: { recipeId: id, userId: ctx.session?.user?.id },
+          })) !== null
         : false;
 
       return { ...newRecipe, isFav };
@@ -187,9 +202,11 @@ export const recipeRouter = router({
           portions,
           allergens,
           cookingTime,
+          preparationTime,
           id,
         },
       }) => {
+        await assertRecipeOwner(ctx, id);
         // Delete all recipe ingredients and directions, then recreate them
         await ctx.prisma.recipeIngredient.deleteMany({
           where: { recipeId: id },
@@ -203,6 +220,7 @@ export const recipeRouter = router({
           ctx.prisma,
         );
 
+        await ctx.prisma.recipeAllergen.deleteMany({ where: { recipeId: id } });
         return await ctx.prisma.recipe.update({
           where: { id },
           data: {
@@ -211,6 +229,7 @@ export const recipeRouter = router({
             name,
             portions,
             cookingTime: cookingTime.hour * 60 + cookingTime.minute,
+            preparationTime: preparationTime.hour * 60 + preparationTime.minute,
             description,
             directions: {
               createMany: {
@@ -220,7 +239,7 @@ export const recipeRouter = router({
                 })),
               },
             },
-            User: { connect: { id: ctx.session.user.id } },
+
             RecipeIngredient: {
               createMany: {
                 data: prismaIngredients.map(({ id, amount, unit }) => ({
@@ -253,6 +272,7 @@ export const recipeRouter = router({
           ingredients,
           portions,
           cookingTime,
+          preparationTime,
           allergens,
         },
       }) => {
@@ -268,7 +288,7 @@ export const recipeRouter = router({
             name,
             portions,
             cookingTime: cookingTime.hour * 60 + cookingTime.minute,
-            preparationTime: 30,
+            preparationTime: preparationTime.hour * 60 + preparationTime.minute,
             description,
             directions: {
               createMany: {
@@ -297,7 +317,7 @@ export const recipeRouter = router({
         });
       },
     ),
-  delete: publicProcedure
+  delete: protectedProcedure
     .input(
       z.object({
         recipeId: z.string(),
@@ -305,6 +325,7 @@ export const recipeRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const { recipeId } = input;
+      await assertRecipeOwner(ctx, recipeId);
       await ctx.prisma.recipe.delete({
         where: {
           id: recipeId,

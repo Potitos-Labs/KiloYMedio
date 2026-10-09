@@ -37,8 +37,6 @@ const SignUpByAdmin: NextPage = () => {
     shouldUseNativeValidation: true,
   });
 
-  console.log(errors);
-
   const { mutateAsync } = trpc.user.client.createNewByAdmin.useMutation();
   const onSubmit = useCallback(
     async (data: ISignUpByAdminSchema) => {
@@ -89,7 +87,7 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Nombre y apellidos"
                 {...register("username")}
               />
-              <HiOutlineUser className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineUser className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.username?.message}
               </p>
@@ -107,7 +105,7 @@ const SignUpByAdmin: NextPage = () => {
                   onChange: () => setNifAlreadyExists(false),
                 })}
               />
-              <HiOutlineIdentification className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineIdentification className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p
                 className={`-mt-3 text-sm text-pink-600 peer-invalid:visible ${
                   nifAlreadyExists ? "visible" : "invisible"
@@ -126,7 +124,7 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Número de teléfono"
                 {...register("phoneNumber")}
               />
-              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlinePhone className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.phoneNumber?.message}
               </p>
@@ -144,7 +142,7 @@ const SignUpByAdmin: NextPage = () => {
                   onChange: () => setEmailAlreadyExists(false),
                 })}
               />
-              <HiOutlineMail className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineMail className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p
                 className={`-mt-3 text-sm text-pink-600 peer-invalid:visible ${
                   emailAlreadyExists ? "visible" : "invisible"
@@ -163,7 +161,7 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Localidad"
                 {...register("location")}
               />
-              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.location?.message}
               </p>
@@ -177,7 +175,7 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Código postal"
                 {...register("code_postal", { valueAsNumber: true })}
               />
-              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.code_postal?.message}
               </p>
@@ -191,14 +189,14 @@ const SignUpByAdmin: NextPage = () => {
                 placeholder="Dirección"
                 {...register("address")}
               />
-              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 translate-x-1/2 -translate-y-9 transform text-black peer-placeholder-shown:text-gray-300" />
+              <HiOutlineLocationMarker className="relative bottom-0 left-0 -mb-0.5 h-6 w-6 -translate-y-9 translate-x-1/2 transform text-black peer-placeholder-shown:text-gray-300" />
               <p className="invisible -mt-3 text-sm text-pink-600 peer-invalid:visible">
                 {errors.address?.message}
               </p>
             </label>
             <button
               type="submit"
-              className="btn whitespace-nowrap rounded-full px-4 py-2 text-white  md:col-span-2"
+              className="btn whitespace-nowrap rounded-full px-4 py-2 text-white md:col-span-2"
               onClick={() => setValue("password", "Potitos22")}
             >
               Registar cliente

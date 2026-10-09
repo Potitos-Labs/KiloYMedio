@@ -6,7 +6,7 @@ import { BsFacebook } from "react-icons/bs";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -45,7 +45,7 @@ export default function Layout({
           <div className="mx-10 place-items-center justify-between sm:flex">
             <Link href={"https://potitos-labs.github.io/Eco-Panda-Site/"}>
               <Image
-                src="/img/powered.svg"
+                src="/api/images/site/a366ba82-616f-2624-baf2-c41a2d241fa6.svg"
                 alt=""
                 className="cursor-pointer rounded-full"
                 width={280}
@@ -54,7 +54,7 @@ export default function Layout({
                 objectFit="contain"
               />
             </Link>
-            <h1 className="mb-4 pt-3 text-lg lg:mb-0 lg:pt-0 lg:pb-2 lg:text-2xl">
+            <h1 className="mb-4 pt-3 text-lg lg:mb-0 lg:pb-2 lg:pt-0 lg:text-2xl">
               info@kiloymedio.com
             </h1>
           </div>
@@ -69,7 +69,7 @@ export default function Layout({
                   suscríbete a boletín informativo - descubre nuestros
                   descuentos para recibir regalos
                 </p>
-                <div className="mt-4 flex w-auto items-center justify-between gap-4 rounded-md bg-base-100 py-2 px-4">
+                <div className="mt-4 flex w-auto items-center justify-between gap-4 rounded-md bg-base-100 px-4 py-2">
                   <input
                     type="text"
                     value={email}
@@ -113,7 +113,7 @@ export default function Layout({
                   )}
                   {!session && <Link href="/">registrarse</Link>}
                 </div>
-                <div className="mr-10 mb-4 flex items-end justify-start gap-3 py-4  sm:mb-14 sm:justify-end sm:py-0">
+                <div className="mb-4 mr-10 flex items-end justify-start gap-3 py-4 sm:mb-14 sm:justify-end sm:py-0">
                   <Link href="https://www.instagram.com/eco_pandas/">
                     <AiOutlineTwitter
                       color="base-100"

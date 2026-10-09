@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { trpc } from "@utils/trpc";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import router from "next/router";
@@ -14,7 +14,7 @@ function ClientePage() {
     { slide: 3, color: "from-[#7b61ff]" },
     { slide: 4, color: "from-[#a6806D]" },
   ];
-  console.log(slideColors[1]);
+
   const [slide, setslide] = useState(1);
 
   function incrementSlide() {
@@ -32,9 +32,6 @@ function ClientePage() {
   }
 
   const { data } = trpc.product.getAllProducts.useQuery();
-  console.log("culo");
-  console.log(data);
-  console.log("culo");
 
   const listProduct = data?.slice(0, 4);
 
@@ -46,7 +43,7 @@ function ClientePage() {
           id="slide1"
           className="carousel-item relative w-full justify-center bg-primary pb-20"
         >
-          <div className="z-10 mt-[250px] ml-10 -mr-[380px] hidden text-base-100 md:block xl:-ml-4 xl:mt-[300px] xl:-mr-[400px]">
+          <div className="z-10 -mr-[380px] ml-10 mt-[250px] hidden text-base-100 md:block xl:-ml-4 xl:-mr-[400px] xl:mt-[300px]">
             <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-28">
               ECOLÓGICO
             </p>
@@ -55,7 +52,7 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/fondo1.png"
+            src="/api/images/site/fe78c293-4324-b711-e1bb-eae59358c31d.webp"
             objectFit="cover"
             width="1200"
             height="300"
@@ -66,7 +63,7 @@ function ClientePage() {
           id="slide2"
           className="carousel-item relative w-full justify-center bg-secondary pb-20"
         >
-          <div className="z-10 mt-[270px] ml-10 -mr-[480px] hidden text-base-100 md:block lg:mt-[160px] xl:-ml-10 xl:mt-[270px]">
+          <div className="z-10 -mr-[480px] ml-10 mt-[270px] hidden text-base-100 md:block lg:mt-[160px] xl:-ml-10 xl:mt-[270px]">
             <p className="font-raleway md:text-xl lg:text-3xl xl:-ml-6">
               0 PLÁSTICOS
             </p>
@@ -76,7 +73,7 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/fondo2.png"
+            src="/api/images/site/9b6a6d5c-31e1-d27c-c430-ccfa01db7bfc.webp"
             objectFit="cover"
             width="1200"
             height="400"
@@ -87,7 +84,7 @@ function ClientePage() {
           id="slide3"
           className="carousel-item relative w-full justify-between bg-[#855FFE] pb-20"
         >
-          <div className="z-10 mt-[270px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[160px] xl:mt-[270px] xl:-mr-[300px]">
+          <div className="z-10 -mr-[380px] ml-10 mt-[270px] hidden text-base-100 md:block lg:mt-[160px] xl:-mr-[300px] xl:mt-[270px]">
             <p className="font-raleway md:text-xl lg:text-3xl">PROMOCIÓN</p>
             <p className="ml-1 w-[480px] xl:w-[550px]">
               Por la primera compra por valor superior a 30€ te regalamos una
@@ -95,7 +92,7 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/fondo3.png"
+            src="/api/images/site/5af78890-f1a5-91b9-1595-5230d9ad2c54.webp"
             objectFit="cover"
             width="1200"
             height="300"
@@ -106,7 +103,7 @@ function ClientePage() {
           id="slide4"
           className="carousel-item relative w-full items-start justify-end bg-base-200 pb-20"
         >
-          <div className="z-10 mt-[180px] -mr-[380px] ml-10 hidden text-base-100 md:block lg:mt-[140px] xl:mt-[180px] xl:-mr-[280px]">
+          <div className="z-10 -mr-[380px] ml-10 mt-[180px] hidden text-base-100 md:block lg:mt-[140px] xl:-mr-[280px] xl:mt-[180px]">
             <p className="font-raleway md:text-xl xl:text-2xl">
               0 CONTAMINACIÓN CRUZADA
             </p>
@@ -116,14 +113,14 @@ function ClientePage() {
             </p>
           </div>
           <Image
-            src="/img/fondo4.png"
+            src="/api/images/site/10d9b48e-cf7d-3bfd-561c-82f1d5537343.webp"
             objectFit="fill"
             width="900"
             height="600"
             alt="not found"
           />
         </div>
-        <div className="absolute right-8 bottom-20 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 py-2.5 px-6">
+        <div className="absolute bottom-20 right-8 z-40 flex flex-row items-center rounded-full border-[2px] border-base-100 px-6 py-2.5">
           <a
             onClick={decrementSlide}
             href={`#slide${slideColors[slide]?.slide}`}
@@ -163,11 +160,11 @@ function ClientePage() {
           {/* Elipse */}
           <div className="absolute -top-[78px] left-0 flex w-full place-content-center px-[24px]">
             <Image
-              src="/img/ellipse.svg"
+              src="/api/images/site/224c5a6b-f55e-e12d-03fa-e431df234b70.svg"
               alt="not found"
               className="-z-10 select-none"
-              width={"300%"}
-              height={"200%"}
+              width={300}
+              height={200}
               layout="fixed"
               objectFit="contain"
             />
@@ -180,7 +177,7 @@ function ClientePage() {
             </p>
           </div>
           {/* End Elipse */}
-          <div className="rounded-box flex flex-col bg-base-100 px-8 pt-6 pb-0.5 text-xs text-base-content sm:px-14">
+          <div className="rounded-box flex flex-col bg-base-100 px-8 pb-0.5 pt-6 text-xs text-base-content sm:px-14">
             <p className="text-lg md:text-xl lg:text-2xl">
               kilo y medio es una tienda sostenible, comprometida y cercana, que
               ofrece productos orgánicos a granel, libres de plástico y de
@@ -188,7 +185,7 @@ function ClientePage() {
             </p>
             <div className="mb-10 flex w-full justify-end">
               <Image
-                src="/img/bolsa.png"
+                src="/api/images/site/2cf4ad5f-17f0-6cd3-48f1-742c08fbbb38.webp"
                 width="1000"
                 height="750"
                 alt="notfound"
@@ -236,7 +233,7 @@ function ClientePage() {
               <div className="relative flex w-full items-start justify-start align-top md:w-1/3">
                 <Image
                   className=""
-                  src="/img/bolas con hashtags1.svg"
+                  src="/api/images/site/f04ca996-3df5-457c-c994-482fd424560a.svg"
                   objectPosition={"left"}
                   layout="fill"
                   objectFit="contain"
@@ -245,7 +242,7 @@ function ClientePage() {
               </div>
               <div className="relative hidden w-1/3 md:flex">
                 <Image
-                  src="/img/bolas con hashtags2.svg"
+                  src="/api/images/site/c2a8a6ef-4232-404a-0a58-b2865ad8f593.svg"
                   layout="fill"
                   objectFit="contain"
                   alt="notfound"

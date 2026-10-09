@@ -1,21 +1,17 @@
 import CreateEdit from "@components/recipe/CreateEdit";
 import { createContextInner } from "@server/trpc/context";
 import { appRouter } from "@server/trpc/router/_app";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { createServerSideHelpers } from "@trpc/react-query/server";
 import { trpc } from "@utils/trpc";
 import { ICreateRecipe, IUpdateRecipe } from "@utils/validations/recipe";
-import { InferGetStaticPropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import superjson from "superjson";
 import Layout from "../../../components/Layout";
 
-export async function getStaticPaths() {
-  return { fallback: true, paths: [] };
-}
-
-export async function getStaticProps() {
-  const ssg = createProxySSGHelpers({
+export async function getServerSideProps() {
+  const ssg = createServerSideHelpers({
     router: appRouter,
     ctx: await createContextInner({ session: null }),
     transformer: superjson,
@@ -27,12 +23,11 @@ export async function getStaticProps() {
       trpcState: ssg.dehydrate(),
       units,
     },
-    revalidate: 1,
   };
 }
 
 export default function EditRecipe(
-  props: InferGetStaticPropsType<typeof getStaticProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) {
   const { status } = useSession();
   const router = useRouter();

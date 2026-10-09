@@ -1,3 +1,4 @@
+import { imageURLSchema } from "./image";
 import isAlpha from "validator/lib/isAlpha";
 import isIdentityCard from "validator/lib/isIdentityCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
@@ -16,7 +17,7 @@ export const clientSchema = z.object({
     .min(1, "Este campo no puede estar vacío")
     .email({ message: "Introduce un correo válido" }),
 
-  image: z.string().nullish(),
+  image: imageURLSchema.nullish(),
   location: z
     .string()
     .refine(

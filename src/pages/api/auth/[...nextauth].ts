@@ -1,93 +1,64 @@
-// Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-
-import { env } from "../../../env/server.mjs";
+import { findUserByEmail } from "../../../server/auth/user";
 import { prisma } from "../../../server/db/client";
+import { enforceRateLimit } from "../../../server/common/rate-limit";
+import { verifyPassword } from "../../../server/auth/password";
 import { loginSchema } from "../../../utils/validations/auth";
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
-  callbacks: {
-    session({ session, user, token }) {
-      // Login with Google
-      if (session.user && !token) {
-        session.user.id = user.id;
-      }
-
-      // login with Credentials
-      if (session.user && token.role && token.id) {
-        session.user.role = token.role;
-        session.user.id = token.id;
-      }
-
-      return session;
-    },
-    jwt({ token, user }) {
-      if (user?.role) {
-        token.role = user.role;
-        token.id = user.id;
-      }
-      return token;
-    },
-  },
-  // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
   pages: { signIn: "/login" },
+  session: { strategy: "jwt" },
   providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    }),
     CredentialsProvider({
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "jsmith@gmail.com",
-        },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
-        const creds = await loginSchema.parseAsync(credentials);
-
-        const user = await prisma.user.findFirst({
-          where: { email: creds.email },
-        });
-
-        if (!user) {
+      async authorize(credentials, req) {
+        try {
+          await enforceRateLimit(
+            "login",
+            String(req.headers?.["cf-connecting-ip"] ?? "local"),
+            20,
+            600,
+          );
+        } catch {
           return null;
         }
-
-        const isValidPassword = credentials?.password === user.passwordHash;
-
-        if (!isValidPassword) {
+        const parsed = loginSchema.safeParse(credentials);
+        if (!parsed.success) return null;
+        const user = await findUserByEmail(prisma, parsed.data.email);
+        if (
+          !user ||
+          !(await verifyPassword(parsed.data.password, user.passwordHash))
+        )
           return null;
-        }
-
-        return user;
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          role: user.role,
+        };
       },
     }),
   ],
-  events: {
-    createUser: async (m) => {
-      const user = m.user;
-      const userDB = await prisma.user.findFirstOrThrow({
-        where: { id: user.id },
-      });
-      const cart = await prisma.cart.create({
-        data: {},
-      });
-      await prisma.client.create({
-        data: { userId: userDB.id, cartId: cart.id },
-      });
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user && token.id && token.role) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+      }
+      return session;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
 };
-
 export default NextAuth(authOptions);

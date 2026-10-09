@@ -1,7 +1,7 @@
 import { UploadImage } from "@components/ui/UploadImage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductUnit } from "@prisma/client";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -30,7 +30,6 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
     shouldUseNativeValidation: true,
     defaultValues: product ?? { ProductUnit: "unit" },
   });
-  console.log(watch());
 
   const { data: categories } = trpc.product.getAllCategories.useQuery();
   const { mutateAsync: createProduct } =
@@ -80,7 +79,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             <input
               type="text"
               placeholder="Nombre del producto"
-              className={`rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600 ${
+              className={`rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600 ${
                 !isUniqueName && "border-pink-600"
               }`}
               {...register("name", {
@@ -97,7 +96,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             <input
               type="text"
               placeholder="Descripción"
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               {...register("description")}
             />
             <p className="text-sm text-pink-600">
@@ -110,7 +109,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
               type="number"
               step="any"
               placeholder={`Precio/${unitPrice[watch("ProductUnit")]}`}
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               min={0}
               {...register("NonEdible.price", {
                 valueAsNumber: true,
@@ -144,7 +143,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
               type="number"
               step="any"
               placeholder={`Stock(${unitPrice[watch("ProductUnit")]})`}
-              className="rounded-md border-2 border-gray-300 py-2 px-4 placeholder-gray-300 invalid:border-pink-600"
+              className="rounded-md border-2 border-gray-300 px-4 py-2 placeholder-gray-300 invalid:border-pink-600"
               min={0}
               {...register("stock", {
                 valueAsNumber: true,
@@ -179,7 +178,10 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
                 <div className="m-2 flex flex-col gap-4 md:flex-row">
                   <UploadImage setImageURL={onChange}></UploadImage>
                   <Image
-                    src={value ?? "/img/placeholder.jpg"}
+                    src={
+                      value ??
+                      "/api/images/site/7f512f27-78ed-ae43-c9dd-a916a415f30e.webp"
+                    }
                     width={100}
                     height={100}
                     layout="fixed"
@@ -203,7 +205,7 @@ export default function NonEdibleForm({ product }: { product?: IProduct }) {
             </button>
           )}
           <button
-            className="btn mt-6 ml-2 flex h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
+            className="btn ml-2 mt-6 flex h-[60px] w-[220px] rounded-[30px] font-raleway text-sm text-base-100"
             type="submit"
           >
             {product ? "Editar producto" : "Crear producto"}

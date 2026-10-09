@@ -1,7 +1,7 @@
 import { trpc } from "@utils/trpc";
 import { IWorkshop } from "@utils/validations/workshop";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Image from "@components/ui/Image";
 import EnrollButton from "./EnrollButon";
 
 function OnsiteWorskhopCard({
@@ -56,7 +56,7 @@ function OnsiteWorskhopCard({
             <p>{enrollCliens + "/" + workshop.OnSiteWorkshop?.places}</p>
           </div>
         </div>
-        <p className="flex w-fit text-[15px] line-clamp-2 md:text-xs">
+        <p className="line-clamp-2 flex w-fit text-[15px] md:text-xs">
           {workshop.description}
         </p>
         <div className="flex items-end justify-between">
